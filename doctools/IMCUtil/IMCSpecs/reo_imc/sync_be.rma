@@ -1,0 +1,25 @@
+#PORTS
+(b,e)
+
+#INITIALS
+[]
+
+#GOALS
+[]
+
+#TRANSITIONS
+[] !
+* [b] 4
+* [e] 5
+
+[b] !
+* [b e] 5
+
+[e] !
+* [b e] 4
+
+[b e] <b e>
+* []{b e} 0
+
+[]{b e} !
+* [] 6

@@ -1,0 +1,74 @@
+import "InputExamples/channels.rlf";
+
+pattern InputNode(a:b,c){
+	use:
+		sync(i:o) as sync1, sync2;
+	in:
+		a = join [sync1.i, sync2.i];
+		b = sync1.o;
+		c = sync2.o;
+}
+
+
+pattern SimpleMerge(a,b:c){
+	use:
+		sync(i:o) as sync1, sync2;
+	in:
+		a = sync1.i;
+		b = sync2.i;
+		c = join [sync1.o, sync2.o];
+}
+
+
+pattern CyclicSequencer(:a,b){
+	use:
+		(E)fifo~1(i:o)		as efifo;
+		(F)fifo~1(i:o)	as ffifo;
+		sync(i:o)			as sync1, sync2;
+	in:
+		a = sync1.o;
+		b = sync2.o;
+		join [ffifo.o, sync1.i, efifo.i] as j1;
+		join [ffifo.i, sync2.i, efifo.o] as j2; //or join remaining
+}
+
+
+pattern WriteCueRegulator(a,b:c){
+	use:
+		sync(i:o)			as s1, s2;
+		drain(i,ii:) 	as sdrain;
+	in:
+		a = s1.i;
+		b = sdrain.i;
+		c = s2.o;
+		join [s1.o, s2.i, sdrain.ii] as j; //or join remianing
+}
+
+
+pattern WriteCueRegulator2(a,b:c){
+	use:
+		sync(i:o)	as sync1;
+		WriteCueRegulator(i,ii:o)	as wrc;
+	in:
+		a = wrc.i;
+		b = sync1.i;
+		c = wrc.o;
+		join [sync1.o, wrc.ii] as j; //or join remianing;
+}
+
+
+pattern ExclusiveRouter(a:b,c) {
+	use:
+		sync(i:o)		as s1, s2, s3, s4, s5;
+		drain(i, ii: )	as sd1;
+		lossy(i:o)	as lossy1, lossy2;
+	in:
+		a = s1.i;
+		b = s4.o;
+		c = s5.o;
+		join [s1.o, sd1.i, lossy1.i, lossy2.i] as j1;
+		join [lossy1.o, s4.i, s2.i] as j2;
+		join [lossy2.o, s5.i, s3.i] as j3;
+		join [sd1.ii, s2.o, s3.o] as j4; //or join remaining
+}
+

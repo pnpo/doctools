@@ -1,0 +1,29 @@
+EX1: ExclusiveRouter - Padrão com 1 nível e 8 folhas (canais) -- Grafo resultante na figura "exrouter"
+
+Padrao
+< 
+I	: [i1],
+O 	: [o4, o7],
+B 	: {
+		lossy=<[i2],[o2],[([i2, o2],[i2, o2]), ([i2],[i2])]>, 
+   		sync5=<[i9],[o7],[([o7, i9],[o7, i9])]>, 
+   		sync4=<[i8],[o6],[([i8, o6],[i8, o6])]>, 
+   		sync3=<[i6],[o4],[([o4, i6],[o4, i6])]>, 
+   		sync2=<[i5],[o3],[([o3, i5],[o3, i5])]>, 
+   		sync1=<[i1],[o1],[([i1, o1],[i1, o1])]>, 
+   		lossy2=<[i7],[o5],[([i7, o5],[i7, o5]), ([i7],[i7])]>, 
+   		sdrain=<[i4, i3],[],[([i4, i3],[i4, i3])]>
+},
+J	: {
+		j4=[i9, o5, i8], 
+   		j2=[o2, i6, i5], 
+   		j3=[o3, o6, i4], 
+   		j1=[o1, i7, i3, i2]
+}
+>
+
+Grafo (atenção: n >x< significa que x é porta de um canal, mas foi juntado ao nodo n)
+
+[(j1 >i2< ,j2 >o2< ), (j4 >i8< ,j3 >o6< ), (j4 >i9< ,o7), (j2 >i6< ,o4), (j1 >i7< ,j4 >o5< ), (j3 >i4< ,j1 >i3< ), (j2 >i5< ,j3 >o3< ), (i1,j1 >o1< )]
+
+

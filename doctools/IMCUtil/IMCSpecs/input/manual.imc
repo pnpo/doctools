@@ -1,0 +1,10 @@
+s0 // initial
+s3 // goals
+s0 s1 a
+s0 s3 b
+s1 s3 0.5
+s1 s2 0.5
+s2 s1 0.25
+s2 s2 0.5
+s2 s3 0.25
+s3 s2 c

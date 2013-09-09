@@ -1,0 +1,33 @@
+digraph "imc" { 
+graph [	fontname = "Helvetica-Oblique", fontsize = 10]; 
+edge [	fontname = "Helvetica-Oblique", fontsize = 10]; 
+node [	shape=circle, fontname = "Helvetica-Oblique", fontsize = 10] ; 
+"E_-e" [shape=circle, style=filled, fillcolor=green] ; 
+"E_-e" [shape=circle, style=filled, fillcolor=red] ; 
+"[a]_-e" -> "[c, a]_-e" [label = "2.0"] ; 
+"[a]{c}_-f" -> "{c, a}_-f" [label = "a" style=dashed] ; 
+"[c]{a}_-f" -> "{c, a}_-f" [label = "c" style=dashed] ; 
+"[a]{c}_-f" -> "[a]_-e" [label = "4.0"] ; 
+"{$b2}_-e" -> "E_-f" [label = "3.0"] ; 
+"E_-e" -> "[c]_-e" [label = "2.0"] ; 
+"[c]{a}_-f" -> "[c]_-f" [label = "4.0"] ; 
+"{c, a}_-f" -> "{c}_-f" [label = "4.0"] ; 
+"[a]_-f" -> "{a}_-f" [label = "a" style=dashed] ; 
+"[a]_-f" -> "[c, a]_-f" [label = "2.0"] ; 
+"[c]{$b2, $b1, a}_-e" -> "[c]{$b2}_-e" [label = "3.0"] ; 
+"[c]_-f" -> "[c, a]_-f" [label = "1.0"] ; 
+"{$b2, $b1, a}_-e" -> "{$b2}_-e" [label = "3.0"] ; 
+"{a}_-f" -> "E_-f" [label = "4.0"] ; 
+"[c, a]_-f" -> "[c]{a}_-f" [label = "a" style=dashed] ; 
+"[c]_-f" -> "{c}_-f" [label = "c" style=dashed] ; 
+"[c, a]_-f" -> "[a]{c}_-f" [label = "c" style=dashed] ; 
+"E_-f" -> "[a]_-f" [label = "1.0"] ; 
+"E_-f" -> "[c]_-f" [label = "2.0"] ; 
+"{$b2}_-e" -> "[c]{$b2}_-e" [label = "2.0"] ; 
+"E_-e" -> "[a]_-e" [label = "1.0"] ; 
+"[c]_-e" -> "[c, a]_-e" [label = "1.0"] ; 
+"[c]{$b2}_-e" -> "[c]_-f" [label = "3.0"] ; 
+"[c, a]_-e" -> "[c]{$b2, $b1, a}_-e" [label = "a" style=dashed] ; 
+"{c}_-f" -> "E_-e" [label = "4.0"] ; 
+"[a]_-e" -> "{$b2, $b1, a}_-e" [label = "a" style=dashed] ; 
+}

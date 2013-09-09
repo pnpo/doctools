@@ -1,0 +1,55 @@
+import "ola.t";
+
+reconfiguration removeStructure(List<Name> ids) {
+	forall(Name n : ids) {
+		@ remove(n);
+	}
+}
+
+
+reconfiguration overlap(Pattern p; List<Triple<Node>> l) {
+	@ par (p);
+	forall(Triple<Node> e : l) {
+		Node e1, e2, e3; 
+		e1 = fst(e);
+		e2 = snd(e);
+		e3 = trd(e);
+		List<Node> E = [e1, e2];
+		@ join(E, e3);
+	}
+}
+
+
+reconfiguration insert(Pattern p; Node n, mi, mo, j1, j2) {
+	List<Node> Isp, Osp;
+	@ par(p);
+	@ split(n ! Isp, Osp);
+	@ join(Osp + [mi], j1);
+	@ join(Isp + [mo], j2);  
+}
+
+
+reconfiguration replace(Pattern p; List<Triple<Node>> l) {
+	List<Node> interface = [];
+	forall(Triple<Node> t : l){
+		interface = interface + [fst(t)];
+	}
+	List<Name> ids;
+	path(interface ! ids);
+	@ overlap(p, l);
+	@ removeStructure(ids);
+}
+
+
+reconfiguration implode(List<Node> l; Node j){
+	List<Name> ids;
+	List<Node> nodes, nodes_up;
+	path(l ! ids, nodes);
+	@ removeStructure(ids);
+	update(nodes ! nodes_up);
+	@ join (nodes_up, j);
+}
+
+
+Sequencer @  implode([j1, j2, j3], j) 
+

@@ -1,0 +1,12 @@
+digraph ExRouterPart { 
+	node [shape = circle, fixedsize=true, width=0.25, color=green]; in ;
+	node [shape = circle, fixedsize=true, width=0.25, color=red]; ts crm erp out ;
+	node [shape = circle, fixedsize=true, width=0.3, color=black]; 
+	j2 -> j3[ label = "f2"];
+	j2 -> erp[ label = "s3"];
+	in -> j1[ label = "s1"];
+	j1 -> j2[ label = "f1"];
+	j3 -> out[ label = "s5"];
+	j3 -> ts[ label = "s4"];
+	j1 -> crm[ label = "s2"];
+	}

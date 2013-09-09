@@ -1,0 +1,39 @@
+import "InputExamples/channels.rlf";
+
+
+channel sync(a: b){
+	a,b -> flow a to b;
+} 
+
+channel sync_drain(a,b:) {
+	a,b -> flow a to NULL | flow b to NULL;
+}
+
+channel fifo~N(a:b) {
+	state: buffer;
+	observers: E, F;
+ 
+	// buffer = ELEM* 
+	// E = buffer.len = 0; 
+	// F = buffer.len = N;
+	
+	a,!F -> flow a to buffer;
+	!E,b -> flow buffer to b; 
+}
+  
+        
+
+pattern Sequencer(a:  crm, erp, ts, out){ 
+	use:    
+		sync(i:o) as s1, s2, s3, s4, s5 ;    
+		fifo~1(i:o) as f1, f2;
+	in:  
+		a = join [s1.i, s2.o, s2.i, s3.o];  
+		crm = s2.o;           
+		erp = s3.o;      
+		ts = s4.o;             
+		out = s5.o;                                               
+		join [s1.o, s2.i, f1.i] as j1;    
+		join [s3.i, f1.o, f2.i] as j2;  
+		join [s4.i, s5.i, f2.o] as j3;
+} 

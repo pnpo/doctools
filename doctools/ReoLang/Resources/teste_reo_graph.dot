@@ -1,0 +1,13 @@
+digraph ExRouterPart { 
+	node [shape = circle, fixedsize=true, width=0.25, color=green]; i1 ;
+	node [shape = circle, fixedsize=true, width=0.25, color=red]; o4 o7 ;
+	node [shape = circle, fixedsize=true, width=0.3, color=black]; 
+	j1 -> j4[ label = "lossy2"];
+	j1 -> j2[ label = "lossy"];
+	j4 -> o7[ label = "sync5"];
+	j3 -> j1[ label = "sdrain", dir="none"];
+	j2 -> o4[ label = "sync3"];
+	i1 -> j1[ label = "sync1"];
+	j4 -> j3[ label = "sync4"];
+	j2 -> j3[ label = "sync2"];
+	}

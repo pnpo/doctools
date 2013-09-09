@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="ReoLang Editor"
+            extensions="rlf"
+            icon="icons/sample.gif"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="pt.uminho.di.reolangeditor.editors.ReoLangEditor"
+            id="pt.uminho.di.reolangeditor.editors.ReoLangEditor">
+      </editor>
+      <editor
+            class="pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="rcfg"
+            icon="icons/sample.gif"
+            id="pt.uminho.di.reolangeditor.reconfigurationseditors.RecLangEditor"
+            name="Reconfiguration Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="ReoLangEditor File"
+            name="ReoLang File"
+            parentCategory="cwi.reo">
+      </category>
+      <wizard
+            category="cwi.reo"
+            class="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
+            icon="icons/sample.gif"
+            id="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
+            name="ReoLang File">
+      </wizard>
+      <category
+            id="RecLangEditor"
+            name="Reconfiguration Wizard"
+            parentCategory="cwi.reo">
+      </category>
+      <wizard
+            category="cwi.reo"
+            class="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
+            icon="icons/sample.gif"
+            id="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
+            name="Reconfiguration FIle">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.annotationTypes">
+      <type
+            name="pt.uminho.di.reolangeditor.annotations.error"
+            super="org.eclipse.ui.workbench.texteditor.error">
+      </type>
+      <type
+            name="pt.uminho.di.reolangeditor.annotations.warning"
+            super="org.eclipse.ui.workbench.texteditor.warning">
+      </type>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="ReoLangPatternView"
+            name="Pattern View">
+      </category>
+      <view
+            category="ReoLangPatternView"
+            class="pt.uminho.di.reolangeditor.views.ReoLangPatternView"
+            icon="icons/sample.gif"
+            id="reolangeditor.views.ReoLangPatternView"
+            name="Pattern View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="reolangeditor.views.ReoLangPatternView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>

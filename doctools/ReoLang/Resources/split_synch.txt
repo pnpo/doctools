@@ -1,0 +1,47 @@
+EX2: SplitSynchroniser Padrão com 2 níveis e 7 folhas (canais) --- grafo resultante na figura "Split_Synchroniser" e grafos dos padroes que o compõem nas figuras "Split" e "Synchroniser"
+
+Padrao
+<
+I	: [i1],
+O	: [o6],
+B 	:{
+		Split=<
+			I  	: [i1],
+			O	: [o2, o5],
+			B	: { 
+					sync1=<[i1],[o1],[([i1, o1],[i1, o1])]>, 
+					lossy=<[i2],[o2],[([i2],[i2]), ([i2, o2],[i2, o2])]>, 
+					lossy2=<[i7],[o5],[([i7, o5],[i7, o5]), ([i7],[i7])]>
+			},
+			J	: {
+					j1=[o1, i7, i2]
+			}
+		>, 
+		Synchroniser=<
+			I	: [i6, i9],
+			O	: [o6],
+            B	: {
+					sync5=<[i9],[o7],[([o7, i9],[o7, i9])]>, 
+					sync4=<[i8],[o6],[([i8, o6],[i8, o6])]>, 
+					sync3=<[i6],[o4],[([o4, i6],[o4, i6])]>, 
+					sdrain=<[i4, i3],[],[([i4, i3],[i4, i3])]>
+			},
+			J	: {
+					j2=[o4, i8, i3],
+					j3=[o7, i4]
+			}
+		>
+},
+J	: {
+		j4=[o2, i6], 
+		j5=[i9, o5]
+}
+>
+
+Grafos (atenção: n >x< significa que x é porta de um canal, mas foi juntado ao nodo n)
+
+intermédio 1 : [(i1,j1 >o1< ), (j1 >i7< ,o5), (j1 >i2< ,o2)]
+
+intermédio2 : [(i6,j2 >o4< ), (j3 >i4< ,j2 >i3< ), (i9,j3 >o7< ), (j2 >i8< ,o6)]
+
+Final : [(j1 >i7< ,j5 >o5< ), (j1 >i2< ,j4 >o2< ), (j2 >i8< ,o6), (j3 >i4< ,j2 >i3< ), (i1,j1 >o1< ), (j5 >i9< ,j3 >o7< ), (j4 >i6< ,j2 >o4< )]

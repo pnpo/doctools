@@ -1,0 +1,12 @@
+digraph SplitSynchroniser { 
+	node [shape = circle, fixedsize=true, width=0.25, color=green]; i1 ;
+	node [shape = circle, fixedsize=true, width=0.25, color=red]; o6 ;
+	node [shape = circle, fixedsize=true, width=0.3, color=black]; 
+	j4 -> j2[ label = "sync3"];
+	i1 -> j1[ label = "sync1"];
+	j1 -> j4[ label = "lossy"];
+	j3 -> j2[ label = "sdrain", dir="none"];
+	j1 -> j5[ label = "lossy2"];
+	j5 -> j3[ label = "sync5"];
+	j2 -> o6[ label = "sync4"];
+	}

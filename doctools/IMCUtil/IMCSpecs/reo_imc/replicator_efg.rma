@@ -1,0 +1,42 @@
+#PORTS
+(e,g) (e,f)
+
+#INITIALS
+[]
+
+#GOALS
+[]
+
+#TRANSITIONS
+[] !
+* [e] 1
+* [g] 2
+* [f] 3
+
+
+[e] !
+* [e g] 2
+* [e f] 3
+
+[g] !
+* [e g] 1
+* [g f] 3
+
+[f] !
+* [e f] 1
+* [g f] 2
+
+[e g] !
+* [e g f] 3
+
+[e f] !
+* [e g f] 2
+
+[g f] !
+* [e g f] 1
+
+[e g f] <e g f>
+* []{e g f} 0
+
+[]{e g f} !
+* [] 4

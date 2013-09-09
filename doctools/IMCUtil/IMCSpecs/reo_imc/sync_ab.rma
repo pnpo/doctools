@@ -1,0 +1,25 @@
+#PORTS
+(a,b)
+
+#INITIALS
+[]
+
+#GOALS
+[]
+
+#TRANSITIONS
+[] !
+* [a] 1
+* [b] 2
+
+[a] !
+* [a b] 2
+
+[b] !
+* [a b] 1
+
+[a b] <a b>
+* []{a b} 0
+
+[]{a b} !
+* [] 3

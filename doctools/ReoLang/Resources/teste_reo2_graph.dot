@@ -1,0 +1,17 @@
+/*This is an empty ReoLang file (.rlf)*/
+
+channel sync(i:o){
+	i,o-> flow i to o;
+}
+
+
+pattern nuno (e: s) {
+	use:
+		sync(i:o) as ola;
+	in: 
+		e = ola.i;
+		s = ola.o; 
+} 
+
+
+

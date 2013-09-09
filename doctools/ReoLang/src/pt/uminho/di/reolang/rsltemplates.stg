@@ -1,0 +1,78 @@
+group RSLTemplates;
+
+rsl_script(circuits) ::= <<
+#include "builtin"
+
+<circuits: {c | <c>
+}>
+>>
+
+rsl_circuit(name, body, sources, sinks) ::= <<
+CIRCUIT <name> {
+	<body>
+	<sources: {s | <s> ; 
+}>
+	<sinks: {s | <s> ;
+}>
+}
+
+>>
+
+
+rsl_body(decls, comps) ::=<<
+<decls>
+<comps>
+>>
+
+rsl_compositions(ports, joins) ::=<<
+<ports; separator="\n">
+<joins; separator="\n">
+>>
+
+
+rsl_declarations(decls) ::= <<
+<decls; separator="\n">
+>>
+
+
+rsl_declaration(ids, type) ::=<<
+<ids: {id| <id> = new <rsl_type_map.(type)> ;
+}> 
+>>
+
+
+rsl_port(node, definition) ::= <<
+<node> = <definition> ;
+>>
+
+rsl_access(comp, port) ::=<<
+<comp>.<port>
+>>
+
+
+rsl_paired_joins(joins, hide) ::=<<
+<joins; separator="\n">
+<hide: {h | <h> = NULL ;
+}>
+>>
+
+rsl_join(join_name, join_body) ::=<<
+<join_name> = join( <join_body; separator=", "> ) ;
+>>
+
+rsl_joinaccesses(accesses) ::=<<
+<accesses; separator=", ">
+>>
+
+
+rsl_type_map ::= [
+        "sync":"SYNC",
+        "drain":"SYNC_DRAIN",
+        "spout":"SYNC_SPOUT",
+        "lossy":"LOSSY_SYNC_ND",
+        "fifo1":"FIFO1",
+        "fifo1_f":"FIFO1_FULL",
+        "asyncdrain":"ASYNC_DRAIN",
+        "asyncspout":"ASYNC_SPOUT",
+        default: key
+]

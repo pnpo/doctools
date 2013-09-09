@@ -1,0 +1,102 @@
+import "teste.txt" ;
+
+channel sync(a : b){
+	a,b -> flow a to b;
+}
+
+
+channel lossy(a:b) extends sync {
+	a,!b -> flow a to NULL;
+}
+
+
+channel filter(a:b:cond_pat=<_,_>) {
+	a,b -> cond_pat ? flow a to b : flow a to NULL; 
+}
+
+
+channel sync_drain(a,b:) {
+	a,b -> flow a to NULL | flow b to NULL;
+}
+
+
+channel syncspout(:a,b){
+	a,b -> flow NULL to a | flow NULL to b;
+}
+
+
+channel fifo~N(a:b){
+	state: buffer;
+	observers: E, F;
+	 
+	// buffer = ELEM* 
+	// E = buffer.len = 0;
+	// F = buffer.len = N;
+	
+	a,!F -> flow a to buffer;
+	!E,b -> flow buffer to b;
+}
+
+
+/*
+pattern InputNode(a:b,c){
+	use:
+		sync(i:o) as sync1, sync2;
+	in:
+		a = join [sync1.i, sync2.i];
+		b = sync1.o;
+		c = sync2.o;
+}
+
+
+
+pattern SimpleMerge(a,b:c){
+	use:
+		sync(i:o) as sync1, sync2;
+	in:
+		a = sync1.i;
+		b = sync2.i;
+		c = join [sync1.o, sync2.o];
+}
+
+
+
+pattern CyclicSequencer(:a,b){
+	use:
+		fifo~1(i:o)		as efifo;
+		(F)fifo~1(i:o)	as ffifo;
+		sync(i:o)			as sync1, sync2;
+	in:
+		a = sync1.o;
+		b = sync2.o;
+		join [ffifo.o, sync1.i, efifo.i] as j1;
+		join [ffifo.i, sync2.i, efifo.o] as j2; //or join remaining
+}
+
+
+pattern WriteCueRegulator(a,b:c){
+	use:
+		sync(i:o)			as sync1, sync2;
+		sync_drain(i,ii:) 	as sdrain;
+	in:
+		a = sync1.i;
+		b = sdrain.i;
+		c = sync2.o;
+		join [sync1.o, sync2.i, sdrain.ii] as j; //or join remianing
+}
+
+*/
+
+pattern WriteCueRegulator2(a,b:c){
+	use:
+		sync(i:o)	as sync1;
+		WriteCueRegulator(i,ii:o)	as wrc;
+	in:
+		a = wrc.i;
+		b = sync1.i;
+		c = wrc.o;
+		join [sync1.o, wrc.ii] as j; /*or join remianing;*/
+}
+
+
+

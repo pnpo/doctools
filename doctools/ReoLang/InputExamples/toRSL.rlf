@@ -1,0 +1,162 @@
+import "InputExamples/channels.rlf";
+
+pattern InputNode(a:b,c){
+	use:
+		sync(i:o) as sync1, sync2;
+	in:
+		a = join [sync1.i, sync2.i];
+		b = sync1.o;
+		c = sync2.o;
+}
+
+/*
+CIRCUIT InputNode {
+	sync1 = new SYNC;
+	sync2 = new SYNC;
+	
+	source[0] = join(sync1.source, sync2.source);
+	sink[0] = sync1.sink;
+	sink[1] = sync2.sink;
+}
+*/
+
+
+pattern SimpleMerge(a,b:c){
+	use:
+		sync(i:o) as sync1, sync2;
+	in:
+		a = sync1.i;
+		b = sync2.i;
+		c = join [sync1.o, sync2.o];
+}
+
+/*
+CIRCUIT SimpleMerge {
+	sync1 = new SYNC;
+	sync2 = new SYNC;
+	
+	source[0] = sync1.source;
+	source[1] = sync2.source;
+	sink[0] = join(sync1.sink, sync2.sink);
+}
+*/
+
+
+pattern CyclicSequencer(:a,b){
+	use:
+		(E)fifo~1(i:o)		as efifo;
+		(F)fifo~1(i:o)	as ffifo;
+		sync(i:o)			as sync1, sync2;
+	in:
+		a = sync1.o;
+		b = sync2.o;
+		join [ffifo.o, sync1.i, efifo.i] as j1;
+		join [ffifo.i, sync2.i, efifo.o] as j2; //or join remaining
+}
+
+
+
+/*
+CIRCUIT CyclicSequencer {
+	efifo = new FIFO1;
+	ffifo = new FIFO1_FULL;
+	sync1 = new SYNC;
+	sync2 = new SYNC;
+	
+	sink[0] = sync1.sink;
+	sink[1] = sync2.sink;
+	join(ffifo.sink, sync1.source, efifo.sync) ;
+	join(ffifo.source, sync2.source, efifo.sink;)
+}
+*/
+
+
+
+
+pattern WriteCueRegulator(a,b:c){
+	use:
+		sync(i:o)			as s1, s2;
+		drain(i,ii:) 	as sdrain;
+	in:
+		a = s1.i;
+		b = sdrain.i;
+		c = s2.o;
+		join [s1.o, s2.i, sdrain.ii] as j; //or join remianing
+}
+
+/*
+CIRCUIT WriteCueRegulator {
+	s1 = new SYNC;
+	s2 = new SYNC;
+	sdrain = new SYNC_DRAIN;
+	
+	source[0] = s1.source; 
+	source[1] = sdrain.source[0];
+	  sink[0] =  s2.sink;
+	join(s1.sink, s2.source, sdrain.source[1]);
+}
+*/
+
+
+pattern WriteCueRegulator2(a,b:c){
+	use:
+		sync(i:o)	as sync1;
+		WriteCueRegulator(i,ii:o)	as wrc;
+	in:
+		a = wrc.i;
+		b = sync1.i;
+		c = wrc.o;
+		join [sync1.o, wrc.ii] as j; //or join remianing;
+}
+
+
+/*
+CIRCUIT WriteCueRegulator2 {
+	sync1 = new SYNC;
+	wrc = new WriteCueRegulator;
+	
+	source[0] = wrc.source[0]; 
+	source[1] = sync1.source;
+	  sink[0] =  wrc.sink;
+	join(sync1.sink, wrc.source[1]);
+}
+*/
+
+
+
+pattern ExclusiveRouter(a:b,c) {
+	use:
+		sync(i:o)		as s1, s2, s3, s4, s5;
+		drain(i, ii: )	as sd1;
+		lossy(i:o)	as lossy1, lossy2;
+	in:
+		a = s1.i;
+		b = s4.o;
+		c = s5.o;
+		join [s1.o, sd1.i, lossy1.i, lossy2.i] as j1;
+		join [lossy1.o, s4.i, s2.i] as j2;
+		join [lossy2.o, s5.i, s3.i] as j3;
+		join [sd1.ii, s2.o, s3.o] as j4; //or join remaining
+}
+
+/*
+CIRCUIT ExclusiveRouter {
+	s1 = new SYNC;
+	s2 = new SYNC;
+	s3 = new SYNC;
+	s4 = new SYNC;
+	s5 = new SYNC;
+	sd1 = new SYNC_DRAIN;
+	lossy1 = new LOSSY_SYNC_ND;
+	lossy2 = new LOSSY_SYNC_ND;
+	
+	source[0] = s1.source;
+	sink[0] = s4.sink; 
+	sink[1] = s5.sink;
+	join(s1.sink, sd1.source[0], lossy1.source, lossy2.source) ;
+	join(lossy1.sink, s4.source, s2.source);
+	join(lossy2.sink, s5.source, s3.source);
+	join(sd1.source[1], s2.sink, s3.sink);
+}
+*/
+

@@ -1,0 +1,19 @@
+digraph "imc" { 
+graph [	fontname = "Helvetica-Oblique", fontsize = 10]; 
+edge [	fontname = "Helvetica-Oblique", fontsize = 10]; 
+node [	shape=circle, fontname = "Helvetica-Oblique", fontsize = 10] ; 
+"E_--" [shape=circle, style=filled, fillcolor=green] ; 
+"E_--" [shape=circle, style=filled, fillcolor=red] ; 
+"[a]_--" -> "[c, a]_--" [label = "5.0"] ; 
+"E_--" -> "[c]_--" [label = "5.0"] ; 
+"{$b2, $b1, a}_--" -> "{$b2}_--" [label = "3.0"] ; 
+"[c]{$b2}_--" -> "[c]_--" [label = "7.0"] ; 
+"{$b2, c}_--" -> "E_--" [label = "6.0"] ; 
+"[c]_--" -> "[c, a]_--" [label = "1.0"] ; 
+"[c, a]_--" -> "{$b2, c, a, $b1}_--" [label = "ca" style=dashed] ; 
+"{$b2}_--" -> "[c]{$b2}_--" [label = "5.0"] ; 
+"E_--" -> "[a]_--" [label = "1.0"] ; 
+"[a]_--" -> "{$b2, $b1, a}_--" [label = "a" style=dashed] ; 
+"{$b2, c, a, $b1}_--" -> "{$b2, c}_--" [label = "3.0"] ; 
+"{$b2}_--" -> "E_--" [label = "7.0"] ; 
+}

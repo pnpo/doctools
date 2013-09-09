@@ -1,0 +1,4 @@
+E55 // init states
+a // goal states
+E55 a sig
+a E55 0.2

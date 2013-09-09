@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ReoLangEditor
+Bundle-SymbolicName: ReoLangEditor; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: pt.uminho.di.reolangeditor.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.draw2d,
+ org.eclipse.zest.layouts
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ClassPath: .,
+ lib/antlr-3.4-complete.jar,
+ lib/reolang.2.0.debug.jar
+Import-Package: org.eclipse.ui.views.contentoutline,
+ org.eclipse.zest.core.viewers,
+ org.eclipse.zest.core.widgets

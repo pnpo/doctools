@@ -1,0 +1,207 @@
+%!PS-Adobe-2.0 EPSF
+%%Title: ./ctsync.bcg_branching.bcg
+%%Creator: bcg_draw
+%%CreationDate: Wed Jan  9 15:50:09 2013
+%%BoundingBox: 153 76 458 716
+%%EndComments
+
+% BCG_BEGIN_SECTION_1
+/vertex_radius { 12.000000 } def
+/arrow_shape_1 { 7 } def
+/arrow_shape_2 { 9 } def
+/arrow_shape_3 { 3 } def
+/Times-Roman findfont 10.000000 scalefont setfont
+/text_y_shift { -3 } def
+% BCG_END_SECTION_1
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                B C G
+% ----------------------------------------------------------------------------
+%   INRIA - Unite de Recherche Rhone-Alpes
+%   655, avenue de l'Europe
+%   38330 Montbonnot Saint Martin
+%   FRANCE
+% ----------------------------------------------------------------------------
+%   Module             :       bcg_draw_header.ps
+%   Auteurs            :       R. RUFFIOT, H. GARAVEL, R. MATEESCU, L.P. TOCK
+%   Version            :       2.6
+%   Date               :       06/10/30 10:38:31
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/
+
+1 setlinewidth
+1 setlinejoin
+0 setgray
+
+/show_text {			
+  dup				
+  stringwidth			
+   pop				
+  -2 div			
+  text_y_shift rmoveto		
+  show   
+} def
+
+/vertex {			
+  newpath	
+  2 copy			
+  vertex_radius 0 360 arc	
+  stroke
+  moveto			
+  show_text	
+} def
+
+/arrow {                        
+  newpath 
+  /a3 2 1 roll def
+  /a2 2 1 roll def              
+  /a1 2 1 roll def   
+  0 0 moveto
+  a2 a1 sub neg a3 neg rlineto
+  a2 a3 rlineto
+  a2 neg a3 rlineto
+  closepath
+  fill
+} def
+
+/edge {			
+  newpath 
+  /h 2 1 roll def		
+  /y2 2 1 roll def		
+  /x2 2 1 roll def		
+  /y1 2 1 roll def		
+  /x1 2 1 roll def		
+  gsave
+    x1 y1 moveto
+    x2 y2 lineto
+    stroke
+    y2 y1 sub				
+    x2 x1 sub				
+    2 copy abs 2 1 roll abs add 0.0 eq	
+      {				
+      pop
+      pop
+      }
+      { 
+      atan                  	
+      x2 y2 translate
+      rotate                    
+      arrow_shape_1 h mul 	
+      arrow_shape_2 h mul 	
+      arrow_shape_3 h mul  	
+      arrow			
+      }    
+    ifelse
+  grestore
+  moveto			
+  show_text
+} def
+
+/spline {		
+  newpath
+  /h 2 1 roll def	
+  /y3 2 1 roll def	
+  /x3 2 1 roll def	
+  /y2 2 1 roll def	
+  /x2 2 1 roll def	
+  /y1 2 1 roll def	
+  /x1 2 1 roll def	
+  /y0 2 1 roll def	
+  /x0 2 1 roll def	
+  gsave
+    /c2 0.333 x0 mul
+        0.667 x1 mul
+        add def
+    /c3 0.333 y0 mul
+        0.667 y1 mul
+        add def  
+    /c6 0.5 x1 mul
+        0.5 x2 mul
+        add def
+    /c7 0.5 y1 mul
+        0.5 y2 mul
+        add def
+    /c4 0.333 c6 mul
+        0.667 x1 mul
+        add def
+    /c5 0.333 c7 mul
+        0.667 y1 mul
+        add def
+    x0 y0 moveto
+    c2 c3 c4 c5 c6 c7 curveto
+    /c2 0.333 c6 mul
+        0.667 x2 mul
+        add def
+    /c3 0.333 c7 mul
+        0.667 y2 mul
+        add def  
+    /c6 x3 def
+    /c7 y3 def
+    /c4 0.333 c6 mul
+        0.667 x2 mul
+        add def
+    /c5 0.333 c7 mul
+        0.667 y2 mul
+        add def
+    c2 c3 c4 c5 c6 c7 curveto
+    stroke
+    y3 y2 sub				
+    x3 x2 sub				
+    2 copy abs 2 1 roll abs add 0.0 eq	
+      {				
+      pop
+      pop
+      }
+      { 
+      atan              	
+      x3 y3 translate
+      rotate            	
+      arrow_shape_1 h mul 	
+      arrow_shape_2 h mul  	
+      arrow_shape_3 h mul  	
+      arrow
+      }
+    ifelse
+  grestore
+  moveto			
+  show_text
+  } def
+
+/initialisation { } def
+initialisation
+% BCG_BEGIN_SECTION_2
+(0) 305.500000 88.500000 vertex
+(1) 166.250000 580.500000 vertex
+(2) 305.500000 334.500000 vertex
+(3) 166.250000 211.500000 vertex
+(4) 444.750000 211.500000 vertex
+(5) 305.500000 703.500000 vertex
+(6) 444.750000 580.500000 vertex
+(7) 305.500000 457.500000 vertex
+(rate 1) 235.875000 150.000000 296.506188 96.444265 180.490202 198.921581 1.000000 edge % 0 3 0.500000
+(rate 2) 375.125000 150.000000 314.493812 96.444265 430.509798 198.921581 1.000000 edge % 0 4 0.500000
+(rate 0.3) 305.500000 396.000000 173.479039 570.921848 433.304022 226.665407 1.000000 edge % 1 4 0.500000
+(rate 0.1) 235.875000 642.000000 175.243812 588.444265 291.259798 690.921581 1.000000 edge % 1 5 0.500000
+(ab) 305.500000 396.000000 305.500000 346.500000 305.500000 438.500000 1.000000 edge % 2 7 0.500000
+(rate 0.3) 305.500000 239.250000 305.500000 322.500000 305.500000 107.500000 1.000000 edge % 2 0 0.387195
+(rate 2) 235.875000 273.000000 175.243812 219.444265 291.259798 321.921581 1.000000 edge % 3 2 0.500000
+(rate 1) 375.125000 273.000000 435.756188 219.444265 319.740202 321.921581 1.000000 edge % 4 2 0.500000
+(rate 0.3) 305.500000 519.000000 305.500000 691.500000 305.500000 353.500000 1.000000 edge % 5 2 0.500000
+(rate 0.3) 305.500000 396.000000 437.520961 570.921848 177.695978 226.665407 1.000000 edge % 6 3 0.500000
+(rate 0.2) 375.125000 642.000000 435.756188 588.444265 319.740202 690.921581 1.000000 edge % 6 5 0.500000
+(rate 0.2) 235.875000 519.000000 296.506188 465.444265 180.490202 567.921581 1.000000 edge % 7 1 0.500000
+(rate 0.1) 375.125000 519.000000 314.493812 465.444265 430.509798 567.921581 1.000000 edge % 7 6 0.500000
+% BCG_END_SECTION_2
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                B C G
+% ----------------------------------------------------------------------------
+%   INRIA - Unite de Recherche Rhone-Alpes
+%   655, avenue de l'Europe
+%   38330 Montbonnot Saint Martin
+%   FRANCE
+% ----------------------------------------------------------------------------
+%   Module             :       bcg_draw_footer.ps
+%   Auteur             :       Renaud RUFFIOT
+%   Version            :       1.2
+%   Date               :       97/03/25 10:00:42
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%/
+
+%%EOF

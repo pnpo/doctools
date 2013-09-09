@@ -1,0 +1,9 @@
+#INITIALS
+E3
+#GOALS
+E3
+#TRANSITIONS
+E3 in
+* E4 1
+E4 mid
+* E3 1
