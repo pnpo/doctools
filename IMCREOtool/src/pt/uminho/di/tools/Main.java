@@ -308,8 +308,11 @@ public class Main {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_aut_file")); 
 				}
-				createFile(config.getString("out_aut_file"), "aut", 
-						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toAUTFormat()));
+				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toAUTFormat();
+				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
+				String mapping = full_content.substring(full_content.indexOf("-- STATES MAPPING --\n\n")); 
+				createFile(config.getString("out_aut_file"), "aut", content);
+				createFile(config.getString("out_aut_file"), "mapping", mapping);
 			}
 			
 			

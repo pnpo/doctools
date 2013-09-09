@@ -84,6 +84,11 @@ public class IMCTransformer {
 			}
 		}
 		
+		sb.append("-- STATES MAPPING --\n\n");
+		for(String state : states_mapping.keySet()){
+			sb.append(states_mapping.get(state) + "\t---\t" + state + "\n");
+		}
+		
 		return sb.toString();
 	}
 	
