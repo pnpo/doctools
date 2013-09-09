@@ -31,10 +31,12 @@ public class IMCTransformer {
 	 * the <b>bcg_io tool</b> as bcg_io <.aut file> <.bcg file> to convert it into 
 	 * the BCG binary format.
 	 * 
+	 * @param hide_all - a flag saying whether all the labels are to hide or not 
 	 * 
-	 * @return a String version of the IMC in the .aut format
+	 * @return a String version of the IMC in the .aut format with a state mapping 
+	 * at the end for clarity... it should be removed from the aut file. 
 	 */
-	public String toAUTFormat() {
+	public String toAUTFormat(boolean hide_all) {
 		StringBuffer sb = new StringBuffer();
 		int num_states = this.imc.getStates().size();
 		int num_transitions = this.imc.getTransitions().size();
@@ -67,18 +69,22 @@ public class IMCTransformer {
 			else {
 				if(t instanceof InteractiveTransition) {
 					sb.append("( ").append(states_mapping.get(t.getStart_state())).append(", ");
-					if(((InteractiveTransition) t).getAction().equals("tau")){
+					if(hide_all){
 						sb.append("i");
 					}
 					else {
-						if(((InteractiveTransition) t).getAction().equals("i")) {
-							sb.append("_i_");
+						if(((InteractiveTransition) t).getAction().equals("tau")){
+							sb.append("i");
 						}
 						else {
-							sb.append("\"").append(((InteractiveTransition) t).getAction()).append("\"");
+							if(((InteractiveTransition) t).getAction().equals("i")) {
+								sb.append("_i_");
+							}
+							else {
+								sb.append("\"").append(((InteractiveTransition) t).getAction()).append("\"");
+							}
 						}
 					}
-							
 					sb.append(", ").append(states_mapping.get(t.getFinal_state())).append(" )\n");
 				}
 			}

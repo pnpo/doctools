@@ -114,13 +114,13 @@ transition_edge [String in_type, IMCREOAction in_action] returns [IMCREOTransiti
 @init{
 	IMCREOTransition<IMCREOState> t;
 }	
-	:	'*' state rate
+	:	'*' state rate ('@' ID '@')?
 	{
 		if($transition_edge.in_type.equals("INTERACTIVE")){
 			t = new IMCREOInteractiveTransition<IMCREOState>($state.value, in_action);
 		}
 		else {
-			t = new IMCREOMarkovianTransition<IMCREOState>($state.value, $rate.value);	
+			t = new IMCREOMarkovianTransition<IMCREOState>($state.value, $rate.value, $ID.text);	
 		}
 		
 		$transition_edge.transition = t;

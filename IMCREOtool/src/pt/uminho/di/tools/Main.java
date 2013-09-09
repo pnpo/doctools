@@ -78,11 +78,15 @@ public class Main {
 			hide.setHelp("Whether the joined ports are hidden.");
 			cmd_line.registerParameter(hide);
 			
-			Switch hide_all = new Switch("hide_all")
-							.setShortFlag('t')
-							.setLongFlag("alltau");
-			hide_all.setHelp("Whether the Interactive Transitions become all internal.");
-			cmd_line.registerParameter(hide_all);
+			Switch labels = new Switch("labels")
+							.setShortFlag('l')
+							.setLongFlag("labels");
+			labels.setHelp("Whether the Interactive Transitions are left unchanged. \n"+
+							"It has only effect on the generation of CADP files.\n" + 
+							"In case -l or --labels is used, then actions are not \n"+
+							"changed in the aut file, otherwise all the actions \n" + 
+							"become internal, this is, \"i\".");
+			cmd_line.registerParameter(labels);
 			
 			
 			Switch verbose = new Switch("verbose")
@@ -260,12 +264,12 @@ public class Main {
 				}
 				imc_result.hide(ports_set);
 			}
-			if(config.getBoolean("hide_all")){
+			/*if(config.getBoolean("hide_all")){
 				if(config.getBoolean("verbose")){
 					System.out.println("Hiding all interactive transitions...");
 				}
 				imc_result.hide_all();
-			}
+			}*/
 			
 			
 			
@@ -308,7 +312,12 @@ public class Main {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_aut_file")); 
 				}
-				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toAUTFormat();
+				
+				
+				if(config.getBoolean("verbose") && !config.getBoolean("labels")){
+					System.out.println("Hiding all interactive transitions...");
+				}
+				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toAUTFormat(!config.getBoolean("labels"));
 				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
 				String mapping = full_content.substring(full_content.indexOf("-- STATES MAPPING --\n\n")); 
 				createFile(config.getString("out_aut_file"), "aut", content);

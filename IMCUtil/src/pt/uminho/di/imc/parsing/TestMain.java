@@ -24,7 +24,7 @@ public class TestMain {
 			  
 			  IMC imc_12 = imc1.composeAndHide(imc2, h);
 			  IMC imc3 = imc_12.maximalProgressionReduction();
-			  System.out.println((new IMCTransformer(imc3)).toAUTFormat());
+			  System.out.println((new IMCTransformer(imc3)).toAUTFormat(false));
 			  //System.out.println("Transitions: " + imc3.getTransitions().size());
 			  //System.out.println("States: " + imc3.getStates().size());
 		  }
