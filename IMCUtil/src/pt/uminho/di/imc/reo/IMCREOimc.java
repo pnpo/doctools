@@ -796,6 +796,7 @@ public class IMCREOimc<STATE> {
 						IMCREOMarkovianTransition<IMCREOState> new_tr = new IMCREOMarkovianTransition<IMCREOState>();
 						new_tr.setFinal_state(((IMCREOState) t.getFinal_state()).copy());
 						new_tr.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
+						new_tr.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
 						transitions.add(new_tr);
 					}
 					else {
@@ -1359,6 +1360,7 @@ public class IMCREOimc<STATE> {
 						IMCREOMarkovianTransition<IMCREOState> mt = new IMCREOMarkovianTransition<IMCREOState>();
 						mt.setFinal_state(states_map.get(t.getFinal_state()));
 						mt.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
+						mt.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
 						trans.add(mt);
 					}
 					else {
@@ -1482,6 +1484,7 @@ public class IMCREOimc<STATE> {
 					sb_markov.append(((IMCREOState) t.getFinal_state()).toReoMAState());
 					sb_markov.append(" ");
 					sb_markov.append(((IMCREOMarkovianTransition<STATE>) t).getRate());
+					sb_markov.append("\t\t\t@ " + ((IMCREOMarkovianTransition<STATE>) t).getLabel() + " @");
 					sb_markov.append("\n");
 				}
 			}
