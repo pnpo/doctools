@@ -85,7 +85,7 @@ transition_edge [String initial_state, String action, String trans_type]
 	:	'*' state rate
 	{
 		if($transition_edge.trans_type.equals("MARKOVIAN")){
-			t = new MarkovianTransition($transition_edge.initial_state, $state.name, $rate.value);		
+			t = new MarkovianTransition($transition_edge.initial_state, $state.name, $rate.value, "");		
 		}
 		else {
 			t = new InteractiveTransition($transition_edge.initial_state, $state.name, $transition_edge.action);

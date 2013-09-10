@@ -63,7 +63,7 @@ public class IMCTransformer {
 		for(Transition t : this.imc.getTransitions()){
 			if(t instanceof MarkovianTransition){
 				sb.append("( ").append(states_mapping.get(t.getStart_state())).append(", ").
-						append("\"rate ").append(((MarkovianTransition) t).getRate()).append("\", ").
+						append("\"").append((((MarkovianTransition) t).getLabel().equals("") || ((MarkovianTransition) t).getLabel()==null) ? "" : "; ").append("rate ").append(((MarkovianTransition) t).getRate()).append("\", ").
 							append(states_mapping.get(t.getFinal_state())).append(" )\n");
 			}
 			else {
@@ -255,7 +255,7 @@ public class IMCTransformer {
 				sb.append("\"" + t.getStart_state() + "\"").
 					append(" -> ").
 						append("\"" + t.getFinal_state() + "\" ").
-							append("[label = \"" + ((MarkovianTransition)t).getRate() + "\"] ; \n");
+							append("[label = \"" +  (((MarkovianTransition)t).getLabel().equals("") || ((MarkovianTransition)t).getLabel()==null ? "" : "; ")  + ((MarkovianTransition)t).getRate() + "\"] ; \n");
 				
 			}
 			else {

@@ -58,7 +58,7 @@ transitions
 	:	(i=state f=state transition_label
 	{
 		if($transition_label.type.equals("MARKOVIAN")){
-			t = new MarkovianTransition($i.name, $f.name, Double.parseDouble($transition_label.label));		
+			t = new MarkovianTransition($i.name, $f.name, Double.parseDouble($transition_label.label), "");		
 		}
 		else {
 			t = new InteractiveTransition($i.name, $f.name, $transition_label.label);

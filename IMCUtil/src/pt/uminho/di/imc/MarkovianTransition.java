@@ -12,6 +12,7 @@ public class MarkovianTransition extends Transition {
 
 	
 	private double rate;
+	private String label;
 	
 	/**
 	 * 
@@ -28,8 +29,9 @@ public class MarkovianTransition extends Transition {
 	 * @param start_state the initial state of the transition
 	 * @param final_state the final staet of the transition
 	 * @param rate the rate of this transition
+	 * @param label the (possibly empty) label of the rate
 	 */
-	public MarkovianTransition(String start_state, String final_state, double rate) {
+	public MarkovianTransition(String start_state, String final_state, double rate, String label) {
 		super(start_state, final_state);
 		this.rate = rate;
 	}
@@ -51,14 +53,42 @@ public class MarkovianTransition extends Transition {
 	public void setRate(double rate) {
 		this.rate = rate;
 	}
+	
+	
+	
+
+	/**
+	 * @return the label
+	 */
+	public String getLabel() {
+		return label;
+	}
+
+
+
+
+	/**
+	 * @param label the label to set
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "(" + getStart_state() + " -- " + rate + " --> " + getFinal_state() + ")";
+		return "(" + getStart_state() + " -- " + ((this.label.equals("") || this.label==null)? "" : this.label + "; ") + rate + " --> " + getFinal_state() + ")";
 	}
+
+	
+
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -67,11 +97,15 @@ public class MarkovianTransition extends Transition {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(rate);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -85,6 +119,11 @@ public class MarkovianTransition extends Transition {
 		if (!(obj instanceof MarkovianTransition))
 			return false;
 		MarkovianTransition other = (MarkovianTransition) obj;
+		if (label == null) {
+			if (other.label != null)
+				return false;
+		} else if (!label.equals(other.label))
+			return false;
 		if (Double.doubleToLongBits(rate) != Double
 				.doubleToLongBits(other.rate))
 			return false;
@@ -96,7 +135,7 @@ public class MarkovianTransition extends Transition {
 
 	@Override
 	public Transition copy() {
-		return new MarkovianTransition(this.getStart_state(), this.getFinal_state(), this.getRate());
+		return new MarkovianTransition(this.getStart_state(), this.getFinal_state(), this.getRate(), this.getLabel());
 	}
 
 

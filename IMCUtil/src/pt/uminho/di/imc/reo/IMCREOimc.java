@@ -1431,7 +1431,8 @@ public class IMCREOimc<STATE> {
 				}
 				else {
 					double rate = ((IMCREOMarkovianTransition<STATE>)t).getRate();
-					t_imc = new MarkovianTransition(source, target, rate );
+					String label= ((IMCREOMarkovianTransition<STATE>)t).getLabel();
+					t_imc = new MarkovianTransition(source, target, rate, label);
 				}
 				imc.addTransition(t_imc);
 				imc.addState(source);

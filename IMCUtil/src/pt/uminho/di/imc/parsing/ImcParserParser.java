@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g 2012-11-20 17:40:33
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g 2013-09-10 10:10:12
 
 	package pt.uminho.di.imc.parsing;
 	import pt.uminho.di.imc.*;
@@ -9,38 +9,34 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked"})
 public class ImcParserParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "EXPONENT", "FLOAT", "NAME", "NUMBER", "STATE_ID", "WS"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "STATE_ID", "NAME", "NUMBER", "FLOAT", "EXPONENT", "WS"
     };
-
-    public static final int EOF=-1;
-    public static final int COMMENT=4;
-    public static final int EXPONENT=5;
-    public static final int FLOAT=6;
-    public static final int NAME=7;
-    public static final int NUMBER=8;
-    public static final int STATE_ID=9;
+    public static final int EXPONENT=9;
+    public static final int NAME=6;
     public static final int WS=10;
+    public static final int NUMBER=7;
+    public static final int FLOAT=8;
+    public static final int STATE_ID=5;
+    public static final int COMMENT=4;
+    public static final int EOF=-1;
 
     // delegates
-    public Parser[] getDelegates() {
-        return new Parser[] {};
-    }
-
     // delegators
 
 
-    public ImcParserParser(TokenStream input) {
-        this(input, new RecognizerSharedState());
-    }
-    public ImcParserParser(TokenStream input, RecognizerSharedState state) {
-        super(input, state);
-    }
+        public ImcParserParser(TokenStream input) {
+            this(input, new RecognizerSharedState());
+        }
+        public ImcParserParser(TokenStream input, RecognizerSharedState state) {
+            super(input, state);
+             
+        }
+        
 
     public String[] getTokenNames() { return ImcParserParser.tokenNames; }
-    public String getGrammarFileName() { return "/Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g"; }
+    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g"; }
 
 
     	private IMC imc;
@@ -52,27 +48,26 @@ public class ImcParserParser extends Parser {
 
 
     // $ANTLR start "imc"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:23:1: imc : initial_states ( goal_states )? transitions ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:23:1: imc : initial_states ( goal_states )? transitions ;
     public final void imc() throws RecognitionException {
 
         	this.imc = new IMC();
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:27:2: ( initial_states ( goal_states )? transitions )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:27:4: initial_states ( goal_states )? transitions
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:27:2: ( initial_states ( goal_states )? transitions )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:27:4: initial_states ( goal_states )? transitions
             {
             pushFollow(FOLLOW_initial_states_in_imc38);
             initial_states();
 
             state._fsp--;
 
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:27:19: ( goal_states )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:27:19: ( goal_states )?
             int alt1=2;
             alt1 = dfa1.predict(input);
             switch (alt1) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:27:19: goal_states
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:27:19: goal_states
                     {
                     pushFollow(FOLLOW_goal_states_in_imc40);
                     goal_states();
@@ -84,7 +79,6 @@ public class ImcParserParser extends Parser {
                     break;
 
             }
-
 
             pushFollow(FOLLOW_transitions_in_imc43);
             transitions();
@@ -99,47 +93,43 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return ;
     }
     // $ANTLR end "imc"
 
 
-
     // $ANTLR start "initial_states"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:32:1: initial_states : ( state )+ COMMENT ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:32:1: initial_states : ( state )+ COMMENT ;
     public final void initial_states() throws RecognitionException {
-        String state1 =null;
+        String state1 = null;
 
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:33:2: ( ( state )+ COMMENT )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:33:4: ( state )+ COMMENT
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:33:2: ( ( state )+ COMMENT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:33:4: ( state )+ COMMENT
             {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:33:4: ( state )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:33:4: ( state )+
             int cnt2=0;
             loop2:
             do {
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( (LA2_0==NAME||LA2_0==STATE_ID) ) {
+                if ( ((LA2_0>=STATE_ID && LA2_0<=NAME)) ) {
                     alt2=1;
                 }
 
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:33:6: state
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:33:6: state
             	    {
             	    pushFollow(FOLLOW_state_in_initial_states59);
             	    state1=state();
 
             	    state._fsp--;
-
 
 
             	    		this.imc.addInitialState(state1);
@@ -157,7 +147,6 @@ public class ImcParserParser extends Parser {
                 cnt2++;
             } while (true);
 
-
             match(input,COMMENT,FOLLOW_COMMENT_in_initial_states69); 
 
             }
@@ -167,47 +156,43 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return ;
     }
     // $ANTLR end "initial_states"
 
 
-
     // $ANTLR start "goal_states"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:43:1: goal_states : ( state )+ COMMENT ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:43:1: goal_states : ( state )+ COMMENT ;
     public final void goal_states() throws RecognitionException {
-        String state2 =null;
+        String state2 = null;
 
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:44:2: ( ( state )+ COMMENT )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:44:4: ( state )+ COMMENT
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:44:2: ( ( state )+ COMMENT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:44:4: ( state )+ COMMENT
             {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:44:4: ( state )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:44:4: ( state )+
             int cnt3=0;
             loop3:
             do {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
-                if ( (LA3_0==NAME||LA3_0==STATE_ID) ) {
+                if ( ((LA3_0>=STATE_ID && LA3_0<=NAME)) ) {
                     alt3=1;
                 }
 
 
                 switch (alt3) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:44:6: state
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:44:6: state
             	    {
             	    pushFollow(FOLLOW_state_in_goal_states86);
             	    state2=state();
 
             	    state._fsp--;
-
 
 
             	    		this.imc.addGoalState(state2);
@@ -225,7 +210,6 @@ public class ImcParserParser extends Parser {
                 cnt3++;
             } while (true);
 
-
             match(input,COMMENT,FOLLOW_COMMENT_in_goal_states96); 
 
             }
@@ -235,60 +219,55 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return ;
     }
     // $ANTLR end "goal_states"
 
 
-
     // $ANTLR start "transitions"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:54:1: transitions : (i= state f= state transition_label )+ ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:54:1: transitions : (i= state f= state transition_label )+ ;
     public final void transitions() throws RecognitionException {
-        String i =null;
+        String i = null;
 
-        String f =null;
+        String f = null;
 
-        ImcParserParser.transition_label_return transition_label3 =null;
+        ImcParserParser.transition_label_return transition_label3 = null;
 
 
 
         	Transition t;
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:58:2: ( (i= state f= state transition_label )+ )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:58:4: (i= state f= state transition_label )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:58:2: ( (i= state f= state transition_label )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:58:4: (i= state f= state transition_label )+
             {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:58:4: (i= state f= state transition_label )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:58:4: (i= state f= state transition_label )+
             int cnt4=0;
             loop4:
             do {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( (LA4_0==NAME||LA4_0==STATE_ID) ) {
+                if ( ((LA4_0>=STATE_ID && LA4_0<=NAME)) ) {
                     alt4=1;
                 }
 
 
                 switch (alt4) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:58:5: i= state f= state transition_label
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:58:5: i= state f= state transition_label
             	    {
             	    pushFollow(FOLLOW_state_in_transitions118);
             	    i=state();
 
             	    state._fsp--;
 
-
             	    pushFollow(FOLLOW_state_in_transitions122);
             	    f=state();
 
             	    state._fsp--;
-
 
             	    pushFollow(FOLLOW_transition_label_in_transitions124);
             	    transition_label3=transition_label();
@@ -296,9 +275,8 @@ public class ImcParserParser extends Parser {
             	    state._fsp--;
 
 
-
             	    		if((transition_label3!=null?transition_label3.type:null).equals("MARKOVIAN")){
-            	    			t = new MarkovianTransition(i, f, Double.parseDouble((transition_label3!=null?transition_label3.label:null)));		
+            	    			t = new MarkovianTransition(i, f, Double.parseDouble((transition_label3!=null?transition_label3.label:null)), "");		
             	    		}
             	    		else {
             	    			t = new InteractiveTransition(i, f, (transition_label3!=null?transition_label3.label:null));
@@ -329,35 +307,30 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return ;
     }
     // $ANTLR end "transitions"
-
 
     public static class transition_label_return extends ParserRuleReturnScope {
         public String label;
         public String type;
     };
 
-
     // $ANTLR start "transition_label"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:77:1: transition_label returns [String label, String type] : ( action | rate );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:77:1: transition_label returns [String label, String type] : ( action | rate );
     public final ImcParserParser.transition_label_return transition_label() throws RecognitionException {
         ImcParserParser.transition_label_return retval = new ImcParserParser.transition_label_return();
         retval.start = input.LT(1);
 
+        String action4 = null;
 
-        String action4 =null;
-
-        String rate5 =null;
+        String rate5 = null;
 
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:78:2: ( action | rate )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:78:2: ( action | rate )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -372,17 +345,15 @@ public class ImcParserParser extends Parser {
                     new NoViableAltException("", 5, 0, input);
 
                 throw nvae;
-
             }
             switch (alt5) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:78:4: action
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:78:4: action
                     {
                     pushFollow(FOLLOW_action_in_transition_label149);
                     action4=action();
 
                     state._fsp--;
-
 
 
                     		retval.label = action4;
@@ -392,13 +363,12 @@ public class ImcParserParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:83:4: rate
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:83:4: rate
                     {
                     pushFollow(FOLLOW_rate_in_transition_label158);
                     rate5=rate();
 
                     state._fsp--;
-
 
 
                     		retval.label = rate5;
@@ -411,33 +381,28 @@ public class ImcParserParser extends Parser {
             }
             retval.stop = input.LT(-1);
 
-
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return retval;
     }
     // $ANTLR end "transition_label"
 
 
-
     // $ANTLR start "state"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:94:1: state returns [String name] : ( STATE_ID | NAME );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:94:1: state returns [String name] : ( STATE_ID | NAME );
     public final String state() throws RecognitionException {
         String name = null;
-
 
         Token STATE_ID6=null;
         Token NAME7=null;
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:95:2: ( STATE_ID | NAME )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:95:2: ( STATE_ID | NAME )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -452,14 +417,12 @@ public class ImcParserParser extends Parser {
                     new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
-
             }
             switch (alt6) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:95:5: STATE_ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:95:5: STATE_ID
                     {
                     STATE_ID6=(Token)match(input,STATE_ID,FOLLOW_STATE_ID_in_state181); 
-
 
                     		name = (STATE_ID6!=null?STATE_ID6.getText():null);
                     	
@@ -467,10 +430,9 @@ public class ImcParserParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:99:4: NAME
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:99:4: NAME
                     {
                     NAME7=(Token)match(input,NAME,FOLLOW_NAME_in_state189); 
-
 
                     		name = (NAME7!=null?NAME7.getText():null);
                     	
@@ -484,30 +446,25 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return name;
     }
     // $ANTLR end "state"
 
 
-
     // $ANTLR start "action"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:108:1: action returns [String name] : NAME ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:108:1: action returns [String name] : NAME ;
     public final String action() throws RecognitionException {
         String name = null;
-
 
         Token NAME8=null;
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:109:2: ( NAME )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:109:4: NAME
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:109:2: ( NAME )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:109:4: NAME
             {
             NAME8=(Token)match(input,NAME,FOLLOW_NAME_in_action215); 
-
 
             		name = (NAME8!=null?NAME8.getText():null);
             	
@@ -519,30 +476,25 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return name;
     }
     // $ANTLR end "action"
 
 
-
     // $ANTLR start "rate"
-    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:117:1: rate returns [String value] : NUMBER ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:117:1: rate returns [String value] : NUMBER ;
     public final String rate() throws RecognitionException {
         String value = null;
-
 
         Token NUMBER9=null;
 
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:118:2: ( NUMBER )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:118:4: NUMBER
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:118:2: ( NUMBER )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:118:4: NUMBER
             {
             NUMBER9=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_rate238); 
-
 
             		value = (NUMBER9!=null?NUMBER9.getText():null);
             	
@@ -554,9 +506,7 @@ public class ImcParserParser extends Parser {
             reportError(re);
             recover(input,re);
         }
-
         finally {
-        	// do for sure before leaving
         }
         return value;
     }
@@ -571,21 +521,21 @@ public class ImcParserParser extends Parser {
     static final String DFA1_eofS =
         "\6\uffff\1\7\1\uffff";
     static final String DFA1_minS =
-        "\1\7\2\4\1\uffff\3\4\1\uffff";
+        "\1\5\4\4\1\uffff\1\4\1\uffff";
     static final String DFA1_maxS =
-        "\3\11\1\uffff\3\11\1\uffff";
+        "\3\6\2\7\1\uffff\1\6\1\uffff";
     static final String DFA1_acceptS =
-        "\3\uffff\1\1\3\uffff\1\2";
+        "\5\uffff\1\1\1\uffff\1\2";
     static final String DFA1_specialS =
         "\10\uffff}>";
     static final String[] DFA1_transitionS = {
-            "\1\2\1\uffff\1\1",
-            "\1\3\2\uffff\1\5\1\uffff\1\4",
-            "\1\3\2\uffff\1\5\1\uffff\1\4",
+            "\1\1\1\2",
+            "\1\5\1\3\1\4",
+            "\1\5\1\3\1\4",
+            "\2\5\1\6\1\7",
+            "\2\5\1\6\1\7",
             "",
-            "\1\3\2\uffff\1\6\1\7\1\3",
-            "\1\3\2\uffff\1\6\1\7\1\3",
-            "\1\3\2\uffff\1\2\1\uffff\1\1",
+            "\1\5\1\1\1\2",
             ""
     };
 
@@ -624,16 +574,16 @@ public class ImcParserParser extends Parser {
     }
  
 
-    public static final BitSet FOLLOW_initial_states_in_imc38 = new BitSet(new long[]{0x0000000000000280L});
-    public static final BitSet FOLLOW_goal_states_in_imc40 = new BitSet(new long[]{0x0000000000000280L});
+    public static final BitSet FOLLOW_initial_states_in_imc38 = new BitSet(new long[]{0x0000000000000060L});
+    public static final BitSet FOLLOW_goal_states_in_imc40 = new BitSet(new long[]{0x0000000000000060L});
     public static final BitSet FOLLOW_transitions_in_imc43 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_state_in_initial_states59 = new BitSet(new long[]{0x0000000000000290L});
+    public static final BitSet FOLLOW_state_in_initial_states59 = new BitSet(new long[]{0x0000000000000070L});
     public static final BitSet FOLLOW_COMMENT_in_initial_states69 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_state_in_goal_states86 = new BitSet(new long[]{0x0000000000000290L});
+    public static final BitSet FOLLOW_state_in_goal_states86 = new BitSet(new long[]{0x0000000000000070L});
     public static final BitSet FOLLOW_COMMENT_in_goal_states96 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_state_in_transitions118 = new BitSet(new long[]{0x0000000000000280L});
-    public static final BitSet FOLLOW_state_in_transitions122 = new BitSet(new long[]{0x0000000000000180L});
-    public static final BitSet FOLLOW_transition_label_in_transitions124 = new BitSet(new long[]{0x0000000000000282L});
+    public static final BitSet FOLLOW_state_in_transitions118 = new BitSet(new long[]{0x0000000000000060L});
+    public static final BitSet FOLLOW_state_in_transitions122 = new BitSet(new long[]{0x00000000000000C0L});
+    public static final BitSet FOLLOW_transition_label_in_transitions124 = new BitSet(new long[]{0x0000000000000062L});
     public static final BitSet FOLLOW_action_in_transition_label149 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rate_in_transition_label158 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_STATE_ID_in_state181 = new BitSet(new long[]{0x0000000000000002L});

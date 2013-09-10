@@ -688,7 +688,7 @@ public class IMC {
 						states_to_process.add(next_state_to_process);
 					}
 					//create a new transition
-					Transition new_t = new MarkovianTransition(current_state.concatenate(), next_state_to_process.concatenate(), ((MarkovianTransition) t).getRate());
+					Transition new_t = new MarkovianTransition(current_state.concatenate(), next_state_to_process.concatenate(), ((MarkovianTransition) t).getRate(), ((MarkovianTransition) t).getLabel());
 					//add new transition to the new imc
 					imc.addTransition(new_t);
 				
@@ -754,7 +754,7 @@ public class IMC {
 						states_to_process.add(next_state_to_process);
 					}
 					//create a new transition
-					Transition new_t = new MarkovianTransition(current_state.concatenate(), next_state_to_process.concatenate(), ((MarkovianTransition) t).getRate());
+					Transition new_t = new MarkovianTransition(current_state.concatenate(), next_state_to_process.concatenate(), ((MarkovianTransition) t).getRate(), ((MarkovianTransition) t).getLabel());
 					//add new transition to the new imc
 					imc.addTransition(new_t);
 				}

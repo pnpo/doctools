@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g 2012-11-20 17:40:33
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g 2013-09-10 10:10:12
 
 	package pt.uminho.di.imc.parsing;
 
@@ -8,73 +8,69 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked"})
 public class ImcParserLexer extends Lexer {
-    public static final int EOF=-1;
-    public static final int COMMENT=4;
-    public static final int EXPONENT=5;
-    public static final int FLOAT=6;
-    public static final int NAME=7;
-    public static final int NUMBER=8;
-    public static final int STATE_ID=9;
+    public static final int EXPONENT=9;
+    public static final int NAME=6;
     public static final int WS=10;
+    public static final int NUMBER=7;
+    public static final int FLOAT=8;
+    public static final int STATE_ID=5;
+    public static final int COMMENT=4;
+    public static final int EOF=-1;
 
     // delegates
     // delegators
-    public Lexer[] getDelegates() {
-        return new Lexer[] {};
-    }
 
-    public ImcParserLexer() {} 
+    public ImcParserLexer() {;} 
     public ImcParserLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
     public ImcParserLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
+
     }
-    public String getGrammarFileName() { return "/Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g"; }
+    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g"; }
 
     // $ANTLR start "NAME"
     public final void mNAME() throws RecognitionException {
         try {
             int _type = NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:127:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' )* )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:127:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:127:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:127:7: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' )*
             {
-            if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
+
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;
-            }
+                throw mse;}
 
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:127:26: ( 'a' .. 'z' | 'A' .. 'Z' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:127:26: ( 'a' .. 'z' | 'A' .. 'Z' )*
             loop1:
             do {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0 >= 'A' && LA1_0 <= 'Z')||(LA1_0 >= 'a' && LA1_0 <= 'z')) ) {
+                if ( ((LA1_0>='A' && LA1_0<='Z')||(LA1_0>='a' && LA1_0<='z')) ) {
                     alt1=1;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:
             	    {
-            	    if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
+
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;
-            	    }
+            	        throw mse;}
 
 
             	    }
@@ -92,7 +88,6 @@ public class ImcParserLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "NAME"
@@ -102,38 +97,30 @@ public class ImcParserLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:131:2: ( ( '0' .. '9' )+ | FLOAT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:131:2: ( ( '0' .. '9' )+ | FLOAT )
             int alt3=2;
             alt3 = dfa3.predict(input);
             switch (alt3) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:131:4: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:131:4: ( '0' .. '9' )+
                     {
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:131:4: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:131:4: ( '0' .. '9' )+
                     int cnt2=0;
                     loop2:
                     do {
                         int alt2=2;
                         int LA2_0 = input.LA(1);
 
-                        if ( ((LA2_0 >= '0' && LA2_0 <= '9')) ) {
+                        if ( ((LA2_0>='0' && LA2_0<='9')) ) {
                             alt2=1;
                         }
 
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:131:5: '0' .. '9'
                     	    {
-                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                    	        input.consume();
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;
-                    	    }
-
+                    	    matchRange('0','9'); 
 
                     	    }
                     	    break;
@@ -151,10 +138,9 @@ public class ImcParserLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:132:4: FLOAT
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:132:4: FLOAT
                     {
                     mFLOAT(); 
-
 
                     }
                     break;
@@ -164,7 +150,6 @@ public class ImcParserLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "NUMBER"
@@ -174,42 +159,41 @@ public class ImcParserLexer extends Lexer {
         try {
             int _type = STATE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:136:11: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:136:13: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:136:11: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:136:13: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
-            if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
+
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;
-            }
+                throw mse;}
 
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:136:46: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:136:46: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop4:
             do {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( ((LA4_0 >= '0' && LA4_0 <= '9')||(LA4_0 >= 'A' && LA4_0 <= 'Z')||LA4_0=='_'||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
+                if ( ((LA4_0>='0' && LA4_0<='9')||(LA4_0>='A' && LA4_0<='Z')||LA4_0=='_'||(LA4_0>='a' && LA4_0<='z')) ) {
                     alt4=1;
                 }
 
 
                 switch (alt4) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:
             	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
+
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;
-            	    }
+            	        throw mse;}
 
 
             	    }
@@ -227,7 +211,6 @@ public class ImcParserLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "STATE_ID"
@@ -235,38 +218,30 @@ public class ImcParserLexer extends Lexer {
     // $ANTLR start "FLOAT"
     public final void mFLOAT() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:143:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt11=3;
             alt11 = dfa11.predict(input);
             switch (alt11) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:143:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:143:9: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:9: ( '0' .. '9' )+
                     int cnt5=0;
                     loop5:
                     do {
                         int alt5=2;
                         int LA5_0 = input.LA(1);
 
-                        if ( ((LA5_0 >= '0' && LA5_0 <= '9')) ) {
+                        if ( ((LA5_0>='0' && LA5_0<='9')) ) {
                             alt5=1;
                         }
 
 
                         switch (alt5) {
                     	case 1 :
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:10: '0' .. '9'
                     	    {
-                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                    	        input.consume();
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;
-                    	    }
-
+                    	    matchRange('0','9'); 
 
                     	    }
                     	    break;
@@ -280,33 +255,23 @@ public class ImcParserLexer extends Lexer {
                         cnt5++;
                     } while (true);
 
-
                     match('.'); 
-
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:143:25: ( '0' .. '9' )*
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:25: ( '0' .. '9' )*
                     loop6:
                     do {
                         int alt6=2;
                         int LA6_0 = input.LA(1);
 
-                        if ( ((LA6_0 >= '0' && LA6_0 <= '9')) ) {
+                        if ( ((LA6_0>='0' && LA6_0<='9')) ) {
                             alt6=1;
                         }
 
 
                         switch (alt6) {
                     	case 1 :
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:26: '0' .. '9'
                     	    {
-                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                    	        input.consume();
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;
-                    	    }
-
+                    	    matchRange('0','9'); 
 
                     	    }
                     	    break;
@@ -316,8 +281,7 @@ public class ImcParserLexer extends Lexer {
                         }
                     } while (true);
 
-
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:143:37: ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:37: ( EXPONENT )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -326,10 +290,9 @@ public class ImcParserLexer extends Lexer {
                     }
                     switch (alt7) {
                         case 1 :
-                            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:143:37: EXPONENT
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:142:37: EXPONENT
                             {
                             mEXPONENT(); 
-
 
                             }
                             break;
@@ -340,35 +303,26 @@ public class ImcParserLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:144:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:143:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:144:13: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:143:13: ( '0' .. '9' )+
                     int cnt8=0;
                     loop8:
                     do {
                         int alt8=2;
                         int LA8_0 = input.LA(1);
 
-                        if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
+                        if ( ((LA8_0>='0' && LA8_0<='9')) ) {
                             alt8=1;
                         }
 
 
                         switch (alt8) {
                     	case 1 :
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:143:14: '0' .. '9'
                     	    {
-                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                    	        input.consume();
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;
-                    	    }
-
+                    	    matchRange('0','9'); 
 
                     	    }
                     	    break;
@@ -382,8 +336,7 @@ public class ImcParserLexer extends Lexer {
                         cnt8++;
                     } while (true);
 
-
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:144:25: ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:143:25: ( EXPONENT )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -392,10 +345,9 @@ public class ImcParserLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:144:25: EXPONENT
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:143:25: EXPONENT
                             {
                             mEXPONENT(); 
-
 
                             }
                             break;
@@ -406,33 +358,25 @@ public class ImcParserLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:145:9: ( '0' .. '9' )+ EXPONENT
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:144:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:145:9: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:144:9: ( '0' .. '9' )+
                     int cnt10=0;
                     loop10:
                     do {
                         int alt10=2;
                         int LA10_0 = input.LA(1);
 
-                        if ( ((LA10_0 >= '0' && LA10_0 <= '9')) ) {
+                        if ( ((LA10_0>='0' && LA10_0<='9')) ) {
                             alt10=1;
                         }
 
 
                         switch (alt10) {
                     	case 1 :
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:144:10: '0' .. '9'
                     	    {
-                    	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                    	        input.consume();
-                    	    }
-                    	    else {
-                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
-                    	        recover(mse);
-                    	        throw mse;
-                    	    }
-
+                    	    matchRange('0','9'); 
 
                     	    }
                     	    break;
@@ -446,18 +390,14 @@ public class ImcParserLexer extends Lexer {
                         cnt10++;
                     } while (true);
 
-
                     mEXPONENT(); 
-
 
                     }
                     break;
 
             }
-
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "FLOAT"
@@ -467,36 +407,34 @@ public class ImcParserLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:148:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:148:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:148:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:148:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match("//"); 
 
-
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:148:14: (~ ( '\\n' | '\\r' ) )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:148:14: (~ ( '\\n' | '\\r' ) )*
             loop12:
             do {
                 int alt12=2;
                 int LA12_0 = input.LA(1);
 
-                if ( ((LA12_0 >= '\u0000' && LA12_0 <= '\t')||(LA12_0 >= '\u000B' && LA12_0 <= '\f')||(LA12_0 >= '\u000E' && LA12_0 <= '\uFFFF')) ) {
+                if ( ((LA12_0>='\u0000' && LA12_0<='\t')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\uFFFF')) ) {
                     alt12=1;
                 }
 
 
                 switch (alt12) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:148:14: ~ ( '\\n' | '\\r' )
             	    {
-            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
+
             	    }
             	    else {
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        recover(mse);
-            	        throw mse;
-            	    }
+            	        throw mse;}
 
 
             	    }
@@ -507,8 +445,7 @@ public class ImcParserLexer extends Lexer {
                 }
             } while (true);
 
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:148:28: ( '\\r' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:148:28: ( '\\r' )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -517,7 +454,7 @@ public class ImcParserLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:148:28: '\\r'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:148:28: '\\r'
                     {
                     match('\r'); 
 
@@ -525,7 +462,6 @@ public class ImcParserLexer extends Lexer {
                     break;
 
             }
-
 
             match('\n'); 
 
@@ -535,7 +471,6 @@ public class ImcParserLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "COMMENT"
@@ -545,18 +480,17 @@ public class ImcParserLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:151:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:151:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:151:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:151:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
-            if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
+            if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
+
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;
-            }
-
+                throw mse;}
 
             _channel=HIDDEN;
 
@@ -566,7 +500,6 @@ public class ImcParserLexer extends Lexer {
             state.channel = _channel;
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "WS"
@@ -574,20 +507,19 @@ public class ImcParserLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:160:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:160:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:159:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:159:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
+
             }
             else {
                 MismatchedSetException mse = new MismatchedSetException(null,input);
                 recover(mse);
-                throw mse;
-            }
+                throw mse;}
 
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:160:22: ( '+' | '-' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:159:22: ( '+' | '-' )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -596,16 +528,16 @@ public class ImcParserLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
+
                     }
                     else {
                         MismatchedSetException mse = new MismatchedSetException(null,input);
                         recover(mse);
-                        throw mse;
-                    }
+                        throw mse;}
 
 
                     }
@@ -613,32 +545,23 @@ public class ImcParserLexer extends Lexer {
 
             }
 
-
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:160:33: ( '0' .. '9' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:159:33: ( '0' .. '9' )+
             int cnt15=0;
             loop15:
             do {
                 int alt15=2;
                 int LA15_0 = input.LA(1);
 
-                if ( ((LA15_0 >= '0' && LA15_0 <= '9')) ) {
+                if ( ((LA15_0>='0' && LA15_0<='9')) ) {
                     alt15=1;
                 }
 
 
                 switch (alt15) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:159:34: '0' .. '9'
             	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
+            	    matchRange('0','9'); 
 
             	    }
             	    break;
@@ -655,56 +578,49 @@ public class ImcParserLexer extends Lexer {
 
             }
 
-
         }
         finally {
-        	// do for sure before leaving
         }
     }
     // $ANTLR end "EXPONENT"
 
     public void mTokens() throws RecognitionException {
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:1:8: ( NAME | NUMBER | STATE_ID | COMMENT | WS )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:1:8: ( NAME | NUMBER | STATE_ID | COMMENT | WS )
         int alt16=5;
         alt16 = dfa16.predict(input);
         switch (alt16) {
             case 1 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:1:10: NAME
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:1:10: NAME
                 {
                 mNAME(); 
-
 
                 }
                 break;
             case 2 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:1:15: NUMBER
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:1:15: NUMBER
                 {
                 mNUMBER(); 
-
 
                 }
                 break;
             case 3 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:1:22: STATE_ID
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:1:22: STATE_ID
                 {
                 mSTATE_ID(); 
-
 
                 }
                 break;
             case 4 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:1:31: COMMENT
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:1:31: COMMENT
                 {
                 mCOMMENT(); 
-
 
                 }
                 break;
             case 5 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ImcParser.g:1:39: WS
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ImcParser.g:1:39: WS
                 {
                 mWS(); 
-
 
                 }
                 break;
@@ -778,12 +694,12 @@ public class ImcParserLexer extends Lexer {
     static final String DFA11_maxS =
         "\1\71\1\145\3\uffff";
     static final String DFA11_acceptS =
-        "\2\uffff\1\2\1\1\1\3";
+        "\2\uffff\1\2\1\3\1\1";
     static final String DFA11_specialS =
         "\5\uffff}>";
     static final String[] DFA11_transitionS = {
             "\1\2\1\uffff\12\1",
-            "\1\3\1\uffff\12\1\13\uffff\1\4\37\uffff\1\4",
+            "\1\4\1\uffff\12\1\13\uffff\1\3\37\uffff\1\3",
             "",
             "",
             ""
@@ -819,7 +735,7 @@ public class ImcParserLexer extends Lexer {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "142:1: fragment FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
+            return "140:1: fragment FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );";
         }
     }
     static final String DFA16_eotS =
