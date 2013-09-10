@@ -6,6 +6,8 @@ package pt.uminho.di.ap.model_v0;
 import java.util.HashSet;
 import java.util.Set;
 
+import pt.uminho.di.cp.model.graph.Node;
+
 /**
  * @author Nuno Oliveira
  * @date 3 de Abr de 2012

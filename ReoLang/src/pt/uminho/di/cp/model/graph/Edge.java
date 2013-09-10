@@ -1,9 +1,8 @@
 /**
  * 
  */
-package pt.uminho.di.ap.model.graph;
+package pt.uminho.di.cp.model.graph;
 
-import pt.uminho.di.ap.model_v0.Node;
 
 /**
  * @author Nuno Oliveira

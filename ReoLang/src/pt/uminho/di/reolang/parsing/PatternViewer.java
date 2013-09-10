@@ -8,9 +8,9 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.TokenStream;
 
 
-import pt.uminho.di.ap.model.graph.ArchPatternAbstractGraph;
-import pt.uminho.di.ap.model.graph.Edge;
-import pt.uminho.di.ap.model_v0.Node;
+import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
+import pt.uminho.di.cp.model.graph.Edge;
+import pt.uminho.di.cp.model.graph.Node;
 import pt.uminho.di.reolang.FuzzyPatternViewReoLang;
 import pt.uminho.di.reolang.FuzzyPreProcessor;
 import pt.uminho.di.reolang.parsing.util.SimpleSymbol;

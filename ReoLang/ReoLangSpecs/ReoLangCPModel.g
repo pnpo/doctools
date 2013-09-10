@@ -471,6 +471,7 @@ port_access [String patt_name, String port]
 	{
 		CoordinationPattern p = this.patterns.get($port_access.patt_name).getCP();
 		p.replacePortNames($i2.text, $i1.text, $port_access.port);
+		p.getRouter_nodes().add($port_access.port);
 	}
 	)
 	;
@@ -481,10 +482,18 @@ join_operation [String patt_name]
 	
 join_part [String patt_name, String port]
 	: 	^(RW_JOIN port_access_list [$join_part.patt_name, $join_part.port])
+	| 	^(RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port])
+		
 	;	 
 	
 port_access_list [String patt_name, String port]
 	:	^(PORT_ACCESS_LIST port_access[$port_access_list.patt_name, $port_access_list.port]+)
-	|	^(PORT_ACCESS_LIST RW_REMAINING)
+	//|	^(PORT_ACCESS_LIST RW_REMAINING)
 	;
+	
+	
+special_port_access_list [String patt_name, String port]
+	:	^(PORT_ACCESS_LIST port_access[$special_port_access_list.patt_name, $special_port_access_list.port]+)
+	;
+
 

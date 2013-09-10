@@ -324,14 +324,21 @@ join_operation
 	;
 	
 join_part
-	: 	RW_JOIN port_access_list
+	: 	RW_JOIN port_access_list	
 		-> ^(RW_JOIN port_access_list)
+	| 	RW_DECIDE special_port_access_list
+		-> ^(RW_DECIDE special_port_access_list)
+		
 	;	 
 	
 port_access_list
 	:	LIST_OPEN port_access (COMMA port_access)* LIST_CLOSE
 		-> ^(PORT_ACCESS_LIST port_access+)
-	|	RW_REMAINING
-		-> ^(PORT_ACCESS_LIST RW_REMAINING)
+	//|	RW_REMAINING
+	//	-> ^(PORT_ACCESS_LIST RW_REMAINING)
 	;
-
+	
+special_port_access_list
+	:	LIST_OPEN p1=port_access COLON p2=port_access COMMA p3=port_access (COMMA p4=port_access)* LIST_CLOSE
+		-> ^(PORT_ACCESS_LIST $p1 $p2 $p3 $p4*)
+	;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pt.uminho.di.ap.model_v0;
+package pt.uminho.di.cp.model.graph;
 
 /**
  * @author Nuno Oliveira

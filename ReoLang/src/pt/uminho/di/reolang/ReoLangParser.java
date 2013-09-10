@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g 2013-04-11 01:51:07
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2013-09-10 15:10:00
 
 	package pt.uminho.di.reolang;
 	import java.text.*;
@@ -17,7 +17,7 @@ import org.antlr.runtime.tree.*;
 
 public class ReoLangParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RW_REMAINING", "RW_JOIN", "RW_AS", "RW_OF", "RW_USE", "RW_IN", "RW_NULL", "RW_PATTERN", "RW_EXTENDS", "RW_FLOW", "RW_TO", "RW_OBSERVERS", "RW_STATE", "RW_CHANNEL", "RW_IMPORT", "LIST_OPEN", "LIST_CLOSE", "EQUALS", "SEMICOLON", "COMMA", "COLON", "PORTS_OPEN", "PORTS_CLOSE", "BODY_OPEN", "BODY_CLOSE", "ACCESS_MARK", "QUESTION_MARK", "NOT_MARK", "ARROW_MARK", "LABEL_MARK", "STRUCTURE_MARK", "TIME_MARK", "OP_SYNC", "COND_OPEN", "COND_CLOSE", "STRING", "FILE_PATH", "ID", "INT", "FLOAT", "COMMENT", "WS", "ESC_SEQ", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "REO_LANG", "ELEMENT", "DIRECTIVE", "IMPORT", "CHANNEL", "SIGNATURE", "OPTION", "TIMED", "TIME", "STRUCTURED", "DIMENSION", "CHANNEL_PORTS", "IN_PORTS", "OUT_PORTS", "PORT", "CONDITION", "COND_ELEMENTS", "EXTENSION", "CHANNEL_BODY", "FLOWS", "CHANNEL_STATE", "STATE_REF", "STATE_OBS", "FLOW", "REQUESTS", "REQUEST", "FLOW_TYPE", "NORMAL_FLOW", "FLOW_POINT", "FLOW_OP", "IF_FLOW", "FLOW_TRUE", "FLOW_FALSE", "PATTERN", "PATTERN_SIGNATURE", "PATTERN_PORTS", "PATTERN_BODY", "PATTERN_DECLARATIONS", "DECLARATION", "INSTANCES", "DECLARATION_TYPE", "PATTERN_COMPOSITIONS", "PORT_DEFINITION", "PORT_ACTUAL_DEFINITION", "PORT_ACCESS", "JOIN_OP", "PORT_ACCESS_LIST", "STOCH"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RW_DECIDE", "RW_JOIN", "RW_AS", "RW_OF", "RW_USE", "RW_IN", "RW_NULL", "RW_PATTERN", "RW_EXTENDS", "RW_FLOW", "RW_TO", "RW_OBSERVERS", "RW_STATE", "RW_CHANNEL", "RW_IMPORT", "LIST_OPEN", "LIST_CLOSE", "EQUALS", "SEMICOLON", "COMMA", "COLON", "PORTS_OPEN", "PORTS_CLOSE", "BODY_OPEN", "BODY_CLOSE", "ACCESS_MARK", "QUESTION_MARK", "NOT_MARK", "ARROW_MARK", "LABEL_MARK", "STRUCTURE_MARK", "TIME_MARK", "OP_SYNC", "COND_OPEN", "COND_CLOSE", "STRING", "FILE_PATH", "ID", "INT", "FLOAT", "COMMENT", "WS", "ESC_SEQ", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "REO_LANG", "ELEMENT", "DIRECTIVE", "IMPORT", "CHANNEL", "SIGNATURE", "OPTION", "TIMED", "TIME", "STRUCTURED", "DIMENSION", "CHANNEL_PORTS", "IN_PORTS", "OUT_PORTS", "PORT", "CONDITION", "COND_ELEMENTS", "EXTENSION", "CHANNEL_BODY", "FLOWS", "CHANNEL_STATE", "STATE_REF", "STATE_OBS", "FLOW", "REQUESTS", "REQUEST", "FLOW_TYPE", "NORMAL_FLOW", "FLOW_POINT", "FLOW_OP", "IF_FLOW", "FLOW_TRUE", "FLOW_FALSE", "PATTERN", "PATTERN_SIGNATURE", "PATTERN_PORTS", "PATTERN_BODY", "PATTERN_DECLARATIONS", "DECLARATION", "INSTANCES", "DECLARATION_TYPE", "PATTERN_COMPOSITIONS", "PORT_DEFINITION", "PORT_ACTUAL_DEFINITION", "PORT_ACCESS", "JOIN_OP", "PORT_ACCESS_LIST", "STOCH"
     };
     public static final int PATTERN_PORTS=85;
     public static final int IN_PORTS=62;
@@ -95,7 +95,6 @@ public class ReoLangParser extends Parser {
     public static final int RW_AS=6;
     public static final int STATE_REF=71;
     public static final int OP_SYNC=36;
-    public static final int RW_REMAINING=4;
     public static final int CHANNEL_BODY=68;
     public static final int LIST_CLOSE=20;
     public static final int JOIN_OP=95;
@@ -109,6 +108,7 @@ public class ReoLangParser extends Parser {
     public static final int STATE_OBS=72;
     public static final int PORT_ACCESS_LIST=96;
     public static final int FLOW_POINT=78;
+    public static final int RW_DECIDE=4;
     public static final int RW_IN=9;
     public static final int PORT_ACCESS=94;
     public static final int EXTENSION=67;
@@ -137,7 +137,7 @@ public class ReoLangParser extends Parser {
     }
 
     public String[] getTokenNames() { return ReoLangParser.tokenNames; }
-    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g"; }
+    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g"; }
 
 
     	private ArrayList<Error> syntax_errors = new ArrayList<Error>();
@@ -167,7 +167,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "reolang"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:94:1: reolang : ( directive_def )* ( element )* -> ^( REO_LANG ( directive_def )* ( element )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:94:1: reolang : ( directive_def )* ( element )* -> ^( REO_LANG ( directive_def )* ( element )* ) ;
     public final ReoLangParser.reolang_return reolang() throws RecognitionException {
         ReoLangParser.reolang_return retval = new ReoLangParser.reolang_return();
         retval.start = input.LT(1);
@@ -182,10 +182,10 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_element=new RewriteRuleSubtreeStream(adaptor,"rule element");
         RewriteRuleSubtreeStream stream_directive_def=new RewriteRuleSubtreeStream(adaptor,"rule directive_def");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:2: ( ( directive_def )* ( element )* -> ^( REO_LANG ( directive_def )* ( element )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:4: ( directive_def )* ( element )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:2: ( ( directive_def )* ( element )* -> ^( REO_LANG ( directive_def )* ( element )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:4: ( directive_def )* ( element )*
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:4: ( directive_def )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:4: ( directive_def )*
             loop1:
             do {
                 int alt1=2;
@@ -198,7 +198,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:4: directive_def
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:4: directive_def
             	    {
             	    pushFollow(FOLLOW_directive_def_in_reolang251);
             	    directive_def1=directive_def();
@@ -215,7 +215,7 @@ public class ReoLangParser extends Parser {
                 }
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:19: ( element )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:19: ( element )*
             loop2:
             do {
                 int alt2=2;
@@ -228,7 +228,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:19: element
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:19: element
             	    {
             	    pushFollow(FOLLOW_element_in_reolang254);
             	    element2=element();
@@ -248,7 +248,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: element, directive_def
+            // elements: directive_def, element
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -260,18 +260,18 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 95:28: -> ^( REO_LANG ( directive_def )* ( element )* )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:31: ^( REO_LANG ( directive_def )* ( element )* )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:31: ^( REO_LANG ( directive_def )* ( element )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(REO_LANG, "REO_LANG"), root_1);
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:42: ( directive_def )*
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:42: ( directive_def )*
                 while ( stream_directive_def.hasNext() ) {
                     adaptor.addChild(root_1, stream_directive_def.nextTree());
 
                 }
                 stream_directive_def.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:95:57: ( element )*
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:95:57: ( element )*
                 while ( stream_element.hasNext() ) {
                     adaptor.addChild(root_1, stream_element.nextTree());
 
@@ -310,7 +310,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "element"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:98:1: element : ( channel_def -> ^( ELEMENT channel_def ) | pattern_def -> ^( ELEMENT pattern_def ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:98:1: element : ( channel_def -> ^( ELEMENT channel_def ) | pattern_def -> ^( ELEMENT pattern_def ) );
     public final ReoLangParser.element_return element() throws RecognitionException {
         ReoLangParser.element_return retval = new ReoLangParser.element_return();
         retval.start = input.LT(1);
@@ -325,7 +325,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_channel_def=new RewriteRuleSubtreeStream(adaptor,"rule channel_def");
         RewriteRuleSubtreeStream stream_pattern_def=new RewriteRuleSubtreeStream(adaptor,"rule pattern_def");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:99:2: ( channel_def -> ^( ELEMENT channel_def ) | pattern_def -> ^( ELEMENT pattern_def ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:99:2: ( channel_def -> ^( ELEMENT channel_def ) | pattern_def -> ^( ELEMENT pattern_def ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -343,7 +343,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:99:4: channel_def
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:99:4: channel_def
                     {
                     pushFollow(FOLLOW_channel_def_in_element279);
                     channel_def3=channel_def();
@@ -366,7 +366,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 99:17: -> ^( ELEMENT channel_def )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:99:20: ^( ELEMENT channel_def )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:99:20: ^( ELEMENT channel_def )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ELEMENT, "ELEMENT"), root_1);
@@ -382,7 +382,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:100:4: pattern_def
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:100:4: pattern_def
                     {
                     pushFollow(FOLLOW_pattern_def_in_element293);
                     pattern_def4=pattern_def();
@@ -405,7 +405,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 100:17: -> ^( ELEMENT pattern_def )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:100:20: ^( ELEMENT pattern_def )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:100:20: ^( ELEMENT pattern_def )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ELEMENT, "ELEMENT"), root_1);
@@ -446,7 +446,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "directive_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:107:1: directive_def : directive_import -> ^( DIRECTIVE directive_import ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:107:1: directive_def : directive_import -> ^( DIRECTIVE directive_import ) ;
     public final ReoLangParser.directive_def_return directive_def() throws RecognitionException {
         ReoLangParser.directive_def_return retval = new ReoLangParser.directive_def_return();
         retval.start = input.LT(1);
@@ -458,8 +458,8 @@ public class ReoLangParser extends Parser {
 
         RewriteRuleSubtreeStream stream_directive_import=new RewriteRuleSubtreeStream(adaptor,"rule directive_import");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:108:2: ( directive_import -> ^( DIRECTIVE directive_import ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:108:4: directive_import
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:108:2: ( directive_import -> ^( DIRECTIVE directive_import ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:108:4: directive_import
             {
             pushFollow(FOLLOW_directive_import_in_directive_def317);
             directive_import5=directive_import();
@@ -482,7 +482,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 108:21: -> ^( DIRECTIVE directive_import )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:108:24: ^( DIRECTIVE directive_import )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:108:24: ^( DIRECTIVE directive_import )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DIRECTIVE, "DIRECTIVE"), root_1);
@@ -521,7 +521,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "directive_import"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:112:1: directive_import : RW_IMPORT FILE_PATH SEMICOLON -> ^( IMPORT FILE_PATH ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:112:1: directive_import : RW_IMPORT FILE_PATH SEMICOLON -> ^( IMPORT FILE_PATH ) ;
     public final ReoLangParser.directive_import_return directive_import() throws RecognitionException {
         ReoLangParser.directive_import_return retval = new ReoLangParser.directive_import_return();
         retval.start = input.LT(1);
@@ -540,8 +540,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_FILE_PATH=new RewriteRuleTokenStream(adaptor,"token FILE_PATH");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:113:2: ( RW_IMPORT FILE_PATH SEMICOLON -> ^( IMPORT FILE_PATH ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:113:4: RW_IMPORT FILE_PATH SEMICOLON
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:113:2: ( RW_IMPORT FILE_PATH SEMICOLON -> ^( IMPORT FILE_PATH ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:113:4: RW_IMPORT FILE_PATH SEMICOLON
             {
             RW_IMPORT6=(Token)match(input,RW_IMPORT,FOLLOW_RW_IMPORT_in_directive_import338);  
             stream_RW_IMPORT.add(RW_IMPORT6);
@@ -567,7 +567,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 113:34: -> ^( IMPORT FILE_PATH )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:113:37: ^( IMPORT FILE_PATH )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:113:37: ^( IMPORT FILE_PATH )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IMPORT, "IMPORT"), root_1);
@@ -606,7 +606,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "channel_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:127:1: channel_def : RW_CHANNEL channel_signature ( extension )? BODY_OPEN channel_body BODY_CLOSE -> ^( CHANNEL channel_signature ( extension )? channel_body ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:127:1: channel_def : RW_CHANNEL channel_signature ( extension )? BODY_OPEN channel_body BODY_CLOSE -> ^( CHANNEL channel_signature ( extension )? channel_body ) ;
     public final ReoLangParser.channel_def_return channel_def() throws RecognitionException {
         ReoLangParser.channel_def_return retval = new ReoLangParser.channel_def_return();
         retval.start = input.LT(1);
@@ -633,8 +633,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_channel_body=new RewriteRuleSubtreeStream(adaptor,"rule channel_body");
         RewriteRuleSubtreeStream stream_channel_signature=new RewriteRuleSubtreeStream(adaptor,"rule channel_signature");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:128:2: ( RW_CHANNEL channel_signature ( extension )? BODY_OPEN channel_body BODY_CLOSE -> ^( CHANNEL channel_signature ( extension )? channel_body ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:128:4: RW_CHANNEL channel_signature ( extension )? BODY_OPEN channel_body BODY_CLOSE
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:128:2: ( RW_CHANNEL channel_signature ( extension )? BODY_OPEN channel_body BODY_CLOSE -> ^( CHANNEL channel_signature ( extension )? channel_body ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:128:4: RW_CHANNEL channel_signature ( extension )? BODY_OPEN channel_body BODY_CLOSE
             {
             RW_CHANNEL9=(Token)match(input,RW_CHANNEL,FOLLOW_RW_CHANNEL_in_channel_def373);  
             stream_RW_CHANNEL.add(RW_CHANNEL9);
@@ -645,7 +645,7 @@ public class ReoLangParser extends Parser {
             state._fsp--;
 
             stream_channel_signature.add(channel_signature10.getTree());
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:128:33: ( extension )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:128:33: ( extension )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -654,7 +654,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt4) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:128:33: extension
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:128:33: extension
                     {
                     pushFollow(FOLLOW_extension_in_channel_def377);
                     extension11=extension();
@@ -683,7 +683,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: channel_signature, extension, channel_body
+            // elements: extension, channel_body, channel_signature
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -695,13 +695,13 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 129:3: -> ^( CHANNEL channel_signature ( extension )? channel_body )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:129:6: ^( CHANNEL channel_signature ( extension )? channel_body )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:129:6: ^( CHANNEL channel_signature ( extension )? channel_body )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CHANNEL, "CHANNEL"), root_1);
 
                 adaptor.addChild(root_1, stream_channel_signature.nextTree());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:129:34: ( extension )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:129:34: ( extension )?
                 if ( stream_extension.hasNext() ) {
                     adaptor.addChild(root_1, stream_extension.nextTree());
 
@@ -741,7 +741,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "channel_signature"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:134:1: channel_signature : ID ( option )? PORTS_OPEN (in= ports )? COLON (out= ports )? ( COLON ID EQUALS condition )? PORTS_CLOSE -> ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:134:1: channel_signature : ID ( option )? PORTS_OPEN (in= ports )? COLON (out= ports )? ( COLON ID EQUALS condition )? PORTS_CLOSE -> ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? ) ;
     public final ReoLangParser.channel_signature_return channel_signature() throws RecognitionException {
         ReoLangParser.channel_signature_return retval = new ReoLangParser.channel_signature_return();
         retval.start = input.LT(1);
@@ -780,13 +780,13 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_condition=new RewriteRuleSubtreeStream(adaptor,"rule condition");
         RewriteRuleSubtreeStream stream_option=new RewriteRuleSubtreeStream(adaptor,"rule option");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:2: ( ID ( option )? PORTS_OPEN (in= ports )? COLON (out= ports )? ( COLON ID EQUALS condition )? PORTS_CLOSE -> ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:4: ID ( option )? PORTS_OPEN (in= ports )? COLON (out= ports )? ( COLON ID EQUALS condition )? PORTS_CLOSE
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:2: ( ID ( option )? PORTS_OPEN (in= ports )? COLON (out= ports )? ( COLON ID EQUALS condition )? PORTS_CLOSE -> ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:4: ID ( option )? PORTS_OPEN (in= ports )? COLON (out= ports )? ( COLON ID EQUALS condition )? PORTS_CLOSE
             {
             ID15=(Token)match(input,ID,FOLLOW_ID_in_channel_signature414);  
             stream_ID.add(ID15);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:7: ( option )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:7: ( option )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -795,7 +795,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:7: option
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:7: option
                     {
                     pushFollow(FOLLOW_option_in_channel_signature416);
                     option16=option();
@@ -812,7 +812,7 @@ public class ReoLangParser extends Parser {
             PORTS_OPEN17=(Token)match(input,PORTS_OPEN,FOLLOW_PORTS_OPEN_in_channel_signature419);  
             stream_PORTS_OPEN.add(PORTS_OPEN17);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:28: (in= ports )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:28: (in= ports )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -821,7 +821,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:28: in= ports
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:28: in= ports
                     {
                     pushFollow(FOLLOW_ports_in_channel_signature423);
                     in=ports();
@@ -838,7 +838,7 @@ public class ReoLangParser extends Parser {
             COLON18=(Token)match(input,COLON,FOLLOW_COLON_in_channel_signature426);  
             stream_COLON.add(COLON18);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:45: (out= ports )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:45: (out= ports )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -847,7 +847,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:45: out= ports
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:45: out= ports
                     {
                     pushFollow(FOLLOW_ports_in_channel_signature430);
                     out=ports();
@@ -861,7 +861,7 @@ public class ReoLangParser extends Parser {
 
             }
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:53: ( COLON ID EQUALS condition )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:53: ( COLON ID EQUALS condition )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -870,7 +870,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:135:54: COLON ID EQUALS condition
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:135:54: COLON ID EQUALS condition
                     {
                     COLON19=(Token)match(input,COLON,FOLLOW_COLON_in_channel_signature434);  
                     stream_COLON.add(COLON19);
@@ -899,7 +899,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: in, option, ID, ID, condition, out
+            // elements: ID, out, option, ID, in, condition
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -913,26 +913,26 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 136:3: -> ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:6: ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:6: ^( SIGNATURE ID ( option )? ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ( ^( CONDITION ID condition ) )? )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SIGNATURE, "SIGNATURE"), root_1);
 
                 adaptor.addChild(root_1, stream_ID.nextNode());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:21: ( option )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:21: ( option )?
                 if ( stream_option.hasNext() ) {
                     adaptor.addChild(root_1, stream_option.nextTree());
 
                 }
                 stream_option.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:29: ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:29: ^( CHANNEL_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(CHANNEL_PORTS, "CHANNEL_PORTS"), root_2);
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:45: ( ^( IN_PORTS $in) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:45: ( ^( IN_PORTS $in) )?
                 if ( stream_in.hasNext() ) {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:46: ^( IN_PORTS $in)
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:46: ^( IN_PORTS $in)
                     {
                     Object root_3 = (Object)adaptor.nil();
                     root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(IN_PORTS, "IN_PORTS"), root_3);
@@ -944,9 +944,9 @@ public class ReoLangParser extends Parser {
 
                 }
                 stream_in.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:64: ( ^( OUT_PORTS $out) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:64: ( ^( OUT_PORTS $out) )?
                 if ( stream_out.hasNext() ) {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:65: ^( OUT_PORTS $out)
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:65: ^( OUT_PORTS $out)
                     {
                     Object root_3 = (Object)adaptor.nil();
                     root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(OUT_PORTS, "OUT_PORTS"), root_3);
@@ -961,9 +961,9 @@ public class ReoLangParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:86: ( ^( CONDITION ID condition ) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:86: ( ^( CONDITION ID condition ) )?
                 if ( stream_ID.hasNext()||stream_condition.hasNext() ) {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:136:87: ^( CONDITION ID condition )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:136:87: ^( CONDITION ID condition )
                     {
                     Object root_2 = (Object)adaptor.nil();
                     root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONDITION, "CONDITION"), root_2);
@@ -1010,7 +1010,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "option"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:140:1: option : ( timed -> ^( OPTION timed ) | structured -> ^( OPTION structured ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:140:1: option : ( timed -> ^( OPTION timed ) | structured -> ^( OPTION structured ) );
     public final ReoLangParser.option_return option() throws RecognitionException {
         ReoLangParser.option_return retval = new ReoLangParser.option_return();
         retval.start = input.LT(1);
@@ -1025,7 +1025,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_timed=new RewriteRuleSubtreeStream(adaptor,"rule timed");
         RewriteRuleSubtreeStream stream_structured=new RewriteRuleSubtreeStream(adaptor,"rule structured");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:141:2: ( timed -> ^( OPTION timed ) | structured -> ^( OPTION structured ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:141:2: ( timed -> ^( OPTION timed ) | structured -> ^( OPTION structured ) )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1043,7 +1043,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt9) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:141:4: timed
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:141:4: timed
                     {
                     pushFollow(FOLLOW_timed_in_option504);
                     timed24=timed();
@@ -1066,7 +1066,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 141:11: -> ^( OPTION timed )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:141:14: ^( OPTION timed )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:141:14: ^( OPTION timed )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(OPTION, "OPTION"), root_1);
@@ -1082,7 +1082,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:142:4: structured
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:142:4: structured
                     {
                     pushFollow(FOLLOW_structured_in_option518);
                     structured25=structured();
@@ -1105,7 +1105,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 142:15: -> ^( OPTION structured )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:142:18: ^( OPTION structured )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:142:18: ^( OPTION structured )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(OPTION, "OPTION"), root_1);
@@ -1146,7 +1146,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "timed"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:146:1: timed : TIME_MARK time -> ^( TIMED time ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:146:1: timed : TIME_MARK time -> ^( TIMED time ) ;
     public final ReoLangParser.timed_return timed() throws RecognitionException {
         ReoLangParser.timed_return retval = new ReoLangParser.timed_return();
         retval.start = input.LT(1);
@@ -1161,8 +1161,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_TIME_MARK=new RewriteRuleTokenStream(adaptor,"token TIME_MARK");
         RewriteRuleSubtreeStream stream_time=new RewriteRuleSubtreeStream(adaptor,"rule time");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:147:2: ( TIME_MARK time -> ^( TIMED time ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:147:4: TIME_MARK time
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:147:2: ( TIME_MARK time -> ^( TIMED time ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:147:4: TIME_MARK time
             {
             TIME_MARK26=(Token)match(input,TIME_MARK,FOLLOW_TIME_MARK_in_timed538);  
             stream_TIME_MARK.add(TIME_MARK26);
@@ -1188,7 +1188,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 148:3: -> ^( TIMED time )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:148:6: ^( TIMED time )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:148:6: ^( TIMED time )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TIMED, "TIMED"), root_1);
@@ -1227,7 +1227,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "time"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:152:1: time : ( ID -> ^( TIME ID ) | INT -> ^( TIME INT ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:152:1: time : ( ID -> ^( TIME ID ) | INT -> ^( TIME INT ) );
     public final ReoLangParser.time_return time() throws RecognitionException {
         ReoLangParser.time_return retval = new ReoLangParser.time_return();
         retval.start = input.LT(1);
@@ -1243,7 +1243,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:153:2: ( ID -> ^( TIME ID ) | INT -> ^( TIME INT ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:153:2: ( ID -> ^( TIME ID ) | INT -> ^( TIME INT ) )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1261,7 +1261,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt10) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:153:4: ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:153:4: ID
                     {
                     ID28=(Token)match(input,ID,FOLLOW_ID_in_time563);  
                     stream_ID.add(ID28);
@@ -1281,7 +1281,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 153:11: -> ^( TIME ID )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:153:14: ^( TIME ID )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:153:14: ^( TIME ID )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TIME, "TIME"), root_1);
@@ -1297,7 +1297,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:154:4: INT
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:154:4: INT
                     {
                     INT29=(Token)match(input,INT,FOLLOW_INT_in_time580);  
                     stream_INT.add(INT29);
@@ -1317,7 +1317,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 154:11: -> ^( TIME INT )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:154:14: ^( TIME INT )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:154:14: ^( TIME INT )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TIME, "TIME"), root_1);
@@ -1358,7 +1358,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "structured"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:158:1: structured : STRUCTURE_MARK structure_dimension ( COMMA structure_dimension )* -> ^( STRUCTURED ( structure_dimension )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:158:1: structured : STRUCTURE_MARK structure_dimension ( COMMA structure_dimension )* -> ^( STRUCTURED ( structure_dimension )+ ) ;
     public final ReoLangParser.structured_return structured() throws RecognitionException {
         ReoLangParser.structured_return retval = new ReoLangParser.structured_return();
         retval.start = input.LT(1);
@@ -1378,8 +1378,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_STRUCTURE_MARK=new RewriteRuleTokenStream(adaptor,"token STRUCTURE_MARK");
         RewriteRuleSubtreeStream stream_structure_dimension=new RewriteRuleSubtreeStream(adaptor,"rule structure_dimension");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:159:2: ( STRUCTURE_MARK structure_dimension ( COMMA structure_dimension )* -> ^( STRUCTURED ( structure_dimension )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:159:4: STRUCTURE_MARK structure_dimension ( COMMA structure_dimension )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:159:2: ( STRUCTURE_MARK structure_dimension ( COMMA structure_dimension )* -> ^( STRUCTURED ( structure_dimension )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:159:4: STRUCTURE_MARK structure_dimension ( COMMA structure_dimension )*
             {
             STRUCTURE_MARK30=(Token)match(input,STRUCTURE_MARK,FOLLOW_STRUCTURE_MARK_in_structured604);  
             stream_STRUCTURE_MARK.add(STRUCTURE_MARK30);
@@ -1390,7 +1390,7 @@ public class ReoLangParser extends Parser {
             state._fsp--;
 
             stream_structure_dimension.add(structure_dimension31.getTree());
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:159:39: ( COMMA structure_dimension )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:159:39: ( COMMA structure_dimension )*
             loop11:
             do {
                 int alt11=2;
@@ -1403,7 +1403,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:159:40: COMMA structure_dimension
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:159:40: COMMA structure_dimension
             	    {
             	    COMMA32=(Token)match(input,COMMA,FOLLOW_COMMA_in_structured609);  
             	    stream_COMMA.add(COMMA32);
@@ -1438,7 +1438,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 160:3: -> ^( STRUCTURED ( structure_dimension )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:160:6: ^( STRUCTURED ( structure_dimension )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:160:6: ^( STRUCTURED ( structure_dimension )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STRUCTURED, "STRUCTURED"), root_1);
@@ -1484,7 +1484,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "structure_dimension"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:164:1: structure_dimension : ( ID -> ^( DIMENSION ID ) | INT -> ^( DIMENSION INT ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:164:1: structure_dimension : ( ID -> ^( DIMENSION ID ) | INT -> ^( DIMENSION INT ) );
     public final ReoLangParser.structure_dimension_return structure_dimension() throws RecognitionException {
         ReoLangParser.structure_dimension_return retval = new ReoLangParser.structure_dimension_return();
         retval.start = input.LT(1);
@@ -1500,7 +1500,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:165:2: ( ID -> ^( DIMENSION ID ) | INT -> ^( DIMENSION INT ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:165:2: ( ID -> ^( DIMENSION ID ) | INT -> ^( DIMENSION INT ) )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1518,7 +1518,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:165:4: ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:165:4: ID
                     {
                     ID34=(Token)match(input,ID,FOLLOW_ID_in_structure_dimension638);  
                     stream_ID.add(ID34);
@@ -1538,7 +1538,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 165:10: -> ^( DIMENSION ID )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:165:13: ^( DIMENSION ID )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:165:13: ^( DIMENSION ID )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DIMENSION, "DIMENSION"), root_1);
@@ -1554,7 +1554,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:166:4: INT
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:166:4: INT
                     {
                     INT35=(Token)match(input,INT,FOLLOW_INT_in_structure_dimension654);  
                     stream_INT.add(INT35);
@@ -1574,7 +1574,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 166:11: -> ^( DIMENSION INT )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:166:14: ^( DIMENSION INT )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:166:14: ^( DIMENSION INT )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DIMENSION, "DIMENSION"), root_1);
@@ -1615,7 +1615,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "ports"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:170:1: ports : ID ( COMMA ID )* -> ^( PORT ( ID )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:170:1: ports : ID ( COMMA ID )* -> ^( PORT ( ID )+ ) ;
     public final ReoLangParser.ports_return ports() throws RecognitionException {
         ReoLangParser.ports_return retval = new ReoLangParser.ports_return();
         retval.start = input.LT(1);
@@ -1633,13 +1633,13 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:171:2: ( ID ( COMMA ID )* -> ^( PORT ( ID )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:171:4: ID ( COMMA ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:171:2: ( ID ( COMMA ID )* -> ^( PORT ( ID )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:171:4: ID ( COMMA ID )*
             {
             ID36=(Token)match(input,ID,FOLLOW_ID_in_ports677);  
             stream_ID.add(ID36);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:171:7: ( COMMA ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:171:7: ( COMMA ID )*
             loop13:
             do {
                 int alt13=2;
@@ -1652,7 +1652,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt13) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:171:8: COMMA ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:171:8: COMMA ID
             	    {
             	    COMMA37=(Token)match(input,COMMA,FOLLOW_COMMA_in_ports680);  
             	    stream_COMMA.add(COMMA37);
@@ -1684,7 +1684,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 171:20: -> ^( PORT ( ID )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:171:23: ^( PORT ( ID )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:171:23: ^( PORT ( ID )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT, "PORT"), root_1);
@@ -1730,7 +1730,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "condition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:175:1: condition : COND_OPEN ID ( COMMA ID )* COND_CLOSE -> ^( COND_ELEMENTS ( ID )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:175:1: condition : COND_OPEN ID ( COMMA ID )* COND_CLOSE -> ^( COND_ELEMENTS ( ID )+ ) ;
     public final ReoLangParser.condition_return condition() throws RecognitionException {
         ReoLangParser.condition_return retval = new ReoLangParser.condition_return();
         retval.start = input.LT(1);
@@ -1754,8 +1754,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:176:2: ( COND_OPEN ID ( COMMA ID )* COND_CLOSE -> ^( COND_ELEMENTS ( ID )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:176:4: COND_OPEN ID ( COMMA ID )* COND_CLOSE
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:176:2: ( COND_OPEN ID ( COMMA ID )* COND_CLOSE -> ^( COND_ELEMENTS ( ID )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:176:4: COND_OPEN ID ( COMMA ID )* COND_CLOSE
             {
             COND_OPEN39=(Token)match(input,COND_OPEN,FOLLOW_COND_OPEN_in_condition709);  
             stream_COND_OPEN.add(COND_OPEN39);
@@ -1763,7 +1763,7 @@ public class ReoLangParser extends Parser {
             ID40=(Token)match(input,ID,FOLLOW_ID_in_condition711);  
             stream_ID.add(ID40);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:176:17: ( COMMA ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:176:17: ( COMMA ID )*
             loop14:
             do {
                 int alt14=2;
@@ -1776,7 +1776,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt14) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:176:18: COMMA ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:176:18: COMMA ID
             	    {
             	    COMMA41=(Token)match(input,COMMA,FOLLOW_COMMA_in_condition714);  
             	    stream_COMMA.add(COMMA41);
@@ -1811,7 +1811,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 176:40: -> ^( COND_ELEMENTS ( ID )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:176:43: ^( COND_ELEMENTS ( ID )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:176:43: ^( COND_ELEMENTS ( ID )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COND_ELEMENTS, "COND_ELEMENTS"), root_1);
@@ -1857,7 +1857,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "extension"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:180:1: extension : RW_EXTENDS ID -> ^( EXTENSION ID ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:180:1: extension : RW_EXTENDS ID -> ^( EXTENSION ID ) ;
     public final ReoLangParser.extension_return extension() throws RecognitionException {
         ReoLangParser.extension_return retval = new ReoLangParser.extension_return();
         retval.start = input.LT(1);
@@ -1873,8 +1873,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:181:2: ( RW_EXTENDS ID -> ^( EXTENSION ID ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:181:4: RW_EXTENDS ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:181:2: ( RW_EXTENDS ID -> ^( EXTENSION ID ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:181:4: RW_EXTENDS ID
             {
             RW_EXTENDS44=(Token)match(input,RW_EXTENDS,FOLLOW_RW_EXTENDS_in_extension742);  
             stream_RW_EXTENDS.add(RW_EXTENDS44);
@@ -1897,7 +1897,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 181:18: -> ^( EXTENSION ID )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:181:21: ^( EXTENSION ID )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:181:21: ^( EXTENSION ID )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXTENSION, "EXTENSION"), root_1);
@@ -1936,7 +1936,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "channel_body"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:185:1: channel_body : ( state_def )? flow_def SEMICOLON ( flow_def SEMICOLON )* -> ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:185:1: channel_body : ( state_def )? flow_def SEMICOLON ( flow_def SEMICOLON )* -> ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) ) ;
     public final ReoLangParser.channel_body_return channel_body() throws RecognitionException {
         ReoLangParser.channel_body_return retval = new ReoLangParser.channel_body_return();
         retval.start = input.LT(1);
@@ -1958,10 +1958,10 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_flow_def=new RewriteRuleSubtreeStream(adaptor,"rule flow_def");
         RewriteRuleSubtreeStream stream_state_def=new RewriteRuleSubtreeStream(adaptor,"rule state_def");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:186:2: ( ( state_def )? flow_def SEMICOLON ( flow_def SEMICOLON )* -> ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:186:4: ( state_def )? flow_def SEMICOLON ( flow_def SEMICOLON )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:186:2: ( ( state_def )? flow_def SEMICOLON ( flow_def SEMICOLON )* -> ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:186:4: ( state_def )? flow_def SEMICOLON ( flow_def SEMICOLON )*
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:186:4: ( state_def )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:186:4: ( state_def )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1970,7 +1970,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt15) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:186:4: state_def
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:186:4: state_def
                     {
                     pushFollow(FOLLOW_state_def_in_channel_body765);
                     state_def46=state_def();
@@ -1993,7 +1993,7 @@ public class ReoLangParser extends Parser {
             SEMICOLON48=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_channel_body770);  
             stream_SEMICOLON.add(SEMICOLON48);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:186:34: ( flow_def SEMICOLON )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:186:34: ( flow_def SEMICOLON )*
             loop16:
             do {
                 int alt16=2;
@@ -2006,7 +2006,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt16) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:186:35: flow_def SEMICOLON
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:186:35: flow_def SEMICOLON
             	    {
             	    pushFollow(FOLLOW_flow_def_in_channel_body773);
             	    flow_def49=flow_def();
@@ -2041,18 +2041,18 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 187:3: -> ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:187:6: ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:187:6: ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CHANNEL_BODY, "CHANNEL_BODY"), root_1);
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:187:21: ( state_def )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:187:21: ( state_def )?
                 if ( stream_state_def.hasNext() ) {
                     adaptor.addChild(root_1, stream_state_def.nextTree());
 
                 }
                 stream_state_def.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:187:32: ^( FLOWS ( flow_def )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:187:32: ^( FLOWS ( flow_def )+ )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOWS, "FLOWS"), root_2);
@@ -2101,7 +2101,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "state_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:191:1: state_def : RW_STATE COLON ID SEMICOLON RW_OBSERVERS COLON ID ( COMMA ID )* SEMICOLON -> ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:191:1: state_def : RW_STATE COLON ID SEMICOLON RW_OBSERVERS COLON ID ( COMMA ID )* SEMICOLON -> ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) ) ;
     public final ReoLangParser.state_def_return state_def() throws RecognitionException {
         ReoLangParser.state_def_return retval = new ReoLangParser.state_def_return();
         retval.start = input.LT(1);
@@ -2137,8 +2137,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_RW_STATE=new RewriteRuleTokenStream(adaptor,"token RW_STATE");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:192:2: ( RW_STATE COLON ID SEMICOLON RW_OBSERVERS COLON ID ( COMMA ID )* SEMICOLON -> ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:192:4: RW_STATE COLON ID SEMICOLON RW_OBSERVERS COLON ID ( COMMA ID )* SEMICOLON
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:192:2: ( RW_STATE COLON ID SEMICOLON RW_OBSERVERS COLON ID ( COMMA ID )* SEMICOLON -> ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:192:4: RW_STATE COLON ID SEMICOLON RW_OBSERVERS COLON ID ( COMMA ID )* SEMICOLON
             {
             RW_STATE51=(Token)match(input,RW_STATE,FOLLOW_RW_STATE_in_state_def809);  
             stream_RW_STATE.add(RW_STATE51);
@@ -2161,7 +2161,7 @@ public class ReoLangParser extends Parser {
             ID57=(Token)match(input,ID,FOLLOW_ID_in_state_def821);  
             stream_ID.add(ID57);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:192:54: ( COMMA ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:192:54: ( COMMA ID )*
             loop17:
             do {
                 int alt17=2;
@@ -2174,7 +2174,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt17) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:192:55: COMMA ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:192:55: COMMA ID
             	    {
             	    COMMA58=(Token)match(input,COMMA,FOLLOW_COMMA_in_state_def824);  
             	    stream_COMMA.add(COMMA58);
@@ -2209,12 +2209,12 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 193:3: -> ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:193:6: ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:193:6: ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CHANNEL_STATE, "CHANNEL_STATE"), root_1);
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:193:22: ^( STATE_REF ID )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:193:22: ^( STATE_REF ID )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(STATE_REF, "STATE_REF"), root_2);
@@ -2223,7 +2223,7 @@ public class ReoLangParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:193:38: ^( STATE_OBS ( ID )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:193:38: ^( STATE_OBS ( ID )+ )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(STATE_OBS, "STATE_OBS"), root_2);
@@ -2272,7 +2272,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "flow_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:197:1: flow_def : requests ARROW_MARK flow_type -> ^( FLOW requests flow_type ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:197:1: flow_def : requests ARROW_MARK flow_type -> ^( FLOW requests flow_type ) ;
     public final ReoLangParser.flow_def_return flow_def() throws RecognitionException {
         ReoLangParser.flow_def_return retval = new ReoLangParser.flow_def_return();
         retval.start = input.LT(1);
@@ -2290,8 +2290,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_requests=new RewriteRuleSubtreeStream(adaptor,"rule requests");
         RewriteRuleSubtreeStream stream_flow_type=new RewriteRuleSubtreeStream(adaptor,"rule flow_type");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:198:2: ( requests ARROW_MARK flow_type -> ^( FLOW requests flow_type ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:198:4: requests ARROW_MARK flow_type
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:198:2: ( requests ARROW_MARK flow_type -> ^( FLOW requests flow_type ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:198:4: requests ARROW_MARK flow_type
             {
             pushFollow(FOLLOW_requests_in_flow_def865);
             requests61=requests();
@@ -2323,7 +2323,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 198:35: -> ^( FLOW requests flow_type )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:198:38: ^( FLOW requests flow_type )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:198:38: ^( FLOW requests flow_type )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW, "FLOW"), root_1);
@@ -2363,7 +2363,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "requests"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:203:1: requests : request ( COMMA request )* -> ^( REQUESTS ( request )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:203:1: requests : request ( COMMA request )* -> ^( REQUESTS ( request )+ ) ;
     public final ReoLangParser.requests_return requests() throws RecognitionException {
         ReoLangParser.requests_return retval = new ReoLangParser.requests_return();
         retval.start = input.LT(1);
@@ -2380,8 +2380,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_request=new RewriteRuleSubtreeStream(adaptor,"rule request");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:204:2: ( request ( COMMA request )* -> ^( REQUESTS ( request )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:204:4: request ( COMMA request )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:204:2: ( request ( COMMA request )* -> ^( REQUESTS ( request )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:204:4: request ( COMMA request )*
             {
             pushFollow(FOLLOW_request_in_requests894);
             request64=request();
@@ -2389,7 +2389,7 @@ public class ReoLangParser extends Parser {
             state._fsp--;
 
             stream_request.add(request64.getTree());
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:204:12: ( COMMA request )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:204:12: ( COMMA request )*
             loop18:
             do {
                 int alt18=2;
@@ -2402,7 +2402,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt18) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:204:13: COMMA request
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:204:13: COMMA request
             	    {
             	    COMMA65=(Token)match(input,COMMA,FOLLOW_COMMA_in_requests897);  
             	    stream_COMMA.add(COMMA65);
@@ -2437,7 +2437,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 204:29: -> ^( REQUESTS ( request )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:204:32: ^( REQUESTS ( request )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:204:32: ^( REQUESTS ( request )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(REQUESTS, "REQUESTS"), root_1);
@@ -2483,7 +2483,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "request"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:208:1: request : ( ID -> ^( REQUEST ID ) | NOT_MARK ID -> ^( REQUEST NOT_MARK ID ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:208:1: request : ( ID -> ^( REQUEST ID ) | NOT_MARK ID -> ^( REQUEST NOT_MARK ID ) );
     public final ReoLangParser.request_return request() throws RecognitionException {
         ReoLangParser.request_return retval = new ReoLangParser.request_return();
         retval.start = input.LT(1);
@@ -2501,7 +2501,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:209:2: ( ID -> ^( REQUEST ID ) | NOT_MARK ID -> ^( REQUEST NOT_MARK ID ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:209:2: ( ID -> ^( REQUEST ID ) | NOT_MARK ID -> ^( REQUEST NOT_MARK ID ) )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2519,7 +2519,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt19) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:209:4: ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:209:4: ID
                     {
                     ID67=(Token)match(input,ID,FOLLOW_ID_in_request924);  
                     stream_ID.add(ID67);
@@ -2539,7 +2539,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 209:7: -> ^( REQUEST ID )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:209:10: ^( REQUEST ID )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:209:10: ^( REQUEST ID )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(REQUEST, "REQUEST"), root_1);
@@ -2555,7 +2555,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:210:4: NOT_MARK ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:210:4: NOT_MARK ID
                     {
                     NOT_MARK68=(Token)match(input,NOT_MARK,FOLLOW_NOT_MARK_in_request937);  
                     stream_NOT_MARK.add(NOT_MARK68);
@@ -2566,7 +2566,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, NOT_MARK
+                    // elements: NOT_MARK, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2578,7 +2578,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 210:16: -> ^( REQUEST NOT_MARK ID )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:210:19: ^( REQUEST NOT_MARK ID )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:210:19: ^( REQUEST NOT_MARK ID )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(REQUEST, "REQUEST"), root_1);
@@ -2620,7 +2620,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "flow_type"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:214:1: flow_type : ( normal_flow ( flow_operation normal_flow )? ( flow_label )? -> ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? ) | if_flow -> ^( FLOW_TYPE if_flow ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:214:1: flow_type : ( normal_flow ( flow_operation normal_flow )? ( flow_label )? -> ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? ) | if_flow -> ^( FLOW_TYPE if_flow ) );
     public final ReoLangParser.flow_type_return flow_type() throws RecognitionException {
         ReoLangParser.flow_type_return retval = new ReoLangParser.flow_type_return();
         retval.start = input.LT(1);
@@ -2643,7 +2643,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_normal_flow=new RewriteRuleSubtreeStream(adaptor,"rule normal_flow");
         RewriteRuleSubtreeStream stream_flow_label=new RewriteRuleSubtreeStream(adaptor,"rule flow_label");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:215:2: ( normal_flow ( flow_operation normal_flow )? ( flow_label )? -> ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? ) | if_flow -> ^( FLOW_TYPE if_flow ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:215:2: ( normal_flow ( flow_operation normal_flow )? ( flow_label )? -> ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? ) | if_flow -> ^( FLOW_TYPE if_flow ) )
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -2661,7 +2661,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt22) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:215:4: normal_flow ( flow_operation normal_flow )? ( flow_label )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:215:4: normal_flow ( flow_operation normal_flow )? ( flow_label )?
                     {
                     pushFollow(FOLLOW_normal_flow_in_flow_type962);
                     normal_flow70=normal_flow();
@@ -2669,7 +2669,7 @@ public class ReoLangParser extends Parser {
                     state._fsp--;
 
                     stream_normal_flow.add(normal_flow70.getTree());
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:215:16: ( flow_operation normal_flow )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:215:16: ( flow_operation normal_flow )?
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
@@ -2678,7 +2678,7 @@ public class ReoLangParser extends Parser {
                     }
                     switch (alt20) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:215:17: flow_operation normal_flow
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:215:17: flow_operation normal_flow
                             {
                             pushFollow(FOLLOW_flow_operation_in_flow_type965);
                             flow_operation71=flow_operation();
@@ -2698,7 +2698,7 @@ public class ReoLangParser extends Parser {
 
                     }
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:215:46: ( flow_label )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:215:46: ( flow_label )?
                     int alt21=2;
                     int LA21_0 = input.LA(1);
 
@@ -2711,7 +2711,7 @@ public class ReoLangParser extends Parser {
                     }
                     switch (alt21) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:215:46: flow_label
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:215:46: flow_label
                             {
                             pushFollow(FOLLOW_flow_label_in_flow_type971);
                             flow_label73=flow_label();
@@ -2728,7 +2728,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: normal_flow, flow_label, flow_operation, normal_flow
+                    // elements: flow_operation, flow_label, normal_flow, normal_flow
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2740,21 +2740,21 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 216:3: -> ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:216:6: ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:216:6: ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_TYPE, "FLOW_TYPE"), root_1);
 
                         adaptor.addChild(root_1, stream_normal_flow.nextTree());
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:216:30: ( flow_operation normal_flow )?
-                        if ( stream_normal_flow.hasNext()||stream_flow_operation.hasNext() ) {
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:216:30: ( flow_operation normal_flow )?
+                        if ( stream_flow_operation.hasNext()||stream_normal_flow.hasNext() ) {
                             adaptor.addChild(root_1, stream_flow_operation.nextTree());
                             adaptor.addChild(root_1, stream_normal_flow.nextTree());
 
                         }
-                        stream_normal_flow.reset();
                         stream_flow_operation.reset();
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:216:60: ( flow_label )?
+                        stream_normal_flow.reset();
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:216:60: ( flow_label )?
                         if ( stream_flow_label.hasNext() ) {
                             adaptor.addChild(root_1, stream_flow_label.nextTree());
 
@@ -2770,7 +2770,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:217:4: if_flow
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:217:4: if_flow
                     {
                     pushFollow(FOLLOW_if_flow_in_flow_type997);
                     if_flow74=if_flow();
@@ -2793,7 +2793,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 218:3: -> ^( FLOW_TYPE if_flow )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:218:6: ^( FLOW_TYPE if_flow )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:218:6: ^( FLOW_TYPE if_flow )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_TYPE, "FLOW_TYPE"), root_1);
@@ -2834,7 +2834,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "normal_flow"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:222:1: normal_flow : RW_FLOW flow_point RW_TO ( timed )? flow_point -> ^( NORMAL_FLOW flow_point ( timed )? flow_point ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:222:1: normal_flow : RW_FLOW flow_point RW_TO ( timed )? flow_point -> ^( NORMAL_FLOW flow_point ( timed )? flow_point ) ;
     public final ReoLangParser.normal_flow_return normal_flow() throws RecognitionException {
         ReoLangParser.normal_flow_return retval = new ReoLangParser.normal_flow_return();
         retval.start = input.LT(1);
@@ -2857,8 +2857,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_timed=new RewriteRuleSubtreeStream(adaptor,"rule timed");
         RewriteRuleSubtreeStream stream_flow_point=new RewriteRuleSubtreeStream(adaptor,"rule flow_point");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:223:2: ( RW_FLOW flow_point RW_TO ( timed )? flow_point -> ^( NORMAL_FLOW flow_point ( timed )? flow_point ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:223:4: RW_FLOW flow_point RW_TO ( timed )? flow_point
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:223:2: ( RW_FLOW flow_point RW_TO ( timed )? flow_point -> ^( NORMAL_FLOW flow_point ( timed )? flow_point ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:223:4: RW_FLOW flow_point RW_TO ( timed )? flow_point
             {
             RW_FLOW75=(Token)match(input,RW_FLOW,FOLLOW_RW_FLOW_in_normal_flow1020);  
             stream_RW_FLOW.add(RW_FLOW75);
@@ -2872,7 +2872,7 @@ public class ReoLangParser extends Parser {
             RW_TO77=(Token)match(input,RW_TO,FOLLOW_RW_TO_in_normal_flow1024);  
             stream_RW_TO.add(RW_TO77);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:223:29: ( timed )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:223:29: ( timed )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2881,7 +2881,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt23) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:223:29: timed
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:223:29: timed
                     {
                     pushFollow(FOLLOW_timed_in_normal_flow1026);
                     timed78=timed();
@@ -2904,7 +2904,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: flow_point, flow_point, timed
+            // elements: flow_point, timed, flow_point
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2916,13 +2916,13 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 224:3: -> ^( NORMAL_FLOW flow_point ( timed )? flow_point )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:224:6: ^( NORMAL_FLOW flow_point ( timed )? flow_point )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:224:6: ^( NORMAL_FLOW flow_point ( timed )? flow_point )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(NORMAL_FLOW, "NORMAL_FLOW"), root_1);
 
                 adaptor.addChild(root_1, stream_flow_point.nextTree());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:224:31: ( timed )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:224:31: ( timed )?
                 if ( stream_timed.hasNext() ) {
                     adaptor.addChild(root_1, stream_timed.nextTree());
 
@@ -2962,7 +2962,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "flow_point"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:228:1: flow_point : ( ID -> ^( FLOW_POINT ID ) | RW_NULL -> ^( FLOW_POINT RW_NULL ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:228:1: flow_point : ( ID -> ^( FLOW_POINT ID ) | RW_NULL -> ^( FLOW_POINT RW_NULL ) );
     public final ReoLangParser.flow_point_return flow_point() throws RecognitionException {
         ReoLangParser.flow_point_return retval = new ReoLangParser.flow_point_return();
         retval.start = input.LT(1);
@@ -2978,7 +2978,7 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_RW_NULL=new RewriteRuleTokenStream(adaptor,"token RW_NULL");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:229:2: ( ID -> ^( FLOW_POINT ID ) | RW_NULL -> ^( FLOW_POINT RW_NULL ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:229:2: ( ID -> ^( FLOW_POINT ID ) | RW_NULL -> ^( FLOW_POINT RW_NULL ) )
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -2996,7 +2996,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt24) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:229:4: ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:229:4: ID
                     {
                     ID80=(Token)match(input,ID,FOLLOW_ID_in_flow_point1058);  
                     stream_ID.add(ID80);
@@ -3016,7 +3016,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 229:10: -> ^( FLOW_POINT ID )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:229:13: ^( FLOW_POINT ID )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:229:13: ^( FLOW_POINT ID )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_POINT, "FLOW_POINT"), root_1);
@@ -3032,7 +3032,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:230:5: RW_NULL
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:230:5: RW_NULL
                     {
                     RW_NULL81=(Token)match(input,RW_NULL,FOLLOW_RW_NULL_in_flow_point1075);  
                     stream_RW_NULL.add(RW_NULL81);
@@ -3052,7 +3052,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 230:14: -> ^( FLOW_POINT RW_NULL )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:230:17: ^( FLOW_POINT RW_NULL )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:230:17: ^( FLOW_POINT RW_NULL )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_POINT, "FLOW_POINT"), root_1);
@@ -3093,7 +3093,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "flow_operation"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:233:1: flow_operation : OP_SYNC -> ^( FLOW_OP OP_SYNC ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:233:1: flow_operation : OP_SYNC -> ^( FLOW_OP OP_SYNC ) ;
     public final ReoLangParser.flow_operation_return flow_operation() throws RecognitionException {
         ReoLangParser.flow_operation_return retval = new ReoLangParser.flow_operation_return();
         retval.start = input.LT(1);
@@ -3106,8 +3106,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_OP_SYNC=new RewriteRuleTokenStream(adaptor,"token OP_SYNC");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:234:2: ( OP_SYNC -> ^( FLOW_OP OP_SYNC ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:234:4: OP_SYNC
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:234:2: ( OP_SYNC -> ^( FLOW_OP OP_SYNC ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:234:4: OP_SYNC
             {
             OP_SYNC82=(Token)match(input,OP_SYNC,FOLLOW_OP_SYNC_in_flow_operation1095);  
             stream_OP_SYNC.add(OP_SYNC82);
@@ -3127,7 +3127,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 234:13: -> ^( FLOW_OP OP_SYNC )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:234:16: ^( FLOW_OP OP_SYNC )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:234:16: ^( FLOW_OP OP_SYNC )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_OP, "FLOW_OP"), root_1);
@@ -3166,7 +3166,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "if_flow"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:238:1: if_flow : ID QUESTION_MARK flow_type (f1= flow_label )? COLON flow_type (f2= flow_label )? -> ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:238:1: if_flow : ID QUESTION_MARK flow_type (f1= flow_label )? COLON flow_type (f2= flow_label )? -> ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) ) ;
     public final ReoLangParser.if_flow_return if_flow() throws RecognitionException {
         ReoLangParser.if_flow_return retval = new ReoLangParser.if_flow_return();
         retval.start = input.LT(1);
@@ -3194,8 +3194,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_flow_label=new RewriteRuleSubtreeStream(adaptor,"rule flow_label");
         RewriteRuleSubtreeStream stream_flow_type=new RewriteRuleSubtreeStream(adaptor,"rule flow_type");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:239:2: ( ID QUESTION_MARK flow_type (f1= flow_label )? COLON flow_type (f2= flow_label )? -> ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:239:4: ID QUESTION_MARK flow_type (f1= flow_label )? COLON flow_type (f2= flow_label )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:239:2: ( ID QUESTION_MARK flow_type (f1= flow_label )? COLON flow_type (f2= flow_label )? -> ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:239:4: ID QUESTION_MARK flow_type (f1= flow_label )? COLON flow_type (f2= flow_label )?
             {
             ID83=(Token)match(input,ID,FOLLOW_ID_in_if_flow1117);  
             stream_ID.add(ID83);
@@ -3209,7 +3209,7 @@ public class ReoLangParser extends Parser {
             state._fsp--;
 
             stream_flow_type.add(flow_type85.getTree());
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:239:33: (f1= flow_label )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:239:33: (f1= flow_label )?
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -3218,7 +3218,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt25) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:239:33: f1= flow_label
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:239:33: f1= flow_label
                     {
                     pushFollow(FOLLOW_flow_label_in_if_flow1125);
                     f1=flow_label();
@@ -3241,7 +3241,7 @@ public class ReoLangParser extends Parser {
             state._fsp--;
 
             stream_flow_type.add(flow_type87.getTree());
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:239:64: (f2= flow_label )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:239:64: (f2= flow_label )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3250,7 +3250,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:239:64: f2= flow_label
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:239:64: f2= flow_label
                     {
                     pushFollow(FOLLOW_flow_label_in_if_flow1134);
                     f2=flow_label();
@@ -3267,7 +3267,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: f2, flow_type, flow_type, ID, f1
+            // elements: f1, flow_type, flow_type, f2, ID
             // token labels: 
             // rule labels: retval, f1, f2
             // token list labels: 
@@ -3281,19 +3281,19 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 240:3: -> ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:240:6: ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:240:6: ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( $f1)? ) ^( FLOW_FALSE flow_type ( $f2)? ) )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_FLOW, "IF_FLOW"), root_1);
 
                 adaptor.addChild(root_1, stream_ID.nextNode());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:240:19: ^( FLOW_TRUE flow_type ( $f1)? )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:240:19: ^( FLOW_TRUE flow_type ( $f1)? )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_TRUE, "FLOW_TRUE"), root_2);
 
                 adaptor.addChild(root_2, stream_flow_type.nextTree());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:240:41: ( $f1)?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:240:41: ( $f1)?
                 if ( stream_f1.hasNext() ) {
                     adaptor.addChild(root_2, stream_f1.nextTree());
 
@@ -3302,13 +3302,13 @@ public class ReoLangParser extends Parser {
 
                 adaptor.addChild(root_1, root_2);
                 }
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:240:47: ^( FLOW_FALSE flow_type ( $f2)? )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:240:47: ^( FLOW_FALSE flow_type ( $f2)? )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(FLOW_FALSE, "FLOW_FALSE"), root_2);
 
                 adaptor.addChild(root_2, stream_flow_type.nextTree());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:240:70: ( $f2)?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:240:70: ( $f2)?
                 if ( stream_f2.hasNext() ) {
                     adaptor.addChild(root_2, stream_f2.nextTree());
 
@@ -3350,7 +3350,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "flow_label"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:245:1: flow_label : LABEL_MARK ID -> ID ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:245:1: flow_label : LABEL_MARK ID -> ID ;
     public final ReoLangParser.flow_label_return flow_label() throws RecognitionException {
         ReoLangParser.flow_label_return retval = new ReoLangParser.flow_label_return();
         retval.start = input.LT(1);
@@ -3366,8 +3366,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_LABEL_MARK=new RewriteRuleTokenStream(adaptor,"token LABEL_MARK");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:246:2: ( LABEL_MARK ID -> ID )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:246:4: LABEL_MARK ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:246:2: ( LABEL_MARK ID -> ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:246:4: LABEL_MARK ID
             {
             LABEL_MARK88=(Token)match(input,LABEL_MARK,FOLLOW_LABEL_MARK_in_flow_label1181);  
             stream_LABEL_MARK.add(LABEL_MARK88);
@@ -3421,7 +3421,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "pattern_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:260:1: pattern_def : RW_PATTERN pattern_signature BODY_OPEN pattern_body BODY_CLOSE -> ^( PATTERN pattern_signature pattern_body ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:260:1: pattern_def : RW_PATTERN pattern_signature BODY_OPEN pattern_body BODY_CLOSE -> ^( PATTERN pattern_signature pattern_body ) ;
     public final ReoLangParser.pattern_def_return pattern_def() throws RecognitionException {
         ReoLangParser.pattern_def_return retval = new ReoLangParser.pattern_def_return();
         retval.start = input.LT(1);
@@ -3445,8 +3445,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_pattern_body=new RewriteRuleSubtreeStream(adaptor,"rule pattern_body");
         RewriteRuleSubtreeStream stream_pattern_signature=new RewriteRuleSubtreeStream(adaptor,"rule pattern_signature");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:261:2: ( RW_PATTERN pattern_signature BODY_OPEN pattern_body BODY_CLOSE -> ^( PATTERN pattern_signature pattern_body ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:261:4: RW_PATTERN pattern_signature BODY_OPEN pattern_body BODY_CLOSE
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:261:2: ( RW_PATTERN pattern_signature BODY_OPEN pattern_body BODY_CLOSE -> ^( PATTERN pattern_signature pattern_body ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:261:4: RW_PATTERN pattern_signature BODY_OPEN pattern_body BODY_CLOSE
             {
             RW_PATTERN90=(Token)match(input,RW_PATTERN,FOLLOW_RW_PATTERN_in_pattern_def1211);  
             stream_RW_PATTERN.add(RW_PATTERN90);
@@ -3484,7 +3484,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 262:3: -> ^( PATTERN pattern_signature pattern_body )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:262:6: ^( PATTERN pattern_signature pattern_body )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:262:6: ^( PATTERN pattern_signature pattern_body )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERN, "PATTERN"), root_1);
@@ -3524,7 +3524,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "pattern_signature"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:265:1: pattern_signature : ID PORTS_OPEN (in= ports )? COLON (out= ports )? PORTS_CLOSE -> ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:265:1: pattern_signature : ID PORTS_OPEN (in= ports )? COLON (out= ports )? PORTS_CLOSE -> ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ) ;
     public final ReoLangParser.pattern_signature_return pattern_signature() throws RecognitionException {
         ReoLangParser.pattern_signature_return retval = new ReoLangParser.pattern_signature_return();
         retval.start = input.LT(1);
@@ -3550,8 +3550,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_PORTS_CLOSE=new RewriteRuleTokenStream(adaptor,"token PORTS_CLOSE");
         RewriteRuleSubtreeStream stream_ports=new RewriteRuleSubtreeStream(adaptor,"rule ports");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:266:2: ( ID PORTS_OPEN (in= ports )? COLON (out= ports )? PORTS_CLOSE -> ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:266:4: ID PORTS_OPEN (in= ports )? COLON (out= ports )? PORTS_CLOSE
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:266:2: ( ID PORTS_OPEN (in= ports )? COLON (out= ports )? PORTS_CLOSE -> ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:266:4: ID PORTS_OPEN (in= ports )? COLON (out= ports )? PORTS_CLOSE
             {
             ID95=(Token)match(input,ID,FOLLOW_ID_in_pattern_signature1245);  
             stream_ID.add(ID95);
@@ -3559,7 +3559,7 @@ public class ReoLangParser extends Parser {
             PORTS_OPEN96=(Token)match(input,PORTS_OPEN,FOLLOW_PORTS_OPEN_in_pattern_signature1247);  
             stream_PORTS_OPEN.add(PORTS_OPEN96);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:266:20: (in= ports )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:266:20: (in= ports )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -3568,7 +3568,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt27) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:266:20: in= ports
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:266:20: in= ports
                     {
                     pushFollow(FOLLOW_ports_in_pattern_signature1251);
                     in=ports();
@@ -3585,7 +3585,7 @@ public class ReoLangParser extends Parser {
             COLON97=(Token)match(input,COLON,FOLLOW_COLON_in_pattern_signature1254);  
             stream_COLON.add(COLON97);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:266:37: (out= ports )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:266:37: (out= ports )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -3594,7 +3594,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt28) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:266:37: out= ports
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:266:37: out= ports
                     {
                     pushFollow(FOLLOW_ports_in_pattern_signature1258);
                     out=ports();
@@ -3614,7 +3614,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, out, in
+            // elements: out, ID, in
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -3628,20 +3628,20 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 267:3: -> ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:267:6: ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:267:6: ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? ) )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERN_SIGNATURE, "PATTERN_SIGNATURE"), root_1);
 
                 adaptor.addChild(root_1, stream_ID.nextNode());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:267:29: ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:267:29: ^( PATTERN_PORTS ( ^( IN_PORTS $in) )? ( ^( OUT_PORTS $out) )? )
                 {
                 Object root_2 = (Object)adaptor.nil();
                 root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERN_PORTS, "PATTERN_PORTS"), root_2);
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:267:45: ( ^( IN_PORTS $in) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:267:45: ( ^( IN_PORTS $in) )?
                 if ( stream_in.hasNext() ) {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:267:46: ^( IN_PORTS $in)
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:267:46: ^( IN_PORTS $in)
                     {
                     Object root_3 = (Object)adaptor.nil();
                     root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(IN_PORTS, "IN_PORTS"), root_3);
@@ -3653,9 +3653,9 @@ public class ReoLangParser extends Parser {
 
                 }
                 stream_in.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:267:64: ( ^( OUT_PORTS $out) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:267:64: ( ^( OUT_PORTS $out) )?
                 if ( stream_out.hasNext() ) {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:267:65: ^( OUT_PORTS $out)
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:267:65: ^( OUT_PORTS $out)
                     {
                     Object root_3 = (Object)adaptor.nil();
                     root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(OUT_PORTS, "OUT_PORTS"), root_3);
@@ -3703,7 +3703,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "pattern_body"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:270:1: pattern_body : RW_USE COLON pattern_declarations RW_IN COLON pattern_compositions -> ^( PATTERN_BODY pattern_declarations pattern_compositions ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:270:1: pattern_body : RW_USE COLON pattern_declarations RW_IN COLON pattern_compositions -> ^( PATTERN_BODY pattern_declarations pattern_compositions ) ;
     public final ReoLangParser.pattern_body_return pattern_body() throws RecognitionException {
         ReoLangParser.pattern_body_return retval = new ReoLangParser.pattern_body_return();
         retval.start = input.LT(1);
@@ -3729,8 +3729,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_pattern_declarations=new RewriteRuleSubtreeStream(adaptor,"rule pattern_declarations");
         RewriteRuleSubtreeStream stream_pattern_compositions=new RewriteRuleSubtreeStream(adaptor,"rule pattern_compositions");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:271:2: ( RW_USE COLON pattern_declarations RW_IN COLON pattern_compositions -> ^( PATTERN_BODY pattern_declarations pattern_compositions ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:271:4: RW_USE COLON pattern_declarations RW_IN COLON pattern_compositions
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:271:2: ( RW_USE COLON pattern_declarations RW_IN COLON pattern_compositions -> ^( PATTERN_BODY pattern_declarations pattern_compositions ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:271:4: RW_USE COLON pattern_declarations RW_IN COLON pattern_compositions
             {
             RW_USE99=(Token)match(input,RW_USE,FOLLOW_RW_USE_in_pattern_body1309);  
             stream_RW_USE.add(RW_USE99);
@@ -3759,7 +3759,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: pattern_compositions, pattern_declarations
+            // elements: pattern_declarations, pattern_compositions
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3771,7 +3771,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 272:3: -> ^( PATTERN_BODY pattern_declarations pattern_compositions )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:272:6: ^( PATTERN_BODY pattern_declarations pattern_compositions )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:272:6: ^( PATTERN_BODY pattern_declarations pattern_compositions )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERN_BODY, "PATTERN_BODY"), root_1);
@@ -3811,7 +3811,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "pattern_declarations"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:275:1: pattern_declarations : declaration SEMICOLON ( declaration SEMICOLON )* -> ^( PATTERN_DECLARATIONS ( declaration )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:275:1: pattern_declarations : declaration SEMICOLON ( declaration SEMICOLON )* -> ^( PATTERN_DECLARATIONS ( declaration )+ ) ;
     public final ReoLangParser.pattern_declarations_return pattern_declarations() throws RecognitionException {
         ReoLangParser.pattern_declarations_return retval = new ReoLangParser.pattern_declarations_return();
         retval.start = input.LT(1);
@@ -3830,8 +3830,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
         RewriteRuleSubtreeStream stream_declaration=new RewriteRuleSubtreeStream(adaptor,"rule declaration");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:276:2: ( declaration SEMICOLON ( declaration SEMICOLON )* -> ^( PATTERN_DECLARATIONS ( declaration )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:276:4: declaration SEMICOLON ( declaration SEMICOLON )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:276:2: ( declaration SEMICOLON ( declaration SEMICOLON )* -> ^( PATTERN_DECLARATIONS ( declaration )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:276:4: declaration SEMICOLON ( declaration SEMICOLON )*
             {
             pushFollow(FOLLOW_declaration_in_pattern_declarations1343);
             declaration105=declaration();
@@ -3842,7 +3842,7 @@ public class ReoLangParser extends Parser {
             SEMICOLON106=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pattern_declarations1345);  
             stream_SEMICOLON.add(SEMICOLON106);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:276:26: ( declaration SEMICOLON )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:276:26: ( declaration SEMICOLON )*
             loop29:
             do {
                 int alt29=2;
@@ -3855,7 +3855,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt29) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:276:27: declaration SEMICOLON
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:276:27: declaration SEMICOLON
             	    {
             	    pushFollow(FOLLOW_declaration_in_pattern_declarations1348);
             	    declaration107=declaration();
@@ -3890,7 +3890,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 277:3: -> ^( PATTERN_DECLARATIONS ( declaration )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:277:6: ^( PATTERN_DECLARATIONS ( declaration )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:277:6: ^( PATTERN_DECLARATIONS ( declaration )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERN_DECLARATIONS, "PATTERN_DECLARATIONS"), root_1);
@@ -3936,7 +3936,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "declaration"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:280:1: declaration : reference_signature RW_AS instances -> ^( DECLARATION reference_signature instances ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:280:1: declaration : reference_signature RW_AS instances -> ^( DECLARATION reference_signature instances ) ;
     public final ReoLangParser.declaration_return declaration() throws RecognitionException {
         ReoLangParser.declaration_return retval = new ReoLangParser.declaration_return();
         retval.start = input.LT(1);
@@ -3954,8 +3954,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_reference_signature=new RewriteRuleSubtreeStream(adaptor,"rule reference_signature");
         RewriteRuleSubtreeStream stream_instances=new RewriteRuleSubtreeStream(adaptor,"rule instances");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:281:2: ( reference_signature RW_AS instances -> ^( DECLARATION reference_signature instances ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:281:4: reference_signature RW_AS instances
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:281:2: ( reference_signature RW_AS instances -> ^( DECLARATION reference_signature instances ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:281:4: reference_signature RW_AS instances
             {
             pushFollow(FOLLOW_reference_signature_in_declaration1376);
             reference_signature109=reference_signature();
@@ -3987,7 +3987,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 282:3: -> ^( DECLARATION reference_signature instances )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:282:6: ^( DECLARATION reference_signature instances )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:282:6: ^( DECLARATION reference_signature instances )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DECLARATION, "DECLARATION"), root_1);
@@ -4027,7 +4027,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "reference_signature"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:285:1: reference_signature : ( PORTS_OPEN ID PORTS_CLOSE )? channel_signature -> ^( DECLARATION_TYPE ( ID )? channel_signature ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:285:1: reference_signature : ( PORTS_OPEN ID PORTS_CLOSE )? channel_signature -> ^( DECLARATION_TYPE ( ID )? channel_signature ) ;
     public final ReoLangParser.reference_signature_return reference_signature() throws RecognitionException {
         ReoLangParser.reference_signature_return retval = new ReoLangParser.reference_signature_return();
         retval.start = input.LT(1);
@@ -4048,10 +4048,10 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_PORTS_CLOSE=new RewriteRuleTokenStream(adaptor,"token PORTS_CLOSE");
         RewriteRuleSubtreeStream stream_channel_signature=new RewriteRuleSubtreeStream(adaptor,"rule channel_signature");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:286:2: ( ( PORTS_OPEN ID PORTS_CLOSE )? channel_signature -> ^( DECLARATION_TYPE ( ID )? channel_signature ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:286:4: ( PORTS_OPEN ID PORTS_CLOSE )? channel_signature
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:286:2: ( ( PORTS_OPEN ID PORTS_CLOSE )? channel_signature -> ^( DECLARATION_TYPE ( ID )? channel_signature ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:286:4: ( PORTS_OPEN ID PORTS_CLOSE )? channel_signature
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:286:4: ( PORTS_OPEN ID PORTS_CLOSE )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:286:4: ( PORTS_OPEN ID PORTS_CLOSE )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4060,7 +4060,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:286:5: PORTS_OPEN ID PORTS_CLOSE
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:286:5: PORTS_OPEN ID PORTS_CLOSE
                     {
                     PORTS_OPEN112=(Token)match(input,PORTS_OPEN,FOLLOW_PORTS_OPEN_in_reference_signature1405);  
                     stream_PORTS_OPEN.add(PORTS_OPEN112);
@@ -4086,7 +4086,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, channel_signature
+            // elements: channel_signature, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4098,12 +4098,12 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 287:3: -> ^( DECLARATION_TYPE ( ID )? channel_signature )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:287:6: ^( DECLARATION_TYPE ( ID )? channel_signature )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:287:6: ^( DECLARATION_TYPE ( ID )? channel_signature )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DECLARATION_TYPE, "DECLARATION_TYPE"), root_1);
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:287:25: ( ID )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:287:25: ( ID )?
                 if ( stream_ID.hasNext() ) {
                     adaptor.addChild(root_1, stream_ID.nextNode());
 
@@ -4143,7 +4143,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "instances"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:290:1: instances : i1= ID (s1= stochastic_values )? ( COMMA i2= ID (s2= stochastic_values )? )* -> ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:290:1: instances : i1= ID (s1= stochastic_values )? ( COMMA i2= ID (s2= stochastic_values )? )* -> ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* ) ;
     public final ReoLangParser.instances_return instances() throws RecognitionException {
         ReoLangParser.instances_return retval = new ReoLangParser.instances_return();
         retval.start = input.LT(1);
@@ -4165,13 +4165,13 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_stochastic_values=new RewriteRuleSubtreeStream(adaptor,"rule stochastic_values");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:2: (i1= ID (s1= stochastic_values )? ( COMMA i2= ID (s2= stochastic_values )? )* -> ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:4: i1= ID (s1= stochastic_values )? ( COMMA i2= ID (s2= stochastic_values )? )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:2: (i1= ID (s1= stochastic_values )? ( COMMA i2= ID (s2= stochastic_values )? )* -> ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:4: i1= ID (s1= stochastic_values )? ( COMMA i2= ID (s2= stochastic_values )? )*
             {
             i1=(Token)match(input,ID,FOLLOW_ID_in_instances1441);  
             stream_ID.add(i1);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:12: (s1= stochastic_values )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:12: (s1= stochastic_values )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -4180,7 +4180,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt31) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:12: s1= stochastic_values
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:12: s1= stochastic_values
                     {
                     pushFollow(FOLLOW_stochastic_values_in_instances1445);
                     s1=stochastic_values();
@@ -4194,7 +4194,7 @@ public class ReoLangParser extends Parser {
 
             }
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:32: ( COMMA i2= ID (s2= stochastic_values )? )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:32: ( COMMA i2= ID (s2= stochastic_values )? )*
             loop33:
             do {
                 int alt33=2;
@@ -4207,7 +4207,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt33) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:33: COMMA i2= ID (s2= stochastic_values )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:33: COMMA i2= ID (s2= stochastic_values )?
             	    {
             	    COMMA116=(Token)match(input,COMMA,FOLLOW_COMMA_in_instances1449);  
             	    stream_COMMA.add(COMMA116);
@@ -4215,7 +4215,7 @@ public class ReoLangParser extends Parser {
             	    i2=(Token)match(input,ID,FOLLOW_ID_in_instances1453);  
             	    stream_ID.add(i2);
 
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:47: (s2= stochastic_values )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:47: (s2= stochastic_values )?
             	    int alt32=2;
             	    int LA32_0 = input.LA(1);
 
@@ -4224,7 +4224,7 @@ public class ReoLangParser extends Parser {
             	    }
             	    switch (alt32) {
             	        case 1 :
-            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:291:47: s2= stochastic_values
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:291:47: s2= stochastic_values
             	            {
             	            pushFollow(FOLLOW_stochastic_values_in_instances1457);
             	            s2=stochastic_values();
@@ -4250,7 +4250,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, ID, s1, s2
+            // elements: ID, s1, ID, s2
             // token labels: 
             // rule labels: retval, s2, s1
             // token list labels: 
@@ -4264,22 +4264,22 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 292:3: -> ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:292:6: ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:292:6: ^( INSTANCES ID ( $s1)? ( ID ( $s2)? )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(INSTANCES, "INSTANCES"), root_1);
 
                 adaptor.addChild(root_1, stream_ID.nextNode());
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:292:21: ( $s1)?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:292:21: ( $s1)?
                 if ( stream_s1.hasNext() ) {
                     adaptor.addChild(root_1, stream_s1.nextTree());
 
                 }
                 stream_s1.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:292:26: ( ID ( $s2)? )*
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:292:26: ( ID ( $s2)? )*
                 while ( stream_ID.hasNext() ) {
                     adaptor.addChild(root_1, stream_ID.nextNode());
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:292:30: ( $s2)?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:292:30: ( $s2)?
                     if ( stream_s2.hasNext() ) {
                         adaptor.addChild(root_1, stream_s2.nextTree());
 
@@ -4321,7 +4321,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "stochastic_values"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:296:1: stochastic_values : BODY_OPEN ID LABEL_MARK FLOAT ( COMMA ID LABEL_MARK FLOAT )* BODY_CLOSE -> ^( STOCH ( ID FLOAT )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:296:1: stochastic_values : BODY_OPEN ID LABEL_MARK FLOAT ( COMMA ID LABEL_MARK FLOAT )* BODY_CLOSE -> ^( STOCH ( ID FLOAT )+ ) ;
     public final ReoLangParser.stochastic_values_return stochastic_values() throws RecognitionException {
         ReoLangParser.stochastic_values_return retval = new ReoLangParser.stochastic_values_return();
         retval.start = input.LT(1);
@@ -4355,8 +4355,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_LABEL_MARK=new RewriteRuleTokenStream(adaptor,"token LABEL_MARK");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:297:2: ( BODY_OPEN ID LABEL_MARK FLOAT ( COMMA ID LABEL_MARK FLOAT )* BODY_CLOSE -> ^( STOCH ( ID FLOAT )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:297:4: BODY_OPEN ID LABEL_MARK FLOAT ( COMMA ID LABEL_MARK FLOAT )* BODY_CLOSE
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:297:2: ( BODY_OPEN ID LABEL_MARK FLOAT ( COMMA ID LABEL_MARK FLOAT )* BODY_CLOSE -> ^( STOCH ( ID FLOAT )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:297:4: BODY_OPEN ID LABEL_MARK FLOAT ( COMMA ID LABEL_MARK FLOAT )* BODY_CLOSE
             {
             BODY_OPEN117=(Token)match(input,BODY_OPEN,FOLLOW_BODY_OPEN_in_stochastic_values1497);  
             stream_BODY_OPEN.add(BODY_OPEN117);
@@ -4370,7 +4370,7 @@ public class ReoLangParser extends Parser {
             FLOAT120=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_stochastic_values1503);  
             stream_FLOAT.add(FLOAT120);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:297:34: ( COMMA ID LABEL_MARK FLOAT )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:297:34: ( COMMA ID LABEL_MARK FLOAT )*
             loop34:
             do {
                 int alt34=2;
@@ -4383,7 +4383,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt34) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:297:35: COMMA ID LABEL_MARK FLOAT
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:297:35: COMMA ID LABEL_MARK FLOAT
             	    {
             	    COMMA121=(Token)match(input,COMMA,FOLLOW_COMMA_in_stochastic_values1506);  
             	    stream_COMMA.add(COMMA121);
@@ -4412,7 +4412,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: FLOAT, ID
+            // elements: ID, FLOAT
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4424,21 +4424,21 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 298:3: -> ^( STOCH ( ID FLOAT )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:298:6: ^( STOCH ( ID FLOAT )+ )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:298:6: ^( STOCH ( ID FLOAT )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STOCH, "STOCH"), root_1);
 
-                if ( !(stream_FLOAT.hasNext()||stream_ID.hasNext()) ) {
+                if ( !(stream_ID.hasNext()||stream_FLOAT.hasNext()) ) {
                     throw new RewriteEarlyExitException();
                 }
-                while ( stream_FLOAT.hasNext()||stream_ID.hasNext() ) {
+                while ( stream_ID.hasNext()||stream_FLOAT.hasNext() ) {
                     adaptor.addChild(root_1, stream_ID.nextNode());
                     adaptor.addChild(root_1, stream_FLOAT.nextNode());
 
                 }
-                stream_FLOAT.reset();
                 stream_ID.reset();
+                stream_FLOAT.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -4472,7 +4472,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "pattern_compositions"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:301:1: pattern_compositions : port_definition SEMICOLON ( port_definition SEMICOLON )* ( join_operation SEMICOLON ( join_operation SEMICOLON )* )? -> ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:301:1: pattern_compositions : port_definition SEMICOLON ( port_definition SEMICOLON )* ( join_operation SEMICOLON ( join_operation SEMICOLON )* )? -> ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* ) ;
     public final ReoLangParser.pattern_compositions_return pattern_compositions() throws RecognitionException {
         ReoLangParser.pattern_compositions_return retval = new ReoLangParser.pattern_compositions_return();
         retval.start = input.LT(1);
@@ -4500,8 +4500,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_port_definition=new RewriteRuleSubtreeStream(adaptor,"rule port_definition");
         RewriteRuleSubtreeStream stream_join_operation=new RewriteRuleSubtreeStream(adaptor,"rule join_operation");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:2: ( port_definition SEMICOLON ( port_definition SEMICOLON )* ( join_operation SEMICOLON ( join_operation SEMICOLON )* )? -> ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:5: port_definition SEMICOLON ( port_definition SEMICOLON )* ( join_operation SEMICOLON ( join_operation SEMICOLON )* )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:2: ( port_definition SEMICOLON ( port_definition SEMICOLON )* ( join_operation SEMICOLON ( join_operation SEMICOLON )* )? -> ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:5: port_definition SEMICOLON ( port_definition SEMICOLON )* ( join_operation SEMICOLON ( join_operation SEMICOLON )* )?
             {
             pushFollow(FOLLOW_port_definition_in_pattern_compositions1545);
             port_definition126=port_definition();
@@ -4512,7 +4512,7 @@ public class ReoLangParser extends Parser {
             SEMICOLON127=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pattern_compositions1547);  
             stream_SEMICOLON.add(SEMICOLON127);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:31: ( port_definition SEMICOLON )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:31: ( port_definition SEMICOLON )*
             loop35:
             do {
                 int alt35=2;
@@ -4525,7 +4525,7 @@ public class ReoLangParser extends Parser {
 
                 switch (alt35) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:32: port_definition SEMICOLON
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:32: port_definition SEMICOLON
             	    {
             	    pushFollow(FOLLOW_port_definition_in_pattern_compositions1550);
             	    port_definition128=port_definition();
@@ -4545,16 +4545,16 @@ public class ReoLangParser extends Parser {
                 }
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:60: ( join_operation SEMICOLON ( join_operation SEMICOLON )* )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:60: ( join_operation SEMICOLON ( join_operation SEMICOLON )* )?
             int alt37=2;
             int LA37_0 = input.LA(1);
 
-            if ( (LA37_0==RW_JOIN) ) {
+            if ( ((LA37_0>=RW_DECIDE && LA37_0<=RW_JOIN)) ) {
                 alt37=1;
             }
             switch (alt37) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:61: join_operation SEMICOLON ( join_operation SEMICOLON )*
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:61: join_operation SEMICOLON ( join_operation SEMICOLON )*
                     {
                     pushFollow(FOLLOW_join_operation_in_pattern_compositions1557);
                     join_operation130=join_operation();
@@ -4565,20 +4565,20 @@ public class ReoLangParser extends Parser {
                     SEMICOLON131=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pattern_compositions1559);  
                     stream_SEMICOLON.add(SEMICOLON131);
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:86: ( join_operation SEMICOLON )*
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:86: ( join_operation SEMICOLON )*
                     loop36:
                     do {
                         int alt36=2;
                         int LA36_0 = input.LA(1);
 
-                        if ( (LA36_0==RW_JOIN) ) {
+                        if ( ((LA36_0>=RW_DECIDE && LA36_0<=RW_JOIN)) ) {
                             alt36=1;
                         }
 
 
                         switch (alt36) {
                     	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:302:87: join_operation SEMICOLON
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:302:87: join_operation SEMICOLON
                     	    {
                     	    pushFollow(FOLLOW_join_operation_in_pattern_compositions1562);
                     	    join_operation132=join_operation();
@@ -4619,7 +4619,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 303:3: -> ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:303:6: ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:303:6: ^( PATTERN_COMPOSITIONS ( port_definition )+ ( join_operation )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PATTERN_COMPOSITIONS, "PATTERN_COMPOSITIONS"), root_1);
@@ -4632,7 +4632,7 @@ public class ReoLangParser extends Parser {
 
                 }
                 stream_port_definition.reset();
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:303:46: ( join_operation )*
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:303:46: ( join_operation )*
                 while ( stream_join_operation.hasNext() ) {
                     adaptor.addChild(root_1, stream_join_operation.nextTree());
 
@@ -4671,7 +4671,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "port_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:306:1: port_definition : ID EQUALS port_actual_definition -> ^( PORT_DEFINITION ID port_actual_definition ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:306:1: port_definition : ID EQUALS port_actual_definition -> ^( PORT_DEFINITION ID port_actual_definition ) ;
     public final ReoLangParser.port_definition_return port_definition() throws RecognitionException {
         ReoLangParser.port_definition_return retval = new ReoLangParser.port_definition_return();
         retval.start = input.LT(1);
@@ -4689,8 +4689,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
         RewriteRuleSubtreeStream stream_port_actual_definition=new RewriteRuleSubtreeStream(adaptor,"rule port_actual_definition");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:307:2: ( ID EQUALS port_actual_definition -> ^( PORT_DEFINITION ID port_actual_definition ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:307:4: ID EQUALS port_actual_definition
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:307:2: ( ID EQUALS port_actual_definition -> ^( PORT_DEFINITION ID port_actual_definition ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:307:4: ID EQUALS port_actual_definition
             {
             ID134=(Token)match(input,ID,FOLLOW_ID_in_port_definition1595);  
             stream_ID.add(ID134);
@@ -4707,7 +4707,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: port_actual_definition, ID
+            // elements: ID, port_actual_definition
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4719,7 +4719,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 308:3: -> ^( PORT_DEFINITION ID port_actual_definition )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:308:6: ^( PORT_DEFINITION ID port_actual_definition )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:308:6: ^( PORT_DEFINITION ID port_actual_definition )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_DEFINITION, "PORT_DEFINITION"), root_1);
@@ -4759,7 +4759,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "port_actual_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:311:1: port_actual_definition : ( port_access -> ^( PORT_ACTUAL_DEFINITION port_access ) | join_part -> ^( PORT_ACTUAL_DEFINITION join_part ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:311:1: port_actual_definition : ( port_access -> ^( PORT_ACTUAL_DEFINITION port_access ) | join_part -> ^( PORT_ACTUAL_DEFINITION join_part ) );
     public final ReoLangParser.port_actual_definition_return port_actual_definition() throws RecognitionException {
         ReoLangParser.port_actual_definition_return retval = new ReoLangParser.port_actual_definition_return();
         retval.start = input.LT(1);
@@ -4774,14 +4774,14 @@ public class ReoLangParser extends Parser {
         RewriteRuleSubtreeStream stream_join_part=new RewriteRuleSubtreeStream(adaptor,"rule join_part");
         RewriteRuleSubtreeStream stream_port_access=new RewriteRuleSubtreeStream(adaptor,"rule port_access");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:312:2: ( port_access -> ^( PORT_ACTUAL_DEFINITION port_access ) | join_part -> ^( PORT_ACTUAL_DEFINITION join_part ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:312:2: ( port_access -> ^( PORT_ACTUAL_DEFINITION port_access ) | join_part -> ^( PORT_ACTUAL_DEFINITION join_part ) )
             int alt38=2;
             int LA38_0 = input.LA(1);
 
             if ( (LA38_0==ID) ) {
                 alt38=1;
             }
-            else if ( (LA38_0==RW_JOIN) ) {
+            else if ( ((LA38_0>=RW_DECIDE && LA38_0<=RW_JOIN)) ) {
                 alt38=2;
             }
             else {
@@ -4792,7 +4792,7 @@ public class ReoLangParser extends Parser {
             }
             switch (alt38) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:312:5: port_access
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:312:5: port_access
                     {
                     pushFollow(FOLLOW_port_access_in_port_actual_definition1624);
                     port_access137=port_access();
@@ -4815,7 +4815,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 312:17: -> ^( PORT_ACTUAL_DEFINITION port_access )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:312:20: ^( PORT_ACTUAL_DEFINITION port_access )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:312:20: ^( PORT_ACTUAL_DEFINITION port_access )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACTUAL_DEFINITION, "PORT_ACTUAL_DEFINITION"), root_1);
@@ -4831,7 +4831,7 @@ public class ReoLangParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:313:5: join_part
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:313:5: join_part
                     {
                     pushFollow(FOLLOW_join_part_in_port_actual_definition1638);
                     join_part138=join_part();
@@ -4854,7 +4854,7 @@ public class ReoLangParser extends Parser {
                     root_0 = (Object)adaptor.nil();
                     // 313:15: -> ^( PORT_ACTUAL_DEFINITION join_part )
                     {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:313:18: ^( PORT_ACTUAL_DEFINITION join_part )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:313:18: ^( PORT_ACTUAL_DEFINITION join_part )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACTUAL_DEFINITION, "PORT_ACTUAL_DEFINITION"), root_1);
@@ -4895,7 +4895,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "port_access"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:316:1: port_access : ID ACCESS_MARK ID -> ^( PORT_ACCESS ID ID ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:316:1: port_access : ID ACCESS_MARK ID -> ^( PORT_ACCESS ID ID ) ;
     public final ReoLangParser.port_access_return port_access() throws RecognitionException {
         ReoLangParser.port_access_return retval = new ReoLangParser.port_access_return();
         retval.start = input.LT(1);
@@ -4913,8 +4913,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:317:2: ( ID ACCESS_MARK ID -> ^( PORT_ACCESS ID ID ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:317:4: ID ACCESS_MARK ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:317:2: ( ID ACCESS_MARK ID -> ^( PORT_ACCESS ID ID ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:317:4: ID ACCESS_MARK ID
             {
             ID139=(Token)match(input,ID,FOLLOW_ID_in_port_access1657);  
             stream_ID.add(ID139);
@@ -4940,7 +4940,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 318:3: -> ^( PORT_ACCESS ID ID )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:318:6: ^( PORT_ACCESS ID ID )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:318:6: ^( PORT_ACCESS ID ID )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACCESS, "PORT_ACCESS"), root_1);
@@ -4980,7 +4980,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "join_operation"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:321:1: join_operation : join_part RW_AS ID -> ^( JOIN_OP ID join_part ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:321:1: join_operation : join_part RW_AS ID -> ^( JOIN_OP ID join_part ) ;
     public final ReoLangParser.join_operation_return join_operation() throws RecognitionException {
         ReoLangParser.join_operation_return retval = new ReoLangParser.join_operation_return();
         retval.start = input.LT(1);
@@ -4998,8 +4998,8 @@ public class ReoLangParser extends Parser {
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
         RewriteRuleSubtreeStream stream_join_part=new RewriteRuleSubtreeStream(adaptor,"rule join_part");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:322:2: ( join_part RW_AS ID -> ^( JOIN_OP ID join_part ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:322:4: join_part RW_AS ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:322:2: ( join_part RW_AS ID -> ^( JOIN_OP ID join_part ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:322:4: join_part RW_AS ID
             {
             pushFollow(FOLLOW_join_part_in_join_operation1685);
             join_part142=join_part();
@@ -5016,7 +5016,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, join_part
+            // elements: join_part, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5028,7 +5028,7 @@ public class ReoLangParser extends Parser {
             root_0 = (Object)adaptor.nil();
             // 323:3: -> ^( JOIN_OP ID join_part )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:323:6: ^( JOIN_OP ID join_part )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:323:6: ^( JOIN_OP ID join_part )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(JOIN_OP, "JOIN_OP"), root_1);
@@ -5068,7 +5068,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "join_part"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:326:1: join_part : RW_JOIN port_access_list -> ^( RW_JOIN port_access_list ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:326:1: join_part : ( RW_JOIN port_access_list -> ^( RW_JOIN port_access_list ) | RW_DECIDE special_port_access_list -> ^( RW_DECIDE special_port_access_list ) );
     public final ReoLangParser.join_part_return join_part() throws RecognitionException {
         ReoLangParser.join_part_return retval = new ReoLangParser.join_part_return();
         retval.start = input.LT(1);
@@ -5076,29 +5076,221 @@ public class ReoLangParser extends Parser {
         Object root_0 = null;
 
         Token RW_JOIN145=null;
+        Token RW_DECIDE147=null;
         ReoLangParser.port_access_list_return port_access_list146 = null;
+
+        ReoLangParser.special_port_access_list_return special_port_access_list148 = null;
 
 
         Object RW_JOIN145_tree=null;
+        Object RW_DECIDE147_tree=null;
+        RewriteRuleTokenStream stream_RW_DECIDE=new RewriteRuleTokenStream(adaptor,"token RW_DECIDE");
         RewriteRuleTokenStream stream_RW_JOIN=new RewriteRuleTokenStream(adaptor,"token RW_JOIN");
+        RewriteRuleSubtreeStream stream_special_port_access_list=new RewriteRuleSubtreeStream(adaptor,"rule special_port_access_list");
         RewriteRuleSubtreeStream stream_port_access_list=new RewriteRuleSubtreeStream(adaptor,"rule port_access_list");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:327:2: ( RW_JOIN port_access_list -> ^( RW_JOIN port_access_list ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:327:5: RW_JOIN port_access_list
-            {
-            RW_JOIN145=(Token)match(input,RW_JOIN,FOLLOW_RW_JOIN_in_join_part1715);  
-            stream_RW_JOIN.add(RW_JOIN145);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:327:2: ( RW_JOIN port_access_list -> ^( RW_JOIN port_access_list ) | RW_DECIDE special_port_access_list -> ^( RW_DECIDE special_port_access_list ) )
+            int alt39=2;
+            int LA39_0 = input.LA(1);
 
-            pushFollow(FOLLOW_port_access_list_in_join_part1717);
-            port_access_list146=port_access_list();
+            if ( (LA39_0==RW_JOIN) ) {
+                alt39=1;
+            }
+            else if ( (LA39_0==RW_DECIDE) ) {
+                alt39=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 39, 0, input);
+
+                throw nvae;
+            }
+            switch (alt39) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:327:5: RW_JOIN port_access_list
+                    {
+                    RW_JOIN145=(Token)match(input,RW_JOIN,FOLLOW_RW_JOIN_in_join_part1715);  
+                    stream_RW_JOIN.add(RW_JOIN145);
+
+                    pushFollow(FOLLOW_port_access_list_in_join_part1717);
+                    port_access_list146=port_access_list();
+
+                    state._fsp--;
+
+                    stream_port_access_list.add(port_access_list146.getTree());
+
+
+                    // AST REWRITE
+                    // elements: RW_JOIN, port_access_list
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 328:3: -> ^( RW_JOIN port_access_list )
+                    {
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:328:6: ^( RW_JOIN port_access_list )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot(stream_RW_JOIN.nextNode(), root_1);
+
+                        adaptor.addChild(root_1, stream_port_access_list.nextTree());
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;
+                    }
+                    break;
+                case 2 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:329:5: RW_DECIDE special_port_access_list
+                    {
+                    RW_DECIDE147=(Token)match(input,RW_DECIDE,FOLLOW_RW_DECIDE_in_join_part1734);  
+                    stream_RW_DECIDE.add(RW_DECIDE147);
+
+                    pushFollow(FOLLOW_special_port_access_list_in_join_part1736);
+                    special_port_access_list148=special_port_access_list();
+
+                    state._fsp--;
+
+                    stream_special_port_access_list.add(special_port_access_list148.getTree());
+
+
+                    // AST REWRITE
+                    // elements: special_port_access_list, RW_DECIDE
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 330:3: -> ^( RW_DECIDE special_port_access_list )
+                    {
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:330:6: ^( RW_DECIDE special_port_access_list )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot(stream_RW_DECIDE.nextNode(), root_1);
+
+                        adaptor.addChild(root_1, stream_special_port_access_list.nextTree());
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+                    retval.tree = root_0;
+                    }
+                    break;
+
+            }
+            retval.stop = input.LT(-1);
+
+            retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "join_part"
+
+    public static class port_access_list_return extends ParserRuleReturnScope {
+        Object tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "port_access_list"
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:334:1: port_access_list : LIST_OPEN port_access ( COMMA port_access )* LIST_CLOSE -> ^( PORT_ACCESS_LIST ( port_access )+ ) ;
+    public final ReoLangParser.port_access_list_return port_access_list() throws RecognitionException {
+        ReoLangParser.port_access_list_return retval = new ReoLangParser.port_access_list_return();
+        retval.start = input.LT(1);
+
+        Object root_0 = null;
+
+        Token LIST_OPEN149=null;
+        Token COMMA151=null;
+        Token LIST_CLOSE153=null;
+        ReoLangParser.port_access_return port_access150 = null;
+
+        ReoLangParser.port_access_return port_access152 = null;
+
+
+        Object LIST_OPEN149_tree=null;
+        Object COMMA151_tree=null;
+        Object LIST_CLOSE153_tree=null;
+        RewriteRuleTokenStream stream_LIST_OPEN=new RewriteRuleTokenStream(adaptor,"token LIST_OPEN");
+        RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
+        RewriteRuleTokenStream stream_LIST_CLOSE=new RewriteRuleTokenStream(adaptor,"token LIST_CLOSE");
+        RewriteRuleSubtreeStream stream_port_access=new RewriteRuleSubtreeStream(adaptor,"rule port_access");
+        try {
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:335:2: ( LIST_OPEN port_access ( COMMA port_access )* LIST_CLOSE -> ^( PORT_ACCESS_LIST ( port_access )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:335:4: LIST_OPEN port_access ( COMMA port_access )* LIST_CLOSE
+            {
+            LIST_OPEN149=(Token)match(input,LIST_OPEN,FOLLOW_LIST_OPEN_in_port_access_list1763);  
+            stream_LIST_OPEN.add(LIST_OPEN149);
+
+            pushFollow(FOLLOW_port_access_in_port_access_list1765);
+            port_access150=port_access();
 
             state._fsp--;
 
-            stream_port_access_list.add(port_access_list146.getTree());
+            stream_port_access.add(port_access150.getTree());
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:335:26: ( COMMA port_access )*
+            loop40:
+            do {
+                int alt40=2;
+                int LA40_0 = input.LA(1);
+
+                if ( (LA40_0==COMMA) ) {
+                    alt40=1;
+                }
+
+
+                switch (alt40) {
+            	case 1 :
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:335:27: COMMA port_access
+            	    {
+            	    COMMA151=(Token)match(input,COMMA,FOLLOW_COMMA_in_port_access_list1768);  
+            	    stream_COMMA.add(COMMA151);
+
+            	    pushFollow(FOLLOW_port_access_in_port_access_list1770);
+            	    port_access152=port_access();
+
+            	    state._fsp--;
+
+            	    stream_port_access.add(port_access152.getTree());
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop40;
+                }
+            } while (true);
+
+            LIST_CLOSE153=(Token)match(input,LIST_CLOSE,FOLLOW_LIST_CLOSE_in_port_access_list1774);  
+            stream_LIST_CLOSE.add(LIST_CLOSE153);
+
 
 
             // AST REWRITE
-            // elements: port_access_list, RW_JOIN
+            // elements: port_access
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5108,14 +5300,21 @@ public class ReoLangParser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 328:3: -> ^( RW_JOIN port_access_list )
+            // 336:3: -> ^( PORT_ACCESS_LIST ( port_access )+ )
             {
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:328:6: ^( RW_JOIN port_access_list )
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:336:6: ^( PORT_ACCESS_LIST ( port_access )+ )
                 {
                 Object root_1 = (Object)adaptor.nil();
-                root_1 = (Object)adaptor.becomeRoot(stream_RW_JOIN.nextNode(), root_1);
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACCESS_LIST, "PORT_ACCESS_LIST"), root_1);
 
-                adaptor.addChild(root_1, stream_port_access_list.nextTree());
+                if ( !(stream_port_access.hasNext()) ) {
+                    throw new RewriteEarlyExitException();
+                }
+                while ( stream_port_access.hasNext() ) {
+                    adaptor.addChild(root_1, stream_port_access.nextTree());
+
+                }
+                stream_port_access.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -5141,180 +5340,154 @@ public class ReoLangParser extends Parser {
         }
         return retval;
     }
-    // $ANTLR end "join_part"
+    // $ANTLR end "port_access_list"
 
-    public static class port_access_list_return extends ParserRuleReturnScope {
+    public static class special_port_access_list_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }
     };
 
-    // $ANTLR start "port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:331:1: port_access_list : ( LIST_OPEN port_access ( COMMA port_access )* LIST_CLOSE -> ^( PORT_ACCESS_LIST ( port_access )+ ) | RW_REMAINING -> ^( PORT_ACCESS_LIST RW_REMAINING ) );
-    public final ReoLangParser.port_access_list_return port_access_list() throws RecognitionException {
-        ReoLangParser.port_access_list_return retval = new ReoLangParser.port_access_list_return();
+    // $ANTLR start "special_port_access_list"
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:341:1: special_port_access_list : LIST_OPEN p1= port_access COLON p2= port_access COMMA p3= port_access ( COMMA p4= port_access )* LIST_CLOSE -> ^( PORT_ACCESS_LIST $p1 $p2 $p3 ( $p4)* ) ;
+    public final ReoLangParser.special_port_access_list_return special_port_access_list() throws RecognitionException {
+        ReoLangParser.special_port_access_list_return retval = new ReoLangParser.special_port_access_list_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
-        Token LIST_OPEN147=null;
-        Token COMMA149=null;
-        Token LIST_CLOSE151=null;
-        Token RW_REMAINING152=null;
-        ReoLangParser.port_access_return port_access148 = null;
+        Token LIST_OPEN154=null;
+        Token COLON155=null;
+        Token COMMA156=null;
+        Token COMMA157=null;
+        Token LIST_CLOSE158=null;
+        ReoLangParser.port_access_return p1 = null;
 
-        ReoLangParser.port_access_return port_access150 = null;
+        ReoLangParser.port_access_return p2 = null;
+
+        ReoLangParser.port_access_return p3 = null;
+
+        ReoLangParser.port_access_return p4 = null;
 
 
-        Object LIST_OPEN147_tree=null;
-        Object COMMA149_tree=null;
-        Object LIST_CLOSE151_tree=null;
-        Object RW_REMAINING152_tree=null;
+        Object LIST_OPEN154_tree=null;
+        Object COLON155_tree=null;
+        Object COMMA156_tree=null;
+        Object COMMA157_tree=null;
+        Object LIST_CLOSE158_tree=null;
+        RewriteRuleTokenStream stream_COLON=new RewriteRuleTokenStream(adaptor,"token COLON");
         RewriteRuleTokenStream stream_LIST_OPEN=new RewriteRuleTokenStream(adaptor,"token LIST_OPEN");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
-        RewriteRuleTokenStream stream_RW_REMAINING=new RewriteRuleTokenStream(adaptor,"token RW_REMAINING");
         RewriteRuleTokenStream stream_LIST_CLOSE=new RewriteRuleTokenStream(adaptor,"token LIST_CLOSE");
         RewriteRuleSubtreeStream stream_port_access=new RewriteRuleSubtreeStream(adaptor,"rule port_access");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:332:2: ( LIST_OPEN port_access ( COMMA port_access )* LIST_CLOSE -> ^( PORT_ACCESS_LIST ( port_access )+ ) | RW_REMAINING -> ^( PORT_ACCESS_LIST RW_REMAINING ) )
-            int alt40=2;
-            int LA40_0 = input.LA(1);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:342:2: ( LIST_OPEN p1= port_access COLON p2= port_access COMMA p3= port_access ( COMMA p4= port_access )* LIST_CLOSE -> ^( PORT_ACCESS_LIST $p1 $p2 $p3 ( $p4)* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:342:4: LIST_OPEN p1= port_access COLON p2= port_access COMMA p3= port_access ( COMMA p4= port_access )* LIST_CLOSE
+            {
+            LIST_OPEN154=(Token)match(input,LIST_OPEN,FOLLOW_LIST_OPEN_in_special_port_access_list1801);  
+            stream_LIST_OPEN.add(LIST_OPEN154);
 
-            if ( (LA40_0==LIST_OPEN) ) {
-                alt40=1;
-            }
-            else if ( (LA40_0==RW_REMAINING) ) {
-                alt40=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 40, 0, input);
+            pushFollow(FOLLOW_port_access_in_special_port_access_list1805);
+            p1=port_access();
 
-                throw nvae;
-            }
-            switch (alt40) {
-                case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:332:4: LIST_OPEN port_access ( COMMA port_access )* LIST_CLOSE
-                    {
-                    LIST_OPEN147=(Token)match(input,LIST_OPEN,FOLLOW_LIST_OPEN_in_port_access_list1741);  
-                    stream_LIST_OPEN.add(LIST_OPEN147);
+            state._fsp--;
 
-                    pushFollow(FOLLOW_port_access_in_port_access_list1743);
-                    port_access148=port_access();
+            stream_port_access.add(p1.getTree());
+            COLON155=(Token)match(input,COLON,FOLLOW_COLON_in_special_port_access_list1807);  
+            stream_COLON.add(COLON155);
 
-                    state._fsp--;
+            pushFollow(FOLLOW_port_access_in_special_port_access_list1811);
+            p2=port_access();
 
-                    stream_port_access.add(port_access148.getTree());
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:332:26: ( COMMA port_access )*
-                    loop39:
-                    do {
-                        int alt39=2;
-                        int LA39_0 = input.LA(1);
+            state._fsp--;
 
-                        if ( (LA39_0==COMMA) ) {
-                            alt39=1;
-                        }
+            stream_port_access.add(p2.getTree());
+            COMMA156=(Token)match(input,COMMA,FOLLOW_COMMA_in_special_port_access_list1813);  
+            stream_COMMA.add(COMMA156);
 
+            pushFollow(FOLLOW_port_access_in_special_port_access_list1817);
+            p3=port_access();
 
-                        switch (alt39) {
-                    	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:332:27: COMMA port_access
-                    	    {
-                    	    COMMA149=(Token)match(input,COMMA,FOLLOW_COMMA_in_port_access_list1746);  
-                    	    stream_COMMA.add(COMMA149);
+            state._fsp--;
 
-                    	    pushFollow(FOLLOW_port_access_in_port_access_list1748);
-                    	    port_access150=port_access();
+            stream_port_access.add(p3.getTree());
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:342:71: ( COMMA p4= port_access )*
+            loop41:
+            do {
+                int alt41=2;
+                int LA41_0 = input.LA(1);
 
-                    	    state._fsp--;
-
-                    	    stream_port_access.add(port_access150.getTree());
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop39;
-                        }
-                    } while (true);
-
-                    LIST_CLOSE151=(Token)match(input,LIST_CLOSE,FOLLOW_LIST_CLOSE_in_port_access_list1752);  
-                    stream_LIST_CLOSE.add(LIST_CLOSE151);
+                if ( (LA41_0==COMMA) ) {
+                    alt41=1;
+                }
 
 
+                switch (alt41) {
+            	case 1 :
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:342:72: COMMA p4= port_access
+            	    {
+            	    COMMA157=(Token)match(input,COMMA,FOLLOW_COMMA_in_special_port_access_list1820);  
+            	    stream_COMMA.add(COMMA157);
 
-                    // AST REWRITE
-                    // elements: port_access
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+            	    pushFollow(FOLLOW_port_access_in_special_port_access_list1824);
+            	    p4=port_access();
 
-                    root_0 = (Object)adaptor.nil();
-                    // 333:3: -> ^( PORT_ACCESS_LIST ( port_access )+ )
-                    {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:333:6: ^( PORT_ACCESS_LIST ( port_access )+ )
-                        {
-                        Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACCESS_LIST, "PORT_ACCESS_LIST"), root_1);
+            	    state._fsp--;
 
-                        if ( !(stream_port_access.hasNext()) ) {
-                            throw new RewriteEarlyExitException();
-                        }
-                        while ( stream_port_access.hasNext() ) {
-                            adaptor.addChild(root_1, stream_port_access.nextTree());
+            	    stream_port_access.add(p4.getTree());
 
-                        }
-                        stream_port_access.reset();
+            	    }
+            	    break;
 
-                        adaptor.addChild(root_0, root_1);
-                        }
+            	default :
+            	    break loop41;
+                }
+            } while (true);
 
-                    }
-
-                    retval.tree = root_0;
-                    }
-                    break;
-                case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:334:4: RW_REMAINING
-                    {
-                    RW_REMAINING152=(Token)match(input,RW_REMAINING,FOLLOW_RW_REMAINING_in_port_access_list1768);  
-                    stream_RW_REMAINING.add(RW_REMAINING152);
+            LIST_CLOSE158=(Token)match(input,LIST_CLOSE,FOLLOW_LIST_CLOSE_in_special_port_access_list1828);  
+            stream_LIST_CLOSE.add(LIST_CLOSE158);
 
 
 
-                    // AST REWRITE
-                    // elements: RW_REMAINING
-                    // token labels: 
-                    // rule labels: retval
-                    // token list labels: 
-                    // rule list labels: 
-                    // wildcard labels: 
-                    retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+            // AST REWRITE
+            // elements: p3, p1, p4, p2
+            // token labels: 
+            // rule labels: retval, p4, p3, p2, p1
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+            RewriteRuleSubtreeStream stream_p4=new RewriteRuleSubtreeStream(adaptor,"rule p4",p4!=null?p4.tree:null);
+            RewriteRuleSubtreeStream stream_p3=new RewriteRuleSubtreeStream(adaptor,"rule p3",p3!=null?p3.tree:null);
+            RewriteRuleSubtreeStream stream_p2=new RewriteRuleSubtreeStream(adaptor,"rule p2",p2!=null?p2.tree:null);
+            RewriteRuleSubtreeStream stream_p1=new RewriteRuleSubtreeStream(adaptor,"rule p1",p1!=null?p1.tree:null);
 
-                    root_0 = (Object)adaptor.nil();
-                    // 335:3: -> ^( PORT_ACCESS_LIST RW_REMAINING )
-                    {
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/ReoLangParser.g:335:6: ^( PORT_ACCESS_LIST RW_REMAINING )
-                        {
-                        Object root_1 = (Object)adaptor.nil();
-                        root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACCESS_LIST, "PORT_ACCESS_LIST"), root_1);
+            root_0 = (Object)adaptor.nil();
+            // 343:3: -> ^( PORT_ACCESS_LIST $p1 $p2 $p3 ( $p4)* )
+            {
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:343:6: ^( PORT_ACCESS_LIST $p1 $p2 $p3 ( $p4)* )
+                {
+                Object root_1 = (Object)adaptor.nil();
+                root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PORT_ACCESS_LIST, "PORT_ACCESS_LIST"), root_1);
 
-                        adaptor.addChild(root_1, stream_RW_REMAINING.nextNode());
+                adaptor.addChild(root_1, stream_p1.nextTree());
+                adaptor.addChild(root_1, stream_p2.nextTree());
+                adaptor.addChild(root_1, stream_p3.nextTree());
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:343:37: ( $p4)*
+                while ( stream_p4.hasNext() ) {
+                    adaptor.addChild(root_1, stream_p4.nextTree());
 
-                        adaptor.addChild(root_0, root_1);
-                        }
+                }
+                stream_p4.reset();
 
-                    }
-
-                    retval.tree = root_0;
-                    }
-                    break;
+                adaptor.addChild(root_0, root_1);
+                }
 
             }
+
+            retval.tree = root_0;
+            }
+
             retval.stop = input.LT(-1);
 
             retval.tree = (Object)adaptor.rulePostProcessing(root_0);
@@ -5331,7 +5504,7 @@ public class ReoLangParser extends Parser {
         }
         return retval;
     }
-    // $ANTLR end "port_access_list"
+    // $ANTLR end "special_port_access_list"
 
     // Delegated rules
 
@@ -5474,15 +5647,15 @@ public class ReoLangParser extends Parser {
     public static final BitSet FOLLOW_FLOAT_in_stochastic_values1512 = new BitSet(new long[]{0x0000000010800000L});
     public static final BitSet FOLLOW_BODY_CLOSE_in_stochastic_values1516 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_port_definition_in_pattern_compositions1545 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1547 = new BitSet(new long[]{0x0000020000000022L});
+    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1547 = new BitSet(new long[]{0x0000020000000032L});
     public static final BitSet FOLLOW_port_definition_in_pattern_compositions1550 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1552 = new BitSet(new long[]{0x0000020000000022L});
+    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1552 = new BitSet(new long[]{0x0000020000000032L});
     public static final BitSet FOLLOW_join_operation_in_pattern_compositions1557 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1559 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1559 = new BitSet(new long[]{0x0000000000000032L});
     public static final BitSet FOLLOW_join_operation_in_pattern_compositions1562 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1564 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_SEMICOLON_in_pattern_compositions1564 = new BitSet(new long[]{0x0000000000000032L});
     public static final BitSet FOLLOW_ID_in_port_definition1595 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_EQUALS_in_port_definition1597 = new BitSet(new long[]{0x0000020000000020L});
+    public static final BitSet FOLLOW_EQUALS_in_port_definition1597 = new BitSet(new long[]{0x0000020000000030L});
     public static final BitSet FOLLOW_port_actual_definition_in_port_definition1599 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_port_access_in_port_actual_definition1624 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_join_part_in_port_actual_definition1638 = new BitSet(new long[]{0x0000000000000002L});
@@ -5492,13 +5665,23 @@ public class ReoLangParser extends Parser {
     public static final BitSet FOLLOW_join_part_in_join_operation1685 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_RW_AS_in_join_operation1687 = new BitSet(new long[]{0x0000020000000000L});
     public static final BitSet FOLLOW_ID_in_join_operation1689 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RW_JOIN_in_join_part1715 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_RW_JOIN_in_join_part1715 = new BitSet(new long[]{0x0000000000080000L});
     public static final BitSet FOLLOW_port_access_list_in_join_part1717 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LIST_OPEN_in_port_access_list1741 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_port_access_in_port_access_list1743 = new BitSet(new long[]{0x0000000000900000L});
-    public static final BitSet FOLLOW_COMMA_in_port_access_list1746 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_port_access_in_port_access_list1748 = new BitSet(new long[]{0x0000000000900000L});
-    public static final BitSet FOLLOW_LIST_CLOSE_in_port_access_list1752 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RW_REMAINING_in_port_access_list1768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RW_DECIDE_in_join_part1734 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_special_port_access_list_in_join_part1736 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LIST_OPEN_in_port_access_list1763 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_port_access_in_port_access_list1765 = new BitSet(new long[]{0x0000000000900000L});
+    public static final BitSet FOLLOW_COMMA_in_port_access_list1768 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_port_access_in_port_access_list1770 = new BitSet(new long[]{0x0000000000900000L});
+    public static final BitSet FOLLOW_LIST_CLOSE_in_port_access_list1774 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LIST_OPEN_in_special_port_access_list1801 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_port_access_in_special_port_access_list1805 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_COLON_in_special_port_access_list1807 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_port_access_in_special_port_access_list1811 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_COMMA_in_special_port_access_list1813 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_port_access_in_special_port_access_list1817 = new BitSet(new long[]{0x0000000000900000L});
+    public static final BitSet FOLLOW_COMMA_in_special_port_access_list1820 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_port_access_in_special_port_access_list1824 = new BitSet(new long[]{0x0000000000900000L});
+    public static final BitSet FOLLOW_LIST_CLOSE_in_special_port_access_list1828 = new BitSet(new long[]{0x0000000000000002L});
 
 }

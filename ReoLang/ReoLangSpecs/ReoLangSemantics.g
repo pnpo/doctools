@@ -1766,7 +1766,7 @@ port_actual_definition [ArrayList<String> i_unused_accesses, String i_port_name,
 
 
 
-port_access [ArrayList<String> i_unused_accesses]returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori]
+port_access [ArrayList<String> i_unused_accesses]returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori, int line, int pos, String name]
 	@init {
 		ArrayList<Error> local_errors = new ArrayList<Error>();
 		PortOrientation access_ori = PortOrientation.NONE;
@@ -1815,7 +1815,9 @@ port_access [ArrayList<String> i_unused_accesses]returns [ArrayList<Error> o_err
 		$port_access.ori = access_ori;
 		$port_access.o_errors = local_errors;
 		$port_access.o_unused_accesses = $port_access.i_unused_accesses;
-		
+		$port_access.name = port_access;
+		$port_access.line = $id1.line;
+		$port_access.pos = $id1.pos;
 		
 	}
 	
@@ -1873,6 +1875,13 @@ join_part [ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_erro
 		$join_part.o_unused_accesses = $port_access_list.o_unused_accesses;
 		$join_part.ori = $port_access_list.ori;
 	}
+	|	 ^(RW_DECIDE special_port_access_list[$join_part.i_unused_accesses])
+	{
+		$join_part.o_errors = $special_port_access_list.o_errors;
+		$join_part.o_unused_accesses = $special_port_access_list.o_unused_accesses;
+		$join_part.ori = $special_port_access_list.ori;
+	}
+	
 	;	 
 
 
@@ -1904,7 +1913,7 @@ port_access_list [ArrayList<String> i_unused_accesses] returns [ArrayList<Error>
  		$port_access_list.ori = access_ori;
  	}
  	
-	|	^(PORT_ACCESS_LIST RW_REMAINING)
+	/*|	^(PORT_ACCESS_LIST RW_REMAINING)
 	
 	{
 		//find port orientation of remaining accesses
@@ -1928,7 +1937,55 @@ port_access_list [ArrayList<String> i_unused_accesses] returns [ArrayList<Error>
 		$port_access_list.o_unused_accesses = new ArrayList<String>(0);
 		$port_access_list.o_errors = local_errors;
 		$port_access_list.ori = access_ori;
-	}
+	}*/
 
+	;
+
+
+
+special_port_access_list [ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori]
+	@init {
+ 		ArrayList<Error> local_errors = new ArrayList<Error>();
+ 	}
+
+	:	^(PORT_ACCESS_LIST 	p1=port_access[$special_port_access_list.i_unused_accesses] 
+					p2=port_access[$p1.o_unused_accesses] 
+					p3=port_access[$p2.o_unused_accesses]
+	{
+		$special_port_access_list.i_unused_accesses = $p3.o_unused_accesses;
+		local_errors.addAll($p1.o_errors);
+		local_errors.addAll($p2.o_errors);
+		local_errors.addAll($p3.o_errors);
+		
+		//CHECK WHETHER P1 IS OUTPUT PORT
+		if(! $p1.ori.equals(PortOrientation.OUT)) {
+			local_errors.add(Error.report(ErrorType.ERROR,Error.badPortOrientationUsage($p1.name, PortOrientation.OUT), $p1.line, $p1.pos, $reolang::file));
+		}
+		//CHECK WHETHER P2 P3 IS INPUT PORT
+		if(! $p2.ori.equals(PortOrientation.IN)) {
+			local_errors.add(Error.report(ErrorType.ERROR,Error.badPortOrientationUsage($p2.name, PortOrientation.OUT), $p2.line, $p2.pos, $reolang::file));
+		}
+		if(! $p2.ori.equals(PortOrientation.IN)) {
+			local_errors.add(Error.report(ErrorType.ERROR,Error.badPortOrientationUsage($p3.name, PortOrientation.OUT), $p3.line, $p3.pos, $reolang::file));
+		}
+		
+	}
+	
+	(p4=port_access[$special_port_access_list.i_unused_accesses]
+	{
+		$special_port_access_list.i_unused_accesses = $p4.o_unused_accesses;
+		local_errors.addAll($p4.o_errors);
+		if(! $p2.ori.equals(PortOrientation.IN)) {
+			local_errors.add(Error.report(ErrorType.ERROR,Error.badPortOrientationUsage($p4.name, PortOrientation.OUT), $p4.line, $p4.pos, $reolang::file));
+		}
+		//CHECK WHETHER P4 IS INPUT PORT
+	}
+	)*)
+	
+ 	{
+ 		$special_port_access_list.o_errors = local_errors;
+ 		$special_port_access_list.o_unused_accesses = $special_port_access_list.i_unused_accesses;
+ 		$special_port_access_list.ori = PortOrientation.MIXED;
+ 	}
 	;
 

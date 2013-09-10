@@ -1,11 +1,9 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g 2012-05-09 17:28:36
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g 2013-09-10 17:28:13
 
 	package pt.uminho.di.reolang;
 	import pt.uminho.di.reolang.parsing.util.*;
-import pt.uminho.di.ap.model.graph.*;
-import pt.uminho.di.ap.model_v0.*;
-
-import java.util.HashMap;
+	import pt.uminho.di.cp.model.graph.*;
+	import java.util.HashMap;
 
 
 import org.antlr.runtime.*;
@@ -15,27 +13,28 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 public class FuzzyPatternViewReoLang extends Lexer {
-    public static final int PORTS_OUT=10;
-    public static final int UNICODE_ESC=21;
-    public static final int QUALQUEROUTRACOISA=23;
+    public static final int PORT_DEFINITION1=14;
     public static final int JOINS=16;
-    public static final int WS=4;
-    public static final int STRING=19;
-    public static final int PATTERN_NAME=8;
-    public static final int ESC_SEQ=18;
-    public static final int PORTS_IN=9;
-    public static final int USES=11;
-    public static final int IN=6;
     public static final int PORT_DEFINITION2=15;
     public static final int INSTANCES=12;
-    public static final int PORT_DEFINITION1=14;
-    public static final int INT=17;
-    public static final int EOF=-1;
-    public static final int USE=5;
-    public static final int HEX_DIGIT=20;
-    public static final int PORT_ACCESS=13;
-    public static final int OCTAL_ESC=22;
+    public static final int UNICODE_ESC=22;
+    public static final int OCTAL_ESC=23;
+    public static final int HEX_DIGIT=21;
+    public static final int INT=18;
+    public static final int PORTS_OUT=10;
     public static final int ID=7;
+    public static final int EOF=-1;
+    public static final int DECIDES=17;
+    public static final int WS=4;
+    public static final int ESC_SEQ=19;
+    public static final int IN=6;
+    public static final int USES=11;
+    public static final int QUALQUEROUTRACOISA=24;
+    public static final int PATTERN_NAME=8;
+    public static final int USE=5;
+    public static final int PORT_ACCESS=13;
+    public static final int STRING=20;
+    public static final int PORTS_IN=9;
 
 
     	private ArchPatternAbstractGraph graph;
@@ -70,6 +69,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
     	public HashMap<String, String> getReplacements(){
     		return this.replacements;
     	}
+
     	
 
 
@@ -84,7 +84,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "/Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g"; }
+    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g"; }
 
     public Token nextToken() {
         while (true) {
@@ -136,12 +136,12 @@ public class FuzzyPatternViewReoLang extends Lexer {
         try {
             int _type = USE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:2: ( 'use' ( WS )? ':' )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:4: 'use' ( WS )? ':'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:2: ( 'use' ( WS )? ':' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:4: 'use' ( WS )? ':'
             {
             match("use"); if (state.failed) return ;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:10: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:10: ( WS )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -150,7 +150,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:10: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:62:10: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -178,8 +178,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
         try {
             int _type = IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:68:2: ({...}? => 'in' ( WS )? ':' )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:68:4: {...}? => 'in' ( WS )? ':'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:68:2: ({...}? => 'in' ( WS )? ':' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:68:4: {...}? => 'in' ( WS )? ':'
             {
             if ( !((context==EContext.PATTERN_USE)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -187,7 +187,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             match("in"); if (state.failed) return ;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:69:8: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:69:8: ( WS )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -196,7 +196,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:69:8: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:69:8: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -226,8 +226,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             CommonToken pat_name=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:80:2: ( 'pattern' WS pat_name= ID )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:80:4: 'pattern' WS pat_name= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:80:2: ( 'pattern' WS pat_name= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:80:4: 'pattern' WS pat_name= ID
             {
             match("pattern"); if (state.failed) return ;
 
@@ -261,15 +261,15 @@ public class FuzzyPatternViewReoLang extends Lexer {
             CommonToken port1=null;
             CommonToken port2=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:91:2: ({...}? => '(' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )? )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:91:6: {...}? => '(' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:91:2: ({...}? => '(' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:91:6: {...}? => '(' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )?
             {
             if ( !((context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION )) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "PORTS_IN", "context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION ");
             }
             match('('); if (state.failed) return ;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:92:7: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:92:7: ( WS )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -278,7 +278,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:92:7: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:92:7: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -300,16 +300,16 @@ public class FuzzyPatternViewReoLang extends Lexer {
               		}
               	
             }
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:3: ( ( WS )? ',' ( WS )? port2= ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:3: ( ( WS )? ',' ( WS )? port2= ID )*
             loop6:
             do {
                 int alt6=2;
                 alt6 = dfa6.predict(input);
                 switch (alt6) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:4: ( WS )? ',' ( WS )? port2= ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:4: ( WS )? ',' ( WS )? port2= ID
             	    {
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:4: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:4: ( WS )?
             	    int alt4=2;
             	    int LA4_0 = input.LA(1);
 
@@ -318,7 +318,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt4) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:4: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:4: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -328,7 +328,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
 
             	    match(','); if (state.failed) return ;
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:12: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:12: ( WS )?
             	    int alt5=2;
             	    int LA5_0 = input.LA(1);
 
@@ -337,7 +337,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt5) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:12: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:103:12: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -368,7 +368,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 }
             } while (true);
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:114:6: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:114:6: ( WS )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -377,7 +377,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:114:6: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:114:6: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -405,15 +405,15 @@ public class FuzzyPatternViewReoLang extends Lexer {
             CommonToken port1=null;
             CommonToken port2=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:120:2: ({...}? => ':' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )? )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:120:4: {...}? => ':' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:120:2: ({...}? => ':' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:120:4: {...}? => ':' ( WS )? port1= ID ( ( WS )? ',' ( WS )? port2= ID )* ( WS )?
             {
             if ( !((context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "PORTS_OUT", "context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION");
             }
             match(':'); if (state.failed) return ;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:121:7: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:121:7: ( WS )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -422,7 +422,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:121:7: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:121:7: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -444,16 +444,16 @@ public class FuzzyPatternViewReoLang extends Lexer {
               		}
               	
             }
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:3: ( ( WS )? ',' ( WS )? port2= ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:3: ( ( WS )? ',' ( WS )? port2= ID )*
             loop11:
             do {
                 int alt11=2;
                 alt11 = dfa11.predict(input);
                 switch (alt11) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:4: ( WS )? ',' ( WS )? port2= ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:4: ( WS )? ',' ( WS )? port2= ID
             	    {
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:4: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:4: ( WS )?
             	    int alt9=2;
             	    int LA9_0 = input.LA(1);
 
@@ -462,7 +462,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt9) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:4: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:4: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -472,7 +472,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
 
             	    match(','); if (state.failed) return ;
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:12: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:12: ( WS )?
             	    int alt10=2;
             	    int LA10_0 = input.LA(1);
 
@@ -481,7 +481,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt10) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:12: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:132:12: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -512,7 +512,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 }
             } while (true);
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:143:6: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:143:6: ( WS )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -521,7 +521,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:143:6: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:143:6: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -549,14 +549,14 @@ public class FuzzyPatternViewReoLang extends Lexer {
             CommonToken obs=null;
             CommonToken type=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:151:2: ({...}? => ( '(' ( WS )? obs= ID ( WS )? ')' )? type= ID )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:151:4: {...}? => ( '(' ( WS )? obs= ID ( WS )? ')' )? type= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:151:2: ({...}? => ( '(' ( WS )? obs= ID ( WS )? ')' )? type= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:151:4: {...}? => ( '(' ( WS )? obs= ID ( WS )? ')' )? type= ID
             {
             if ( !((context == EContext.PATTERN_USE)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "USES", "context == EContext.PATTERN_USE");
             }
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:3: ( '(' ( WS )? obs= ID ( WS )? ')' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:3: ( '(' ( WS )? obs= ID ( WS )? ')' )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -565,10 +565,10 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:4: '(' ( WS )? obs= ID ( WS )? ')'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:4: '(' ( WS )? obs= ID ( WS )? ')'
                     {
                     match('('); if (state.failed) return ;
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:8: ( WS )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:8: ( WS )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -577,7 +577,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                     }
                     switch (alt13) {
                         case 1 :
-                            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:8: WS
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:8: WS
                             {
                             mWS(); if (state.failed) return ;
 
@@ -589,7 +589,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                     int obsStart296 = getCharIndex();
                     mID(); if (state.failed) return ;
                     obs = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, obsStart296, getCharIndex()-1);
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:19: ( WS )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:19: ( WS )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -598,7 +598,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                     }
                     switch (alt14) {
                         case 1 :
-                            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:19: WS
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:152:19: WS
                             {
                             mWS(); if (state.failed) return ;
 
@@ -652,8 +652,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	SimpleSymbol s = table.getScope().getSymbols().get(current_type); 
             	Type type =  s != null ? s.getType() : Type.NULL;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:170:2: ({...}? => 'as' WS inst1= ID ( ( WS )? ',' ( WS )? inst2= ID )* ( WS )? )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:170:4: {...}? => 'as' WS inst1= ID ( ( WS )? ',' ( WS )? inst2= ID )* ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:170:2: ({...}? => 'as' WS inst1= ID ( ( WS )? ',' ( WS )? inst2= ID )* ( WS )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:170:4: {...}? => 'as' WS inst1= ID ( ( WS )? ',' ( WS )? inst2= ID )* ( WS )?
             {
             if ( !((context == EContext.PATTERN_INSTANCE_DEFINITION)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -686,16 +686,16 @@ public class FuzzyPatternViewReoLang extends Lexer {
               		}
               	
             }
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:3: ( ( WS )? ',' ( WS )? inst2= ID )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:3: ( ( WS )? ',' ( WS )? inst2= ID )*
             loop18:
             do {
                 int alt18=2;
                 alt18 = dfa18.predict(input);
                 switch (alt18) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:4: ( WS )? ',' ( WS )? inst2= ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:4: ( WS )? ',' ( WS )? inst2= ID
             	    {
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:4: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:4: ( WS )?
             	    int alt16=2;
             	    int LA16_0 = input.LA(1);
 
@@ -704,7 +704,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt16) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:4: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:4: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -714,7 +714,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
 
             	    match(','); if (state.failed) return ;
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:12: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:12: ( WS )?
             	    int alt17=2;
             	    int LA17_0 = input.LA(1);
 
@@ -723,7 +723,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt17) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:12: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:193:12: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -764,7 +764,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 }
             } while (true);
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:214:6: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:214:6: ( WS )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -773,7 +773,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:214:6: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:214:6: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -803,8 +803,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
             CommonToken port=null;
             CommonToken p=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:222:2: ({...}? =>port= ID ( WS )? '=' ( WS )? p= PORT_ACCESS )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:222:4: {...}? =>port= ID ( WS )? '=' ( WS )? p= PORT_ACCESS
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:222:2: ({...}? =>port= ID ( WS )? '=' ( WS )? p= PORT_ACCESS )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:222:4: {...}? =>port= ID ( WS )? '=' ( WS )? p= PORT_ACCESS
             {
             if ( !((context==EContext.PATTERN_IN)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -813,7 +813,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             int portStart417 = getCharIndex();
             mID(); if (state.failed) return ;
             port = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, portStart417, getCharIndex()-1);
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:11: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:11: ( WS )?
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -822,7 +822,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:11: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:11: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -832,7 +832,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
 
             match('='); if (state.failed) return ;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:19: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:19: ( WS )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -841,7 +841,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt21) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:19: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:223:19: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -883,8 +883,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
             CommonToken p1=null;
             CommonToken p2=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:238:2: ({...}? =>port= ID ( WS )? '=' ( WS )? 'join' ( WS )? '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:238:4: {...}? =>port= ID ( WS )? '=' ( WS )? 'join' ( WS )? '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:238:2: ({...}? =>port= ID ( WS )? '=' ( WS )? 'join' ( WS )? '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:238:4: {...}? =>port= ID ( WS )? '=' ( WS )? 'join' ( WS )? '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']'
             {
             if ( !((context==EContext.PATTERN_IN)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -893,7 +893,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             int portStart460 = getCharIndex();
             mID(); if (state.failed) return ;
             port = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, portStart460, getCharIndex()-1);
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:11: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:11: ( WS )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -902,7 +902,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt22) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:11: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:11: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -912,7 +912,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
 
             match('='); if (state.failed) return ;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:19: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:19: ( WS )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -921,7 +921,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:19: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:19: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -932,7 +932,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
             match("join"); if (state.failed) return ;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:30: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:30: ( WS )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -941,7 +941,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt24) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:30: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:30: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -951,7 +951,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
 
             match('['); if (state.failed) return ;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:38: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:38: ( WS )?
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -960,7 +960,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt25) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:38: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:239:38: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -982,16 +982,16 @@ public class FuzzyPatternViewReoLang extends Lexer {
               		}
               	
             }
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:3: ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:3: ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )*
             loop28:
             do {
                 int alt28=2;
                 alt28 = dfa28.predict(input);
                 switch (alt28) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:4: ( WS )? ',' ( WS )? p2= PORT_ACCESS
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:4: ( WS )? ',' ( WS )? p2= PORT_ACCESS
             	    {
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:4: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:4: ( WS )?
             	    int alt26=2;
             	    int LA26_0 = input.LA(1);
 
@@ -1000,7 +1000,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt26) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:4: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:4: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -1010,7 +1010,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
 
             	    match(','); if (state.failed) return ;
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:12: ( WS )?
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:12: ( WS )?
             	    int alt27=2;
             	    int LA27_0 = input.LA(1);
 
@@ -1019,7 +1019,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    }
             	    switch (alt27) {
             	        case 1 :
-            	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:12: WS
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:250:12: WS
             	            {
             	            mWS(); if (state.failed) return ;
 
@@ -1050,7 +1050,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 }
             } while (true);
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:261:6: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:261:6: ( WS )?
             int alt29=2;
             int LA29_0 = input.LA(1);
 
@@ -1059,7 +1059,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt29) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:261:6: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:261:6: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -1090,8 +1090,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
             CommonToken node=null;
 
             ArrayList<String> accesses = new ArrayList<String>();
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:267:2: ({...}? => 'join' ( WS )? ( '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' | 'remaining' ) WS 'as' WS node= ID )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:267:4: {...}? => 'join' ( WS )? ( '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' | 'remaining' ) WS 'as' WS node= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:267:2: ({...}? => 'join' ( WS )? ( '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' ) WS 'as' WS node= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:267:4: {...}? => 'join' ( WS )? ( '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' ) WS 'as' WS node= ID
             {
             if ( !((context==EContext.PATTERN_IN)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1099,7 +1099,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             match("join"); if (state.failed) return ;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:10: ( WS )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:10: ( WS )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -1108,7 +1108,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             }
             switch (alt30) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:10: WS
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:10: WS
                     {
                     mWS(); if (state.failed) return ;
 
@@ -1117,147 +1117,118 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
             }
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:14: ( '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' | 'remaining' )
-            int alt36=2;
-            int LA36_0 = input.LA(1);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:14: ( '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:15: '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']'
+            {
+            match('['); if (state.failed) return ;
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:19: ( WS )?
+            int alt31=2;
+            int LA31_0 = input.LA(1);
 
-            if ( (LA36_0=='[') ) {
-                alt36=1;
+            if ( ((LA31_0>='\t' && LA31_0<='\n')||LA31_0=='\r'||LA31_0==' ') ) {
+                alt31=1;
             }
-            else if ( (LA36_0=='r') ) {
-                alt36=2;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 36, 0, input);
-
-                throw nvae;
-            }
-            switch (alt36) {
+            switch (alt31) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:15: '[' ( WS )? p1= PORT_ACCESS ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )* ( WS )? ']'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:19: WS
                     {
-                    match('['); if (state.failed) return ;
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:19: ( WS )?
-                    int alt31=2;
-                    int LA31_0 = input.LA(1);
-
-                    if ( ((LA31_0>='\t' && LA31_0<='\n')||LA31_0=='\r'||LA31_0==' ') ) {
-                        alt31=1;
-                    }
-                    switch (alt31) {
-                        case 1 :
-                            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:268:19: WS
-                            {
-                            mWS(); if (state.failed) return ;
-
-                            }
-                            break;
-
-                    }
-
-                    int p1Start565 = getCharIndex();
-                    mPORT_ACCESS(); if (state.failed) return ;
-                    p1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p1Start565, getCharIndex()-1);
-                    if ( state.backtracking==1 ) {
-
-                      		accesses.add(p1.getText());
-                      	
-                    }
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:3: ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )*
-                    loop34:
-                    do {
-                        int alt34=2;
-                        alt34 = dfa34.predict(input);
-                        switch (alt34) {
-                    	case 1 :
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:4: ( WS )? ',' ( WS )? p2= PORT_ACCESS
-                    	    {
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:4: ( WS )?
-                    	    int alt32=2;
-                    	    int LA32_0 = input.LA(1);
-
-                    	    if ( ((LA32_0>='\t' && LA32_0<='\n')||LA32_0=='\r'||LA32_0==' ') ) {
-                    	        alt32=1;
-                    	    }
-                    	    switch (alt32) {
-                    	        case 1 :
-                    	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:4: WS
-                    	            {
-                    	            mWS(); if (state.failed) return ;
-
-                    	            }
-                    	            break;
-
-                    	    }
-
-                    	    match(','); if (state.failed) return ;
-                    	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:12: ( WS )?
-                    	    int alt33=2;
-                    	    int LA33_0 = input.LA(1);
-
-                    	    if ( ((LA33_0>='\t' && LA33_0<='\n')||LA33_0=='\r'||LA33_0==' ') ) {
-                    	        alt33=1;
-                    	    }
-                    	    switch (alt33) {
-                    	        case 1 :
-                    	            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:12: WS
-                    	            {
-                    	            mWS(); if (state.failed) return ;
-
-                    	            }
-                    	            break;
-
-                    	    }
-
-                    	    int p2Start591 = getCharIndex();
-                    	    mPORT_ACCESS(); if (state.failed) return ;
-                    	    p2 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p2Start591, getCharIndex()-1);
-                    	    if ( state.backtracking==1 ) {
-
-                    	      		accesses.add(p2.getText());
-                    	      	
-                    	    }
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop34;
-                        }
-                    } while (true);
-
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:280:6: ( WS )?
-                    int alt35=2;
-                    int LA35_0 = input.LA(1);
-
-                    if ( ((LA35_0>='\t' && LA35_0<='\n')||LA35_0=='\r'||LA35_0==' ') ) {
-                        alt35=1;
-                    }
-                    switch (alt35) {
-                        case 1 :
-                            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:280:6: WS
-                            {
-                            mWS(); if (state.failed) return ;
-
-                            }
-                            break;
-
-                    }
-
-                    match(']'); if (state.failed) return ;
+                    mWS(); if (state.failed) return ;
 
                     }
                     break;
-                case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:280:16: 'remaining'
-                    {
-                    match("remaining"); if (state.failed) return ;
 
+            }
+
+            int p1Start565 = getCharIndex();
+            mPORT_ACCESS(); if (state.failed) return ;
+            p1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p1Start565, getCharIndex()-1);
+            if ( state.backtracking==1 ) {
+
+              		accesses.add(p1.getText());
+              	
+            }
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:3: ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )*
+            loop34:
+            do {
+                int alt34=2;
+                alt34 = dfa34.predict(input);
+                switch (alt34) {
+            	case 1 :
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:4: ( WS )? ',' ( WS )? p2= PORT_ACCESS
+            	    {
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:4: ( WS )?
+            	    int alt32=2;
+            	    int LA32_0 = input.LA(1);
+
+            	    if ( ((LA32_0>='\t' && LA32_0<='\n')||LA32_0=='\r'||LA32_0==' ') ) {
+            	        alt32=1;
+            	    }
+            	    switch (alt32) {
+            	        case 1 :
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:4: WS
+            	            {
+            	            mWS(); if (state.failed) return ;
+
+            	            }
+            	            break;
+
+            	    }
+
+            	    match(','); if (state.failed) return ;
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:12: ( WS )?
+            	    int alt33=2;
+            	    int LA33_0 = input.LA(1);
+
+            	    if ( ((LA33_0>='\t' && LA33_0<='\n')||LA33_0=='\r'||LA33_0==' ') ) {
+            	        alt33=1;
+            	    }
+            	    switch (alt33) {
+            	        case 1 :
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:274:12: WS
+            	            {
+            	            mWS(); if (state.failed) return ;
+
+            	            }
+            	            break;
+
+            	    }
+
+            	    int p2Start591 = getCharIndex();
+            	    mPORT_ACCESS(); if (state.failed) return ;
+            	    p2 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p2Start591, getCharIndex()-1);
+            	    if ( state.backtracking==1 ) {
+
+            	      		accesses.add(p2.getText());
+            	      	
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop34;
+                }
+            } while (true);
+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:280:6: ( WS )?
+            int alt35=2;
+            int LA35_0 = input.LA(1);
+
+            if ( ((LA35_0>='\t' && LA35_0<='\n')||LA35_0=='\r'||LA35_0==' ') ) {
+                alt35=1;
+            }
+            switch (alt35) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:280:6: WS
+                    {
+                    mWS(); if (state.failed) return ;
 
                     }
                     break;
+
+            }
+
+            match(']'); if (state.failed) return ;
 
             }
 
@@ -1265,9 +1236,9 @@ public class FuzzyPatternViewReoLang extends Lexer {
             match("as"); if (state.failed) return ;
 
             mWS(); if (state.failed) return ;
-            int nodeStart625 = getCharIndex();
+            int nodeStart621 = getCharIndex();
             mID(); if (state.failed) return ;
-            node = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, nodeStart625, getCharIndex()-1);
+            node = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, nodeStart621, getCharIndex()-1);
             if ( state.backtracking==1 ) {
 
               		for(String s : accesses) {
@@ -1291,22 +1262,296 @@ public class FuzzyPatternViewReoLang extends Lexer {
     }
     // $ANTLR end "JOINS"
 
+    // $ANTLR start "DECIDES"
+    public final void mDECIDES() throws RecognitionException {
+        try {
+            int _type = DECIDES;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            CommonToken p1=null;
+            CommonToken p2=null;
+            CommonToken p3=null;
+            CommonToken p4=null;
+            CommonToken node=null;
+
+            ArrayList<String> accesses = new ArrayList<String>();
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:298:2: ({...}? => 'decide' ( WS )? ( '[' ( WS )? p1= PORT_ACCESS ( WS )? ':' ( WS )? p2= PORT_ACCESS ( WS )? ',' ( WS )? p3= PORT_ACCESS ( ( WS )? ',' ( WS )? p4= PORT_ACCESS )* ( WS )? ']' ) WS 'as' WS node= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:298:4: {...}? => 'decide' ( WS )? ( '[' ( WS )? p1= PORT_ACCESS ( WS )? ':' ( WS )? p2= PORT_ACCESS ( WS )? ',' ( WS )? p3= PORT_ACCESS ( ( WS )? ',' ( WS )? p4= PORT_ACCESS )* ( WS )? ']' ) WS 'as' WS node= ID
+            {
+            if ( !((context==EContext.PATTERN_IN)) ) {
+                if (state.backtracking>0) {state.failed=true; return ;}
+                throw new FailedPredicateException(input, "DECIDES", "context==EContext.PATTERN_IN");
+            }
+            match("decide"); if (state.failed) return ;
+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:12: ( WS )?
+            int alt36=2;
+            int LA36_0 = input.LA(1);
+
+            if ( ((LA36_0>='\t' && LA36_0<='\n')||LA36_0=='\r'||LA36_0==' ') ) {
+                alt36=1;
+            }
+            switch (alt36) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:12: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:16: ( '[' ( WS )? p1= PORT_ACCESS ( WS )? ':' ( WS )? p2= PORT_ACCESS ( WS )? ',' ( WS )? p3= PORT_ACCESS ( ( WS )? ',' ( WS )? p4= PORT_ACCESS )* ( WS )? ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:17: '[' ( WS )? p1= PORT_ACCESS ( WS )? ':' ( WS )? p2= PORT_ACCESS ( WS )? ',' ( WS )? p3= PORT_ACCESS ( ( WS )? ',' ( WS )? p4= PORT_ACCESS )* ( WS )? ']'
+            {
+            match('['); if (state.failed) return ;
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:21: ( WS )?
+            int alt37=2;
+            int LA37_0 = input.LA(1);
+
+            if ( ((LA37_0>='\t' && LA37_0<='\n')||LA37_0=='\r'||LA37_0==' ') ) {
+                alt37=1;
+            }
+            switch (alt37) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:21: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            int p1Start666 = getCharIndex();
+            mPORT_ACCESS(); if (state.failed) return ;
+            p1 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p1Start666, getCharIndex()-1);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:40: ( WS )?
+            int alt38=2;
+            int LA38_0 = input.LA(1);
+
+            if ( ((LA38_0>='\t' && LA38_0<='\n')||LA38_0=='\r'||LA38_0==' ') ) {
+                alt38=1;
+            }
+            switch (alt38) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:299:40: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            if ( state.backtracking==1 ) {
+
+              		accesses.add(p1.getText());
+              	
+            }
+            match(':'); if (state.failed) return ;
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:303:7: ( WS )?
+            int alt39=2;
+            int LA39_0 = input.LA(1);
+
+            if ( ((LA39_0>='\t' && LA39_0<='\n')||LA39_0=='\r'||LA39_0==' ') ) {
+                alt39=1;
+            }
+            switch (alt39) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:303:7: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            int p2Start685 = getCharIndex();
+            mPORT_ACCESS(); if (state.failed) return ;
+            p2 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p2Start685, getCharIndex()-1);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:303:26: ( WS )?
+            int alt40=2;
+            int LA40_0 = input.LA(1);
+
+            if ( ((LA40_0>='\t' && LA40_0<='\n')||LA40_0=='\r'||LA40_0==' ') ) {
+                alt40=1;
+            }
+            switch (alt40) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:303:26: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            if ( state.backtracking==1 ) {
+
+              		accesses.add(p2.getText());
+              	
+            }
+            match(','); if (state.failed) return ;
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:307:7: ( WS )?
+            int alt41=2;
+            int LA41_0 = input.LA(1);
+
+            if ( ((LA41_0>='\t' && LA41_0<='\n')||LA41_0=='\r'||LA41_0==' ') ) {
+                alt41=1;
+            }
+            switch (alt41) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:307:7: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            int p3Start704 = getCharIndex();
+            mPORT_ACCESS(); if (state.failed) return ;
+            p3 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p3Start704, getCharIndex()-1);
+            if ( state.backtracking==1 ) {
+
+              		accesses.add(p3.getText());
+              	
+            }
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:311:3: ( ( WS )? ',' ( WS )? p4= PORT_ACCESS )*
+            loop44:
+            do {
+                int alt44=2;
+                alt44 = dfa44.predict(input);
+                switch (alt44) {
+            	case 1 :
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:311:4: ( WS )? ',' ( WS )? p4= PORT_ACCESS
+            	    {
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:311:4: ( WS )?
+            	    int alt42=2;
+            	    int LA42_0 = input.LA(1);
+
+            	    if ( ((LA42_0>='\t' && LA42_0<='\n')||LA42_0=='\r'||LA42_0==' ') ) {
+            	        alt42=1;
+            	    }
+            	    switch (alt42) {
+            	        case 1 :
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:311:4: WS
+            	            {
+            	            mWS(); if (state.failed) return ;
+
+            	            }
+            	            break;
+
+            	    }
+
+            	    match(','); if (state.failed) return ;
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:311:12: ( WS )?
+            	    int alt43=2;
+            	    int LA43_0 = input.LA(1);
+
+            	    if ( ((LA43_0>='\t' && LA43_0<='\n')||LA43_0=='\r'||LA43_0==' ') ) {
+            	        alt43=1;
+            	    }
+            	    switch (alt43) {
+            	        case 1 :
+            	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:311:12: WS
+            	            {
+            	            mWS(); if (state.failed) return ;
+
+            	            }
+            	            break;
+
+            	    }
+
+            	    int p4Start724 = getCharIndex();
+            	    mPORT_ACCESS(); if (state.failed) return ;
+            	    p4 = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, p4Start724, getCharIndex()-1);
+            	    if ( state.backtracking==1 ) {
+
+            	      		accesses.add(p4.getText());
+            	      	
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop44;
+                }
+            } while (true);
+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:315:6: ( WS )?
+            int alt45=2;
+            int LA45_0 = input.LA(1);
+
+            if ( ((LA45_0>='\t' && LA45_0<='\n')||LA45_0=='\r'||LA45_0==' ') ) {
+                alt45=1;
+            }
+            switch (alt45) {
+                case 1 :
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:315:6: WS
+                    {
+                    mWS(); if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
+            match(']'); if (state.failed) return ;
+
+            }
+
+            mWS(); if (state.failed) return ;
+            match("as"); if (state.failed) return ;
+
+            mWS(); if (state.failed) return ;
+            int nodeStart749 = getCharIndex();
+            mID(); if (state.failed) return ;
+            node = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, nodeStart749, getCharIndex()-1);
+            if ( state.backtracking==1 ) {
+
+              		for(String s : accesses) {
+              			if(! replacements.containsKey(s)){
+              				replacements.put(s, node.getText());
+              			}
+              			else {
+              				graph.addEdge(new Edge(node.getText(), replacements.get(s) , false, "" ));
+              			}
+              		}
+              	
+            }
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "DECIDES"
+
     // $ANTLR start "PORT_ACCESS"
     public final void mPORT_ACCESS() throws RecognitionException {
         try {
             CommonToken pat=null;
             CommonToken port=null;
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:298:2: (pat= ID '.' port= ID )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:298:4: pat= ID '.' port= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:334:2: (pat= ID '.' port= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:334:4: pat= ID '.' port= ID
             {
-            int patStart651 = getCharIndex();
+            int patStart778 = getCharIndex();
             mID(); if (state.failed) return ;
-            pat = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, patStart651, getCharIndex()-1);
+            pat = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, patStart778, getCharIndex()-1);
             match('.'); if (state.failed) return ;
-            int portStart657 = getCharIndex();
+            int portStart784 = getCharIndex();
             mID(); if (state.failed) return ;
-            port = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, portStart657, getCharIndex()-1);
+            port = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, portStart784, getCharIndex()-1);
 
             }
 
@@ -1319,8 +1564,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "ID"
     public final void mID() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:306:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:306:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:342:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:342:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1332,20 +1577,20 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:306:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-            loop37:
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:342:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            loop46:
             do {
-                int alt37=2;
-                int LA37_0 = input.LA(1);
+                int alt46=2;
+                int LA46_0 = input.LA(1);
 
-                if ( ((LA37_0>='0' && LA37_0<='9')||(LA37_0>='A' && LA37_0<='Z')||LA37_0=='_'||(LA37_0>='a' && LA37_0<='z')) ) {
-                    alt37=1;
+                if ( ((LA46_0>='0' && LA46_0<='9')||(LA46_0>='A' && LA46_0<='Z')||LA46_0=='_'||(LA46_0>='a' && LA46_0<='z')) ) {
+                    alt46=1;
                 }
 
 
-                switch (alt37) {
+                switch (alt46) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -1362,7 +1607,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    break;
 
             	default :
-            	    break loop37;
+            	    break loop46;
                 }
             } while (true);
 
@@ -1378,24 +1623,24 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "INT"
     public final void mINT() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:314:5: ( ( '0' .. '9' )+ )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:314:7: ( '0' .. '9' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:5: ( ( '0' .. '9' )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:7: ( '0' .. '9' )+
             {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:314:7: ( '0' .. '9' )+
-            int cnt38=0;
-            loop38:
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:7: ( '0' .. '9' )+
+            int cnt47=0;
+            loop47:
             do {
-                int alt38=2;
-                int LA38_0 = input.LA(1);
+                int alt47=2;
+                int LA47_0 = input.LA(1);
 
-                if ( ((LA38_0>='0' && LA38_0<='9')) ) {
-                    alt38=1;
+                if ( ((LA47_0>='0' && LA47_0<='9')) ) {
+                    alt47=1;
                 }
 
 
-                switch (alt38) {
+                switch (alt47) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:314:7: '0' .. '9'
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:7: '0' .. '9'
             	    {
             	    matchRange('0','9'); if (state.failed) return ;
 
@@ -1403,13 +1648,13 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt38 >= 1 ) break loop38;
+            	    if ( cnt47 >= 1 ) break loop47;
             	    if (state.backtracking>0) {state.failed=true; return ;}
                         EarlyExitException eee =
-                            new EarlyExitException(38, input);
+                            new EarlyExitException(47, input);
                         throw eee;
                 }
-                cnt38++;
+                cnt47++;
             } while (true);
 
 
@@ -1424,34 +1669,34 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "STRING"
     public final void mSTRING() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:322:5: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:322:8: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:358:5: ( '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:358:8: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); if (state.failed) return ;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:322:12: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
-            loop39:
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:358:12: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
+            loop48:
             do {
-                int alt39=3;
-                int LA39_0 = input.LA(1);
+                int alt48=3;
+                int LA48_0 = input.LA(1);
 
-                if ( (LA39_0=='\\') ) {
-                    alt39=1;
+                if ( (LA48_0=='\\') ) {
+                    alt48=1;
                 }
-                else if ( ((LA39_0>='\u0000' && LA39_0<='!')||(LA39_0>='#' && LA39_0<='[')||(LA39_0>=']' && LA39_0<='\uFFFF')) ) {
-                    alt39=2;
+                else if ( ((LA48_0>='\u0000' && LA48_0<='!')||(LA48_0>='#' && LA48_0<='[')||(LA48_0>=']' && LA48_0<='\uFFFF')) ) {
+                    alt48=2;
                 }
 
 
-                switch (alt39) {
+                switch (alt48) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:322:14: ESC_SEQ
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:358:14: ESC_SEQ
             	    {
             	    mESC_SEQ(); if (state.failed) return ;
 
             	    }
             	    break;
             	case 2 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:322:24: ~ ( '\\\\' | '\"' )
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:358:24: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1468,7 +1713,7 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    break;
 
             	default :
-            	    break loop39;
+            	    break loop48;
                 }
             } while (true);
 
@@ -1485,8 +1730,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:326:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:326:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:362:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:362:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -1510,11 +1755,11 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:330:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
-            int alt40=3;
-            int LA40_0 = input.LA(1);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:366:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            int alt49=3;
+            int LA49_0 = input.LA(1);
 
-            if ( (LA40_0=='\\') ) {
+            if ( (LA49_0=='\\') ) {
                 switch ( input.LA(2) ) {
                 case '\"':
                 case '\'':
@@ -1525,12 +1770,12 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 case 'r':
                 case 't':
                     {
-                    alt40=1;
+                    alt49=1;
                     }
                     break;
                 case 'u':
                     {
-                    alt40=2;
+                    alt49=2;
                     }
                     break;
                 case '0':
@@ -1542,13 +1787,13 @@ public class FuzzyPatternViewReoLang extends Lexer {
                 case '6':
                 case '7':
                     {
-                    alt40=3;
+                    alt49=3;
                     }
                     break;
                 default:
                     if (state.backtracking>0) {state.failed=true; return ;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 40, 1, input);
+                        new NoViableAltException("", 49, 1, input);
 
                     throw nvae;
                 }
@@ -1557,13 +1802,13 @@ public class FuzzyPatternViewReoLang extends Lexer {
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 40, 0, input);
+                    new NoViableAltException("", 49, 0, input);
 
                 throw nvae;
             }
-            switch (alt40) {
+            switch (alt49) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:330:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:366:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); if (state.failed) return ;
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
@@ -1580,14 +1825,14 @@ public class FuzzyPatternViewReoLang extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:331:9: UNICODE_ESC
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:367:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:332:9: OCTAL_ESC
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:368:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); if (state.failed) return ;
 
@@ -1604,41 +1849,41 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
-            int alt41=3;
-            int LA41_0 = input.LA(1);
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            int alt50=3;
+            int LA50_0 = input.LA(1);
 
-            if ( (LA41_0=='\\') ) {
-                int LA41_1 = input.LA(2);
+            if ( (LA50_0=='\\') ) {
+                int LA50_1 = input.LA(2);
 
-                if ( ((LA41_1>='0' && LA41_1<='3')) ) {
-                    int LA41_2 = input.LA(3);
+                if ( ((LA50_1>='0' && LA50_1<='3')) ) {
+                    int LA50_2 = input.LA(3);
 
-                    if ( ((LA41_2>='0' && LA41_2<='7')) ) {
-                        int LA41_4 = input.LA(4);
+                    if ( ((LA50_2>='0' && LA50_2<='7')) ) {
+                        int LA50_4 = input.LA(4);
 
-                        if ( ((LA41_4>='0' && LA41_4<='7')) ) {
-                            alt41=1;
+                        if ( ((LA50_4>='0' && LA50_4<='7')) ) {
+                            alt50=1;
                         }
                         else {
-                            alt41=2;}
+                            alt50=2;}
                     }
                     else {
-                        alt41=3;}
+                        alt50=3;}
                 }
-                else if ( ((LA41_1>='4' && LA41_1<='7')) ) {
-                    int LA41_3 = input.LA(3);
+                else if ( ((LA50_1>='4' && LA50_1<='7')) ) {
+                    int LA50_3 = input.LA(3);
 
-                    if ( ((LA41_3>='0' && LA41_3<='7')) ) {
-                        alt41=2;
+                    if ( ((LA50_3>='0' && LA50_3<='7')) ) {
+                        alt50=2;
                     }
                     else {
-                        alt41=3;}
+                        alt50=3;}
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 41, 1, input);
+                        new NoViableAltException("", 50, 1, input);
 
                     throw nvae;
                 }
@@ -1646,31 +1891,31 @@ public class FuzzyPatternViewReoLang extends Lexer {
             else {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 41, 0, input);
+                    new NoViableAltException("", 50, 0, input);
 
                 throw nvae;
             }
-            switch (alt41) {
+            switch (alt50) {
                 case 1 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); if (state.failed) return ;
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:14: ( '0' .. '3' )
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:15: '0' .. '3'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:14: ( '0' .. '3' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:15: '0' .. '3'
                     {
                     matchRange('0','3'); if (state.failed) return ;
 
                     }
 
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:25: ( '0' .. '7' )
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:26: '0' .. '7'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:25: ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:26: '0' .. '7'
                     {
                     matchRange('0','7'); if (state.failed) return ;
 
                     }
 
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:36: ( '0' .. '7' )
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:337:37: '0' .. '7'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:36: ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:373:37: '0' .. '7'
                     {
                     matchRange('0','7'); if (state.failed) return ;
 
@@ -1680,18 +1925,18 @@ public class FuzzyPatternViewReoLang extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:338:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:374:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); if (state.failed) return ;
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:338:14: ( '0' .. '7' )
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:338:15: '0' .. '7'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:374:14: ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:374:15: '0' .. '7'
                     {
                     matchRange('0','7'); if (state.failed) return ;
 
                     }
 
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:338:25: ( '0' .. '7' )
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:338:26: '0' .. '7'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:374:25: ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:374:26: '0' .. '7'
                     {
                     matchRange('0','7'); if (state.failed) return ;
 
@@ -1701,11 +1946,11 @@ public class FuzzyPatternViewReoLang extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:339:9: '\\\\' ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:375:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); if (state.failed) return ;
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:339:14: ( '0' .. '7' )
-                    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:339:15: '0' .. '7'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:375:14: ( '0' .. '7' )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:375:15: '0' .. '7'
                     {
                     matchRange('0','7'); if (state.failed) return ;
 
@@ -1725,8 +1970,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:344:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:344:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:380:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:380:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); if (state.failed) return ;
             match('u'); if (state.failed) return ;
@@ -1748,24 +1993,24 @@ public class FuzzyPatternViewReoLang extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:5: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:9: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:386:5: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:386:9: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:350:9: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            int cnt42=0;
-            loop42:
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:386:9: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            int cnt51=0;
+            loop51:
             do {
-                int alt42=2;
-                int LA42_0 = input.LA(1);
+                int alt51=2;
+                int LA51_0 = input.LA(1);
 
-                if ( ((LA42_0>='\t' && LA42_0<='\n')||LA42_0=='\r'||LA42_0==' ') ) {
-                    alt42=1;
+                if ( ((LA51_0>='\t' && LA51_0<='\n')||LA51_0=='\r'||LA51_0==' ') ) {
+                    alt51=1;
                 }
 
 
-                switch (alt42) {
+                switch (alt51) {
             	case 1 :
-            	    // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
             	        input.consume();
@@ -1782,13 +2027,13 @@ public class FuzzyPatternViewReoLang extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt42 >= 1 ) break loop42;
+            	    if ( cnt51 >= 1 ) break loop51;
             	    if (state.backtracking>0) {state.failed=true; return ;}
                         EarlyExitException eee =
-                            new EarlyExitException(42, input);
+                            new EarlyExitException(51, input);
                         throw eee;
                 }
-                cnt42++;
+                cnt51++;
             } while (true);
 
 
@@ -1807,8 +2052,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
         try {
             int _type = QUALQUEROUTRACOISA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:363:2: ( . )
-            // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:363:4: .
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:399:2: ( . )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:399:4: .
             {
             matchAny(); if (state.failed) return ;
 
@@ -1823,89 +2068,96 @@ public class FuzzyPatternViewReoLang extends Lexer {
     // $ANTLR end "QUALQUEROUTRACOISA"
 
     public void mTokens() throws RecognitionException {
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:39: ( USE | IN | PATTERN_NAME | PORTS_IN | PORTS_OUT | USES | INSTANCES | PORT_DEFINITION1 | PORT_DEFINITION2 | JOINS | WS | QUALQUEROUTRACOISA )
-        int alt43=12;
-        alt43 = dfa43.predict(input);
-        switch (alt43) {
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:39: ( USE | IN | PATTERN_NAME | PORTS_IN | PORTS_OUT | USES | INSTANCES | PORT_DEFINITION1 | PORT_DEFINITION2 | JOINS | DECIDES | WS | QUALQUEROUTRACOISA )
+        int alt52=13;
+        alt52 = dfa52.predict(input);
+        switch (alt52) {
             case 1 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:41: USE
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:41: USE
                 {
                 mUSE(); if (state.failed) return ;
 
                 }
                 break;
             case 2 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:45: IN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:45: IN
                 {
                 mIN(); if (state.failed) return ;
 
                 }
                 break;
             case 3 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:48: PATTERN_NAME
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:48: PATTERN_NAME
                 {
                 mPATTERN_NAME(); if (state.failed) return ;
 
                 }
                 break;
             case 4 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:61: PORTS_IN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:61: PORTS_IN
                 {
                 mPORTS_IN(); if (state.failed) return ;
 
                 }
                 break;
             case 5 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:70: PORTS_OUT
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:70: PORTS_OUT
                 {
                 mPORTS_OUT(); if (state.failed) return ;
 
                 }
                 break;
             case 6 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:80: USES
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:80: USES
                 {
                 mUSES(); if (state.failed) return ;
 
                 }
                 break;
             case 7 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:85: INSTANCES
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:85: INSTANCES
                 {
                 mINSTANCES(); if (state.failed) return ;
 
                 }
                 break;
             case 8 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:95: PORT_DEFINITION1
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:95: PORT_DEFINITION1
                 {
                 mPORT_DEFINITION1(); if (state.failed) return ;
 
                 }
                 break;
             case 9 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:112: PORT_DEFINITION2
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:112: PORT_DEFINITION2
                 {
                 mPORT_DEFINITION2(); if (state.failed) return ;
 
                 }
                 break;
             case 10 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:129: JOINS
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:129: JOINS
                 {
                 mJOINS(); if (state.failed) return ;
 
                 }
                 break;
             case 11 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:135: WS
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:135: DECIDES
+                {
+                mDECIDES(); if (state.failed) return ;
+
+                }
+                break;
+            case 12 :
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:143: WS
                 {
                 mWS(); if (state.failed) return ;
 
                 }
                 break;
-            case 12 :
-                // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:138: QUALQUEROUTRACOISA
+            case 13 :
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:146: QUALQUEROUTRACOISA
                 {
                 mQUALQUEROUTRACOISA(); if (state.failed) return ;
 
@@ -1918,8 +2170,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred1_FuzzyPatternViewReoLang
     public final void synpred1_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:41: ( USE )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:41: USE
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:41: ( USE )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:41: USE
         {
         mUSE(); if (state.failed) return ;
 
@@ -1929,8 +2181,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred2_FuzzyPatternViewReoLang
     public final void synpred2_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:45: ( IN )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:45: IN
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:45: ( IN )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:45: IN
         {
         mIN(); if (state.failed) return ;
 
@@ -1940,8 +2192,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred3_FuzzyPatternViewReoLang
     public final void synpred3_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:48: ( PATTERN_NAME )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:48: PATTERN_NAME
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:48: ( PATTERN_NAME )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:48: PATTERN_NAME
         {
         mPATTERN_NAME(); if (state.failed) return ;
 
@@ -1951,8 +2203,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred4_FuzzyPatternViewReoLang
     public final void synpred4_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:61: ( PORTS_IN )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:61: PORTS_IN
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:61: ( PORTS_IN )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:61: PORTS_IN
         {
         mPORTS_IN(); if (state.failed) return ;
 
@@ -1962,8 +2214,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred5_FuzzyPatternViewReoLang
     public final void synpred5_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:70: ( PORTS_OUT )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:70: PORTS_OUT
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:70: ( PORTS_OUT )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:70: PORTS_OUT
         {
         mPORTS_OUT(); if (state.failed) return ;
 
@@ -1973,8 +2225,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred6_FuzzyPatternViewReoLang
     public final void synpred6_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:80: ( USES )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:80: USES
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:80: ( USES )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:80: USES
         {
         mUSES(); if (state.failed) return ;
 
@@ -1984,8 +2236,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred7_FuzzyPatternViewReoLang
     public final void synpred7_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:85: ( INSTANCES )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:85: INSTANCES
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:85: ( INSTANCES )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:85: INSTANCES
         {
         mINSTANCES(); if (state.failed) return ;
 
@@ -1995,8 +2247,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred8_FuzzyPatternViewReoLang
     public final void synpred8_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:95: ( PORT_DEFINITION1 )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:95: PORT_DEFINITION1
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:95: ( PORT_DEFINITION1 )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:95: PORT_DEFINITION1
         {
         mPORT_DEFINITION1(); if (state.failed) return ;
 
@@ -2006,8 +2258,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred9_FuzzyPatternViewReoLang
     public final void synpred9_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:112: ( PORT_DEFINITION2 )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:112: PORT_DEFINITION2
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:112: ( PORT_DEFINITION2 )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:112: PORT_DEFINITION2
         {
         mPORT_DEFINITION2(); if (state.failed) return ;
 
@@ -2017,8 +2269,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred10_FuzzyPatternViewReoLang
     public final void synpred10_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:129: ( JOINS )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:129: JOINS
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:129: ( JOINS )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:129: JOINS
         {
         mJOINS(); if (state.failed) return ;
 
@@ -2028,76 +2280,31 @@ public class FuzzyPatternViewReoLang extends Lexer {
 
     // $ANTLR start synpred11_FuzzyPatternViewReoLang
     public final void synpred11_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:135: ( WS )
-        // /Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:135: WS
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:135: ( DECIDES )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:135: DECIDES
         {
-        mWS(); if (state.failed) return ;
+        mDECIDES(); if (state.failed) return ;
 
         }
     }
     // $ANTLR end synpred11_FuzzyPatternViewReoLang
 
-    public final boolean synpred8_FuzzyPatternViewReoLang() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred8_FuzzyPatternViewReoLang_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
+    // $ANTLR start synpred12_FuzzyPatternViewReoLang
+    public final void synpred12_FuzzyPatternViewReoLang_fragment() throws RecognitionException {   
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:143: ( WS )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/FuzzyPatternViewReoLang.g:1:143: WS
+        {
+        mWS(); if (state.failed) return ;
+
         }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
     }
-    public final boolean synpred10_FuzzyPatternViewReoLang() {
+    // $ANTLR end synpred12_FuzzyPatternViewReoLang
+
+    public final boolean synpred12_FuzzyPatternViewReoLang() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred10_FuzzyPatternViewReoLang_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred5_FuzzyPatternViewReoLang() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred5_FuzzyPatternViewReoLang_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred3_FuzzyPatternViewReoLang() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred3_FuzzyPatternViewReoLang_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred9_FuzzyPatternViewReoLang() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred9_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+            synpred12_FuzzyPatternViewReoLang_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2121,11 +2328,11 @@ public class FuzzyPatternViewReoLang extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred1_FuzzyPatternViewReoLang() {
+    public final boolean synpred5_FuzzyPatternViewReoLang() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred1_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+            synpred5_FuzzyPatternViewReoLang_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2135,11 +2342,11 @@ public class FuzzyPatternViewReoLang extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred11_FuzzyPatternViewReoLang() {
+    public final boolean synpred8_FuzzyPatternViewReoLang() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred11_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+            synpred8_FuzzyPatternViewReoLang_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2163,6 +2370,76 @@ public class FuzzyPatternViewReoLang extends Lexer {
         state.failed=false;
         return success;
     }
+    public final boolean synpred2_FuzzyPatternViewReoLang() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred2_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred11_FuzzyPatternViewReoLang() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred11_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred10_FuzzyPatternViewReoLang() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred10_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred9_FuzzyPatternViewReoLang() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred9_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred1_FuzzyPatternViewReoLang() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred1_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
     public final boolean synpred4_FuzzyPatternViewReoLang() {
         state.backtracking++;
         int start = input.mark();
@@ -2177,11 +2454,11 @@ public class FuzzyPatternViewReoLang extends Lexer {
         state.failed=false;
         return success;
     }
-    public final boolean synpred2_FuzzyPatternViewReoLang() {
+    public final boolean synpred3_FuzzyPatternViewReoLang() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred2_FuzzyPatternViewReoLang_fragment(); // can never throw exception
+            synpred3_FuzzyPatternViewReoLang_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -2198,7 +2475,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
     protected DFA18 dfa18 = new DFA18(this);
     protected DFA28 dfa28 = new DFA28(this);
     protected DFA34 dfa34 = new DFA34(this);
-    protected DFA43 dfa43 = new DFA43(this);
+    protected DFA44 dfa44 = new DFA44(this);
+    protected DFA52 dfa52 = new DFA52(this);
     static final String DFA6_eotS =
         "\2\2\2\uffff";
     static final String DFA6_eofS =
@@ -2459,22 +2737,75 @@ public class FuzzyPatternViewReoLang extends Lexer {
             return "()* loopback of 274:3: ( ( WS )? ',' ( WS )? p2= PORT_ACCESS )*";
         }
     }
-    static final String DFA43_eotS =
-        "\26\uffff";
-    static final String DFA43_eofS =
-        "\26\uffff";
-    static final String DFA43_minS =
-        "\12\0\14\uffff";
-    static final String DFA43_maxS =
-        "\1\uffff\11\0\14\uffff";
-    static final String DFA43_acceptS =
-        "\12\uffff\1\14\1\1\1\6\1\10\1\11\1\2\1\3\1\4\1\5\1\7\1\12\1\13";
-    static final String DFA43_specialS =
-        "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\14\uffff}>";
-    static final String[] DFA43_transitionS = {
-            "\11\12\2\11\2\12\1\11\22\12\1\11\7\12\1\4\21\12\1\5\6\12\32"+
-            "\10\4\12\1\10\1\12\1\6\7\10\1\2\1\7\5\10\1\3\4\10\1\1\5\10\uff85"+
-            "\12",
+    static final String DFA44_eotS =
+        "\4\uffff";
+    static final String DFA44_eofS =
+        "\4\uffff";
+    static final String DFA44_minS =
+        "\2\11\2\uffff";
+    static final String DFA44_maxS =
+        "\2\135\2\uffff";
+    static final String DFA44_acceptS =
+        "\2\uffff\1\2\1\1";
+    static final String DFA44_specialS =
+        "\4\uffff}>";
+    static final String[] DFA44_transitionS = {
+            "\2\1\2\uffff\1\1\22\uffff\1\1\13\uffff\1\3\60\uffff\1\2",
+            "\2\1\2\uffff\1\1\22\uffff\1\1\13\uffff\1\3\60\uffff\1\2",
+            "",
+            ""
+    };
+
+    static final short[] DFA44_eot = DFA.unpackEncodedString(DFA44_eotS);
+    static final short[] DFA44_eof = DFA.unpackEncodedString(DFA44_eofS);
+    static final char[] DFA44_min = DFA.unpackEncodedStringToUnsignedChars(DFA44_minS);
+    static final char[] DFA44_max = DFA.unpackEncodedStringToUnsignedChars(DFA44_maxS);
+    static final short[] DFA44_accept = DFA.unpackEncodedString(DFA44_acceptS);
+    static final short[] DFA44_special = DFA.unpackEncodedString(DFA44_specialS);
+    static final short[][] DFA44_transition;
+
+    static {
+        int numStates = DFA44_transitionS.length;
+        DFA44_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA44_transition[i] = DFA.unpackEncodedString(DFA44_transitionS[i]);
+        }
+    }
+
+    class DFA44 extends DFA {
+
+        public DFA44(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 44;
+            this.eot = DFA44_eot;
+            this.eof = DFA44_eof;
+            this.min = DFA44_min;
+            this.max = DFA44_max;
+            this.accept = DFA44_accept;
+            this.special = DFA44_special;
+            this.transition = DFA44_transition;
+        }
+        public String getDescription() {
+            return "()* loopback of 311:3: ( ( WS )? ',' ( WS )? p4= PORT_ACCESS )*";
+        }
+    }
+    static final String DFA52_eotS =
+        "\30\uffff";
+    static final String DFA52_eofS =
+        "\30\uffff";
+    static final String DFA52_minS =
+        "\13\0\15\uffff";
+    static final String DFA52_maxS =
+        "\1\uffff\12\0\15\uffff";
+    static final String DFA52_acceptS =
+        "\13\uffff\1\15\1\1\1\6\1\10\1\11\1\2\1\3\1\4\1\5\1\7\1\12\1\13\1"+
+        "\14";
+    static final String DFA52_specialS =
+        "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\15\uffff}>";
+    static final String[] DFA52_transitionS = {
+            "\11\13\2\12\2\13\1\12\22\13\1\12\7\13\1\4\21\13\1\5\6\13\32"+
+            "\11\4\13\1\11\1\13\1\6\2\11\1\10\4\11\1\2\1\7\5\11\1\3\4\11"+
+            "\1\1\5\11\uff85\13",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -2484,6 +2815,8 @@ public class FuzzyPatternViewReoLang extends Lexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
+            "\1\uffff",
+            "",
             "",
             "",
             "",
@@ -2498,243 +2831,266 @@ public class FuzzyPatternViewReoLang extends Lexer {
             ""
     };
 
-    static final short[] DFA43_eot = DFA.unpackEncodedString(DFA43_eotS);
-    static final short[] DFA43_eof = DFA.unpackEncodedString(DFA43_eofS);
-    static final char[] DFA43_min = DFA.unpackEncodedStringToUnsignedChars(DFA43_minS);
-    static final char[] DFA43_max = DFA.unpackEncodedStringToUnsignedChars(DFA43_maxS);
-    static final short[] DFA43_accept = DFA.unpackEncodedString(DFA43_acceptS);
-    static final short[] DFA43_special = DFA.unpackEncodedString(DFA43_specialS);
-    static final short[][] DFA43_transition;
+    static final short[] DFA52_eot = DFA.unpackEncodedString(DFA52_eotS);
+    static final short[] DFA52_eof = DFA.unpackEncodedString(DFA52_eofS);
+    static final char[] DFA52_min = DFA.unpackEncodedStringToUnsignedChars(DFA52_minS);
+    static final char[] DFA52_max = DFA.unpackEncodedStringToUnsignedChars(DFA52_maxS);
+    static final short[] DFA52_accept = DFA.unpackEncodedString(DFA52_acceptS);
+    static final short[] DFA52_special = DFA.unpackEncodedString(DFA52_specialS);
+    static final short[][] DFA52_transition;
 
     static {
-        int numStates = DFA43_transitionS.length;
-        DFA43_transition = new short[numStates][];
+        int numStates = DFA52_transitionS.length;
+        DFA52_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA43_transition[i] = DFA.unpackEncodedString(DFA43_transitionS[i]);
+            DFA52_transition[i] = DFA.unpackEncodedString(DFA52_transitionS[i]);
         }
     }
 
-    class DFA43 extends DFA {
+    class DFA52 extends DFA {
 
-        public DFA43(BaseRecognizer recognizer) {
+        public DFA52(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 43;
-            this.eot = DFA43_eot;
-            this.eof = DFA43_eof;
-            this.min = DFA43_min;
-            this.max = DFA43_max;
-            this.accept = DFA43_accept;
-            this.special = DFA43_special;
-            this.transition = DFA43_transition;
+            this.decisionNumber = 52;
+            this.eot = DFA52_eot;
+            this.eof = DFA52_eof;
+            this.min = DFA52_min;
+            this.max = DFA52_max;
+            this.accept = DFA52_accept;
+            this.special = DFA52_special;
+            this.transition = DFA52_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens options {k=1; backtrack=true; } : ( USE | IN | PATTERN_NAME | PORTS_IN | PORTS_OUT | USES | INSTANCES | PORT_DEFINITION1 | PORT_DEFINITION2 | JOINS | WS | QUALQUEROUTRACOISA );";
+            return "1:1: Tokens options {k=1; backtrack=true; } : ( USE | IN | PATTERN_NAME | PORTS_IN | PORTS_OUT | USES | INSTANCES | PORT_DEFINITION1 | PORT_DEFINITION2 | JOINS | DECIDES | WS | QUALQUEROUTRACOISA );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA43_0 = input.LA(1);
+                        int LA52_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA43_0=='u') ) {s = 1;}
+                        if ( (LA52_0=='u') ) {s = 1;}
 
-                        else if ( (LA43_0=='i') ) {s = 2;}
+                        else if ( (LA52_0=='i') ) {s = 2;}
 
-                        else if ( (LA43_0=='p') ) {s = 3;}
+                        else if ( (LA52_0=='p') ) {s = 3;}
 
-                        else if ( (LA43_0=='(') ) {s = 4;}
+                        else if ( (LA52_0=='(') ) {s = 4;}
 
-                        else if ( (LA43_0==':') ) {s = 5;}
+                        else if ( (LA52_0==':') ) {s = 5;}
 
-                        else if ( (LA43_0=='a') ) {s = 6;}
+                        else if ( (LA52_0=='a') ) {s = 6;}
 
-                        else if ( (LA43_0=='j') ) {s = 7;}
+                        else if ( (LA52_0=='j') ) {s = 7;}
 
-                        else if ( ((LA43_0>='A' && LA43_0<='Z')||LA43_0=='_'||(LA43_0>='b' && LA43_0<='h')||(LA43_0>='k' && LA43_0<='o')||(LA43_0>='q' && LA43_0<='t')||(LA43_0>='v' && LA43_0<='z')) ) {s = 8;}
+                        else if ( (LA52_0=='d') ) {s = 8;}
 
-                        else if ( ((LA43_0>='\t' && LA43_0<='\n')||LA43_0=='\r'||LA43_0==' ') ) {s = 9;}
+                        else if ( ((LA52_0>='A' && LA52_0<='Z')||LA52_0=='_'||(LA52_0>='b' && LA52_0<='c')||(LA52_0>='e' && LA52_0<='h')||(LA52_0>='k' && LA52_0<='o')||(LA52_0>='q' && LA52_0<='t')||(LA52_0>='v' && LA52_0<='z')) ) {s = 9;}
 
-                        else if ( ((LA43_0>='\u0000' && LA43_0<='\b')||(LA43_0>='\u000B' && LA43_0<='\f')||(LA43_0>='\u000E' && LA43_0<='\u001F')||(LA43_0>='!' && LA43_0<='\'')||(LA43_0>=')' && LA43_0<='9')||(LA43_0>=';' && LA43_0<='@')||(LA43_0>='[' && LA43_0<='^')||LA43_0=='`'||(LA43_0>='{' && LA43_0<='\uFFFF')) ) {s = 10;}
+                        else if ( ((LA52_0>='\t' && LA52_0<='\n')||LA52_0=='\r'||LA52_0==' ') ) {s = 10;}
+
+                        else if ( ((LA52_0>='\u0000' && LA52_0<='\b')||(LA52_0>='\u000B' && LA52_0<='\f')||(LA52_0>='\u000E' && LA52_0<='\u001F')||(LA52_0>='!' && LA52_0<='\'')||(LA52_0>=')' && LA52_0<='9')||(LA52_0>=';' && LA52_0<='@')||(LA52_0>='[' && LA52_0<='^')||LA52_0=='`'||(LA52_0>='{' && LA52_0<='\uFFFF')) ) {s = 11;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA43_1 = input.LA(1);
+                        int LA52_1 = input.LA(1);
 
                          
-                        int index43_1 = input.index();
+                        int index52_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred1_FuzzyPatternViewReoLang()) ) {s = 11;}
+                        if ( (synpred1_FuzzyPatternViewReoLang()) ) {s = 12;}
 
-                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 13;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
 
-                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_1);
+                        input.seek(index52_1);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA43_2 = input.LA(1);
+                        int LA52_2 = input.LA(1);
 
                          
-                        int index43_2 = input.index();
+                        int index52_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((synpred2_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_USE))) ) {s = 15;}
+                        if ( ((synpred2_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_USE))) ) {s = 16;}
 
-                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 13;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
 
-                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_2);
+                        input.seek(index52_2);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA43_3 = input.LA(1);
+                        int LA52_3 = input.LA(1);
 
                          
-                        int index43_3 = input.index();
+                        int index52_3 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred3_FuzzyPatternViewReoLang()) ) {s = 16;}
+                        if ( (synpred3_FuzzyPatternViewReoLang()) ) {s = 17;}
 
-                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 13;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
 
-                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_3);
+                        input.seek(index52_3);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA43_4 = input.LA(1);
+                        int LA52_4 = input.LA(1);
 
                          
-                        int index43_4 = input.index();
+                        int index52_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((synpred4_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION ))) ) {s = 17;}
+                        if ( ((synpred4_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION ))) ) {s = 18;}
 
-                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        else if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_4);
+                        input.seek(index52_4);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
-                        int LA43_5 = input.LA(1);
+                        int LA52_5 = input.LA(1);
 
                          
-                        int index43_5 = input.index();
+                        int index52_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((synpred5_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION))) ) {s = 18;}
+                        if ( ((synpred5_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN || context == EContext.PATTERN_INSTANCE_DEFINITION))) ) {s = 19;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_5);
+                        input.seek(index52_5);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA43_6 = input.LA(1);
+                        int LA52_6 = input.LA(1);
 
                          
-                        int index43_6 = input.index();
+                        int index52_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( ((synpred7_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_INSTANCE_DEFINITION))) ) {s = 19;}
+                        else if ( ((synpred7_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_INSTANCE_DEFINITION))) ) {s = 20;}
 
-                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 13;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
 
-                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_6);
+                        input.seek(index52_6);
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
-                        int LA43_7 = input.LA(1);
+                        int LA52_7 = input.LA(1);
 
                          
-                        int index43_7 = input.index();
+                        int index52_7 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 13;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
 
-                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
 
-                        else if ( ((synpred10_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 20;}
+                        else if ( ((synpred10_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 21;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_7);
+                        input.seek(index52_7);
                         if ( s>=0 ) return s;
                         break;
                     case 8 : 
-                        int LA43_8 = input.LA(1);
+                        int LA52_8 = input.LA(1);
 
                          
-                        int index43_8 = input.index();
+                        int index52_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 12;}
+                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 13;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
 
-                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( ((synpred11_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 22;}
+
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_8);
+                        input.seek(index52_8);
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
-                        int LA43_9 = input.LA(1);
+                        int LA52_9 = input.LA(1);
 
                          
-                        int index43_9 = input.index();
+                        int index52_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred11_FuzzyPatternViewReoLang()) ) {s = 21;}
+                        if ( ((synpred6_FuzzyPatternViewReoLang()&&(context == EContext.PATTERN_USE))) ) {s = 13;}
 
-                        else if ( (true) ) {s = 10;}
+                        else if ( ((synpred8_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 14;}
+
+                        else if ( ((synpred9_FuzzyPatternViewReoLang()&&(context==EContext.PATTERN_IN))) ) {s = 15;}
+
+                        else if ( (true) ) {s = 11;}
 
                          
-                        input.seek(index43_9);
+                        input.seek(index52_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA52_10 = input.LA(1);
+
+                         
+                        int index52_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred12_FuzzyPatternViewReoLang()) ) {s = 23;}
+
+                        else if ( (true) ) {s = 11;}
+
+                         
+                        input.seek(index52_10);
                         if ( s>=0 ) return s;
                         break;
             }
             if (state.backtracking>0) {state.failed=true; return -1;}
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 43, _s, input);
+                new NoViableAltException(getDescription(), 52, _s, input);
             error(nvae);
             throw nvae;
         }

@@ -1,12 +1,11 @@
 /**
  * 
  */
-package pt.uminho.di.ap.model.graph;
+package pt.uminho.di.cp.model.graph;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import pt.uminho.di.ap.model_v0.Node;
 
 /**
  * @author Nuno Oliveira

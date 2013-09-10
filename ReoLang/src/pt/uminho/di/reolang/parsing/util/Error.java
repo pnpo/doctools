@@ -277,8 +277,12 @@ public class Error {
     	return "Name '" + id + "' refers to an '" + po1.toString() + "' port and is being defined by a '" + (po2!=null ? po2 : "NOT DEFINED") + "' port!";
     }
     
+    public static String badPortOrientationUsage(String id, PortOrientation po1) {
+    	return "Port '" + id + "' should be a '" + po1.toString() + "' port!";
+    }
+    
     public static String portNotAvailable(String port) {
-    	return "Port " + port + " is not available!";
+    	return "Port '" + port + "' is not available!";
     }
     
     public static String portAlreadyDefined(String port) {

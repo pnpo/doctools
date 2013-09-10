@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import pt.uminho.di.ap.model.graph.ArchPatternAbstractGraph;
-import pt.uminho.di.ap.model.graph.Edge;
-import pt.uminho.di.ap.model.graph.Graph;
+import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
+import pt.uminho.di.cp.model.graph.Edge;
+import pt.uminho.di.cp.model.graph.Graph;
+import pt.uminho.di.cp.model.graph.Node;
 
 /**
  * @author Nuno Oliveira

@@ -4,8 +4,7 @@ options {filter=true;}
 @header{
 	package pt.uminho.di.reolang;
 	import pt.uminho.di.reolang.parsing.util.*;
-	import pt.uminho.di.ap.model.graph.*;
-	import pt.uminho.di.ap.model.*;
+	import pt.uminho.di.cp.model.graph.*;
 	import java.util.HashMap;
 }
 
@@ -43,6 +42,7 @@ options {filter=true;}
 	public HashMap<String, String> getReplacements(){
 		return this.replacements;
 	}
+
 	
 }
 
@@ -277,7 +277,7 @@ JOINS
 		accesses.add(p2.getText());
 	}
 	
-		)* WS? ']' | 'remaining') WS 'as' WS node=ID
+		)* WS? ']') WS 'as' WS node=ID
 		
 	{
 		for(String s : accesses) {
@@ -289,6 +289,42 @@ JOINS
 			}
 		}
 	}
+	;
+	
+	
+	
+DECIDES
+@init{ArrayList<String> accesses = new ArrayList<String>();}
+	:	{context==EContext.PATTERN_IN}? =>
+		'decide' WS? ('[' WS? p1=PORT_ACCESS WS? 
+	{
+		accesses.add(p1.getText());
+	}	
+		':' WS? p2=PORT_ACCESS WS? 
+	{
+		accesses.add(p2.getText());
+	}	
+		',' WS? p3=PORT_ACCESS 
+	{
+		accesses.add(p3.getText());
+	}	
+		(WS? ',' WS? p4=PORT_ACCESS
+	{
+		accesses.add(p4.getText());
+	}	
+		)* WS? ']') WS 'as' WS node=ID
+		
+	{
+		for(String s : accesses) {
+			if(! replacements.containsKey(s)){
+				replacements.put(s, node.getText());
+			}
+			else {
+				graph.addEdge(new Edge(node.getText(), replacements.get(s) , false, "" ));
+			}
+		}
+	}
+		
 	;
 	
 	

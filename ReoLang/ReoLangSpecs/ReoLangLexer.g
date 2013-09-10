@@ -12,9 +12,13 @@ lexer grammar ReoLangLexer;
 
 //RESERVED WORDS
 
-RW_REMAINING
-	:	'remaining'
+RW_DECIDE
+	:	'decide'
 	;
+
+//RW_REMAINING
+//	:	'remaining'
+//	;
 	
 RW_JOIN
 	:	'join'

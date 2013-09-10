@@ -65,8 +65,11 @@ IN
 	;
 
 
-JOIN
-	:	'join'
+JOIN	:	'join'
+	;
+	
+	
+DECIDE	:	'decide'
 	;
 	
 	
@@ -351,12 +354,13 @@ PORT_ACCESS
 	;
 	
 JOINS
-	:	(']' | 'remaining') WS 'as' WS node=ID
+	:	']' WS 'as' WS node=ID
 	{
 		//System.out.println("INTERNAL NODE: " + node.getText());
 	
 		current_scope.put(node.getText(), new SimpleSymbol(node.getText(), Type.NODE, node.getStartIndex(), node.getStopIndex(), this.file, null, (SimpleSymbol)global_table.getSymbols().get(current_id)));		
 	}
+	
 	;
 	
 	

@@ -18,6 +18,7 @@ public class CoordinationPattern {
 	
 	private Set<CommunicationMean> pattern;
 	private String id;
+	private Set<String> router_nodes;
 	
 	
 	
@@ -28,6 +29,7 @@ public class CoordinationPattern {
 		super();
 		this.id = "unnamed";
 		this.pattern = new HashSet<CommunicationMean>();
+		this.router_nodes = new HashSet<String>();
 	}
 
 
@@ -36,10 +38,11 @@ public class CoordinationPattern {
 	 * @param pattern
 	 * @param id
 	 */
-	public CoordinationPattern(Set<CommunicationMean> pattern, String id) {
+	public CoordinationPattern(Set<CommunicationMean> pattern, String id, Set<String> routers) {
 		super();
 		this.pattern = pattern;
 		this.id = id;
+		this.router_nodes = routers;
 	}
 	
 	
@@ -51,6 +54,7 @@ public class CoordinationPattern {
 		super();
 		this.pattern = new HashSet<CommunicationMean>();
 		this.id = id;
+		this.router_nodes = new HashSet<String>();
 	}
 
 	
@@ -68,6 +72,10 @@ public class CoordinationPattern {
 				
 		}
 		this.id = p.getId();
+		this.router_nodes = new HashSet<String>();
+		for(String r : p.router_nodes){
+			this.router_nodes.add(r);
+		}
 	}
 	
 	
@@ -111,8 +119,31 @@ public class CoordinationPattern {
 
 
 	
-	////// SPECIFIC METHODS /////
+
 	
+	/**
+	 * @return the router_nodes
+	 */
+	public Set<String> getRouter_nodes() {
+		return router_nodes;
+	}
+
+
+
+	/**
+	 * @param router_nodes the router_nodes to set
+	 */
+	public void setRouter_nodes(Set<String> router_nodes) {
+		this.router_nodes = router_nodes;
+	}
+
+	
+	
+	
+
+	////// SPECIFIC METHODS /////
+
+
 	/**
 	 * This method implements the I(p) operations as
 	 * described in: 
@@ -216,6 +247,12 @@ public class CoordinationPattern {
 				if(cm.getInode().equals(old_name) || 
 						(cm.getInode().startsWith(cm_id + "::") && cm.getInode().endsWith("::" + old_name)) ||
 							cm.getInode().equals(cm_id + "." + old_name)){
+					//Change the node in the routers set if the old name was a router...
+					if(this.router_nodes.contains(cm.getInode())){
+						this.router_nodes.remove(cm.getInode());
+						this.router_nodes.add(new_name);
+					}
+					//change the new name
 					cm.setInode(new_name);
 					//if it is a stochastic comm mean, have also to change the arrival requests labels on ports
 					replaceStochasticMap(old_name, new_name, cm);
@@ -224,6 +261,11 @@ public class CoordinationPattern {
 					if(cm.getFnode().equals(old_name) || 
 							(cm.getFnode().startsWith(cm_id + "::") && cm.getFnode().endsWith("::" + old_name)) ||
 								cm.getFnode().equals(cm_id + "." + old_name)){
+						//Change the node in the routers set if the old name was a router...
+						if(this.router_nodes.contains(cm.getFnode())){
+							this.router_nodes.remove(cm.getFnode());
+							this.router_nodes.add(new_name);
+						}
 						cm.setFnode(new_name);
 						//if it is a stochastic comm mean, have also to change the arrival requests labels on ports
 						replaceStochasticMap(old_name, new_name, cm);
@@ -612,6 +654,8 @@ public class CoordinationPattern {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((pattern == null) ? 0 : pattern.hashCode());
+		result = prime * result
+				+ ((router_nodes == null) ? 0 : router_nodes.hashCode());
 		return result;
 	}
 
@@ -639,8 +683,18 @@ public class CoordinationPattern {
 				return false;
 		} else if (!pattern.equals(other.pattern))
 			return false;
+		if (router_nodes == null) {
+			if (other.router_nodes != null)
+				return false;
+		} else if (!router_nodes.equals(other.router_nodes))
+			return false;
 		return true;
 	}
+
+
+
+	
+	
 	
 	
 	

@@ -472,6 +472,11 @@ join_part returns [List<StringTemplate> accesses]
 	}
 	) 
 		-> {$port_access_list.st}
+	|	 ^(RW_DECIDE special_port_access_list)
+	{
+		$join_part.accesses = $special_port_access_list.accesses ;
+	}
+		-> {$special_port_access_list.st}
 	;	 
 	
 port_access_list returns [List<StringTemplate> accesses]
@@ -480,6 +485,22 @@ port_access_list returns [List<StringTemplate> accesses]
 		$port_access_list.accesses = $pa;
 	}
 	)
-	|	^(PORT_ACCESS_LIST RW_REMAINING)	-> {%{""}}
+	//|	^(PORT_ACCESS_LIST RW_REMAINING)	-> {%{""}}
 	;
+	
+	
+special_port_access_list returns [List<StringTemplate> accesses]
+	:	 ^(PORT_ACCESS_LIST p1=port_access p2=port_access p3=port_access p4+=port_access*
+	{
+		List<StringTemplate> accesses_aux = new ArrayList<StringTemplate>();
+		accesses_aux.add($p1.st);
+		accesses_aux.add($p2.st);
+		accesses_aux.add($p3.st);
+		accesses_aux.addAll($p4);
+		
+		$special_port_access_list.accesses = accesses_aux;
+	}
+	)
+	;
+
 
