@@ -147,7 +147,7 @@ public final class Library {
 	}
 	
 	
-public static String exrouter(String id, String a, String b, String c, String ga, String gb, String gc, String gac, String gbc){
+public static String exrouter(String id, String a, String b, String c, String ga, String gb, String gc, String gac, String gab){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate exrouter_abc = group.getInstanceOf(path + "exrouter");
@@ -158,7 +158,7 @@ public static String exrouter(String id, String a, String b, String c, String ga
 		exrouter_abc.setAttribute("gb", gb);
 		exrouter_abc.setAttribute("gc", gc);
 		exrouter_abc.setAttribute("gac", gac);
-		exrouter_abc.setAttribute("gbc", gbc);
+		exrouter_abc.setAttribute("gab", gab);
 		exrouter_abc.setAttribute("id", id);
 		 
 		return exrouter_abc.toString();

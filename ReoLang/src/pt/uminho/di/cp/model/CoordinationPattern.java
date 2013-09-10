@@ -480,43 +480,44 @@ public class CoordinationPattern {
 				res += elem;
 		}
 		
-		
+		//CREATE REPLICATERS/EX-ROUTERS
 		count = 1;
 		for(String p : replicator_ports.keySet()) {
-			//int number_of_mergers = incoming.get(p) - 1;
-			//int number_of_ports = incoming.get(p) + 1;
 			int number_of_joins = outgoing.get(p) - 2;
+			String type = this.router_nodes.contains(p) ? "exrouter" : "replicator" ;
+			String id = this.router_nodes.contains(p) ? "xor" : "rep" ;
 			String elem = "";
 			//for( int i = 0 ; i < number_of_mergers ; i++ ){
 				int number_of_ports = 0 ;
 				for(int j = 1 ; j <= number_of_joins + 1 ; j ++ ) {
 					if(j == 1) {
 						if(number_of_joins == 0) {
-							elem += "replicator rep"+count+" ";
+							elem += type + " "+ id + count+ " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + number_of_ports + " 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|" + number_of_ports + " 0.1 0.1 0.1 0.1" + (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
 						}
 						else {
-							elem += "replicator rep"+count+" ";
+							elem += type + " "+ id +count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1" + (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
+							
 						}
 						
 					}
 					else {
 						if(j==number_of_joins + 1 ) {
-							elem += "replicator  rep"+count+" ";
+							elem += type + " "+ id + count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + (number_of_ports++) + " 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|" + (number_of_ports++) + " 0.1 0.1 0.1 0.1" + (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
 						}
 						else {
-							elem += "replicator  rep"+count+" ";
+							elem += type + " "+ id + count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1"+ (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
 						}
 					}
 				}

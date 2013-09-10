@@ -95,13 +95,13 @@ public class TesteMain {
 				
 				
 				
-				"sync j1|2 b 1.0 1.1 1.2\n" +
-				"fifo1e j1|1 j2|0 3.0 3.1 3.2 3.3\n"+
-				"replicator j1|0 j1|1 j1|2 0.1 0.2 0.3 0.4\n" +
-				"replicator j2|0 j2|1 j2|2 0.1 0.2 0.3 0.4\n" +
-				"sync j2|1 a 1.0 1.1 1.2\n" +
-				"fifo1f j2|2 j1|0 1.0 1.1 1.2 1.3\n"+
-				
+//				"sync j1|2 b 1.0 1.1 1.2\n" +
+//				"fifo1e j1|1 j2|0 3.0 3.1 3.2 3.3\n"+
+//				"replicator j1|0 j1|1 j1|2 0.1 0.2 0.3 0.4\n" +
+//				"replicator j2|0 j2|1 j2|2 0.1 0.2 0.3 0.4\n" +
+//				"sync j2|1 a 1.0 1.1 1.2\n" +
+//				"fifo1f j2|2 j1|0 1.0 1.1 1.2 1.3\n"+
+//				
 
 //fifo1f j2|2 j1|0 1.1 1.2 1.3 1.4 
 //sync j2|1 b 3.1 3.2 3.3 
@@ -122,6 +122,15 @@ public class TesteMain {
 						//"lossy a b 2.0 2.1 2.2 2.3\n" +
 						//"lossy d e 2.0 2.1 2.2 2.4\n" +
 						//--"sync f a 4.0 4.1 4.2\n" +
+				
+				
+				
+				"sync s1 xr|2 b 2.0 1.0 0.1\n" +
+				"lossy l1 a xr|0 0.1 0.25 0.4 0.1\n" + 
+				"sync s2 xr|1 c 3.0 0.4 0.3\n" + 
+				"exrouter xor1 xr|0 xr|1 xr|2 0.1 0.1 0.1 0.1 0.1\n" +
+				
+				
 						""
 						;
 		
