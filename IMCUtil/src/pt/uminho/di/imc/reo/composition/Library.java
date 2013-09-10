@@ -17,7 +17,7 @@ public final class Library {
 	public static String path = "pt/uminho/di/imc/reo/templates/";
 	
 	
-	public static String sync(String a, String b, String ga, String gb, String gab, String id){
+	public static String sync( String id, String a, String b, String ga, String gb, String gab){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate sync_ab = group.getInstanceOf(path + "sync");
@@ -34,7 +34,7 @@ public final class Library {
 	
 	
 	
-	public static String drain(String a, String b, String ga, String gb, String gab, String id){
+	public static String drain( String id, String a, String b, String ga, String gb, String gab){
 		
 		
 		
@@ -55,7 +55,7 @@ public final class Library {
 	
 	
 	
-	public static String lossy(String a, String b, String ga, String gb, String gab, String gaL, String id){
+	public static String lossy( String id, String a, String b, String ga, String gb, String gab, String gaL){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate lossy_ab = group.getInstanceOf(path + "lossy");
@@ -73,7 +73,7 @@ public final class Library {
 	
 	
 	
-	public static String fifo1e(String a, String b, String ga, String gb, String gaB, String gBb, String id){
+	public static String fifo1e(String id, String a, String b, String ga, String gb, String gaB, String gBb){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate fifo_ab = group.getInstanceOf(path + "fifo1e");
@@ -90,7 +90,7 @@ public final class Library {
 	}
 	
 	
-	public static String fifo1f(String a, String b, String ga, String gb, String gaB, String gBb, String id){
+	public static String fifo1f( String id, String a, String b, String ga, String gb, String gaB, String gBb){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate fifo_ab = group.getInstanceOf(path + "fifo1f");
@@ -109,7 +109,7 @@ public final class Library {
 	
 	
 	
-	public static String merger(String a, String b, String c, String ga, String gb, String gc, String gac, String gbc, String id){
+	public static String merger( String id, String a, String b, String c, String ga, String gb, String gc, String gac, String gbc){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate merger_abc = group.getInstanceOf(path + "merger");
@@ -129,7 +129,7 @@ public final class Library {
 	
 	
 	
-	public static String replicator(String a, String b, String c, String ga, String gb, String gc, String gabc, String id){
+	public static String replicator(String id, String a, String b, String c, String ga, String gb, String gc, String gabc){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate replicator_abc = group.getInstanceOf(path + "replicator");
@@ -147,7 +147,7 @@ public final class Library {
 	}
 	
 	
-public static String exrouter(String a, String b, String c, String ga, String gb, String gc, String gac, String gbc, String id){
+public static String exrouter(String id, String a, String b, String c, String ga, String gb, String gc, String gac, String gbc){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate exrouter_abc = group.getInstanceOf(path + "exrouter");

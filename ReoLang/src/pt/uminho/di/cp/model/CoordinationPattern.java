@@ -296,6 +296,7 @@ public class CoordinationPattern {
 	 * 
 	 * TODO add support for channels with two input /output ports 
 	 * like drains and spouts
+	 * TODO add support for exclusive router pattern...
 	 * 
 	 * @return a script as a list of channels to compose
 	 * 
@@ -341,7 +342,7 @@ public class CoordinationPattern {
 			}
 			
 			if(! is_same_dir_port_channel) {
-				String elem = scm.getType() + " ";
+				String elem = scm.getType() + " " + scm.getId() + " ";
 				
 				if(merger_ports.containsKey(scm.getInode())){
 					elem += merger_ports.get(scm.getInode()).removeFirst();
@@ -381,7 +382,7 @@ public class CoordinationPattern {
 							scm.getStochastic_map().get(scm.getFnode()) + " ": "";
 				
 				//NOTICE THAT LINKED HASH MAP INSERTS IN THE HEAD... 
-				//SO STOCH VALUES WILL BE REFERSED AS THE ORDER WE DEFINE
+				//SO STOCH VALUES WILL BE REFERRED AS THE ORDER WE DEFINE
 				//FOR OUR IMC SCRIPT
 				for(String sv_lbl : scm.getStochastic_map().keySet()){
 					if(! sv_lbl.equals(c.getInode()) && ! sv_lbl.equals(scm.getFnode())){
@@ -396,7 +397,7 @@ public class CoordinationPattern {
 			
 		
 		//Add mergers
-		
+		int count = 1;
 		for(String p : merger_ports.keySet()) {
 			//int number_of_mergers = incoming.get(p) - 1;
 			//int number_of_ports = incoming.get(p) + 1;
@@ -407,13 +408,13 @@ public class CoordinationPattern {
 				for(int j = 1 ; j <= number_of_joins + 1 ; j ++ ) {
 					if(j == 1) {
 						if(number_of_joins == 0) {
-							elem += "merger ";
+							elem += "merger  mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports) + " 0.1 0.2 0.3 0.4 0.5\n" ;
 						}
 						else {
-							elem += "merger ";
+							elem += "merger mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4 0.5\n" ;
@@ -421,13 +422,13 @@ public class CoordinationPattern {
 					}
 					else {
 						if(j==number_of_joins + 1) {
-							elem += "merger ";
+							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " 0.1 0.2 0.3 0.4 0.5\n" ;
 						}
 						else {
-							elem += "merger ";
+							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4 0.5\n" ;
@@ -438,7 +439,7 @@ public class CoordinationPattern {
 		}
 		
 		
-		
+		count = 1;
 		for(String p : replicator_ports.keySet()) {
 			//int number_of_mergers = incoming.get(p) - 1;
 			//int number_of_ports = incoming.get(p) + 1;
@@ -449,13 +450,13 @@ public class CoordinationPattern {
 				for(int j = 1 ; j <= number_of_joins + 1 ; j ++ ) {
 					if(j == 1) {
 						if(number_of_joins == 0) {
-							elem += "replicator ";
+							elem += "replicator rep"+count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + number_of_ports + " 0.1 0.2 0.3 0.4\n" ;
 						}
 						else {
-							elem += "replicator ";
+							elem += "replicator rep"+count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4\n" ;
@@ -464,13 +465,13 @@ public class CoordinationPattern {
 					}
 					else {
 						if(j==number_of_joins + 1 ) {
-							elem += "replicator ";
+							elem += "replicator  rep"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " 0.1 0.2 0.3 0.4\n" ;
 						}
 						else {
-							elem += "replicator ";
+							elem += "replicator  rep"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4\n" ;

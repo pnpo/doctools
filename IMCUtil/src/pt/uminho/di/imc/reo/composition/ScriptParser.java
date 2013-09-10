@@ -63,7 +63,7 @@ public class ScriptParser {
 		Composer cp = new Composer();
 		
 		//each line of the script is of the form:
-		//channel_type port_1 port_2 port_3? stoch_1 ... stoch_n
+		//channel_type channel_id port_1 port_2 port_3? stoch_1 ... stoch_n
 		String[] lines = script.split("[\n]");
 		
 		//for each line of the script...
@@ -116,18 +116,6 @@ public class ScriptParser {
 			HashSet<String> ports = new HashSet<String>();
 			
 			//create maps of ports to structure for the first port
-			if(cp.getPorts_to_structure().containsKey(parts[1])) {
-				cp.getPorts_to_structure().get(parts[1]).add(method_name_indexed);
-			}
-			else{
-				LinkedList<String> lst = new LinkedList<String>();
-				lst.add(method_name_indexed);
-				cp.getPorts_to_structure().put(parts[1], lst);
-			}
-			ports.add(parts[1]);
-			
-			
-			//create maps of ports to structure for the second port
 			if(cp.getPorts_to_structure().containsKey(parts[2])) {
 				cp.getPorts_to_structure().get(parts[2]).add(method_name_indexed);
 			}
@@ -138,23 +126,35 @@ public class ScriptParser {
 			}
 			ports.add(parts[2]);
 			
+			
+			//create maps of ports to structure for the second port
+			if(cp.getPorts_to_structure().containsKey(parts[3])) {
+				cp.getPorts_to_structure().get(parts[3]).add(method_name_indexed);
+			}
+			else{
+				LinkedList<String> lst = new LinkedList<String>();
+				lst.add(method_name_indexed);
+				cp.getPorts_to_structure().put(parts[3], lst);
+			}
+			ports.add(parts[3]);
+			
 			//create maps of ports to structure for the third port (if existing)
 			try{
 				//if is a double do not insert in the map
-				Double.parseDouble(parts[3]);
+				Double.parseDouble(parts[4]);
 			}
 			catch(NumberFormatException e) {
 				//if it is a port... insert in the map
 				
-				if(cp.getPorts_to_structure().containsKey(parts[3])) {
-					cp.getPorts_to_structure().get(parts[3]).add(method_name_indexed);
+				if(cp.getPorts_to_structure().containsKey(parts[4])) {
+					cp.getPorts_to_structure().get(parts[4]).add(method_name_indexed);
 				}
 				else{
 					LinkedList<String> lst = new LinkedList<String>();
 					lst.add(method_name_indexed);
-					cp.getPorts_to_structure().put(parts[3], lst);
+					cp.getPorts_to_structure().put(parts[4], lst);
 				}
-				ports.add(parts[3]);
+				ports.add(parts[4]);
 			}
 			
 			//add the collected ports to the structure_to_ports map
