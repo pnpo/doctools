@@ -98,6 +98,7 @@ reolang
 element
 	:	channel_def		-> ^(ELEMENT channel_def)
 	|	pattern_def		-> ^(ELEMENT pattern_def)
+	//|	stochastic_def		-> ^(ELEMENT stochastic_def)
 	;
 
 
@@ -342,3 +343,19 @@ special_port_access_list
 	:	LIST_OPEN p1=port_access COLON p2=port_access COMMA p3=port_access (COMMA p4=port_access)* LIST_CLOSE
 		-> ^(PORT_ACCESS_LIST $p1 $p2 $p3 $p4*)
 	;
+	
+	
+	
+	
+	
+
+/*stochastic_def
+	:	RW_RUN i1=ID TIME_MARK BODY_OPEN stochastic_list BODY_CLOSE RW_AS i2=ID
+		-> ^(RW_RUN $i1 $i2 stochastic_list)
+	;
+	
+stochastic_list
+	:	(i1=ID (LABEL_MARK i2=ID)? EQUALS FLOAT SEMICOLON)+
+		-> ^(STOCH ($i1 $i2? FLOAT)+ )
+	;
+*/

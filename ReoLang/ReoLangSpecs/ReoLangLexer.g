@@ -12,13 +12,12 @@ lexer grammar ReoLangLexer;
 
 //RESERVED WORDS
 
+
+
+	
 RW_DECIDE
 	:	'decide'
 	;
-
-//RW_REMAINING
-//	:	'remaining'
-//	;
 	
 RW_JOIN
 	:	'join'
@@ -74,6 +73,12 @@ RW_CHANNEL
 	
 RW_IMPORT
 	:	'import' {importMode = true;}
+	;
+	
+	
+	
+RW_RUN
+	: 	'stochastic'
 	;
 
 
