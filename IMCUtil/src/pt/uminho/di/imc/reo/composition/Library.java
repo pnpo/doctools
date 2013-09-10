@@ -17,7 +17,7 @@ public final class Library {
 	public static String path = "pt/uminho/di/imc/reo/templates/";
 	
 	
-	public static String sync(String a, String b, String ga, String gb, String gab){
+	public static String sync(String a, String b, String ga, String gb, String gab, String id){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate sync_ab = group.getInstanceOf(path + "sync");
@@ -26,6 +26,7 @@ public final class Library {
 		sync_ab.setAttribute("ga", ga);
 		sync_ab.setAttribute("gb", gb);
 		sync_ab.setAttribute("gab", gab);
+		sync_ab.setAttribute("id", id);
 		
 		return sync_ab.toString();
 		
@@ -33,7 +34,7 @@ public final class Library {
 	
 	
 	
-	public static String drain(String a, String b, String ga, String gb, String gab){
+	public static String drain(String a, String b, String ga, String gb, String gab, String id){
 		
 		
 		
@@ -44,6 +45,7 @@ public final class Library {
 		drain_ab.setAttribute("ga", ga);
 		drain_ab.setAttribute("gb", gb);
 		drain_ab.setAttribute("gab", gab);
+		drain_ab.setAttribute("id", id);
 		
 		return drain_ab.toString();
 		
@@ -53,7 +55,7 @@ public final class Library {
 	
 	
 	
-	public static String lossy(String a, String b, String ga, String gb, String gab, String gaL){
+	public static String lossy(String a, String b, String ga, String gb, String gab, String gaL, String id){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate lossy_ab = group.getInstanceOf(path + "lossy");
@@ -63,6 +65,7 @@ public final class Library {
 		lossy_ab.setAttribute("gb", gb);
 		lossy_ab.setAttribute("gab", gab);
 		lossy_ab.setAttribute("gaL", gaL);
+		lossy_ab.setAttribute("id", id);
 		
 		return lossy_ab.toString();
 		
@@ -70,7 +73,7 @@ public final class Library {
 	
 	
 	
-	public static String fifo1e(String a, String b, String ga, String gb, String gaB, String gBb){
+	public static String fifo1e(String a, String b, String ga, String gb, String gaB, String gBb, String id){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate fifo_ab = group.getInstanceOf(path + "fifo1e");
@@ -80,13 +83,14 @@ public final class Library {
 		fifo_ab.setAttribute("gb", gb);
 		fifo_ab.setAttribute("gaB", gaB);
 		fifo_ab.setAttribute("gBb", gBb);
+		fifo_ab.setAttribute("id", id);
 		 
 		return fifo_ab.toString();
 		
 	}
 	
 	
-	public static String fifo1f(String a, String b, String ga, String gb, String gaB, String gBb){
+	public static String fifo1f(String a, String b, String ga, String gb, String gaB, String gBb, String id){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate fifo_ab = group.getInstanceOf(path + "fifo1f");
@@ -96,6 +100,7 @@ public final class Library {
 		fifo_ab.setAttribute("gb", gb);
 		fifo_ab.setAttribute("gaB", gaB);
 		fifo_ab.setAttribute("gBb", gBb);
+		fifo_ab.setAttribute("id", id);
 		 
 		return fifo_ab.toString();
 		
@@ -104,7 +109,7 @@ public final class Library {
 	
 	
 	
-	public static String merger(String a, String b, String c, String ga, String gb, String gc, String gac, String gbc){
+	public static String merger(String a, String b, String c, String ga, String gb, String gc, String gac, String gbc, String id){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate merger_abc = group.getInstanceOf(path + "merger");
@@ -116,6 +121,7 @@ public final class Library {
 		merger_abc.setAttribute("gc", gc);
 		merger_abc.setAttribute("gac", gac);
 		merger_abc.setAttribute("gbc", gbc);
+		merger_abc.setAttribute("id", id);
 		 
 		return merger_abc.toString();
 		
@@ -123,7 +129,7 @@ public final class Library {
 	
 	
 	
-	public static String replicator(String a, String b, String c, String ga, String gb, String gc, String gabc){
+	public static String replicator(String a, String b, String c, String ga, String gb, String gc, String gabc, String id){
 		
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
 		StringTemplate replicator_abc = group.getInstanceOf(path + "replicator");
@@ -134,12 +140,30 @@ public final class Library {
 		replicator_abc.setAttribute("gb", gb);
 		replicator_abc.setAttribute("gc", gc);
 		replicator_abc.setAttribute("gabc", gabc);
+		replicator_abc.setAttribute("id", id);
 		 
 		return replicator_abc.toString();
 		
 	}
 	
 	
+public static String exrouter(String a, String b, String c, String ga, String gb, String gc, String gac, String gbc, String id){
+		
+		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
+		StringTemplate exrouter_abc = group.getInstanceOf(path + "exrouter");
+		exrouter_abc.setAttribute("a", a);
+		exrouter_abc.setAttribute("b", b);
+		exrouter_abc.setAttribute("c", c);
+		exrouter_abc.setAttribute("ga", ga);
+		exrouter_abc.setAttribute("gb", gb);
+		exrouter_abc.setAttribute("gc", gc);
+		exrouter_abc.setAttribute("gac", gac);
+		exrouter_abc.setAttribute("gbc", gbc);
+		exrouter_abc.setAttribute("id", id);
+		 
+		return exrouter_abc.toString();
+		
+	}
 	
 	
 }
