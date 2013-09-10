@@ -10,6 +10,7 @@ package pt.uminho.di.imc.reo;
 public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 
 	private double rate;
+	private String label;
 
 	
 	
@@ -22,8 +23,9 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	/**
 	 * @param final_state the final state
 	 * @param rate the stochastic rate parameter
+	 * @param label a (possibly empty) label for the rate
 	 */
-	public IMCREOMarkovianTransition(STATE final_state, double rate) {
+	public IMCREOMarkovianTransition(STATE final_state, double rate, String label) {
 		super(final_state);
 		this.rate = rate;
 	}
@@ -44,19 +46,41 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 		this.rate = rate;
 	}
 
+	
+	
+	
+
+	/**
+	 * @return the label
+	 */
+	public String getLabel() {
+		return label;
+	}
+
+
+	/**
+	 * @param label the label to set
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return " -- " + this.rate + " --> " + 
+		return " -- " + this.label + "; "+ this.rate + " --> " + 
 					this.getFinal_state().toString();
 	}
 
 
 	
 	
+	
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -64,6 +88,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(rate);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -74,7 +99,6 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -83,7 +107,12 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 			return false;
 		if (!(obj instanceof IMCREOMarkovianTransition))
 			return false;
-		IMCREOMarkovianTransition<STATE> other = (IMCREOMarkovianTransition<STATE>) obj;
+		IMCREOMarkovianTransition other = (IMCREOMarkovianTransition) obj;
+		if (label == null) {
+			if (other.label != null)
+				return false;
+		} else if (!label.equals(other.label))
+			return false;
 		if (Double.doubleToLongBits(rate) != Double
 				.doubleToLongBits(other.rate))
 			return false;
@@ -93,7 +122,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 
 	@Override
 	public IMCREOTransition<STATE> copy() {
-		return new IMCREOMarkovianTransition<STATE>(this.getFinal_state(), this.getRate());
+		return new IMCREOMarkovianTransition<STATE>(this.getFinal_state(), this.getRate(), this.getLabel());
 	}
 	
 	

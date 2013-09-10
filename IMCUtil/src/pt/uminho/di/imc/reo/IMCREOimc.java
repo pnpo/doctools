@@ -238,7 +238,7 @@ public class IMCREOimc<STATE> {
 							//create the final state
 							Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>((IMCREOState)t1.getFinal_state(), ongoing_state_2);
 							//create the transition
-							IMCREOMarkovianTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOMarkovianTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOMarkovianTransition<STATE>) t1).getRate());
+							IMCREOMarkovianTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOMarkovianTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOMarkovianTransition<STATE>) t1).getRate(), ((IMCREOMarkovianTransition<STATE>) t1).getLabel());
 							//add the transition
 							newimc.chain.get(ongoing_state).add(new_transition);
 							//check whether the resulting state is final
@@ -335,7 +335,7 @@ public class IMCREOimc<STATE> {
 							//create the final state
 							Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(ongoing_state_1, (IMCREOState)t2.getFinal_state());
 							//create the transition
-							IMCREOMarkovianTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOMarkovianTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOMarkovianTransition<IMCREOState>) t2).getRate());
+							IMCREOMarkovianTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOMarkovianTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOMarkovianTransition<IMCREOState>) t2).getRate(), ((IMCREOMarkovianTransition<IMCREOState>) t2).getLabel());
 							//add the transition
 							newimc.chain.get(ongoing_state).add(new_transition);
 							//check whether the resulting state is final
@@ -1309,7 +1309,7 @@ public class IMCREOimc<STATE> {
 										transitions.add(new IMCREOInteractiveTransition<IMCREOState>(trans_newstate, ((IMCREOInteractiveTransition<?>) t).getActions()));
 									}
 									else {
-										transitions.add(new IMCREOMarkovianTransition<IMCREOState>(trans_newstate, ((IMCREOMarkovianTransition<?>) t).getRate()));
+										transitions.add(new IMCREOMarkovianTransition<IMCREOState>(trans_newstate, ((IMCREOMarkovianTransition<?>) t).getRate(), ((IMCREOMarkovianTransition<?>) t).getLabel()));
 									}
 								}
 							}

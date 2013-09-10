@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g 2013-06-06 18:36:22
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g 2013-09-10 09:27:11
 
 	package pt.uminho.di.imc.reo.parsing;
 
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class ReoMAParserLexer extends Lexer {
     public static final int EXPONENT=7;
+    public static final int T__27=27;
     public static final int T__26=26;
     public static final int T__25=25;
     public static final int T__24=24;
@@ -45,15 +46,15 @@ public class ReoMAParserLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g"; }
+    public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g"; }
 
     // $ANTLR start "T__10"
     public final void mT__10() throws RecognitionException {
         try {
             int _type = T__10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:7:7: ( '#PORTS' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:7:9: '#PORTS'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:7:7: ( '#PORTS' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:7:9: '#PORTS'
             {
             match("#PORTS"); 
 
@@ -73,8 +74,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:8:7: ( '#INITIALS' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:8:9: '#INITIALS'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:8:7: ( '#INITIALS' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:8:9: '#INITIALS'
             {
             match("#INITIALS"); 
 
@@ -94,8 +95,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:9:7: ( '#GOALS' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:9:9: '#GOALS'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:9:7: ( '#GOALS' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:9:9: '#GOALS'
             {
             match("#GOALS"); 
 
@@ -115,8 +116,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:10:7: ( '#TRANSITIONS' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:10:9: '#TRANSITIONS'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:10:7: ( '#TRANSITIONS' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:10:9: '#TRANSITIONS'
             {
             match("#TRANSITIONS"); 
 
@@ -136,8 +137,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:11:7: ( '(' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:11:9: '('
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:11:7: ( '(' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:11:9: '('
             {
             match('('); 
 
@@ -156,8 +157,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:12:7: ( '#' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:12:9: '#'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:12:7: ( '#' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:12:9: '#'
             {
             match('#'); 
 
@@ -176,8 +177,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:13:7: ( ',' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:13:9: ','
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:13:7: ( ',' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:13:9: ','
             {
             match(','); 
 
@@ -196,8 +197,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:14:7: ( ')' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:14:9: ')'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:14:7: ( ')' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:14:9: ')'
             {
             match(')'); 
 
@@ -216,8 +217,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:15:7: ( '!' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:15:9: '!'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:15:7: ( '!' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:15:9: '!'
             {
             match('!'); 
 
@@ -236,8 +237,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:16:7: ( '*' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:16:9: '*'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:16:7: ( '*' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:16:9: '*'
             {
             match('*'); 
 
@@ -256,10 +257,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:17:7: ( '&' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:17:9: '&'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:17:7: ( '@' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:17:9: '@'
             {
-            match('&'); 
+            match('@'); 
 
             }
 
@@ -276,10 +277,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:18:7: ( '[' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:18:9: '['
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:18:7: ( '&' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:18:9: '&'
             {
-            match('['); 
+            match('&'); 
 
             }
 
@@ -296,10 +297,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:19:7: ( ']' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:19:9: ']'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:19:7: ( '[' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:19:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -316,10 +317,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:20:7: ( '{' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:20:9: '{'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:20:7: ( ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:20:9: ']'
             {
-            match('{'); 
+            match(']'); 
 
             }
 
@@ -336,10 +337,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:21:7: ( '}' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:21:9: '}'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:21:7: ( '{' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:21:9: '{'
             {
-            match('}'); 
+            match('{'); 
 
             }
 
@@ -356,10 +357,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:22:7: ( '<' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:22:9: '<'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:22:7: ( '}' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:22:9: '}'
             {
-            match('<'); 
+            match('}'); 
 
             }
 
@@ -376,10 +377,10 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:23:7: ( '>' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:23:9: '>'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:23:7: ( '<' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:23:9: '<'
             {
-            match('>'); 
+            match('<'); 
 
             }
 
@@ -391,19 +392,39 @@ public class ReoMAParserLexer extends Lexer {
     }
     // $ANTLR end "T__26"
 
+    // $ANTLR start "T__27"
+    public final void mT__27() throws RecognitionException {
+        try {
+            int _type = T__27;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:24:7: ( '>' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:24:9: '>'
+            {
+            match('>'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__27"
+
     // $ANTLR start "NUMBER"
     public final void mNUMBER() throws RecognitionException {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:224:2: ( ( '0' .. '9' )+ | FLOAT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:224:2: ( ( '0' .. '9' )+ | FLOAT )
             int alt2=2;
             alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:224:4: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:224:4: ( '0' .. '9' )+
                     {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:224:4: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:224:4: ( '0' .. '9' )+
                     int cnt1=0;
                     loop1:
                     do {
@@ -417,7 +438,7 @@ public class ReoMAParserLexer extends Lexer {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:224:5: '0' .. '9'
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:224:5: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -437,7 +458,7 @@ public class ReoMAParserLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:225:4: FLOAT
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:225:4: FLOAT
                     {
                     mFLOAT(); 
 
@@ -458,8 +479,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:229:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' | '|' )* )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:229:7: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' | '|' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:229:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' | '|' )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:229:7: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' | '|' )*
             {
             if ( input.LA(1)=='$'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -470,7 +491,7 @@ public class ReoMAParserLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:229:44: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' | '|' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:229:44: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' | '|' )*
             loop3:
             do {
                 int alt3=2;
@@ -483,7 +504,7 @@ public class ReoMAParserLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:
             	    {
             	    if ( input.LA(1)=='$'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||input.LA(1)=='|' ) {
             	        input.consume();
@@ -517,14 +538,14 @@ public class ReoMAParserLexer extends Lexer {
     // $ANTLR start "FLOAT"
     public final void mFLOAT() throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt10=3;
             alt10 = dfa10.predict(input);
             switch (alt10) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:9: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:9: ( '0' .. '9' )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -538,7 +559,7 @@ public class ReoMAParserLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:10: '0' .. '9'
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -555,7 +576,7 @@ public class ReoMAParserLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:25: ( '0' .. '9' )*
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:25: ( '0' .. '9' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -568,7 +589,7 @@ public class ReoMAParserLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:26: '0' .. '9'
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:26: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -580,7 +601,7 @@ public class ReoMAParserLexer extends Lexer {
                         }
                     } while (true);
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:37: ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:37: ( EXPONENT )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -589,7 +610,7 @@ public class ReoMAParserLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:235:37: EXPONENT
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:235:37: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -602,10 +623,10 @@ public class ReoMAParserLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:236:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:236:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:236:13: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:236:13: ( '0' .. '9' )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -619,7 +640,7 @@ public class ReoMAParserLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:236:14: '0' .. '9'
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:236:14: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -635,7 +656,7 @@ public class ReoMAParserLexer extends Lexer {
                         cnt7++;
                     } while (true);
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:236:25: ( EXPONENT )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:236:25: ( EXPONENT )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -644,7 +665,7 @@ public class ReoMAParserLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:236:25: EXPONENT
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:236:25: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -657,9 +678,9 @@ public class ReoMAParserLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:237:9: ( '0' .. '9' )+ EXPONENT
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:237:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:237:9: ( '0' .. '9' )+
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:237:9: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -673,7 +694,7 @@ public class ReoMAParserLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:237:10: '0' .. '9'
+                    	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:237:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -706,12 +727,12 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:241:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:241:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:241:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:241:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
             {
             match("//"); 
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:241:14: (~ ( '\\n' | '\\r' ) )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:241:14: (~ ( '\\n' | '\\r' ) )*
             loop11:
             do {
                 int alt11=2;
@@ -724,7 +745,7 @@ public class ReoMAParserLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:241:14: ~ ( '\\n' | '\\r' )
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:241:14: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -744,7 +765,7 @@ public class ReoMAParserLexer extends Lexer {
                 }
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:241:28: ( '\\r' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:241:28: ( '\\r' )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -753,7 +774,7 @@ public class ReoMAParserLexer extends Lexer {
             }
             switch (alt12) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:241:28: '\\r'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:241:28: '\\r'
                     {
                     match('\r'); 
 
@@ -779,8 +800,8 @@ public class ReoMAParserLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:244:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:244:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:244:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:244:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -806,8 +827,8 @@ public class ReoMAParserLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:252:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:252:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:252:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:252:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -818,7 +839,7 @@ public class ReoMAParserLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:252:22: ( '+' | '-' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:252:22: ( '+' | '-' )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -827,7 +848,7 @@ public class ReoMAParserLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -844,7 +865,7 @@ public class ReoMAParserLexer extends Lexer {
 
             }
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:252:33: ( '0' .. '9' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:252:33: ( '0' .. '9' )+
             int cnt14=0;
             loop14:
             do {
@@ -858,7 +879,7 @@ public class ReoMAParserLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:252:34: '0' .. '9'
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:252:34: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -884,152 +905,159 @@ public class ReoMAParserLexer extends Lexer {
     // $ANTLR end "EXPONENT"
 
     public void mTokens() throws RecognitionException {
-        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | NUMBER | ID | COMMENT | WS )
-        int alt15=21;
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | NUMBER | ID | COMMENT | WS )
+        int alt15=22;
         alt15 = dfa15.predict(input);
         switch (alt15) {
             case 1 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:10: T__10
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:10: T__10
                 {
                 mT__10(); 
 
                 }
                 break;
             case 2 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:16: T__11
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:16: T__11
                 {
                 mT__11(); 
 
                 }
                 break;
             case 3 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:22: T__12
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:22: T__12
                 {
                 mT__12(); 
 
                 }
                 break;
             case 4 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:28: T__13
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:28: T__13
                 {
                 mT__13(); 
 
                 }
                 break;
             case 5 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:34: T__14
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:34: T__14
                 {
                 mT__14(); 
 
                 }
                 break;
             case 6 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:40: T__15
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:40: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
             case 7 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:46: T__16
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:46: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
             case 8 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:52: T__17
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:52: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
             case 9 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:58: T__18
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:58: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
             case 10 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:64: T__19
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:64: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
             case 11 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:70: T__20
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:70: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
             case 12 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:76: T__21
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:76: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
             case 13 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:82: T__22
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:82: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
             case 14 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:88: T__23
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:88: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
             case 15 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:94: T__24
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:94: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
             case 16 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:100: T__25
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:100: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
             case 17 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:106: T__26
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:106: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
             case 18 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:112: NUMBER
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:112: T__27
+                {
+                mT__27(); 
+
+                }
+                break;
+            case 19 :
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:118: NUMBER
                 {
                 mNUMBER(); 
 
                 }
                 break;
-            case 19 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:119: ID
+            case 20 :
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:125: ID
                 {
                 mID(); 
 
                 }
                 break;
-            case 20 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:122: COMMENT
+            case 21 :
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:128: COMMENT
                 {
                 mCOMMENT(); 
 
                 }
                 break;
-            case 21 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/ReoMAParser.g:1:130: WS
+            case 22 :
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:1:136: WS
                 {
                 mWS(); 
 
@@ -1105,12 +1133,12 @@ public class ReoMAParserLexer extends Lexer {
     static final String DFA10_maxS =
         "\1\71\1\145\3\uffff";
     static final String DFA10_acceptS =
-        "\2\uffff\1\2\1\1\1\3";
+        "\2\uffff\1\2\1\3\1\1";
     static final String DFA10_specialS =
         "\5\uffff}>";
     static final String[] DFA10_transitionS = {
             "\1\2\1\uffff\12\1",
-            "\1\3\1\uffff\12\1\13\uffff\1\4\37\uffff\1\4",
+            "\1\4\1\uffff\12\1\13\uffff\1\3\37\uffff\1\3",
             "",
             "",
             ""
@@ -1150,24 +1178,24 @@ public class ReoMAParserLexer extends Lexer {
         }
     }
     static final String DFA15_eotS =
-        "\1\uffff\1\27\14\uffff\1\17\11\uffff\1\17\1\20\1\17";
+        "\1\uffff\1\30\15\uffff\1\20\11\uffff\1\20\1\21\1\20";
     static final String DFA15_eofS =
-        "\33\uffff";
+        "\34\uffff";
     static final String DFA15_minS =
-        "\1\11\1\107\14\uffff\1\44\11\uffff\1\44\1\53\1\44";
+        "\1\11\1\107\15\uffff\1\44\11\uffff\1\44\1\53\1\44";
     static final String DFA15_maxS =
-        "\1\175\1\124\14\uffff\1\174\11\uffff\1\174\1\71\1\174";
+        "\1\175\1\124\15\uffff\1\174\11\uffff\1\174\1\71\1\174";
     static final String DFA15_acceptS =
         "\2\uffff\1\5\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1"+
-        "\21\1\uffff\1\22\1\23\1\24\1\25\1\1\1\2\1\3\1\4\1\6\3\uffff";
+        "\21\1\22\1\uffff\1\23\1\24\1\25\1\26\1\1\1\2\1\3\1\4\1\6\3\uffff";
     static final String DFA15_specialS =
-        "\33\uffff}>";
+        "\34\uffff}>";
     static final String[] DFA15_transitionS = {
-            "\2\22\2\uffff\1\22\22\uffff\1\22\1\5\1\uffff\1\1\1\20\1\uffff"+
-            "\1\7\1\uffff\1\2\1\4\1\6\1\uffff\1\3\1\uffff\1\17\1\21\12\16"+
-            "\2\uffff\1\14\1\uffff\1\15\2\uffff\32\20\1\10\1\uffff\1\11\1"+
-            "\uffff\1\20\1\uffff\32\20\1\12\1\uffff\1\13",
-            "\1\25\1\uffff\1\24\6\uffff\1\23\3\uffff\1\26",
+            "\2\23\2\uffff\1\23\22\uffff\1\23\1\5\1\uffff\1\1\1\21\1\uffff"+
+            "\1\10\1\uffff\1\2\1\4\1\6\1\uffff\1\3\1\uffff\1\20\1\22\12\17"+
+            "\2\uffff\1\15\1\uffff\1\16\1\uffff\1\7\32\21\1\11\1\uffff\1"+
+            "\12\1\uffff\1\21\1\uffff\32\21\1\13\1\uffff\1\14",
+            "\1\26\1\uffff\1\25\6\uffff\1\24\3\uffff\1\27",
             "",
             "",
             "",
@@ -1180,8 +1208,9 @@ public class ReoMAParserLexer extends Lexer {
             "",
             "",
             "",
-            "\1\20\13\uffff\12\30\7\uffff\4\20\1\31\25\20\4\uffff\1\20\1"+
-            "\uffff\4\20\1\31\25\20\1\uffff\1\20",
+            "",
+            "\1\21\13\uffff\12\31\7\uffff\4\21\1\32\25\21\4\uffff\1\21\1"+
+            "\uffff\4\21\1\32\25\21\1\uffff\1\21",
             "",
             "",
             "",
@@ -1191,11 +1220,11 @@ public class ReoMAParserLexer extends Lexer {
             "",
             "",
             "",
-            "\1\20\13\uffff\12\30\7\uffff\4\20\1\31\25\20\4\uffff\1\20\1"+
-            "\uffff\4\20\1\31\25\20\1\uffff\1\20",
-            "\1\17\1\uffff\1\17\2\uffff\12\32",
-            "\1\20\13\uffff\12\32\7\uffff\32\20\4\uffff\1\20\1\uffff\32"+
-            "\20\1\uffff\1\20"
+            "\1\21\13\uffff\12\31\7\uffff\4\21\1\32\25\21\4\uffff\1\21\1"+
+            "\uffff\4\21\1\32\25\21\1\uffff\1\21",
+            "\1\20\1\uffff\1\20\2\uffff\12\33",
+            "\1\21\13\uffff\12\33\7\uffff\32\21\4\uffff\1\21\1\uffff\32"+
+            "\21\1\uffff\1\21"
     };
 
     static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
@@ -1228,7 +1257,7 @@ public class ReoMAParserLexer extends Lexer {
             this.transition = DFA15_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | NUMBER | ID | COMMENT | WS );";
+            return "1:1: Tokens : ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | NUMBER | ID | COMMENT | WS );";
         }
     }
  
