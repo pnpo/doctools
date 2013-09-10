@@ -120,7 +120,7 @@ transition_edge [String in_type, IMCREOAction in_action] returns [IMCREOTransiti
 			t = new IMCREOInteractiveTransition<IMCREOState>($state.value, in_action);
 		}
 		else {
-			t = new IMCREOMarkovianTransition<IMCREOState>($state.value, $rate.value, $ID.text);	
+			t = new IMCREOMarkovianTransition<IMCREOState>($state.value, $rate.value, $ID.text == null ? "" : $ID.text);	
 		}
 		
 		$transition_edge.transition = t;

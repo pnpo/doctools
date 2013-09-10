@@ -28,6 +28,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	public IMCREOMarkovianTransition(STATE final_state, double rate, String label) {
 		super(final_state);
 		this.rate = rate;
+		this.label = label;
 	}
 
 
@@ -71,7 +72,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	 */
 	@Override
 	public String toString() {
-		return " -- " + this.label + "; "+ this.rate + " --> " + 
+		return " -- " + ((this.label.equals("") || this.label==null) ? "" : this.label + "; ") + this.rate + " --> " + 
 					this.getFinal_state().toString();
 	}
 

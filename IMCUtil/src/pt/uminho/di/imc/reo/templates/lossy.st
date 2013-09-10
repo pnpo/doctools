@@ -10,7 +10,7 @@
 #TRANSITIONS
 [] !
 * [$a$] $ga$  			@ LOSSY_$id$_ARR_$a$ @
-* [$b$] $gb$  			@ÊLOSSY_$id$_ARR_$b$ @
+* [$b$] $gb$  			@ LOSSY_$id$_ARR_$b$ @
 
 [$a$] !
 * [$a$ $b$] $gb$ 		@ LOSSY_$id$_ARR_$b$ @

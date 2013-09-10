@@ -34,6 +34,7 @@ public class MarkovianTransition extends Transition {
 	public MarkovianTransition(String start_state, String final_state, double rate, String label) {
 		super(start_state, final_state);
 		this.rate = rate;
+		this.label = label;
 	}
 
 

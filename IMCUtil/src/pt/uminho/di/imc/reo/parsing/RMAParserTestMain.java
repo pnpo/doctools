@@ -36,6 +36,7 @@ public class RMAParserTestMain {
 			 lossy_ab.setAttribute("gb", "1.1");
 			 lossy_ab.setAttribute("gaL", "1.2");
 			 lossy_ab.setAttribute("gab", "1.3");
+			 lossy_ab.setAttribute("id", "l1");
 			 
 			 //System.out.println(lossy_ab.toString() + "\n");
 			 
@@ -46,6 +47,7 @@ public class RMAParserTestMain {
 			 fifo_bc.setAttribute("gb", "2.1");
 			 fifo_bc.setAttribute("gaB", "2.2");
 			 fifo_bc.setAttribute("gBb", "2.3");
+			 fifo_bc.setAttribute("id", "f1");
 			 
 			 
 			 //System.out.println(lossy_ab.toString() + "\n");
