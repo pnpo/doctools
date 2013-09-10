@@ -411,13 +411,13 @@ public class CoordinationPattern {
 							elem += "merger  mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|" + (number_of_ports) + " 0.1 0.2 0.3 0.4 0.5\n" ;
+							elem += p + "|" + (number_of_ports) + " 0.1 0.1 0.1 0.1 0.1\n" ;
 						}
 						else {
 							elem += "merger mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4 0.5\n" ;
+							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1 0.1\n" ;
 						}
 					}
 					else {
@@ -425,13 +425,13 @@ public class CoordinationPattern {
 							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|" + (number_of_ports--) + " 0.1 0.2 0.3 0.4 0.5\n" ;
+							elem += p + "|" + (number_of_ports--) + " 0.1 0.1 0.1 0.1 0.1\n" ;
 						}
 						else {
 							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4 0.5\n" ;
+							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1 0.1\n" ;
 						}
 					}
 				}
@@ -453,13 +453,13 @@ public class CoordinationPattern {
 							elem += "replicator rep"+count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + number_of_ports + " 0.1 0.2 0.3 0.4\n" ;
+							elem += p + "|" + number_of_ports + " 0.1 0.1 0.1 0.1\n" ;
 						}
 						else {
 							elem += "replicator rep"+count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4\n" ;
+							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1\n" ;
 						}
 						
 					}
@@ -468,13 +468,13 @@ public class CoordinationPattern {
 							elem += "replicator  rep"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + (number_of_ports++) + " 0.1 0.2 0.3 0.4\n" ;
+							elem += p + "|" + (number_of_ports++) + " 0.1 0.1 0.1 0.1\n" ;
 						}
 						else {
 							elem += "replicator  rep"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.1 0.2 0.3 0.4\n" ;
+							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1\n" ;
 						}
 					}
 				}
