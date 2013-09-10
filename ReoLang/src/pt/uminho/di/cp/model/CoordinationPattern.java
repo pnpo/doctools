@@ -338,7 +338,6 @@ public class CoordinationPattern {
 	 * 
 	 * TODO add support for channels with two input /output ports 
 	 * like drains and spouts
-	 * TODO add support for exclusive router pattern...
 	 * 
 	 * @return a script as a list of channels to compose
 	 * 
@@ -453,13 +452,13 @@ public class CoordinationPattern {
 							elem += "merger  mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|" + (number_of_ports) + " 0.1 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|" + (number_of_ports) + " 0.001 0.001 0.001 0.001 0.001\n" ;
 						}
 						else {
 							elem += "merger mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001 0.001\n" ;
 						}
 					}
 					else {
@@ -467,13 +466,13 @@ public class CoordinationPattern {
 							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|" + (number_of_ports--) + " 0.1 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|" + (number_of_ports--) + " 0.001 0.001 0.001 0.001 0.001\n" ;
 						}
 						else {
 							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1 0.1\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001 0.001\n" ;
 						}
 					}
 				}
@@ -495,13 +494,13 @@ public class CoordinationPattern {
 							elem += type + " "+ id + count+ " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + number_of_ports + " 0.1 0.1 0.1 0.1" + (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
+							elem += p + "|" + number_of_ports + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
 						}
 						else {
 							elem += type + " "+ id +count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1" + (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
 							
 						}
 						
@@ -511,13 +510,13 @@ public class CoordinationPattern {
 							elem += type + " "+ id + count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + (number_of_ports++) + " 0.1 0.1 0.1 0.1" + (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
+							elem += p + "|" + (number_of_ports++) + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
 						}
 						else {
 							elem += type + " "+ id + count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.1 0.1 0.1 0.1"+ (type.equals("exrouter") ? " 0.1" : "") + "\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001"+ (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
 						}
 					}
 				}
