@@ -1352,26 +1352,52 @@ public class IMCREOimc<STATE> {
 				states_map.put((IMCREOState) s, ((IMCREOState) s));
 			}
 			
-			for(STATE s : this.chain.keySet()) {
-				IMCREOState imcst = (IMCREOState)s ;
-				LinkedList<IMCREOTransition<IMCREOState>> trans = new LinkedList<IMCREOTransition<IMCREOState>>();
-				for(IMCREOTransition<STATE> t : this.chain.get(imcst)){
-					if(t instanceof IMCREOMarkovianTransition<?>) {
-						IMCREOMarkovianTransition<IMCREOState> mt = new IMCREOMarkovianTransition<IMCREOState>();
-						mt.setFinal_state(states_map.get(t.getFinal_state()));
-						mt.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
-						mt.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
-						trans.add(mt);
+			
+				for(STATE s : this.chain.keySet()) {
+					IMCREOState imcst = (IMCREOState)s ;
+					LinkedList<IMCREOTransition<IMCREOState>> trans = new LinkedList<IMCREOTransition<IMCREOState>>();
+					for(IMCREOTransition<STATE> t : this.chain.get(imcst)){
+						if(t instanceof IMCREOMarkovianTransition<?>) {
+							IMCREOMarkovianTransition<IMCREOState> mt = new IMCREOMarkovianTransition<IMCREOState>();
+							mt.setFinal_state(states_map.get(t.getFinal_state()));
+							mt.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
+							mt.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
+							trans.add(mt);
+							
+							/*try{
+								mt.toString();
+							}
+							catch(Exception e){
+								System.out.println("MT");
+								System.out.println("state -- " + imcst.toString());
+								System.out.println("trans t- " + t.toString());
+								System.out.println("trs mt - " + mt.toString());
+							}
+							*/
+						}
+						else {
+							IMCREOInteractiveTransition<IMCREOState> it = new IMCREOInteractiveTransition<IMCREOState>();
+							it.setFinal_state(states_map.get(t.getFinal_state()));
+							it.setActions(new IMCREOAction(new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions())));
+							trans.add(it);
+							
+							/*try{
+								it.toString();
+							}
+							catch(Exception e){
+								System.out.println("IT");
+								System.out.println("state -- " + imcst.toString());
+								System.out.println("trans t- " + t.toString());
+								System.out.println("st get - " + (states_map.containsKey(t.getFinal_state()) ? states_map.get(t.getFinal_state()).toString() : "NULL!!"));
+								System.out.println("trs f st " + it.getFinal_state().toString());
+								System.out.println("trs acts " + it.getActions().toString());
+							}*/
+							
+						}
 					}
-					else {
-						IMCREOInteractiveTransition<IMCREOState> it = new IMCREOInteractiveTransition<IMCREOState>();
-						it.setFinal_state(states_map.get(t.getFinal_state()));
-						it.setActions(new IMCREOAction(new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions())));
-						trans.add(it);
-					}
+					newimc.getChain().put(imcst, trans);
 				}
-				newimc.getChain().put(imcst, trans);
-			} 
+
 		}
 		
 		return newimc;

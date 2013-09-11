@@ -14,6 +14,7 @@ public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransi
 	
 	
 	public IMCREOTransition() {
+		super();
 		this.final_state = null;
 	}
 	

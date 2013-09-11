@@ -51,8 +51,9 @@ public class IMCREOInteractiveTransition<STATE> extends IMCREOTransition<STATE> 
 	 */
 	@Override
 	public String toString() {
-		return " -- " + this.actions.toString() + " --> " + 
+		String s = " -- " + this.actions.toString() + " --> " + 
 					this.getFinal_state().toString();
+		return s;
 	}
 
 

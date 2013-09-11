@@ -17,6 +17,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	public IMCREOMarkovianTransition() {
 		super();
 		this.rate = 0.0;
+		this.label = "";
 	}
 
 	
@@ -72,13 +73,24 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	 */
 	@Override
 	public String toString() {
-		return " -- " + ((this.label.equals("") || this.label==null) ? "" : this.label + "; ") + this.rate + " --> " + 
-					this.getFinal_state().toString();
+		StringBuffer sb = new StringBuffer() ;
+		sb.append(" -- ")
+			.append(((this.label.equals("") || this.label==null) ? "" : this.label + "; "))
+				.append(this.rate)
+					.append(" --> ")
+						.append(this.getFinal_state().toString());
+		return sb.toString();
 	}
 
+	
+	
+	
 
 	
 	
+	
+
+
 	
 
 
