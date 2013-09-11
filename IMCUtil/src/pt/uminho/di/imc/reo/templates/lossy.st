@@ -20,7 +20,7 @@
 
 []{$a$} !
 * [$b$]{$a$} $gb$		@ LOSSY_$id$_ARR_$b$ @
-* [] $gaL$				@ LOSSY_$id$_TRF_$a$ @
+* [] $gaL$				@ LOSSY_$id$_TRl_$a$ @
 
 [$b$]{$a$} !
 * [$b$] $gaL$			@ LOSSY_$id$_TRl_$a$ @

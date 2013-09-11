@@ -472,6 +472,7 @@ public class IMCREOimc<STATE> {
 					newstate.fst().getRequests().removeAll(mixedports);
 					newstate.snd().getRequests().removeAll(mixedports);
 					
+					
 					it_state.remove();
 					if(this.chain.containsKey(newstate)){
 						//remove nondeterminism
@@ -1364,7 +1365,7 @@ public class IMCREOimc<STATE> {
 							mt.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
 							trans.add(mt);
 							
-							/*try{
+							try{
 								mt.toString();
 							}
 							catch(Exception e){
@@ -1373,7 +1374,7 @@ public class IMCREOimc<STATE> {
 								System.out.println("trans t- " + t.toString());
 								System.out.println("trs mt - " + mt.toString());
 							}
-							*/
+							
 						}
 						else {
 							IMCREOInteractiveTransition<IMCREOState> it = new IMCREOInteractiveTransition<IMCREOState>();
@@ -1381,17 +1382,25 @@ public class IMCREOimc<STATE> {
 							it.setActions(new IMCREOAction(new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions())));
 							trans.add(it);
 							
-							/*try{
+							try{
 								it.toString();
 							}
 							catch(Exception e){
 								System.out.println("IT");
-								System.out.println("state -- " + imcst.toString());
-								System.out.println("trans t- " + t.toString());
-								System.out.println("st get - " + (states_map.containsKey(t.getFinal_state()) ? states_map.get(t.getFinal_state()).toString() : "NULL!!"));
-								System.out.println("trs f st " + it.getFinal_state().toString());
-								System.out.println("trs acts " + it.getActions().toString());
-							}*/
+								System.out.println("state -- " + imcst.toString() );
+								for(IMCREOState st : states_map.keySet()){
+									System.out.println(t.getFinal_state() + " =?= " + st + " --- " + st.equals(t.getFinal_state()) ) ;
+									System.out.println(t.getFinal_state().hashCode() + " =?= " + st.hashCode() + "\n");
+									//System.out.println("h_state = h_t f st -- " + imcst.hashCode() + " = " + t.getFinal_state().hashCode());
+								}
+								//System.out.println("t f st -- " + t.getFinal_state().toString());
+								//System.out.println("state = t f st -- " + imcst.equals(t.getFinal_state()));
+								//System.out.println("h_state = h_t f st -- " + imcst.hashCode() + " = " + t.getFinal_state().hashCode());
+								//System.out.println("trans t- " + t.toString());
+								//System.out.println("st get - " + (states_map.containsKey(t.getFinal_state()) ? states_map.get(t.getFinal_state()).toString() : "NULL!!"));
+								//System.out.println("trs f st " + it.getFinal_state().toString());
+								//System.out.println("trs acts " + it.getActions().toString());
+							}
 							
 						}
 					}

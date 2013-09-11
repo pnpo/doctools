@@ -4,6 +4,7 @@
 package pt.uminho.di.imc.reo.composition;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import pt.uminho.di.imc.reo.IMCREOBufferState;
@@ -177,11 +178,19 @@ public class TesteMain {
 		 s2.getBuffer().add(IMCREOBufferState.NONE);
 		 
 		 
+		 HashMap<IMCREOState, String> map = new HashMap<IMCREOState, String>();
+		 
+		 map.put(s1, "s1");
+		 map.put(s3, "s3");
+		 map.put(s4, "s4");
 		 
 		 
-		 System.out.println(s1 + " --- " + s1.getTransmissions().hashCode() +  " --- " + s1.getRequests().hashCode() +  " --- " + s1.getBuffer().hashCode() +  " --- " + s1.toString().hashCode());
-		 System.out.println(s3 + " --- " + s3.getTransmissions().hashCode() +  " --- " + s3.getRequests().hashCode() +  " --- " + s3.getBuffer().hashCode() +  " --- " + s3.toString().hashCode());
-		 System.out.println(s4 + " --- " + s4.getTransmissions().hashCode() +  " --- " + s4.getRequests().hashCode() +  " --- " + s4.getBuffer().hashCode() +  " --- " + s4.toString().hashCode());
+		 System.out.println(s1 + " --- " + s1.getTransmissions().hashCode() +  " --- " + s1.getRequests().hashCode() +  " --- " + s1.getBuffer().hashCode() +  " --- " + s1.toString().hashCode() + " --- " + s1.hashCode());
+		 System.out.println(s3 + " --- " + s3.getTransmissions().hashCode() +  " --- " + s3.getRequests().hashCode() +  " --- " + s3.getBuffer().hashCode() +  " --- " + s3.toString().hashCode() + " --- " + s3.hashCode());
+		 System.out.println(s4 + " --- " + s4.getTransmissions().hashCode() +  " --- " + s4.getRequests().hashCode() +  " --- " + s4.getBuffer().hashCode() +  " --- " + s4.toString().hashCode() + " --- " + s4.hashCode());
+		 System.out.println("s1=s3? + " + s1.equals(s3));
+		 System.out.println("s1=s4? + " + s1.equals(s4));
+		 System.out.println("s3=s4? + " + s3.equals(s4));
 		 
 	}
 	
