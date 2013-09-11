@@ -7,7 +7,10 @@ package pt.uminho.di.imc.reo;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -34,7 +37,7 @@ public class IMCREOimc<STATE> {
 	
 	public IMCREOimc() {
 		super();
-		this.chain = new HashMap< STATE, LinkedList<IMCREOTransition<STATE>>>();
+		this.chain = new LinkedHashMap< STATE, LinkedList<IMCREOTransition<STATE>>>();
 		//this.final_states = new HashSet<STATE>(1);
 		this.initial_state = null;
 		this.poset = new POPorts();
@@ -42,19 +45,19 @@ public class IMCREOimc<STATE> {
 	
 	
 	
-	/**
-	 * @param chain
-	 * @param initial_state
-	 */
-	public IMCREOimc(
-			Map< STATE, LinkedList<IMCREOTransition<STATE>>> chain,
-			STATE initial_state, POPorts po) {
-		super();
-		this.chain = chain;
-		//this.final_states = final_states;
-		this.initial_state = initial_state;
-		this.poset = po;
-	}
+//	/**
+//	 * @param chain
+//	 * @param initial_state
+//	 */
+//	public IMCREOimc(
+//			Map< STATE, LinkedList<IMCREOTransition<STATE>>> chain,
+//			STATE initial_state, POPorts po) {
+//		super();
+//		this.chain = chain;
+//		//this.final_states = final_states;
+//		this.initial_state = initial_state;
+//		this.poset = po;
+//	}
 	
 	
 	
@@ -182,7 +185,7 @@ public class IMCREOimc<STATE> {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	public IMCREOimc<Pair<IMCREOState, IMCREOState>> compose(IMCREOimc<IMCREOState> other, HashSet<String> mixedports){
+	public IMCREOimc<Pair<IMCREOState, IMCREOState>> compose(IMCREOimc<IMCREOState> other, Set<String> mixedports){
 		   
 		
 		//the new IMC
@@ -194,10 +197,10 @@ public class IMCREOimc<STATE> {
 			//The queue with states to process
 			PriorityQueue<Pair<IMCREOState, IMCREOState>> to_visit = new PriorityQueue<Pair<IMCREOState,IMCREOState>>();
 			//The set of states already visited
-			HashSet<Pair<IMCREOState, IMCREOState>> visited = new HashSet<Pair<IMCREOState,IMCREOState>>();
+			LinkedHashSet<Pair<IMCREOState, IMCREOState>> visited = new LinkedHashSet<Pair<IMCREOState,IMCREOState>>();
 			
 			//the initial state construction
-			Pair<IMCREOState, IMCREOState> initial_state = new Pair<IMCREOState, IMCREOState>((IMCREOState)this.initial_state, other.initial_state);
+			Pair<IMCREOState, IMCREOState> initial_state = new Pair<IMCREOState, IMCREOState>(((IMCREOState)this.initial_state).copy(), other.initial_state.copy());
 			newimc.setInitial_state(initial_state);
 			to_visit.add(initial_state);
 			
@@ -236,7 +239,7 @@ public class IMCREOimc<STATE> {
 						if(t1 instanceof IMCREOMarkovianTransition){
 							//>>>>RULE C4: independent evolution rule
 							//create the final state
-							Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>((IMCREOState)t1.getFinal_state(), ongoing_state_2);
+							Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(((IMCREOState)t1.getFinal_state()).copy(), ongoing_state_2.copy());
 							//create the transition
 							IMCREOMarkovianTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOMarkovianTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOMarkovianTransition<STATE>) t1).getRate(), ((IMCREOMarkovianTransition<STATE>) t1).getLabel());
 							//add the transition
@@ -253,13 +256,13 @@ public class IMCREOimc<STATE> {
 						}
 						else {//if the transition is interactive
 							//perform the intersection of actions with the mixedports
-							HashSet<String> actions_intersection = new HashSet<String>(((IMCREOInteractiveTransition<STATE>)t1).getActions().getActions());
+							LinkedHashSet<String> actions_intersection = new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>)t1).getActions().getActions());
 							actions_intersection.retainAll(mixedports);
 							//>>>>>>RULE C1: If the actions in the transition do not contain some of the mixed ports:
 							//evolve individually
 							if(actions_intersection.isEmpty()) {
 								//create the final state
-								Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>((IMCREOState)t1.getFinal_state(), ongoing_state_2);
+								Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(((IMCREOState)t1.getFinal_state()).copy(), ongoing_state_2.copy());
 								//create the transition
 								IMCREOInteractiveTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOInteractiveTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOInteractiveTransition<STATE>) t1).getActions());
 								//add the transition
@@ -282,16 +285,16 @@ public class IMCREOimc<STATE> {
 									IMCREOTransition<IMCREOState> t2 = it.next();
 									if(t2 instanceof IMCREOInteractiveTransition){
 										//new (2013-04-14) -- changed test to synchronise... two actions sync if their intersection with the mixed ports is equal!!!
-										HashSet<String> actions2_intersection = new HashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t2).getActions().getActions());
+										LinkedHashSet<String> actions2_intersection = new LinkedHashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t2).getActions().getActions());
 										actions2_intersection.retainAll(mixedports);
 										//HashSet<String> actions2_intersection = new HashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t2).getActions().getActions());
 										//actions2_intersection.retainAll(actions_intersection);
 										//if(!actions2_intersection.isEmpty()){
 										if(actions2_intersection.equals(actions_intersection)){
 											//create the final state
-											Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>((IMCREOState)t1.getFinal_state(), t2.getFinal_state());
+											Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(((IMCREOState)t1.getFinal_state()).copy(), t2.getFinal_state().copy());
 											//Union of actions
-											HashSet<String> actions_union = new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t1).getActions().getActions());
+											LinkedHashSet<String> actions_union = new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>) t1).getActions().getActions());
 											actions_union.addAll(((IMCREOInteractiveTransition<IMCREOState>) t2).getActions().getActions());
 											//create the transition
 											IMCREOInteractiveTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOInteractiveTransition<Pair<IMCREOState,IMCREOState>>(next_state, new IMCREOAction(actions_union));
@@ -333,7 +336,7 @@ public class IMCREOimc<STATE> {
 						if(t2 instanceof IMCREOMarkovianTransition){
 							//>>>>RULE C5: independent evolution rule
 							//create the final state
-							Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(ongoing_state_1, (IMCREOState)t2.getFinal_state());
+							Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(ongoing_state_1.copy(), ((IMCREOState)t2.getFinal_state()).copy());
 							//create the transition
 							IMCREOMarkovianTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOMarkovianTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOMarkovianTransition<IMCREOState>) t2).getRate(), ((IMCREOMarkovianTransition<IMCREOState>) t2).getLabel());
 							//add the transition
@@ -350,12 +353,12 @@ public class IMCREOimc<STATE> {
 						}
 						else { //if the transition is interactive
 							//perform the intersection of actions with the mixedports
-							HashSet<String> actions_intersection = new HashSet<String>(((IMCREOInteractiveTransition<STATE>)t2).getActions().getActions());
+							LinkedHashSet<String> actions_intersection = new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>)t2).getActions().getActions());
 							actions_intersection.retainAll(mixedports);
 							//>>>>>>RULE C2: If the actions in the transition do not contain all the mixed ports
 							if(actions_intersection.isEmpty()) {
 								//create the final state
-								Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(ongoing_state_1, (IMCREOState)t2.getFinal_state());
+								Pair<IMCREOState, IMCREOState> next_state = new Pair<IMCREOState, IMCREOState>(ongoing_state_1.copy(), ((IMCREOState)t2.getFinal_state()).copy());
 								//create the transition
 								IMCREOInteractiveTransition<Pair<IMCREOState, IMCREOState>> new_transition = new IMCREOInteractiveTransition<Pair<IMCREOState,IMCREOState>>(next_state,((IMCREOInteractiveTransition<IMCREOState>) t2).getActions());
 								//add the transition
@@ -1629,42 +1632,42 @@ public class IMCREOimc<STATE> {
 
 
 
-	/**
-	 * 
-	 * @param prefix
-	 * @param mixedports_single
-	 */
-	@SuppressWarnings("unchecked")
-	public void prefixPortNames(String prefix, HashSet<String> mixedports_single) {
-		if(this.initial_state instanceof IMCREOState) {
-			
-			IMCREOState new_st = ((IMCREOState) this.initial_state).prefixPortNames(prefix, mixedports_single);
-			this.initial_state = (STATE) new_st;
-			
-			HashMap<STATE, LinkedList<IMCREOTransition<STATE>>> aux_chain = 
-					new HashMap<STATE, LinkedList<IMCREOTransition<STATE>>>();
-			
-			Iterator<STATE> it_states = this.chain.keySet().iterator();
-			while(it_states.hasNext()) {
-				STATE st = it_states.next();
-				new_st = ((IMCREOState) st).prefixPortNames(prefix, mixedports_single);
-				for(IMCREOTransition<STATE> tr : this.chain.get(st)) {
-					tr.setFinal_state((STATE) ((IMCREOState) tr.getFinal_state()).prefixPortNames(prefix, mixedports_single));
-				}
-				aux_chain.put((STATE) new_st, this.chain.get(st));
-				it_states.remove();
-			}
-			this.chain.putAll(aux_chain);
-			
-			HashSet<Pair<String,String>> poset_prefixed = new HashSet<Pair<String,String>>();
-			for(Pair<String,String>  p : this.poset.getPo()) {				
-				String p1_new = mixedports_single.contains(p.fst()) || ( p.fst().endsWith("#") && mixedports_single.contains(p.fst().substring(0, p.fst().length()-1))) ? p.fst() : prefix + "." + p.fst();
-				String p2_new = mixedports_single.contains(p.snd()) || ( p.snd().endsWith("#") && mixedports_single.contains(p.snd().substring(0, p.snd().length()-1)))? p.snd() : prefix + "." + p.snd();
-				poset_prefixed.add(new Pair<String, String>(p1_new, p2_new));
-			}
-			this.poset.setPo(poset_prefixed);
-		}
-	}
+//	/**
+//	 * 
+//	 * @param prefix
+//	 * @param mixedports_single
+//	 */
+//	@SuppressWarnings("unchecked")
+//	public void prefixPortNames(String prefix, HashSet<String> mixedports_single) {
+//		if(this.initial_state instanceof IMCREOState) {
+//			
+//			IMCREOState new_st = ((IMCREOState) this.initial_state).prefixPortNames(prefix, mixedports_single);
+//			this.initial_state = (STATE) new_st;
+//			
+//			HashMap<STATE, LinkedList<IMCREOTransition<STATE>>> aux_chain = 
+//					new HashMap<STATE, LinkedList<IMCREOTransition<STATE>>>();
+//			
+//			Iterator<STATE> it_states = this.chain.keySet().iterator();
+//			while(it_states.hasNext()) {
+//				STATE st = it_states.next();
+//				new_st = ((IMCREOState) st).prefixPortNames(prefix, mixedports_single);
+//				for(IMCREOTransition<STATE> tr : this.chain.get(st)) {
+//					tr.setFinal_state((STATE) ((IMCREOState) tr.getFinal_state()).prefixPortNames(prefix, mixedports_single));
+//				}
+//				aux_chain.put((STATE) new_st, this.chain.get(st));
+//				it_states.remove();
+//			}
+//			this.chain.putAll(aux_chain);
+//			
+//			HashSet<Pair<String,String>> poset_prefixed = new HashSet<Pair<String,String>>();
+//			for(Pair<String,String>  p : this.poset.getPo()) {				
+//				String p1_new = mixedports_single.contains(p.fst()) || ( p.fst().endsWith("#") && mixedports_single.contains(p.fst().substring(0, p.fst().length()-1))) ? p.fst() : prefix + "." + p.fst();
+//				String p2_new = mixedports_single.contains(p.snd()) || ( p.snd().endsWith("#") && mixedports_single.contains(p.snd().substring(0, p.snd().length()-1)))? p.snd() : prefix + "." + p.snd();
+//				poset_prefixed.add(new Pair<String, String>(p1_new, p2_new));
+//			}
+//			this.poset.setPo(poset_prefixed);
+//		}
+//	}
 
 
 

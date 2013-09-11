@@ -6,6 +6,9 @@ package pt.uminho.di.imc.reo;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import pt.uminho.di.imc.util.ICopiable;
 
@@ -16,14 +19,14 @@ import pt.uminho.di.imc.util.ICopiable;
  */
 public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 
-	private HashSet<String> requests;
-	private HashSet<String> transmissions;
-	private ArrayList<IMCREOBufferState> buffer;
+	private Set<String> requests;
+	private Set<String> transmissions;
+	private List<IMCREOBufferState> buffer;
 	
 	
 	public IMCREOState() {
-		this.setRequests(new HashSet<String>(2));
-		this.setTransmissions(new HashSet<String>(2));
+		this.setRequests(new LinkedHashSet<String>(2));
+		this.setTransmissions(new LinkedHashSet<String>(2));
 		this.setBuffer(new ArrayList<IMCREOBufferState>());
 	}
 	
@@ -38,9 +41,9 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	 * @param buff the buffer qualifier.
 	 */
 	@SuppressWarnings("unchecked")
-	public IMCREOState(HashSet<String> r, HashSet<String> t, ArrayList<IMCREOBufferState> buff) {
-		this.setRequests((HashSet<String>)r.clone());
-		this.setTransmissions((HashSet<String>)t.clone());
+	public IMCREOState(Set<String> r, Set<String> t, List<IMCREOBufferState> buff) {
+		this.setRequests(new LinkedHashSet<String>(r));
+		this.setTransmissions(new LinkedHashSet<String>(t));
 		this.setBuffer(buff);
 	}
 	
@@ -50,7 +53,7 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	/**
 	 * @return the requests
 	 */
-	public HashSet<String> getRequests() {
+	public Set<String> getRequests() {
 		return requests;
 	}
 
@@ -58,7 +61,7 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	/**
 	 * @param requests the requests to set
 	 */
-	public void setRequests(HashSet<String> requests) {
+	public void setRequests(Set<String> requests) {
 		this.requests = requests;
 	}
 
@@ -66,7 +69,7 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	/**
 	 * @return the transmissions
 	 */
-	public HashSet<String> getTransmissions() {
+	public Set<String> getTransmissions() {
 		return transmissions;
 	}
 
@@ -74,7 +77,7 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	/**
 	 * @param transmissions the transmissions to set
 	 */
-	public void setTransmissions(HashSet<String> transmissions) {
+	public void setTransmissions(Set<String> transmissions) {
 		this.transmissions = transmissions;
 	}
 
@@ -84,7 +87,7 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	/**
 	 * @return the buffer
 	 */
-	public ArrayList<IMCREOBufferState> getBuffer() {
+	public List<IMCREOBufferState> getBuffer() {
 		return buffer;
 	}
 
@@ -92,7 +95,7 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	/**
 	 * @param buffer the buffer to set
 	 */
-	public void setBuffer(ArrayList<IMCREOBufferState> buffer) {
+	public void setBuffer(List<IMCREOBufferState> buffer) {
 		this.buffer = buffer;
 	}
 
@@ -233,27 +236,37 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	 * @return A state which is the union (component by component)
 	 * of two states
 	 */
-	public IMCREOState wiseUnion(IMCREOState other_state, HashSet<String> mixednodes) {
+	public IMCREOState wiseUnion(IMCREOState other_state, Set<String> mixednodes) {
 		IMCREOState state = new IMCREOState();
 		
 		state.getRequests().addAll(this.requests);
 		state.getRequests().addAll(other_state.getRequests());
 		
-		state.getTransmissions().addAll(this.transmissions);
-		HashSet<String> mixednodes_replaced = new HashSet<String>(); 
-		Iterator<String> it = state.getTransmissions().iterator(); 
-		while(it.hasNext()) {
-			String n = it.next();
-			prepareTransmissions(mixednodes, mixednodes_replaced, it, n, "$1");
+		for(String tr : this.transmissions){
+			tr = prepareMixedNode(mixednodes, tr, "$1");
+			state.getTransmissions().add(tr);
 		}
-			
-		state.getTransmissions().addAll(other_state.getTransmissions());
-		it = state.getTransmissions().iterator(); 
-		while(it.hasNext()) {
-			String n = it.next();
-			prepareTransmissions(mixednodes, mixednodes_replaced, it, n, "$2");
+		
+		for(String tr : other_state.transmissions){
+			tr = prepareMixedNode(mixednodes, tr, "$2");
+			state.getTransmissions().add(tr);
 		}
-		state.getTransmissions().addAll(mixednodes_replaced);
+		
+//		state.getTransmissions().addAll(this.transmissions);
+//		LinkedHashSet<String> mixednodes_replaced = new LinkedHashSet<String>(); 
+//		Iterator<String> it = state.getTransmissions().iterator(); 
+//		while(it.hasNext()) {
+//			String n = it.next();
+//			prepareTransmissions(mixednodes, mixednodes_replaced, it, n, "$1");
+//		}
+//			
+//		state.getTransmissions().addAll(other_state.getTransmissions());
+//		it = state.getTransmissions().iterator(); 
+//		while(it.hasNext()) {
+//			String n = it.next();
+//			prepareTransmissions(mixednodes, mixednodes_replaced, it, n, "$2");
+//		}
+//		state.getTransmissions().addAll(mixednodes_replaced);
 		
 		state.getBuffer().addAll(this.buffer);
 		state.getBuffer().addAll(other_state.getBuffer());
@@ -263,22 +276,33 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 
 
 
-	/**
-	 * @param mixednodes
-	 * @param mixednodes_replaced
-	 * @param it
-	 * @param n
-	 */
-	private void prepareTransmissions(HashSet<String> mixednodes,
-			HashSet<String> mixednodes_replaced, Iterator<String> it, String n, String trail) {
+//	/**
+//	 * @param mixednodes
+//	 * @param mixednodes_replaced
+//	 * @param it
+//	 * @param n
+//	 */
+//	private void prepareTransmissions(HashSet<String> mixednodes,
+//			HashSet<String> mixednodes_replaced, Iterator<String> it, String n, String trail) {
+//		int dolar_pos = n.indexOf('$');
+//		String n_trimmed = (dolar_pos > 0 || dolar_pos < n.length()) && dolar_pos != -1 ? n.substring(0, dolar_pos) : n;
+//		if(mixednodes.contains(n_trimmed)){
+//			mixednodes_replaced.add( n + trail);
+//			it.remove();
+//		}
+//	}
+	
+	
+	private String prepareMixedNode(Set<String> mixednodes, String n, String tail) {
+		String prepared_mixed_node = n;
 		int dolar_pos = n.indexOf('$');
 		String n_trimmed = (dolar_pos > 0 || dolar_pos < n.length()) && dolar_pos != -1 ? n.substring(0, dolar_pos) : n;
 		if(mixednodes.contains(n_trimmed)){
-			mixednodes_replaced.add( n + trail);
-			it.remove();
+			prepared_mixed_node += tail;
 		}
+		
+		return prepared_mixed_node;
 	}
-	
 	
 	
 	
@@ -469,75 +493,75 @@ public class IMCREOState implements ICopiable, Comparable<IMCREOState> {
 	}
 
 
-	/**
-	 * 
-	 * @param prefix
-	 * @param mixedports_single
-	 * @return
-	 */
-	public IMCREOState prefixPortNames(String prefix, HashSet<String> mixedports_single) {
-		IMCREOState st = new IMCREOState();
-		
-		
-		for(String req : this.getRequests()) {
-			if(! mixedports_single.contains(req)){
-				st.getRequests().add(prefix + "." + req);
-			}
-			else {
-				st.getRequests().add(req);
-			}
-		}
-		
-		for(String tra : this.getTransmissions()) {
-			if(! mixedports_single.contains(tra)) {
-				st.getTransmissions().add(prefix + "." + tra);
-			}
-			else {
-				st.getTransmissions().add(tra);
-			}
-		}
-		
-		st.setBuffer(this.buffer);
-		return st;
-	}
+//	/**
+//	 * 
+//	 * @param prefix
+//	 * @param mixedports_single
+//	 * @return
+//	 */
+//	public IMCREOState prefixPortNames(String prefix, Set<String> mixedports_single) {
+//		IMCREOState st = new IMCREOState();
+//		
+//		
+//		for(String req : this.getRequests()) {
+//			if(! mixedports_single.contains(req)){
+//				st.getRequests().add(prefix + "." + req);
+//			}
+//			else {
+//				st.getRequests().add(req);
+//			}
+//		}
+//		
+//		for(String tra : this.getTransmissions()) {
+//			if(! mixedports_single.contains(tra)) {
+//				st.getTransmissions().add(prefix + "." + tra);
+//			}
+//			else {
+//				st.getTransmissions().add(tra);
+//			}
+//		}
+//		
+//		st.setBuffer(this.buffer);
+//		return st;
+//	}
 
 
-	/**
-	 * 
-	 * @param mixedports_single
-	 * @return
-	 */
-	public IMCREOState unprefixMixedPorts(HashSet<String> mixedports_single) {
-		IMCREOState st = new IMCREOState();
-		
-		for(String req : this.getRequests()) {
-			for(String mp : mixedports_single){
-				if(req.contains("." + mp)){
-					st.getRequests().add(req.substring(req.indexOf('.')+1, req.length()));
-				}
-				else {
-					st.getRequests().add(req);
-				}
-			}
-			
-		}
-		
-		for(String tra : this.getTransmissions()) {
-			for(String mp : mixedports_single){
-				if(! tra.contains("$") && tra.contains("." + mp)){
-					st.getTransmissions().add(tra.substring(tra.indexOf('.')+1, tra.length()));
-				}
-				else {
-					st.getTransmissions().add(tra);
-				}
-			}
-		}
-		
-		st.setBuffer(this.buffer);
-		
-		return st;
-	}
-	
+//	/**
+//	 * 
+//	 * @param mixedports_single
+//	 * @return
+//	 */
+//	public IMCREOState unprefixMixedPorts(HashSet<String> mixedports_single) {
+//		IMCREOState st = new IMCREOState();
+//		
+//		for(String req : this.getRequests()) {
+//			for(String mp : mixedports_single){
+//				if(req.contains("." + mp)){
+//					st.getRequests().add(req.substring(req.indexOf('.')+1, req.length()));
+//				}
+//				else {
+//					st.getRequests().add(req);
+//				}
+//			}
+//			
+//		}
+//		
+//		for(String tra : this.getTransmissions()) {
+//			for(String mp : mixedports_single){
+//				if(! tra.contains("$") && tra.contains("." + mp)){
+//					st.getTransmissions().add(tra.substring(tra.indexOf('.')+1, tra.length()));
+//				}
+//				else {
+//					st.getTransmissions().add(tra);
+//				}
+//			}
+//		}
+//		
+//		st.setBuffer(this.buffer);
+//		
+//		return st;
+//	}
+//	
 	
 	
 	

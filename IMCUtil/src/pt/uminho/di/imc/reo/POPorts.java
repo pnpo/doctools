@@ -4,6 +4,7 @@
 package pt.uminho.di.imc.reo;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import pt.uminho.di.imc.util.Pair;
@@ -22,13 +23,13 @@ public class POPorts {
 	
 	
 	public POPorts() {
-		this.po = new HashSet<Pair<String, String>>();
+		this.po = new LinkedHashSet<Pair<String, String>>();
 	}
 	
 	
 	
 	public POPorts(Set<Pair<String, String>> poset) {
-		this.po = new HashSet<Pair<String, String>>(poset);
+		this.po = new LinkedHashSet<Pair<String, String>>(poset);
 		this.completePO();
 	}
 	
@@ -165,8 +166,8 @@ public class POPorts {
 	 * Antisymmetric property;
 	 */
 	private void completePO() {
-		HashSet<Pair<String, String>> aux = new HashSet<Pair<String,String>>();
-		HashSet<Pair<String, String>> sharp_processed = new HashSet<Pair<String,String>>();
+		LinkedHashSet<Pair<String, String>> aux = new LinkedHashSet<Pair<String,String>>();
+		LinkedHashSet<Pair<String, String>> sharp_processed = new LinkedHashSet<Pair<String,String>>();
 		boolean is_incomplete = true;
 		
 		while(is_incomplete) {
