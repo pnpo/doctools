@@ -21,7 +21,7 @@ public class IMCREOAction {
 	 */
 	public IMCREOAction(Set<String> actions) {
 		super();
-		this.actions = actions;
+		this.actions = new LinkedHashSet<String>(actions);
 	}
 
 	/**

@@ -4,6 +4,7 @@
 package pt.uminho.di.imc.reo;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -424,7 +425,7 @@ public class IMCREOimc<STATE> {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	public IMCREOimc<Pair<IMCREOState, IMCREOState>> synchronise(HashSet<String> mixedports, HashSet<String> already_mixed) {
+	public IMCREOimc<Pair<IMCREOState, IMCREOState>> synchronise(Set<String> mixedports, Set<String> already_mixed) {
 		
 		//only synchronise if the states are pairs 
 		if(this.initial_state instanceof Pair<?,?>) {
@@ -437,9 +438,9 @@ public class IMCREOimc<STATE> {
 				Iterator<IMCREOTransition<STATE>> it_trans = this.chain.get(s).iterator();
 				while(it_trans.hasNext()) {
 					IMCREOTransition<STATE> t = it_trans.next();
-					HashSet<String> intersect_trans_final_1 = new HashSet<String>( ((IMCREOState)((Pair<?,?>) t.getFinal_state()).fst()).getRequests());
+					LinkedHashSet<String> intersect_trans_final_1 = new LinkedHashSet<String>( ((IMCREOState)((Pair<?,?>) t.getFinal_state()).fst()).getRequests());
 					intersect_trans_final_1.retainAll(mixedports);
-					HashSet<String> intersect_trans_final_2 = new HashSet<String>( ((IMCREOState)((Pair<?,?>) t.getFinal_state()).snd()).getRequests());
+					LinkedHashSet<String> intersect_trans_final_2 = new LinkedHashSet<String>( ((IMCREOState)((Pair<?,?>) t.getFinal_state()).snd()).getRequests());
 					intersect_trans_final_2.retainAll(mixedports);
 					
 					//if it goes to a state with request in mixed ports...
@@ -452,8 +453,12 @@ public class IMCREOimc<STATE> {
 			}
 			
 			
-			//2nd step: update transitions leaving states nodeX to leave states 
-			//X (the same state but without mixed nodes) and remove forced non-determinism
+			
+			//2 - 1/2 step : join all the transitions from states [M]X to states
+			// X (the same state but without request mixed nodes)  and remove states [M]X
+			
+			//an auxiliar structure to keep track of the changed states, to ease the next steps...
+			LinkedHashSet<STATE> aux_changed_states = new LinkedHashSet<STATE>();
 			it_state = this.chain.keySet().iterator();
 			while(it_state.hasNext()){
 				STATE s = it_state.next();
@@ -466,7 +471,9 @@ public class IMCREOimc<STATE> {
 				HashSet<String> i_req_s2 = new HashSet<String>(s2.getRequests());
 				i_req_s2.retainAll(mixedports);
 				
+				//??? this list of transitions only have interactive transitions (is this true)????
 				LinkedList<IMCREOTransition<STATE>> tr_tmp = this.chain.get(s);
+				
 				
 				//if at least one part of the state have a request on the same mixed ports
 				if(! tr_tmp.isEmpty() && (! i_req_s1.isEmpty() || ! i_req_s2.isEmpty()) ){
@@ -474,20 +481,108 @@ public class IMCREOimc<STATE> {
 					Pair<IMCREOState, IMCREOState> newstate = new Pair<IMCREOState, IMCREOState>(s1.copy(), s2.copy());
 					newstate.fst().getRequests().removeAll(mixedports);
 					newstate.snd().getRequests().removeAll(mixedports);
-					
+					//add reference to the new state
+					aux_changed_states.add((STATE)newstate);
 					
 					it_state.remove();
 					if(this.chain.containsKey(newstate)){
-						//remove nondeterminism
-						LinkedList<IMCREOTransition<STATE>> without_nondeterminism = this.removeNonDeterminism(this.chain.get(newstate), tr_tmp, mixedports);
-						this.chain.put((STATE)newstate, without_nondeterminism);
+						//add transitions from changed state to the existent state (in this case referred to by newstate)
+						LinkedList<IMCREOTransition<STATE>> state_and_changed_state_transitions =
+								new LinkedList<IMCREOTransition<STATE>>(this.chain.get(newstate));
+						state_and_changed_state_transitions.addAll(tr_tmp);
+						//put all the transitions in the existent state
+						this.chain.put((STATE)newstate, state_and_changed_state_transitions);
 						
 					}
 					else { 
+						//else make entry for this changed state and add all its transitions before removing mixed ports
 						this.chain.put((STATE) newstate, tr_tmp);
 					}
 				}
+				
 			}
+			
+			
+			// 2 - 2/2 step : remove all the transitions that violate active blocking in the sense that
+			// the transition with actions with less mixed nodes is violating the self-pumping assumption 
+			for(STATE st : aux_changed_states) {
+				//An auxiliary list of the transitions to easily check the violation...
+				ArrayList<IMCREOTransition<STATE>> aux_trans_list = 
+						new ArrayList<IMCREOTransition<STATE>>(this.chain.get(st)) ;
+				//Check the violation by inspecting the first with all the remaining, the second with all the remaining... and so on
+				for(int i=0; i < aux_trans_list.size()-1; i++){
+					IMCREOTransition<STATE> tr1 = aux_trans_list.get(i);
+					for(int j=1; j < aux_trans_list.size() ; j++){
+						IMCREOTransition<STATE> tr2 = aux_trans_list.get(j);
+						//do it only for INTERACTIVE TRANSITIONS
+						if( tr1 instanceof IMCREOInteractiveTransition<?> && tr2 instanceof IMCREOInteractiveTransition<?>)
+						{
+							//get the intersections of actions with mixed nodes
+							LinkedHashSet<String> tr1_actions_inter_mixed = 
+									new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>)tr1).getActions().getActions());
+							tr1_actions_inter_mixed.retainAll(mixedports);
+							
+							LinkedHashSet<String> tr2_actions_inter_mixed = 
+									new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>)tr2).getActions().getActions());
+							tr2_actions_inter_mixed.retainAll(mixedports);
+							
+							//check the sizes and remove that with less mixed nodes...
+							if(tr1_actions_inter_mixed.size() > tr2_actions_inter_mixed.size()){
+								if(this.chain.get(st).contains(tr2)){
+									this.chain.get(st).remove(tr2);
+								}
+							}
+							else {
+								if(tr1_actions_inter_mixed.size() < tr2_actions_inter_mixed.size()){
+									if(this.chain.get(st).contains(tr1)){
+										this.chain.get(st).remove(tr1);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+//			//2nd step: update transitions leaving states nodeX to leave states 
+//			//X (the same state but without mixed nodes) and remove forced non-determinism
+//			it_state = this.chain.keySet().iterator();
+//			while(it_state.hasNext()){
+//				STATE s = it_state.next();
+//				
+//				IMCREOState s1 = (IMCREOState) ((Pair<?,?>) s).fst();
+//				IMCREOState s2 = (IMCREOState) ((Pair<?,?>) s).snd();
+//				
+//				HashSet<String> i_req_s1 = new HashSet<String>(s1.getRequests());
+//				i_req_s1.retainAll(mixedports);
+//				HashSet<String> i_req_s2 = new HashSet<String>(s2.getRequests());
+//				i_req_s2.retainAll(mixedports);
+//				
+//				LinkedList<IMCREOTransition<STATE>> tr_tmp = this.chain.get(s);
+//				
+//				//if at least one part of the state have a request on the same mixed ports
+//				if(! tr_tmp.isEmpty() && (! i_req_s1.isEmpty() || ! i_req_s2.isEmpty()) ){
+//					
+//					Pair<IMCREOState, IMCREOState> newstate = new Pair<IMCREOState, IMCREOState>(s1.copy(), s2.copy());
+//					newstate.fst().getRequests().removeAll(mixedports);
+//					newstate.snd().getRequests().removeAll(mixedports);
+//					
+//					
+//					it_state.remove();
+//					if(this.chain.containsKey(newstate)){
+//						//remove nondeterminism
+//						LinkedList<IMCREOTransition<STATE>> without_nondeterminism = this.removeNonDeterminism(this.chain.get(newstate), tr_tmp, mixedports);
+//						this.chain.put((STATE)newstate, without_nondeterminism);
+//						
+//					}
+//					else { 
+//						this.chain.put((STATE) newstate, tr_tmp);
+//					}
+//				}
+//			}
 			
 			
 	
@@ -509,7 +604,7 @@ public class IMCREOimc<STATE> {
 					IMCREOBufferState buf_s2 = s2.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 					
 					
-					HashSet<String> Ti = prepareTransmission(s1, buf_s1);
+					LinkedHashSet<String> Ti = prepareTransmission(s1, buf_s1);
 					Ti.addAll(prepareTransmission(s2, buf_s2));
 					
 					//Let us check if the list of transmissions respect Ti\Tf < Tf
@@ -526,20 +621,20 @@ public class IMCREOimc<STATE> {
 							IMCREOBufferState buf_ts2 = ts2.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							
 						
-							HashSet<String> Tf = prepareTransmission(ts1, buf_ts1);
+							LinkedHashSet<String> Tf = prepareTransmission(ts1, buf_ts1);
 							Tf.addAll(prepareTransmission(ts2, buf_ts2));
 							//Tf.retainAll(Ti);
 							
 							
 							//the set transmitted
-							HashSet<String> T = new HashSet<String>(Ti);
+							LinkedHashSet<String> T = new LinkedHashSet<String>(Ti);
 							T.removeAll(Tf);
 							
 							//is the transmitted set empty?
 							//Maybe it is not... maybe it is a node repeated on the transmissions of both parts of the node
 							if(T.isEmpty()) {
 								
-								HashSet<String> parts_intersect = new HashSet<String>(s1.getTransmissions());
+								LinkedHashSet<String> parts_intersect = new LinkedHashSet<String>(s1.getTransmissions());
 								parts_intersect.retainAll(s2.getTransmissions());
 								
 								int n_ti = s1.getTransmissions().size() + s2.getTransmissions().size();
@@ -587,10 +682,10 @@ public class IMCREOimc<STATE> {
 					IMCREOState st1 = (IMCREOState)((Pair<?, ?>) s).fst();
 					IMCREOState st2 = (IMCREOState)((Pair<?, ?>) s).snd();
 					//get the active ports for the state 
-					HashSet<String> active_ports = this.getActivePortsForState2(s);
+					LinkedHashSet<String> active_ports = this.getActivePortsForState2(s);
 					
 					//Now get the requests that already exist in the current state
-					HashSet<String> current_requests = new HashSet<String>(st1.getRequests());
+					LinkedHashSet<String> current_requests = new LinkedHashSet<String>(st1.getRequests());
 					current_requests.addAll(st2.getRequests());
 					
 					//iterate over the transitions leaving the current state 
@@ -606,7 +701,7 @@ public class IMCREOimc<STATE> {
 								//collect the requests of the states 
 								IMCREOState tr_st1 = (IMCREOState)((Pair<?, ?>) t.getFinal_state()).fst();
 								IMCREOState tr_st2 = (IMCREOState)((Pair<?, ?>) t.getFinal_state()).snd();
-								HashSet<String> requests = new HashSet<String>(tr_st1.getRequests());
+								LinkedHashSet<String> requests = new LinkedHashSet<String>(tr_st1.getRequests());
 								requests.addAll(tr_st2.getRequests());
 								
 								//remove the current requests from the set of requests in the 
@@ -637,9 +732,9 @@ public class IMCREOimc<STATE> {
 							//then a new action of ports cannot exist.
 							
 							
-							HashSet<String> req_st = new HashSet<String>(st1.getRequests());
+							LinkedHashSet<String> req_st = new LinkedHashSet<String>(st1.getRequests());
 							req_st.addAll(st2.getRequests());
-							HashSet<String> req_st_aux = new HashSet<String>();
+							LinkedHashSet<String> req_st_aux = new LinkedHashSet<String>();
 							//remove prefixes from request set
 							for(String r : req_st) {
 								int posDot = r.indexOf('.');
@@ -653,16 +748,16 @@ public class IMCREOimc<STATE> {
 							req_st = req_st_aux;
 							
 							
-							HashSet<String> acts = new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions());
+							LinkedHashSet<String> acts = new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions());
 							
-							HashSet<String> acts_minus_mixed = new HashSet<String>(acts);
+							LinkedHashSet<String> acts_minus_mixed = new LinkedHashSet<String>(acts);
 							acts_minus_mixed.removeAll(mixedports);
 							acts_minus_mixed.removeAll(already_mixed);
 							
-							HashSet<String> req_inter_actions = new HashSet<String>(req_st);
+							LinkedHashSet<String> req_inter_actions = new LinkedHashSet<String>(req_st);
 							req_inter_actions.retainAll(acts_minus_mixed);
 							
-							HashSet<String> active_inter_actions = new HashSet<String>(active_ports);
+							LinkedHashSet<String> active_inter_actions = new LinkedHashSet<String>(active_ports);
 							active_inter_actions.retainAll(acts);
 							
 							//if(active_inter_actions.size()!=0) {
@@ -730,7 +825,7 @@ public class IMCREOimc<STATE> {
 	 * @param tf
 	 * @return
 	 */
-	private boolean isTransmittedMinorThanToTransmit(HashSet<String> t, HashSet<String> tf, HashSet<String> global_mixedports) {
+	private boolean isTransmittedMinorThanToTransmit(Set<String> t, Set<String> tf, Set<String> global_mixedports) {
 	
 		boolean res = true;
 		
@@ -754,9 +849,9 @@ public class IMCREOimc<STATE> {
 	 * @param buf_s1
 	 * @return
 	 */
-	private HashSet<String> prepareTransmission(IMCREOState s,
+	private LinkedHashSet<String> prepareTransmission(IMCREOState s,
 			IMCREOBufferState buf_s) {
-		HashSet<String> transmissions = new HashSet<String>();
+		LinkedHashSet<String> transmissions = new LinkedHashSet<String>();
 	
 		for(String n : s.getTransmissions()) {
 			int dollar_pos = n.indexOf('$');
@@ -783,12 +878,18 @@ public class IMCREOimc<STATE> {
 	
 	
 	
-
+	/**
+	 * This method performs a cleaning of transitions and states after a synchronisation
+	 * via multiple ports based on a notion of balanced mixed ports in transmission states...
+	 * 
+	 * @param mixedports
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public IMCREOimc<IMCREOState> cleanAfterMultiMixedPortsSynchronisation (HashSet<String> mixedports) {
+	public IMCREOimc<IMCREOState> cleanAfterMultiMixedPortsSynchronisation (Set<String> mixedports) {
 		IMCREOimc<IMCREOState> newimc = new IMCREOimc<IMCREOState>();
 		
-		HashSet<IMCREOState> merged_states = new HashSet<IMCREOState>();
+		LinkedHashSet<IMCREOState> merged_states = new LinkedHashSet<IMCREOState>();
 		
 		newimc.setInitial_state(((IMCREOState)this.initial_state).copy());
 		newimc.setPoset(new POPorts(this.poset.getPo()));
@@ -797,17 +898,27 @@ public class IMCREOimc<STATE> {
 				LinkedList<IMCREOTransition<IMCREOState>> transitions = new LinkedList<IMCREOTransition<IMCREOState>>();
 				for(IMCREOTransition<STATE> t : this.chain.get(s)) {
 					if(t instanceof IMCREOMarkovianTransition<?>) {
-						IMCREOMarkovianTransition<IMCREOState> new_tr = new IMCREOMarkovianTransition<IMCREOState>();
-						new_tr.setFinal_state(((IMCREOState) t.getFinal_state()).copy());
-						new_tr.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
-						new_tr.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
+						IMCREOMarkovianTransition<IMCREOState> new_tr = 
+								new IMCREOMarkovianTransition<IMCREOState>(
+										((IMCREOState) t.getFinal_state()).copy(),
+										((IMCREOMarkovianTransition<?>) t).getRate(),
+										((IMCREOMarkovianTransition<?>) t).getLabel()
+										);
+//						new_tr.setFinal_state(((IMCREOState) t.getFinal_state()).copy());
+//						new_tr.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
+//						new_tr.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
 						transitions.add(new_tr);
 					}
 					else {
 						if(t instanceof IMCREOInteractiveTransition<?>) {
 							boolean is_balanced = this.checkBalancedMixedPortsTransmission((IMCREOInteractiveTransition<STATE>)t, mixedports);
 							if(is_balanced){
-								IMCREOInteractiveTransition<IMCREOState> new_tr = createInteractiveTransition(t);
+								IMCREOInteractiveTransition<IMCREOState> new_tr = 
+										new IMCREOInteractiveTransition<IMCREOState>(
+												((IMCREOState) t.getFinal_state()).copy(),
+												new IMCREOAction(((IMCREOInteractiveTransition<IMCREOState>) t).getActions().getActions())
+												);
+								//createInteractiveTransition(t);
 								transitions.add(new_tr);
 							}
 							else {
@@ -816,7 +927,12 @@ public class IMCREOimc<STATE> {
 									is_balanced = this.checkBalancedMixedPortsTransmission((IMCREOInteractiveTransition<STATE>)reduction, mixedports);
 									if(is_balanced) {
 										merged_states.add((IMCREOState)t.getFinal_state());
-										IMCREOInteractiveTransition<IMCREOState> new_tr = createInteractiveTransition((IMCREOInteractiveTransition<STATE>)reduction);
+										IMCREOInteractiveTransition<IMCREOState> new_tr =  
+												new IMCREOInteractiveTransition<IMCREOState>(
+														reduction.getFinal_state().copy(),
+														new IMCREOAction(reduction.getActions().getActions())
+														);
+												//createInteractiveTransition((IMCREOInteractiveTransition<STATE>)reduction);
 										if(! transitions.contains(new_tr)) {
 											transitions.add(new_tr);
 										}
@@ -868,12 +984,12 @@ public class IMCREOimc<STATE> {
 		Iterator<IMCREOState> it_state = newimc.chain.keySet().iterator();
 		while(it_state.hasNext()){
 			IMCREOState s = it_state.next();
-			HashSet<String> active_ports = getActivePortsForState2((STATE)s);
+			LinkedHashSet<String> active_ports = getActivePortsForState2((STATE)s);
 			ListIterator<IMCREOTransition<IMCREOState>> trans_it = newimc.chain.get(s).listIterator();
 			while(trans_it.hasNext()) {
 				IMCREOTransition<IMCREOState> t = trans_it.next();
 				if(t instanceof IMCREOInteractiveTransition<?>) {
-					HashSet<String> active_inter_actions = new HashSet<String>(active_ports);
+					LinkedHashSet<String> active_inter_actions = new LinkedHashSet<String>(active_ports);
 					active_inter_actions.retainAll(((IMCREOInteractiveTransition<?>) t).getActions().getActions());
 					if(! active_inter_actions.isEmpty()){
 						trans_it.remove();
@@ -885,28 +1001,28 @@ public class IMCREOimc<STATE> {
 
 
 
-	/**
-	 * @param t
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	private IMCREOInteractiveTransition<IMCREOState> createInteractiveTransition(
-			IMCREOTransition<STATE> t) {
-		IMCREOInteractiveTransition<IMCREOState> new_tr = new IMCREOInteractiveTransition<IMCREOState>();
-		new_tr.setFinal_state(((IMCREOState) t.getFinal_state()).copy());
-		new_tr.setActions(new IMCREOAction(new HashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t).getActions().getActions())));
-		return new_tr;
-	}
+//	/**
+//	 * @param t
+//	 * @return
+//	 */
+//	@SuppressWarnings("unchecked")
+//	private IMCREOInteractiveTransition<IMCREOState> createInteractiveTransition(
+//			IMCREOTransition<STATE> t) {
+//		IMCREOInteractiveTransition<IMCREOState> new_tr = new IMCREOInteractiveTransition<IMCREOState>();
+//		new_tr.setFinal_state(((IMCREOState) t.getFinal_state()).copy());
+//		new_tr.setActions(new IMCREOAction(new HashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t).getActions().getActions())));
+//		return new_tr;
+//	}
 	
 	
 	
 	
-	private boolean checkBalancedMixedPortsTransmission(IMCREOInteractiveTransition<STATE> t, HashSet<String> mixedports) {
+	private boolean checkBalancedMixedPortsTransmission(IMCREOInteractiveTransition<STATE> t, Set<String> mixedports) {
 	
 		boolean is_balanced = true;
-		HashSet<String> actions_intersect_mixedports = new HashSet<String>(t.getActions().getActions());
+		LinkedHashSet<String> actions_intersect_mixedports = new LinkedHashSet<String>(t.getActions().getActions());
 		actions_intersect_mixedports.retainAll(mixedports);
-		HashMap<String, Integer> transmission_counter = new HashMap<String, Integer>(actions_intersect_mixedports.size());
+		LinkedHashMap<String, Integer> transmission_counter = new LinkedHashMap<String, Integer>(actions_intersect_mixedports.size());
 		
 		//prepare counter
 		for(String a : actions_intersect_mixedports) {
@@ -914,7 +1030,7 @@ public class IMCREOimc<STATE> {
 		}
 		
 		//count
-		for(String port : ((IMCREOState)t.getFinal_state()).getTransmissions()) {
+		for(String port : new LinkedHashSet<String>(((IMCREOState)t.getFinal_state()).getTransmissions())) {
 			//trim port being transmitted off the $i appendix
 			int index_of_dollar = port.indexOf('$'); 
 			port = index_of_dollar != -1 ? port.substring(0,index_of_dollar): port;
@@ -937,9 +1053,9 @@ public class IMCREOimc<STATE> {
 
 	
 	
-	private IMCREOInteractiveTransition<IMCREOState> reduceConsecutiveInteractiveTransitions (IMCREOInteractiveTransition<IMCREOState> t, HashSet<String> mixedports){
+	private IMCREOInteractiveTransition<IMCREOState> reduceConsecutiveInteractiveTransitions (IMCREOInteractiveTransition<IMCREOState> t, Set<String> mixedports){
 		IMCREOInteractiveTransition<IMCREOState> res = new IMCREOInteractiveTransition<IMCREOState>();
-		res.getActions().getActions().addAll(new HashSet<String>(t.getActions().getActions()));
+		res.getActions().getActions().addAll(new LinkedHashSet<String>(t.getActions().getActions()));
 		res.setFinal_state(t.getFinal_state().copy());
 		
 		if(this.chain.containsKey(t.getFinal_state())){
@@ -947,7 +1063,7 @@ public class IMCREOimc<STATE> {
 			for(IMCREOTransition<STATE> trans : this.chain.get(t.getFinal_state())){
 				if(trans instanceof IMCREOInteractiveTransition<?>) {
 					res.getActions().getActions().addAll(new HashSet<String>(((IMCREOInteractiveTransition<?>) trans).getActions().getActions()));
-					res.setFinal_state((IMCREOState)trans.getFinal_state());
+					res.setFinal_state(((IMCREOState)trans.getFinal_state()).copy());
 					
 					break;
 				}
@@ -988,7 +1104,7 @@ public class IMCREOimc<STATE> {
 	@SuppressWarnings("unchecked")
 	public void hide(Set<String> mixedports) {
 		Iterator<STATE> it_states = this.chain.keySet().iterator();
-		HashMap<IMCREOState, LinkedList<IMCREOTransition<STATE>>> aux_map = new HashMap<IMCREOState, LinkedList<IMCREOTransition<STATE>>>();
+		LinkedHashMap<IMCREOState, LinkedList<IMCREOTransition<STATE>>> aux_map = new LinkedHashMap<IMCREOState, LinkedList<IMCREOTransition<STATE>>>();
 		while(it_states.hasNext()){
 			STATE s = it_states.next();
 			ListIterator<IMCREOTransition<STATE>> it_trans = this.chain.get(s).listIterator();
@@ -1002,6 +1118,8 @@ public class IMCREOimc<STATE> {
 				}
 				t.setFinal_state((STATE) this.hideTransmissions(t.getFinal_state()));
 			}
+			//FIXME: is it guaranteed that the above statement and the below statement create 
+			// the same state? It may cause hash problems...
 			IMCREOState new_state = hideTransmissions(s);
 			aux_map.put(new_state, this.chain.get(s));
 			
@@ -1030,13 +1148,17 @@ public class IMCREOimc<STATE> {
 	 */
 	private IMCREOState hideTransmissions(STATE s) {
 		Iterator<String> it_transmissions = ((IMCREOState) s).getTransmissions().iterator();
-		IMCREOState new_state = ((IMCREOState) s).copy();
+		IMCREOState new_state = new IMCREOState();//((IMCREOState) s).copy();
+		new_state.setRequests( new LinkedHashSet<String>(((IMCREOState) s).getRequests()) );
+		new_state.setBuffer(((IMCREOState) s).getBuffer());
 		while(it_transmissions.hasNext()){
 			String port = it_transmissions.next();
 			if(port.contains("$") && port.indexOf('$') > 0 && port.indexOf('$') < port.length()){
-				new_state.getTransmissions().remove(port);
-				new_state.getTransmissions().add("$" + port);
+				//new_state.getTransmissions().remove(port);
+				port = "" + port;
+				
 			}
+			new_state.getTransmissions().add(port);
 		}
 		
 		return new_state;
@@ -1050,27 +1172,27 @@ public class IMCREOimc<STATE> {
 	
 	
 	
-	/**
-	 * This method hides every interactive transitions, this is, 
-	 * sets all interactive transitions to tau.
-	 * 
-	 * It is not useful most of the times, but it may become useful 
-	 * for further creation of a CTMC... 
-	 * 
-	 * This is a destructive method!!
-	 * 
-	 */
-	public void hide_all(){
-		
-		for(STATE st : this.chain.keySet()) {
-			for(IMCREOTransition<STATE> t : this.chain.get(st)) {
-				if(t instanceof IMCREOInteractiveTransition<?>){
-					((IMCREOInteractiveTransition<?>) t).getActions().setActions(new HashSet<String>());
-					((IMCREOInteractiveTransition<?>) t).getActions().getActions().add("tau");
-				}
-			}
-		}
-	}
+//	/**
+//	 * This method hides every interactive transitions, this is, 
+//	 * sets all interactive transitions to tau.
+//	 * 
+//	 * It is not useful most of the times, but it may become useful 
+//	 * for further creation of a CTMC... 
+//	 * 
+//	 * This is a destructive method!!
+//	 * 
+//	 */
+//	public void hide_all(){
+//		
+//		for(STATE st : this.chain.keySet()) {
+//			for(IMCREOTransition<STATE> t : this.chain.get(st)) {
+//				if(t instanceof IMCREOInteractiveTransition<?>){
+//					((IMCREOInteractiveTransition<?>) t).getActions().setActions(new HashSet<String>());
+//					((IMCREOInteractiveTransition<?>) t).getActions().getActions().add("tau");
+//				}
+//			}
+//		}
+//	}
 	
 	
 	
@@ -1095,10 +1217,10 @@ public class IMCREOimc<STATE> {
 	 * @param st the state to check the ports that are active 
 	 * @return a set of ports that are active
 	 */
-	private HashSet<String> getActivePortsForState2(STATE st){
+	private LinkedHashSet<String> getActivePortsForState2(STATE st){
 	
-		HashSet<String> activeports = new HashSet<String>();
-		HashSet<String> transmitting = new HashSet<String>();
+		LinkedHashSet<String> activeports = new LinkedHashSet<String>();
+		LinkedHashSet<String> transmitting = new LinkedHashSet<String>();
 		//check state sort
 		if(st instanceof Pair<?,?>){
 			IMCREOState st1 = (IMCREOState)((Pair<?, ?>) st).fst();
@@ -1108,14 +1230,14 @@ public class IMCREOimc<STATE> {
 			//assert st1.getTransmissions()!=null && st2.getTransmissions() !=null
 			if(st1.getTransmissions().size()>0 || st2.getTransmissions().size()>0) {
 				//collect all the states transmitting
-				transmitting = new HashSet<String>(st1.getTransmissions());
+				transmitting = new LinkedHashSet<String>(st1.getTransmissions());
 				transmitting.addAll(st2.getTransmissions());
 			}
 		}
 		else {
 			if(st instanceof IMCREOState) {
 				if(((IMCREOState) st).getTransmissions().size()>0) {
-					transmitting = new HashSet<String>(((IMCREOState) st).getTransmissions());
+					transmitting = new LinkedHashSet<String>(((IMCREOState) st).getTransmissions());
 				}
 			}
 		}
@@ -1125,7 +1247,7 @@ public class IMCREOimc<STATE> {
 		while(added_new_ports) {
 			added_new_ports = false;
 			//add the ports transmitting as activeports...
-			activeports = new HashSet<String>(transmitting);
+			activeports = new LinkedHashSet<String>(transmitting);
 			//for each port transmitting
 			for(String port_transmitting : activeports) {
 				
@@ -1218,52 +1340,52 @@ public class IMCREOimc<STATE> {
 
 
 
-	/**
-	 * This method removes forced nondeterminism that may exist upon 
-	 * junction of two states.
-	 * 
-	 * @param old_state_trans - the list of transitions of the base state 
-	 * @param new_state_trans - the list of transitions of the state that 
-	 * via remotion of mixed ports is equal to the old_state 
-	 * @param mixedports - the ports that will be joined
-	 * @return
-	 */
-	private LinkedList<IMCREOTransition<STATE>> removeNonDeterminism(
-			LinkedList<IMCREOTransition<STATE>> old_state_trans,
-			LinkedList<IMCREOTransition<STATE>> new_state_trans, HashSet<String> mixedports) 
-		{
-		ListIterator<IMCREOTransition<STATE>> it = old_state_trans.listIterator();
-		while(it.hasNext()){
-			IMCREOTransition<STATE> t1 = it.next();
-			if(t1 instanceof IMCREOInteractiveTransition) {
-				ListIterator<IMCREOTransition<STATE>> it2 = new_state_trans.listIterator();
-				while(it2.hasNext()){
-					IMCREOTransition<STATE> t2 = it2.next();
-					if(t2 instanceof IMCREOInteractiveTransition){
-						HashSet<String> inter_actions_transitions = new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t1).getActions().getActions());
-						inter_actions_transitions.retainAll(((IMCREOInteractiveTransition<STATE>) t2).getActions().getActions());
-						
-						//aqui ---> nao determinismo existe sse intersecao das accoes nas duas trans
-						//e igual a uma delas... se sim, remover a que e igual
-						
-						if(inter_actions_transitions.equals(((IMCREOInteractiveTransition<STATE>) t1).getActions().getActions())){
-							it.remove();
-							break;
-						}
-						else {
-							if(inter_actions_transitions.equals(((IMCREOInteractiveTransition<STATE>) t2).getActions().getActions())) {
-								it2.remove();
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		old_state_trans.addAll(new_state_trans);
-		
-		return old_state_trans;
-	}	
+//	/**
+//	 * This method removes forced nondeterminism that may exist upon 
+//	 * junction of two states.
+//	 * 
+//	 * @param old_state_trans - the list of transitions of the base state 
+//	 * @param new_state_trans - the list of transitions of the state that 
+//	 * via remotion of mixed ports is equal to the old_state 
+//	 * @param mixedports - the ports that will be joined
+//	 * @return
+//	 */
+//	private LinkedList<IMCREOTransition<STATE>> removeNonDeterminism(
+//			LinkedList<IMCREOTransition<STATE>> old_state_trans,
+//			LinkedList<IMCREOTransition<STATE>> new_state_trans, Set<String> mixedports) 
+//		{
+//		ListIterator<IMCREOTransition<STATE>> it = old_state_trans.listIterator();
+//		while(it.hasNext()){
+//			IMCREOTransition<STATE> t1 = it.next();
+//			if(t1 instanceof IMCREOInteractiveTransition) {
+//				ListIterator<IMCREOTransition<STATE>> it2 = new_state_trans.listIterator();
+//				while(it2.hasNext()){
+//					IMCREOTransition<STATE> t2 = it2.next();
+//					if(t2 instanceof IMCREOInteractiveTransition){
+//						LinkedHashSet<String> inter_actions_transitions = new LinkedHashSet<String>(((IMCREOInteractiveTransition<STATE>) t1).getActions().getActions());
+//						inter_actions_transitions.retainAll(((IMCREOInteractiveTransition<STATE>) t2).getActions().getActions());
+//						
+//						//aqui ---> nao determinismo existe sse intersecao das accoes nas duas trans
+//						//e igual a uma delas... se sim, remover a que e igual
+//						
+//						if(inter_actions_transitions.equals(((IMCREOInteractiveTransition<STATE>) t1).getActions().getActions())){
+//							it.remove();
+//							break;
+//						}
+//						else {
+//							if(inter_actions_transitions.equals(((IMCREOInteractiveTransition<STATE>) t2).getActions().getActions())) {
+//								it2.remove();
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		old_state_trans.addAll(new_state_trans);
+//		
+//		return old_state_trans;
+//	}	
 	
 	
 	
@@ -1286,7 +1408,7 @@ public class IMCREOimc<STATE> {
 	 * @return a new IMCREOimc with the nodes merged as a single and
 	 * simplified node.   
 	 */
-	public IMCREOimc<IMCREOState> wiseUnion(HashSet<String> mixednodes) {
+	public IMCREOimc<IMCREOState> wiseUnion(Set<String> mixednodes) {
 		
 		IMCREOimc<IMCREOState> newimc = null;
 		
@@ -1298,8 +1420,8 @@ public class IMCREOimc<STATE> {
 				STATE s = it.next();
 				if(s instanceof Pair<?,?>){
 					if(((Pair<?,?>) s).fst() instanceof IMCREOState && ((Pair<?,?>) s).snd() instanceof IMCREOState ){
-						IMCREOState fst = (IMCREOState) ((Pair<?, ?>) s).fst();
-						IMCREOState snd = (IMCREOState) ((Pair<?, ?>) s).snd();
+						IMCREOState fst = ((IMCREOState) ((Pair<?, ?>) s).fst()).copy();
+						IMCREOState snd = ((IMCREOState) ((Pair<?, ?>) s).snd()).copy();
 						IMCREOState newstate = fst.wiseUnion(snd, mixednodes);
 						
 						LinkedList<IMCREOTransition<IMCREOState>> transitions = new LinkedList<IMCREOTransition<IMCREOState>>();
@@ -1307,8 +1429,8 @@ public class IMCREOimc<STATE> {
 							if(t.getFinal_state() instanceof Pair<?,?>){
 								if(((Pair<?,?>) t.getFinal_state()).fst() instanceof IMCREOState 
 										&& ((Pair<?,?>) t.getFinal_state()).snd() instanceof IMCREOState ){
-									IMCREOState trans_fst = (IMCREOState) ((Pair<?, ?>) t.getFinal_state()).fst();
-									IMCREOState trans_snd = (IMCREOState) ((Pair<?, ?>) t.getFinal_state()).snd();
+									IMCREOState trans_fst = ((IMCREOState) ((Pair<?, ?>) t.getFinal_state()).fst()).copy();
+									IMCREOState trans_snd = ((IMCREOState) ((Pair<?, ?>) t.getFinal_state()).snd()).copy();
 									IMCREOState trans_newstate = trans_fst.wiseUnion(trans_snd, mixednodes);
 									if(t instanceof IMCREOInteractiveTransition){
 										transitions.add(new IMCREOInteractiveTransition<IMCREOState>(trans_newstate, ((IMCREOInteractiveTransition<?>) t).getActions()));
@@ -1326,8 +1448,8 @@ public class IMCREOimc<STATE> {
 			}
 			
 			//set initial state
-			IMCREOState init_fst = (IMCREOState) ((Pair<?,?>) this.getInitial_state()).fst(); 
-			IMCREOState init_snd = (IMCREOState) ((Pair<?,?>) this.getInitial_state()).snd();
+			IMCREOState init_fst = ((IMCREOState) ((Pair<?,?>) this.getInitial_state()).fst()).copy(); 
+			IMCREOState init_snd = ((IMCREOState) ((Pair<?,?>) this.getInitial_state()).snd()).copy();
 			IMCREOState init_new = init_fst.wiseUnion(init_snd, mixednodes);
 			newimc.setInitial_state(init_new);
 			newimc.setPoset(poset);
@@ -1342,7 +1464,14 @@ public class IMCREOimc<STATE> {
 	
 	
 	
-	
+	/**
+	 * This method attempts to correct references to states that 'magically' change their
+	 * names and hashes so they are not the same and create duplicate entries in the hashmap
+	 * ...
+	 * 
+	 * FIXME: PLEASE, I do not know what I am doing here. What the hell is states_map???
+	 * @return
+	 */
 	public IMCREOimc<IMCREOState> fixStateReferences() {
 		IMCREOimc<IMCREOState> newimc = new IMCREOimc<IMCREOState>();
 		
@@ -1351,23 +1480,27 @@ public class IMCREOimc<STATE> {
 		
 		if(this.initial_state instanceof IMCREOState) {
 		
-			HashMap<IMCREOState, IMCREOState> states_map = new HashMap<IMCREOState, IMCREOState>();
+			LinkedHashMap<IMCREOState, IMCREOState> states_map = new LinkedHashMap<IMCREOState, IMCREOState>();
 			for(STATE s : this.chain.keySet()) {
 				states_map.put((IMCREOState) s, ((IMCREOState) s));
 			}
 			
 			
 				for(STATE s : this.chain.keySet()) {
-					IMCREOState imcst = (IMCREOState)s ;
+					IMCREOState imcst = (IMCREOState) s ;
 					LinkedList<IMCREOTransition<IMCREOState>> trans = new LinkedList<IMCREOTransition<IMCREOState>>();
 					for(IMCREOTransition<STATE> t : this.chain.get(imcst)){
 						if(t instanceof IMCREOMarkovianTransition<?>) {
-							IMCREOMarkovianTransition<IMCREOState> mt = new IMCREOMarkovianTransition<IMCREOState>();
-							mt.setFinal_state(states_map.get(t.getFinal_state()));
-							mt.setRate(((IMCREOMarkovianTransition<?>) t).getRate());
-							mt.setLabel(((IMCREOMarkovianTransition<?>) t).getLabel());
+							IMCREOMarkovianTransition<IMCREOState> mt = 
+									new IMCREOMarkovianTransition<IMCREOState>(
+											states_map.get(((IMCREOState)t.getFinal_state()).copy()),
+											((IMCREOMarkovianTransition<?>) t).getRate(),
+											((IMCREOMarkovianTransition<?>) t).getLabel()
+											);
+							
 							trans.add(mt);
 							
+							//FIXME: to delete later
 							try{
 								mt.toString();
 							}
@@ -1380,11 +1513,14 @@ public class IMCREOimc<STATE> {
 							
 						}
 						else {
-							IMCREOInteractiveTransition<IMCREOState> it = new IMCREOInteractiveTransition<IMCREOState>();
-							it.setFinal_state(states_map.get(t.getFinal_state()));
-							it.setActions(new IMCREOAction(new HashSet<String>(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions())));
+							IMCREOInteractiveTransition<IMCREOState> it = 
+									new IMCREOInteractiveTransition<IMCREOState>(
+											states_map.get(((IMCREOState)t.getFinal_state()).copy()),
+											new IMCREOAction(((IMCREOInteractiveTransition<STATE>) t).getActions().getActions())
+											);
 							trans.add(it);
 							
+							//FIXME: to delete later
 							try{
 								it.toString();
 							}

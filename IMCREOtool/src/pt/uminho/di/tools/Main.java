@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
@@ -158,7 +159,7 @@ public class Main {
 			//PROCESS
 			
 			IMCREOimc<IMCREOState> imc_result = null;
-			HashSet<String> ports_set = null;
+			LinkedHashSet<String> ports_set = null;
 			
 			String[] files = config.getStringArray("in_rma_files");
 			if(files.length != 2 && ! config.userSpecified("reo_file")) {
@@ -174,7 +175,7 @@ public class Main {
 					if(! config.userSpecified("reo_file")) {
 						String[] ports = config.getStringArray("mixed_ports");
 						
-						ports_set = new HashSet<String>(); 
+						ports_set = new LinkedHashSet<String>(); 
 						for(int i = 0; i < ports.length ; i ++) {
 							ports_set.add(ports[i]);
 						}
@@ -190,7 +191,7 @@ public class Main {
 						
 						System.out.print("Composing and Synchronising...");
 						long startTime = System.currentTimeMillis();
-						imc_result = imc1.compose(imc2, ports_set).synchronise(ports_set, new HashSet<String>()).wiseUnion(ports_set);
+						imc_result = imc1.compose(imc2, ports_set).synchronise(ports_set, new LinkedHashSet<String>()).wiseUnion(ports_set);
 						long endTime   = System.currentTimeMillis();
 						long totalTime = endTime - startTime;
 						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
@@ -242,7 +243,7 @@ public class Main {
 							 long totalTime = endTime - startTime;
 							 System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
 							
-							 ports_set = cs.getMixed_ports();
+							 ports_set = (LinkedHashSet<String>)cs.getMixed_ports();
 						
 							 
 						}

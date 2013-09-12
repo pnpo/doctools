@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -25,8 +27,8 @@ public class Composer {
 	
 	private Map<String, LinkedList<String>> ports_to_structure;
 	private Map<String, String> structure_to_text;
-	private Map<String, HashSet<String>> structure_to_ports;
-	private HashSet<String> mixed_ports;
+	private Map<String, Set<String>> structure_to_ports;
+	private Set<String> mixed_ports;
 	private LinkedList<String> structure_order;
 	
 	/**
@@ -34,31 +36,31 @@ public class Composer {
 	 */
 	public Composer() {
 		super();
-		ports_to_structure = new HashMap<String, LinkedList<String>>();
-		structure_to_text = new HashMap<String, String>();
-		structure_to_ports = new HashMap<String, HashSet<String>>();
-		mixed_ports = new HashSet<String>();
+		ports_to_structure = new LinkedHashMap<String, LinkedList<String>>();
+		structure_to_text = new LinkedHashMap<String, String>();
+		structure_to_ports = new LinkedHashMap<String, Set<String>>();
+		mixed_ports = new LinkedHashSet<String>();
 		structure_order = new LinkedList<String>();
 	}
 
 
-	/**
-	 * 
-	 * @param ports_to_structure
-	 * @param structure_to_text
-	 * @param structure_to_ports
-	 * @param mixed
-	 */
-	public Composer(Map<String, LinkedList<String>> ports_to_structure,
-			Map<String, String> structure_to_text, 
-			Map<String, HashSet<String>> structure_to_ports, Set<String> mixed, LinkedList<String> order) {
-		super();
-		this.ports_to_structure = ports_to_structure;
-		this.structure_to_text = structure_to_text;
-		this.structure_to_ports = structure_to_ports;
-		this.mixed_ports = new HashSet<String>(mixed);
-		this.structure_order = new LinkedList<String>(order);
-	}
+//	/**
+//	 * 
+//	 * @param ports_to_structure
+//	 * @param structure_to_text
+//	 * @param structure_to_ports
+//	 * @param mixed
+//	 */
+//	public Composer(Map<String, LinkedList<String>> ports_to_structure,
+//			Map<String, String> structure_to_text, 
+//			Map<String, Set<String>> structure_to_ports, Set<String> mixed, LinkedList<String> order) {
+//		super();
+//		this.ports_to_structure = ports_to_structure;
+//		this.structure_to_text = structure_to_text;
+//		this.structure_to_ports = structure_to_ports;
+//		this.mixed_ports = new LinkedHashSet<String>(mixed);
+//		this.structure_order = new LinkedList<String>(order);
+//	}
 
 
 	/**
@@ -100,7 +102,7 @@ public class Composer {
 	/**
 	 * @return the structure_to_ports
 	 */
-	public Map<String, HashSet<String>> getStructure_to_ports() {
+	public Map<String, Set<String>> getStructure_to_ports() {
 		return structure_to_ports;
 	}
 
@@ -109,7 +111,7 @@ public class Composer {
 	 * @param structure_to_ports the structure_to_ports to set
 	 */
 	public void setStructure_to_ports(
-			Map<String, HashSet<String>> structure_to_ports) {
+			Map<String, Set<String>> structure_to_ports) {
 		this.structure_to_ports = structure_to_ports;
 	}
 
@@ -117,7 +119,7 @@ public class Composer {
 	/**
 	 * @return the mixed_ports
 	 */
-	public HashSet<String> getMixed_ports() {
+	public Set<String> getMixed_ports() {
 		return mixed_ports;
 	}
 
@@ -125,7 +127,7 @@ public class Composer {
 	/**
 	 * @param mixed_ports the mixed_ports to set
 	 */
-	public void setMixed_ports(HashSet<String> mixed_ports) {
+	public void setMixed_ports(Set<String> mixed_ports) {
 		this.mixed_ports = mixed_ports;
 	}
 
@@ -151,75 +153,75 @@ public class Composer {
 
 	
 	
-	/**
-	 * This method composes a set of channels into a connector.
-	 * It composes channels in order of appearence. Thus it may
-	 * cause several multi-mixed nodes compositions which may
-	 * lead to undesired results. 
-	 *  
-	 * @return The IMCREOimc of a stochastic connector...
-	 * 
-	 */
-	@Deprecated
-	public IMCREOimc<IMCREOState> compose() {
-		IMCREOimc<IMCREOState> res = new IMCREOimc<IMCREOState>();
-
-		HashSet<String> mixedports;
-		HashSet<String> portsused = new HashSet<String>();
-		
-		//if there is only a structure, the result is the IMC of such structure  
-		if(this.structure_to_text.size()==1) {
-			res = ReoMAParserFrontEnd.parse((String)(this.structure_to_text.values().toArray())[0], false);
-		}
-		else {
-			//if there are more then a structure...
-			String[] structures = new String[this.structure_order.size()]; 
-			structures = this.structure_order.toArray(structures);
-			System.out.println(this.structure_order);
-			//we compose them one by one...
-			for(int i = 0 ; i < structures.length; i++) {
-				//IMCREOimc<Pair<IMCREOState, IMCREOState>> res_internal = new IMCREOimc<Pair<IMCREOState,IMCREOState>>();
-				//if it is the first composition we will compose the two first channnels
-				if(i == 0) {
-					//get the mixed nodes as the intersection of the nodes present in the two channels
-					mixedports = new HashSet<String>(this.structure_to_ports.get(structures[i]));
-					mixedports.retainAll(this.structure_to_ports.get(structures[i+1]));
-					//the used ports are a collection of the ports in these two channels
-					portsused.addAll(this.structure_to_ports.get(structures[i]));
-					portsused.addAll(this.structure_to_ports.get(structures[i+1]));
-					
-					//obtain the IMC for each structure and compose
-					IMCREOimc<IMCREOState> imc1 = ReoMAParserFrontEnd.parse((String)this.structure_to_text.get(structures[i]), false);
-					IMCREOimc<IMCREOState> imc2 = ReoMAParserFrontEnd.parse((String)this.structure_to_text.get(structures[i+1]), false);
-					//res_internal = imc1.compose(imc2, mixedports).synchronise(mixedports, this.mixed_ports);
-					//res = res_internal.wiseUnion(mixedports);
-					res = performComposition(imc1, imc2, mixedports);
-					//here, i is incremented so in the next step we compose the 3rd strucutre and not the second...
-					i = i + 1;
-				}
-				else {
-					//if it is the second or more composition we will compose the obtained IMC with the following channel
-					mixedports = new HashSet<String>(this.structure_to_ports.get(structures[i]));
-					mixedports.retainAll(portsused);
-					//update used ports only after obtaining the mixednodes, otherwise 
-					//undesired nodes will also be seen as mixed... 
-					portsused.addAll(this.structure_to_ports.get(structures[i]));
-					
-					//compose the previously obtained IMC with the new channel
-					IMCREOimc<IMCREOState> imc1 = ReoMAParserFrontEnd.parse((String)this.structure_to_text.get(structures[i]), false);
-					//res_internal = res.compose(imc1, mixedports).synchronise(mixedports, this.mixed_ports);
-					//res = res_internal.wiseUnion(mixedports);
-					res = performComposition(res, imc1, mixedports);
-					
-				}
-				// finally, update the mixed_ports of the composer object.
-				this.mixed_ports.addAll(mixedports);
-			}
-		}
-		
-		return res;
-		
-	}
+//	/**
+//	 * This method composes a set of channels into a connector.
+//	 * It composes channels in order of appearence. Thus it may
+//	 * cause several multi-mixed nodes compositions which may
+//	 * lead to undesired results. 
+//	 *  
+//	 * @return The IMCREOimc of a stochastic connector...
+//	 * 
+//	 */
+//	@Deprecated
+//	public IMCREOimc<IMCREOState> compose() {
+//		IMCREOimc<IMCREOState> res = new IMCREOimc<IMCREOState>();
+//
+//		HashSet<String> mixedports;
+//		HashSet<String> portsused = new HashSet<String>();
+//		
+//		//if there is only a structure, the result is the IMC of such structure  
+//		if(this.structure_to_text.size()==1) {
+//			res = ReoMAParserFrontEnd.parse((String)(this.structure_to_text.values().toArray())[0], false);
+//		}
+//		else {
+//			//if there are more then a structure...
+//			String[] structures = new String[this.structure_order.size()]; 
+//			structures = this.structure_order.toArray(structures);
+//			System.out.println(this.structure_order);
+//			//we compose them one by one...
+//			for(int i = 0 ; i < structures.length; i++) {
+//				//IMCREOimc<Pair<IMCREOState, IMCREOState>> res_internal = new IMCREOimc<Pair<IMCREOState,IMCREOState>>();
+//				//if it is the first composition we will compose the two first channnels
+//				if(i == 0) {
+//					//get the mixed nodes as the intersection of the nodes present in the two channels
+//					mixedports = new HashSet<String>(this.structure_to_ports.get(structures[i]));
+//					mixedports.retainAll(this.structure_to_ports.get(structures[i+1]));
+//					//the used ports are a collection of the ports in these two channels
+//					portsused.addAll(this.structure_to_ports.get(structures[i]));
+//					portsused.addAll(this.structure_to_ports.get(structures[i+1]));
+//					
+//					//obtain the IMC for each structure and compose
+//					IMCREOimc<IMCREOState> imc1 = ReoMAParserFrontEnd.parse((String)this.structure_to_text.get(structures[i]), false);
+//					IMCREOimc<IMCREOState> imc2 = ReoMAParserFrontEnd.parse((String)this.structure_to_text.get(structures[i+1]), false);
+//					//res_internal = imc1.compose(imc2, mixedports).synchronise(mixedports, this.mixed_ports);
+//					//res = res_internal.wiseUnion(mixedports);
+//					res = performComposition(imc1, imc2, mixedports);
+//					//here, i is incremented so in the next step we compose the 3rd strucutre and not the second...
+//					i = i + 1;
+//				}
+//				else {
+//					//if it is the second or more composition we will compose the obtained IMC with the following channel
+//					mixedports = new HashSet<String>(this.structure_to_ports.get(structures[i]));
+//					mixedports.retainAll(portsused);
+//					//update used ports only after obtaining the mixednodes, otherwise 
+//					//undesired nodes will also be seen as mixed... 
+//					portsused.addAll(this.structure_to_ports.get(structures[i]));
+//					
+//					//compose the previously obtained IMC with the new channel
+//					IMCREOimc<IMCREOState> imc1 = ReoMAParserFrontEnd.parse((String)this.structure_to_text.get(structures[i]), false);
+//					//res_internal = res.compose(imc1, mixedports).synchronise(mixedports, this.mixed_ports);
+//					//res = res_internal.wiseUnion(mixedports);
+//					res = performComposition(res, imc1, mixedports);
+//					
+//				}
+//				// finally, update the mixed_ports of the composer object.
+//				this.mixed_ports.addAll(mixedports);
+//			}
+//		}
+//		
+//		return res;
+//		
+//	}
 	
 	
 	
@@ -237,10 +239,10 @@ public class Composer {
 	 * @param mixedports - the set of mixed ports to perform the join of the imcs.
 	 * @return
 	 */
-	private IMCREOimc<IMCREOState> performComposition( IMCREOimc<IMCREOState> imc1, IMCREOimc<IMCREOState> imc2, HashSet<String> mixedports) {
+	private IMCREOimc<IMCREOState> performComposition( IMCREOimc<IMCREOState> imc1, IMCREOimc<IMCREOState> imc2, LinkedHashSet<String> mixedports) {
 		IMCREOimc<Pair<IMCREOState, IMCREOState>> res_internal = new IMCREOimc<Pair<IMCREOState,IMCREOState>>();
 		ArrayList<String> mixedports_list = new ArrayList<String>(mixedports);
-		HashSet<String> single_mixed_port = new HashSet<String>();
+		LinkedHashSet<String> single_mixed_port = new LinkedHashSet<String>();
 		
 		//when the mixed ports are more than 1, we shall compose only by one of them
 		//but we perform synchronisation by all of the mixed ports at once
@@ -326,8 +328,8 @@ public class Composer {
 								fst = this.ports_to_structure.get(port).getFirst();
 								snd = current_comp;
 								String visting = fst + current_comp;
-								HashSet<String> ports_structure_1_test = new HashSet<String>(this.structure_to_ports.get(fst));
-								HashSet<String> ports_structure_2_test = new HashSet<String>(ports_in_comp) ;
+								LinkedHashSet<String> ports_structure_1_test = new LinkedHashSet<String>(this.structure_to_ports.get(fst));
+								LinkedHashSet<String> ports_structure_2_test = new LinkedHashSet<String>(ports_in_comp) ;
 								//the mixed ports for this composition are the intersection of the ports 
 								// of both structures
 								ports_structure_1_test.retainAll(ports_structure_2_test);
@@ -349,13 +351,13 @@ public class Composer {
 							
 							//check the ports of each structure to compose to find the mixed ports
 							// for this composition
-							HashSet<String> ports_structure_1 = new HashSet<String>(this.structure_to_ports.get(fst));
-							HashSet<String> ports_structure_2 = snd.equals(current_comp) ? 
-								new HashSet<String>(ports_in_comp) : new HashSet<String>(this.structure_to_ports.get(snd));
+							LinkedHashSet<String> ports_structure_1 = new LinkedHashSet<String>(this.structure_to_ports.get(fst));
+							LinkedHashSet<String> ports_structure_2 = snd.equals(current_comp) ? 
+								new LinkedHashSet<String>(ports_in_comp) : new LinkedHashSet<String>(this.structure_to_ports.get(snd));
 							//the mixed ports for this composition are the intersection of the ports 
 							// of both structures
 							ports_structure_1.retainAll(ports_structure_2);
-							HashSet<String> mixedports = new HashSet<String>(ports_structure_1);
+							LinkedHashSet<String> mixedports = new LinkedHashSet<String>(ports_structure_1);
 							
 							res = this.performComposition(imc_fst, imc_snd, mixedports);
 							
