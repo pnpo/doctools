@@ -634,7 +634,7 @@ public class IMCREOimc<STATE> {
 					IMCREOBufferState buf_s2 = s2.getBuffer().contains(IMCREOBufferState.EMPTY) ? IMCREOBufferState.EMPTY : s2.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 					
 					LinkedHashSet<String> poset_prepared_s1 = prepareTransmission(s1, buf_s1);
-					LinkedHashSet<String> poset_prepared_s2 = prepareTransmission(s1, buf_s2);
+					LinkedHashSet<String> poset_prepared_s2 = prepareTransmission(s2, buf_s2);
 					
 					LinkedHashSet<String> Ti = new LinkedHashSet<String>(poset_prepared_s1); //prepareTransmission(s1, buf_s1);
 					Ti.addAll(new LinkedHashSet<String>(poset_prepared_s2)); //Ti.addAll(prepareTransmission(s2, buf_s2));
@@ -656,7 +656,7 @@ public class IMCREOimc<STATE> {
 						
 							
 							LinkedHashSet<String> poset_prepared_ts1 = prepareTransmission(ts1, buf_ts1);
-							LinkedHashSet<String> poset_prepared_ts2 = prepareTransmission(ts1, buf_ts2);
+							LinkedHashSet<String> poset_prepared_ts2 = prepareTransmission(ts2, buf_ts2);
 							
 							LinkedHashSet<String> Tf = new LinkedHashSet<String>(poset_prepared_ts1);
 							Tf.addAll(new LinkedHashSet<String>(poset_prepared_ts2));
