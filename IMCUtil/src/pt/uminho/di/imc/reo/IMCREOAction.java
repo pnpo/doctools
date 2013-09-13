@@ -4,6 +4,8 @@
 package pt.uminho.di.imc.reo;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @author Nuno Oliveira
@@ -12,14 +14,14 @@ import java.util.HashSet;
  */
 public class IMCREOAction {
 
-	HashSet<String> actions;
+	private Set<String> actions;
 
 	/**
 	 * @param actions
 	 */
-	public IMCREOAction(HashSet<String> actions) {
+	public IMCREOAction(Set<String> actions) {
 		super();
-		this.actions = actions;
+		this.actions = new LinkedHashSet<String>(actions);
 	}
 
 	/**
@@ -27,7 +29,7 @@ public class IMCREOAction {
 	 */
 	public IMCREOAction() {
 		super();
-		this.actions = new HashSet<String>(2);
+		this.actions = new LinkedHashSet<String>(2);
 	}
 
 
@@ -35,7 +37,7 @@ public class IMCREOAction {
 	/**
 	 * @return the actions
 	 */
-	public HashSet<String> getActions() {
+	public Set<String> getActions() {
 		return actions;
 	}
 

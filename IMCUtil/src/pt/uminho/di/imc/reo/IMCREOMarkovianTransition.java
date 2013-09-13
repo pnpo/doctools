@@ -112,6 +112,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -120,7 +121,7 @@ public class IMCREOMarkovianTransition<STATE> extends IMCREOTransition<STATE> {
 			return false;
 		if (!(obj instanceof IMCREOMarkovianTransition))
 			return false;
-		IMCREOMarkovianTransition other = (IMCREOMarkovianTransition) obj;
+		IMCREOMarkovianTransition<STATE> other = (IMCREOMarkovianTransition<STATE>) obj;
 		if (label == null) {
 			if (other.label != null)
 				return false;

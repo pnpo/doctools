@@ -21,11 +21,15 @@ public class IMCREOInteractiveTransition<STATE> extends IMCREOTransition<STATE> 
 
 	
 	/**
+	 * When using this method, make sure to pass a copy of final_state.
+	 * Otherwise it may cause unintended errors when updates to the 
+	 * referenced state are made...
+	 * 
 	 * @param final_state the final state
 	 * @param act the set of actions
 	 */
-	public IMCREOInteractiveTransition(STATE final_state, IMCREOAction act) {
-		super( final_state);
+	public IMCREOInteractiveTransition(STATE a_copy_of_final_state, IMCREOAction act) {
+		super( a_copy_of_final_state );
 		this.actions = act;
 	}
 
