@@ -16,6 +16,7 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 	private double rate;
 	private String label;
 	private Set<String> ports;
+	private IMCREOMarkovianTransitionSort sort;
 
 	
 	
@@ -24,6 +25,7 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 		this.rate = 0.0;
 		this.label = "";
 		this.ports = new LinkedHashSet<String>();
+		this.sort = IMCREOMarkovianTransitionSort.NONE;
 	}
 
 	
@@ -37,16 +39,21 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 		this.rate = rate;
 		this.label = label;
 		this.ports = this.retrivePortsFromLabel(label);
+		this.sort = this.retriveSortFromLabel(label);
 	}
 
 
 	
 	
+	
+
+
 	public IMCREOMarkovianTransition(IMCREOMarkovianTransition mt) {
 		super(mt.getFinal_state());
 		this.rate = mt.getRate();
 		this.label = mt.getLabel();
 		this.ports = new LinkedHashSet<String>(mt.getPorts());
+		this.sort = mt.getSort();
 	}
 	
 	
@@ -114,6 +121,25 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 	
 	
 	
+	
+	
+	
+	/**
+	 * @return the sort
+	 */
+	public IMCREOMarkovianTransitionSort getSort() {
+		return sort;
+	}
+
+
+	/**
+	 * @param sort the sort to set
+	 */
+	public void setSort(IMCREOMarkovianTransitionSort sort) {
+		this.sort = sort;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -130,10 +156,7 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 
 	
 	
-	
 
-	
-	
 	
 
 
@@ -142,6 +165,9 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 
 	
 
+	
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -155,6 +181,7 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 		long temp;
 		temp = Double.doubleToLongBits(rate);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((sort == null) ? 0 : sort.hashCode());
 		return result;
 	}
 
@@ -184,12 +211,11 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 		if (Double.doubleToLongBits(rate) != Double
 				.doubleToLongBits(other.rate))
 			return false;
+		if (sort != other.sort)
+			return false;
 		return true;
 	}
 
-	
-	
-	
 
 	@Override
 	public IMCREOMarkovianTransition copy() {
@@ -221,8 +247,13 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 	}
 
 	
-	//IMPLEMENTATIONS
-	
+	private IMCREOMarkovianTransitionSort retriveSortFromLabel(String label) {
+		IMCREOMarkovianTransitionSort s = 
+				label.contains("_ARR_") ? IMCREOMarkovianTransitionSort.ARRIVAL : 
+					(label.contains("_TR") ? IMCREOMarkovianTransitionSort.TRANSMISSION : IMCREOMarkovianTransitionSort.NONE) ;
+		
+		return s;
+	}
 
 	
 	

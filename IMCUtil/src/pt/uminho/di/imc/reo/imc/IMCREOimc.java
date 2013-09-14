@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -398,7 +399,440 @@ public class IMCREOimc {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public IMCREOimc mixedRequestsReduction(Set<String> mixedports) {
+		IMCREOimc newimc = new IMCREOimc ();
+		
+		PriorityQueue<IMCREOState> states_to_process = new PriorityQueue<IMCREOState>();
+		PriorityQueue<IMCREOState> states_reached_via_mixed_requests;
+		LinkedHashMap<IMCREOState, LinkedHashSet<IMCREOState>> equivalent_states = new LinkedHashMap<IMCREOState, LinkedHashSet<IMCREOState>>();
+		
+		
+		//add initial state to the new chain
+		newimc.setInitial_state(this.getInitial_state().copy());
+		newimc.setPoset(new POPorts(this.getPoset().getPo()));
+		
+		//initialize the equivalent states map with the initial state.
+		equivalent_states.put(initial_state, new LinkedHashSet<IMCREOState>());
+				
+		//set the initial state as the first state to process
+		states_to_process.add(newimc.getInitial_state());
+		
+		//while there are states to process
+		while(! states_to_process.isEmpty()) {
+			//create a list for transitions of the current state
+			LinkedList<IMCREOTransition> current_state_transitions = new LinkedList<IMCREOTransition>();
+			
+			LinkedList<IMCREOTransition> candidates = new LinkedList<IMCREOTransition>();
+			
+			//remove the current state from the list to process and use it
+			IMCREOState current_state = states_to_process.poll();
+			//we create a queue that is used to collect the states reached from the current state via a request on mixed ports
+			states_reached_via_mixed_requests = new PriorityQueue<IMCREOState>();
+			//for all transitions associated to the current state in the original chain
+			for(IMCREOTransition t : this.chain.get(current_state)){
+				//check whether there already exists a transition with the same identification
+				//IF NOT, THEN WE CAN ADD IT... BUT
+				IMCREOTransition tr_in_the_list = this.containsTransitionIdentification(current_state_transitions, t) ;
+				if( tr_in_the_list == null) {
+					//only if the transition is not an arrival to a mixedport
+					if(t instanceof IMCREOMarkovianTransition){
+						LinkedHashSet<String> ports_inter_mixed = 
+								new LinkedHashSet<String>(((IMCREOMarkovianTransition) t).getPorts());
+						ports_inter_mixed.retainAll(mixedports);
+						
+						
+						
+						//if it is an arrival to a mixed port we do not add to the list of transitions
+						if(	((IMCREOMarkovianTransition) t).getSort().equals(IMCREOMarkovianTransitionSort.ARRIVAL) && 
+								! ports_inter_mixed.isEmpty()
+								) 
+						{
+							//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+							//++++++++START RECURSIVE SEARCH FOR TRANSITIONS REACHED VIA PATHS OF ARRIVALS TO MIXED PORTS+++++++++++++++
+							//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+							
+							
+							//instead we search for a transitions that is not a request of a mixed port
+							//but first we add that state to the queue of such states to process
+							if(! states_reached_via_mixed_requests.contains(t.getFinal_state())) {
+								states_reached_via_mixed_requests.add(t.getFinal_state());
+							}
+							//for all states reached from transitions with arrivals to mixed ports...
+							while(! states_reached_via_mixed_requests.isEmpty()) {
+								//get the first ignored state
+								IMCREOState current_ignored_state = states_reached_via_mixed_requests.poll();
+								for(IMCREOTransition t_from_ignored : this.chain.get(current_ignored_state)) {
+									//check whether there already exists a transition with the same identification
+									//IF NOT, THEN WE CAN ADD IT... BUT
+									IMCREOTransition tr_in_the_list_ignored = this.containsTransitionIdentification(current_state_transitions, t_from_ignored) ;
+									if( tr_in_the_list_ignored == null) {
+										//only if the transition is not an arrival to a mixedport
+										if(t_from_ignored instanceof IMCREOMarkovianTransition){ 
+											LinkedHashSet<String> ports_inter_mixed2 = 
+													new LinkedHashSet<String>(((IMCREOMarkovianTransition) t_from_ignored).getPorts());
+											ports_inter_mixed2.retainAll(mixedports);
+											//if it is an arrival to a mixed port we do not add to the list of transitions
+											if(	((IMCREOMarkovianTransition) t_from_ignored).getSort().equals(IMCREOMarkovianTransitionSort.ARRIVAL) && 
+													! ports_inter_mixed2.isEmpty()
+													) 
+											{
+												//BUT... we add that state to the queue of such states to process
+												if(! states_reached_via_mixed_requests.contains(t_from_ignored.getFinal_state())) {
+													states_reached_via_mixed_requests.add(t_from_ignored.getFinal_state());
+												}//end if
+											}//end if
+											else {//we add otherwise...
+												//we update the equivalent states with a new entry if the final state of the transition has not equivalent state
+//												IMCREOState equiv_state = hasEquivalentState(t_from_ignored.getFinal_state(), equivalent_states);
+//												if(!equivalent_states.containsKey(t.getFinal_state()) && equiv_state == null){
+//													equivalent_states.put(t_from_ignored.getFinal_state(), new LinkedHashSet<IMCREOState>());
+//												}
+//												else{
+//													if(equiv_state!=null){
+//														//if it has an equivalent state, update the state to the equivalent
+//														t_from_ignored = t_from_ignored.copy();
+//														t_from_ignored.setFinal_state(equiv_state);
+//													}
+//												}
+//												//we add the MT transition to the list of transitions for the current state 
+//												current_state_transitions.add(t_from_ignored.copy());
+//												//we update the final state of this transition as a new state to process
+//												if(! states_to_process.contains(t_from_ignored.getFinal_state()) && ! newimc.chain.containsKey(t_from_ignored.getFinal_state()) ){
+//													states_to_process.add(t_from_ignored.getFinal_state());
+//												}
+												candidates.add(t_from_ignored);
+											}//end else
+										}//end if
+										else {
+											//assert t instanceof IMCREOInteractiveTransition ;
+											//we update the equivalent states with a new entry if the final state of the transition has not equivalent state
+//											IMCREOState equiv_state = hasEquivalentState(t_from_ignored.getFinal_state(), equivalent_states);
+//											if(!equivalent_states.containsKey(t_from_ignored.getFinal_state()) && equiv_state == null){
+//												equivalent_states.put(t_from_ignored.getFinal_state(), new LinkedHashSet<IMCREOState>());
+//											}
+//											else{
+//												if(equiv_state!=null){
+//													//if it has an equivalent state, update the state to the equivalent
+//													t_from_ignored = t_from_ignored.copy();
+//													t_from_ignored.setFinal_state(equiv_state);
+//												}
+//											}
+//											//we add the MT transition to the list of transitions for the current state 
+//											current_state_transitions.add(t_from_ignored.copy());
+//											//we update the final state of this transition as a new state to process
+//											if(! states_to_process.contains(t_from_ignored.getFinal_state()) && ! newimc.chain.containsKey(t_from_ignored.getFinal_state()) ){
+//												states_to_process.add(t_from_ignored.getFinal_state());
+//											}
+											candidates.add(t_from_ignored);
+										}//end else
+									}//end if
+									else {
+										//if there is already a transition with the same identification
+										//we only add the final state of that transition to the equivalent 
+										//states mapping of the transition with that same identification
+										//But attention... it may be one its equivalent
+										IMCREOState equiv_state = hasEquivalentState(tr_in_the_list_ignored.getFinal_state(), equivalent_states);
+										if(equiv_state == null && equivalent_states.containsKey(tr_in_the_list_ignored.getFinal_state())){
+											equivalent_states.get(tr_in_the_list_ignored.getFinal_state()).add(t_from_ignored.getFinal_state());
+										}
+										else {
+											equivalent_states.get(equiv_state).add(t_from_ignored.getFinal_state());
+										}
+									}
+								}//end for										
+							}//end while
+							
+							//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+							//++++++++END RECURSIVE SEARCH FOR TRANSITIONS REACHED VIA PATHS OF ARRIVALS TO MIXED PORTS+++++++++++++++
+							//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+							
+						}//end if
+						else {//if the transition is not an arrival to a mixed port => add otherwise...
+							//we update the equivalent states with a new entry if the final state of the transition has not equivalent state
+							IMCREOState equiv_state = hasEquivalentState(t.getFinal_state(), equivalent_states);
+							if(!equivalent_states.containsKey(t.getFinal_state()) && equiv_state == null){
+								equivalent_states.put(t.getFinal_state(), new LinkedHashSet<IMCREOState>());
+							}
+							else{
+								if(equiv_state!=null){
+									//if it has an equivalent state, update the state to the equivalent
+									t = t.copy();
+									t.setFinal_state(equiv_state);
+								}
+							}
+							//we add the IT transition to the list of transitions for the current state 
+							current_state_transitions.add(t.copy());
+							//we update the final state of this transition as a new state to process 
+							//(if it is not to be processed and it was not yet processed)
+							if(! states_to_process.contains(t.getFinal_state()) && ! newimc.chain.containsKey(t.getFinal_state()) ){
+								states_to_process.add(t.getFinal_state());
+							}//end if
+						}//end else
+					}//end if
+					else {
+						//assert t instanceof IMCREOInteractiveTransition ;
+						
+						//we update the equivalent states with a new entry if the final state of the transition has not equivalent state
+						IMCREOState equiv_state = hasEquivalentState(t.getFinal_state(), equivalent_states);
+						if(!equivalent_states.containsKey(t.getFinal_state()) && equiv_state == null){
+							equivalent_states.put(t.getFinal_state(), new LinkedHashSet<IMCREOState>());
+						}
+						else{
+							if(equiv_state!=null){
+								//if it has an equivalent state, update the state to the equivalent
+								t = t.copy();
+								t.setFinal_state(equiv_state);
+							}
+						}
+						//we add the IT transition to the list of transitions for the current state 
+						current_state_transitions.add(t.copy());
+						//we update the final state of this transition as a new state to process
+						if(! states_to_process.contains(t.getFinal_state()) && ! newimc.chain.containsKey(t.getFinal_state()) ){
+							states_to_process.add(t.getFinal_state());
+						}//end if
+					}//end else
+				}//end if
+				else {
+					//if there is already a transition with the same identification
+					//we only add the final state of that transition to the equivalent 
+					//states mapping of the transition with that same identification
+					//But attention... it may be one its equivalent
+					IMCREOState equiv_state = hasEquivalentState(tr_in_the_list.getFinal_state(), equivalent_states);
+					if(equiv_state == null && equivalent_states.containsKey(tr_in_the_list.getFinal_state())){
+						equivalent_states.get(tr_in_the_list.getFinal_state()).add(t.getFinal_state());
+					}
+					else {
+						equivalent_states.get(equiv_state).add(t.getFinal_state());
+					}
+				}//end else
+			}//end for
+			
+			
+			//process the candidates
+			for(IMCREOTransition tr_candidate : candidates) {
+				IMCREOTransition tr_in_the_list = this.containsTransitionIdentification(current_state_transitions, tr_candidate) ;
+				//if the candidate transition is not in the list of the current state transitions
+				if( tr_in_the_list == null) { 
+					IMCREOState equiv_state = hasEquivalentState(tr_candidate.getFinal_state(), equivalent_states);
+					if(!equivalent_states.containsKey(tr_candidate.getFinal_state()) && equiv_state == null){
+						equivalent_states.put(tr_candidate.getFinal_state(), new LinkedHashSet<IMCREOState>());
+					}
+					else{
+						if(equiv_state!=null){
+							//if it has an equivalent state, update the state to the equivalent
+							tr_candidate = tr_candidate.copy();
+							tr_candidate.setFinal_state(equiv_state);
+						}
+					}
+					//we add the MT transition to the list of transitions for the current state 
+					current_state_transitions.add(tr_candidate.copy());
+					//we update the final state of this transition as a new state to process
+					if(! states_to_process.contains(tr_candidate.getFinal_state()) && ! newimc.chain.containsKey(tr_candidate.getFinal_state()) ){
+						states_to_process.add(tr_candidate.getFinal_state());
+					}
+				}
+			}
+			
+			
+			//in the end we add the new state
+			newimc.chain.put(current_state, current_state_transitions);
+		}//end while
+		
+		return newimc;
+	}
+	
 
+	
+	
+
+	
+	
+	/**
+	 * Searches for an equivalent state to the one given, 
+	 * in a map that maps states to their equivalent states
+	 * 
+	 * @param state the state to check for equivalences 
+	 * @param equivalent_states the map of equivalent states
+	 * @return the equivalent if exists, otherwise null.
+	 */
+	private IMCREOState hasEquivalentState(
+			IMCREOState state,
+			LinkedHashMap<IMCREOState, LinkedHashSet<IMCREOState>> equivalent_states) 
+	{
+		IMCREOState is_equivalent_found = null;
+		Iterator<IMCREOState> states_iter = equivalent_states.keySet().iterator();
+		while(states_iter.hasNext() && is_equivalent_found == null) {
+			IMCREOState st = states_iter.next();
+			Iterator<IMCREOState> list_states_iter = equivalent_states.get(st).iterator();
+			while(list_states_iter.hasNext() && is_equivalent_found == null) {
+				IMCREOState st_in_list = list_states_iter.next();
+				is_equivalent_found = (st_in_list.equals(state)) ? st : null;
+			}
+		}
+		
+		return is_equivalent_found;
+	}
+
+
+
+
+	/**
+	 * Searches for a transition identification in a list of transitions.
+	 * 
+	 * A transition identification is the label or the actions of the 
+	 * transitions depending if tr is markovian or interactive.
+	 *  
+	 * @param transitions the list of transitions
+	 * @param tr the transition to check the identifier
+	 * @return the transition in the list if the identification is equal to tr or null otherwise
+	 */
+	private IMCREOTransition containsTransitionIdentification(
+			LinkedList<IMCREOTransition> transitions,
+			IMCREOTransition tr) 
+	{
+		IMCREOTransition found_transition_id = null;
+		Object tr_id = null; 
+		if (tr instanceof IMCREOMarkovianTransition) {
+			tr_id = ((IMCREOMarkovianTransition) tr).getLabel();
+		}
+		else {
+			tr_id = ((IMCREOInteractiveTransition) tr).getActions();
+		}
+		
+		ListIterator<IMCREOTransition> trans_iter = transitions.listIterator();
+		while(trans_iter.hasNext() && found_transition_id == null) {
+			IMCREOTransition tr_aux = trans_iter.next();
+			if(tr_aux instanceof IMCREOMarkovianTransition) {
+				found_transition_id = ((IMCREOMarkovianTransition) tr_aux).getLabel().equals(tr_id) ?  tr_aux : null;
+			}
+			else {
+				found_transition_id = ((IMCREOInteractiveTransition) tr_aux).getActions().equals(tr_id) ?  tr_aux : null;
+			}
+		}
+		
+		return found_transition_id;
+	}
+
+
+	
+
+	
+	/**
+	 * Remove Forced non determinism from the chain.
+	 * Non determinism exists in a state when two or more IT exist 
+	 * and for each two ITs with set of actions A and B, and M the mixed ports set:
+	 * A \inter B != 0 && A \inter B \inter M != 0
+	 * 
+	 * To solve non determinism we check the following cases:
+	 * 
+	 * 1) A \inter M = 0 && B \inter M != 0 => Remove IT with A
+	 * 
+	 * 2) A \inter M != 0 && B \inter M = 0 => Remove IT with B
+	 * 
+	 * 3) A \inter M != 0 && B \inter M != 0  => DO NOTHING! This is not
+	 * forced non determinism
+	 * 
+	 * Atention that rules (1) and (2)  invert when the buffers in the chain are FULL.
+	 *  
+	 * 
+	 * @param mixedports the set with all the mixed ports
+	 * @return a IMC without forced non determinism...
+	 */
+	public IMCREOimc removeForcedNonDeterminism(Set<String> mixedports){
+		IMCREOimc newimc = new IMCREOimc();
+		
+		//set the initial state and the POSet
+		newimc.setInitial_state(this.initial_state.copy());
+		newimc.setPoset(this.getPoset());
+		
+		//lets runover all the states in the chain 
+		for(IMCREOState current_state : this.chain.keySet()){
+			//copy the transitions of the current state into the transitions list
+			LinkedList<IMCREOTransition> transitions = new LinkedList<IMCREOTransition>();
+			for(IMCREOTransition t : this.chain.get(current_state)){
+				transitions.add(t.copy());
+			}
+			//now process the list of transitions
+			for(int i = 0 ; i < transitions.size() - 1; i++) {
+				//first check if the ith transition is interactive
+				if(transitions.get(i) instanceof IMCREOInteractiveTransition) {
+					//if it is interactive, lets compare it with all the remaining...
+					for(int j = i+1 ; j < transitions.size() ; j++) {
+						//if the jth transition is also interactive
+						if(transitions.get(j) instanceof IMCREOInteractiveTransition) {
+							//prepare the initial intersections for checking the existence of nondeterminism
+							LinkedHashSet<String> A_inter_M = 
+									new LinkedHashSet<String>(((IMCREOInteractiveTransition) transitions.get(i)).getActions());
+							A_inter_M.retainAll(mixedports);
+							
+							LinkedHashSet<String> B_inter_M = 
+									new LinkedHashSet<String>(((IMCREOInteractiveTransition) transitions.get(j)).getActions());
+							B_inter_M.retainAll(mixedports);
+							//check for non determinism
+							if(! A_inter_M.isEmpty() || ! B_inter_M.isEmpty()) {
+								
+								//Lets get the state of the buffers from the current_state
+								IMCREOBufferState internal_state = current_state.getInternalState();
+								
+								//case 1)
+								if(A_inter_M.isEmpty() && ! B_inter_M.isEmpty()){
+									if(internal_state.equals(IMCREOBufferState.FULL)) {
+										transitions.remove(j);
+									}
+									else {
+										transitions.remove(i);
+										break;
+									}
+								}
+								else {
+									//case 2)
+									if(B_inter_M.isEmpty() && ! A_inter_M.isEmpty()) {
+										if(internal_state.equals(IMCREOBufferState.FULL)) {
+											transitions.remove(i);
+											break;
+										}
+										else {
+											transitions.remove(j);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			}
+			//add the entry in the chain...
+			newimc.chain.put(current_state.copy(), transitions);			
+		}
+		
+		return newimc;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	
@@ -1771,7 +2205,10 @@ public class IMCREOimc {
 		
 	
 	
-//	
+
+
+
+	//	
 //	
 //	/**
 //	 * This method creates a IMC based on the IMCREO.

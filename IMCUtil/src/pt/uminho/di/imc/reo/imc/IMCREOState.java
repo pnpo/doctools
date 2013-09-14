@@ -93,6 +93,24 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	}
 
 
+	
+	
+	
+	
+	public IMCREOBufferState getInternalState() {
+		IMCREOBufferState internal_state = 
+				this.getBuffer().contains(IMCREOBufferState.EMPTY) ? IMCREOBufferState.EMPTY : 
+					this.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL :
+																			IMCREOBufferState.NONE;
+		return internal_state;
+	} 
+
+	
+	
+	
+	
+	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -194,7 +212,9 @@ public class IMCREOState implements Comparable<IMCREOState> {
 		newbuffer.addAll((LinkedList)snd.getBuffer());
 		
 		return newbuffer;
-	} 
+	}
+
+
 	
 	
 	
