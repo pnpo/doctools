@@ -19,11 +19,7 @@
 * []{$a$} 0
 
 []{$a$} !
-* [$b$]{$a$} $gb$		@ LOSSY_$id$_ARR_[$b$] @
 * [] $gaL$				@ LOSSY_$id$_TRl_[$a$] @
-
-[$b$]{$a$} !
-* [$b$] $gaL$			@ LOSSY_$id$_TRl_[$a$] @
 
 [$b$] !
 * [$a$ $b$] $ga$		@ LOSSY_$id$_ARR_[$a$] @

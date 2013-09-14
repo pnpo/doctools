@@ -13,8 +13,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
 import pt.uminho.di.imc.util.Pair;
 
@@ -239,8 +239,8 @@ public class Composer {
 	 * @param mixedports - the set of mixed ports to perform the join of the imcs.
 	 * @return
 	 */
-	private IMCREOimc<IMCREOState> performComposition( IMCREOimc<IMCREOState> imc1, IMCREOimc<IMCREOState> imc2, LinkedHashSet<String> mixedports) {
-		IMCREOimc<Pair<IMCREOState, IMCREOState>> res_internal = new IMCREOimc<Pair<IMCREOState,IMCREOState>>();
+	private IMCREOimc performComposition( IMCREOimc imc1, IMCREOimc imc2, LinkedHashSet<String> mixedports) {
+		IMCREOimc res_internal = new IMCREOimc();
 		ArrayList<String> mixedports_list = new ArrayList<String>(mixedports);
 		LinkedHashSet<String> single_mixed_port = new LinkedHashSet<String>();
 		

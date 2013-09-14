@@ -16,7 +16,7 @@
 * []{$a$}& 0
 
 [$a$]& !
-* [$a$ $b$]& $gb$			@ FIFO1f_$id$_ARR_[$a$] @
+* [$a$ $b$]& $gb$			@ FIFO1f_$id$_ARR_[$b$] @
 
 []{$a$}& !
 * []# $gaB$					@ FIFO1f_$id$_TRs_[$a$]_B @
@@ -45,7 +45,8 @@
 * []{$b$}# 0
 
 []{$b$}# !
-* []& $gBb$					@ FIFO1f_$id$_TRs_B_[$b$] @
+* [$a$]{$b$}# $ga$			@ FIFO1e_$id$_ARR_[$a$] @
+* []& $gBb$					@ FIFO1e_$id$_TRs_B_[$b$] @
 
 [$a$ $b$]# <$b$>
 * [$a$]{$b$}# 0

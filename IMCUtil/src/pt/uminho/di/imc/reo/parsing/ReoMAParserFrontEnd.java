@@ -8,14 +8,14 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 
 
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 
 public class ReoMAParserFrontEnd {
 
 	
-	public static IMCREOimc<IMCREOState> parse(String input, boolean isfile) {
-		IMCREOimc<IMCREOState> imc1 = null; 
+	public static IMCREOimc parse(String input, boolean isfile) {
+		IMCREOimc imc1 = null; 
 		try{
 		
 			ReoMAParserLexer lex1 = new ReoMAParserLexer(isfile? new ANTLRFileStream(input, "UTF-8") : new ANTLRStringStream(input));

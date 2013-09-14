@@ -11,8 +11,8 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 
 
 import pt.uminho.di.imc.IMCTransformer;
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 
 public class RMAParserTestMain {
 
@@ -30,8 +30,8 @@ public class RMAParserTestMain {
 			 
 			 
 			 StringTemplate lossy_ab = group.getInstanceOf("pt/uminho/di/imc/reo/templates/lossy");
-			 lossy_ab.setAttribute("a", "a");
-			 lossy_ab.setAttribute("b", "b");
+			 lossy_ab.setAttribute("a", "b");
+			 lossy_ab.setAttribute("b", "c");
 			 lossy_ab.setAttribute("ga", "1.0");
 			 lossy_ab.setAttribute("gb", "1.1");
 			 lossy_ab.setAttribute("gaL", "1.2");
@@ -41,8 +41,8 @@ public class RMAParserTestMain {
 			 //System.out.println(lossy_ab.toString() + "\n");
 			 
 			 StringTemplate fifo_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1e");
-			 fifo_bc.setAttribute("a", "b");
-			 fifo_bc.setAttribute("b", "c");
+			 fifo_bc.setAttribute("a", "c");
+			 fifo_bc.setAttribute("b", "d");
 			 fifo_bc.setAttribute("ga", "2.0");
 			 fifo_bc.setAttribute("gb", "2.1");
 			 fifo_bc.setAttribute("gaB", "2.2");
@@ -69,8 +69,13 @@ public class RMAParserTestMain {
 //			 ReoMAParserParser g3 = new ReoMAParserParser(tokens3);
 //			 g3.imc();
 
-			 IMCREOimc<IMCREOState> imc1 = g1.getIMC();
-			 IMCREOimc<IMCREOState> imc2 = g2.getIMC();
+			 IMCREOimc imc1 = g1.getIMC();
+			 IMCREOimc imc2 = g2.getIMC();
+			 
+			 System.out.println(imc1);
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+			 System.out.println(imc2);
+			 
 //			 IMCREOimc<IMCREOState> imc3 = g3.getIMC();
 		 
 			//System.out.println(imc1.toString());
@@ -78,7 +83,7 @@ public class RMAParserTestMain {
 //			System.out.println(imc3.toString());
 			 
 			 HashSet<String> mixedports1 = new HashSet<String>(1);
-			 mixedports1.add("b");
+			 mixedports1.add("c");
 			 
 //			 HashSet<String> mixedports2 = new HashSet<String>(1);
 //			 mixedports2.add("e");
@@ -92,7 +97,7 @@ public class RMAParserTestMain {
 			 
 			
 			 long startTime = System.currentTimeMillis();
-//			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1);
+			 IMCREOimc res = imc1.compose(imc2, mixedports1);//.synchronise(mixedports1);
 //			 res = res.compose(imc3, mixedports2).synchronise(mixedports2);
 //			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1, sorted_ports).compose(imc3, mixedports2).synchronise(mixedports2, sorted_ports);
 			 
@@ -100,7 +105,8 @@ public class RMAParserTestMain {
 //					 res.hide(mixedports1);
 //			 
 //			 
-//			 System.out.println(res.toString());
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+			 System.out.println(res.toString());
 //			 System.out.println(res.toReoMA());
 //			 System.out.println(new IMCTransformer(res.toIMC(false)).toMAFormat());
 			 

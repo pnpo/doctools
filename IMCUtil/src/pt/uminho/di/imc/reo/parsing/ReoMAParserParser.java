@@ -1,9 +1,9 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g 2013-09-10 12:13:07
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g 2013-09-14 02:41:31
 
 	package pt.uminho.di.imc.reo.parsing;
-	import pt.uminho.di.imc.reo.*;
+	import pt.uminho.di.imc.reo.imc.*;
 	import pt.uminho.di.imc.util.Pair;
-	import java.util.HashSet;
+	import java.util.LinkedHashSet;
 	import java.util.LinkedList;
 
 
@@ -14,9 +14,10 @@ import java.util.ArrayList;
 
 public class ReoMAParserParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "NUMBER", "FLOAT", "EXPONENT", "COMMENT", "WS", "'#PORTS'", "'#INITIALS'", "'#GOALS'", "'#TRANSITIONS'", "'('", "'#'", "','", "')'", "'!'", "'*'", "'@'", "'&'", "'['", "']'", "'{'", "'}'", "'<'", "'>'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "LABEL", "NUMBER", "FLOAT", "EXPONENT", "COMMENT", "WS", "'#PORTS'", "'#INITIALS'", "'#GOALS'", "'#TRANSITIONS'", "'('", "'#'", "','", "')'", "'!'", "'*'", "'@'", "'&'", "'['", "']'", "'{'", "'}'", "'<'", "'>'"
     };
-    public static final int EXPONENT=7;
+    public static final int EXPONENT=8;
+    public static final int T__28=28;
     public static final int T__27=27;
     public static final int T__26=26;
     public static final int T__25=25;
@@ -25,22 +26,22 @@ public class ReoMAParserParser extends Parser {
     public static final int T__22=22;
     public static final int T__21=21;
     public static final int T__20=20;
-    public static final int NUMBER=5;
-    public static final int FLOAT=6;
+    public static final int NUMBER=6;
+    public static final int FLOAT=7;
     public static final int ID=4;
     public static final int EOF=-1;
     public static final int T__19=19;
-    public static final int WS=9;
+    public static final int WS=10;
     public static final int T__16=16;
     public static final int T__15=15;
     public static final int T__18=18;
     public static final int T__17=17;
+    public static final int LABEL=5;
     public static final int T__12=12;
     public static final int T__11=11;
     public static final int T__14=14;
     public static final int T__13=13;
-    public static final int T__10=10;
-    public static final int COMMENT=8;
+    public static final int COMMENT=9;
 
     // delegates
     // delegators
@@ -59,9 +60,9 @@ public class ReoMAParserParser extends Parser {
     public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g"; }
 
 
-    	private IMCREOimc<IMCREOState> imc;
+    	private IMCREOimc imc;
     	
-    	public IMCREOimc<IMCREOState> getIMC(){
+    	public IMCREOimc getIMC(){
     		return this.imc;
     	}
 
@@ -71,18 +72,18 @@ public class ReoMAParserParser extends Parser {
     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:26:1: imc : '#PORTS' ( port_relations )? '#INITIALS' initial_state '#GOALS' goal_states '#TRANSITIONS' transitions ;
     public final void imc() throws RecognitionException {
 
-        	this.imc = new IMCREOimc<IMCREOState>();
+        	this.imc = new IMCREOimc();
 
         try {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:30:2: ( '#PORTS' ( port_relations )? '#INITIALS' initial_state '#GOALS' goal_states '#TRANSITIONS' transitions )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:30:4: '#PORTS' ( port_relations )? '#INITIALS' initial_state '#GOALS' goal_states '#TRANSITIONS' transitions
             {
-            match(input,10,FOLLOW_10_in_imc38); 
+            match(input,11,FOLLOW_11_in_imc38); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:30:13: ( port_relations )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
-            if ( (LA1_0==14) ) {
+            if ( (LA1_0==15) ) {
                 alt1=1;
             }
             switch (alt1) {
@@ -100,19 +101,19 @@ public class ReoMAParserParser extends Parser {
 
             }
 
-            match(input,11,FOLLOW_11_in_imc43); 
+            match(input,12,FOLLOW_12_in_imc43); 
             pushFollow(FOLLOW_initial_state_in_imc45);
             initial_state();
 
             state._fsp--;
 
-            match(input,12,FOLLOW_12_in_imc47); 
+            match(input,13,FOLLOW_13_in_imc47); 
             pushFollow(FOLLOW_goal_states_in_imc49);
             goal_states();
 
             state._fsp--;
 
-            match(input,13,FOLLOW_13_in_imc51); 
+            match(input,14,FOLLOW_14_in_imc51); 
             pushFollow(FOLLOW_transitions_in_imc53);
             transitions();
 
@@ -153,7 +154,7 @@ public class ReoMAParserParser extends Parser {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( (LA4_0==14) ) {
+                if ( (LA4_0==15) ) {
                     alt4=1;
                 }
 
@@ -162,20 +163,20 @@ public class ReoMAParserParser extends Parser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:38:3: '(' bfr= ID ( '#' )? ',' aft= ID ( '#' )? ')'
             	    {
-            	    match(input,14,FOLLOW_14_in_port_relations73); 
+            	    match(input,15,FOLLOW_15_in_port_relations73); 
             	    bfr=(Token)match(input,ID,FOLLOW_ID_in_port_relations77); 
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:38:14: ( '#' )?
             	    int alt2=2;
             	    int LA2_0 = input.LA(1);
 
-            	    if ( (LA2_0==15) ) {
+            	    if ( (LA2_0==16) ) {
             	        alt2=1;
             	    }
             	    switch (alt2) {
             	        case 1 :
             	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:38:16: '#'
             	            {
-            	            match(input,15,FOLLOW_15_in_port_relations81); 
+            	            match(input,16,FOLLOW_16_in_port_relations81); 
             	            p1 += "#";
 
             	            }
@@ -183,20 +184,20 @@ public class ReoMAParserParser extends Parser {
 
             	    }
 
-            	    match(input,16,FOLLOW_16_in_port_relations88); 
+            	    match(input,17,FOLLOW_17_in_port_relations88); 
             	    aft=(Token)match(input,ID,FOLLOW_ID_in_port_relations92); 
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:38:48: ( '#' )?
             	    int alt3=2;
             	    int LA3_0 = input.LA(1);
 
-            	    if ( (LA3_0==15) ) {
+            	    if ( (LA3_0==16) ) {
             	        alt3=1;
             	    }
             	    switch (alt3) {
             	        case 1 :
             	            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:38:50: '#'
             	            {
-            	            match(input,15,FOLLOW_15_in_port_relations97); 
+            	            match(input,16,FOLLOW_16_in_port_relations97); 
             	            p2 += "#";
 
             	            }
@@ -204,7 +205,7 @@ public class ReoMAParserParser extends Parser {
 
             	    }
 
-            	    match(input,17,FOLLOW_17_in_port_relations104); 
+            	    match(input,18,FOLLOW_18_in_port_relations104); 
 
             	    		this.imc.getPoset().addSinglePOSet(new Pair<String, String>((bfr!=null?bfr.getText():null) + p1, (aft!=null?aft.getText():null) + p2));
             	    	
@@ -276,7 +277,7 @@ public class ReoMAParserParser extends Parser {
 
 
 
-        	HashSet<IMCREOState> goals = new HashSet<IMCREOState>();
+        	LinkedHashSet<IMCREOState> goals = new LinkedHashSet<IMCREOState>();
 
         try {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:60:2: ( ( state )+ )
@@ -289,7 +290,7 @@ public class ReoMAParserParser extends Parser {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==22) ) {
+                if ( (LA5_0==23) ) {
                     alt5=1;
                 }
 
@@ -348,7 +349,7 @@ public class ReoMAParserParser extends Parser {
 
 
 
-        	LinkedList<IMCREOTransition<IMCREOState>> trans = new LinkedList<IMCREOTransition<IMCREOState>>();
+        	LinkedList<IMCREOTransition> trans = new LinkedList<IMCREOTransition>();
 
         try {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:77:2: ( ( state transition_label ( transition_edge[$transition_label.type, $transition_label.actions] )+ )+ )
@@ -361,7 +362,7 @@ public class ReoMAParserParser extends Parser {
                 int alt7=2;
                 int LA7_0 = input.LA(1);
 
-                if ( (LA7_0==22) ) {
+                if ( (LA7_0==23) ) {
                     alt7=1;
                 }
 
@@ -387,7 +388,7 @@ public class ReoMAParserParser extends Parser {
             	        int alt6=2;
             	        int LA6_0 = input.LA(1);
 
-            	        if ( (LA6_0==19) ) {
+            	        if ( (LA6_0==20) ) {
             	            alt6=1;
             	        }
 
@@ -424,7 +425,7 @@ public class ReoMAParserParser extends Parser {
             	    		else{
             	    			this.imc.getChain().put(state5, trans);	
             	    		}
-            	    		trans = new LinkedList<IMCREOTransition<IMCREOState>>();
+            	    		trans = new LinkedList<IMCREOTransition>();
             	    	
 
             	    }
@@ -455,16 +456,16 @@ public class ReoMAParserParser extends Parser {
 
     public static class transition_label_return extends ParserRuleReturnScope {
         public String type;
-        public IMCREOAction actions;
+        public LinkedHashSet<String> actions;
     };
 
     // $ANTLR start "transition_label"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:97:1: transition_label returns [String type, IMCREOAction actions] : ( actions | '!' );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:97:1: transition_label returns [String type, LinkedHashSet<String> actions] : ( actions | '!' );
     public final ReoMAParserParser.transition_label_return transition_label() throws RecognitionException {
         ReoMAParserParser.transition_label_return retval = new ReoMAParserParser.transition_label_return();
         retval.start = input.LT(1);
 
-        IMCREOAction actions6 = null;
+        LinkedHashSet<String> actions6 = null;
 
 
         try {
@@ -472,10 +473,10 @@ public class ReoMAParserParser extends Parser {
             int alt8=2;
             int LA8_0 = input.LA(1);
 
-            if ( (LA8_0==26) ) {
+            if ( (LA8_0==27) ) {
                 alt8=1;
             }
-            else if ( (LA8_0==18) ) {
+            else if ( (LA8_0==19) ) {
                 alt8=2;
             }
             else {
@@ -503,7 +504,7 @@ public class ReoMAParserParser extends Parser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:103:4: '!'
                     {
-                    match(input,18,FOLLOW_18_in_transition_label230); 
+                    match(input,19,FOLLOW_19_in_transition_label230); 
 
                     		retval.type = "MARKOVIAN";
                     		retval.actions = null;
@@ -528,24 +529,24 @@ public class ReoMAParserParser extends Parser {
 
 
     // $ANTLR start "transition_edge"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:113:1: transition_edge[String in_type, IMCREOAction in_action] returns [IMCREOTransition transition] : '*' state rate ( '@' ID '@' )? ;
-    public final IMCREOTransition transition_edge(String in_type, IMCREOAction in_action) throws RecognitionException {
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:113:1: transition_edge[String in_type, LinkedHashSet<String> in_action] returns [IMCREOTransition transition] : '*' state rate ( '@' LABEL '@' )? ;
+    public final IMCREOTransition transition_edge(String in_type, LinkedHashSet<String> in_action) throws RecognitionException {
         IMCREOTransition transition = null;
 
-        Token ID9=null;
+        Token LABEL9=null;
         IMCREOState state7 = null;
 
         Double rate8 = null;
 
 
 
-        	IMCREOTransition<IMCREOState> t;
+        	IMCREOTransition t;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:2: ( '*' state rate ( '@' ID '@' )? )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:4: '*' state rate ( '@' ID '@' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:2: ( '*' state rate ( '@' LABEL '@' )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:4: '*' state rate ( '@' LABEL '@' )?
             {
-            match(input,19,FOLLOW_19_in_transition_edge258); 
+            match(input,20,FOLLOW_20_in_transition_edge258); 
             pushFollow(FOLLOW_state_in_transition_edge260);
             state7=state();
 
@@ -556,20 +557,20 @@ public class ReoMAParserParser extends Parser {
 
             state._fsp--;
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:19: ( '@' ID '@' )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:19: ( '@' LABEL '@' )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==20) ) {
+            if ( (LA9_0==21) ) {
                 alt9=1;
             }
             switch (alt9) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:20: '@' ID '@'
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:117:20: '@' LABEL '@'
                     {
-                    match(input,20,FOLLOW_20_in_transition_edge265); 
-                    ID9=(Token)match(input,ID,FOLLOW_ID_in_transition_edge267); 
-                    match(input,20,FOLLOW_20_in_transition_edge269); 
+                    match(input,21,FOLLOW_21_in_transition_edge265); 
+                    LABEL9=(Token)match(input,LABEL,FOLLOW_LABEL_in_transition_edge267); 
+                    match(input,21,FOLLOW_21_in_transition_edge269); 
 
                     }
                     break;
@@ -578,10 +579,10 @@ public class ReoMAParserParser extends Parser {
 
 
             		if(in_type.equals("INTERACTIVE")){
-            			t = new IMCREOInteractiveTransition<IMCREOState>(state7, in_action);
+            			t = new IMCREOInteractiveTransition(state7, in_action);
             		}
             		else {
-            			t = new IMCREOMarkovianTransition<IMCREOState>(state7, rate8, (ID9!=null?ID9.getText():null) == null ? "" : (ID9!=null?ID9.getText():null));	
+            			t = new IMCREOMarkovianTransition(state7, rate8, (LABEL9!=null?LABEL9.getText():null) == null ? "" : (LABEL9!=null?LABEL9.getText():null));	
             		}
             		
             		transition = t;
@@ -606,18 +607,19 @@ public class ReoMAParserParser extends Parser {
     public final IMCREOState state() throws RecognitionException {
         IMCREOState value = null;
 
-        HashSet<String> requests10 = null;
+        String requests10 = null;
 
-        HashSet<String> transmissions11 = null;
+        String transmissions11 = null;
 
 
 
         	IMCREOState st = new IMCREOState();
         	String bs = null;
+        	String state_id = "";
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:139:2: ( requests ( transmissions )? ( '#' | '&' )* )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:139:5: requests ( transmissions )? ( '#' | '&' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:140:2: ( requests ( transmissions )? ( '#' | '&' )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:140:5: requests ( transmissions )? ( '#' | '&' )*
             {
             pushFollow(FOLLOW_requests_in_state298);
             requests10=requests();
@@ -625,18 +627,18 @@ public class ReoMAParserParser extends Parser {
             state._fsp--;
 
 
-            		st.setRequests(requests10);
+            		state_id = requests10;
             	
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:143:2: ( transmissions )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:144:2: ( transmissions )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( (LA10_0==24) ) {
+            if ( (LA10_0==25) ) {
                 alt10=1;
             }
             switch (alt10) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:143:3: transmissions
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:144:3: transmissions
                     {
                     pushFollow(FOLLOW_transmissions_in_state306);
                     transmissions11=transmissions();
@@ -644,7 +646,7 @@ public class ReoMAParserParser extends Parser {
                     state._fsp--;
 
 
-                    		st.setTransmissions(transmissions11);
+                    		state_id = ( state_id.equals("E") && ! transmissions11.equals("") ) ? transmissions11 : state_id + transmissions11;
                     	
 
                     }
@@ -652,33 +654,33 @@ public class ReoMAParserParser extends Parser {
 
             }
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:148:2: ( '#' | '&' )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:149:2: ( '#' | '&' )*
             loop11:
             do {
                 int alt11=3;
                 int LA11_0 = input.LA(1);
 
-                if ( (LA11_0==15) ) {
+                if ( (LA11_0==16) ) {
                     alt11=1;
                 }
-                else if ( (LA11_0==21) ) {
+                else if ( (LA11_0==22) ) {
                     alt11=2;
                 }
 
 
                 switch (alt11) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:148:3: '#'
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:149:3: '#'
             	    {
-            	    match(input,15,FOLLOW_15_in_state318); 
+            	    match(input,16,FOLLOW_16_in_state318); 
             	    bs="#"; st.getBuffer().add(IMCREOBufferState.FULL);
 
             	    }
             	    break;
             	case 2 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:149:3: '&'
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:150:3: '&'
             	    {
-            	    match(input,21,FOLLOW_21_in_state325); 
+            	    match(input,22,FOLLOW_22_in_state325); 
             	    bs="&"; st.getBuffer().add(IMCREOBufferState.EMPTY);
 
             	    }
@@ -690,7 +692,9 @@ public class ReoMAParserParser extends Parser {
             } while (true);
 
 
+            		
             		if(bs==null){st.getBuffer().add(IMCREOBufferState.NONE);}
+            		st.setId(state_id);
             		value = st;
             	
 
@@ -709,21 +713,21 @@ public class ReoMAParserParser extends Parser {
 
 
     // $ANTLR start "requests"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:159:1: requests returns [HashSet<String> reqset] : '[' ( ID )* ']' ;
-    public final HashSet<String> requests() throws RecognitionException {
-        HashSet<String> reqset = null;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:162:1: requests returns [String reqset] : '[' ( ID )* ']' ;
+    public final String requests() throws RecognitionException {
+        String reqset = null;
 
         Token ID12=null;
 
 
-        	HashSet<String> reqs = new HashSet<String>();
+        	String reqs = "";
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:163:2: ( '[' ( ID )* ']' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:163:4: '[' ( ID )* ']'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:166:2: ( '[' ( ID )* ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:166:4: '[' ( ID )* ']'
             {
-            match(input,22,FOLLOW_22_in_requests358); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:163:8: ( ID )*
+            match(input,23,FOLLOW_23_in_requests358); 
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:166:8: ( ID )*
             loop12:
             do {
                 int alt12=2;
@@ -736,11 +740,11 @@ public class ReoMAParserParser extends Parser {
 
                 switch (alt12) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:163:9: ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:166:9: ID
             	    {
             	    ID12=(Token)match(input,ID,FOLLOW_ID_in_requests361); 
 
-            	    		reqs.add((ID12!=null?ID12.getText():null));
+            	    		reqs += (ID12!=null?ID12.getText():null) + ",";
             	    	
 
             	    }
@@ -751,9 +755,9 @@ public class ReoMAParserParser extends Parser {
                 }
             } while (true);
 
-            match(input,23,FOLLOW_23_in_requests371); 
+            match(input,24,FOLLOW_24_in_requests371); 
 
-            		reqset = reqs;
+            		reqset = reqs.length() == 0 ? "E" : "[" + reqs.substring(0,reqs.length()-1) + "]";
             	
 
             }
@@ -771,21 +775,21 @@ public class ReoMAParserParser extends Parser {
 
 
     // $ANTLR start "transmissions"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:175:1: transmissions returns [HashSet<String> transset] : '{' ( ID )+ '}' ;
-    public final HashSet<String> transmissions() throws RecognitionException {
-        HashSet<String> transset = null;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:178:1: transmissions returns [String transset] : '{' ( ID )+ '}' ;
+    public final String transmissions() throws RecognitionException {
+        String transset = null;
 
         Token ID13=null;
 
 
-        	HashSet<String> trans = new HashSet<String>();
+        	String trans = "{";
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:179:2: ( '{' ( ID )+ '}' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:179:4: '{' ( ID )+ '}'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:182:2: ( '{' ( ID )+ '}' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:182:4: '{' ( ID )+ '}'
             {
-            match(input,24,FOLLOW_24_in_transmissions396); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:179:8: ( ID )+
+            match(input,25,FOLLOW_25_in_transmissions396); 
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:182:8: ( ID )+
             int cnt13=0;
             loop13:
             do {
@@ -799,11 +803,11 @@ public class ReoMAParserParser extends Parser {
 
                 switch (alt13) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:179:9: ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:182:9: ID
             	    {
             	    ID13=(Token)match(input,ID,FOLLOW_ID_in_transmissions399); 
 
-            	    		trans.add((ID13!=null?ID13.getText():null));
+            	    		trans += (ID13!=null?ID13.getText():null) + ",";
             	    	
 
             	    }
@@ -818,9 +822,9 @@ public class ReoMAParserParser extends Parser {
                 cnt13++;
             } while (true);
 
-            match(input,25,FOLLOW_25_in_transmissions409); 
+            match(input,26,FOLLOW_26_in_transmissions409); 
 
-            		transset = trans;
+            		transset = trans.substring(0,trans.length()-1) + "}";
             	
 
             }
@@ -838,23 +842,25 @@ public class ReoMAParserParser extends Parser {
 
 
     // $ANTLR start "actions"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:191:1: actions returns [IMCREOAction actions] : actions_sync ;
-    public final IMCREOAction actions() throws RecognitionException {
-        IMCREOAction actions = null;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:194:1: actions returns [LinkedHashSet<String> actions] : actions_sync ;
+    public final LinkedHashSet<String> actions() throws RecognitionException {
+        LinkedHashSet<String> actions = null;
 
-        HashSet<String> actions_sync14 = null;
+        LinkedHashSet<String> actions_sync14 = null;
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:192:2: ( actions_sync )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:192:4: actions_sync
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:195:2: ( actions_sync )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:195:4: actions_sync
             {
             pushFollow(FOLLOW_actions_sync_in_actions429);
             actions_sync14=actions_sync();
 
             state._fsp--;
 
-            actions = new IMCREOAction(actions_sync14);
+
+            		actions = actions_sync14;
+            	
 
             }
 
@@ -871,21 +877,21 @@ public class ReoMAParserParser extends Parser {
 
 
     // $ANTLR start "actions_sync"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:197:1: actions_sync returns [HashSet<String> actionset] : '<' ( ID )* '>' ;
-    public final HashSet<String> actions_sync() throws RecognitionException {
-        HashSet<String> actionset = null;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:203:1: actions_sync returns [LinkedHashSet<String> actionset] : '<' ( ID )* '>' ;
+    public final LinkedHashSet<String> actions_sync() throws RecognitionException {
+        LinkedHashSet<String> actionset = null;
 
         Token ID15=null;
 
 
-        	HashSet<String> acts = new HashSet<String>();
+        	LinkedHashSet<String> acts = new LinkedHashSet<String>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:201:2: ( '<' ( ID )* '>' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:201:4: '<' ( ID )* '>'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:207:2: ( '<' ( ID )* '>' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:207:4: '<' ( ID )* '>'
             {
-            match(input,26,FOLLOW_26_in_actions_sync453); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:201:8: ( ID )*
+            match(input,27,FOLLOW_27_in_actions_sync455); 
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:207:8: ( ID )*
             loop14:
             do {
                 int alt14=2;
@@ -898,9 +904,9 @@ public class ReoMAParserParser extends Parser {
 
                 switch (alt14) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:201:9: ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:207:9: ID
             	    {
-            	    ID15=(Token)match(input,ID,FOLLOW_ID_in_actions_sync456); 
+            	    ID15=(Token)match(input,ID,FOLLOW_ID_in_actions_sync458); 
 
             	    		acts.add((ID15!=null?ID15.getText():null));
             	    	
@@ -913,7 +919,7 @@ public class ReoMAParserParser extends Parser {
                 }
             } while (true);
 
-            match(input,27,FOLLOW_27_in_actions_sync465); 
+            match(input,28,FOLLOW_28_in_actions_sync467); 
 
             		actionset = acts;
             	
@@ -933,17 +939,17 @@ public class ReoMAParserParser extends Parser {
 
 
     // $ANTLR start "rate"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:213:1: rate returns [Double value] : NUMBER ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:219:1: rate returns [Double value] : NUMBER ;
     public final Double rate() throws RecognitionException {
         Double value = null;
 
         Token NUMBER16=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:214:2: ( NUMBER )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:214:4: NUMBER
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:220:2: ( NUMBER )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/ReoMAParser.g:220:4: NUMBER
             {
-            NUMBER16=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_rate487); 
+            NUMBER16=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_rate489); 
 
             		value = Double.parseDouble((NUMBER16!=null?NUMBER16.getText():null));
             	
@@ -966,48 +972,48 @@ public class ReoMAParserParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_10_in_imc38 = new BitSet(new long[]{0x0000000000004800L});
-    public static final BitSet FOLLOW_port_relations_in_imc40 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_11_in_imc43 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_initial_state_in_imc45 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_imc47 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_goal_states_in_imc49 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_imc51 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_11_in_imc38 = new BitSet(new long[]{0x0000000000009000L});
+    public static final BitSet FOLLOW_port_relations_in_imc40 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_imc43 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_initial_state_in_imc45 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_imc47 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_goal_states_in_imc49 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_imc51 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_transitions_in_imc53 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_port_relations73 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_port_relations77 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_port_relations81 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_port_relations88 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_port_relations92 = new BitSet(new long[]{0x0000000000028000L});
-    public static final BitSet FOLLOW_15_in_port_relations97 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_port_relations104 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_15_in_port_relations73 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_port_relations77 = new BitSet(new long[]{0x0000000000030000L});
+    public static final BitSet FOLLOW_16_in_port_relations81 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_port_relations88 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_port_relations92 = new BitSet(new long[]{0x0000000000050000L});
+    public static final BitSet FOLLOW_16_in_port_relations97 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_port_relations104 = new BitSet(new long[]{0x0000000000008002L});
     public static final BitSet FOLLOW_state_in_initial_state127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_state_in_goal_states151 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_state_in_transitions182 = new BitSet(new long[]{0x0000000004040000L});
-    public static final BitSet FOLLOW_transition_label_in_transitions184 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_transition_edge_in_transitions187 = new BitSet(new long[]{0x0000000000480002L});
+    public static final BitSet FOLLOW_state_in_goal_states151 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_state_in_transitions182 = new BitSet(new long[]{0x0000000008080000L});
+    public static final BitSet FOLLOW_transition_label_in_transitions184 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_transition_edge_in_transitions187 = new BitSet(new long[]{0x0000000000900002L});
     public static final BitSet FOLLOW_actions_in_transition_label221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_transition_label230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_transition_edge258 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_state_in_transition_edge260 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rate_in_transition_edge262 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_transition_edge265 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_transition_edge267 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_transition_edge269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_requests_in_state298 = new BitSet(new long[]{0x0000000001208002L});
-    public static final BitSet FOLLOW_transmissions_in_state306 = new BitSet(new long[]{0x0000000000208002L});
-    public static final BitSet FOLLOW_15_in_state318 = new BitSet(new long[]{0x0000000000208002L});
-    public static final BitSet FOLLOW_21_in_state325 = new BitSet(new long[]{0x0000000000208002L});
-    public static final BitSet FOLLOW_22_in_requests358 = new BitSet(new long[]{0x0000000000800010L});
-    public static final BitSet FOLLOW_ID_in_requests361 = new BitSet(new long[]{0x0000000000800010L});
-    public static final BitSet FOLLOW_23_in_requests371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_transmissions396 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_transmissions399 = new BitSet(new long[]{0x0000000002000010L});
-    public static final BitSet FOLLOW_25_in_transmissions409 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_transition_label230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_transition_edge258 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_state_in_transition_edge260 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rate_in_transition_edge262 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_21_in_transition_edge265 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_LABEL_in_transition_edge267 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_transition_edge269 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_requests_in_state298 = new BitSet(new long[]{0x0000000002410002L});
+    public static final BitSet FOLLOW_transmissions_in_state306 = new BitSet(new long[]{0x0000000000410002L});
+    public static final BitSet FOLLOW_16_in_state318 = new BitSet(new long[]{0x0000000000410002L});
+    public static final BitSet FOLLOW_22_in_state325 = new BitSet(new long[]{0x0000000000410002L});
+    public static final BitSet FOLLOW_23_in_requests358 = new BitSet(new long[]{0x0000000001000010L});
+    public static final BitSet FOLLOW_ID_in_requests361 = new BitSet(new long[]{0x0000000001000010L});
+    public static final BitSet FOLLOW_24_in_requests371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_transmissions396 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_transmissions399 = new BitSet(new long[]{0x0000000004000010L});
+    public static final BitSet FOLLOW_26_in_transmissions409 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_actions_sync_in_actions429 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_actions_sync453 = new BitSet(new long[]{0x0000000008000010L});
-    public static final BitSet FOLLOW_ID_in_actions_sync456 = new BitSet(new long[]{0x0000000008000010L});
-    public static final BitSet FOLLOW_27_in_actions_sync465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_rate487 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_actions_sync455 = new BitSet(new long[]{0x0000000010000010L});
+    public static final BitSet FOLLOW_ID_in_actions_sync458 = new BitSet(new long[]{0x0000000010000010L});
+    public static final BitSet FOLLOW_28_in_actions_sync467 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_rate489 = new BitSet(new long[]{0x0000000000000002L});
 
 }
