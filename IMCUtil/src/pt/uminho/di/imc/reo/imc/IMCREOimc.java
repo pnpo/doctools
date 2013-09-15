@@ -796,6 +796,161 @@ public class IMCREOimc {
 	
 	
 	
+	/**
+	 * Removes undesired transitions from the chain. 
+	 * 
+	 * An undesired transition is a request arrival or an IT.
+	 * 
+	 * An undesired request arrival occurs when in that state 
+	 * there is a transmission occurring. But this is not enough.
+	 * The port involved in the arrival, say 'a', shall not be 
+	 * in any relation (given by the poset) with the ports 
+	 * involved in the transmission. 
+	 * 
+	 * So if 'a' is related with the ports transmitting, then the
+	 * request arrival transition shall be removed. Otherwise it
+	 * may coexist.
+	 * 
+	 * An undesired IT is an IT leaving a state that also has 
+	 * transmissions ocurring. But again, this is not enough.
+	 * The actions involved in the IT, say set A, shall not
+	 * be in any relation (given by the poset) with the ports
+	 * involved in the transmission.
+	 * 
+	 * So, if there exists an x \in A somehow related to ports 
+	 * transmitting, then IT with actions A shall be removed.
+	 * Otherwise they may coexist.
+	 * 
+	 * Moreover, an IT transition leaving the initial state is
+	 * not possible, unless the internal state of the initial
+	 * state is FULL.
+	 * 
+	 * 
+	 * @return an IMCREOimc without undesired transitions (request arrivals and IT)
+	 */
+	public IMCREOimc removeUndesiredTransitions(){
+		IMCREOimc newimc = new IMCREOimc();
+		
+		//initialize the newimc with the initial state and the poset
+		newimc.setInitial_state(this.initial_state.copy());
+		newimc.setPoset(this.poset);
+		
+		//lets run over all the states in the chain.
+		for(IMCREOState current_state : this.chain.keySet()){
+			//copy the transitions of the current state into the transitions list
+			LinkedList<IMCREOTransition> transitions = new LinkedList<IMCREOTransition>();
+			for(IMCREOTransition t : this.chain.get(current_state)){
+				transitions.add(t.copy());
+			}
+			//now run over these transitions
+			for(int i = 0; i< transitions.size() ; i++) {
+				//if the transition is an arrival
+				if(transitions.get(i) instanceof IMCREOMarkovianTransition &&
+						((IMCREOMarkovianTransition) transitions.get(i)).getSort().equals(IMCREOMarkovianTransitionSort.ARRIVAL)) 
+				{
+					//see for all the transitions if there is one or several Transmissions (and compare to all of them)
+					for(IMCREOTransition t : this.chain.get(current_state)){
+						if(t instanceof IMCREOMarkovianTransition && 
+								((IMCREOMarkovianTransition) t).getSort().equals(IMCREOMarkovianTransitionSort.TRANSMISSION)) 
+						{
+							//get the port involved in the arrival 
+							LinkedHashSet<String> ports_arrival = 
+									new LinkedHashSet<String>(((IMCREOMarkovianTransition) transitions.get(i)).getPorts() );
+							//get the ports involved in the transmission
+							LinkedHashSet<String> ports_transmission = 
+									new LinkedHashSet<String>(((IMCREOMarkovianTransition) t).getPorts() );
+							
+							//get the active ports in the transmission
+							LinkedHashSet<String> active_ports = this.getActivePortsForTransmission(ports_transmission);
+							
+							//FOR SURE assert ports_arrival.size()==1
+							//We could simplify the process, by checking if the element belongs to the set of active ports
+							//but we will compute the intersection for security reasons...
+							LinkedHashSet<String> arrival_inter_active = new LinkedHashSet<String>(ports_arrival);
+							arrival_inter_active.retainAll(active_ports);
+							//if the intersection is not empty...
+							if(!arrival_inter_active.isEmpty()){
+								transitions.remove(i);
+								i--;
+								break;
+							}
+							
+						}
+					}
+				}
+			}
+			//add the entry in the chain...
+			newimc.chain.put(current_state.copy(), transitions);	
+		}
+		
+		newimc.removeUnaccessibleStates();
+		
+		return newimc;
+		
+	}
+	
+	
+	
+	/**
+	 *	Computes the ports that are active for a set of transmitting ports.
+	 * 
+	 *  The computation is based on the ports that are transmitting and
+	 *  their relations in the partial order set. If a port x is transmitting
+	 *  and is related to some port y in the poset then x and y are active.
+	 *  
+	 *  This computation ignores the states with #, because in the end, 
+	 *  # indicates a discontinuity in the partial order... 
+	 * 
+	 * 
+	 * @param transmitting the set of ports to check the ports related to it 
+	 * @return a set of ports that are active
+	 */
+	private LinkedHashSet<String> getActivePortsForTransmission(Set<String> transmitting){
+	
+		//define the set of active ports
+		LinkedHashSet<String> activeports = new LinkedHashSet<String>();
+		//define an auxiliar set to hold the transmitting ports temporarily
+		LinkedHashSet<String> transmitting_aux = new LinkedHashSet<String>(transmitting);
+		
+		boolean added_new_ports = true;
+		while(added_new_ports) {
+			added_new_ports = false;
+			
+			//add the transmitting ports to the active ports
+			activeports.addAll(transmitting_aux);
+			
+			//for each port transmitting
+			for(String port_transmitting : activeports) {				
+				//get all the ports that are related to this one, from the poset
+				for(Pair<String, String> ord : this.poset.getPo()) {
+					//check if the port_transmitting is in some relation
+					if(ord.fst().equals(port_transmitting) && ! ord.snd().endsWith("#")) {
+						//we ignore the ports ending with # and put the others in the active ports
+						added_new_ports = added_new_ports || transmitting_aux.add(ord.snd()); 
+					}
+					else {
+						if(ord.snd().equals(port_transmitting) && ! ord.fst().endsWith("#")) {
+							//we ignore the ports ending with # and put the others in the active ports
+							added_new_ports = added_new_ports || transmitting_aux.add(ord.fst());
+						}
+					}
+				}
+			}
+		}
+
+		return activeports;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Removes transitions from transmitting states that are not in the correct 
@@ -875,9 +1030,6 @@ public class IMCREOimc {
 		
 		newimc.removeUnaccessibleStates();
 		
-
-		
-		
 		return newimc;
 	}
 	
@@ -886,10 +1038,11 @@ public class IMCREOimc {
 	
 	
 	/**
+	 * Checks if the ports in set t transmit before than the ports in tf. 
 	 * 
-	 * @param t
-	 * @param tf
-	 * @return
+	 * @param t ports to check whether transmit before
+	 * @param tf ports to compare t with
+	 * @return true if t transmit before than tf
 	 */
 	private boolean isTransmittedBeforeThan(Set<String> t, Set<String> tf) {
 	
@@ -911,6 +1064,12 @@ public class IMCREOimc {
 
 
 	/**
+	 * Prepares ports in the sets given according to the internal state and the POSET.
+	 * According to the following:
+	 * 
+	 * If port 'a' is transmitting from a state FULL, 'a' is added the suffix '#' iff
+	 * 'a#' occurs in the POSET.
+	 * 
 	 * @param p1 a set with ports to prepare according to the POSET and the internal state
 	 * @param p2 a snd set with ports to prepare according to the POSET and the internal state
 	 * @param internal_state the current state internal state

@@ -112,7 +112,7 @@ public class RMAParserTestMain {
 			 
 			
 			 long startTime = System.currentTimeMillis();
-			 IMCREOimc res = imc1.compose(imc3, mixedports1).mixedRequestsReduction(mixedports1);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
+			 IMCREOimc res = imc1.compose(imc2, mixedports1).mixedRequestsReduction(mixedports1);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
 //			 res = res.compose(imc3, mixedports2).synchronise(mixedports2);
 //			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1, sorted_ports).compose(imc3, mixedports2).synchronise(mixedports2, sorted_ports);
 			 
@@ -125,9 +125,13 @@ public class RMAParserTestMain {
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
 			 res = res.removeForcedNonDeterminism(mixedports1);
 			 System.out.println(res);
-			 res = res.removeTransitionsIncorrectOrder();
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+			 res = res.removeTransitionsIncorrectOrder();
 			 System.out.println(res);
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+			 res = res.removeUndesiredTransitions();
+			 System.out.println(res);
+
 //			 System.out.println(res.toReoMA());
 //			 System.out.println(new IMCTransformer(res.toIMC(false)).toMAFormat());
 			 
