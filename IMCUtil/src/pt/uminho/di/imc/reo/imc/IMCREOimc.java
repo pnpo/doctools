@@ -3,6 +3,7 @@
  */
 package pt.uminho.di.imc.reo.imc;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -15,6 +16,7 @@ import java.util.Set;
 import pt.uminho.di.imc.IMC;
 import pt.uminho.di.imc.InteractiveTransition;
 import pt.uminho.di.imc.MarkovianTransition;
+import pt.uminho.di.imc.Transition;
 import pt.uminho.di.imc.util.Pair;
 
 
@@ -1550,41 +1552,131 @@ public class IMCREOimc {
 
 	
 	
-	public IMC toIMC() {
-		IMC imc = new IMC();
+	
+	
+	
+	/**
+	 * This method creates a IMC based on the IMCREO.
+	 * It may produce a state-readable or a 
+	 * state-unreadable version.
+	 * 
+	 *  The readable version prints the states with
+	 *  notion of requests, transmissions and buffers.
+	 *  
+	 *  The unreadable version prints the states as sI, 
+	 *  where I is any number from 0. s0 is always the
+	 *  initial state! 
+	 * 
+	 *    
+	 * @param readable - a boolean that drives the creation of a
+	 * a readable or unreadable IMC version  
+	 * @return the IMC based on the IMCREO.
+	 */
+	public IMC toIMC(boolean readable){
 		
-		imc.addInitialState(this.getInitial_state().toString().replaceAll(" ", ""));
-		for(IMCREOState st : this.chain.keySet()){
-			String start_st = st.toString().replaceAll(" ", "");
-			imc.addState(start_st);
-			for(IMCREOTransition tr : this.chain.get(st)){
-				String final_st = tr.getFinal_state().toString().replaceAll(" ", "");
-				if(tr instanceof IMCREOMarkovianTransition) {
-					MarkovianTransition mt = new MarkovianTransition();
-					mt.setStart_state(start_st);
-					mt.setFinal_state(final_st);
-					mt.setRate(((IMCREOMarkovianTransition) tr).getRate());
-					mt.setLabel(((IMCREOMarkovianTransition) tr).getLabel());
-					imc.addTransition(mt);
+		IMC imc = new IMC();
+		HashMap<IMCREOState, String> map = new HashMap<IMCREOState, String>(this.chain.size());
+		if( ! readable ) {
+			//prepare a mapping of IMCREOState into strings of type sX, where X is a number
+			int index = 1;
+			for(IMCREOState s : this.chain.keySet()){
+				map.put(s, "s" + index);
+				index++;
+			}
+			//Force the initial state to be always s0
+			map.put(initial_state, "s0");
+		}
+		
+		
+		//initial and final state is the same...
+		String imc_initial_state = ! readable ? map.get(this.initial_state) : this.initial_state.toString().replaceAll(" ", ""); 
+		imc.addInitialState(imc_initial_state);
+		imc.addGoalState(imc_initial_state);
+		
+		for(IMCREOState s : this.chain.keySet()) {
+			String source = ! readable? map.get(s) : s.toString().replaceAll(" ", "");
+			for(IMCREOTransition t : this.chain.get(s)) {
+				String target = ! readable ? map.get(t.getFinal_state()) : t.getFinal_state().toString().replaceAll(" ", "");
+				Transition t_imc;
+				if(t instanceof IMCREOInteractiveTransition) {
+					String action =  ((IMCREOInteractiveTransition)t).getActionsCompact();
+					t_imc = new InteractiveTransition(source, target, action );
+					
 				}
 				else {
-					InteractiveTransition it = new InteractiveTransition();
-					it.setStart_state(start_st);
-					it.setFinal_state(final_st);
-					it.setAction(((IMCREOInteractiveTransition) tr).getActions().toString().replaceAll(" ", ""));
-					imc.addTransition(it);
+					double rate = ((IMCREOMarkovianTransition)t).getRate();
+					String label= ((IMCREOMarkovianTransition)t).getLabel();
+					t_imc = new MarkovianTransition(source, target, rate, label);
 				}
+				imc.addTransition(t_imc);
+				imc.addState(source);
 			}
 		}
 		
 		return imc;
+		
 	}
 	
+
 	
 	
-	
-	//TODO:toRMA()
-	
+	/**
+	 * This method creates a RMA based on the IMCREO.
+	 * 
+	 * @return a string as .rma format
+	 */
+	public String toReoMA() {
+		StringBuffer sb = new StringBuffer("#PORTS\n");
+		
+		
+		for(Pair<String,String> p: this.poset.getPo()){
+			sb.append(p).append(" ");
+		}
+		sb.append("\n\n");
+		
+		
+		sb.append("#INITIALS\n");
+		sb.append(((IMCREOState) this.initial_state));
+		sb.append("\n\n");
+		sb.append("#GOALS\n");
+		sb.append(((IMCREOState) this.initial_state));
+		sb.append("\n\n");
+		
+		sb.append("#TRANSITIONS\n\n");
+		
+		
+		for(IMCREOState s : this.chain.keySet()) {
+			IMCREOState s__ = (IMCREOState) s;
+			StringBuffer sb_markov = new StringBuffer("");
+			
+			for(IMCREOTransition t : this.chain.get(s)) {
+				if(t instanceof IMCREOInteractiveTransition) {
+					sb.append(s__).append(" ");
+					sb.append(((IMCREOInteractiveTransition) t).getActionsAsString());
+					sb.append("\n");
+					sb.append("* ");
+					sb.append(((IMCREOState) t.getFinal_state()));
+					sb.append(" 1\n\n");
+				}
+				else {
+					sb_markov.append("* ");
+					sb_markov.append(((IMCREOState) t.getFinal_state()));
+					sb_markov.append(" ");
+					sb_markov.append(((IMCREOMarkovianTransition) t).getRate());
+					sb_markov.append("\t\t\t@ " + ((IMCREOMarkovianTransition) t).getLabel() + " @");
+					sb_markov.append("\n");
+				}
+			}
+			if(sb_markov.length() > 0 ) {
+				sb.append(s__).append(" ");
+				sb.append("! \n" + sb_markov + "\n");
+			}
+			
+		}
+		
+		return sb.toString();
+		
+	}
 	
 	
 	

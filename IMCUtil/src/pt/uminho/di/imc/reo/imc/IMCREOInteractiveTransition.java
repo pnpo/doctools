@@ -62,6 +62,32 @@ public class IMCREOInteractiveTransition extends IMCREOTransition {
 		this.actions = new LinkedHashSet<String>(actions);
 	}
 
+	
+	/**
+	 * 
+	 * @return a string "a b c" if actions are [a, b, c]
+	 */
+	public String getActionsAsString(){
+		StringBuffer sb = new StringBuffer();
+
+		for(String a : this.actions) {
+			sb.append(a).append(" ");
+		}
+		String res = sb.toString().trim();
+		return res;
+	}
+	
+	
+	/**
+	 * 
+	 * @return a string "abc" if actions are [a, b, c]
+	 */
+	public String getActionsCompact() {
+		return this.getActionsAsString().replaceAll(" ", "");
+	}
+	
+	
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
