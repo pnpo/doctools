@@ -1651,9 +1651,9 @@ public class IMCREOimc {
 			
 			for(IMCREOTransition t : this.chain.get(s)) {
 				if(t instanceof IMCREOInteractiveTransition) {
-					sb.append(s__).append(" ");
+					sb.append(s__).append(" <");
 					sb.append(((IMCREOInteractiveTransition) t).getActionsAsString());
-					sb.append("\n");
+					sb.append(">\n");
 					sb.append("* ");
 					sb.append(((IMCREOState) t.getFinal_state()));
 					sb.append(" 1\n\n");

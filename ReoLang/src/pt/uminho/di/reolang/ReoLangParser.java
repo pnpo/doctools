@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2013-09-10 23:33:07
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2013-09-15 21:40:25
 
 	package pt.uminho.di.reolang;
 	import java.text.*;
@@ -684,7 +684,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: extension, channel_signature, channel_body
+            // elements: channel_signature, channel_body, extension
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -900,7 +900,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, condition, option, ID, out, in
+            // elements: condition, ID, out, in, option, ID
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -963,7 +963,7 @@ public class ReoLangParser extends Parser {
                 adaptor.addChild(root_1, root_2);
                 }
                 // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:137:86: ( ^( CONDITION ID condition ) )?
-                if ( stream_ID.hasNext()||stream_condition.hasNext() ) {
+                if ( stream_condition.hasNext()||stream_ID.hasNext() ) {
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:137:87: ^( CONDITION ID condition )
                     {
                     Object root_2 = (Object)adaptor.nil();
@@ -976,8 +976,8 @@ public class ReoLangParser extends Parser {
                     }
 
                 }
-                stream_ID.reset();
                 stream_condition.reset();
+                stream_ID.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -2030,7 +2030,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: state_def, flow_def
+            // elements: flow_def, state_def
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2729,7 +2729,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: normal_flow, flow_label, flow_operation, normal_flow
+                    // elements: flow_label, flow_operation, normal_flow, normal_flow
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2905,7 +2905,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: flow_point, flow_point, timed
+            // elements: timed, flow_point, flow_point
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3268,7 +3268,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: f1, f2, flow_type, flow_type, ID
+            // elements: flow_type, ID, f2, flow_type, f1
             // token labels: 
             // rule labels: retval, f1, f2
             // token list labels: 
@@ -3976,7 +3976,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: reference_signature, instances
+            // elements: instances, reference_signature
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4087,7 +4087,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, channel_signature
+            // elements: channel_signature, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4251,7 +4251,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: s2, ID, s1, ID
+            // elements: ID, ID, s2, s1
             // token labels: 
             // rule labels: retval, s2, s1
             // token list labels: 
@@ -4413,7 +4413,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, FLOAT
+            // elements: FLOAT, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4430,16 +4430,16 @@ public class ReoLangParser extends Parser {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STOCH, "STOCH"), root_1);
 
-                if ( !(stream_ID.hasNext()||stream_FLOAT.hasNext()) ) {
+                if ( !(stream_FLOAT.hasNext()||stream_ID.hasNext()) ) {
                     throw new RewriteEarlyExitException();
                 }
-                while ( stream_ID.hasNext()||stream_FLOAT.hasNext() ) {
+                while ( stream_FLOAT.hasNext()||stream_ID.hasNext() ) {
                     adaptor.addChild(root_1, stream_ID.nextNode());
                     adaptor.addChild(root_1, stream_FLOAT.nextNode());
 
                 }
-                stream_ID.reset();
                 stream_FLOAT.reset();
+                stream_ID.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -5122,7 +5122,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: port_access_list, RW_JOIN
+                    // elements: RW_JOIN, port_access_list
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5450,7 +5450,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: p1, p3, p4, p2
+            // elements: p4, p1, p3, p2
             // token labels: 
             // rule labels: retval, p4, p3, p2, p1
             // token list labels: 

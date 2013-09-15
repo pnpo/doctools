@@ -98,12 +98,12 @@ public class Main {
 			
 			//output related
 			
-			//TODO: uncomment this when toRMA is done 
-//			FlaggedOption out_rma_file = new FlaggedOption("out_rma_file")
-//									.setStringParser(JSAP.STRING_PARSER)
-//									.setLongFlag("rma");
-//			out_rma_file.setHelp("The name of the RMA file to create.");
-//			cmd_line.registerParameter(out_rma_file);
+			 
+			FlaggedOption out_rma_file = new FlaggedOption("out_rma_file")
+									.setStringParser(JSAP.STRING_PARSER)
+									.setLongFlag("rma");
+			out_rma_file.setHelp("The name of the RMA file to create.");
+			cmd_line.registerParameter(out_rma_file);
 			
 			
 			FlaggedOption out_ma_file = new FlaggedOption("out_ma_file")
@@ -287,13 +287,12 @@ public class Main {
 				System.out.println(imc_result.toString());
 			}
 			
-			//TODO uncommment this when toRMA is done 
-//			if(config.userSpecified("out_rma_file")) {
-//				if(config.getBoolean("verbose")){
-//					System.out.println("Creating file " + config.getString("out_rma_file"));
-//				}
-//				createFile(config.getString("out_rma_file"), "rma", imc_result.toReoMA());
-//			}
+			if(config.userSpecified("out_rma_file")) {
+				if(config.getBoolean("verbose")){
+					System.out.println("Creating file " + config.getString("out_rma_file"));
+				}
+				createFile(config.getString("out_rma_file"), "rma", imc_result.toReoMA());
+			}
 			
 			if(config.userSpecified("out_ma_file")) {
 				if(config.getBoolean("verbose")){
