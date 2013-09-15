@@ -496,47 +496,13 @@ public class IMCREOimc {
 												}//end if
 											}//end if
 											else {//we add otherwise...
-												//we update the equivalent states with a new entry if the final state of the transition has not equivalent state
-//												IMCREOState equiv_state = hasEquivalentState(t_from_ignored.getFinal_state(), equivalent_states);
-//												if(!equivalent_states.containsKey(t.getFinal_state()) && equiv_state == null){
-//													equivalent_states.put(t_from_ignored.getFinal_state(), new LinkedHashSet<IMCREOState>());
-//												}
-//												else{
-//													if(equiv_state!=null){
-//														//if it has an equivalent state, update the state to the equivalent
-//														t_from_ignored = t_from_ignored.copy();
-//														t_from_ignored.setFinal_state(equiv_state);
-//													}
-//												}
-//												//we add the MT transition to the list of transitions for the current state 
-//												current_state_transitions.add(t_from_ignored.copy());
-//												//we update the final state of this transition as a new state to process
-//												if(! states_to_process.contains(t_from_ignored.getFinal_state()) && ! newimc.chain.containsKey(t_from_ignored.getFinal_state()) ){
-//													states_to_process.add(t_from_ignored.getFinal_state());
-//												}
+												//we add the transition as a candidate  
 												candidates.add(t_from_ignored);
 											}//end else
 										}//end if
 										else {
 											//assert t instanceof IMCREOInteractiveTransition ;
-											//we update the equivalent states with a new entry if the final state of the transition has not equivalent state
-//											IMCREOState equiv_state = hasEquivalentState(t_from_ignored.getFinal_state(), equivalent_states);
-//											if(!equivalent_states.containsKey(t_from_ignored.getFinal_state()) && equiv_state == null){
-//												equivalent_states.put(t_from_ignored.getFinal_state(), new LinkedHashSet<IMCREOState>());
-//											}
-//											else{
-//												if(equiv_state!=null){
-//													//if it has an equivalent state, update the state to the equivalent
-//													t_from_ignored = t_from_ignored.copy();
-//													t_from_ignored.setFinal_state(equiv_state);
-//												}
-//											}
-//											//we add the MT transition to the list of transitions for the current state 
-//											current_state_transitions.add(t_from_ignored.copy());
-//											//we update the final state of this transition as a new state to process
-//											if(! states_to_process.contains(t_from_ignored.getFinal_state()) && ! newimc.chain.containsKey(t_from_ignored.getFinal_state()) ){
-//												states_to_process.add(t_from_ignored.getFinal_state());
-//											}
+											//we add the transition as a candidate
 											candidates.add(t_from_ignored);
 										}//end else
 									}//end if
@@ -735,7 +701,7 @@ public class IMCREOimc {
 	 * Remove Forced non determinism from the chain.
 	 * Non determinism exists in a state when two or more IT exist 
 	 * and for each two ITs with set of actions A and B, and M the mixed ports set:
-	 * A \inter B != 0 && A \inter B \inter M != 0
+	 * A \inter M != 0 || A \inter M != 0
 	 * 
 	 * To solve non determinism we check the following cases:
 	 * 
@@ -820,6 +786,8 @@ public class IMCREOimc {
 			newimc.chain.put(current_state.copy(), transitions);			
 		}
 		
+		newimc.removeUnaccessibleStates();
+		
 		return newimc;
 	}
 	
@@ -827,6 +795,189 @@ public class IMCREOimc {
 	
 	
 	
+	
+	
+	/**
+	 * Removes transitions from transmitting states that are not in the correct 
+	 * order, according to the following algorithm
+	 * 	
+	 * For each state in the chain check the MT that are actually transmitting.
+	 * Test each transmitting transition with the others in the state and see
+	 * if it really can transmit before than the other... based on the POSET.
+	 * 
+	 * Take into consideration the buffer state and how the transmitting order
+	 * is affected by the ports...
+	 * 
+	 * @return an IMCREOimc without incorrect transmitting transitions
+	 * 
+	 */
+	public IMCREOimc removeTransitionsIncorrectOrder() {
+		IMCREOimc newimc = new IMCREOimc();
+		//initialize the newimc with the initial state and the poset
+		newimc.setInitial_state(this.initial_state.copy());
+		newimc.setPoset(this.poset);
+		
+		//lets run over all the states in the chain.
+		for(IMCREOState current_state : this.chain.keySet()){
+			//copy the transitions of the current state into the transitions list
+			LinkedList<IMCREOTransition> transitions = new LinkedList<IMCREOTransition>();
+			for(IMCREOTransition t : this.chain.get(current_state)){
+				transitions.add(t.copy());
+			}
+			//now, for each transition in the list...
+			for(int i = 0 ; i <transitions.size() ; i++) {
+				//if the ith transition is MT and transmission
+				if(transitions.get(i) instanceof IMCREOMarkovianTransition && 
+						((IMCREOMarkovianTransition) transitions.get(i)).getSort().equals(IMCREOMarkovianTransitionSort.TRANSMISSION))
+				{
+					//compare it with all the others
+					for(int j = i+1 ; j<transitions.size() ; j++) {
+						//if the jth transition is MT and transmission
+						if(transitions.get(j) instanceof IMCREOMarkovianTransition && 
+								((IMCREOMarkovianTransition) transitions.get(j)).getSort().equals(IMCREOMarkovianTransitionSort.TRANSMISSION))
+						{
+							LinkedHashSet<String> ports_tr_1 = 
+									new LinkedHashSet<String>(((IMCREOMarkovianTransition) transitions.get(i)).getPorts());
+							LinkedHashSet<String> ports_tr_2 = 
+									new LinkedHashSet<String>(((IMCREOMarkovianTransition) transitions.get(j)).getPorts());
+							//compute the difference of ports that are transmitting
+							LinkedHashSet<String> p1_minus_p2 = new LinkedHashSet<String>(ports_tr_1);
+							p1_minus_p2.retainAll(ports_tr_2);
+							LinkedHashSet<String> p2_minus_p1 = new LinkedHashSet<String>(ports_tr_2);
+							p2_minus_p1.retainAll(ports_tr_1);
+							
+							//compute the internal state of the initial state
+							IMCREOBufferState current_internal_state = current_state.getInternalState();
+							//prepare the ports to be according to the POSET and the buffer state
+							preparePortsTransmitting(p1_minus_p2, p2_minus_p1, current_internal_state);
+							//if the first shall transmit first
+							if(isTransmittedBeforeThan(p1_minus_p2, p2_minus_p1)){
+								//then remove the second
+								transitions.remove(j);
+							}
+							else {//otherwise
+								//if the second shal transmit first
+								if(isTransmittedBeforeThan(p2_minus_p1, p1_minus_p2)){
+									//remove the first
+									transitions.remove(i);
+									break;
+								}
+								//if they happen to occur in parallel, then do not remove any...
+							}
+						}
+					}
+				}
+				
+			}
+			//add the entry in the chain...
+			newimc.chain.put(current_state.copy(), transitions);
+		}
+		
+		newimc.removeUnaccessibleStates();
+		
+
+		
+		
+		return newimc;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param t
+	 * @param tf
+	 * @return
+	 */
+	private boolean isTransmittedBeforeThan(Set<String> t, Set<String> tf) {
+	
+		boolean res = true;
+		
+		for(String n_t : t){
+			for(String n_tf : tf) {
+				POPorts.REL comparison = this.poset._transmit_order_(n_t, n_tf);
+				if( comparison == POPorts.REL.PAR && (n_t.contains("#") ^ n_tf.contains("#") )) {
+					comparison = n_t.contains("#") ? POPorts.REL.BFR : POPorts.REL.AFT ; 
+				}
+				res = res && (comparison != POPorts.REL.AFT);
+			}
+		}
+		
+		return res;
+	}
+
+
+
+	/**
+	 * @param p1 a set with ports to prepare according to the POSET and the internal state
+	 * @param p2 a snd set with ports to prepare according to the POSET and the internal state
+	 * @param internal_state the current state internal state
+	 */
+	private void preparePortsTransmitting(Set<String> p1, Set<String> p2, IMCREOBufferState internal_state) {
+		
+		for(String p : p1) {
+			if(internal_state.equals(IMCREOBufferState.FULL)){
+				String new_p_full = p + "#";
+				for(Pair<String, String> pair : this.getPoset().getPo()) {
+					if(pair.fst().equals(new_p_full) || pair.snd().equals(new_p_full)) {
+						p = new_p_full;
+						break;
+					}
+				}
+			}
+		}
+		
+		for(String p : p2) {
+			if(internal_state.equals(IMCREOBufferState.FULL)){
+				String new_p_full = p + "#";
+				for(Pair<String, String> pair : this.getPoset().getPo()) {
+					if(pair.fst().equals(new_p_full) || pair.snd().equals(new_p_full)) {
+						p = new_p_full;
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	/**
+	 * Removes states that are not accessible from the initial state. 
+	 */
+	private void removeUnaccessibleStates(){
+		PriorityQueue<IMCREOState> to_visit = new PriorityQueue<IMCREOState>();
+		LinkedList<IMCREOState> visited = new LinkedList<IMCREOState>();
+		
+		to_visit.add(this.initial_state);
+		
+		while(!to_visit.isEmpty()) {
+			IMCREOState s = to_visit.poll();
+			visited.add(s);
+			if(this.chain.containsKey(s)){
+				for(IMCREOTransition trans : this.chain.get(s)) {
+					IMCREOState st_trans = trans.getFinal_state(); 
+					if(! (to_visit.contains(st_trans) || visited.contains(st_trans))){
+						to_visit.add(st_trans);
+					}
+				}
+			}
+		}
+		
+		Iterator<IMCREOState> it_states = this.chain.keySet().iterator();
+		while(it_states.hasNext()){
+			IMCREOState st = it_states.next();
+			if(! visited.contains(st)){
+				it_states.remove();
+				//System.out.println("[X] " + st + "\n  STATE NOT ACCESSIBLE (removeUnaccessibleStates)");
+			}
+		}
+		
+	}
 	
 	
 	
