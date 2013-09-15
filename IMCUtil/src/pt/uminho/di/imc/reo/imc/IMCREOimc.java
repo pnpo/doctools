@@ -953,11 +953,18 @@ public class IMCREOimc {
 							}
 						}
 						//moreover, if the transmission was not removed, we shall check if it is in the initial state
-						//and we remove it if the initial state is not FULL
-						if(! is_IT_removed && current_state.equals(newimc.initial_state)) {
-							IMCREOBufferState initial_internal_state = current_state.getInternalState();
-							//so if the internal state is not full 
-							if(!initial_internal_state.equals(IMCREOBufferState.FULL)) {
+						
+						if(! is_IT_removed && current_state.equals(newimc.initial_state)  ) {
+							//and we remove it if there is no data at the initial state (having data is different from being full)
+							// or if the actions involved are not ALL mixedports
+							
+							//So, we get the actions and remove all the mixed ports from it
+							LinkedHashSet<String> ACT_minus_MIX = new LinkedHashSet<String>(((IMCREOInteractiveTransition) tr).getActions());
+							ACT_minus_MIX.removeAll(all_mixedports);
+							//remove also the special action that tells apart lossy actions from buffer actions... 
+							ACT_minus_MIX.remove("#");
+							
+							if(! (current_state.hasData() && ACT_minus_MIX.isEmpty()) ) {
 								//we remove the transition
 								transitions.remove(i);
 								i--;

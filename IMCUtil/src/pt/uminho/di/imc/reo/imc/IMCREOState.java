@@ -103,6 +103,13 @@ public class IMCREOState implements Comparable<IMCREOState> {
 					this.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL :
 																			IMCREOBufferState.NONE;
 		return internal_state;
+	}
+	
+	
+	public boolean hasData() {
+		boolean internal_state = 
+				this.getBuffer().contains(IMCREOBufferState.FULL) ? true : false;
+		return internal_state;
 	} 
 
 	

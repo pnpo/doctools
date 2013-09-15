@@ -40,7 +40,7 @@ public class RMAParserTestMain {
 			 
 			 //System.out.println(lossy_ab.toString() + "\n");
 			 
-			 StringTemplate fifo_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1e");
+			 StringTemplate fifo_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1f");
 			 fifo_bc.setAttribute("a", "a");
 			 fifo_bc.setAttribute("b", "b");
 			 fifo_bc.setAttribute("ga", "2.0");
@@ -49,9 +49,9 @@ public class RMAParserTestMain {
 			 fifo_bc.setAttribute("gBb", "2.3");
 			 fifo_bc.setAttribute("id", "f1");
 			 
-			 StringTemplate fifo2_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1f");
+			 StringTemplate fifo2_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1e");
 			 fifo2_bc.setAttribute("a", "b");
-			 fifo2_bc.setAttribute("b", "a");
+			 fifo2_bc.setAttribute("b", "c");
 			 fifo2_bc.setAttribute("ga", "2.0");
 			 fifo2_bc.setAttribute("gb", "2.1");
 			 fifo2_bc.setAttribute("gaB", "2.2");
@@ -127,7 +127,7 @@ public class RMAParserTestMain {
 			 
 			
 			 long startTime = System.currentTimeMillis();
-			 IMCREOimc res = imc2.compose(imc4, mixedports3);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
+			 IMCREOimc res = imc4.compose(imc2, mixedports1);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
 //			 res = res.compose(imc3, mixedports2).synchronise(mixedports2);
 //			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1, sorted_ports).compose(imc3, mixedports2).synchronise(mixedports2, sorted_ports);
 			 
@@ -137,16 +137,16 @@ public class RMAParserTestMain {
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++ COMOPSE +++\n+++++++++++++++++++++++++++++++++\n" );
 			 System.out.println(res);
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++ REDUCTION +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.mixedRequestsReduction(mixedports3);
+			 res = res.mixedRequestsReduction(mixedports1);
 			 System.out.println(res);
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++ NONDETERMINISM +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeForcedNonDeterminism(mixedports3);
+			 res = res.removeForcedNonDeterminism(mixedports1);
 			 System.out.println(res);
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
 			 res = res.removeTransitionsIncorrectOrder();
 			 System.out.println(res);
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeUndesiredTransitions(mixedports3);
+			 res = res.removeUndesiredTransitions(mixedports1);
 			 System.out.println(res);
 
 //			 System.out.println(res.toReoMA());
