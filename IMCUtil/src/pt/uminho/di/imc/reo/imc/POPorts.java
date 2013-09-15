@@ -1,9 +1,8 @@
 /**
  * 
  */
-package pt.uminho.di.imc.reo;
+package pt.uminho.di.imc.reo.imc;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -11,7 +10,7 @@ import pt.uminho.di.imc.util.Pair;
 
 /**
  * @author Nuno Oliveira
- * @date 25 de Mar de 2013
+ * @date 13 de Set de 2013
  *
  */
 public class POPorts {

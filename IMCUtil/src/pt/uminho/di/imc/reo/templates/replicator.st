@@ -9,34 +9,34 @@
 
 #TRANSITIONS
 [] !
-* [$a$] $ga$
-* [$b$] $gb$
-* [$c$] $gc$
+* [$a$] $ga$					@ R_$id$_ARR_[$a$] @
+* [$b$] $gb$					@ R_$id$_ARR_[$b$] @
+* [$c$] $gc$					@ R_$id$_ARR_[$c$] @
 
 
 [$a$] !
-* [$a$ $b$] $gb$
-* [$a$ $c$] $gc$
+* [$a$ $b$] $gb$				@ R_$id$_ARR_[$b$] @
+* [$a$ $c$] $gc$				@ R_$id$_ARR_[$c$] @
 
 [$b$] !
-* [$a$ $b$] $ga$
-* [$b$ $c$] $gc$
+* [$a$ $b$] $ga$				@ R_$id$_ARR_[$a$] @
+* [$b$ $c$] $gc$				@ R_$id$_ARR_[$c$] @
 
 [$c$] !
-* [$a$ $c$] $ga$
-* [$b$ $c$] $gb$
+* [$a$ $c$] $ga$				@ R_$id$_ARR_[$a$] @
+* [$b$ $c$] $gb$				@ R_$id$_ARR_[$b$] @
 
 [$a$ $b$] !
-* [$a$ $b$ $c$] $gc$
+* [$a$ $b$ $c$] $gc$			@ R_$id$_ARR_[$c$] @
 
 [$a$ $c$] !
-* [$a$ $b$ $c$] $gb$
+* [$a$ $b$ $c$] $gb$			@ R_$id$_ARR_[$b$] @
 
 [$b$ $c$] !
-* [$a$ $b$ $c$] $ga$
+* [$a$ $b$ $c$] $ga$			@ R_$id$_ARR_[$a$] @
 
 [$a$ $b$ $c$] <$a$ $b$ $c$>
 * []{$a$ $b$ $c$} 0
 
 []{$a$ $b$ $c$} !
-* [] $gabc$
+* [] $gabc$						@ R_$id$_TRs_[$a$,$b$,$c$] @

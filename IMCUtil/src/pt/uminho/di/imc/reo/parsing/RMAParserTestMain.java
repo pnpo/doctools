@@ -10,9 +10,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 
 
-import pt.uminho.di.imc.IMCTransformer;
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 
 public class RMAParserTestMain {
 
@@ -40,7 +38,7 @@ public class RMAParserTestMain {
 			 
 			 //System.out.println(lossy_ab.toString() + "\n");
 			 
-			 StringTemplate fifo_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1e");
+			 StringTemplate fifo_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1f");
 			 fifo_bc.setAttribute("a", "b");
 			 fifo_bc.setAttribute("b", "c");
 			 fifo_bc.setAttribute("ga", "2.0");
@@ -49,9 +47,27 @@ public class RMAParserTestMain {
 			 fifo_bc.setAttribute("gBb", "2.3");
 			 fifo_bc.setAttribute("id", "f1");
 			 
+			 StringTemplate fifo2_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1e");
+			 fifo2_bc.setAttribute("a", "b");
+			 fifo2_bc.setAttribute("b", "c");
+			 fifo2_bc.setAttribute("ga", "2.0");
+			 fifo2_bc.setAttribute("gb", "2.1");
+			 fifo2_bc.setAttribute("gaB", "2.2");
+			 fifo2_bc.setAttribute("gBb", "2.3");
+			 fifo2_bc.setAttribute("id", "f2");
+			 
 			 
 			 //System.out.println(lossy_ab.toString() + "\n");
 			
+			 
+			 StringTemplate sync_ab = group.getInstanceOf("pt/uminho/di/imc/reo/templates/sync");
+			 sync_ab.setAttribute("a", "b");
+			 sync_ab.setAttribute("b", "c");
+			 sync_ab.setAttribute("ga", "2.0");
+			 sync_ab.setAttribute("gb", "2.1");
+			 sync_ab.setAttribute("gab", "2.2");
+			 sync_ab.setAttribute("id", "s1");
+			 
 			 
 			 
 			 ReoMAParserLexer lex1 = new ReoMAParserLexer(new ANTLRStringStream(lossy_ab.toString()));
@@ -64,13 +80,25 @@ public class RMAParserTestMain {
 			 ReoMAParserParser g2 = new ReoMAParserParser(tokens2);
 			 g2.imc();
 			 
-//			 ReoMAParserLexer lex3 = new ReoMAParserLexer(new ANTLRFileStream("/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/reo_imc/replicator_efg.rma", "UTF8"));
-//			 CommonTokenStream tokens3 = new CommonTokenStream(lex3);
-//			 ReoMAParserParser g3 = new ReoMAParserParser(tokens3);
-//			 g3.imc();
+			 ReoMAParserLexer lex3 = new ReoMAParserLexer(new ANTLRStringStream(sync_ab.toString()));
+			 CommonTokenStream tokens3 = new CommonTokenStream(lex3);
+			 ReoMAParserParser g3 = new ReoMAParserParser(tokens3);
+			 g3.imc();
+			 
+			 ReoMAParserLexer lex4 = new ReoMAParserLexer(new ANTLRStringStream(fifo2_bc.toString()));
+			 CommonTokenStream tokens4 = new CommonTokenStream(lex4);
+			 ReoMAParserParser g4 = new ReoMAParserParser(tokens4);
+			 g4.imc();
 
-			 IMCREOimc<IMCREOState> imc1 = g1.getIMC();
-			 IMCREOimc<IMCREOState> imc2 = g2.getIMC();
+			 IMCREOimc imc1 = g1.getIMC();
+			 IMCREOimc imc2 = g2.getIMC();
+//			 IMCREOimc imc3 = g3.getIMC();
+//			 IMCREOimc imc4 = g4.getIMC();
+			 
+//			 System.out.println(imc1);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+//			 System.out.println(imc2);
+			 
 //			 IMCREOimc<IMCREOState> imc3 = g3.getIMC();
 		 
 			//System.out.println(imc1.toString());
@@ -79,6 +107,11 @@ public class RMAParserTestMain {
 			 
 			 HashSet<String> mixedports1 = new HashSet<String>(1);
 			 mixedports1.add("b");
+//			 HashSet<String> mixedports2 = new HashSet<String>(2);
+//			 mixedports2.add("c");
+			 HashSet<String> mixedports3 = new HashSet<String>(2);
+			 mixedports3.add("b");
+			 mixedports3.add("a");
 			 
 //			 HashSet<String> mixedports2 = new HashSet<String>(1);
 //			 mixedports2.add("e");
@@ -92,15 +125,28 @@ public class RMAParserTestMain {
 			 
 			
 			 long startTime = System.currentTimeMillis();
-//			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1);
+			 IMCREOimc res = imc1.compose(imc2, mixedports1);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
 //			 res = res.compose(imc3, mixedports2).synchronise(mixedports2);
 //			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1, sorted_ports).compose(imc3, mixedports2).synchronise(mixedports2, sorted_ports);
 			 
 			//		 mixedports1.addAll(mixedports2);
 //					 res.hide(mixedports1);
 //			 
-//			 
-//			 System.out.println(res.toString());
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++ COMOPSE +++\n+++++++++++++++++++++++++++++++++\n" );
+			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ REDUCTION +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.mixedRequestsReduction(mixedports1);
+//			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ NONDETERMINISM +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.removeForcedNonDeterminism(mixedports1);
+//			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.removeTransitionsIncorrectOrder();
+//			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.removeUndesiredTransitions(mixedports1);
+//			 System.out.println(res);
+
 //			 System.out.println(res.toReoMA());
 //			 System.out.println(new IMCTransformer(res.toIMC(false)).toMAFormat());
 			 
@@ -122,6 +168,11 @@ public class RMAParserTestMain {
 //			 
 //			 System.out.println(testset.toString());
 //			 System.out.println(testset._transmit_before_("a", "d"));
+			 
+			
+			 
+			 
+			 
 			 
 			 
 		  }

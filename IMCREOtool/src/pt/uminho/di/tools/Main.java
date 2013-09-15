@@ -18,8 +18,8 @@ import com.martiansoftware.jsap.UnflaggedOption;
 
 import pt.uminho.di.cp.model.CoordinationPattern;
 import pt.uminho.di.imc.IMCTransformer;
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.composition.Composer;
 import pt.uminho.di.imc.reo.composition.ScriptParser;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
@@ -98,6 +98,7 @@ public class Main {
 			
 			//output related
 			
+			 
 			FlaggedOption out_rma_file = new FlaggedOption("out_rma_file")
 									.setStringParser(JSAP.STRING_PARSER)
 									.setLongFlag("rma");
@@ -158,7 +159,7 @@ public class Main {
 			
 			//PROCESS
 			
-			IMCREOimc<IMCREOState> imc_result = null;
+			IMCREOimc imc_result = null;
 			LinkedHashSet<String> ports_set = null;
 			
 			String[] files = config.getStringArray("in_rma_files");
@@ -183,15 +184,15 @@ public class Main {
 						if(config.getBoolean("verbose")){
 							System.out.println("Processing " + files[0] + "...");
 						}
-						IMCREOimc<IMCREOState> imc1 = ReoMAParserFrontEnd.parse(files[0], true);
+						IMCREOimc imc1 = ReoMAParserFrontEnd.parse(files[0], true);
 						if(config.getBoolean("verbose")){
 							System.out.println("Processing " + files[1] + "...");
 						}
-						IMCREOimc<IMCREOState> imc2 = ReoMAParserFrontEnd.parse(files[1], true);
+						IMCREOimc imc2 = ReoMAParserFrontEnd.parse(files[1], true);
 						
 						System.out.print("Composing and Synchronising...");
 						long startTime = System.currentTimeMillis();
-						imc_result = imc1.compose(imc2, ports_set).synchronise(ports_set, new LinkedHashSet<String>()).wiseUnion(ports_set);
+						imc_result = imc1.compose(imc2, ports_set).mixedRequestsReduction(ports_set).pruneIMCREO(ports_set);
 						long endTime   = System.currentTimeMillis();
 						long totalTime = endTime - startTime;
 						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
@@ -238,7 +239,7 @@ public class Main {
 							 long startTime = System.currentTimeMillis();
 							 ScriptParser sp = new ScriptParser(imc_script);
 							 Composer cs = sp.parser();
-							 imc_result = cs.intelligentCompose().fixStateReferences();
+							 imc_result = cs.intelligentCompose();
 							 long endTime   = System.currentTimeMillis();
 							 long totalTime = endTime - startTime;
 							 System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");

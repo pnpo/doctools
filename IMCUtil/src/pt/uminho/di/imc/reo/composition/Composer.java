@@ -3,8 +3,7 @@
  */
 package pt.uminho.di.imc.reo.composition;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -13,10 +12,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
-import pt.uminho.di.imc.util.Pair;
 
 /**
  * @author Nuno Oliveira
@@ -230,8 +227,6 @@ public class Composer {
 	 * This method is used to actually invoke the composition and 
 	 * synchornisation methods.
 	 * 
-	 * It follows a strategy of composing via a single mixed node 
-	 * and synchronise via all mixed nodes present for each composition. 
 	 * 
 	 * 
 	 * @param imc1 - the first reo imc to compose
@@ -239,20 +234,32 @@ public class Composer {
 	 * @param mixedports - the set of mixed ports to perform the join of the imcs.
 	 * @return
 	 */
-	private IMCREOimc<IMCREOState> performComposition( IMCREOimc<IMCREOState> imc1, IMCREOimc<IMCREOState> imc2, LinkedHashSet<String> mixedports) {
-		IMCREOimc<Pair<IMCREOState, IMCREOState>> res_internal = new IMCREOimc<Pair<IMCREOState,IMCREOState>>();
-		ArrayList<String> mixedports_list = new ArrayList<String>(mixedports);
-		LinkedHashSet<String> single_mixed_port = new LinkedHashSet<String>();
+	private IMCREOimc performComposition( IMCREOimc imc1, IMCREOimc imc2, LinkedHashSet<String> mixedports) {
+		IMCREOimc res_internal;
+		
+		res_internal = imc1.compose(imc2, mixedports); 
+		System.out.println("-------------------------\nCOMPi\n------------------------------");
+		System.out.println(res_internal);
+		
+		res_internal = res_internal.mixedRequestsReduction(mixedports);
+		System.out.println("-------------------------\nREDi\n------------------------------");
+		System.out.println(res_internal);
+		
+		return res_internal;
+		
+		//ArrayList<String> mixedports_list = new ArrayList<String>(mixedports);
+		//LinkedHashSet<String> single_mixed_port = new LinkedHashSet<String>();
 		
 		//when the mixed ports are more than 1, we shall compose only by one of them
 		//but we perform synchronisation by all of the mixed ports at once
-		if(mixedports.size() > 0) {
-			single_mixed_port.add(mixedports_list.get(0));
-		}
-
-		res_internal = imc1.compose(imc2, single_mixed_port).synchronise(mixedports, this.mixed_ports);
+//		if(mixedports.size() > 0) {
+//			single_mixed_port.add(mixedports_list.get(0));
+//		}
+//
+//		res_internal = imc1.compose(imc2, single_mixed_port).synchronise(mixedports, this.mixed_ports);
 		
-		return mixedports.size() > 1 ? res_internal.wiseUnion(mixedports).cleanAfterMultiMixedPortsSynchronisation(mixedports) : res_internal.wiseUnion(mixedports);
+		//return mixedports.size() > 1 ? res_internal.wiseUnion(mixedports).cleanAfterMultiMixedPortsSynchronisation(mixedports) : res_internal.wiseUnion(mixedports);
+		
 	} 
 	
 	
@@ -282,10 +289,10 @@ public class Composer {
 	 * @return The IMCREOimc of a stochastic connector
 	 * 
 	 */
-	public IMCREOimc<IMCREOState> intelligentCompose(){
-		IMCREOimc<IMCREOState> res = new IMCREOimc<IMCREOState>();
+	public IMCREOimc intelligentCompose(){
+		IMCREOimc res = new IMCREOimc();
 		//HashSet<String> ports_merged = new HashSet<String>();
-		HashSet<String> ports_in_comp = new HashSet<String>();
+		LinkedHashSet<String> ports_in_comp = new LinkedHashSet<String>();
 		
 		
 		if(this.structure_to_text.size()==1) {
@@ -344,10 +351,11 @@ public class Composer {
 							//get the IMC of each structure to compose
 							//the first always need to be parsed
 							//System.out.println(fst + " + " + snd);
-							IMCREOimc<IMCREOState> imc_fst = ReoMAParserFrontEnd.parse(this.structure_to_text.get(fst), false);
+							IMCREOimc imc_fst = ReoMAParserFrontEnd.parse(this.structure_to_text.get(fst), false);
 							//the second may need to be parsed unless it is the current_composition
-							IMCREOimc<IMCREOState> imc_snd = snd.equals(current_comp)/*startsWith("$COMP$")*/ ? 
+							IMCREOimc imc_snd = snd.equals(current_comp)/*startsWith("$COMP$")*/ ? 
 									res : ReoMAParserFrontEnd.parse(this.structure_to_text.get(snd), false);
+						
 							
 							//check the ports of each structure to compose to find the mixed ports
 							// for this composition
@@ -400,8 +408,11 @@ public class Composer {
 				} 
 			}
 		}
+		
+		System.out.println("----------------------------\nREDUCED\n----------------------------");
+		System.out.println(res);
 
-		return res;
+		return res.pruneIMCREO(this.mixed_ports);
 		
 	}
 

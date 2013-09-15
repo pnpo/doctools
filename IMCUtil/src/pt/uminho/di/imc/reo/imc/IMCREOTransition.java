@@ -1,30 +1,30 @@
 /**
  * 
  */
-package pt.uminho.di.imc.reo;
+package pt.uminho.di.imc.reo.imc;
 
 /**
  * @author Nuno Oliveira
- * @date 31 de Jan de 2013
+ * @date 13 de Jan de 2013
  *
  */
-public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransition<STATE>> {
+public abstract class IMCREOTransition implements Comparable<IMCREOTransition> {
 
-	private STATE final_state;
+	private IMCREOState final_state;
 	
 	
 	public IMCREOTransition() {
 		super();
-		this.final_state = null;
+		this.final_state = new IMCREOState();
 	}
 	
 	
 	/**
 	 * @param final_state
 	 */
-	public IMCREOTransition( STATE final_state) {
+	public IMCREOTransition( IMCREOState final_state) {
 		super();
-		this.final_state = final_state;
+		this.final_state = new IMCREOState(final_state);
 	}
 
 
@@ -32,16 +32,16 @@ public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransi
 	/**
 	 * @return the final_state
 	 */
-	public STATE getFinal_state() {
-		return final_state;
+	public IMCREOState getFinal_state() {
+		return new IMCREOState(final_state);
 	}
 
 
 	/**
 	 * @param final_state the final_state to set
 	 */
-	public void setFinal_state(STATE final_state) {
-		this.final_state = final_state;
+	public void setFinal_state(IMCREOState final_state) {
+		this.final_state = new IMCREOState(final_state);
 	}
 
 
@@ -59,6 +59,9 @@ public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransi
 	
 	
 	
+	
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -75,7 +78,6 @@ public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransi
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -84,7 +86,7 @@ public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransi
 			return false;
 		if (!(obj instanceof IMCREOTransition))
 			return false;
-		IMCREOTransition<STATE> other = (IMCREOTransition<STATE>) obj;
+		IMCREOTransition other = (IMCREOTransition) obj;
 		if (final_state == null) {
 			if (other.final_state != null)
 				return false;
@@ -94,7 +96,7 @@ public abstract class IMCREOTransition<STATE> implements Comparable<IMCREOTransi
 	}
 
 
-	public abstract IMCREOTransition<STATE> copy();
+	public abstract IMCREOTransition copy();
 
 	
 	

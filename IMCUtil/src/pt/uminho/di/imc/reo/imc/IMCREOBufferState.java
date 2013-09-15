@@ -1,11 +1,11 @@
 /**
  * 
  */
-package pt.uminho.di.imc.reo;
+package pt.uminho.di.imc.reo.imc;
 
 /**
  * @author Nuno Oliveira
- * @date 31 de Jan de 2013
+ * @date 13 de Set de 2013
  *
  */
 public enum IMCREOBufferState {

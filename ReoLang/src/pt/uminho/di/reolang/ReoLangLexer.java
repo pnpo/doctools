@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g 2013-09-10 23:33:02
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g 2013-09-15 21:40:15
 
 	package pt.uminho.di.reolang;
 
@@ -79,10 +79,10 @@ public class ReoLangLexer extends Lexer {
         try {
             int _type = RW_DECIDE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:19:2: ( 'decide' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:19:4: 'decide'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:19:2: ( 'xor' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:19:4: 'xor'
             {
-            match("decide"); 
+            match("xor"); 
 
 
             }
@@ -1354,9 +1354,9 @@ public class ReoLangLexer extends Lexer {
                     int LA10_2 = input.LA(3);
 
                     if ( ((LA10_2>='0' && LA10_2<='7')) ) {
-                        int LA10_4 = input.LA(4);
+                        int LA10_5 = input.LA(4);
 
-                        if ( ((LA10_4>='0' && LA10_4<='7')) ) {
+                        if ( ((LA10_5>='0' && LA10_5<='7')) ) {
                             alt10=1;
                         }
                         else {
@@ -1787,50 +1787,49 @@ public class ReoLangLexer extends Lexer {
 
     protected DFA11 dfa11 = new DFA11(this);
     static final String DFA11_eotS =
-        "\1\uffff\15\43\12\uffff\1\67\13\uffff\1\70\2\uffff\2\43\1\73\1\74"+
-        "\2\43\1\77\5\43\1\105\2\43\3\uffff\2\43\2\uffff\1\43\1\114\1\uffff"+
-        "\5\43\1\uffff\4\43\1\126\1\43\1\uffff\1\43\1\131\2\43\1\134\4\43"+
-        "\1\uffff\2\43\1\uffff\2\43\1\uffff\1\145\2\43\1\150\1\43\1\152\2"+
-        "\43\1\uffff\2\43\1\uffff\1\43\1\uffff\1\160\1\161\1\43\1\163\1\43"+
-        "\2\uffff\1\43\1\uffff\1\166\1\43\1\uffff\1\170\1\uffff";
+        "\1\uffff\15\43\12\uffff\1\66\13\uffff\1\70\2\uffff\2\43\1\73\1\74"+
+        "\2\43\1\77\5\43\1\105\2\43\3\uffff\1\111\1\43\2\uffff\1\43\1\114"+
+        "\1\uffff\5\43\1\uffff\3\43\1\uffff\1\125\1\43\1\uffff\1\43\1\130"+
+        "\2\43\1\133\3\43\1\uffff\2\43\1\uffff\2\43\1\uffff\1\143\3\43\1"+
+        "\147\2\43\1\uffff\3\43\1\uffff\1\155\1\156\1\43\1\160\1\43\2\uffff"+
+        "\1\43\1\uffff\1\163\1\43\1\uffff\1\165\1\uffff";
     static final String DFA11_eofS =
-        "\171\uffff";
+        "\166\uffff";
     static final String DFA11_minS =
-        "\1\11\1\145\1\157\1\163\1\142\1\163\1\155\1\125\1\141\1\170\1\154"+
-        "\1\157\1\164\1\150\12\uffff\1\60\13\uffff\1\56\2\uffff\1\143\1\151"+
-        "\2\60\1\163\1\145\1\60\1\160\1\114\2\164\1\157\1\60\2\141\3\uffff"+
-        "\1\151\1\156\2\uffff\1\145\1\60\1\uffff\1\157\1\114\1\164\1\145"+
-        "\1\167\1\uffff\1\164\1\143\1\156\1\144\1\60\1\162\1\uffff\1\162"+
-        "\1\60\1\145\1\156\1\60\1\145\1\150\1\156\1\145\1\uffff\1\166\1\164"+
-        "\1\uffff\1\162\1\144\1\uffff\1\60\1\141\1\145\1\60\1\145\1\60\1"+
-        "\156\1\163\1\uffff\1\163\1\154\1\uffff\1\162\1\uffff\2\60\1\164"+
-        "\1\60\1\163\2\uffff\1\151\1\uffff\1\60\1\143\1\uffff\1\60\1\uffff";
+        "\1\11\2\157\1\163\1\142\1\163\1\155\1\125\1\141\1\170\1\154\1\157"+
+        "\1\164\1\150\12\uffff\1\60\13\uffff\1\56\2\uffff\1\162\1\151\2\60"+
+        "\1\163\1\145\1\60\1\160\1\114\2\164\1\157\1\60\2\141\3\uffff\1\60"+
+        "\1\156\2\uffff\1\145\1\60\1\uffff\1\157\1\114\1\164\1\145\1\167"+
+        "\1\uffff\1\164\1\143\1\156\1\uffff\1\60\1\162\1\uffff\1\162\1\60"+
+        "\1\145\1\156\1\60\1\145\1\150\1\156\1\uffff\1\166\1\164\1\uffff"+
+        "\1\162\1\144\1\uffff\1\60\1\141\2\145\1\60\1\156\1\163\1\uffff\1"+
+        "\163\1\154\1\162\1\uffff\2\60\1\164\1\60\1\163\2\uffff\1\151\1\uffff"+
+        "\1\60\1\143\1\uffff\1\60\1\uffff";
     static final String DFA11_maxS =
-        "\1\176\1\145\1\157\1\163\1\146\1\163\1\156\1\125\1\141\1\170\1\154"+
-        "\1\157\1\164\1\150\12\uffff\1\71\13\uffff\1\71\2\uffff\1\143\1\151"+
-        "\2\172\1\163\1\145\1\172\1\160\1\114\2\164\1\157\1\172\1\157\1\141"+
-        "\3\uffff\1\151\1\156\2\uffff\1\145\1\172\1\uffff\1\157\1\114\1\164"+
-        "\1\145\1\167\1\uffff\1\164\1\143\1\156\1\144\1\172\1\162\1\uffff"+
-        "\1\162\1\172\1\145\1\156\1\172\1\145\1\150\1\156\1\145\1\uffff\1"+
-        "\166\1\164\1\uffff\1\162\1\144\1\uffff\1\172\1\141\1\145\1\172\1"+
-        "\145\1\172\1\156\1\163\1\uffff\1\163\1\154\1\uffff\1\162\1\uffff"+
-        "\2\172\1\164\1\172\1\163\2\uffff\1\151\1\uffff\1\172\1\143\1\uffff"+
-        "\1\172\1\uffff";
+        "\1\176\2\157\1\163\1\146\1\163\1\156\1\125\1\141\1\170\1\154\1\157"+
+        "\1\164\1\150\12\uffff\1\71\13\uffff\1\71\2\uffff\1\162\1\151\2\172"+
+        "\1\163\1\145\1\172\1\160\1\114\2\164\1\157\1\172\1\157\1\141\3\uffff"+
+        "\1\172\1\156\2\uffff\1\145\1\172\1\uffff\1\157\1\114\1\164\1\145"+
+        "\1\167\1\uffff\1\164\1\143\1\156\1\uffff\1\172\1\162\1\uffff\1\162"+
+        "\1\172\1\145\1\156\1\172\1\145\1\150\1\156\1\uffff\1\166\1\164\1"+
+        "\uffff\1\162\1\144\1\uffff\1\172\1\141\2\145\1\172\1\156\1\163\1"+
+        "\uffff\1\163\1\154\1\162\1\uffff\2\172\1\164\1\172\1\163\2\uffff"+
+        "\1\151\1\uffff\1\172\1\143\1\uffff\1\172\1\uffff";
     static final String DFA11_acceptS =
         "\16\uffff\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30\1\31\1\32\1\uffff"+
         "\1\34\1\35\1\36\1\37\1\40\1\41\1\42\1\43\1\44\1\45\1\46\1\uffff"+
-        "\1\51\1\52\17\uffff\1\50\1\33\1\47\2\uffff\1\3\1\4\2\uffff\1\6\5"+
-        "\uffff\1\13\6\uffff\1\5\11\uffff\1\2\2\uffff\1\7\2\uffff\1\12\10"+
-        "\uffff\1\15\2\uffff\1\1\1\uffff\1\17\5\uffff\1\10\1\11\1\uffff\1"+
-        "\16\2\uffff\1\14\1\uffff\1\20";
+        "\1\51\1\52\17\uffff\1\33\1\50\1\47\2\uffff\1\3\1\4\2\uffff\1\6\5"+
+        "\uffff\1\13\3\uffff\1\1\2\uffff\1\5\10\uffff\1\2\2\uffff\1\7\2\uffff"+
+        "\1\12\7\uffff\1\15\3\uffff\1\17\5\uffff\1\10\1\11\1\uffff\1\16\2"+
+        "\uffff\1\14\1\uffff\1\20";
     static final String DFA11_specialS =
-        "\1\0\170\uffff}>";
+        "\1\0\165\uffff}>";
     static final String[] DFA11_transitionS = {
             "\2\46\2\uffff\1\46\22\uffff\1\46\1\32\1\42\1\34\4\uffff\1\24"+
             "\1\25\2\uffff\1\22\1\33\1\30\1\45\12\44\1\23\1\21\1\40\1\20"+
             "\1\41\1\31\1\36\15\43\1\7\14\43\1\16\1\uffff\1\17\1\uffff\1"+
-            "\43\1\uffff\1\3\1\43\1\15\1\1\1\11\1\12\2\43\1\6\1\2\4\43\1"+
-            "\4\1\10\2\43\1\14\1\13\1\5\5\43\1\26\1\37\1\27\1\35",
+            "\43\1\uffff\1\3\1\43\1\15\1\43\1\11\1\12\2\43\1\6\1\2\4\43\1"+
+            "\4\1\10\2\43\1\14\1\13\1\5\2\43\1\1\2\43\1\26\1\37\1\27\1\35",
             "\1\47",
             "\1\50",
             "\1\51",
@@ -1854,7 +1853,7 @@ public class ReoLangLexer extends Lexer {
             "",
             "",
             "",
-            "\12\66",
+            "\12\67",
             "",
             "",
             "",
@@ -1866,7 +1865,7 @@ public class ReoLangLexer extends Lexer {
             "",
             "",
             "",
-            "\1\66\1\uffff\12\44",
+            "\1\67\1\uffff\12\44",
             "",
             "",
             "\1\71",
@@ -1887,7 +1886,7 @@ public class ReoLangLexer extends Lexer {
             "",
             "",
             "",
-            "\1\111",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\112",
             "",
             "",
@@ -1903,51 +1902,48 @@ public class ReoLangLexer extends Lexer {
             "\1\122",
             "\1\123",
             "\1\124",
-            "\1\125",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\127",
             "",
-            "\1\130",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\126",
+            "",
+            "\1\127",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\131",
             "\1\132",
-            "\1\133",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\134",
             "\1\135",
             "\1\136",
+            "",
             "\1\137",
             "\1\140",
             "",
             "\1\141",
             "\1\142",
             "",
-            "\1\143",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\144",
-            "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\145",
             "\1\146",
-            "\1\147",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\150",
             "\1\151",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "\1\152",
             "\1\153",
             "\1\154",
             "",
-            "\1\155",
-            "\1\156",
-            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\157",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\161",
             "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\162",
+            "",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\164",
-            "",
-            "",
-            "\1\165",
-            "",
-            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
-            "\1\167",
             "",
             "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             ""
@@ -1996,7 +1992,7 @@ public class ReoLangLexer extends Lexer {
                         int index11_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA11_0=='d') ) {s = 1;}
+                        if ( (LA11_0=='x') ) {s = 1;}
 
                         else if ( (LA11_0=='j') ) {s = 2;}
 
@@ -2064,7 +2060,7 @@ public class ReoLangLexer extends Lexer {
 
                         else if ( (LA11_0=='\"') && ((importMode))) {s = 34;}
 
-                        else if ( ((LA11_0>='A' && LA11_0<='M')||(LA11_0>='O' && LA11_0<='Z')||LA11_0=='_'||LA11_0=='b'||(LA11_0>='g' && LA11_0<='h')||(LA11_0>='k' && LA11_0<='n')||(LA11_0>='q' && LA11_0<='r')||(LA11_0>='v' && LA11_0<='z')) ) {s = 35;}
+                        else if ( ((LA11_0>='A' && LA11_0<='M')||(LA11_0>='O' && LA11_0<='Z')||LA11_0=='_'||LA11_0=='b'||LA11_0=='d'||(LA11_0>='g' && LA11_0<='h')||(LA11_0>='k' && LA11_0<='n')||(LA11_0>='q' && LA11_0<='r')||(LA11_0>='v' && LA11_0<='w')||(LA11_0>='y' && LA11_0<='z')) ) {s = 35;}
 
                         else if ( ((LA11_0>='0' && LA11_0<='9')) ) {s = 36;}
 

@@ -16,7 +16,7 @@ lexer grammar ReoLangLexer;
 
 	
 RW_DECIDE
-	:	'decide'
+	:	'xor'
 	;
 	
 RW_JOIN
