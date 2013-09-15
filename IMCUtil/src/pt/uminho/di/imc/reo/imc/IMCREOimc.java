@@ -269,25 +269,23 @@ public class IMCREOimc {
 							else {
 							//>>>> RULE C3: If the actions in the transition do contain mixed ports
 							//it must synchronise
-								Iterator<IMCREOTransition> it = transitions_2.iterator();
-								while(it.hasNext()){
-									IMCREOTransition t2 = it.next();
-									if(t2 instanceof IMCREOInteractiveTransition){
+								//try lvl 1
+								for(int i = 0 ; i < transitions_2.size() ; i++){
+									IMCREOTransition t2_lvl1 = transitions_2.get(i); 
+									if(t2_lvl1 instanceof IMCREOInteractiveTransition){
 										//new (2013-04-14) -- changed test to synchronise... two actions sync if their intersection with the mixed ports is equal!!!
 										LinkedHashSet<String> actions_inter_mixed_2 = 
-												new LinkedHashSet<String>(((IMCREOInteractiveTransition) t2).getActions());
+												new LinkedHashSet<String>(((IMCREOInteractiveTransition) t2_lvl1).getActions());
 										actions_inter_mixed_2.retainAll(mixedports);
-										//HashSet<String> actions2_intersection = new HashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t2).getActions().getActions());
-										//actions2_intersection.retainAll(actions_intersection);
-										//if(!actions2_intersection.isEmpty()){
+										//test if the trans from imc1 sync with trans from imc2
 										if(actions_inter_mixed_2.equals(actions_inter_mixed)){
 											//create the final state
 											Pair<IMCREOState, IMCREOState> next_state = 
-													new Pair<IMCREOState, IMCREOState>(t1.getFinal_state().copy(), t2.getFinal_state().copy());
+													new Pair<IMCREOState, IMCREOState>(t1.getFinal_state().copy(), t2_lvl1.getFinal_state().copy());
 											//Union of actions
 											LinkedHashSet<String> actions_union = 
 													new LinkedHashSet<String>(((IMCREOInteractiveTransition) t1).getActions());
-											actions_union.addAll(((IMCREOInteractiveTransition) t2).getActions());
+											actions_union.addAll(((IMCREOInteractiveTransition) t2_lvl1).getActions());
 											//create the transition
 											IMCREOInteractiveTransition new_transition = 
 													new IMCREOInteractiveTransition(
@@ -305,17 +303,116 @@ public class IMCREOimc {
 											if(! (to_visit.contains(next_state) || visited.contains(next_state))){
 												to_visit.add(next_state);
 											}
-											
 											//remove the interactive transition on the imc2 that sync...
-											it.remove();
-										}
-										else {
-											//new (2013-06-03) -- added synchronisation clausule: 
-											//actions sync when there is a third set of actions such that
-											//(A \_inter (B \_union C)) == mixed
+											transitions_2.remove(i);
+											i--;
 										}
 									}
 								}
+								//try lvl 2
+								if( mixedports.size() > 1 ){
+									for(int i = 0 ; i < transitions_2.size() - 1 ; i++){
+										IMCREOTransition t2_lvl1 = transitions_2.get(i); 
+										if(t2_lvl1 instanceof IMCREOInteractiveTransition){
+											//new (2013-04-14) -- changed test to synchronise... two actions sync if their intersection with the mixed ports is equal!!!
+											for(int j = i+1 ; j < transitions_2.size() ; j ++) {
+												IMCREOTransition t2_lvl2 = transitions_2.get(j);
+												if(t2_lvl2 instanceof IMCREOInteractiveTransition){
+													//new (2013-04-14) -- changed test to synchronise... two actions sync if their intersection with the mixed ports is equal!!!
+													//the intersection of level 2 shall unite the actions of both transitions from the 2nd imc
+													LinkedHashSet<String> actions_inter_mixed_lvl2 = 
+															new LinkedHashSet<String>(((IMCREOInteractiveTransition) t2_lvl1).getActions());
+													actions_inter_mixed_lvl2.addAll(((IMCREOInteractiveTransition) t2_lvl2).getActions());
+													actions_inter_mixed_lvl2.retainAll(mixedports);
+													//test if the trans from imc1 sync with the two trans from imc2
+													if(actions_inter_mixed_lvl2.equals(actions_inter_mixed)){
+														//create the final state
+														Pair<IMCREOState, IMCREOState> next_state = 
+																new Pair<IMCREOState, IMCREOState>(
+																		t1.getFinal_state().copy(), 
+																		new IMCREOState("¤"+t2_lvl1.getFinal_state().getId()+"_"+t2_lvl2.getFinal_state().getId()+"¤", t2_lvl1.getFinal_state().getBuffer()));
+														//Union of actions
+														LinkedHashSet<String> actions_union = 
+																new LinkedHashSet<String>(((IMCREOInteractiveTransition) t1).getActions());
+														actions_union.addAll(((IMCREOInteractiveTransition) t2_lvl1).getActions());
+														actions_union.addAll(((IMCREOInteractiveTransition) t2_lvl2).getActions());
+														//create the transition
+														IMCREOInteractiveTransition new_transition = 
+																new IMCREOInteractiveTransition(
+																		IMCREOState.concatenate(next_state), 
+																		new LinkedHashSet<String>(actions_union)
+																	);
+														//add the transition
+														newimc.chain.get(ongoing_state_concatenated).add(new_transition);
+														//check whether the resulting state is final
+														//if(this.final_states.contains(next_state.fst()) || other.final_states.contains(next_state.snd())){
+															//add the state as a final state
+														//	newimc.final_states.add(next_state);
+														//}
+														//add the next_state to visit
+														if(! (to_visit.contains(next_state) || visited.contains(next_state))){
+															to_visit.add(next_state);
+														}
+														//remove the interactive transition on the imc2 that sync...
+														transitions_2.remove(i);
+														i--;
+														j--;
+														transitions_2.remove(j);
+														j--;
+													}//end if
+												}//end if
+											}//end for j
+										}// end if
+									}//end for i
+								}//end if M>1
+								
+//								Iterator<IMCREOTransition> it = transitions_2.iterator();
+//								while(it.hasNext()){
+//									IMCREOTransition t2 = it.next();
+//									if(t2 instanceof IMCREOInteractiveTransition){
+//										//new (2013-04-14) -- changed test to synchronise... two actions sync if their intersection with the mixed ports is equal!!!
+//										LinkedHashSet<String> actions_inter_mixed_2 = 
+//												new LinkedHashSet<String>(((IMCREOInteractiveTransition) t2).getActions());
+//										actions_inter_mixed_2.retainAll(mixedports);
+//										//HashSet<String> actions2_intersection = new HashSet<String>(((IMCREOInteractiveTransition<IMCREOState>) t2).getActions().getActions());
+//										//actions2_intersection.retainAll(actions_intersection);
+//										//if(!actions2_intersection.isEmpty()){
+//										if(actions_inter_mixed_2.equals(actions_inter_mixed)){
+//											//create the final state
+//											Pair<IMCREOState, IMCREOState> next_state = 
+//													new Pair<IMCREOState, IMCREOState>(t1.getFinal_state().copy(), t2.getFinal_state().copy());
+//											//Union of actions
+//											LinkedHashSet<String> actions_union = 
+//													new LinkedHashSet<String>(((IMCREOInteractiveTransition) t1).getActions());
+//											actions_union.addAll(((IMCREOInteractiveTransition) t2).getActions());
+//											//create the transition
+//											IMCREOInteractiveTransition new_transition = 
+//													new IMCREOInteractiveTransition(
+//															IMCREOState.concatenate(next_state), 
+//															new LinkedHashSet<String>(actions_union)
+//														);
+//											//add the transition
+//											newimc.chain.get(ongoing_state_concatenated).add(new_transition);
+//											//check whether the resulting state is final
+//											//if(this.final_states.contains(next_state.fst()) || other.final_states.contains(next_state.snd())){
+//												//add the state as a final state
+//											//	newimc.final_states.add(next_state);
+//											//}
+//											//add the next_state to visit
+//											if(! (to_visit.contains(next_state) || visited.contains(next_state))){
+//												to_visit.add(next_state);
+//											}
+//											
+//											//remove the interactive transition on the imc2 that sync...
+//											it.remove();
+//										}
+//										else {
+//											//new (2013-06-03) -- added synchronisation clausule: 
+//											//actions sync when there is a third set of actions such that
+//											//(A \_inter (B \_union C)) == mixed
+//										}
+//									}
+//								}
 							}
 						}
 					
@@ -732,16 +829,22 @@ public class IMCREOimc {
 						//if the jth transition is also interactive
 						if(transitions.get(j) instanceof IMCREOInteractiveTransition) {
 							//prepare the initial intersections for checking the existence of nondeterminism
+							LinkedHashSet<String> A = new LinkedHashSet<String>(((IMCREOInteractiveTransition) transitions.get(i)).getActions());
+							LinkedHashSet<String> B = new LinkedHashSet<String>(((IMCREOInteractiveTransition) transitions.get(j)).getActions());
 							LinkedHashSet<String> A_inter_M = 
-									new LinkedHashSet<String>(((IMCREOInteractiveTransition) transitions.get(i)).getActions());
+									new LinkedHashSet<String>(A);
 							A_inter_M.retainAll(mixedports);
 							
 							LinkedHashSet<String> B_inter_M = 
-									new LinkedHashSet<String>(((IMCREOInteractiveTransition) transitions.get(j)).getActions());
+									new LinkedHashSet<String>(B);
 							B_inter_M.retainAll(mixedports);
 							
+							LinkedHashSet<String> A_inter_B = 
+									new LinkedHashSet<String>(A);
+							A_inter_B.retainAll(B);
+							
 							//check for non determinism
-							if(! A_inter_M.isEmpty() || ! B_inter_M.isEmpty()) {
+							if((! A_inter_M.isEmpty() || ! B_inter_M.isEmpty()) && !A_inter_B.isEmpty()) {
 								
 								//Lets get the state of the buffers from the current_state
 								IMCREOBufferState internal_state = current_state.getInternalState();
@@ -769,6 +872,34 @@ public class IMCREOimc {
 										else {
 											transitions.remove(j);
 											j--;
+										}
+									}
+									else {
+										//case 3)
+										if(A_inter_B.equals(A) ^ A_inter_B.equals(B))
+										{
+											if(A_inter_B.equals(A)){
+												if(internal_state.equals(IMCREOBufferState.FULL)) {
+													transitions.remove(j);
+													j--;
+												}
+												else {
+													transitions.remove(i);
+													i--;
+													break;
+												}
+											}
+											if(A_inter_B.equals(B)){
+												if(internal_state.equals(IMCREOBufferState.FULL)) {
+													transitions.remove(i);
+													i--;
+													break;
+												}
+												else {
+													transitions.remove(j);
+													j--;
+												}
+											}
 										}
 									}
 								}
