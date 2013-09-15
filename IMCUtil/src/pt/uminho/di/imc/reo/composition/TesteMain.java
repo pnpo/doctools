@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import pt.uminho.di.imc.reo.IMCREOBufferState;
-import pt.uminho.di.imc.reo.IMCREOState;
-import pt.uminho.di.imc.reo.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.IMCREOBufferState;
+import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
 
 /**
  * @author Nuno Oliveira
@@ -32,11 +32,11 @@ public class TesteMain {
 						//"sync a b  2.0 2.1 2.2\n" +
 				
 				
-				//"lossy b a 2.0 2.1 2.2 2.3\n" +
-				//"sync a b 1.0 1.1 1.2\n" +
+//				"lossy l1 a b 2.0 2.1 2.2 2.3\n" +
+//				"sync s1 b c 1.0 1.1 1.2\n" +
 				//"sync b a 1.0 1.1 1.2\n" +
 //				"fifo1f a b 1.0 1.1 1.2 1.3\n"+
-//				"fifo1e b a 3.0 3.1 3.2 3.3\n"+
+//				"fifo1e f1 c d 3.0 3.1 3.2 3.3\n"+
 				
 				
 				
@@ -126,11 +126,14 @@ public class TesteMain {
 				
 				
 				
-				"sync s1 xr|2 b 2.0 1.0 0.1\n" +
-				"lossy l1 a xr|0 0.1 0.25 0.4 0.1\n" + 
-				"sync s2 xr|1 c 3.0 0.4 0.3\n" + 
-				"exrouter xor1 xr|0 xr|1 xr|2 0.1 0.1 0.1 0.1 0.1\n" +
+				"sync s1 a b 2.0 1.0 0.1\n" +
+				"lossy l1 b a 0.1 0.25 0.4 0.1\n" +
 				
+//				"sync s1 xr|2 c 2.0 1.0 0.1\n" +
+//				"lossy l1 i xr|0 0.1 0.25 0.4 0.1\n" + 
+//				"lossy l2 xr|1 b 3.0 0.4 0.3 0.5\n" + 
+//				"exrouter xor1 xr|0 xr|1 xr|2 0.1 0.1 0.1 0.1 0.1\n" +
+//				"merger m1 b c o 0.1 0.2 0.3 0.4 0.5\n" +
 				
 						""
 						;
@@ -138,8 +141,8 @@ public class TesteMain {
 		long startTime = System.currentTimeMillis();
 		ScriptParser sp = new ScriptParser(teste);
 		Composer cs = sp.parser();
-		IMCREOimc<IMCREOState> res = cs.intelligentCompose();
-		res.hide(cs.getMixed_ports());
+		IMCREOimc res = cs.intelligentCompose();
+		//res.hide(cs.getMixed_ports());
 		
 		System.out.println(res.toString());
 		
@@ -153,45 +156,45 @@ public class TesteMain {
 		 
 		 
 		 
-		 IMCREOState s1 = new IMCREOState();
-		 s1.getTransmissions().add("j|1$1");
-		 s1.getTransmissions().add("j|0$1");
-		 s1.getTransmissions().add("a");
-		 s1.getBuffer().add(IMCREOBufferState.EMPTY);
-		 s1.getBuffer().add(IMCREOBufferState.NONE);
-		 s1.getBuffer().add(IMCREOBufferState.FULL);
-		 s1.getBuffer().add(IMCREOBufferState.NONE);
-		 
-		 IMCREOState s3 = s1.copy();
-		 IMCREOState s4 = new IMCREOState();
-		 s4.setRequests(new HashSet<String>(s1.getRequests()));
-		 s4.setTransmissions(new HashSet<String>(s1.getTransmissions()));
-		 s4.setBuffer(new ArrayList<IMCREOBufferState>(s1.getBuffer()));
-		 
-		 IMCREOState s2 = new IMCREOState();
-		 s2.getTransmissions().add("j|0$1");
-		 s2.getTransmissions().add("j|1$1");
-		 s2.getTransmissions().add("a");
-		 s2.getBuffer().add(IMCREOBufferState.EMPTY);
-		 s2.getBuffer().add(IMCREOBufferState.NONE);
-		 s2.getBuffer().add(IMCREOBufferState.FULL);
-		 s2.getBuffer().add(IMCREOBufferState.NONE);
-		 
-		 
-		 HashMap<IMCREOState, String> map = new HashMap<IMCREOState, String>();
-		 
-		 map.put(s1, "s1");
-		 map.put(s3, "s3");
-		 map.put(s4, "s4");
-		 
-		 
-		 System.out.println(s1 + " --- " + s1.getTransmissions().hashCode() +  " --- " + s1.getRequests().hashCode() +  " --- " + s1.getBuffer().hashCode() +  " --- " + s1.toString().hashCode() + " --- " + s1.hashCode());
-		 System.out.println(s3 + " --- " + s3.getTransmissions().hashCode() +  " --- " + s3.getRequests().hashCode() +  " --- " + s3.getBuffer().hashCode() +  " --- " + s3.toString().hashCode() + " --- " + s3.hashCode());
-		 System.out.println(s4 + " --- " + s4.getTransmissions().hashCode() +  " --- " + s4.getRequests().hashCode() +  " --- " + s4.getBuffer().hashCode() +  " --- " + s4.toString().hashCode() + " --- " + s4.hashCode());
-		 System.out.println("s1=s3? + " + s1.equals(s3));
-		 System.out.println("s1=s4? + " + s1.equals(s4));
-		 System.out.println("s3=s4? + " + s3.equals(s4));
-		 
+//		 IMCREOState s1 = new IMCREOState();
+//		 s1.getTransmissions().add("j|1$1");
+//		 s1.getTransmissions().add("j|0$1");
+//		 s1.getTransmissions().add("a");
+//		 s1.getBuffer().add(IMCREOBufferState.EMPTY);
+//		 s1.getBuffer().add(IMCREOBufferState.NONE);
+//		 s1.getBuffer().add(IMCREOBufferState.FULL);
+//		 s1.getBuffer().add(IMCREOBufferState.NONE);
+//		 
+//		 IMCREOState s3 = s1.copy();
+//		 IMCREOState s4 = new IMCREOState();
+//		 s4.setRequests(new HashSet<String>(s1.getRequests()));
+//		 s4.setTransmissions(new HashSet<String>(s1.getTransmissions()));
+//		 s4.setBuffer(new ArrayList<IMCREOBufferState>(s1.getBuffer()));
+//		 
+//		 IMCREOState s2 = new IMCREOState();
+//		 s2.getTransmissions().add("j|0$1");
+//		 s2.getTransmissions().add("j|1$1");
+//		 s2.getTransmissions().add("a");
+//		 s2.getBuffer().add(IMCREOBufferState.EMPTY);
+//		 s2.getBuffer().add(IMCREOBufferState.NONE);
+//		 s2.getBuffer().add(IMCREOBufferState.FULL);
+//		 s2.getBuffer().add(IMCREOBufferState.NONE);
+//		 
+//		 
+//		 HashMap<IMCREOState, String> map = new HashMap<IMCREOState, String>();
+//		 
+//		 map.put(s1, "s1");
+//		 map.put(s3, "s3");
+//		 map.put(s4, "s4");
+//		 
+//		 
+//		 System.out.println(s1 + " --- " + s1.getTransmissions().hashCode() +  " --- " + s1.getRequests().hashCode() +  " --- " + s1.getBuffer().hashCode() +  " --- " + s1.toString().hashCode() + " --- " + s1.hashCode());
+//		 System.out.println(s3 + " --- " + s3.getTransmissions().hashCode() +  " --- " + s3.getRequests().hashCode() +  " --- " + s3.getBuffer().hashCode() +  " --- " + s3.toString().hashCode() + " --- " + s3.hashCode());
+//		 System.out.println(s4 + " --- " + s4.getTransmissions().hashCode() +  " --- " + s4.getRequests().hashCode() +  " --- " + s4.getBuffer().hashCode() +  " --- " + s4.toString().hashCode() + " --- " + s4.hashCode());
+//		 System.out.println("s1=s3? + " + s1.equals(s3));
+//		 System.out.println("s1=s4? + " + s1.equals(s4));
+//		 System.out.println("s3=s4? + " + s3.equals(s4));
+//		 
 	}
 	
 }
