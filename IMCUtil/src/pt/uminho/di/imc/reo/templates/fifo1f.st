@@ -45,8 +45,8 @@
 * []{$b$}# 0
 
 []{$b$}# !
-* [$a$]{$b$}# $ga$			@ FIFO1e_$id$_ARR_[$a$] @
-* []& $gBb$					@ FIFO1e_$id$_TRs_B_[$b$] @
+* [$a$]{$b$}# $ga$			@ FIFO1f_$id$_ARR_[$a$] @
+* []& $gBb$					@ FIFO1f_$id$_TRs_B_[$b$] @
 
 [$a$ $b$]# <$b$>
 * [$a$]{$b$}# 0

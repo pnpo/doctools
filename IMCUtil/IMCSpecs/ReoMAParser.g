@@ -74,7 +74,7 @@ transitions
 @init{
 	LinkedList<IMCREOTransition> trans = new LinkedList<IMCREOTransition>();
 }
-	:	(state transition_label (transition_edge[$transition_label.type, $transition_label.actions]
+	:	(state transition_label[$state.value.getInternalState()] (transition_edge[$transition_label.type, $transition_label.actions]
 	{
 		trans.add($transition_edge.transition);
 	}
@@ -94,11 +94,15 @@ transitions
 
 
 
-transition_label returns [String type, LinkedHashSet<String> actions]
+transition_label[IMCREOBufferState buf_s] returns [String type, LinkedHashSet<String> actions]
 	:	actions 
 	{
 		$transition_label.type = "INTERACTIVE";
-		$transition_label.actions = $actions.actions;
+		LinkedHashSet<String> actual_actions = $actions.actions;
+		if($transition_label.buf_s.equals(IMCREOBufferState.FULL) || $transition_label.buf_s.equals(IMCREOBufferState.EMPTY)){
+			actual_actions.add("#");
+		}
+		$transition_label.actions = actual_actions;
 	}
 	|	'!'
 	{

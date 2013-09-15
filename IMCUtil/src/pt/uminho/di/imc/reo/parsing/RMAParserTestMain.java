@@ -41,13 +41,22 @@ public class RMAParserTestMain {
 			 //System.out.println(lossy_ab.toString() + "\n");
 			 
 			 StringTemplate fifo_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1e");
-			 fifo_bc.setAttribute("a", "b");
-			 fifo_bc.setAttribute("b", "c");
+			 fifo_bc.setAttribute("a", "a");
+			 fifo_bc.setAttribute("b", "b");
 			 fifo_bc.setAttribute("ga", "2.0");
 			 fifo_bc.setAttribute("gb", "2.1");
 			 fifo_bc.setAttribute("gaB", "2.2");
 			 fifo_bc.setAttribute("gBb", "2.3");
 			 fifo_bc.setAttribute("id", "f1");
+			 
+			 StringTemplate fifo2_bc = group.getInstanceOf("pt/uminho/di/imc/reo/templates/fifo1f");
+			 fifo2_bc.setAttribute("a", "b");
+			 fifo2_bc.setAttribute("b", "a");
+			 fifo2_bc.setAttribute("ga", "2.0");
+			 fifo2_bc.setAttribute("gb", "2.1");
+			 fifo2_bc.setAttribute("gaB", "2.2");
+			 fifo2_bc.setAttribute("gBb", "2.3");
+			 fifo2_bc.setAttribute("id", "f2");
 			 
 			 
 			 //System.out.println(lossy_ab.toString() + "\n");
@@ -77,10 +86,16 @@ public class RMAParserTestMain {
 			 CommonTokenStream tokens3 = new CommonTokenStream(lex3);
 			 ReoMAParserParser g3 = new ReoMAParserParser(tokens3);
 			 g3.imc();
+			 
+			 ReoMAParserLexer lex4 = new ReoMAParserLexer(new ANTLRStringStream(fifo2_bc.toString()));
+			 CommonTokenStream tokens4 = new CommonTokenStream(lex4);
+			 ReoMAParserParser g4 = new ReoMAParserParser(tokens4);
+			 g4.imc();
 
 			 IMCREOimc imc1 = g1.getIMC();
 			 IMCREOimc imc2 = g2.getIMC();
 			 IMCREOimc imc3 = g3.getIMC();
+			 IMCREOimc imc4 = g4.getIMC();
 			 
 //			 System.out.println(imc1);
 //			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
@@ -96,9 +111,9 @@ public class RMAParserTestMain {
 			 mixedports1.add("b");
 //			 HashSet<String> mixedports2 = new HashSet<String>(2);
 //			 mixedports2.add("c");
-//			 HashSet<String> mixedports3 = new HashSet<String>(2);
-//			 mixedports3.add("c");
-//			 mixedports3.add("a");
+			 HashSet<String> mixedports3 = new HashSet<String>(2);
+			 mixedports3.add("b");
+			 mixedports3.add("a");
 			 
 //			 HashSet<String> mixedports2 = new HashSet<String>(1);
 //			 mixedports2.add("e");
@@ -112,24 +127,26 @@ public class RMAParserTestMain {
 			 
 			
 			 long startTime = System.currentTimeMillis();
-			 IMCREOimc res = imc1.compose(imc2, mixedports1).mixedRequestsReduction(mixedports1);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
+			 IMCREOimc res = imc2.compose(imc4, mixedports3);//.compose(imc3, mixedports2).mixedRequestsReduction(mixedports3);//.synchronise(mixedports1);
 //			 res = res.compose(imc3, mixedports2).synchronise(mixedports2);
 //			 IMCREOimc<IMCREOState> res = imc1.compose(imc2, mixedports1).synchronise(mixedports1, sorted_ports).compose(imc3, mixedports2).synchronise(mixedports2, sorted_ports);
 			 
 			//		 mixedports1.addAll(mixedports2);
 //					 res.hide(mixedports1);
 //			 
-//			 
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++ COMOPSE +++\n+++++++++++++++++++++++++++++++++\n" );
 			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeForcedNonDeterminism(mixedports1);
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++ REDUCTION +++\n+++++++++++++++++++++++++++++++++\n" );
+			 res = res.mixedRequestsReduction(mixedports3);
 			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++ NONDETERMINISM +++\n+++++++++++++++++++++++++++++++++\n" );
+			 res = res.removeForcedNonDeterminism(mixedports3);
+			 System.out.println(res);
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
 			 res = res.removeTransitionsIncorrectOrder();
 			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeUndesiredTransitions();
+			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
+			 res = res.removeUndesiredTransitions(mixedports3);
 			 System.out.println(res);
 
 //			 System.out.println(res.toReoMA());
