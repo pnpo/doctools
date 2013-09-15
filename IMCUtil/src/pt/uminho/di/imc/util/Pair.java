@@ -1,8 +1,6 @@
 package pt.uminho.di.imc.util;
 
-import java.util.HashSet;
 
-import pt.uminho.di.imc.reo.IMCREOState;
 
 /**
  * @author Nuno Oliveira
