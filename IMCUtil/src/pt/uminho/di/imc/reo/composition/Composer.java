@@ -3,8 +3,7 @@
  */
 package pt.uminho.di.imc.reo.composition;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -13,10 +12,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import pt.uminho.di.imc.reo.imc.IMCREOState;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
-import pt.uminho.di.imc.util.Pair;
 
 /**
  * @author Nuno Oliveira

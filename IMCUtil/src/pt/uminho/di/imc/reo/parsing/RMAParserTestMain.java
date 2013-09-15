@@ -10,8 +10,6 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 
 
-import pt.uminho.di.imc.IMCTransformer;
-import pt.uminho.di.imc.reo.imc.IMCREOState;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
 
 public class RMAParserTestMain {
@@ -94,8 +92,8 @@ public class RMAParserTestMain {
 
 			 IMCREOimc imc1 = g1.getIMC();
 			 IMCREOimc imc2 = g2.getIMC();
-			 IMCREOimc imc3 = g3.getIMC();
-			 IMCREOimc imc4 = g4.getIMC();
+//			 IMCREOimc imc3 = g3.getIMC();
+//			 IMCREOimc imc4 = g4.getIMC();
 			 
 //			 System.out.println(imc1);
 //			 System.out.println("++++++++++++++++++++++++++++++++\n+++++++++++++++++++++++++++++++++\n" );
@@ -136,18 +134,18 @@ public class RMAParserTestMain {
 //			 
 			 System.out.println("++++++++++++++++++++++++++++++++\n+++ COMOPSE +++\n+++++++++++++++++++++++++++++++++\n" );
 			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++ REDUCTION +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.mixedRequestsReduction(mixedports1);
-			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++ NONDETERMINISM +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeForcedNonDeterminism(mixedports1);
-			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeTransitionsIncorrectOrder();
-			 System.out.println(res);
-			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
-			 res = res.removeUndesiredTransitions(mixedports1);
-			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ REDUCTION +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.mixedRequestsReduction(mixedports1);
+//			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ NONDETERMINISM +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.removeForcedNonDeterminism(mixedports1);
+//			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.removeTransitionsIncorrectOrder();
+//			 System.out.println(res);
+//			 System.out.println("++++++++++++++++++++++++++++++++\n+++ ORDER +++\n+++++++++++++++++++++++++++++++++\n" );
+//			 res = res.removeUndesiredTransitions(mixedports1);
+//			 System.out.println(res);
 
 //			 System.out.println(res.toReoMA());
 //			 System.out.println(new IMCTransformer(res.toIMC(false)).toMAFormat());

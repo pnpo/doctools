@@ -7,12 +7,14 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import pt.uminho.di.imc.IMC;
+import pt.uminho.di.imc.InteractiveTransition;
+import pt.uminho.di.imc.MarkovianTransition;
 import pt.uminho.di.imc.util.Pair;
 
 
@@ -155,7 +157,6 @@ public class IMCREOimc {
 	 * 
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public IMCREOimc compose(IMCREOimc other, Set<String> mixedports){
 		   
 		
@@ -805,7 +806,7 @@ public class IMCREOimc {
 	 * @param mixedports the set with all the mixed ports
 	 * @return a IMC without forced non determinism...
 	 */
-	public IMCREOimc removeForcedNonDeterminism(Set<String> mixedports){
+	private IMCREOimc removeForcedNonDeterminism(Set<String> mixedports){
 		IMCREOimc newimc = new IMCREOimc();
 		
 		
@@ -958,7 +959,7 @@ public class IMCREOimc {
 	 * 
 	 * @return an IMCREOimc without undesired transitions (request arrivals and IT)
 	 */
-	public IMCREOimc removeUndesiredTransitions(Set all_mixedports){
+	private IMCREOimc removeUndesiredTransitions(Set<String> all_mixedports){
 		IMCREOimc newimc = new IMCREOimc();
 		
 		//initialize the newimc with the initial state and the poset
@@ -1096,7 +1097,7 @@ public class IMCREOimc {
 	 * @return an IMCREOimc without incorrect transmitting transitions
 	 * 
 	 */
-	public IMCREOimc removeTransitionsIncorrectOrder() {
+	private IMCREOimc removeTransitionsIncorrectOrder() {
 		IMCREOimc newimc = new IMCREOimc();
 		//initialize the newimc with the initial state and the poset
 		newimc.setInitial_state(this.initial_state.copy());
@@ -1187,7 +1188,7 @@ public class IMCREOimc {
 	 * 
 	 * @return a new IMCREOimc without deadlock states.
 	 */
-	public IMCREOimc removeDeadLockRemainings(){
+	private IMCREOimc removeDeadLockRemainings(){
 		
 		IMCREOimc newimc = new IMCREOimc();
 		
@@ -1215,8 +1216,41 @@ public class IMCREOimc {
 	
 	
 	
-	//TODO: hideAll
-	
+	/**
+	 * Hides actions in the Interactive Transitions.
+	 * 
+	 * If the set of actions is empty after hidding, 
+	 * then the action becomes internal = tau.
+	 * 
+	 * @param mixedports the mixed ports to hide
+	 * @return a new IMCREOimc with hidden ports in the actions of ITs
+	 */
+	public IMCREOimc hide(Set<String> mixedports){
+		IMCREOimc newimc = new IMCREOimc();
+		
+		newimc.setInitial_state(this.initial_state.copy());
+		newimc.setPoset(this.poset);
+		
+		LinkedHashSet<String> M_union_SHARP = new LinkedHashSet<String>(mixedports);
+		M_union_SHARP.add("#");
+		
+		for(IMCREOState st : this.chain.keySet()){
+			LinkedList<IMCREOTransition> new_tr = new LinkedList<IMCREOTransition>();
+			for(IMCREOTransition tr : this.chain.get(st)) {
+				IMCREOTransition tr_hidden = tr.copy();
+				if(tr instanceof IMCREOInteractiveTransition){
+					((IMCREOInteractiveTransition)tr_hidden).getActions().removeAll(M_union_SHARP);
+					if(((IMCREOInteractiveTransition)tr_hidden).getActions().isEmpty()){
+						((IMCREOInteractiveTransition)tr_hidden).getActions().add("tau");
+					}
+				}
+				new_tr.add(tr_hidden.copy());
+			}
+			newimc.chain.put(st.copy(), new_tr);
+		}
+		
+		return newimc;
+	}
 	
 	
 	
@@ -1377,7 +1411,7 @@ public class IMCREOimc {
 	 * @param intersection the intersection between the effective ports transmitting  
 	 * @return true if set1 transmit before than set2
 	 */
-	private boolean isTransmittedBeforeThan(Set<String> set1, Set<String> set2, Set intersection) {
+	private boolean isTransmittedBeforeThan(Set<String> set1, Set<String> set2, Set<String> intersection) {
 	
 		boolean res = true;
 		
@@ -1513,7 +1547,41 @@ public class IMCREOimc {
 	
 	
 	
-	//TODO:toIMC()
+
+	
+	
+	public IMC toIMC() {
+		IMC imc = new IMC();
+		
+		imc.addInitialState(this.getInitial_state().toString().replaceAll(" ", ""));
+		for(IMCREOState st : this.chain.keySet()){
+			String start_st = st.toString().replaceAll(" ", "");
+			imc.addState(start_st);
+			for(IMCREOTransition tr : this.chain.get(st)){
+				String final_st = tr.getFinal_state().toString().replaceAll(" ", "");
+				if(tr instanceof IMCREOMarkovianTransition) {
+					MarkovianTransition mt = new MarkovianTransition();
+					mt.setStart_state(start_st);
+					mt.setFinal_state(final_st);
+					mt.setRate(((IMCREOMarkovianTransition) tr).getRate());
+					mt.setLabel(((IMCREOMarkovianTransition) tr).getLabel());
+					imc.addTransition(mt);
+				}
+				else {
+					InteractiveTransition it = new InteractiveTransition();
+					it.setStart_state(start_st);
+					it.setFinal_state(final_st);
+					it.setAction(((IMCREOInteractiveTransition) tr).getActions().toString().replaceAll(" ", ""));
+					imc.addTransition(it);
+				}
+			}
+		}
+		
+		return imc;
+	}
+	
+	
+	
 	
 	//TODO:toRMA()
 	
@@ -1595,7 +1663,6 @@ public class IMCREOimc {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

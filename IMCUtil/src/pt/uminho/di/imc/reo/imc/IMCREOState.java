@@ -135,8 +135,6 @@ public class IMCREOState implements Comparable<IMCREOState> {
 		}
 		return sb.toString() ;
 	}
-
-	
 	
 	
 	
@@ -215,11 +213,14 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	 */
 	private static LinkedList<IMCREOBufferState> concatenateBuffers(IMCREOState fst, IMCREOState snd) {
 		LinkedList<IMCREOBufferState> newbuffer = 
-				new LinkedList<IMCREOBufferState>((LinkedList)fst.getBuffer());
-		newbuffer.addAll((LinkedList)snd.getBuffer());
+				new LinkedList<IMCREOBufferState>((LinkedList<IMCREOBufferState>)fst.getBuffer());
+		newbuffer.addAll((LinkedList<IMCREOBufferState>)snd.getBuffer());
 		
 		return newbuffer;
 	}
+
+
+	
 
 
 	

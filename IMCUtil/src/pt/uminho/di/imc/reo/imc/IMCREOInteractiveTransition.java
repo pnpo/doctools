@@ -58,7 +58,7 @@ public class IMCREOInteractiveTransition extends IMCREOTransition {
 	/**
 	 * @param actions the actions to set
 	 */
-	public void setActions(Set actions) {
+	public void setActions(Set<String> actions) {
 		this.actions = new LinkedHashSet<String>(actions);
 	}
 
