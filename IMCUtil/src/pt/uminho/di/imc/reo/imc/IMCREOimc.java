@@ -741,6 +741,9 @@ public class IMCREOimc {
 			newimc.chain.put(current_state, current_state_transitions);
 		}//end while
 		
+		
+		newimc = newimc.removeTransitionsIncorrectOrder();
+		
 		return newimc;
 	}
 	
@@ -767,7 +770,7 @@ public class IMCREOimc {
 	public IMCREOimc pruneIMCREO(Set<String> all_mixedports) {
 		IMCREOimc res = 
 				this.removeForcedNonDeterminism(all_mixedports)
-					.removeTransitionsIncorrectOrder()
+					//.removeTransitionsIncorrectOrder()
 						.removeUndesiredTransitions(all_mixedports)
 							.removeDeadLockRemainings();
 		
@@ -1134,11 +1137,17 @@ public class IMCREOimc {
 							//compute the difference of ports that are transmitting
 							
 							
+							//verify wether there exists data in the internal state of the
+							LinkedList<IMCREOBufferState> fst_part  = new LinkedList<IMCREOBufferState>(current_state.getBuffer()); 
+							IMCREOBufferState snd_part_internal = fst_part.removeLast();
+							IMCREOBufferState fst_part_internal = fst_part.contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							
+							//IMCREOBufferState current_internal_state = current_state.hasData() ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
+							//IMCREOBufferState current_internal_state = current_state.hasData() ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							//compute the internal state of the initial state
-							IMCREOBufferState current_internal_state = current_state.getInternalState();
+							//IMCREOBufferState current_internal_state = current_state.getInternalState();
 							//prepare the ports to be according to the POSET and the buffer state
-							preparePortsTransmitting(ports_tr_1, ports_tr_2, current_internal_state);
+							preparePortsTransmitting(ports_tr_1, ports_tr_2, fst_part_internal, snd_part_internal);
 							//lets check first whether they do not transmit in parallel
 							//by testing that only one transmits before
 							if(isTransmittedBeforeThan(ports_tr_1, ports_tr_2, p1_inter_p2) ^ 
@@ -1447,11 +1456,11 @@ public class IMCREOimc {
 	 * @param p2 a snd set with ports to prepare according to the POSET and the internal state
 	 * @param internal_state the current state internal state
 	 */
-	private void preparePortsTransmitting(Set<String> p1, Set<String> p2, IMCREOBufferState internal_state) {
+	private void preparePortsTransmitting(Set<String> p1, Set<String> p2, IMCREOBufferState internal_state1, IMCREOBufferState internal_state2) {
 		
 		LinkedHashSet<String> p_aux = new LinkedHashSet<String>(p1);
 		for(String p : p_aux) {
-			if(internal_state.equals(IMCREOBufferState.FULL)){
+			if(internal_state1.equals(IMCREOBufferState.FULL)){
 				String new_p_full = p + "#";
 				for(Pair<String, String> pair : this.getPoset().getPo()) {
 					if(pair.fst().equals(new_p_full) || pair.snd().equals(new_p_full)) {
@@ -1466,7 +1475,7 @@ public class IMCREOimc {
 		
 		p_aux = new LinkedHashSet<String>(p2);
 		for(String p : p_aux) {
-			if(internal_state.equals(IMCREOBufferState.FULL)){
+			if(internal_state2.equals(IMCREOBufferState.FULL)){
 				String new_p_full = p + "#";
 				for(Pair<String, String> pair : this.getPoset().getPo()) {
 					if(pair.fst().equals(new_p_full) || pair.snd().equals(new_p_full)) {
