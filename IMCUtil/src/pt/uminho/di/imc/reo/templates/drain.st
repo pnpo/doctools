@@ -1,5 +1,4 @@
 #PORTS
-($a$, $b$) ($b$, $a$)
 
 #INITIALS
 []

@@ -131,6 +131,21 @@ public class TesteMain {
 //				"sync s1 a b 2.0 1.0 0.1\n" +
 //				"lossy l1 b c 0.1 0.25 0.4 0.1\n" +
 				
+				"sync s1 a r0 2.0 1.0 0.1\n" +
+				"replicator re1 r0 r1 r2 0.1 0.2 0.3 0.5\n" +
+				"sync s2 r2 c 2.0 1.0 0.1\n" +
+				"drain sd1 r1 b 0.1 0.25 0.4\n" +
+				
+//				"sync s1 a r0 2.0 1.0 0.1\n" +
+//				"sync s2 b d1 2.0 1.0 0.1\n" +
+//				"drain sd1 d1 r2 0.1 0.25 0.4\n" +
+//				"replicator re1 r0 r1 r2 0.1 0.2 0.3 0.5\n" +
+//				"replicator re2 s0 s1 s2 0.1 0.2 0.3 0.5\n" +
+//				"drain sd2 s1 r1 0.1 0.25 0.4\n" +
+//				"sync s3 c s0 2.0 1.0 0.1\n" +
+//				"drain sd3 s2 d2 0.1 0.25 0.4\n" +
+//				"sync s4 d d2 2.0 1.0 0.1\n" +
+//				
 //				"lossy l1 a b 0.1 0.25 0.4 0.1\n" +
 //				"fifo1e f2 b c 0.1 0.2 0.3 0.4\n"+
 				
