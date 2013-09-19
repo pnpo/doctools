@@ -125,16 +125,16 @@ public class TesteMain {
 						//--"sync f a 4.0 4.1 4.2\n" +
 				
 				
-//				"fifo1f f1 a b 0.1 0.2 0.3 0.4\n"+
-//				"fifo1e f2 b a 0.1 0.2 0.3 0.4\n"+
+				"fifo1e f1 a b 0.1 0.2 0.3 0.4\n"+
+				"fifo1e f2 b c 0.1 0.2 0.3 0.4\n"+
 				
 //				"sync s1 a b 2.0 1.0 0.1\n" +
 //				"lossy l1 b c 0.1 0.25 0.4 0.1\n" +
 				
-				"sync s1 a r0 2.0 1.0 0.1\n" +
-				"replicator re1 r0 r1 r2 0.1 0.2 0.3 0.5\n" +
-				"sync s2 r2 c 2.0 1.0 0.1\n" +
-				"drain sd1 r1 b 0.1 0.25 0.4\n" +
+//				"sync s1 a r0 2.0 1.0 0.1\n" +
+//				"replicator re1 r0 r1 r2 0.1 0.2 0.3 0.5\n" +
+//				"sync s2 r2 c 2.0 1.0 0.1\n" +
+//				"drain sd1 r1 b 0.1 0.25 0.4\n" +
 				
 //				"sync s1 a r0 2.0 1.0 0.1\n" +
 //				"sync s2 b d1 2.0 1.0 0.1\n" +

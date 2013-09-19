@@ -1137,10 +1137,10 @@ public class IMCREOimc {
 							//compute the difference of ports that are transmitting
 							
 							
-							//verify wether there exists data in the internal state of the
-							LinkedList<IMCREOBufferState> fst_part  = new LinkedList<IMCREOBufferState>(current_state.getBuffer()); 
-							IMCREOBufferState snd_part_internal = fst_part.removeLast();
-							IMCREOBufferState fst_part_internal = fst_part.contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
+							//verify whether there exists data in the internal state of the
+							LinkedList<IMCREOBufferState> snd_part  = new LinkedList<IMCREOBufferState>(current_state.getBuffer()); 
+							IMCREOBufferState fst_part_internal = snd_part.removeFirst();
+							IMCREOBufferState snd_part_internal = snd_part.contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							
 							//IMCREOBufferState current_internal_state = current_state.hasData() ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							//IMCREOBufferState current_internal_state = current_state.hasData() ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
