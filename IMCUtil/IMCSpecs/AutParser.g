@@ -36,24 +36,28 @@ header	:	'des' '(' init=INT {this.imc.addInitialState("s" + $init.text) ;} ',' n
 body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
 	{
 		Transition t ;
-		String regex = ".*;\\s*rate\\s+(\\d.*)\"";
-		if($label.text.equals("i") || ! $label.text.matches(regex)) {
-			String _label = $label.text ;
+		if($label.text.equals("i") || ! $label.text.matches(".*\\s*rate\\s+\\d.*\"")) {
+			String _label = "" ;
 			if($label.text.equals("i"))
 			{
 				_label = "tau";
 			}
 			else {
-				_label = $text.substring(1,$label.text.length()-1);
+				_label = $label.text.substring(1,$label.text.length()-1);
 			}
 			t = new InteractiveTransition("s"+$source.text, "s"+$target.text, _label);
+			System.out.println(_label);
 		}
 		else {
-			Pattern pattern = Pattern.compile(regex); 
+			Pattern pattern = Pattern.compile("rate\\s+(\\d.+)"); 
     			Matcher matcher = pattern.matcher($label.text);
     			matcher.find();
-			double _rate = Double.parseDouble(matcher.group(1));
-			String _label = $label.text.substring(1,$label.text.indexOf(';'));
+			double _rate = Double.parseDouble(matcher.group(1).substring(0,matcher.group(1).length()-1));
+			int idx_semicolon = $label.text.indexOf(';');
+			String _label = "";
+			if(idx_semicolon!=-1){
+				_label = $label.text.substring(1,idx_semicolon);
+			}
 			t = new MarkovianTransition("s"+$source.text, "s"+$target.text, _rate, _label);
 		}
 		this.imc.addTransition(t);

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-09-20 17:05:33
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-09-20 18:24:22
 
 	package pt.uminho.di.imc.parsing;
 	
@@ -124,15 +124,10 @@ public class AutParserParser extends Parser {
     }
     // $ANTLR end "header"
 
-    public static class body_return extends ParserRuleReturnScope {
-    };
 
     // $ANTLR start "body"
     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:36:1: body : ( '(' source= INT ',' label= ( STRING | 'i' ) ',' target= INT ')' )+ ;
-    public final AutParserParser.body_return body() throws RecognitionException {
-        AutParserParser.body_return retval = new AutParserParser.body_return();
-        retval.start = input.LT(1);
-
+    public final void body() throws RecognitionException {
         Token source=null;
         Token label=null;
         Token target=null;
@@ -175,24 +170,28 @@ public class AutParserParser extends Parser {
             	    match(input,14,FOLLOW_14_in_body107); 
 
             	    		Transition t ;
-            	    		String regex = ".*;\\s*rate\\s+(\\d.*)\"";
-            	    		if((label!=null?label.getText():null).equals("i") || ! (label!=null?label.getText():null).matches(regex)) {
-            	    			String _label = (label!=null?label.getText():null) ;
+            	    		if((label!=null?label.getText():null).equals("i") || ! (label!=null?label.getText():null).matches(".*\\s*rate\\s+\\d.*\"")) {
+            	    			String _label = "" ;
             	    			if((label!=null?label.getText():null).equals("i"))
             	    			{
             	    				_label = "tau";
             	    			}
             	    			else {
-            	    				_label = input.toString(retval.start,input.LT(-1)).substring(1,(label!=null?label.getText():null).length()-1);
+            	    				_label = (label!=null?label.getText():null).substring(1,(label!=null?label.getText():null).length()-1);
             	    			}
             	    			t = new InteractiveTransition("s"+(source!=null?source.getText():null), "s"+(target!=null?target.getText():null), _label);
+            	    			System.out.println(_label);
             	    		}
             	    		else {
-            	    			Pattern pattern = Pattern.compile(regex); 
+            	    			Pattern pattern = Pattern.compile("rate\\s+(\\d.+)"); 
             	        			Matcher matcher = pattern.matcher((label!=null?label.getText():null));
             	        			matcher.find();
-            	    			double _rate = Double.parseDouble(matcher.group(1));
-            	    			String _label = (label!=null?label.getText():null).substring(1,(label!=null?label.getText():null).indexOf(';'));
+            	    			double _rate = Double.parseDouble(matcher.group(1).substring(0,matcher.group(1).length()-1));
+            	    			int idx_semicolon = (label!=null?label.getText():null).indexOf(';');
+            	    			String _label = "";
+            	    			if(idx_semicolon!=-1){
+            	    				_label = (label!=null?label.getText():null).substring(1,idx_semicolon);
+            	    			}
             	    			t = new MarkovianTransition("s"+(source!=null?source.getText():null), "s"+(target!=null?target.getText():null), _rate, _label);
             	    		}
             	    		this.imc.addTransition(t);
@@ -215,8 +214,6 @@ public class AutParserParser extends Parser {
 
             }
 
-            retval.stop = input.LT(-1);
-
         }
         catch (RecognitionException re) {
             reportError(re);
@@ -224,7 +221,7 @@ public class AutParserParser extends Parser {
         }
         finally {
         }
-        return retval;
+        return ;
     }
     // $ANTLR end "body"
 

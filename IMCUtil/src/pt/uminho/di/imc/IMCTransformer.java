@@ -5,6 +5,7 @@ package pt.uminho.di.imc;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * @author Nuno Oliveira
@@ -182,6 +183,64 @@ public class IMCTransformer {
 		
 		return sb.toString().trim();
 	}
+	
+	
+	
+	
+	
+	public String toPRISMTransitionMatrix(Map<String, Integer> rewards) throws NotCTMCException {
+		StringBuffer sb = new StringBuffer();
+		StringBuffer sb_rew = new StringBuffer();
+		StringBuffer sb_rew_aux = new StringBuffer();
+		boolean has_rewards = rewards != null && ! rewards.isEmpty(); 
+		int number_trans_rewards = 0;
+		//header transition matrix
+		sb.append(this.imc.getStates().size())
+			.append(" ")
+				.append(this.imc.getTransitions().size())
+					.append("\n");
+		
+			
+		//body
+		for(Transition t : this.imc.getTransitions()) {
+			if(t instanceof InteractiveTransition) {
+				throw new NotCTMCException("Interactive transitions are not allowed in CTMCs.\nProblem found at transition: " + t);
+			}
+			else {
+				String trans = t.getStart_state() + " " + t.getFinal_state() + " "; 
+				sb.append(trans)
+					.append(((MarkovianTransition) t).getRate())
+						.append("\n");
+				//body rewards
+				if(has_rewards && rewards.containsKey(((MarkovianTransition) t).getLabel())){
+					sb_rew_aux.append(trans)
+						.append(rewards.get(((MarkovianTransition) t).getLabel()))
+							.append("\n");
+					number_trans_rewards++;
+				}
+				
+			}
+		}
+		
+		//header transition reward
+		sb_rew.append(this.imc.getStates().size())
+			.append(" ")
+				.append(number_trans_rewards)
+					.append("\n")
+						.append(sb_rew_aux);
+		
+		
+		//final composition
+		sb.append("-- TRANSITION REWARDS --\n\n");
+		sb.append(sb_rew);
+		
+		return sb.toString();
+	}
+	
+	
+	
+	
+	
 	
 	
 	
