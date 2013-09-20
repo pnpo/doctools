@@ -71,12 +71,19 @@ public class IMCParserWrapper {
 	public void parse() throws InvalidIMCFileException, RecognitionException, IOException {
 		int ext_index = this.file_name.lastIndexOf(".");
 		String ext = this.file_name.substring(ext_index+1);
-		if( ext.equals("imc") || ext.equals("ma") ) {
+		if( ext.equals("imc") || ext.equals("ma") || ext.equals("aut")) {
 			if(ext.equals("imc")) {
 				this.parseIMC();
 			}
 			else {
-				this.parseMA();
+				if(ext.equals("ma")) {
+					this.parseMA();
+				}
+				else {
+					if(ext.equals("aut")) {
+						this.parseAUT();
+					}
+				}
 			}
 		}
 		else {
@@ -100,6 +107,16 @@ public class IMCParserWrapper {
         
         MAParserParser g = new MAParserParser(tokens1);
         g.imc();
+        this.imc = g.getIMC();
+	}
+	
+	
+	private void parseAUT() throws RecognitionException, IOException {
+		AutParserLexer lex1 = new AutParserLexer(new ANTLRFileStream(this.file.getAbsolutePath(), "UTF8"));
+        CommonTokenStream tokens1 = new CommonTokenStream(lex1);
+        
+        AutParserParser g = new AutParserParser(tokens1);
+        g.aut();
         this.imc = g.getIMC();
 	}
 
