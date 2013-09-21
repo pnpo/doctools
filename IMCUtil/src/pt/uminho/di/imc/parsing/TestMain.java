@@ -15,7 +15,7 @@ public class TestMain {
 	        
 		  //IMCParserWrapper i1 = new IMCParserWrapper(new File("/Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/input/lossy_simple.ma"));
 		  //IMCParserWrapper i2 = new IMCParserWrapper(new File("/Users/macbook/Dropbox/NunoOliveira_Thesis/Thesis/Language/IMCUtil/IMCSpecs/input/fifo_simple.ma"));
-		  IMCParserWrapper i2 = new IMCParserWrapper(new File("/Users/nunooliveira/Desktop/example/lfmin_2.aut"));
+		  IMCParserWrapper i2 = new IMCParserWrapper(new File("/Users/nunooliveira/Desktop/example/lmin_2.aut"));
 		  try {
 			 // i1.parse();
 			 // IMC imc1 = i1.getImc();
@@ -25,7 +25,7 @@ public class TestMain {
 			  System.out.println(imc2.toString());
 			  LinkedHashMap<String, Integer> map = new LinkedHashMap<String, Integer>();
 			  map.put("LOSSY_l1_TRl_[a]", 1);
-			  System.out.println(new IMCTransformer(imc2).toPRISMTransitionMatrix(map));
+			  System.out.println(new IMCTransformer(imc2).toPRISM("test", map));
 			  
 			  
 			  

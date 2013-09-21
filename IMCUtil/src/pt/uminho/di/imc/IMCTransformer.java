@@ -5,7 +5,9 @@ package pt.uminho.di.imc;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author Nuno Oliveira
@@ -187,7 +189,7 @@ public class IMCTransformer {
 	
 	
 	
-	
+	@Deprecated
 	public String toPRISMTransitionMatrix(Map<String, Integer> rewards) throws NotCTMCException {
 		StringBuffer sb = new StringBuffer();
 		StringBuffer sb_rew = new StringBuffer();
@@ -234,6 +236,54 @@ public class IMCTransformer {
 		sb.append("-- TRANSITION REWARDS --\n\n");
 		sb.append(sb_rew);
 		
+		return sb.toString();
+	}
+	
+	
+	
+	
+	
+	public String toPRISM(String module_name, Map<String, Integer> rewards) throws NotCTMCException {
+		StringBuffer sb = new StringBuffer();
+		boolean has_rewards = rewards != null && ! rewards.isEmpty();
+		
+		
+		//header transition matrix
+		sb.append("ctmc\n\n\n")
+			.append("module ").append(module_name).append("\n\n");
+		sb.append("\t//states\n")
+			.append("\ts : [0..").append(this.imc.getStates().size()-1).append("] init 0 ;\n\n");
+		
+			
+		//body
+		for(Transition t : this.imc.getTransitions()) {
+			if(t instanceof InteractiveTransition) {
+				throw new NotCTMCException("Interactive transitions are not allowed in CTMCs.\nProblem found at transition: " + t);
+			}
+			else {
+				String source = t.getStart_state() ;
+				String target = t.getFinal_state() ;
+				String lbl = ((MarkovianTransition) t).getLabel().replaceAll("[\\[\\],]", "_");
+				
+				sb.append("\t[").append(lbl).append("] s=").append(source)
+					.append(" -> ").append(((MarkovianTransition) t).getRate()).append(" : ")
+						.append("( s'=").append(target).append(" ) ; \n");
+				
+			}
+		}
+		
+		sb.append("\nendmodule\n\n");
+		
+		//body rewards
+		if(has_rewards){
+			sb.append("rewards \"<insert reward name here>\"\n");
+			for(String lbl : rewards.keySet()){
+				String lbl2 = lbl.replaceAll("[\\[\\],]", "_");
+				sb.append("\t[").append(lbl2).append("] true : ").append(rewards.get(lbl)).append(";\n");
+			}
+			sb.append("endrewards\n");
+		}
+				
 		return sb.toString();
 	}
 	

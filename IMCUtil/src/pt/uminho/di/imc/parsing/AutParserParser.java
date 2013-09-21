@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-09-20 18:24:22
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-09-21 14:55:04
 
 	package pt.uminho.di.imc.parsing;
 	
@@ -104,7 +104,7 @@ public class AutParserParser extends Parser {
             match(input,11,FOLLOW_11_in_header52); 
             match(input,12,FOLLOW_12_in_header54); 
             init=(Token)match(input,INT,FOLLOW_INT_in_header58); 
-            this.imc.addInitialState("s" + (init!=null?init.getText():null)) ;
+            this.imc.addInitialState( (init!=null?init.getText():null)) ;
             match(input,13,FOLLOW_13_in_header62); 
             n_trans=(Token)match(input,INT,FOLLOW_INT_in_header66); 
             match(input,13,FOLLOW_13_in_header68); 
@@ -179,7 +179,7 @@ public class AutParserParser extends Parser {
             	    			else {
             	    				_label = (label!=null?label.getText():null).substring(1,(label!=null?label.getText():null).length()-1);
             	    			}
-            	    			t = new InteractiveTransition("s"+(source!=null?source.getText():null), "s"+(target!=null?target.getText():null), _label);
+            	    			t = new InteractiveTransition((source!=null?source.getText():null), (target!=null?target.getText():null), _label);
             	    			System.out.println(_label);
             	    		}
             	    		else {
@@ -192,11 +192,11 @@ public class AutParserParser extends Parser {
             	    			if(idx_semicolon!=-1){
             	    				_label = (label!=null?label.getText():null).substring(1,idx_semicolon);
             	    			}
-            	    			t = new MarkovianTransition("s"+(source!=null?source.getText():null), "s"+(target!=null?target.getText():null), _rate, _label);
+            	    			t = new MarkovianTransition((source!=null?source.getText():null), (target!=null?target.getText():null), _rate, _label);
             	    		}
             	    		this.imc.addTransition(t);
-            	    		this.imc.addState("s"+(source!=null?source.getText():null));
-            	    		this.imc.addState("s"+(target!=null?target.getText():null));
+            	    		this.imc.addState((source!=null?source.getText():null));
+            	    		this.imc.addState((target!=null?target.getText():null));
             	    	
 
             	    }

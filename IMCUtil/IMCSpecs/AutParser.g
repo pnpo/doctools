@@ -30,7 +30,7 @@ aut
 	:	header body
 	;
 	
-header	:	'des' '(' init=INT {this.imc.addInitialState("s" + $init.text) ;} ',' n_trans=INT ',' n_states=INT')'
+header	:	'des' '(' init=INT {this.imc.addInitialState( $init.text) ;} ',' n_trans=INT ',' n_states=INT')'
 	;
 	
 body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
@@ -45,7 +45,7 @@ body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
 			else {
 				_label = $label.text.substring(1,$label.text.length()-1);
 			}
-			t = new InteractiveTransition("s"+$source.text, "s"+$target.text, _label);
+			t = new InteractiveTransition($source.text, $target.text, _label);
 			System.out.println(_label);
 		}
 		else {
@@ -58,11 +58,11 @@ body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
 			if(idx_semicolon!=-1){
 				_label = $label.text.substring(1,idx_semicolon);
 			}
-			t = new MarkovianTransition("s"+$source.text, "s"+$target.text, _rate, _label);
+			t = new MarkovianTransition($source.text, $target.text, _rate, _label);
 		}
 		this.imc.addTransition(t);
-		this.imc.addState("s"+$source.text);
-		this.imc.addState("s"+$target.text);
+		this.imc.addState($source.text);
+		this.imc.addState($target.text);
 	}	
 	)+
 	;

@@ -1,10 +1,12 @@
 package pt.uminho.di.tools;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.io.PrintWriter;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import org.antlr.runtime.tree.CommonTreeNodeStream;
@@ -17,8 +19,9 @@ import com.martiansoftware.jsap.Switch;
 import com.martiansoftware.jsap.UnflaggedOption;
 
 import pt.uminho.di.cp.model.CoordinationPattern;
+import pt.uminho.di.imc.IMC;
 import pt.uminho.di.imc.IMCTransformer;
-import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.parsing.IMCParserWrapper;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.composition.Composer;
 import pt.uminho.di.imc.reo.composition.ScriptParser;
@@ -98,6 +101,9 @@ public class Main {
 			
 			//output related
 			
+			
+			
+			
 			 
 			FlaggedOption out_rma_file = new FlaggedOption("out_rma_file")
 									.setStringParser(JSAP.STRING_PARSER)
@@ -132,6 +138,18 @@ public class Main {
 									.setLongFlag("dot");
 			out_dot_file.setHelp("The name of the DOT file to create.");
 			cmd_line.registerParameter(out_dot_file);
+			
+			
+			FlaggedOption out_prism_trans = new FlaggedOption("prism_trans_matrix")
+											.setStringParser(JSAP.STRING_PARSER)
+											.setLongFlag("prism")
+											.setList(true)
+											.setListSeparator(' ');
+			mixedports.setHelp("The name of the input aut file, the name of the \n"+
+								"output file and a list of label names and their \n" +
+								"rewards. An examples would be: \n" +
+								"--prism in.aut out.sta fst_lbl 1 snd_lbl 2");
+			cmd_line.registerParameter(out_prism_trans);
 			
 			
 			JSAPResult config = cmd_line.parse(args);
@@ -254,7 +272,6 @@ public class Main {
 						}
 						
 						
-						
 					}
 				}
 			}
@@ -326,6 +343,54 @@ public class Main {
 				createFile(config.getString("out_aut_file"), "mapping", mapping);
 			}
 			
+			if(config.userSpecified("out_prism_trans")){
+				String[] prism_args = config.getStringArray("prism_trans_matrix");
+				if(config.getBoolean("verbose")){
+					System.out.println("Parsing arguments for prism option...");
+				}
+				String file_in = prism_args[0];
+				String file_out = prism_args[1];
+				LinkedHashMap<String, Integer> rewards = new LinkedHashMap<String, Integer>();
+				String lbl;
+				int rwd;
+				for(int i = 2; i < prism_args.length ; i +=2 ) {
+					if(prism_args.length > i + 1){
+						lbl = prism_args[i];
+						try{
+							rwd = Integer.parseInt(prism_args[i+1]);
+							rewards.put(lbl, rwd);
+						}
+						catch(Exception e){
+							System.err.println("Attention to the reward format. It should be an integer.");
+							System.exit(1);
+						}
+					}
+				}
+				if(config.getBoolean("verbose")){
+					System.out.println("Parsing content of file " + file_in);
+				}
+				IMCParserWrapper p = new IMCParserWrapper(new File(file_in));
+				try{
+					p.parse();
+					IMC imc = p.getImc(); 
+					if(config.getBoolean("verbose")){
+						System.out.println("Converting to prism matrix");
+					}
+					String full_content = new IMCTransformer(imc).toPRISMTransitionMatrix(rewards);
+					if(config.getBoolean("verbose")){
+						System.out.println("Converting to prism matrix");
+					}
+					String content = full_content.substring(0, full_content.indexOf("-- TRANSITION REWARDS --\n\n"));
+					String mapping = full_content.substring(full_content.indexOf("-- TRANSITION REWARDS --\n\n")); 
+					createFile(file_out, "tra", content);
+					createFile(file_out, "rewt", mapping);
+				}
+				catch(Exception e){
+					System.err.println(e.getMessage());
+					System.exit(1);
+				}
+			}
+			
 			
 		} catch (JSAPException e) {
 			e.printStackTrace();
@@ -347,12 +412,12 @@ public class Main {
 	}
 	
 	
-	private static void createFile(String path, String extension, String contents){
+	protected static void createFile(String path, String extension, String contents){
 		try {
 			
 			if(! path.endsWith("." + extension)){
-				System.out.println("WARNING: you provided a wrong file extension. It should be " + extension);
-				System.out.println("\t Don't worry we correct it for you!");
+//				System.out.println("WARNING: you provided a wrong file extension. It should be " + extension);
+//				System.out.println("\t Don't worry we correct it for you!");
 				
 				int dot_pos = path.lastIndexOf('.');
 				if(dot_pos == -1){
@@ -372,7 +437,7 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			
 			System.err.println("Ups some problems in writing your file!");
-			System.err.println("Please check the path and or the permissions.");
+			System.err.println("Please check the path and/or the permissions.");
 			System.err.println("Anyway, I'll print it to the stdio!");
 			
 			System.out.println(contents);
