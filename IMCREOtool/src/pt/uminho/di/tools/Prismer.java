@@ -8,18 +8,18 @@ import pt.uminho.di.imc.IMCTransformer;
 import pt.uminho.di.imc.parsing.IMCParserWrapper;
 
 
-public class Prism {
+public class Prismer {
 	public static void main(String[] args) {
-		if(args.length >= 3){
+		if(args.length >= 2){
 //			if(config.getBoolean("verbose")){
 //				System.out.println("Parsing arguments for prism option...");
 //			}
-			String file_in = args[1];
-			String file_out = args[2];
+			String file_in = args[0];
+			String file_out = args[1];
 			LinkedHashMap<String, Integer> rewards = new LinkedHashMap<String, Integer>();
 			String lbl;
 			int rwd;
-			for(int i = 3; i < args.length ; i +=2 ) {
+			for(int i = 2; i < args.length ; i +=2 ) {
 				if(args.length > i + 1){
 					lbl = args[i];
 					try{
@@ -46,7 +46,7 @@ public class Prism {
 //				if(config.getBoolean("verbose")){
 //					System.out.println("Converting to prism matrix");
 //				}
-				Main.createFile(file_out, "sm", full_content);
+				Generator.createFile(file_out, "sm", full_content);
 				
 			}
 			catch(Exception e){

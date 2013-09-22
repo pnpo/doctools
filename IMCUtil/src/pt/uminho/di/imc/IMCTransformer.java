@@ -245,13 +245,15 @@ public class IMCTransformer {
 	
 	public String toPRISM(String module_name, Map<String, Integer> rewards) throws NotCTMCException {
 		StringBuffer sb = new StringBuffer();
+		StringBuffer sb_constants = new StringBuffer();
+		StringBuffer sb_module = new StringBuffer();
 		boolean has_rewards = rewards != null && ! rewards.isEmpty();
-		
+		LinkedHashMap<String, Double> constants = new LinkedHashMap<String, Double>();
 		
 		//header transition matrix
-		sb.append("ctmc\n\n\n")
-			.append("module ").append(module_name).append("\n\n");
-		sb.append("\t//states\n")
+		sb.append("ctmc\n\n\n");
+		sb_module.append("module ").append(module_name).append("\n\n");
+		sb_module.append("\t//states\n")
 			.append("\ts : [0..").append(this.imc.getStates().size()-1).append("] init 0 ;\n\n");
 		
 			
@@ -264,26 +266,36 @@ public class IMCTransformer {
 				String source = t.getStart_state() ;
 				String target = t.getFinal_state() ;
 				String lbl = ((MarkovianTransition) t).getLabel().replaceAll("[\\[\\],]", "_");
+				String cons_lbl = "CONST_"+lbl;
+				if(! lbl.equals("") && !constants.containsKey(cons_lbl)){
+					constants.put(cons_lbl, ((MarkovianTransition) t).getRate());
+				}
 				
-				sb.append("\t[").append(lbl).append("] s=").append(source)
-					.append(" -> ").append(((MarkovianTransition) t).getRate()).append(" : ")
+				sb_module.append("\t[").append(lbl).append("] s=").append(source)
+					.append(" -> ").append(constants.containsKey(cons_lbl)? cons_lbl : ((MarkovianTransition) t).getRate()).append(" : ")
 						.append("( s'=").append(target).append(" ) ; \n");
 				
 			}
 		}
 		
-		sb.append("\nendmodule\n\n");
+		sb_module.append("\nendmodule\n\n");
 		
 		//body rewards
 		if(has_rewards){
-			sb.append("rewards \"<insert reward name here>\"\n");
+			sb_module.append("rewards \"<insert reward name here>\"\n");
 			for(String lbl : rewards.keySet()){
 				String lbl2 = lbl.replaceAll("[\\[\\],]", "_");
-				sb.append("\t[").append(lbl2).append("] true : ").append(rewards.get(lbl)).append(";\n");
+				sb_module.append("\t[").append(lbl2).append("] true : ").append(rewards.get(lbl)).append(";\n");
 			}
-			sb.append("endrewards\n");
+			sb_module.append("endrewards\n");
 		}
-				
+		
+		//create the constants
+		for(String l : constants.keySet()){
+			sb_constants.append("const double ").append(l).append(" = ").append(constants.get(l)).append(";\n");
+		}
+		
+		sb.append(sb_constants).append("\n").append(sb_module);
 		return sb.toString();
 	}
 	
