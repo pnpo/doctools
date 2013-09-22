@@ -3,8 +3,10 @@
  */
 package pt.uminho.di.imc.reo.imc;
 
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import pt.uminho.di.imc.util.Pair;
 
@@ -17,7 +19,7 @@ import pt.uminho.di.imc.util.Pair;
 public class IMCREOState implements Comparable<IMCREOState> {
 
 	private String id;
-	private List<IMCREOBufferState> buffer;
+	private List<IMCREOInternalState> buffer;
 	
 
 
@@ -28,17 +30,17 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	public IMCREOState() {
 		super();
 		this.id = "NaS";
-		this.buffer = new LinkedList<IMCREOBufferState>();
+		this.buffer = new LinkedList<IMCREOInternalState>();
 	}
 	
 	
 	/**
 	 * @param id
 	 */
-	public IMCREOState(String id, List<IMCREOBufferState> buffer) {
+	public IMCREOState(String id, List<IMCREOInternalState> buffer) {
 		super();
 		this.id = id;
-		this.buffer = new LinkedList<IMCREOBufferState>(buffer);
+		this.buffer = new LinkedList<IMCREOInternalState>(buffer);
 	}
 	
 	
@@ -48,7 +50,7 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	public IMCREOState(IMCREOState s) {
 		super();
 		this.id = s.getId();
-		this.buffer = new LinkedList<IMCREOBufferState>(s.getBuffer());
+		this.buffer = new LinkedList<IMCREOInternalState>(s.getBuffer());
 	}
 	
 
@@ -80,7 +82,7 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	/**
 	 * @return the buffer
 	 */
-	public List<IMCREOBufferState> getBuffer() {
+	public List<IMCREOInternalState> getBuffer() {
 		return buffer;
 	}
 
@@ -88,7 +90,7 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	/**
 	 * @param buffer the buffer to set
 	 */
-	public void setBuffer(List<IMCREOBufferState> buffer) {
+	public void setBuffer(List<IMCREOInternalState> buffer) {
 		this.buffer = buffer;
 	}
 
@@ -98,22 +100,54 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	
 	
 	public IMCREOBufferState getInternalState() {
-		IMCREOBufferState internal_state = 
-				this.getBuffer().contains(IMCREOBufferState.EMPTY) ? IMCREOBufferState.EMPTY : 
-					this.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL :
-																			IMCREOBufferState.NONE;
+		IMCREOBufferState internal_state = IMCREOBufferState.NONE;
+		boolean has_full = false;
+		for(IMCREOInternalState is : this.buffer){
+			if(is.getState().equals(IMCREOBufferState.EMPTY)){
+				internal_state = IMCREOBufferState.EMPTY;
+				break;
+			}
+			else {
+				if(is.getClass().equals(IMCREOBufferState.FULL)){
+					has_full = true;
+				}
+			}
+		}
+		if(internal_state.equals(IMCREOBufferState.NONE) && has_full){
+			internal_state = IMCREOBufferState.FULL;
+		}
+		
+		//this.getFullPorts().isEmpty() ? IMCREOBufferState.EMPTY : IMCREOBufferState.FULL;
+//				this.getBuffer().contains(IMCREOBufferState.EMPTY) ? IMCREOBufferState.EMPTY : 
+//					this.getBuffer().contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL :
+//																			IMCREOBufferState.NONE;
 		return internal_state;
 	}
 	
 	
 	public boolean hasData() {
 		boolean internal_state = 
-				this.getBuffer().contains(IMCREOBufferState.FULL) ? true : false;
+				this.getFullPorts().isEmpty() ? false : true;
+//				this.getBuffer().contains(IMCREOBufferState.FULL) ? true : false;
 		return internal_state;
 	} 
 
 	
 	
+	
+	/**
+	 * Returns the ports that are part of full buffers
+	 * @return
+	 */
+	public Set<String> getFullPorts(){
+		Set<String> ports = new LinkedHashSet<String>();
+		
+		for(IMCREOInternalState is : this.buffer){
+			ports.addAll(is.getPorts());
+		}
+		
+		return ports;
+	}
 	
 	
 	
@@ -126,12 +160,8 @@ public class IMCREOState implements Comparable<IMCREOState> {
 		StringBuffer sb = new StringBuffer();
 		sb.append(id);
 		sb.append("_");
-		for(IMCREOBufferState bs : this.buffer){
-			switch(bs) {
-				case FULL : sb.append("f"); break;
-				case EMPTY: sb.append("e"); break;
-				default : sb.append("-"); break;
-			}
+		for(IMCREOInternalState bs : this.buffer){
+			sb.append(bs.toString());
 		}
 		return sb.toString() ;
 	}
@@ -143,6 +173,9 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	
 
 
+
+
+	
 
 
 	/* (non-Javadoc)
@@ -211,14 +244,17 @@ public class IMCREOState implements Comparable<IMCREOState> {
 	/**
 	 * @param other
 	 */
-	private static LinkedList<IMCREOBufferState> concatenateBuffers(IMCREOState fst, IMCREOState snd) {
-		LinkedList<IMCREOBufferState> newbuffer = 
-				new LinkedList<IMCREOBufferState>((LinkedList<IMCREOBufferState>)fst.getBuffer());
-		newbuffer.addAll((LinkedList<IMCREOBufferState>)snd.getBuffer());
+	private static LinkedList<IMCREOInternalState> concatenateBuffers(IMCREOState fst, IMCREOState snd) {
+		LinkedList<IMCREOInternalState> newbuffer = 
+				new LinkedList<IMCREOInternalState>((LinkedList<IMCREOInternalState>)fst.getBuffer());
+		newbuffer.addAll((LinkedList<IMCREOInternalState>)snd.getBuffer());
 		
 		return newbuffer;
 	}
 
+	
+	
+	
 
 	
 

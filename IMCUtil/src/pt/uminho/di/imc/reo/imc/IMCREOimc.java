@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -1137,17 +1138,17 @@ public class IMCREOimc {
 							//compute the difference of ports that are transmitting
 							
 							
-							//verify whether there exists data in the internal state of the
-							LinkedList<IMCREOBufferState> snd_part  = new LinkedList<IMCREOBufferState>(current_state.getBuffer()); 
-							IMCREOBufferState fst_part_internal = snd_part.removeFirst();
-							IMCREOBufferState snd_part_internal = snd_part.contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
+							//verify whether there exists data in the internal state of the connector
+							LinkedList<IMCREOInternalState> snd_part  = new LinkedList<IMCREOInternalState>(current_state.getBuffer()); 
+							IMCREOInternalState fst_part_internal = snd_part.removeFirst();
+							//IMCREOInternalState snd_part_internal = snd_part.contains(IMCREOBufferState.FULL) ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							
 							//IMCREOBufferState current_internal_state = current_state.hasData() ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							//IMCREOBufferState current_internal_state = current_state.hasData() ? IMCREOBufferState.FULL : IMCREOBufferState.EMPTY;
 							//compute the internal state of the initial state
 							//IMCREOBufferState current_internal_state = current_state.getInternalState();
 							//prepare the ports to be according to the POSET and the buffer state
-							preparePortsTransmitting(ports_tr_1, ports_tr_2, fst_part_internal, snd_part_internal);
+							preparePortsTransmitting(ports_tr_1, ports_tr_2, fst_part_internal, snd_part);
 							//lets check first whether they do not transmit in parallel
 							//by testing that only one transmits before
 							if(isTransmittedBeforeThan(ports_tr_1, ports_tr_2, p1_inter_p2) ^ 
@@ -1456,11 +1457,11 @@ public class IMCREOimc {
 	 * @param p2 a snd set with ports to prepare according to the POSET and the internal state
 	 * @param internal_state the current state internal state
 	 */
-	private void preparePortsTransmitting(Set<String> p1, Set<String> p2, IMCREOBufferState internal_state1, IMCREOBufferState internal_state2) {
+	private void preparePortsTransmitting(Set<String> p1, Set<String> p2, IMCREOInternalState internal_state1, List<IMCREOInternalState> internal_state2) {
 		
 		LinkedHashSet<String> p_aux = new LinkedHashSet<String>(p1);
 		for(String p : p_aux) {
-			if(internal_state1.equals(IMCREOBufferState.FULL)){
+			if(internal_state1.getPorts().contains(p)){
 				String new_p_full = p + "#";
 				for(Pair<String, String> pair : this.getPoset().getPo()) {
 					if(pair.fst().equals(new_p_full) || pair.snd().equals(new_p_full)) {
@@ -1474,8 +1475,12 @@ public class IMCREOimc {
 		}
 		
 		p_aux = new LinkedHashSet<String>(p2);
+		LinkedHashSet<String> ports_full = new LinkedHashSet<String>();
+		for(IMCREOInternalState is : internal_state2){
+			ports_full.addAll(is.getPorts());
+		}
 		for(String p : p_aux) {
-			if(internal_state2.equals(IMCREOBufferState.FULL)){
+			if(ports_full.contains(p)){
 				String new_p_full = p + "#";
 				for(Pair<String, String> pair : this.getPoset().getPo()) {
 					if(pair.fst().equals(new_p_full) || pair.snd().equals(new_p_full)) {

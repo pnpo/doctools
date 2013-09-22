@@ -27,24 +27,30 @@ imc
 @init {
 	this.imc = new IMCREOimc();
 }
-	:	'#PORTS' port_relations? '#INITIALS' initial_state '#GOALS' goal_states '#TRANSITIONS' transitions
+	:	'#PORTS' port_relations? '#INITIALS' initial_state[$port_relations.ports] '#GOALS' goal_states[$port_relations.ports] '#TRANSITIONS' transitions[$port_relations.ports]
 	;
 
-port_relations 
+port_relations returns [LinkedHashSet<String> ports]
 @init{
 	String p1="", p2="";
+	LinkedHashSet<String> _ports = new LinkedHashSet<String>();
 }
 	:	(
 		'(' bfr=ID ( '#' {p1 += "#";} )? ',' aft=ID  ( '#' {p2 += "#";} )? ')' 
 	{
 		this.imc.getPoset().addSinglePOSet(new Pair<String, String>($bfr.text + p1, $aft.text + p2));
+		_ports.add($bfr.text);
+		_ports.add($aft.text);
 	}
 		)+
+	{
+		$port_relations.ports = _ports;
+	}
 	;
 	
 	
-initial_state
-	:	state 
+initial_state[LinkedHashSet<String> ports]
+	:	state[$initial_state.ports] 
 	{
 		this.imc.setInitial_state($state.value);
 	}
@@ -53,11 +59,11 @@ initial_state
 
 
 
-goal_states
+goal_states[LinkedHashSet<String> ports]
 @init{
 	LinkedHashSet<IMCREOState> goals = new LinkedHashSet<IMCREOState>();
 }
-	: ( state 
+	: ( state [$goal_states.ports] 
 	{
 		//goals.add($state.value);
 	}
@@ -70,11 +76,13 @@ goal_states
 
 
 	
-transitions
+transitions [LinkedHashSet<String> ports]
 @init{
 	LinkedList<IMCREOTransition> trans = new LinkedList<IMCREOTransition>();
 }
-	:	(state transition_label[$state.value.getInternalState()] (transition_edge[$transition_label.type, $transition_label.actions]
+	:	(state[$transitions.ports] transition_label[$state.value.getInternalState()] (transition_edge[$transition_label.type, 
+														$transition_label.actions, 
+															$transitions.ports]
 	{
 		trans.add($transition_edge.transition);
 	}
@@ -114,11 +122,11 @@ transition_label[IMCREOBufferState buf_s] returns [String type, LinkedHashSet<St
 
 
 
-transition_edge [String in_type, LinkedHashSet<String> in_action] returns [IMCREOTransition transition]
+transition_edge [String in_type, LinkedHashSet<String> in_action, LinkedHashSet<String> ports] returns [IMCREOTransition transition]
 @init{
 	IMCREOTransition t;
 }	
-	:	'*' state rate ('@' LABEL '@')?
+	:	'*' state[$transition_edge.ports] rate ('@' LABEL '@')?
 	{
 		if($transition_edge.in_type.equals("INTERACTIVE")){
 			t = new IMCREOInteractiveTransition($state.value, in_action);
@@ -134,9 +142,10 @@ transition_edge [String in_type, LinkedHashSet<String> in_action] returns [IMCRE
 
 
 
-state returns [IMCREOState value]
+state[LinkedHashSet<String> ports] returns [IMCREOState value]
 @init{
 	IMCREOState st = new IMCREOState();
+	IMCREOInternalState is = new IMCREOInternalState();
 	String bs = null;
 	String state_id = "";
 }
@@ -150,12 +159,12 @@ state returns [IMCREOState value]
 		state_id = ( state_id.equals("E") && ! $transmissions.transset.equals("") ) ? $transmissions.transset : state_id + $transmissions.transset;
 	}
 	)? 
-	('#' {bs="#"; st.getBuffer().add(IMCREOBufferState.FULL);} 
-	|'&' {bs="&"; st.getBuffer().add(IMCREOBufferState.EMPTY);} 
+	('#' {bs="#"; st.getBuffer().add(new IMCREOInternalState(IMCREOBufferState.FULL, new LinkedHashSet<String>(ports)));} 
+	|'&' {bs="&"; st.getBuffer().add(new IMCREOInternalState(IMCREOBufferState.EMPTY, new LinkedHashSet<String>()));} 
 	)*
 	{
 		
-		if(bs==null){st.getBuffer().add(IMCREOBufferState.NONE);}
+		if(bs==null){st.getBuffer().add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));}
 		st.setId(state_id);
 		$state.value = st;
 	}
