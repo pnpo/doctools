@@ -921,8 +921,8 @@ public class IMCREOimc {
 		
 		newimc.removeUnaccessibleStates();
 		
-		System.out.println("----------------------------\nNON DETERMINISM\n----------------------------");
-		System.out.println(newimc);
+//		System.out.println("----------------------------\nNON DETERMINISM\n----------------------------");
+//		System.out.println(newimc);
 		
 		return newimc;
 	}
@@ -1076,8 +1076,8 @@ public class IMCREOimc {
 		
 		newimc.removeUnaccessibleStates();
 		
-		System.out.println("----------------------------\nUNDESIRED\n----------------------------");
-		System.out.println(newimc);
+//		System.out.println("----------------------------\nUNDESIRED\n----------------------------");
+//		System.out.println(newimc);
 		
 		return newimc;
 		
@@ -1182,8 +1182,8 @@ public class IMCREOimc {
 		
 		newimc.removeUnaccessibleStates();
 		
-		System.out.println("----------------------------\nINCORRECT\n----------------------------");
-		System.out.println(newimc);
+//		System.out.println("----------------------------\nINCORRECT\n----------------------------");
+//		System.out.println(newimc);
 		
 		return newimc;
 	}
@@ -1218,8 +1218,8 @@ public class IMCREOimc {
 		}
 		
 		
-		System.out.println("----------------------------\nDEADLOCK\n----------------------------");
-		System.out.println(newimc);
+//		System.out.println("----------------------------\nDEADLOCK\n----------------------------");
+//		System.out.println(newimc);
 		
 		//newimc.removeUnaccessibleStates();
 		return newimc;

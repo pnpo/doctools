@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-09-21 14:55:04
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-09-24 10:52:02
 
 	package pt.uminho.di.imc.parsing;
 	
@@ -180,7 +180,7 @@ public class AutParserParser extends Parser {
             	    				_label = (label!=null?label.getText():null).substring(1,(label!=null?label.getText():null).length()-1);
             	    			}
             	    			t = new InteractiveTransition((source!=null?source.getText():null), (target!=null?target.getText():null), _label);
-            	    			System.out.println(_label);
+            	    			//System.out.println(_label);
             	    		}
             	    		else {
             	    			Pattern pattern = Pattern.compile("rate\\s+(\\d.+)"); 

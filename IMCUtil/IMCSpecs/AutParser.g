@@ -46,7 +46,7 @@ body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
 				_label = $label.text.substring(1,$label.text.length()-1);
 			}
 			t = new InteractiveTransition($source.text, $target.text, _label);
-			System.out.println(_label);
+			//System.out.println(_label);
 		}
 		else {
 			Pattern pattern = Pattern.compile("rate\\s+(\\d.+)"); 
