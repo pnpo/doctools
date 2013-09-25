@@ -77,7 +77,7 @@ RW_IMPORT
 	
 	
 	
-RW_RUN
+RW_STOCHASTIC
 	: 	'stochastic'
 	;
 

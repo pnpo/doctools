@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g 2013-09-15 21:40:15
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g 2013-09-25 13:59:08
 
 	package pt.uminho.di.reolang;
 
@@ -38,6 +38,7 @@ public class ReoLangLexer extends Lexer {
     public static final int RW_OBSERVERS=15;
     public static final int BODY_OPEN=28;
     public static final int COND_CLOSE=39;
+    public static final int RW_STOCHASTIC=19;
     public static final int UNICODE_ESC=49;
     public static final int HEX_DIGIT=48;
     public static final int TIME_MARK=36;
@@ -52,7 +53,6 @@ public class ReoLangLexer extends Lexer {
     public static final int STRUCTURE_MARK=35;
     public static final int RW_STATE=16;
     public static final int BODY_CLOSE=29;
-    public static final int RW_RUN=19;
     public static final int RW_DECIDE=4;
     public static final int RW_IN=9;
     public static final int FILE_PATH=41;
@@ -390,10 +390,10 @@ public class ReoLangLexer extends Lexer {
     }
     // $ANTLR end "RW_IMPORT"
 
-    // $ANTLR start "RW_RUN"
-    public final void mRW_RUN() throws RecognitionException {
+    // $ANTLR start "RW_STOCHASTIC"
+    public final void mRW_STOCHASTIC() throws RecognitionException {
         try {
-            int _type = RW_RUN;
+            int _type = RW_STOCHASTIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:81:2: ( 'stochastic' )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:81:5: 'stochastic'
@@ -409,7 +409,7 @@ public class ReoLangLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RW_RUN"
+    // $ANTLR end "RW_STOCHASTIC"
 
     // $ANTLR start "LIST_OPEN"
     public final void mLIST_OPEN() throws RecognitionException {
@@ -1481,7 +1481,7 @@ public class ReoLangLexer extends Lexer {
     // $ANTLR end "UNICODE_ESC"
 
     public void mTokens() throws RecognitionException {
-        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:8: ( RW_DECIDE | RW_JOIN | RW_AS | RW_OF | RW_USE | RW_IN | RW_NULL | RW_PATTERN | RW_EXTENDS | RW_FLOW | RW_TO | RW_OBSERVERS | RW_STATE | RW_CHANNEL | RW_IMPORT | RW_RUN | LIST_OPEN | LIST_CLOSE | EQUALS | SEMICOLON | COMMA | COLON | PORTS_OPEN | PORTS_CLOSE | BODY_OPEN | BODY_CLOSE | ACCESS_MARK | QUESTION_MARK | NOT_MARK | ARROW_MARK | LABEL_MARK | STRUCTURE_MARK | TIME_MARK | OP_SYNC | COND_OPEN | COND_CLOSE | FILE_PATH | ID | INT | FLOAT | COMMENT | WS )
+        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:8: ( RW_DECIDE | RW_JOIN | RW_AS | RW_OF | RW_USE | RW_IN | RW_NULL | RW_PATTERN | RW_EXTENDS | RW_FLOW | RW_TO | RW_OBSERVERS | RW_STATE | RW_CHANNEL | RW_IMPORT | RW_STOCHASTIC | LIST_OPEN | LIST_CLOSE | EQUALS | SEMICOLON | COMMA | COLON | PORTS_OPEN | PORTS_CLOSE | BODY_OPEN | BODY_CLOSE | ACCESS_MARK | QUESTION_MARK | NOT_MARK | ARROW_MARK | LABEL_MARK | STRUCTURE_MARK | TIME_MARK | OP_SYNC | COND_OPEN | COND_CLOSE | FILE_PATH | ID | INT | FLOAT | COMMENT | WS )
         int alt11=42;
         alt11 = dfa11.predict(input);
         switch (alt11) {
@@ -1591,189 +1591,189 @@ public class ReoLangLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:140: RW_RUN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:140: RW_STOCHASTIC
                 {
-                mRW_RUN(); 
+                mRW_STOCHASTIC(); 
 
                 }
                 break;
             case 17 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:147: LIST_OPEN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:154: LIST_OPEN
                 {
                 mLIST_OPEN(); 
 
                 }
                 break;
             case 18 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:157: LIST_CLOSE
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:164: LIST_CLOSE
                 {
                 mLIST_CLOSE(); 
 
                 }
                 break;
             case 19 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:168: EQUALS
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:175: EQUALS
                 {
                 mEQUALS(); 
 
                 }
                 break;
             case 20 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:175: SEMICOLON
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:182: SEMICOLON
                 {
                 mSEMICOLON(); 
 
                 }
                 break;
             case 21 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:185: COMMA
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:192: COMMA
                 {
                 mCOMMA(); 
 
                 }
                 break;
             case 22 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:191: COLON
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:198: COLON
                 {
                 mCOLON(); 
 
                 }
                 break;
             case 23 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:197: PORTS_OPEN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:204: PORTS_OPEN
                 {
                 mPORTS_OPEN(); 
 
                 }
                 break;
             case 24 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:208: PORTS_CLOSE
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:215: PORTS_CLOSE
                 {
                 mPORTS_CLOSE(); 
 
                 }
                 break;
             case 25 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:220: BODY_OPEN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:227: BODY_OPEN
                 {
                 mBODY_OPEN(); 
 
                 }
                 break;
             case 26 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:230: BODY_CLOSE
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:237: BODY_CLOSE
                 {
                 mBODY_CLOSE(); 
 
                 }
                 break;
             case 27 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:241: ACCESS_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:248: ACCESS_MARK
                 {
                 mACCESS_MARK(); 
 
                 }
                 break;
             case 28 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:253: QUESTION_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:260: QUESTION_MARK
                 {
                 mQUESTION_MARK(); 
 
                 }
                 break;
             case 29 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:267: NOT_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:274: NOT_MARK
                 {
                 mNOT_MARK(); 
 
                 }
                 break;
             case 30 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:276: ARROW_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:283: ARROW_MARK
                 {
                 mARROW_MARK(); 
 
                 }
                 break;
             case 31 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:287: LABEL_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:294: LABEL_MARK
                 {
                 mLABEL_MARK(); 
 
                 }
                 break;
             case 32 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:298: STRUCTURE_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:305: STRUCTURE_MARK
                 {
                 mSTRUCTURE_MARK(); 
 
                 }
                 break;
             case 33 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:313: TIME_MARK
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:320: TIME_MARK
                 {
                 mTIME_MARK(); 
 
                 }
                 break;
             case 34 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:323: OP_SYNC
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:330: OP_SYNC
                 {
                 mOP_SYNC(); 
 
                 }
                 break;
             case 35 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:331: COND_OPEN
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:338: COND_OPEN
                 {
                 mCOND_OPEN(); 
 
                 }
                 break;
             case 36 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:341: COND_CLOSE
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:348: COND_CLOSE
                 {
                 mCOND_CLOSE(); 
 
                 }
                 break;
             case 37 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:352: FILE_PATH
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:359: FILE_PATH
                 {
                 mFILE_PATH(); 
 
                 }
                 break;
             case 38 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:362: ID
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:369: ID
                 {
                 mID(); 
 
                 }
                 break;
             case 39 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:365: INT
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:372: INT
                 {
                 mINT(); 
 
                 }
                 break;
             case 40 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:369: FLOAT
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:376: FLOAT
                 {
                 mFLOAT(); 
 
                 }
                 break;
             case 41 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:375: COMMENT
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:382: COMMENT
                 {
                 mCOMMENT(); 
 
                 }
                 break;
             case 42 :
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:383: WS
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangLexer.g:1:390: WS
                 {
                 mWS(); 
 
@@ -1979,7 +1979,7 @@ public class ReoLangLexer extends Lexer {
             this.transition = DFA11_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( RW_DECIDE | RW_JOIN | RW_AS | RW_OF | RW_USE | RW_IN | RW_NULL | RW_PATTERN | RW_EXTENDS | RW_FLOW | RW_TO | RW_OBSERVERS | RW_STATE | RW_CHANNEL | RW_IMPORT | RW_RUN | LIST_OPEN | LIST_CLOSE | EQUALS | SEMICOLON | COMMA | COLON | PORTS_OPEN | PORTS_CLOSE | BODY_OPEN | BODY_CLOSE | ACCESS_MARK | QUESTION_MARK | NOT_MARK | ARROW_MARK | LABEL_MARK | STRUCTURE_MARK | TIME_MARK | OP_SYNC | COND_OPEN | COND_CLOSE | FILE_PATH | ID | INT | FLOAT | COMMENT | WS );";
+            return "1:1: Tokens : ( RW_DECIDE | RW_JOIN | RW_AS | RW_OF | RW_USE | RW_IN | RW_NULL | RW_PATTERN | RW_EXTENDS | RW_FLOW | RW_TO | RW_OBSERVERS | RW_STATE | RW_CHANNEL | RW_IMPORT | RW_STOCHASTIC | LIST_OPEN | LIST_CLOSE | EQUALS | SEMICOLON | COMMA | COLON | PORTS_OPEN | PORTS_CLOSE | BODY_OPEN | BODY_CLOSE | ACCESS_MARK | QUESTION_MARK | NOT_MARK | ARROW_MARK | LABEL_MARK | STRUCTURE_MARK | TIME_MARK | OP_SYNC | COND_OPEN | COND_CLOSE | FILE_PATH | ID | INT | FLOAT | COMMENT | WS );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;

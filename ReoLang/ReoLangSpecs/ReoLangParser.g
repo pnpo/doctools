@@ -350,7 +350,7 @@ special_port_access_list
 	
 
 /*stochastic_def
-	:	RW_RUN i1=ID TIME_MARK BODY_OPEN stochastic_list BODY_CLOSE RW_AS i2=ID
+	:	RW_STOCHASTIC i1=ID TIME_MARK BODY_OPEN stochastic_list BODY_CLOSE RW_AS i2=ID
 		-> ^(RW_RUN $i1 $i2 stochastic_list)
 	;
 	

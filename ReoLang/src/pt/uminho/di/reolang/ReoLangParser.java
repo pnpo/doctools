@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2013-09-15 21:40:25
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2013-09-25 13:59:17
 
 	package pt.uminho.di.reolang;
 	import java.text.*;
@@ -17,7 +17,7 @@ import org.antlr.runtime.tree.*;
 
 public class ReoLangParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RW_DECIDE", "RW_JOIN", "RW_AS", "RW_OF", "RW_USE", "RW_IN", "RW_NULL", "RW_PATTERN", "RW_EXTENDS", "RW_FLOW", "RW_TO", "RW_OBSERVERS", "RW_STATE", "RW_CHANNEL", "RW_IMPORT", "RW_RUN", "LIST_OPEN", "LIST_CLOSE", "EQUALS", "SEMICOLON", "COMMA", "COLON", "PORTS_OPEN", "PORTS_CLOSE", "BODY_OPEN", "BODY_CLOSE", "ACCESS_MARK", "QUESTION_MARK", "NOT_MARK", "ARROW_MARK", "LABEL_MARK", "STRUCTURE_MARK", "TIME_MARK", "OP_SYNC", "COND_OPEN", "COND_CLOSE", "STRING", "FILE_PATH", "ID", "INT", "FLOAT", "COMMENT", "WS", "ESC_SEQ", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "REO_LANG", "ELEMENT", "DIRECTIVE", "IMPORT", "CHANNEL", "SIGNATURE", "OPTION", "TIMED", "TIME", "STRUCTURED", "DIMENSION", "CHANNEL_PORTS", "IN_PORTS", "OUT_PORTS", "PORT", "CONDITION", "COND_ELEMENTS", "EXTENSION", "CHANNEL_BODY", "FLOWS", "CHANNEL_STATE", "STATE_REF", "STATE_OBS", "FLOW", "REQUESTS", "REQUEST", "FLOW_TYPE", "NORMAL_FLOW", "FLOW_POINT", "FLOW_OP", "IF_FLOW", "FLOW_TRUE", "FLOW_FALSE", "PATTERN", "PATTERN_SIGNATURE", "PATTERN_PORTS", "PATTERN_BODY", "PATTERN_DECLARATIONS", "DECLARATION", "INSTANCES", "DECLARATION_TYPE", "PATTERN_COMPOSITIONS", "PORT_DEFINITION", "PORT_ACTUAL_DEFINITION", "PORT_ACCESS", "JOIN_OP", "PORT_ACCESS_LIST", "STOCH"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RW_DECIDE", "RW_JOIN", "RW_AS", "RW_OF", "RW_USE", "RW_IN", "RW_NULL", "RW_PATTERN", "RW_EXTENDS", "RW_FLOW", "RW_TO", "RW_OBSERVERS", "RW_STATE", "RW_CHANNEL", "RW_IMPORT", "RW_STOCHASTIC", "LIST_OPEN", "LIST_CLOSE", "EQUALS", "SEMICOLON", "COMMA", "COLON", "PORTS_OPEN", "PORTS_CLOSE", "BODY_OPEN", "BODY_CLOSE", "ACCESS_MARK", "QUESTION_MARK", "NOT_MARK", "ARROW_MARK", "LABEL_MARK", "STRUCTURE_MARK", "TIME_MARK", "OP_SYNC", "COND_OPEN", "COND_CLOSE", "STRING", "FILE_PATH", "ID", "INT", "FLOAT", "COMMENT", "WS", "ESC_SEQ", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "REO_LANG", "ELEMENT", "DIRECTIVE", "IMPORT", "CHANNEL", "SIGNATURE", "OPTION", "TIMED", "TIME", "STRUCTURED", "DIMENSION", "CHANNEL_PORTS", "IN_PORTS", "OUT_PORTS", "PORT", "CONDITION", "COND_ELEMENTS", "EXTENSION", "CHANNEL_BODY", "FLOWS", "CHANNEL_STATE", "STATE_REF", "STATE_OBS", "FLOW", "REQUESTS", "REQUEST", "FLOW_TYPE", "NORMAL_FLOW", "FLOW_POINT", "FLOW_OP", "IF_FLOW", "FLOW_TRUE", "FLOW_FALSE", "PATTERN", "PATTERN_SIGNATURE", "PATTERN_PORTS", "PATTERN_BODY", "PATTERN_DECLARATIONS", "DECLARATION", "INSTANCES", "DECLARATION_TYPE", "PATTERN_COMPOSITIONS", "PORT_DEFINITION", "PORT_ACTUAL_DEFINITION", "PORT_ACCESS", "JOIN_OP", "PORT_ACCESS_LIST", "STOCH"
     };
     public static final int PATTERN_PORTS=86;
     public static final int IN_PORTS=63;
@@ -58,6 +58,7 @@ public class ReoLangParser extends Parser {
     public static final int BODY_OPEN=28;
     public static final int REQUESTS=75;
     public static final int IF_FLOW=81;
+    public static final int RW_STOCHASTIC=19;
     public static final int PATTERN_BODY=87;
     public static final int INT=43;
     public static final int SEMICOLON=23;
@@ -69,7 +70,6 @@ public class ReoLangParser extends Parser {
     public static final int STRUCTURE_MARK=35;
     public static final int BODY_CLOSE=29;
     public static final int NORMAL_FLOW=78;
-    public static final int RW_RUN=19;
     public static final int OPTION=57;
     public static final int RW_PATTERN=11;
     public static final int RW_OF=7;
@@ -684,7 +684,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: channel_signature, channel_body, extension
+            // elements: extension, channel_body, channel_signature
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -900,7 +900,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: condition, ID, out, in, option, ID
+            // elements: ID, out, in, option, ID, condition
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -963,7 +963,7 @@ public class ReoLangParser extends Parser {
                 adaptor.addChild(root_1, root_2);
                 }
                 // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:137:86: ( ^( CONDITION ID condition ) )?
-                if ( stream_condition.hasNext()||stream_ID.hasNext() ) {
+                if ( stream_ID.hasNext()||stream_condition.hasNext() ) {
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:137:87: ^( CONDITION ID condition )
                     {
                     Object root_2 = (Object)adaptor.nil();
@@ -976,8 +976,8 @@ public class ReoLangParser extends Parser {
                     }
 
                 }
-                stream_condition.reset();
                 stream_ID.reset();
+                stream_condition.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -2312,7 +2312,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: requests, flow_type
+            // elements: flow_type, requests
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2729,7 +2729,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: flow_label, flow_operation, normal_flow, normal_flow
+                    // elements: normal_flow, flow_operation, flow_label, normal_flow
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3268,7 +3268,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: flow_type, ID, f2, flow_type, f1
+            // elements: ID, flow_type, flow_type, f2, f1
             // token labels: 
             // rule labels: retval, f1, f2
             // token list labels: 
@@ -3473,7 +3473,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: pattern_signature, pattern_body
+            // elements: pattern_body, pattern_signature
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3615,7 +3615,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: out, in, ID
+            // elements: ID, out, in
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -3976,7 +3976,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: instances, reference_signature
+            // elements: reference_signature, instances
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4087,7 +4087,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: channel_signature, ID
+            // elements: ID, channel_signature
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4251,7 +4251,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, ID, s2, s1
+            // elements: ID, s1, ID, s2
             // token labels: 
             // rule labels: retval, s2, s1
             // token list labels: 
@@ -4413,7 +4413,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: FLOAT, ID
+            // elements: ID, FLOAT
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4430,16 +4430,16 @@ public class ReoLangParser extends Parser {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(STOCH, "STOCH"), root_1);
 
-                if ( !(stream_FLOAT.hasNext()||stream_ID.hasNext()) ) {
+                if ( !(stream_ID.hasNext()||stream_FLOAT.hasNext()) ) {
                     throw new RewriteEarlyExitException();
                 }
-                while ( stream_FLOAT.hasNext()||stream_ID.hasNext() ) {
+                while ( stream_ID.hasNext()||stream_FLOAT.hasNext() ) {
                     adaptor.addChild(root_1, stream_ID.nextNode());
                     adaptor.addChild(root_1, stream_FLOAT.nextNode());
 
                 }
-                stream_FLOAT.reset();
                 stream_ID.reset();
+                stream_FLOAT.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -4608,7 +4608,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: port_definition, join_operation
+            // elements: join_operation, port_definition
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5017,7 +5017,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, join_part
+            // elements: join_part, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5122,7 +5122,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: RW_JOIN, port_access_list
+                    // elements: port_access_list, RW_JOIN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5450,7 +5450,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: p4, p1, p3, p2
+            // elements: p3, p2, p4, p1
             // token labels: 
             // rule labels: retval, p4, p3, p2, p1
             // token list labels: 
