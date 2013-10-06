@@ -476,7 +476,7 @@ public class CoordinationPattern {
 						}
 					}
 				}
-				res += elem;
+				res = elem + res;
 		}
 		
 		//CREATE REPLICATERS/EX-ROUTERS
@@ -494,13 +494,13 @@ public class CoordinationPattern {
 							elem += type + " "+ id + count+ " ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + number_of_ports + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
+							elem += p + "|" + number_of_ports + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.002" : "") + "\n" ;
 						}
 						else {
 							elem += type + " "+ id +count+" ";
 							elem += p + "|" + (number_of_ports++) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.002" : "") + "\n" ;
 							
 						}
 						
@@ -510,17 +510,17 @@ public class CoordinationPattern {
 							elem += type + " "+ id + count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|" + (number_of_ports++) + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
+							elem += p + "|" + (number_of_ports++) + " 0.001 0.001 0.001 0.001" + (type.equals("exrouter") ? " 0.002" : "") + "\n" ;
 						}
 						else {
 							elem += type + " "+ id + count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports++) + " ";
-							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001"+ (type.equals("exrouter") ? " 0.001" : "") + "\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001"+ (type.equals("exrouter") ? " 0.002" : "") + "\n" ;
 						}
 					}
 				}
-				res += elem;
+				res = elem + res;
 		}
 		
 		

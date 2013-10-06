@@ -125,10 +125,10 @@ public class TesteMain {
 						//--"sync f a 4.0 4.1 4.2\n" +
 				
 				
-				"lossy l1 i a 0.1 0.25 0.4 0.1\n"+
-				"fifo1e f1 a b 0.1 0.2 0.3 0.4\n"+
-				"fifo1e f2 b c 0.1 0.2 0.3 0.4\n"+
-				"fifo1e f3 c d 0.1 0.2 0.3 0.4\n"+
+//				"lossy l1 i a 0.1 0.25 0.4 0.1\n"+
+//				"fifo1e f1 a b 0.1 0.2 0.3 0.4\n"+
+//				"fifo1e f2 b c 0.1 0.2 0.3 0.4\n"+
+//				"fifo1e f3 c d 0.1 0.2 0.3 0.4\n"+
 				
 //				"sync s1 a b 2.0 1.0 0.1\n" +
 //				"lossy l1 b c 0.1 0.25 0.4 0.1\n" +
@@ -156,6 +156,18 @@ public class TesteMain {
 //				"fifo1e l2 xr|1 b 3.0 0.4 0.3 0.5\n" + 
 //				"exrouter xor1 xr|0 xr|1 xr|2 0.1 0.1 0.1 0.1 0.1\n" +
 //				"merger m1 b c o 0.1 0.2 0.3 0.4 0.5\n" +
+				
+				"exrouter xor1 x|0 x|1 x|2 0.001 0.001 0.001 0.001 0.001\n" +
+				"merger  mer1 a|1 a|2 a|0 0.001 0.001 0.001 0.001 0.001\n" +
+				"fifo1e wq t a|1 5.0 1.0 1000000.0 1000000.0\n" + 
+				"fifo1e exs esi eso 1.0 1.0 1000000.0 4.5\n" + 
+				"sync seo eso a|2 1.0 1000000.0 1000000.0\n" + 
+				"fifo1e mas a|0 x|0 1.0 1.0 1.8 1000000.0\n" + 
+				"sync sei x|2 esi 1.0 1.0 800000.0\n" + 
+				"sync sbi x|1 bi 1.0 1000000.0 200000.0\n" +
+				
+
+				
 				
 						""
 						;

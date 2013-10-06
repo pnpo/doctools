@@ -238,12 +238,12 @@ public class Composer {
 		IMCREOimc res_internal;
 		
 		res_internal = imc1.compose(imc2, mixedports); 
-//		System.out.println("-------------------------\nCOMPi\n------------------------------");
-//		System.out.println(res_internal);
+		System.out.println("-------------------------\nCOMPi\n------------------------------");
+		System.out.println(res_internal);
 		
 		res_internal = res_internal.mixedRequestsReduction(mixedports);
-//		System.out.println("-------------------------\nREDi\n------------------------------");
-//		System.out.println(res_internal);
+		System.out.println("-------------------------\nREDi\n------------------------------");
+		System.out.println(res_internal);
 		
 		return res_internal;
 		
@@ -416,7 +416,9 @@ public class Composer {
 		
 	}
 
-
+	
+	
+	
 	
 	
 	
