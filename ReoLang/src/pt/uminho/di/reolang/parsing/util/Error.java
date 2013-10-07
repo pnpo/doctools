@@ -313,7 +313,8 @@ public class Error {
     }
     
     public static String incompleteStochasticValuesList(ArrayList<String> stoch_values) {
-    	return "Stochastic values " + stoch_values + " were not defined! A default value will be assumed!";
+    	boolean plural = stoch_values.size()>1;
+    	return "Stochastic value" + (plural ? "s " : " ") + stoch_values + " " +(plural ? "were" : "was")+" not defined!";
     }
     
     

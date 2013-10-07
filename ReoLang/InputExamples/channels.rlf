@@ -31,8 +31,8 @@ channel fifo~N(a:b){
 	// E = buffer.len = 0;
 	// F = buffer.len = N;
 	
-	a,!F -> flow a to buffer;
-	!E,b -> flow buffer to b;
+	a,!F -> flow a to buffer #aB;
+	!E,b -> flow buffer to b #Bb;
 }
 
 

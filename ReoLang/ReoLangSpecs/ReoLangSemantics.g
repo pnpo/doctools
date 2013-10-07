@@ -1561,7 +1561,8 @@ instances [ArrayList<String> in_ports, ArrayList<String> out_ports, String i_typ
 			for(String lbl : $reolang::global_table.get(i_type).getFlowLabels()){
 				flow_labels.add($ID.text+"#"+lbl);
 			}
-			$reolang::global_table.get($pattern_def::pattern_name).setFlowLabels(flow_labels);
+			$reolang::global_table.get($pattern_def::pattern_name).getFlowLabels().addAll(flow_labels);
+			flow_labels.clear();
 		}
 		
 		
@@ -2001,7 +2002,7 @@ stochastic_list[String pattern_name ] returns [ArrayList<Error> o_errors]
 		if(is_pattern_in_scope) {
 			$a.o_labels.addAll($a.o_ports);
 			if(!$a.o_labels.isEmpty()){
-				local_errors.add(new Error(ErrorType.WARNING, Error.incompleteStochasticValuesList($a.o_labels), $a.line, $a.pos, $reolang::file));
+				local_errors.add(new Error(ErrorType.ERROR, Error.incompleteStochasticValuesList($a.o_labels), $a.line, $a.pos, $reolang::file));
 			}
 		}
 	

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g 2013-10-07 14:31:30
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g 2013-10-07 22:46:54
 
 	package pt.uminho.di.reolang;
 	
@@ -4844,7 +4844,8 @@ public class ReoLangSemantics extends TreeParser {
             	    			for(String lbl : ((reolang_scope)reolang_stack.peek()).global_table.get(i_type).getFlowLabels()){
             	    				flow_labels.add((ID94!=null?ID94.getText():null)+"#"+lbl);
             	    			}
-            	    			((reolang_scope)reolang_stack.peek()).global_table.get(((pattern_def_scope)pattern_def_stack.peek()).pattern_name).setFlowLabels(flow_labels);
+            	    			((reolang_scope)reolang_stack.peek()).global_table.get(((pattern_def_scope)pattern_def_stack.peek()).pattern_name).getFlowLabels().addAll(flow_labels);
+            	    			flow_labels.clear();
             	    		}
             	    		
             	    		
@@ -4893,7 +4894,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "pattern_compositions"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1589:1: pattern_compositions[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors] : ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+ ( join_operation[$pattern_compositions.i_unused_accesses] )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1590:1: pattern_compositions[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors] : ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+ ( join_operation[$pattern_compositions.i_unused_accesses] )* ) ;
     public final ReoLangSemantics.pattern_compositions_return pattern_compositions(ArrayList<String> i_unused_accesses) throws RecognitionException {
         ReoLangSemantics.pattern_compositions_return retval = new ReoLangSemantics.pattern_compositions_return();
         retval.start = input.LT(1);
@@ -4918,8 +4919,8 @@ public class ReoLangSemantics extends TreeParser {
         		pattern_ports.addAll(((reolang_scope)reolang_stack.peek()).global_table.get(((pattern_def_scope)pattern_def_stack.peek()).pattern_name).getOutArgs());
         	
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1596:2: ( ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+ ( join_operation[$pattern_compositions.i_unused_accesses] )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1596:5: ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+ ( join_operation[$pattern_compositions.i_unused_accesses] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1597:2: ( ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+ ( join_operation[$pattern_compositions.i_unused_accesses] )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1597:5: ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+ ( join_operation[$pattern_compositions.i_unused_accesses] )* )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -4936,7 +4937,7 @@ public class ReoLangSemantics extends TreeParser {
 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1596:28: ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1597:28: ( port_definition[$pattern_compositions.i_unused_accesses, pattern_ports] )+
             int cnt32=0;
             loop32:
             do {
@@ -4950,7 +4951,7 @@ public class ReoLangSemantics extends TreeParser {
 
                 switch (alt32) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1596:29: port_definition[$pattern_compositions.i_unused_accesses, pattern_ports]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1597:29: port_definition[$pattern_compositions.i_unused_accesses, pattern_ports]
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    pushFollow(FOLLOW_port_definition_in_pattern_compositions2249);
@@ -4977,7 +4978,7 @@ public class ReoLangSemantics extends TreeParser {
                 cnt32++;
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1604:5: ( join_operation[$pattern_compositions.i_unused_accesses] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1605:5: ( join_operation[$pattern_compositions.i_unused_accesses] )*
             loop33:
             do {
                 int alt33=2;
@@ -4990,7 +4991,7 @@ public class ReoLangSemantics extends TreeParser {
 
                 switch (alt33) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1604:6: join_operation[$pattern_compositions.i_unused_accesses]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1605:6: join_operation[$pattern_compositions.i_unused_accesses]
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    pushFollow(FOLLOW_join_operation_in_pattern_compositions2264);
@@ -5056,7 +5057,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "port_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1643:1: port_definition[ArrayList<String> i_unused_accesses, ArrayList<String> i_unused_ports] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, ArrayList<String> o_unused_ports] : ^( PORT_DEFINITION ID port_actual_definition[$port_definition.i_unused_accesses, $ID.text, $ID.line, $ID.pos] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1644:1: port_definition[ArrayList<String> i_unused_accesses, ArrayList<String> i_unused_ports] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, ArrayList<String> o_unused_ports] : ^( PORT_DEFINITION ID port_actual_definition[$port_definition.i_unused_accesses, $ID.text, $ID.line, $ID.pos] ) ;
     public final ReoLangSemantics.port_definition_return port_definition(ArrayList<String> i_unused_accesses, ArrayList<String> i_unused_ports) throws RecognitionException {
         ReoLangSemantics.port_definition_return retval = new ReoLangSemantics.port_definition_return();
         retval.start = input.LT(1);
@@ -5078,8 +5079,8 @@ public class ReoLangSemantics extends TreeParser {
         		ArrayList<Error> local_errors = new ArrayList<Error>();
         	
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1648:2: ( ^( PORT_DEFINITION ID port_actual_definition[$port_definition.i_unused_accesses, $ID.text, $ID.line, $ID.pos] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1648:4: ^( PORT_DEFINITION ID port_actual_definition[$port_definition.i_unused_accesses, $ID.text, $ID.line, $ID.pos] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1649:2: ( ^( PORT_DEFINITION ID port_actual_definition[$port_definition.i_unused_accesses, $ID.text, $ID.line, $ID.pos] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1649:4: ^( PORT_DEFINITION ID port_actual_definition[$port_definition.i_unused_accesses, $ID.text, $ID.line, $ID.pos] )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5158,7 +5159,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "port_actual_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1679:1: port_actual_definition[ArrayList<String> i_unused_accesses, String i_port_name, int i_line, int i_pos] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, ArrayList<String> o_unused_ports] : ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.i_unused_accesses] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.i_unused_accesses] ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1680:1: port_actual_definition[ArrayList<String> i_unused_accesses, String i_port_name, int i_line, int i_pos] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, ArrayList<String> o_unused_ports] : ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.i_unused_accesses] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.i_unused_accesses] ) );
     public final ReoLangSemantics.port_actual_definition_return port_actual_definition(ArrayList<String> i_unused_accesses, String i_port_name, int i_line, int i_pos) throws RecognitionException {
         ReoLangSemantics.port_actual_definition_return retval = new ReoLangSemantics.port_actual_definition_return();
         retval.start = input.LT(1);
@@ -5182,7 +5183,7 @@ public class ReoLangSemantics extends TreeParser {
         	ArrayList<Error> local_errors = new ArrayList<Error>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1683:2: ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.i_unused_accesses] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.i_unused_accesses] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1684:2: ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.i_unused_accesses] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.i_unused_accesses] ) )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -5220,7 +5221,7 @@ public class ReoLangSemantics extends TreeParser {
             }
             switch (alt34) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1683:4: ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.i_unused_accesses] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1684:4: ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.i_unused_accesses] )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -5267,7 +5268,7 @@ public class ReoLangSemantics extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1701:5: ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.i_unused_accesses] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1702:5: ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.i_unused_accesses] )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -5335,7 +5336,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "port_access"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1723:1: port_access[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori, int line, int pos, String name] : ^( PORT_ACCESS id1= ID id2= ID ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1724:1: port_access[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori, int line, int pos, String name] : ^( PORT_ACCESS id1= ID id2= ID ) ;
     public final ReoLangSemantics.port_access_return port_access(ArrayList<String> i_unused_accesses) throws RecognitionException {
         ReoLangSemantics.port_access_return retval = new ReoLangSemantics.port_access_return();
         retval.start = input.LT(1);
@@ -5358,8 +5359,8 @@ public class ReoLangSemantics extends TreeParser {
         		PortOrientation access_ori = PortOrientation.NONE;
         	
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1729:2: ( ^( PORT_ACCESS id1= ID id2= ID ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1729:4: ^( PORT_ACCESS id1= ID id2= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1730:2: ( ^( PORT_ACCESS id1= ID id2= ID ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1730:4: ^( PORT_ACCESS id1= ID id2= ID )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5462,7 +5463,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "join_operation"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1790:1: join_operation[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses] : ^( JOIN_OP ID join_part[$join_operation.i_unused_accesses] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1791:1: join_operation[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses] : ^( JOIN_OP ID join_part[$join_operation.i_unused_accesses] ) ;
     public final ReoLangSemantics.join_operation_return join_operation(ArrayList<String> i_unused_accesses) throws RecognitionException {
         ReoLangSemantics.join_operation_return retval = new ReoLangSemantics.join_operation_return();
         retval.start = input.LT(1);
@@ -5484,8 +5485,8 @@ public class ReoLangSemantics extends TreeParser {
         	ArrayList<Error> local_errors = new ArrayList<Error>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1794:2: ( ^( JOIN_OP ID join_part[$join_operation.i_unused_accesses] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1794:4: ^( JOIN_OP ID join_part[$join_operation.i_unused_accesses] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1795:2: ( ^( JOIN_OP ID join_part[$join_operation.i_unused_accesses] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1795:4: ^( JOIN_OP ID join_part[$join_operation.i_unused_accesses] )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5564,7 +5565,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "join_part"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1825:1: join_part[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori] : ( ^( RW_JOIN port_access_list[$join_part.i_unused_accesses] ) | ^( RW_DECIDE special_port_access_list[$join_part.i_unused_accesses] ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1826:1: join_part[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori] : ( ^( RW_JOIN port_access_list[$join_part.i_unused_accesses] ) | ^( RW_DECIDE special_port_access_list[$join_part.i_unused_accesses] ) );
     public final ReoLangSemantics.join_part_return join_part(ArrayList<String> i_unused_accesses) throws RecognitionException {
         ReoLangSemantics.join_part_return retval = new ReoLangSemantics.join_part_return();
         retval.start = input.LT(1);
@@ -5585,7 +5586,7 @@ public class ReoLangSemantics extends TreeParser {
         CommonTree RW_DECIDE111_tree=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1826:2: ( ^( RW_JOIN port_access_list[$join_part.i_unused_accesses] ) | ^( RW_DECIDE special_port_access_list[$join_part.i_unused_accesses] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1827:2: ( ^( RW_JOIN port_access_list[$join_part.i_unused_accesses] ) | ^( RW_DECIDE special_port_access_list[$join_part.i_unused_accesses] ) )
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -5603,7 +5604,7 @@ public class ReoLangSemantics extends TreeParser {
             }
             switch (alt35) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1826:4: ^( RW_JOIN port_access_list[$join_part.i_unused_accesses] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1827:4: ^( RW_JOIN port_access_list[$join_part.i_unused_accesses] )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -5640,7 +5641,7 @@ public class ReoLangSemantics extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1832:5: ^( RW_DECIDE special_port_access_list[$join_part.i_unused_accesses] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1833:5: ^( RW_DECIDE special_port_access_list[$join_part.i_unused_accesses] )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -5700,7 +5701,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1848:1: port_access_list[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori] : ^( PORT_ACCESS_LIST ( port_access[$port_access_list.i_unused_accesses] )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1849:1: port_access_list[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori] : ^( PORT_ACCESS_LIST ( port_access[$port_access_list.i_unused_accesses] )+ ) ;
     public final ReoLangSemantics.port_access_list_return port_access_list(ArrayList<String> i_unused_accesses) throws RecognitionException {
         ReoLangSemantics.port_access_list_return retval = new ReoLangSemantics.port_access_list_return();
         retval.start = input.LT(1);
@@ -5721,8 +5722,8 @@ public class ReoLangSemantics extends TreeParser {
          		PortOrientation access_ori= PortOrientation.NONE;
          	
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1854:3: ( ^( PORT_ACCESS_LIST ( port_access[$port_access_list.i_unused_accesses] )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1854:5: ^( PORT_ACCESS_LIST ( port_access[$port_access_list.i_unused_accesses] )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1855:3: ( ^( PORT_ACCESS_LIST ( port_access[$port_access_list.i_unused_accesses] )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1855:5: ^( PORT_ACCESS_LIST ( port_access[$port_access_list.i_unused_accesses] )+ )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5739,7 +5740,7 @@ public class ReoLangSemantics extends TreeParser {
 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1854:24: ( port_access[$port_access_list.i_unused_accesses] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1855:24: ( port_access[$port_access_list.i_unused_accesses] )+
             int cnt36=0;
             loop36:
             do {
@@ -5753,7 +5754,7 @@ public class ReoLangSemantics extends TreeParser {
 
                 switch (alt36) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1854:25: port_access[$port_access_list.i_unused_accesses]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1855:25: port_access[$port_access_list.i_unused_accesses]
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    pushFollow(FOLLOW_port_access_in_port_access_list2590);
@@ -5814,7 +5815,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "special_port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1900:1: special_port_access_list[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori] : ^( PORT_ACCESS_LIST p1= port_access[$special_port_access_list.i_unused_accesses] p2= port_access[$p1.o_unused_accesses] p3= port_access[$p2.o_unused_accesses] (p4= port_access[$special_port_access_list.i_unused_accesses] )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1901:1: special_port_access_list[ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o_errors, ArrayList<String> o_unused_accesses, PortOrientation ori] : ^( PORT_ACCESS_LIST p1= port_access[$special_port_access_list.i_unused_accesses] p2= port_access[$p1.o_unused_accesses] p3= port_access[$p2.o_unused_accesses] (p4= port_access[$special_port_access_list.i_unused_accesses] )* ) ;
     public final ReoLangSemantics.special_port_access_list_return special_port_access_list(ArrayList<String> i_unused_accesses) throws RecognitionException {
         ReoLangSemantics.special_port_access_list_return retval = new ReoLangSemantics.special_port_access_list_return();
         retval.start = input.LT(1);
@@ -5840,8 +5841,8 @@ public class ReoLangSemantics extends TreeParser {
          		ArrayList<Error> local_errors = new ArrayList<Error>();
          	
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1905:2: ( ^( PORT_ACCESS_LIST p1= port_access[$special_port_access_list.i_unused_accesses] p2= port_access[$p1.o_unused_accesses] p3= port_access[$p2.o_unused_accesses] (p4= port_access[$special_port_access_list.i_unused_accesses] )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1905:4: ^( PORT_ACCESS_LIST p1= port_access[$special_port_access_list.i_unused_accesses] p2= port_access[$p1.o_unused_accesses] p3= port_access[$p2.o_unused_accesses] (p4= port_access[$special_port_access_list.i_unused_accesses] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1906:2: ( ^( PORT_ACCESS_LIST p1= port_access[$special_port_access_list.i_unused_accesses] p2= port_access[$p1.o_unused_accesses] p3= port_access[$p2.o_unused_accesses] (p4= port_access[$special_port_access_list.i_unused_accesses] )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1906:4: ^( PORT_ACCESS_LIST p1= port_access[$special_port_access_list.i_unused_accesses] p2= port_access[$p1.o_unused_accesses] p3= port_access[$p2.o_unused_accesses] (p4= port_access[$special_port_access_list.i_unused_accesses] )* )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -5898,7 +5899,7 @@ public class ReoLangSemantics extends TreeParser {
             		}
             		
             	
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1928:2: (p4= port_access[$special_port_access_list.i_unused_accesses] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1929:2: (p4= port_access[$special_port_access_list.i_unused_accesses] )*
             loop37:
             do {
                 int alt37=2;
@@ -5911,7 +5912,7 @@ public class ReoLangSemantics extends TreeParser {
 
                 switch (alt37) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1928:3: p4= port_access[$special_port_access_list.i_unused_accesses]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1929:3: p4= port_access[$special_port_access_list.i_unused_accesses]
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    pushFollow(FOLLOW_port_access_in_special_port_access_list2687);
@@ -5969,7 +5970,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "stochastic_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1955:1: stochastic_def returns [ArrayList<Error> o_errors] : ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[$i1.text] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1956:1: stochastic_def returns [ArrayList<Error> o_errors] : ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[$i1.text] ) ;
     public final ReoLangSemantics.stochastic_def_return stochastic_def() throws RecognitionException {
         ReoLangSemantics.stochastic_def_return retval = new ReoLangSemantics.stochastic_def_return();
         retval.start = input.LT(1);
@@ -5993,8 +5994,8 @@ public class ReoLangSemantics extends TreeParser {
          	ArrayList<Error> local_errors = new ArrayList<Error>();
          
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1959:2: ( ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[$i1.text] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1959:4: ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[$i1.text] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1960:2: ( ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[$i1.text] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1960:4: ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[$i1.text] )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -6028,6 +6029,7 @@ public class ReoLangSemantics extends TreeParser {
             		if(! ((reolang_scope)reolang_stack.peek()).global_table.isDefined((i1!=null?i1.getText():null)) || (((reolang_scope)reolang_stack.peek()).global_table.isDefined((i1!=null?i1.getText():null)) && ! ((reolang_scope)reolang_stack.peek()).global_table.get((i1!=null?i1.getText():null)).getType().equals(Type.PATTERN.toString()))){
             			local_errors.add(Error.report(ErrorType.ERROR, Error.nameShouldBePattern((i1!=null?i1.getText():null)), (i1!=null?i1.getLine():0), (i1!=null?i1.getCharPositionInLine():0), ((reolang_scope)reolang_stack.peek()).file));
             		}
+            		//TODO: add stoch instances into the symbols table
             		//i2 must not exist
             		if(((reolang_scope)reolang_stack.peek()).global_table.isDefined((i2!=null?i2.getText():null)) ){
             			local_errors.add(Error.report(ErrorType.ERROR, Error.nameAlreadyDefined((i2!=null?i2.getText():null)), (i2!=null?i2.getLine():0), (i2!=null?i2.getCharPositionInLine():0), ((reolang_scope)reolang_stack.peek()).file));
@@ -6071,7 +6073,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "stochastic_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1978:1: stochastic_list[String pattern_name ] returns [ArrayList<Error> o_errors] : (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1980:1: stochastic_list[String pattern_name ] returns [ArrayList<Error> o_errors] : (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* ) ;
     public final ReoLangSemantics.stochastic_list_return stochastic_list(String pattern_name) throws RecognitionException {
         ReoLangSemantics.stochastic_list_return retval = new ReoLangSemantics.stochastic_list_return();
         retval.start = input.LT(1);
@@ -6095,13 +6097,13 @@ public class ReoLangSemantics extends TreeParser {
         	ArrayList<String> labels = new ArrayList<String>(((reolang_scope)reolang_stack.peek()).global_table.get(pattern_name).getFlowLabels());
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1986:2: ( (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1986:4: (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1988:2: ( (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1988:4: (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* )
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1986:4: (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1986:6: a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1988:4: (a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1988:6: a= stoch_elem[ports, labels] (b= stoch_elem[$a.o_ports, $a.o_labels] )*
             {
             _last = (CommonTree)input.LT(1);
             pushFollow(FOLLOW_stoch_elem_in_stochastic_list2780);
@@ -6113,7 +6115,7 @@ public class ReoLangSemantics extends TreeParser {
 
             		local_errors.addAll((a!=null?a.o_errors:null));
             	
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1990:2: (b= stoch_elem[$a.o_ports, $a.o_labels] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1992:2: (b= stoch_elem[$a.o_ports, $a.o_labels] )*
             loop38:
             do {
                 int alt38=2;
@@ -6126,7 +6128,7 @@ public class ReoLangSemantics extends TreeParser {
 
                 switch (alt38) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1990:4: b= stoch_elem[$a.o_ports, $a.o_labels]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:1992:4: b= stoch_elem[$a.o_ports, $a.o_labels]
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    pushFollow(FOLLOW_stoch_elem_in_stochastic_list2792);
@@ -6153,7 +6155,7 @@ public class ReoLangSemantics extends TreeParser {
             		if(is_pattern_in_scope) {
             			(a!=null?a.o_labels:null).addAll((a!=null?a.o_ports:null));
             			if(!(a!=null?a.o_labels:null).isEmpty()){
-            				local_errors.add(new Error(ErrorType.WARNING, Error.incompleteStochasticValuesList((a!=null?a.o_labels:null)), (a!=null?a.line:0), (a!=null?a.pos:0), ((reolang_scope)reolang_stack.peek()).file));
+            				local_errors.add(new Error(ErrorType.ERROR, Error.incompleteStochasticValuesList((a!=null?a.o_labels:null)), (a!=null?a.line:0), (a!=null?a.pos:0), ((reolang_scope)reolang_stack.peek()).file));
             			}
             		}
             	
@@ -6189,7 +6191,7 @@ public class ReoLangSemantics extends TreeParser {
     };
 
     // $ANTLR start "stoch_elem"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2015:1: stoch_elem[ArrayList<String> i_ports, ArrayList<String> i_labels] returns [ArrayList<String> o_ports, ArrayList<String> o_labels, ArrayList<Error> o_errors, int line, int pos] : ^( STOCH i1= ID (i2= ID )? FLOAT ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2017:1: stoch_elem[ArrayList<String> i_ports, ArrayList<String> i_labels] returns [ArrayList<String> o_ports, ArrayList<String> o_labels, ArrayList<Error> o_errors, int line, int pos] : ^( STOCH i1= ID (i2= ID )? FLOAT ) ;
     public final ReoLangSemantics.stoch_elem_return stoch_elem(ArrayList<String> i_ports, ArrayList<String> i_labels) throws RecognitionException {
         ReoLangSemantics.stoch_elem_return retval = new ReoLangSemantics.stoch_elem_return();
         retval.start = input.LT(1);
@@ -6213,8 +6215,8 @@ public class ReoLangSemantics extends TreeParser {
         	ArrayList<Error> local_errors = new ArrayList<Error>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2019:2: ( ^( STOCH i1= ID (i2= ID )? FLOAT ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2019:4: ^( STOCH i1= ID (i2= ID )? FLOAT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2021:2: ( ^( STOCH i1= ID (i2= ID )? FLOAT ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2021:4: ^( STOCH i1= ID (i2= ID )? FLOAT )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -6237,7 +6239,7 @@ public class ReoLangSemantics extends TreeParser {
 
             adaptor.addChild(root_1, i1_tree);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2019:18: (i2= ID )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2021:18: (i2= ID )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -6246,7 +6248,7 @@ public class ReoLangSemantics extends TreeParser {
             }
             switch (alt39) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2019:19: i2= ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangSemantics.g:2021:19: i2= ID
                     {
                     _last = (CommonTree)input.LT(1);
                     i2=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem2845); 

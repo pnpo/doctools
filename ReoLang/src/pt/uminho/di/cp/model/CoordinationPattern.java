@@ -6,8 +6,13 @@ package pt.uminho.di.cp.model;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Set;
+
+import pt.uminho.di.reolang.ReoLangCPModel;
 
 /**
  * @author Nuno Oliveira
@@ -694,6 +699,77 @@ public class CoordinationPattern {
 
 
 	
+	
+	// CLASS METHODS
+	
+	
+	/**
+	 * 
+	 * @param pattern
+	 * @param stoch_values
+	 * @param instance
+	 * @return
+	 * 
+	 */
+	public static CoordinationPattern applyStochasticMap(
+			CoordinationPattern pattern, 
+			Map<String, Double> stoch_values,
+			String instance){
+		
+		CoordinationPattern res = new CoordinationPattern();
+		
+		res.setRouter_nodes(new LinkedHashSet<String>(pattern.getRouter_nodes()));
+		res.setId(instance);
+		
+		LinkedHashSet<CommunicationMean> p = new LinkedHashSet<CommunicationMean>();
+		
+		for(CommunicationMean cm : pattern.getPattern()){
+			String in = cm.getInode();
+			String out = cm.getFnode();
+			String type = cm.getType();
+			String id = cm.getId();
+			LinkedHashMap<String, Double> values = new  LinkedHashMap<String, Double>();
+			//if the in port of the channel coincides with a in port of the pattern 
+			if(stoch_values.containsKey(in)){
+				//we add the value to the stochastic map of the stoc. comm. mean
+				values.put(in, stoch_values.get(in));
+			}
+			else {
+				if(! in.equals("NULL")){
+					//if the in node is internal... we put a symbolic value 1.0
+					//but this value will never be used due to composition
+					values.put(in, 1.0);
+				}
+			}
+			
+			//now we do the same for the out node
+			if(stoch_values.containsKey(out)){
+				values.put(out, stoch_values.get(out));
+			}
+			else {
+				if(! out.equals("NULL")){
+					values.put(out, 1.0);
+				}
+			}
+			
+			for(String lbl : stoch_values.keySet()){
+				if(lbl.contains("#")){
+					String _id = lbl.substring(0,lbl.indexOf('#'));
+					String _lbl = lbl.substring(lbl.indexOf('#')+1);
+					if(_id.equals(id)){
+						values.put(_lbl, stoch_values.get(lbl));
+					}
+				}
+			}
+			
+			StochasticCommunicationMean scm = new StochasticCommunicationMean(in, id, type, out,values);
+			res.pattern.add(scm);
+		}
+		
+		
+		return res;
+		
+	} 
 	
 	
 	

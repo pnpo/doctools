@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 
+import pt.uminho.di.cp.model.CoordinationPattern;
 import pt.uminho.di.reolang.ReoLangSemantics.reolang_return;
 import pt.uminho.di.reolang.parsing.CPBuilder;
 import pt.uminho.di.reolang.parsing.util.SymbolsTable;
@@ -28,9 +29,9 @@ public class Main {
     		System.out.println(parser.getErrors().toString());
     		CommonTree r = null;
     		
-//			r = (CommonTree) root.getTree();
-//			System.out.println("--------"); 
-//			System.out.println(r.toStringTree()); 
+			r = (CommonTree) root.getTree();
+			System.out.println("--------"); 
+			System.out.println(r.toStringTree()); 
 			//RemoveErrorNodes(r);
 			//System.out.println("--------");
 			//System.out.println(r.toStringTree());
@@ -45,6 +46,7 @@ public class Main {
 		        	ReoLangCPModel res = cpb.performModelConstruction(new CommonTreeNodeStream(final_result.tree), null, null, final_result.symbols);
 		        	System.out.println(res.getPatterns());
 		        	System.out.println(res.getStochInstances());
+		        	System.out.println(CoordinationPattern.applyStochasticMap(res.getPatterns().get("InputNode").getCP(), res.getStochInstances().get("InputNode").get("stoch_input_node"), "stoch_input_node"));
 		        }
     		}
     		

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -56,7 +57,7 @@ public class Generator {
 							.setShortFlag('p')
 							.setLongFlag("pattern")
 							.setListSeparator(',');
-			patt.setHelp("The name of the pattern to convert.");
+			patt.setHelp("The name of the stochastic pattern instance to convert.");
 			cmd_line.registerParameter(patt);
 
 			
@@ -243,34 +244,45 @@ public class Generator {
 					}
 					
 					CPBuilder cpb = new CPBuilder(file_name);
-					HashMap<String, ReoLangCPModel.CPModelInternal> patterns = cpb.performModelConstruction(new CommonTreeNodeStream(res.getTree()), null, res.symbols);
-					if(!patterns.containsKey(patt_name)){
-						System.err.println("Pattern '" + patt_name + "' could not be found... giving up!");
+					ReoLangCPModel rlcpm = cpb.performModelConstruction(new CommonTreeNodeStream(res.getTree()), null, null, res.symbols);
+					//LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns = rlcpm.getPatterns();
+					
+					boolean found = false;
+					Iterator<String> it = rlcpm.getStochInstances().keySet().iterator();
+					String pattern_associated = "";
+					while (it.hasNext() && !found){
+						String _cp = it.next();
+						if(rlcpm.getStochInstances().get(_cp).containsKey(patt_name)){
+							found = true;
+							pattern_associated = _cp;
+						}
+					}
+					
+					if(pattern_associated.equals("")){
+						System.err.println("Stochastic Pattern '" + patt_name + "' could not be found... giving up!");
 						System.exit(1);
 					}
 					else {
-						CoordinationPattern cp = patterns.get(patt_name).getCP();
+						if(config.getBoolean("verbose")){
+							System.out.println("Applying Stochastic Mappings...");
+						}
+						CoordinationPattern not_stochastic_cp = rlcpm.getPatterns().get(pattern_associated).getCP();
+						LinkedHashMap<String, Double> stoch_values = rlcpm.getStochInstances().get(pattern_associated).get(patt_name);
+						CoordinationPattern stochastic_cp = CoordinationPattern.applyStochasticMap(not_stochastic_cp, stoch_values, patt_name);
+						
 						String imc_script;
-						if(cp.isStochasticPattern()){ //IF THE PATTERN IS STOCHASTIC...
-							 imc_script = cp.intoIMCScript();
-							 System.out.println("Composing and Synchronising...");
-							 long startTime = System.currentTimeMillis();
-							 ScriptParser sp = new ScriptParser(imc_script);
-							 Composer cs = sp.parser();
-							 imc_result = cs.intelligentCompose();
-							 long endTime   = System.currentTimeMillis();
-							 long totalTime = endTime - startTime;
-							 System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
-							
-							 ports_set = (LinkedHashSet<String>)cs.getMixed_ports();
 						
-							 
-						}
-						else {
-							System.err.println("Some channels in pattern '" + patt_name + "' do not have Stochastic Values... giving up!");
-							System.exit(1);
-						}
+						imc_script = stochastic_cp.intoIMCScript();
+						System.out.println("Composing and Synchronising...");
+						long startTime = System.currentTimeMillis();
+						ScriptParser sp = new ScriptParser(imc_script);
+						Composer cs = sp.parser();
+						imc_result = cs.intelligentCompose();
+						long endTime   = System.currentTimeMillis();
+						long totalTime = endTime - startTime;
+						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
 						
+						ports_set = (LinkedHashSet<String>)cs.getMixed_ports();
 						
 					}
 				}
