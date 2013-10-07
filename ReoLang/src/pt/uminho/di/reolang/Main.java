@@ -28,9 +28,9 @@ public class Main {
     		System.out.println(parser.getErrors().toString());
     		CommonTree r = null;
     		
-			//r = (CommonTree) root.getTree();
-			//System.out.println("--------"); 
-			//System.out.println(r.toStringTree()); 
+//			r = (CommonTree) root.getTree();
+//			System.out.println("--------"); 
+//			System.out.println(r.toStringTree()); 
 			//RemoveErrorNodes(r);
 			//System.out.println("--------");
 			//System.out.println(r.toStringTree());
@@ -42,8 +42,9 @@ public class Main {
 		        System.out.println(final_result.errors);
 		        if(final_result.errors.size()==0) {
 		        	CPBuilder cpb = new CPBuilder("InputExamples/patterns.rlf");
-		        	HashMap<String, ReoLangCPModel.CPModelInternal> res = cpb.performModelConstruction(new CommonTreeNodeStream(final_result.tree), null, final_result.symbols);
-		        	System.out.println(res);
+		        	ReoLangCPModel res = cpb.performModelConstruction(new CommonTreeNodeStream(final_result.tree), null, null, final_result.symbols);
+		        	System.out.println(res.getPatterns());
+		        	System.out.println(res.getStochInstances());
 		        }
     		}
     		

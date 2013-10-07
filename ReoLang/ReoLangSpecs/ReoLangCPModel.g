@@ -22,9 +22,13 @@ options{
 
 @members {
 
-	private HashMap<String, CPModelInternal> patterns;
-	public HashMap<String, CPModelInternal> getPatterns() {return patterns;}
-	public void setPatterns(HashMap<String, CPModelInternal> p) {patterns = p;}
+	private LinkedHashMap<String, CPModelInternal> patterns;
+	public LinkedHashMap<String, CPModelInternal> getPatterns() {return patterns;}
+	public void setPatterns(LinkedHashMap<String, CPModelInternal> p) {patterns = p;}
+
+	private LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> stoch_instances;
+	public LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> getStochInstances() {return stoch_instances;}
+	public void setStochInstances(LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> p) {stoch_instances = p;}
 	
 	
 	public static class CPModelInternal {
@@ -46,7 +50,7 @@ options{
 
 //RULES
 
-reolang [String file, HashMap<String, ReoLangCPModel.CPModelInternal> ps, SymbolsTable symbols]
+reolang [String file, LinkedHashMap<String, ReoLangCPModel.CPModelInternal> ps, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> is, SymbolsTable symbols]
 scope{
 	SymbolsTable global_table; 
 }
@@ -55,7 +59,8 @@ scope{
 }
 	:	^( REO_LANG 
 	{
-		this.patterns = ps==null? new HashMap<String, ReoLangCPModel.CPModelInternal>() : ps;
+		this.patterns = ps==null? new LinkedHashMap<String, ReoLangCPModel.CPModelInternal>() : ps;
+		this.stoch_instances = is==null? new LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>>() : is;
 	}
 		directive_def* element*)
 	;
@@ -63,6 +68,7 @@ scope{
 element
 	:	^(ELEMENT channel_def)
 	|	^(ELEMENT pattern_def)
+	|	^(ELEMENT stochastic_def)
 	;
 
 
@@ -80,8 +86,9 @@ directive_import
 		String file_string = $FILE_PATH.text;
 		String file = file_string.substring(1,file_string.length()-1);
 		CPBuilder cp_model_builder = new CPBuilder(file);
-		HashMap<String, ReoLangCPModel.CPModelInternal> imported_patterns = cp_model_builder.performModelConstruction(this.patterns, $reolang::global_table);
-		this.patterns = imported_patterns != null ? imported_patterns : this.patterns;
+		ReoLangCPModel res = cp_model_builder.performModelConstruction(this.patterns, this.stoch_instances, $reolang::global_table);
+		this.patterns = res.getPatterns() != null ? res.getPatterns() : this.patterns;
+		this.stoch_instances = res.getStochInstances()!= null ? res.getStochInstances() : this.stoch_instances;
 	}
 	;
 
@@ -320,7 +327,7 @@ reference_signature returns [String o_name, String o_type, int o_dim, ArrayList<
 	
 	
 instances [String i_name, String i_type, ArrayList<String> i_ins, ArrayList<String> i_outs, String patt_name]
-	:	 ^(INSTANCES (ID sv=stochastic_values?
+	:	 ^(INSTANCES (ID 
 	{
 		//CHANNELS
 		if(! this.patterns.containsKey($instances.i_name)) {
@@ -331,65 +338,65 @@ instances [String i_name, String i_type, ArrayList<String> i_ins, ArrayList<Stri
 			switch(n_ports){
 				case 1 : {
 					CommunicationMean cm;
-					if($sv.o_values != null && $sv.o_values.size()>0) {
-						cm = new StochasticCommunicationMean(
-							$instances.i_ins.get(0), $ID.text, $instances.i_type, $instances.i_outs.get(0), new LinkedHashMap<String, Double>($sv.o_values)
-							);
-					}
-					else {
+					//if($sv.o_values != null && $sv.o_values.size()>0) {
+					//	cm = new StochasticCommunicationMean(
+					//		$instances.i_ins.get(0), $ID.text, $instances.i_type, $instances.i_outs.get(0), new LinkedHashMap<String, Double>($sv.o_values)
+					//		);
+					//}
+					//else {
 						cm = new CommunicationMean(
 							$instances.i_ins.get(0), $ID.text, $instances.i_type, $instances.i_outs.get(0)
 							);
-					}
+					//}
 					this.patterns.get($instances.patt_name).getCP().getPattern().add(cm);
 				} ; break;
 				
 				case 2 : {
 					CommunicationMean cm1, cm2;
-					if($sv.o_values != null && $sv.o_values.size()>0) {
-						cm1 = new StochasticCommunicationMean(
-							$instances.i_ins.get(0), $ID.text, $instances.i_type, "NULL", new LinkedHashMap<String, Double>($sv.o_values)
-							);
-						cm2 = new StochasticCommunicationMean(
-							$instances.i_ins.get(1), $ID.text, $instances.i_type, "NULL", new LinkedHashMap<String, Double>($sv.o_values)
-							);
-					}
-					else {
+					//if($sv.o_values != null && $sv.o_values.size()>0) {
+					//	cm1 = new StochasticCommunicationMean(
+					//		$instances.i_ins.get(0), $ID.text, $instances.i_type, "NULL", new LinkedHashMap<String, Double>($sv.o_values)
+					//		);
+					//	cm2 = new StochasticCommunicationMean(
+					//		$instances.i_ins.get(1), $ID.text, $instances.i_type, "NULL", new LinkedHashMap<String, Double>($sv.o_values)
+					//		);
+					//}
+					//else {
 						cm1 = new CommunicationMean(
 							$instances.i_ins.get(0), $ID.text, $instances.i_type, "NULL"
 							);
 						cm2 = new CommunicationMean(
 							$instances.i_ins.get(1), $ID.text, $instances.i_type, "NULL"
 							);
-					}	
+					//}	
 					this.patterns.get($instances.patt_name).getCP().getPattern().add(cm1);
 					this.patterns.get($instances.patt_name).getCP().getPattern().add(cm2);
 				} ; break;
 				
 				default : {
 					CommunicationMean cm1, cm2;
-					if($sv.o_values != null && $sv.o_values.size()>0) {
-						cm1 = new StochasticCommunicationMean(
-							"NULL", $ID.text, $instances.i_type, $instances.i_outs.get(0), new LinkedHashMap<String, Double>($sv.o_values)
-							);
-						cm2 = new StochasticCommunicationMean(
-							"NULL", $ID.text, $instances.i_type, $instances.i_outs.get(1), new LinkedHashMap<String, Double>($sv.o_values)
-							);
-					}
-					else {
+					//if($sv.o_values != null && $sv.o_values.size()>0) {
+					//	cm1 = new StochasticCommunicationMean(
+					//		"NULL", $ID.text, $instances.i_type, $instances.i_outs.get(0), new LinkedHashMap<String, Double>($sv.o_values)
+					//		);
+					//	cm2 = new StochasticCommunicationMean(
+					//		"NULL", $ID.text, $instances.i_type, $instances.i_outs.get(1), new LinkedHashMap<String, Double>($sv.o_values)
+					//		);
+					//}
+					//else {
 						cm1 = new CommunicationMean(
 							"NULL", $ID.text, $instances.i_type,  $instances.i_outs.get(0)
 							);
 						cm2 = new CommunicationMean(
 							"NULL", $ID.text, $instances.i_type,  $instances.i_outs.get(1)
 							);
-					}	
+					//}	
 					this.patterns.get($instances.patt_name).getCP().getPattern().add(cm1);
 					this.patterns.get($instances.patt_name).getCP().getPattern().add(cm2);
 				} ; break;
 			}				
 			
-			if($sv.o_values!=null) {$sv.o_values.clear();}
+			//if($sv.o_values!=null) {$sv.o_values.clear();}
 		
 		}
 		else { //PATTERNS
@@ -427,7 +434,7 @@ instances [String i_name, String i_type, ArrayList<String> i_ins, ArrayList<Stri
 
 
 
-
+/*
 stochastic_values returns [LinkedHashMap<String, Double> o_values]
 @init{
 	LinkedHashMap<String, Double> stoch_map = new LinkedHashMap<String, Double>();
@@ -446,7 +453,7 @@ stochastic_values returns [LinkedHashMap<String, Double> o_values]
 	;
 	
 	
-	
+*/	
 	
 	
 
@@ -497,3 +504,47 @@ special_port_access_list [String patt_name, String port]
 	;
 
 
+
+
+
+stochastic_def 
+	:	^(RW_STOCHASTIC i1=ID i2=ID stochastic_list
+	{
+		String patt_name = $i1.text;
+		String inst_name = $i2.text;
+		if(this.stoch_instances.containsKey(patt_name)){
+			this.stoch_instances.get(patt_name).put(inst_name, $stochastic_list.o_values);	
+		}
+		else {
+			this.stoch_instances.put(patt_name, new LinkedHashMap<String, LinkedHashMap<String, Double>>() );
+			this.stoch_instances.get(patt_name).put(inst_name, $stochastic_list.o_values);
+		}
+	}
+	)
+	;
+	
+stochastic_list returns [LinkedHashMap<String, Double> o_values]
+@init{
+	LinkedHashMap<String, Double> stoch_map = new LinkedHashMap<String, Double>();
+}
+	:	( a=stoch_elem[stoch_map] ( b=stoch_elem[$a.o_stoch_map] {a = b ;})* 
+	{
+		$stochastic_list.o_values = stoch_map;
+		//TODO : complete with undefined stochastic values...
+	}
+	)
+	;
+
+
+
+
+
+stoch_elem [LinkedHashMap<String, Double> i_stoch_map] returns [LinkedHashMap<String, Double> o_stoch_map]
+	:	^(STOCH i1=ID (i2=ID)? FLOAT 
+	{
+		$stoch_elem.o_stoch_map = $stoch_elem.i_stoch_map;
+		$stoch_elem.o_stoch_map.put($i2==null? $i1.text : $i1+"#"+$i2.text, Double.parseDouble($FLOAT.text) );
+		
+	}
+	)
+	;

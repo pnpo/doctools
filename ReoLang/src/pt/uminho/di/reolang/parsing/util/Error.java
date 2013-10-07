@@ -294,8 +294,17 @@ public class Error {
     }
     
     
+    
+    
+    public static String nameShouldBePattern(String id) {
+    	return "Name '" + id + "' should refer to a PATTERN!";
+    }
+    
+    
+    
+    
     public static String stochasticLabelAlreadyDefined(String label) {
-    	return "Stochastic value " + label + " is already defined!";
+    	return "Stochastic value " + label + " is already defined or not in scope !";
     }
     
     
