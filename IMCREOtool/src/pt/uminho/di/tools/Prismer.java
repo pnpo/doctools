@@ -15,7 +15,7 @@ public class Prismer {
 //				System.out.println("Parsing arguments for prism option...");
 //			}
 			String file_in = args[0];
-			String file_out = args[1];
+			String module_name = args[1];
 			LinkedHashMap<String, Integer> rewards = new LinkedHashMap<String, Integer>();
 			String lbl;
 			int rwd;
@@ -42,11 +42,11 @@ public class Prismer {
 //				if(config.getBoolean("verbose")){
 //					System.out.println("Converting to prism matrix");
 //				}
-				String full_content = new IMCTransformer(imc).toPRISM(file_out, rewards);
+				String full_content = new IMCTransformer(imc).toPRISM(module_name, rewards);
 //				if(config.getBoolean("verbose")){
 //					System.out.println("Converting to prism matrix");
 //				}
-				Generator.createFile(file_out, "sm", full_content);
+				Generator.createFile(module_name, "sm", full_content);
 				
 			}
 			catch(Exception e){

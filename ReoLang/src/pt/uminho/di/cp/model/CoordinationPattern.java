@@ -452,13 +452,13 @@ public class CoordinationPattern {
 							elem += "merger  mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|" + (number_of_ports) + " 0.001 0.001 0.001 0.001 0.001\n" ;
+							elem += p + "|" + (number_of_ports) + " 0.001 0.001 0.001 0.001 0.002\n" ;
 						}
 						else {
 							elem += "merger mer"+count+" ";
 							elem += p + "|" + (number_of_ports--) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001 0.001\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001 0.002\n" ;
 						}
 					}
 					else {
@@ -466,13 +466,13 @@ public class CoordinationPattern {
 							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|" + (number_of_ports--) + " 0.001 0.001 0.001 0.001 0.001\n" ;
+							elem += p + "|" + (number_of_ports--) + " 0.001 0.001 0.001 0.001 0.002\n" ;
 						}
 						else {
 							elem += "merger mer"+count+" ";
 							elem += p + "|m" + (j - 1) + " ";
 							elem += p + "|" + (number_of_ports--) + " ";
-							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001 0.001\n" ;
+							elem += p + "|m" + j + " 0.001 0.001 0.001 0.001 0.002\n" ;
 						}
 					}
 				}
