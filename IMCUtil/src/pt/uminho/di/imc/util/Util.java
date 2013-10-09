@@ -3,8 +3,11 @@
  */
 package pt.uminho.di.imc.util;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.util.Map;
+
 
 /**
  * @author Nuno Oliveira
@@ -13,12 +16,39 @@ import java.util.Set;
  */
 public final class Util {
 	
-	public static Set<ICopiable> copySet(Set<ICopiable> to_copy_set){
-		Set<ICopiable> copied_set = new HashSet<ICopiable>();
-		for(ICopiable c : to_copy_set){
-			copied_set.add(c.copy());
+	public static void minimize(String file) {
+		String s;
+		String CADP = "/Users/nunooliveira/Documents/Nuno/Academic/IMCApps/CADP/cadp";
+		String CADP_BIN = CADP + "/bin.mac86/";
+		String CADP_COM = CADP + "/com";
+		String WORK_DIR = "";
+		
+		ProcessBuilder pb1 = new ProcessBuilder("./minimizer.sh", "tmp", file);
+		File f = new File(WORK_DIR);
+		String ss = f.getAbsolutePath();
+		pb1.directory(new File(ss));		
+		try {
+			Map<String, String> env = pb1.environment();
+			env.put("CADP", CADP);
+			env.put("PATH", env.get("PATH") + ":" + CADP_BIN + ":" + CADP_COM);
+			
+			Process p = pb1.start();
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+	        while ((s = stdInput.readLine()) != null) {
+	            System.out.println(s);
+	        }
+		
+			while ((s = stdError.readLine()) != null) {
+			    System.out.println(s);
+			}
+			
+			p.waitFor();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return copied_set;
 	}
 	
 }

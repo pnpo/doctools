@@ -328,7 +328,7 @@ public class Generator {
 					System.out.println("Creating file " + config.getString("out_ma_file"));
 				}
 				createFile(config.getString("out_ma_file"), "ma", 
-						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toMAFormat()));
+						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toMAFormat()));
 			}
 			
 			if(config.userSpecified("out_dot_file")) {
@@ -336,7 +336,7 @@ public class Generator {
 					System.out.println("Creating file " + config.getString("out_dot_file")); 
 				}
 				createFile(config.getString("out_dot_file"), "dot", 
-						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toDotFormat()));
+						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toDotFormat()));
 			}
 			
 			if(config.userSpecified("out_aut_file")) {
@@ -348,7 +348,7 @@ public class Generator {
 				if(config.getBoolean("verbose") && !config.getBoolean("labels")){
 					System.out.println("Hiding all interactive transitions...");
 				}
-				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"))).toAUTFormat(!config.getBoolean("labels"));
+				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toAUTFormat(!config.getBoolean("labels"));
 				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
 				String mapping = full_content.substring(full_content.indexOf("-- STATES MAPPING --\n\n")); 
 				createFile(config.getString("out_aut_file"), "aut", content);

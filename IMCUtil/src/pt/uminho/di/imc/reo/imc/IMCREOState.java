@@ -252,8 +252,74 @@ public class IMCREOState implements Comparable<IMCREOState> {
 		return newbuffer;
 	}
 
+
+	/**
+	 * Serialize the internal state of a state.
+	 * 
+	 * For an internal state FULL [a] it creates f[a];
+	 * EMPTY [b] it creates e[b] and for NONE the same. 
+	 * 
+	 * 
+	 * @return a string with the state serialized.
+	 */
+	public String serialize_is() {
+		String serialized = "";
+		for(IMCREOInternalState is : this.buffer){
+			switch (is.getState()) {
+				case FULL: {
+					serialized += "f";
+				} break;
+				case EMPTY: {
+					serialized += "e";
+				} break;
+				case NONE: {
+					serialized += "n";
+				} break;
+			default: serialized = "";
+				break;
+			}
+			
+			serialized += is.getPorts().toString();
+		}
+		return serialized;
+	}
+
 	
-	
+	public static LinkedList<IMCREOInternalState> unserialize_is(String serial) {
+		LinkedList<IMCREOInternalState> list = new LinkedList<IMCREOInternalState>();
+		
+		String[] internal_states = serial.split("]");
+		for(int i=0 ; i<internal_states.length ; i++){
+			IMCREOInternalState is = new IMCREOInternalState();
+			if(internal_states[i].startsWith("f")) {
+				is.setState(IMCREOBufferState.FULL);
+			}
+			else{
+				if(internal_states[i].startsWith("e")){
+					is.setState(IMCREOBufferState.EMPTY);
+				}
+				else {
+					if(internal_states[i].startsWith("n")) {
+						is.setState(IMCREOBufferState.NONE);
+					}
+				}
+			}
+			
+			String ports_str = internal_states[i].substring(internal_states[i].indexOf('[')+1);
+			String ports[] = ports_str.split(",");
+			LinkedHashSet<String> is_ports = new LinkedHashSet<String>();
+			for(int j=0 ; j<ports.length ; j++){
+				is_ports.add(ports[j]);
+			}
+			
+			is.setPorts(is_ports);
+			
+			list.add(is);
+		}
+		
+		return list;
+		
+	}
 	
 
 	

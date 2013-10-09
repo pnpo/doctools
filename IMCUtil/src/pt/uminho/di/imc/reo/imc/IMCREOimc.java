@@ -812,7 +812,7 @@ public class IMCREOimc {
 	 * @param mixedports the set with all the mixed ports
 	 * @return a IMC without forced non determinism...
 	 */
-	private IMCREOimc removeForcedNonDeterminism(Set<String> mixedports){
+	public IMCREOimc removeForcedNonDeterminism(Set<String> mixedports){
 		IMCREOimc newimc = new IMCREOimc();
 		
 		
@@ -1536,8 +1536,42 @@ public class IMCREOimc {
 	
 	
 	
-
 	
+	/**
+	 * This method transforms markovian transitions into hidden interactive transitions
+	 * by changing an mark trans. of type ARRIVAL with <tt>node</tt> into an int. trans
+	 * with empty set of actions.  
+	 * @param node the node whose arrivals are to be hidden.
+	 * @return an IMCREOimc with hiddent int. trans insted of trans of type _ARR_[node]
+	 */
+	public IMCREOimc hideArrivalAtNode(String node){
+		
+		IMCREOimc newimc = new IMCREOimc();
+		newimc.setInitial_state(this.initial_state.copy());
+		newimc.setPoset(this.poset);
+		
+		for(IMCREOState st : this.chain.keySet()){
+			LinkedList<IMCREOTransition> new_tr = new LinkedList<IMCREOTransition>();
+			for(IMCREOTransition tr : this.chain.get(st)) {
+				if(tr instanceof IMCREOMarkovianTransition && 
+						((IMCREOMarkovianTransition) tr).getSort().equals(IMCREOMarkovianTransitionSort.ARRIVAL) && 
+							((IMCREOMarkovianTransition) tr).getPorts().contains(node))
+				{
+					IMCREOInteractiveTransition hidden_tr = new IMCREOInteractiveTransition();
+					hidden_tr.setFinal_state(tr.getFinal_state().copy());
+					hidden_tr.setActions(new LinkedHashSet<String>());
+					new_tr.add(hidden_tr);
+				}
+				else {
+					new_tr.add(tr.copy());
+				}
+			}
+			newimc.chain.put(st.copy(), new_tr);
+		}
+		
+		return newimc;
+	}
+
 	
 	
 	
@@ -1584,9 +1618,10 @@ public class IMCREOimc {
 	 *    
 	 * @param readable - a boolean that drives the creation of a
 	 * a readable or unreadable IMC version  
+	 * @param reusable
 	 * @return the IMC based on the IMCREO.
 	 */
-	public IMC toIMC(boolean readable){
+	public IMC toIMC(boolean readable, boolean reusable){
 		
 		IMC imc = new IMC();
 		HashMap<IMCREOState, String> map = new HashMap<IMCREOState, String>(this.chain.size());
@@ -1613,13 +1648,19 @@ public class IMCREOimc {
 				String target = ! readable ? map.get(t.getFinal_state()) : t.getFinal_state().toString().replaceAll(" ", "");
 				Transition t_imc;
 				if(t instanceof IMCREOInteractiveTransition) {
-					String action =  ((IMCREOInteractiveTransition)t).getActionsCompact();
+					String action =  ((IMCREOInteractiveTransition)t).getActionsCompact(reusable);
+					if(reusable){
+						action = action.equals("")? "tau" : this.serializeInternalStates(action, s, t.getFinal_state());
+					}
 					t_imc = new InteractiveTransition(source, target, action );
 					
 				}
 				else {
 					double rate = ((IMCREOMarkovianTransition)t).getRate();
 					String label= ((IMCREOMarkovianTransition)t).getLabel();
+					if(reusable){
+						label = this.serializeInternalStates(label, s, t.getFinal_state());
+					}
 					t_imc = new MarkovianTransition(source, target, rate, label);
 				}
 				imc.addTransition(t_imc);
@@ -1633,7 +1674,31 @@ public class IMCREOimc {
 	
 
 	
+	/**
+	 * 
+	 * @param label
+	 * @param s
+	 * @param final_state
+	 * @return
+	 */
+	private String serializeInternalStates(String label, IMCREOState src, IMCREOState trg) {
+		
+		String lbl = src.serialize_is() + "~" + label + "~" + trg.serialize_is();
+		
+		return lbl;
+	}
 	
+	
+	public static void unserializeInternalStates(String ser_lbl, IMCREOState src, IMCREOState trg) {
+		String serial_src = ser_lbl.substring(0,ser_lbl.indexOf('~'));
+		String serial_trg = ser_lbl.substring(ser_lbl.lastIndexOf('~')+1);
+		src.setBuffer(IMCREOState.unserialize_is(serial_src));
+		trg.setBuffer(IMCREOState.unserialize_is(serial_trg));
+	}
+
+
+
+
 	/**
 	 * This method creates a RMA based on the IMCREO.
 	 * 
@@ -1691,6 +1756,18 @@ public class IMCREOimc {
 		return sb.toString();
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -27,10 +28,10 @@ public class IMC {
 	
 	
 	public IMC() {
-		this.states = new HashSet<String>();
-		this.initial_states = new HashSet<String>();
-		this.goal_states = new HashSet<String>();
-		this.transitions = new HashSet<Transition>();
+		this.states = new LinkedHashSet<String>();
+		this.initial_states = new LinkedHashSet<String>();
+		this.goal_states = new LinkedHashSet<String>();
+		this.transitions = new LinkedHashSet<Transition>();
 	}
 
 
@@ -52,22 +53,22 @@ public class IMC {
 	 * @param imc the imc to "clone"
 	 */
 	public IMC(IMC imc){
-		this.states = new HashSet<String>();
+		this.states = new LinkedHashSet<String>();
 		for(String s : imc.getStates()){
 			this.states.add(s);
 		}
 		
-		this.initial_states = new HashSet<String>();
+		this.initial_states = new LinkedHashSet<String>();
 		for(String s : imc.getInitial_states()){
 			this.initial_states.add(s);
 		}
 		
-		this.goal_states = new HashSet<String>();
+		this.goal_states = new LinkedHashSet<String>();
 		for(String s : imc.getGoal_states()){
 			this.goal_states.add(s);
 		}
 		
-		this.transitions = new HashSet<Transition>();
+		this.transitions = new LinkedHashSet<Transition>();
 		for(Transition t : imc.getTransitions()){
 			this.transitions.add(t.copy());
 		}

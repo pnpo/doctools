@@ -157,14 +157,14 @@ public class TesteMain {
 //				"exrouter xor1 xr|0 xr|1 xr|2 0.1 0.1 0.1 0.1 0.1\n" +
 //				"merger m1 b c o 0.1 0.2 0.3 0.4 0.5\n" +
 				
-				"exrouter xor1 x|0 x|1 x|2 0.001 0.001 0.001 0.001 0.001\n" +
-				"merger  mer1 a|1 a|2 a|0 0.001 0.001 0.001 0.001 0.001\n" +
-				"fifo1e wq t a|1 5.0 1.0 1000000.0 1000000.0\n" + 
-				"fifo1e exs esi eso 1.0 1.0 1000000.0 4.5\n" + 
-				"sync seo eso a|2 1.0 1000000.0 1000000.0\n" + 
-				"fifo1e mas a|0 x|0 1.0 1.0 1.8 1000000.0\n" + 
-				"sync sei x|2 esi 1.0 1.0 800000.0\n" + 
-				"sync sbi x|1 bi 1.0 1000000.0 200000.0\n" +
+//				"exrouter xor1 x|0 x|1 x|2 0.001 0.001 0.001 0.001 0.001\n" +
+//				"merger  mer1 a|1 a|2 a|0 0.001 0.001 0.001 0.001 0.001\n" +
+//				"fifo1e wq t a|1 5.0 1.0 1000000.0 1000000.0\n" + 
+//				"fifo1e exs esi eso 1.0 1.0 1000000.0 4.5\n" + 
+//				"sync seo eso a|2 1.0 1000000.0 1000000.0\n" + 
+//				"fifo1e mas a|0 x|0 1.0 1.0 1.8 1000000.0\n" + 
+//				"sync sei x|2 esi 1.0 1.0 800000.0\n" + 
+//				"sync sbi x|1 bi 1.0 1000000.0 200000.0\n" +
 				
 
 				
@@ -175,6 +175,7 @@ public class TesteMain {
 		long startTime = System.currentTimeMillis();
 		ScriptParser sp = new ScriptParser(teste);
 		Composer cs = sp.parser();
+		
 		IMCREOimc res = cs.intelligentCompose();
 		//res.hide(cs.getMixed_ports());
 		

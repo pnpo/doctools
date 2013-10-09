@@ -6,8 +6,19 @@ package pt.uminho.di.imc;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import javax.naming.InitialContext;
+
+import pt.uminho.di.imc.reo.imc.IMCREOInteractiveTransition;
+import pt.uminho.di.imc.reo.imc.IMCREOMarkovianTransition;
+import pt.uminho.di.imc.reo.imc.IMCREOState;
+import pt.uminho.di.imc.reo.imc.IMCREOTransition;
+import pt.uminho.di.imc.reo.imc.IMCREOimc;
+import pt.uminho.di.imc.reo.imc.POPorts;
 
 /**
  * @author Nuno Oliveira
@@ -393,6 +404,130 @@ public class IMCTransformer {
 		
 		sb.append("}");
 		return sb.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
+	public IMCREOimc toIMCREO(POPorts poset) throws NotIMCREOException{
+		
+		IMCREOimc newimc = new IMCREOimc();
+		
+		//set the POSET
+		newimc.setPoset(poset);
+		//create initial state
+		IMCREOState initial = new IMCREOState();
+		initial.setId((String)this.imc.getInitial_states().toArray()[0]);
+		newimc.setInitial_state(initial);
+		boolean inital_state_is_complete = false;
+		
+		//run over all the transitions
+		for(Transition t : this.imc.getTransitions()){
+			if(t instanceof InteractiveTransition){
+				//get the action as a string
+				String act = ((InteractiveTransition) t).getAction();
+				LinkedHashSet<String> acts = new LinkedHashSet<String>();
+				if(act.contains("~")){
+					String act_cleaned = act.substring(act.indexOf('~')+1, act.lastIndexOf('~'));
+					//if the action has $... then it means it is a set of actions
+					if(act_cleaned.contains("$")) {
+						//so we break them into pieces
+						String[] acts_str = act_cleaned.split("\\$");
+						//and add them to the action
+						for(int i = 0 ; i < acts_str.length ; i++) {
+							acts.add(acts_str[i]);
+						}
+					}
+					else {
+						//unless it is an internal transition...
+						if(!act_cleaned.equals("tau")) {
+							acts.add(act_cleaned);
+						}
+					}//end if act has $
+				}
+				else {
+					throw new NotIMCREOException("The IMC to convert into IMCREO cannot be converted!\nIt is not in the correct format!");
+				}
+				
+				//now we create the source and target state
+				IMCREOState src = new IMCREOState();
+				src.setId(t.getStart_state());
+				IMCREOState trg = new IMCREOState();
+				trg.setId(t.getFinal_state());
+				if(! acts.isEmpty()){
+					IMCREOimc.unserializeInternalStates(act, src, trg);
+				}
+				//now we check wether the src state is alread in the map of states of the newimc
+				if(!newimc.getChain().containsKey(src)){
+					newimc.getChain().put(src, new LinkedList<IMCREOTransition>());
+				}
+				//and now we create the new int. trans. and add to the list of trans
+				IMCREOInteractiveTransition it = new IMCREOInteractiveTransition();
+				it.setActions(acts);
+				it.setFinal_state(trg);
+				newimc.getChain().get(src).add(it);
+				//now we try to complete the initial state, unless it is already complete
+				if(!inital_state_is_complete){
+					if(src.getId().equals(newimc.getInitial_state().getId())){
+						newimc.setInitial_state(src.copy());
+						inital_state_is_complete = true;
+					}
+					else {
+						if(trg.getId().equals(newimc.getInitial_state().getId())){
+							newimc.setInitial_state(trg.copy());
+							inital_state_is_complete = true;
+						}
+					}
+				}
+			}
+			else {
+				String lbl = ((MarkovianTransition) t).getLabel();
+				String lbl_cleaned = lbl;
+				if(lbl.contains("~")){
+					lbl_cleaned = lbl.substring(lbl.indexOf('~')+1, lbl.lastIndexOf('~'));
+				}
+				else {
+					throw new NotIMCREOException("The IMC to convert into IMCREO cannot be converted!\nIt is not in the correct format!");
+				}
+				
+				//now we create the source and target state
+				IMCREOState src = new IMCREOState();
+				src.setId(t.getStart_state());
+				IMCREOState trg = new IMCREOState();
+				trg.setId(t.getFinal_state());
+				IMCREOimc.unserializeInternalStates(lbl, src, trg);
+				
+				//now we check whether the src state is already in the map of states of the newimc
+				if(!newimc.getChain().containsKey(src)){
+					newimc.getChain().put(src, new LinkedList<IMCREOTransition>());
+				}
+				//and now we create the new mark. trans. and add to the list of trans
+				IMCREOMarkovianTransition mt = new IMCREOMarkovianTransition();
+				mt.setLabel(lbl_cleaned);
+				mt.setRate(((MarkovianTransition) t).getRate());
+				mt.setFinal_state(trg);
+				newimc.getChain().get(src).add(mt);
+				//now we try to complete the initial state, unless it is already complete
+				if(!inital_state_is_complete){
+					if(src.getId().equals(newimc.getInitial_state().getId())){
+						newimc.setInitial_state(src.copy());
+						inital_state_is_complete = true;
+					}
+					else {
+						if(trg.getId().equals(newimc.getInitial_state().getId())){
+							newimc.setInitial_state(trg.copy());
+							inital_state_is_complete = true;
+						}
+					}
+				}
+			}
+		}
+		
+		return newimc;
+		
 	}
 	
 	
