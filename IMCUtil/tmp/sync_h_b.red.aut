@@ -1,4 +1,0 @@
-des (0, 3, 3)
-(0, "e[]~gamma_a~f[a,b]; rate 0.1", 2)
-(1, "e[]~gamma_ab~e[]; rate 0.2", 0)
-(2, "f[a,b]~a$b~e[]", 1)
