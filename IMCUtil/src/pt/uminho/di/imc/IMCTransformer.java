@@ -45,12 +45,13 @@ public class IMCTransformer {
 	 * the <b>bcg_io tool</b> as bcg_io <.aut file> <.bcg file> to convert it into 
 	 * the BCG binary format.
 	 * 
-	 * @param hide_all - a flag saying whether all the labels are to hide or not 
+	 * @param hide_all - a flag saying whether all the labels are to hide or not
+	 * @param reusable - a flag saying whether the file is to be reused or not 
 	 * 
 	 * @return a String version of the IMC in the .aut format with a state mapping 
 	 * at the end for clarity... it should be removed from the aut file. 
 	 */
-	public String toAUTFormat(boolean hide_all) {
+	public String toAUTFormat(boolean hide_all, boolean reusable) {
 		StringBuffer sb = new StringBuffer();
 		int num_states = this.imc.getStates().size();
 		int num_transitions = this.imc.getTransitions().size();
@@ -104,9 +105,11 @@ public class IMCTransformer {
 			}
 		}
 		
-		sb.append("-- STATES MAPPING --\n\n");
-		for(String state : states_mapping.keySet()){
-			sb.append(states_mapping.get(state) + "\t---\t" + state + "\n");
+		if(!reusable){
+			sb.append("-- STATES MAPPING --\n\n");
+			for(String state : states_mapping.keySet()){
+				sb.append(states_mapping.get(state) + "\t---\t" + state + "\n");
+			}
 		}
 		
 		return sb.toString();

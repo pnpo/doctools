@@ -5,7 +5,9 @@ package pt.uminho.di.imc.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.Map;
 
 
@@ -48,6 +50,39 @@ public final class Util {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public static void createFile(String path, String extension, String contents){
+		try {
+			
+			if(! path.endsWith("." + extension)){
+				
+				int dot_pos = path.lastIndexOf('.');
+				if(dot_pos == -1){
+					path += "." + extension;
+				}
+				else {
+					String new_path = path.substring(0, dot_pos+1);
+					path = new_path + extension;
+				}
+				
+			}
+			
+			PrintWriter out = new PrintWriter(path);
+			out.print(contents);
+			out.close();
+			
+		} catch (FileNotFoundException e) {
+			
+			System.err.println("Ups some problems in writing your file!");
+			System.err.println("Please check the path and/or the permissions.");
+			System.err.println("Anyway, I'll print it to the stdio!");
+			
+			System.out.println(contents);
+			
 		}
 	}
 	

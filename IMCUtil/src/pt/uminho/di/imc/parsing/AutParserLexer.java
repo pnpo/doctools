@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-10-09 02:02:05
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g 2013-10-09 16:13:46
 
 		package pt.uminho.di.imc.parsing;
 
@@ -235,17 +235,17 @@ public class AutParserLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:92:4: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '~' | '[' | ']' | '$' | '#' )+ )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:92:6: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '~' | '[' | ']' | '$' | '#' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:92:4: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '~' | '[' | ']' | '$' | '#' | '|' )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:92:6: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '~' | '[' | ']' | '$' | '#' | '|' )+
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:92:6: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '~' | '[' | ']' | '$' | '#' )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:92:6: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '~' | '[' | ']' | '$' | '#' | '|' )+
             int cnt3=0;
             loop3:
             do {
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
-                if ( ((LA3_0>='#' && LA3_0<='$')||(LA3_0>='0' && LA3_0<='9')||(LA3_0>='A' && LA3_0<='[')||LA3_0==']'||(LA3_0>='a' && LA3_0<='z')||LA3_0=='~') ) {
+                if ( ((LA3_0>='#' && LA3_0<='$')||(LA3_0>='0' && LA3_0<='9')||(LA3_0>='A' && LA3_0<='[')||LA3_0==']'||(LA3_0>='a' && LA3_0<='z')||LA3_0=='|'||LA3_0=='~') ) {
                     alt3=1;
                 }
 
@@ -254,7 +254,7 @@ public class AutParserLexer extends Lexer {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/AutParser.g:
             	    {
-            	    if ( (input.LA(1)>='#' && input.LA(1)<='$')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='[')||input.LA(1)==']'||(input.LA(1)>='a' && input.LA(1)<='z')||input.LA(1)=='~' ) {
+            	    if ( (input.LA(1)>='#' && input.LA(1)<='$')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='[')||input.LA(1)==']'||(input.LA(1)>='a' && input.LA(1)<='z')||input.LA(1)=='|'||input.LA(1)=='~' ) {
             	        input.consume();
 
             	    }
@@ -655,20 +655,20 @@ public class AutParserLexer extends Lexer {
     static final String[] DFA6_transitionS = {
             "\2\10\2\uffff\1\10\22\uffff\1\10\1\uffff\1\6\2\7\3\uffff\1\2"+
             "\1\4\2\uffff\1\3\3\uffff\12\5\7\uffff\33\7\1\uffff\1\7\3\uffff"+
-            "\3\7\1\1\26\7\3\uffff\1\7",
+            "\3\7\1\1\26\7\1\uffff\1\7\1\uffff\1\7",
             "\1\11",
             "",
             "",
             "",
-            "\2\7\13\uffff\12\5\7\uffff\33\7\1\uffff\1\7\3\uffff\32\7\3"+
-            "\uffff\1\7",
+            "\2\7\13\uffff\12\5\7\uffff\33\7\1\uffff\1\7\3\uffff\32\7\1"+
+            "\uffff\1\7\1\uffff\1\7",
             "",
             "",
             "",
             "\1\13",
             "",
-            "\2\7\13\uffff\12\7\7\uffff\33\7\1\uffff\1\7\3\uffff\32\7\3"+
-            "\uffff\1\7",
+            "\2\7\13\uffff\12\7\7\uffff\33\7\1\uffff\1\7\3\uffff\32\7\1"+
+            "\uffff\1\7\1\uffff\1\7",
             ""
     };
 

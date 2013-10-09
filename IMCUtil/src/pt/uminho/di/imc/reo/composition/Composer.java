@@ -237,6 +237,9 @@ public class Composer {
 	private IMCREOimc performComposition( IMCREOimc imc1, IMCREOimc imc2, LinkedHashSet<String> mixedports) {
 		IMCREOimc res_internal;
 		
+		imc1 = imc1.minimize(mixedports, "tmp/", "tmpfile1");
+		imc2 = imc2.minimize(mixedports, "tmp/", "tmpfile2");
+		
 		res_internal = imc1.compose(imc2, mixedports); 
 		System.out.println("-------------------------\nCOMPi\n------------------------------");
 		System.out.println(res_internal);

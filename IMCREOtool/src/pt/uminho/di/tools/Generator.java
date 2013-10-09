@@ -348,7 +348,7 @@ public class Generator {
 				if(config.getBoolean("verbose") && !config.getBoolean("labels")){
 					System.out.println("Hiding all interactive transitions...");
 				}
-				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toAUTFormat(!config.getBoolean("labels"));
+				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toAUTFormat(!config.getBoolean("labels"), false);
 				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
 				String mapping = full_content.substring(full_content.indexOf("-- STATES MAPPING --\n\n")); 
 				createFile(config.getString("out_aut_file"), "aut", content);
