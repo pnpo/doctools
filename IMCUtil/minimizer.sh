@@ -4,7 +4,7 @@ if [ $# -eq 2 ] ; then
 	echo 'conversion started...'
 	file="$1/$2"
 	bcg_io "$file.aut" "$file.bcg"
-	echo "$1.aut converted with success\n"
+	echo "$2.aut converted with success\n"
 	
 	echo 'minimization started...'
 	bcg_open  "$file.bcg"  reductor -weaktrace "$file.red.bcg"

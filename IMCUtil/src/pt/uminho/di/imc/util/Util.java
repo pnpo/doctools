@@ -18,12 +18,12 @@ import java.util.Map;
  */
 public final class Util {
 	
-	public static void minimize(String file) {
+	public static void minimize(String file, String cadp, String cadp_bin, String cadp_com, String output) {
 		String s;
-		String CADP = "/Users/nunooliveira/Documents/Nuno/Academic/IMCApps/CADP/cadp";
-		String CADP_BIN = CADP + "/bin.mac86/";
-		String CADP_COM = CADP + "/com";
-		String WORK_DIR = "";
+		String CADP = cadp;
+		String CADP_BIN = cadp_bin;
+		String CADP_COM = cadp_com;
+		String WORK_DIR = output;
 		
 		ProcessBuilder pb1 = new ProcessBuilder("./minimizer.sh", "tmp", file);
 		File f = new File(WORK_DIR);

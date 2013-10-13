@@ -44,7 +44,7 @@ public class TesteIMC {
 //		}
 		
 		String aut = "fifo_h_b";
-		Util.minimize(aut);
+	//	Util.minimize(aut);
 		
 		IMCParserWrapper p = new IMCParserWrapper(new File("tmp/"+aut+".red.aut"));
 		try {

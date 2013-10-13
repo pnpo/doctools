@@ -179,7 +179,7 @@ public class TesteMain {
 		ScriptParser sp = new ScriptParser(teste);
 		Composer cs = sp.parser();
 		
-		IMCREOimc res = cs.intelligentCompose();
+		IMCREOimc res = cs.intelligentCompose(false, "", "", "", "");
 		//res.hide(cs.getMixed_ports());
 		
 		System.out.println(res.toString());

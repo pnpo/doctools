@@ -1976,13 +1976,13 @@ public class IMCREOimc {
 
 
 	@SuppressWarnings("finally")
-	public IMCREOimc minimize(LinkedHashSet<String> mixedports, String tempdir, String autfile) {
+	public IMCREOimc minimize(LinkedHashSet<String> mixedports, String tempdir, String autfile, String cadp, String cadp_bin, String cadp_com, String output) {
 		
 		IMCREOimc newimc = new IMCREOimc();
 		POPorts poset = this.poset;
 		IMC imc = this.hideArrivalAtNodes(mixedports).toIMC(false,  true);
 		Util.createFile(tempdir+autfile, "aut", new IMCTransformer(imc).toAUTFormat(false, true));
-		Util.minimize(autfile);
+		Util.minimize(autfile, cadp, cadp_bin, cadp_com, output);
 		IMCParserWrapper p = new IMCParserWrapper(new File(tempdir+autfile+".red.aut"));
 		try {
 			p.parse();

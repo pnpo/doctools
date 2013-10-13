@@ -1,7 +1,9 @@
 package pt.uminho.di.tools;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.io.PrintWriter;
 
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Properties;
 
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
@@ -27,6 +30,7 @@ import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.composition.Composer;
 import pt.uminho.di.imc.reo.composition.ScriptParser;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
+import pt.uminho.di.imc.util.Util;
 import pt.uminho.di.reolang.ReoLangCPModel;
 import pt.uminho.di.reolang.ReoLangSemantics;
 import pt.uminho.di.reolang.parsing.CPBuilder;
@@ -42,8 +46,30 @@ public class Generator {
 	
 
 		
+		
+		Properties prop = new Properties();
 		JSAP cmd_line = new JSAP();
+		
 		try {
+		
+			String CADP = "";//"/Users/nunooliveira/Documents/Nuno/Academic/IMCApps/CADP/cadp";
+    		String CADP_BIN = "";//CADP + "/bin.mac86/";
+    		String CADP_COM = "";//CADP + "/com";
+    		String OUTPUT = "";
+    				
+			//load a properties file
+    		prop.load(new FileInputStream("../conf/imcreotools.properties"));
+ 
+    		//get the property value and print it out
+    		CADP = prop.getProperty("cadp");
+    		CADP_BIN = prop.getProperty("cadp_bin");
+    		CADP_COM = prop.getProperty("cadp_com");
+    		OUTPUT = prop.getProperty("output");
+			
+			
+			
+			
+			
 			FlaggedOption reo_file = new FlaggedOption("reo_file")
 								.setStringParser(JSAP.STRING_PARSER)
 								.setShortFlag('f')
@@ -99,6 +125,15 @@ public class Generator {
 							.setLongFlag("verbose");
 			verbose.setHelp("Whether it is said whatever is being done.");
 			cmd_line.registerParameter(verbose);
+			
+			
+			Switch efficient = new Switch("efficient")
+								.setShortFlag('e')
+								.setLongFlag("efficient");
+			efficient.setHelp(	"Whether it should be used weak-trace equivalence \n" +
+								"to minimize the state space, improving efficiency.");
+			cmd_line.registerParameter(efficient);
+			
 			
 			//output related
 			
@@ -277,7 +312,7 @@ public class Generator {
 						long startTime = System.currentTimeMillis();
 						ScriptParser sp = new ScriptParser(imc_script);
 						Composer cs = sp.parser();
-						imc_result = cs.intelligentCompose();
+						imc_result = cs.intelligentCompose(config.userSpecified("efficient"), CADP, CADP_BIN, CADP_COM, OUTPUT);
 						long endTime   = System.currentTimeMillis();
 						long totalTime = endTime - startTime;
 						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
@@ -320,14 +355,14 @@ public class Generator {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_rma_file"));
 				}
-				createFile(config.getString("out_rma_file"), "rma", imc_result.toReoMA());
+				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_rma_file"), "rma", imc_result.toReoMA());
 			}
 			
 			if(config.userSpecified("out_ma_file")) {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_ma_file"));
 				}
-				createFile(config.getString("out_ma_file"), "ma", 
+				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_ma_file"), "ma", 
 						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toMAFormat()));
 			}
 			
@@ -335,7 +370,7 @@ public class Generator {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_dot_file")); 
 				}
-				createFile(config.getString("out_dot_file"), "dot", 
+				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_dot_file"), "dot", 
 						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toDotFormat()));
 			}
 			
@@ -351,8 +386,8 @@ public class Generator {
 				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toAUTFormat(!config.getBoolean("labels"), false);
 				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
 				String mapping = full_content.substring(full_content.indexOf("-- STATES MAPPING --\n\n")); 
-				createFile(config.getString("out_aut_file"), "aut", content);
-				createFile(config.getString("out_aut_file"), "mapping", mapping);
+				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_aut_file"), "aut", content);
+				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_aut_file"), "mapping", mapping);
 			}
 			
 //			if(config.userSpecified("out_prism_trans")){
@@ -407,6 +442,9 @@ public class Generator {
 		} catch (JSAPException e) {
 			e.printStackTrace();
 		}
+		catch (IOException e2) {
+			e2.printStackTrace();
+		}
 		
 		
 		
@@ -424,38 +462,38 @@ public class Generator {
 	}
 	
 	
-	protected static void createFile(String path, String extension, String contents){
-		try {
-			
-			if(! path.endsWith("." + extension)){
-//				System.out.println("WARNING: you provided a wrong file extension. It should be " + extension);
-//				System.out.println("\t Don't worry we correct it for you!");
-				
-				int dot_pos = path.lastIndexOf('.');
-				if(dot_pos == -1){
-					path += "." + extension;
-				}
-				else {
-					String new_path = path.substring(0, dot_pos+1);
-					path = new_path + extension;
-				}
-				
-			}
-			
-			PrintWriter out = new PrintWriter(path);
-			out.print(contents);
-			out.close();
-			
-		} catch (FileNotFoundException e) {
-			
-			System.err.println("Ups some problems in writing your file!");
-			System.err.println("Please check the path and/or the permissions.");
-			System.err.println("Anyway, I'll print it to the stdio!");
-			
-			System.out.println(contents);
-			
-		}
-	}
+//	protected static void createFile(String path, String extension, String contents){
+//		try {
+//			
+//			if(! path.endsWith("." + extension)){
+////				System.out.println("WARNING: you provided a wrong file extension. It should be " + extension);
+////				System.out.println("\t Don't worry we correct it for you!");
+//				
+//				int dot_pos = path.lastIndexOf('.');
+//				if(dot_pos == -1){
+//					path += "." + extension;
+//				}
+//				else {
+//					String new_path = path.substring(0, dot_pos+1);
+//					path = new_path + extension;
+//				}
+//				
+//			}
+//			
+//			PrintWriter out = new PrintWriter(path);
+//			out.print(contents);
+//			out.close();
+//			
+//		} catch (FileNotFoundException e) {
+//			
+//			System.err.println("Ups some problems in writing your file!");
+//			System.err.println("Please check the path and/or the permissions.");
+//			System.err.println("Anyway, I'll print it to the stdio!");
+//			
+//			System.out.println(contents);
+//			
+//		}
+//	}
 	
 	
 	
