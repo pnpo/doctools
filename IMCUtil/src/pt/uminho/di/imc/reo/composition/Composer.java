@@ -239,8 +239,8 @@ public class Composer {
 		IMCREOimc res_internal;
 		
 		if(efficient){
-			imc1 = imc1.minimize(mixedports, output+File.pathSeparator+"tmp"+File.pathSeparator, "tmpfile1", cadp, cadp_bin, cadp_com, output);
-			imc2 = imc2.minimize(mixedports, output+File.pathSeparator+"tmp"+File.pathSeparator, "tmpfile2", cadp, cadp_bin, cadp_com, output);
+			imc1 = imc1.minimize(mixedports, output+File.separator, "tmpfile1", cadp, cadp_bin, cadp_com, output);
+			imc2 = imc2.minimize(mixedports, output+File.separator, "tmpfile2", cadp, cadp_bin, cadp_com, output);
 		}
 		res_internal = imc1.compose(imc2, mixedports); 
 		System.out.println("-------------------------\nCOMPi\n------------------------------");

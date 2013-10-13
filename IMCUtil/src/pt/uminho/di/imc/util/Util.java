@@ -25,10 +25,10 @@ public final class Util {
 		String CADP_COM = cadp_com;
 		String WORK_DIR = output;
 		
-		ProcessBuilder pb1 = new ProcessBuilder("./minimizer.sh", "tmp", file);
-		File f = new File(WORK_DIR);
-		String ss = f.getAbsolutePath();
-		pb1.directory(new File(ss));		
+		ProcessBuilder pb1 = new ProcessBuilder("../lib/minimizer.sh", file, output);
+		//File f = new File(WORK_DIR);
+		//String ss = f.getAbsolutePath();
+		//pb1.directory(new File(ss));		
 		try {
 			Map<String, String> env = pb1.environment();
 			env.put("CADP", CADP);
@@ -79,6 +79,7 @@ public final class Util {
 			
 			System.err.println("Ups some problems in writing your file!");
 			System.err.println("Please check the path and/or the permissions.");
+			System.err.println("The file path is: " + path);
 			System.err.println("Anyway, I'll print it to the stdio!");
 			
 			System.out.println(contents);

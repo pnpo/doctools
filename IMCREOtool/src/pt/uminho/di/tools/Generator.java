@@ -355,14 +355,14 @@ public class Generator {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_rma_file"));
 				}
-				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_rma_file"), "rma", imc_result.toReoMA());
+				Util.createFile(OUTPUT + File.separator + config.getString("out_rma_file"), "rma", imc_result.toReoMA());
 			}
 			
 			if(config.userSpecified("out_ma_file")) {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_ma_file"));
 				}
-				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_ma_file"), "ma", 
+				Util.createFile(OUTPUT + File.separator + config.getString("out_ma_file"), "ma", 
 						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toMAFormat()));
 			}
 			
@@ -370,7 +370,7 @@ public class Generator {
 				if(config.getBoolean("verbose")){
 					System.out.println("Creating file " + config.getString("out_dot_file")); 
 				}
-				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_dot_file"), "dot", 
+				Util.createFile(OUTPUT + File.separator + config.getString("out_dot_file"), "dot", 
 						(new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toDotFormat()));
 			}
 			
@@ -386,8 +386,8 @@ public class Generator {
 				String full_content = new IMCTransformer(imc_result.toIMC(config.getBoolean("readable"), false)).toAUTFormat(!config.getBoolean("labels"), false);
 				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
 				String mapping = full_content.substring(full_content.indexOf("-- STATES MAPPING --\n\n")); 
-				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_aut_file"), "aut", content);
-				Util.createFile(OUTPUT + File.pathSeparator + config.getString("out_aut_file"), "mapping", mapping);
+				Util.createFile(OUTPUT + File.separator + config.getString("out_aut_file"), "aut", content);
+				Util.createFile(OUTPUT + File.separator + config.getString("out_aut_file"), "mapping", mapping);
 			}
 			
 //			if(config.userSpecified("out_prism_trans")){
