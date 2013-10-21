@@ -4,6 +4,7 @@
 package pt.uminho.di.cp.model;
 
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 
 
@@ -82,7 +83,74 @@ public class Teste {
 		
 		p.intoIMCScript();
 		
+		
+		
+		
+		/** Testes Flávio **/
+		
+		ReconfigurableCoordinationPattern p1 = new ReconfigurableCoordinationPattern();
+		p1.getPattern().add(c1);
+		p1.getPattern().add(c2);
+//		p1.getPattern().add(c3);
+		
+		System.out.println("INIT------------------");
+		System.out.println(p1);
+		
+		//ReconfigurableCoordinationPattern rp = new ReconfigurableCoordinationPattern();
+		if (!(p1 instanceof ReconfigurableCoordinationPattern)){
+			p1 = new ReconfigurableCoordinationPattern(p1);
+		}
+		
+		//force reconfig
+		p1 = new ReconfigurableCoordinationPattern(p1);
+		
+		System.out.println("RecCP------------------");
+		System.out.println(p1);
+		
+		
+		p1.id();
+		System.out.println("ID------------------");
+		System.out.println(p1);
+		
+		
+		ReconfigurableCoordinationPattern p2 = new ReconfigurableCoordinationPattern("test1");
+		p2.getPattern().add(c5);
+		p2.getPattern().add(c6);
+		//p2.getPattern().add(c7);
+		
+		p1.par(p2);
+		System.out.println("PAR------------------");
+		System.out.println(p1);
+		
 
+		p1.constant(p2);
+		//p.constant(cp2);
+		System.out.println("CONST------------------");
+		System.out.println(p1);
+		
+		
+		
+		ReconfigurableCoordinationPattern p3 = new ReconfigurableCoordinationPattern("test2");
+		p3.getPattern().add(c6);
+
+
+		p1.par(p3).constant(p2);
+		System.out.println("PAR+CONST------------------");
+		System.out.println(p1);
+		
+		
+		//PROBLEM: exemplo: p1.par(p2) e depois p1.par(p2).constant(p3)ou p1.par(p2).par(p2)
+		////ConcurrentModificationException
+		
+//		Set<String> n = null;
+//		n.add("unnamed.a");
+//		n.add("unnamed.j1");
+//		
+//		p1.join(n, "z");
+//		//p.constant(cp2);
+//		System.out.println("JOIN------------------");
+//		System.out.println(p1);
+		
 	}
 
 }
