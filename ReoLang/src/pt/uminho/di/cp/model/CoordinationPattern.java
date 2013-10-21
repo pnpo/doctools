@@ -6,7 +6,10 @@ package pt.uminho.di.cp.model;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+<<<<<<< HEAD
+=======
 import java.util.LinkedHashMap;
+>>>>>>> ba8c7280d20b056dcd1aeb605e05f0a9369425d6
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
@@ -33,8 +36,8 @@ public class CoordinationPattern {
 	public CoordinationPattern() {
 		super();
 		this.id = "unnamed";
-		this.pattern = new HashSet<CommunicationMean>();
-		this.router_nodes = new HashSet<String>();
+		this.pattern = new LinkedHashSet<CommunicationMean>();
+		this.router_nodes = new LinkedHashSet<String>();
 	}
 
 
@@ -57,16 +60,16 @@ public class CoordinationPattern {
 	 */
 	public CoordinationPattern(String id) {
 		super();
-		this.pattern = new HashSet<CommunicationMean>();
+		this.pattern = new LinkedHashSet<CommunicationMean>();
 		this.id = id;
-		this.router_nodes = new HashSet<String>();
+		this.router_nodes = new LinkedHashSet<String>();
 	}
 
 	
 	
 	
 	public CoordinationPattern(CoordinationPattern p) {
-		this.pattern = new HashSet<CommunicationMean>();
+		this.pattern = new LinkedHashSet<CommunicationMean>();
 		for(CommunicationMean cm : p.getPattern()){
 			if(cm instanceof StochasticCommunicationMean) {
 				this.pattern.add(new StochasticCommunicationMean((StochasticCommunicationMean)cm));
@@ -77,7 +80,7 @@ public class CoordinationPattern {
 				
 		}
 		this.id = p.getId();
-		this.router_nodes = new HashSet<String>();
+		this.router_nodes = new LinkedHashSet<String>();
 		for(String r : p.router_nodes){
 			this.router_nodes.add(r);
 		}
@@ -695,6 +698,8 @@ public class CoordinationPattern {
 			return false;
 		return true;
 	}
+<<<<<<< HEAD
+=======
 
 
 
@@ -778,6 +783,7 @@ public class CoordinationPattern {
 	
 	
 	
+>>>>>>> ba8c7280d20b056dcd1aeb605e05f0a9369425d6
 	
 	
 }
