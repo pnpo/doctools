@@ -6,10 +6,7 @@ package pt.uminho.di.cp.model;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-<<<<<<< HEAD
-=======
 import java.util.LinkedHashMap;
->>>>>>> ba8c7280d20b056dcd1aeb605e05f0a9369425d6
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
@@ -698,8 +695,6 @@ public class CoordinationPattern {
 			return false;
 		return true;
 	}
-<<<<<<< HEAD
-=======
 
 
 
@@ -777,13 +772,7 @@ public class CoordinationPattern {
 	} 
 	
 	
-	
-	
-	
-	
-	
-	
->>>>>>> ba8c7280d20b056dcd1aeb605e05f0a9369425d6
+
 	
 	
 }
