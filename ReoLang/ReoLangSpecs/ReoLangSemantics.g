@@ -74,6 +74,11 @@ element returns [ArrayList<Error> o_errors]
 		$element.o_errors = $pattern_def.o_errors;
 	}
 	
+	|	^(ELEMENT stochastic_def)
+	{
+		$element.o_errors = $stochastic_def.o_errors;
+	}
+	
 	;
 	
 	
@@ -1529,12 +1534,9 @@ instances [ArrayList<String> in_ports, ArrayList<String> out_ports, String i_typ
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>(0);
 	ArrayList<String> processed_instances = new ArrayList<String>(0); 
+	ArrayList<String> flow_labels = new ArrayList<String>();
 }	
-	:	^(INSTANCES (ID (stochastic_values[$instances.in_ports, $instances.out_ports, $instances.i_type]
-		{
-			local_errors.addAll($stochastic_values.o_errors);
-		}
-	)?
+	:	^(INSTANCES (ID 
 	{
 		//ID should not exist in a local context
 		if($pattern_def::pattern_table.isDefined($ID.text) || $reolang::global_table.isDefined($ID.text)) {
@@ -1554,6 +1556,13 @@ instances [ArrayList<String> in_ports, ArrayList<String> out_ports, String i_typ
 			$pattern_def::pattern_table.add(local_symbol);
 			
 			processed_instances.add($ID.text);
+			
+			
+			for(String lbl : $reolang::global_table.get(i_type).getFlowLabels()){
+				flow_labels.add($ID.text+"#"+lbl);
+			}
+			$reolang::global_table.get($pattern_def::pattern_name).getFlowLabels().addAll(flow_labels);
+			flow_labels.clear();
 		}
 		
 		
@@ -1567,60 +1576,6 @@ instances [ArrayList<String> in_ports, ArrayList<String> out_ports, String i_typ
 	}
 	;
 	
-	
-	
-	
-	
-	
-	
-	
-stochastic_values [ArrayList<String> in_ports, ArrayList<String> out_ports, String i_type] returns [ArrayList<Error> o_errors]
-@init{
-	ArrayList<String> ports = new ArrayList<String>(in_ports);	
-	ports.addAll(out_ports);
-	ArrayList<String> used_labels = new ArrayList<String>();
-	boolean is_type_in_scope = $reolang::global_table.isDefined(i_type) ;
-	ArrayList<String> existing_labels = is_type_in_scope ? new ArrayList<String>($reolang::global_table.get(i_type).getFlowLabels()) : null;
-	ArrayList<Error> local_errors = new ArrayList<Error>();
-}
-	: 	^(STOCH 
-	(ID FLOAT
-	{
-		//check wether the label was already used
-		if(used_labels.contains($ID.text)){
-			local_errors.add( new Error(ErrorType.ERROR, Error.stochasticLabelAlreadyDefined($ID.text), $ID.line, $ID.pos, $reolang::file));
-		}
-		else {
-			if(is_type_in_scope){
-				//check if it is a label defined for the the channel or a port
-				if(! (existing_labels.contains($ID.text) || ports.contains($ID.text))) {
-					local_errors.add(new Error(ErrorType.ERROR, Error.noStochasticLabelDefined($ID.text, i_type), $ID.line, $ID.pos, $reolang::file));
-				}
-				else {
-					used_labels.add($ID.text);
-				}	
-			}
-			
-		}
-		
-	}
-	)+ 
-	
-	{
-		//check if all labels and all ports were defined a stoch value
-		if(is_type_in_scope) {
-			existing_labels.addAll(ports);
-			if(! used_labels.containsAll(existing_labels)){
-				existing_labels.removeAll(used_labels);
-				local_errors.add(new Error(ErrorType.WARNING, Error.incompleteStochasticValuesList(existing_labels), $ID.line, $ID.pos, $reolang::file));
-			}
-			existing_labels.clear();
-		}
-		$stochastic_values.o_errors = local_errors;
-	}
-	
-	)
-	;	
 	
 	
 	
@@ -1989,3 +1944,109 @@ special_port_access_list [ArrayList<String> i_unused_accesses] returns [ArrayLis
  	}
 	;
 
+
+
+
+
+
+
+
+
+
+stochastic_def returns [ArrayList<Error> o_errors]
+@init {
+ 	ArrayList<Error> local_errors = new ArrayList<Error>();
+ }
+	:	^(RW_STOCHASTIC i1=ID i2=ID 
+	{
+		//i1 must be a pattern name
+		if(! $reolang::global_table.isDefined($i1.text) || ($reolang::global_table.isDefined($i1.text) && ! $reolang::global_table.get($i1.text).getType().equals(Type.PATTERN.toString()))){
+			local_errors.add(Error.report(ErrorType.ERROR, Error.nameShouldBePattern($i1.text), $i1.line, $i1.pos, $reolang::file));
+		}
+		//TODO: add stoch instances into the symbols table
+		//i2 must not exist
+		if($reolang::global_table.isDefined($i2.text) ){
+			local_errors.add(Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($i2.text), $i2.line, $i2.pos, $reolang::file));
+		}
+	}
+		stochastic_list[$i1.text]
+	{
+		local_errors.addAll($stochastic_list.o_errors);
+		$stochastic_def.o_errors = local_errors;
+	}
+	)
+	;
+	
+stochastic_list[String pattern_name ] returns [ArrayList<Error> o_errors]
+@init{
+	ArrayList<Error> local_errors = new ArrayList<Error>();
+	boolean is_pattern_in_scope = $reolang::global_table.isDefined(pattern_name) ;
+	ArrayList<String> ports = is_pattern_in_scope ? new ArrayList<String>($reolang::global_table.get(pattern_name).getInArgs()) : new ArrayList<String>();	
+	ports.addAll(is_pattern_in_scope ? new ArrayList<String>($reolang::global_table.get(pattern_name).getOutArgs()) : new ArrayList<String>());
+	ArrayList<String> labels = new ArrayList<String>($reolang::global_table.get(pattern_name).getFlowLabels());
+}
+	:	( a=stoch_elem[ports, labels] 
+	{
+		local_errors.addAll($a.o_errors);
+	}
+	(	b=stoch_elem[$a.o_ports, $a.o_labels] 
+	{
+		a = b ;
+		local_errors.addAll($a.o_errors);
+	}
+	
+	)*
+
+	{
+		//check if all labels and all ports were defined a stoch value
+		if(is_pattern_in_scope) {
+			$a.o_labels.addAll($a.o_ports);
+			if(!$a.o_labels.isEmpty()){
+				local_errors.add(new Error(ErrorType.ERROR, Error.incompleteStochasticValuesList($a.o_labels), $a.line, $a.pos, $reolang::file));
+			}
+		}
+	
+		$stochastic_list.o_errors = local_errors;
+	}
+	)
+	
+	;
+
+
+
+stoch_elem [ArrayList<String> i_ports, ArrayList<String> i_labels] returns [ArrayList<String> o_ports, ArrayList<String> o_labels, ArrayList<Error> o_errors, int line, int pos]
+@init{
+	ArrayList<Error> local_errors = new ArrayList<Error>();
+}
+	:	^(STOCH i1=ID (i2=ID)? FLOAT
+	{
+		//i1 is port? then should not have been used?
+		//if it is a port, ie, if there is not a second part on the stoch spec
+		if($i2==null){
+			//i1 shall be in the list of ports
+			if(!$stoch_elem.i_ports.contains($i1.text)){
+				local_errors.add( new Error(ErrorType.ERROR, Error.stochasticLabelAlreadyDefined($i1.text), $i1.line, $i1.pos, $reolang::file));
+			}
+			else {
+				$stoch_elem.i_ports.remove($i1.text);
+			}
+		}
+		//i2 is defined then i2 shall be a channel stochastic label
+		else {
+			if(! $stoch_elem.i_labels.contains($i1.text + "#" + $i2.text)) {
+				local_errors.add( new Error(ErrorType.ERROR, Error.stochasticLabelAlreadyDefined($i1.text + "#" + $i2.text ), $i1.line, $i1.pos, $reolang::file));	
+			}
+			else {
+				$stoch_elem.i_labels.remove($i1.text + "#" + $i2.text);
+			}
+		}
+		
+		$stoch_elem.o_ports = $stoch_elem.i_ports;
+		$stoch_elem.o_labels = $stoch_elem.i_labels;
+		$stoch_elem.o_errors = local_errors;
+		$stoch_elem.line = $i1.line;
+		$stoch_elem.pos = $i1.pos;
+		
+	}
+	)
+	;

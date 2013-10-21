@@ -98,7 +98,7 @@ reolang
 element
 	:	channel_def		-> ^(ELEMENT channel_def)
 	|	pattern_def		-> ^(ELEMENT pattern_def)
-	//|	stochastic_def		-> ^(ELEMENT stochastic_def)
+	|	stochastic_def		-> ^(ELEMENT stochastic_def)
 	;
 
 
@@ -289,15 +289,15 @@ reference_signature
 	;
 	
 instances
-	:	i1=ID s1=stochastic_values? (COMMA i2=ID s2=stochastic_values?)*
-		-> ^(INSTANCES ID $s1? (ID $s2?)* )
+	:	i1=ID  (COMMA i2=ID )*
+		-> ^(INSTANCES ID  (ID )* )
 	;	
 
 
-stochastic_values
+/*stochastic_values
 	:	BODY_OPEN ID LABEL_MARK FLOAT (COMMA ID LABEL_MARK FLOAT)* BODY_CLOSE
 		-> ^(STOCH (ID FLOAT)+ )
-	;
+	;*/
 
 pattern_compositions 
 	: 	port_definition SEMICOLON (port_definition SEMICOLON)* (join_operation SEMICOLON (join_operation SEMICOLON)* )?
@@ -349,13 +349,17 @@ special_port_access_list
 	
 	
 
-/*stochastic_def
-	:	RW_RUN i1=ID TIME_MARK BODY_OPEN stochastic_list BODY_CLOSE RW_AS i2=ID
-		-> ^(RW_RUN $i1 $i2 stochastic_list)
+stochastic_def
+	:	RW_STOCHASTIC i1=ID TIME_MARK  stochastic_list RW_AS i2=ID
+		-> ^(RW_STOCHASTIC $i1 $i2 stochastic_list)
 	;
 	
 stochastic_list
-	:	(i1=ID (LABEL_MARK i2=ID)? EQUALS FLOAT SEMICOLON)+
-		-> ^(STOCH ($i1 $i2? FLOAT)+ )
+	:	BODY_OPEN stoch_elem+ BODY_CLOSE
+		-> stoch_elem+ 
 	;
-*/
+	
+stoch_elem
+	:	(ID (LABEL_MARK ID)? EQUALS FLOAT SEMICOLON)
+		-> ^(STOCH ID ID? FLOAT)
+	;

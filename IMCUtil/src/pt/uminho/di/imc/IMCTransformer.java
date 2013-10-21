@@ -265,7 +265,7 @@ public class IMCTransformer {
 			else {
 				String source = t.getStart_state() ;
 				String target = t.getFinal_state() ;
-				String lbl = ((MarkovianTransition) t).getLabel().replaceAll("[\\[\\],]", "_");
+				String lbl = ((MarkovianTransition) t).getLabel().replaceAll("[\\[\\],|]", "_");
 				String cons_lbl = "CONST_"+lbl;
 				if(! lbl.equals("") && !constants.containsKey(cons_lbl)){
 					constants.put(cons_lbl, ((MarkovianTransition) t).getRate());

@@ -4,6 +4,7 @@
 package pt.uminho.di.reolang.parsing;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.ANTLRStringStream;
@@ -51,13 +52,13 @@ public class CPBuilder extends CompilerPart {
 	
 	
 	@SuppressWarnings("finally")
-	public HashMap<String, ReoLangCPModel.CPModelInternal> performModelConstruction(CommonTreeNodeStream tree, HashMap<String, ReoLangCPModel.CPModelInternal> patterns, SymbolsTable tab) {
-		HashMap<String, ReoLangCPModel.CPModelInternal> final_result = null;
+	public ReoLangCPModel performModelConstruction(CommonTreeNodeStream tree, LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> stoch_instances, SymbolsTable tab) {
+		ReoLangCPModel final_result = null;
 		
 		try {
 			ReoLangCPModel walker = new ReoLangCPModel(tree);
-		    walker.reolang(this.getFile(), patterns, tab);
-		    final_result = walker.getPatterns();
+		    walker.reolang(this.getFile(), patterns, stoch_instances, tab);
+		    final_result = walker;
 		       			
 		} catch(Throwable t) {
 	         System.out.println("exception: "+t);
@@ -76,8 +77,8 @@ public class CPBuilder extends CompilerPart {
 	
 	
 	@SuppressWarnings("finally")
-	public HashMap<String, ReoLangCPModel.CPModelInternal> performModelConstruction(HashMap<String, ReoLangCPModel.CPModelInternal> patterns, SymbolsTable tab) {
-		HashMap<String, ReoLangCPModel.CPModelInternal> final_result = null;
+	public ReoLangCPModel performModelConstruction(LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> stoch_instances, SymbolsTable tab) {
+		ReoLangCPModel final_result = null;
 		
 		try {
 			CharStream stream = this.getContent().equals("") ? new ANTLRFileStream(this.getFile(), "UTF8"): new ANTLRStringStream(this.getContent());
@@ -93,8 +94,8 @@ public class CPBuilder extends CompilerPart {
 	        
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(root.getTree());
 			ReoLangCPModel walker = new ReoLangCPModel(nodes);
-		    walker.reolang(this.getFile(), patterns, tab);
-		    final_result = walker.getPatterns();   	
+		    walker.reolang(this.getFile(), patterns, stoch_instances, tab);
+		    final_result = walker;   	
 		    
 		} catch(Throwable t) {
 	         System.out.println("exception: "+t);
