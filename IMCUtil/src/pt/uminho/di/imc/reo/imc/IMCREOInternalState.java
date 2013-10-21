@@ -14,7 +14,7 @@ import java.util.Set;
 public class IMCREOInternalState {
 
 	private IMCREOBufferState state;
-	private Set<String> ports;
+	private Set<String> ports; //ports that are in the given internal state
 	
 	
 	public IMCREOInternalState() {

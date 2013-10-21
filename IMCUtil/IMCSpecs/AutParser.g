@@ -33,7 +33,7 @@ aut
 header	:	'des' '(' init=INT {this.imc.addInitialState( $init.text) ;} ',' n_trans=INT ',' n_states=INT')'
 	;
 	
-body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
+body	:	('(' source=INT ',' label=(STRING|ID) ',' target=INT ')'
 	{
 		Transition t ;
 		if($label.text.equals("i") || ! $label.text.matches(".*\\s*rate\\s+\\d.*\"")) {
@@ -43,7 +43,13 @@ body	:	('(' source=INT ',' label=(STRING|'i') ',' target=INT ')'
 				_label = "tau";
 			}
 			else {
-				_label = $label.text.substring(1,$label.text.length()-1);
+				if($label.text.contains("\"")){
+					_label = $label.text.substring(1,$label.text.length()-1);
+				}
+				else {
+					_label = $label.text;
+				}
+				
 			}
 			t = new InteractiveTransition($source.text, $target.text, _label);
 			//System.out.println(_label);
@@ -82,6 +88,9 @@ INT :	'0'..'9'+
 STRING
     :  '"' ( ESC_SEQ | ~('\\'|'"') )* '"'
     ;
+    
+ID	: ('a'..'z'|'A'..'Z'|'0'..'9'|'~'|'['|']'|'$'|'#'|'|')+
+	;	
 
 fragment
 HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;

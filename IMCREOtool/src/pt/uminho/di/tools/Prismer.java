@@ -1,11 +1,14 @@
 package pt.uminho.di.tools;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.LinkedHashMap;
+import java.util.Properties;
 
 import pt.uminho.di.imc.IMC;
 import pt.uminho.di.imc.IMCTransformer;
 import pt.uminho.di.imc.parsing.IMCParserWrapper;
+import pt.uminho.di.imc.util.Util;
 
 
 public class Prismer {
@@ -32,21 +35,24 @@ public class Prismer {
 					}
 				}
 			}
-//			if(config.getBoolean("verbose")){
-//				System.out.println("Parsing content of file " + file_in);
-//			}
 			IMCParserWrapper p = new IMCParserWrapper(new File(file_in));
 			try{
+				
+				String OUTPUT = "";
+				
+				//load a properties file
+	    		Properties prop = new Properties();
+	    		prop.load(new FileInputStream("../conf/imcreotools.properties"));
+	 
+	    		//get the property value and print it out
+	    		OUTPUT = prop.getProperty("output");
+				
 				p.parse();
 				IMC imc = p.getImc(); 
-//				if(config.getBoolean("verbose")){
-//					System.out.println("Converting to prism matrix");
-//				}
+				
 				String full_content = new IMCTransformer(imc).toPRISM(module_name, rewards);
-//				if(config.getBoolean("verbose")){
-//					System.out.println("Converting to prism matrix");
-//				}
-				Generator.createFile(module_name, "sm", full_content);
+				
+				Util.createFile(OUTPUT + File.pathSeparator + module_name, "sm", full_content);
 				
 			}
 			catch(Exception e){

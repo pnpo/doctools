@@ -80,10 +80,15 @@ public class IMCREOInteractiveTransition extends IMCREOTransition {
 	
 	/**
 	 * 
+	 * @param actions_reusable a flag that says wether the actions
+	 * are to be compressed in a way that they can be reusable latter on
+	 * as a list of action
 	 * @return a string "abc" if actions are [a, b, c]
 	 */
-	public String getActionsCompact() {
-		return this.getActionsAsString().replaceAll(" ", "");
+	public String getActionsCompact(boolean actions_reusable) {
+		String replace = actions_reusable ? "\\$" : "";
+		String act = this.getActionsAsString();
+		return act.replaceAll(" ", replace);
 	}
 	
 	

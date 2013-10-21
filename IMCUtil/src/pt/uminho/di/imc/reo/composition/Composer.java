@@ -4,6 +4,7 @@
 package pt.uminho.di.imc.reo.composition;
 
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -234,9 +235,13 @@ public class Composer {
 	 * @param mixedports - the set of mixed ports to perform the join of the imcs.
 	 * @return
 	 */
-	private IMCREOimc performComposition( IMCREOimc imc1, IMCREOimc imc2, LinkedHashSet<String> mixedports) {
+	private IMCREOimc performComposition( IMCREOimc imc1, IMCREOimc imc2, LinkedHashSet<String> mixedports, boolean efficient, String cadp, String cadp_bin, String cadp_com, String output) {
 		IMCREOimc res_internal;
 		
+		if(efficient){
+			imc1 = imc1.minimize(mixedports, output+File.separator, "tmpfile1", cadp, cadp_bin, cadp_com, output);
+			imc2 = imc2.minimize(mixedports, output+File.separator, "tmpfile2", cadp, cadp_bin, cadp_com, output);
+		}
 		res_internal = imc1.compose(imc2, mixedports); 
 		System.out.println("-------------------------\nCOMPi\n------------------------------");
 		System.out.println(res_internal);
@@ -289,7 +294,7 @@ public class Composer {
 	 * @return The IMCREOimc of a stochastic connector
 	 * 
 	 */
-	public IMCREOimc intelligentCompose(){
+	public IMCREOimc intelligentCompose(boolean efficient, String cadp, String cadp_bin, String cadp_com, String output){
 		IMCREOimc res = new IMCREOimc();
 		//HashSet<String> ports_merged = new HashSet<String>();
 		LinkedHashSet<String> ports_in_comp = new LinkedHashSet<String>();
@@ -367,7 +372,7 @@ public class Composer {
 							ports_structure_1.retainAll(ports_structure_2);
 							LinkedHashSet<String> mixedports = new LinkedHashSet<String>(ports_structure_1);
 							
-							res = this.performComposition(imc_fst, imc_snd, mixedports);
+							res = this.performComposition(imc_fst, imc_snd, mixedports, efficient, cadp, cadp_bin, cadp_com, output);
 							
 							//keep track of all mixed ports...
 							this.mixed_ports.addAll(mixedports);

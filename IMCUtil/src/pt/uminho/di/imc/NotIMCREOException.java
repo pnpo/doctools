@@ -1,17 +1,17 @@
 package pt.uminho.di.imc;
 
-public class NotCTMCException extends Exception {
+public class NotIMCREOException extends Exception{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public NotCTMCException() {
+	public NotIMCREOException() {
 		super();
 	}
 	
-	public NotCTMCException(String msg) {
+	public NotIMCREOException(String msg) {
 		super(msg);
 	}
 	
