@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+
 import pt.uminho.di.reolang.ReoLangCPModel;
 
 /**
@@ -234,6 +235,169 @@ public class CoordinationPattern {
 	}
 	
 
+	public Set<String> nodes_of(){
+		Set<String> nodes = new HashSet<String>();
+		
+		Set<CommunicationMean> pattern = this.getPattern();
+		for (CommunicationMean cm : pattern) {
+			nodes.add( cm.getInode() );
+			nodes.add( cm.getFnode() );
+		}
+		return nodes;
+	}
+	
+	
+	public Set<String> names_of(){
+		Set<String> names = new HashSet<String>();
+		
+		Set<CommunicationMean> pattern = this.getPattern();
+		for (CommunicationMean cm : pattern) {
+			names.add( cm.getId() );
+		}
+		return names;
+	}
+	
+	
+	
+	/********************* PRIMITIVES *********************/
+	
+	//ID
+	public CoordinationPattern id(){
+		return this;
+	}
+	
+	
+	//CONST
+	public CoordinationPattern constant(CoordinationPattern cp){
+		this.setId(cp.getId());
+		this.setPattern(cp.getPattern());
+		this.setRouter_nodes(cp.getRouter_nodes());
+		return this;
+	}
+	
+
+	//PAR
+	public CoordinationPattern par(CoordinationPattern cp) throws RepeatedNodesException{
+		
+		//get nodes of cp1
+		Set<String> nodes_cp1 = this.nodes_of(); 
+		//get nodes of cp2
+		Set<String> nodes_cp2 = cp.nodes_of();
+		
+		//save cp1 nodes on cp1_inter_cp2
+		Set<String> n1_inter_n2 = new HashSet<String>(nodes_cp1);
+		//keep only cp1_inter_cp2 nodes that are equals to cp2 nodes
+		n1_inter_n2.retainAll(nodes_cp2);	
+	
+		//if there aren't nodes equal to cp2 nodes, the cp1_inter_cp2 set is empty
+		//otherwise, if cp1_inter_cp2 set isn't empty, exists repeated nodes
+		if( !n1_inter_n2.isEmpty() ) {
+			throw new RepeatedNodesException("Operation 'par' are not allowed.\nSome nodes are equal: " + n1_inter_n2.toString() );
+		}
+		else {
+			
+			//get channel identifiers of cp1
+			Set<String> ids_cp1 = this.names_of(); 
+			//get channel identifiers of cp2
+			Set<String> ids_cp2 = cp.names_of();
+			
+			Set<String> ids1_inter_ids2 = new HashSet<String>(ids_cp1);
+			ids1_inter_ids2.retainAll(ids_cp2);	
+		
+			if( !ids1_inter_ids2.isEmpty() ) {
+				throw new RepeatedNodesException("Operation 'par' are not allowed.\nSome channel identifiers are equal.");
+			}
+			
+			//no errors
+			else{
+				this.getPattern().addAll(cp.getPattern());
+				return this;
+			}
+		}
+	}
+
+	
+	//JOIN
+	public CoordinationPattern join(Set<String> nodes){
+		
+		Set<CommunicationMean> pattern = this.getPattern();
+		
+		//Test loops
+		//...
+		
+		String newNode = "";
+		String sep = "";
+		for (String node : nodes)
+		{
+		    newNode += sep + node;
+	        sep = ".";
+		}
+		
+		
+		for (CommunicationMean cm : pattern) {
+		    String inode = cm.getInode();
+			String fnode = cm.getFnode();
+			
+			Set<String> cm_nodes = new HashSet<String>();
+			cm_nodes.add(inode);
+			cm_nodes.add(fnode);
+			
+			//update cm_node -> cm_node can be inode or fnode
+			for(String cm_node : cm_nodes){
+				//test if cm_node exists on nodes set
+				if(nodes.contains(cm_node)){
+					if( cm_node.equals(inode) ){
+						cm.setInode(newNode);
+					}
+					if( cm_node.equals(fnode) ){
+						cm.setFnode(newNode);
+					}
+				
+				
+					if (cm instanceof StochasticCommunicationMean){
+						//get Stochastic_map
+						Map<String, Double> map = ((StochasticCommunicationMean) cm).getStochastic_map();
+						//get set of router_nodes
+						Set<String> rn = this.getRouter_nodes();
+						
+						//get the map value for cm_node, before remove that cm_node
+						Double value = map.get(cm_node);
+						
+						//if the cm_node exists in Stochastic_map, update the value
+						if (map.containsKey(cm_node)){
+							map.remove(cm_node);
+							map.put(newNode, value);
+						}
+						
+						//if the cm_node is also a router_node, update the router_nodes with the new cm_node
+						if (rn.contains(cm_node)){
+							rn.remove(cm_node);
+							rn.add(newNode);
+						}
+					}
+				}
+			}
+		}
+		
+		this.setPattern(pattern);
+		
+		return this;
+	}
+	
+	
+
+	/* 
+	public CoordinationPattern split(){
+		return cp1;
+	}
+	
+	public CoordinationPattern remove(){
+		return cp1;
+	}
+	*/
+	
+	/********************************************************************/
+	
 	
 	
 	
