@@ -16,11 +16,7 @@ import java.util.Set;
  */
 public class Teste {
 
-	/**
-	 * @param args
-	 * @throws RepeatedNodesException 
-	 */
-	public static void main(String[] args) throws RepeatedNodesException {
+	public static void main(String[] args) {
 		LinkedHashMap<String, Double> sv1 = new LinkedHashMap<String, Double>();
 		sv1.put("a", new Double(1.0));
 	    sv1.put("j1", new Double(1.1));
@@ -84,75 +80,6 @@ public class Teste {
 		System.out.println(p.getOutputPorts());
 		
 		p.intoIMCScript();
-		
-		
-		
-		
-		/** Testes Flávio **/
-		
-		CoordinationPattern p1 = new CoordinationPattern();
-		p1.getPattern().add(c1);
-		p1.getPattern().add(c2);
-//		p1.getPattern().add(c3);
-		
-		System.out.println("INIT------------------");
-		System.out.println(p1);
-		
-//		//ReconfigurableCoordinationPattern rp = new ReconfigurableCoordinationPattern();
-//		if (!(p1 instanceof ReconfigurableCoordinationPattern)){
-//			p1 = new ReconfigurableCoordinationPattern(p1);
-//		}
-		
-//		//force reconfig
-//		p1 = new ReconfigurableCoordinationPattern(p1);
-//		
-//		System.out.println("RecCP------------------");
-//		System.out.println(p1);
-		
-		
-		p1.id();
-		System.out.println("ID------------------");
-		System.out.println(p1);
-		
-		
-		CoordinationPattern p2 = new CoordinationPattern("test1");
-		p2.getPattern().add(c6);
-		//p2.getPattern().add(c7);
-		
-		System.out.println(p2);
-		p1.par(p2);
-		System.out.println("PAR------------------");
-		System.out.println(p1);
-		
-
-//		p1.constant(p2);
-//		//p.constant(cp2);
-//		System.out.println("CONST------------------");
-//		System.out.println(p1);		
-//		
-//		
-//		CoordinationPattern p3 = new CoordinationPattern("test2");
-//		p3.getPattern().add(c7);
-//
-//
-//		p1.par(p3).constant(p2);
-//		System.out.println("PAR+CONST------------------");
-//		System.out.println(p1);
-		
-		System.out.println("NAMES OF------------------");
-		System.out.println(p1.names_of().toString());
-		System.out.println("NODES OF------------------");
-		System.out.println(p1.nodes_of().toString());
-		
-		
-		Set<String> n = new HashSet<String>();
-		n.add("a");
-		n.add("e");
-		//n.add("j1");
-		
-		p1.join(n);
-		System.out.println("JOIN------------------");
-		System.out.println(p1);
 		
 	}
 

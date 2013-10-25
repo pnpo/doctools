@@ -3,6 +3,7 @@
  */
 package pt.uminho.di.cp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -277,7 +278,7 @@ public class CoordinationPattern {
 	
 
 	//PAR
-	public CoordinationPattern par(CoordinationPattern cp) throws RepeatedNodesException{
+	public CoordinationPattern par(CoordinationPattern cp) throws InvalidReconfigurationOperationException{
 		
 		//get nodes of cp1
 		Set<String> nodes_cp1 = this.nodes_of(); 
@@ -292,7 +293,7 @@ public class CoordinationPattern {
 		//if there aren't nodes equal to cp2 nodes, the cp1_inter_cp2 set is empty
 		//otherwise, if cp1_inter_cp2 set isn't empty, exists repeated nodes
 		if( !n1_inter_n2.isEmpty() ) {
-			throw new RepeatedNodesException("Operation 'par' are not allowed.\nSome nodes are equal: " + n1_inter_n2.toString() );
+			throw new InvalidReconfigurationOperationException("Operation 'par' is not allowed.\nSome nodes are equal: " + n1_inter_n2.toString() );
 		}
 		else {
 			
@@ -305,7 +306,7 @@ public class CoordinationPattern {
 			ids1_inter_ids2.retainAll(ids_cp2);	
 		
 			if( !ids1_inter_ids2.isEmpty() ) {
-				throw new RepeatedNodesException("Operation 'par' are not allowed.\nSome channel identifiers are equal.");
+				throw new InvalidReconfigurationOperationException("Operation 'par' is not allowed.\nSome channel identifiers are equal.");
 			}
 			
 			//no errors
@@ -320,83 +321,167 @@ public class CoordinationPattern {
 	//JOIN
 	public CoordinationPattern join(Set<String> nodes){
 		
-		Set<CommunicationMean> pattern = this.getPattern();
-		
-		//Test loops
-		//...
-		
-		String newNode = "";
-		String sep = "";
-		for (String node : nodes)
-		{
-		    newNode += sep + node;
-	        sep = ".";
-		}
-		
-		
-		for (CommunicationMean cm : pattern) {
-		    String inode = cm.getInode();
-			String fnode = cm.getFnode();
+		//Test if nodes exist in coordination pattern
+		if ( this.nodes_of().containsAll(nodes) ) {
+			Set<CommunicationMean> pattern = this.getPattern();
 			
-			Set<String> cm_nodes = new HashSet<String>();
-			cm_nodes.add(inode);
-			cm_nodes.add(fnode);
+			String newNode = "";
+			String sep = "";
+			for (String node : nodes)
+			{
+			    newNode += sep + node;
+		        sep = ".";
+			}
 			
-			//update cm_node -> cm_node can be inode or fnode
-			for(String cm_node : cm_nodes){
-				//test if cm_node exists on nodes set
-				if(nodes.contains(cm_node)){
-					if( cm_node.equals(inode) ){
-						cm.setInode(newNode);
-					}
-					if( cm_node.equals(fnode) ){
-						cm.setFnode(newNode);
-					}
+			
+			for (CommunicationMean cm : pattern) {
+			    String inode = cm.getInode();
+				String fnode = cm.getFnode();
 				
-				
-					if (cm instanceof StochasticCommunicationMean){
-						//get Stochastic_map
-						Map<String, Double> map = ((StochasticCommunicationMean) cm).getStochastic_map();
-						//get set of router_nodes
-						Set<String> rn = this.getRouter_nodes();
-						
-						//get the map value for cm_node, before remove that cm_node
-						Double value = map.get(cm_node);
-						
-						//if the cm_node exists in Stochastic_map, update the value
-						if (map.containsKey(cm_node)){
-							map.remove(cm_node);
-							map.put(newNode, value);
-						}
-						
-						//if the cm_node is also a router_node, update the router_nodes with the new cm_node
-						if (rn.contains(cm_node)){
-							rn.remove(cm_node);
-							rn.add(newNode);
-						}
-					}
+				if( nodes.contains(inode) ){
+					cm.setInode(newNode);
 				}
+				if( nodes.contains(fnode) ){
+					cm.setFnode(newNode);
+				}
+					
+//****************** Used for StochasticCommunicationMean Map update ****************** 			
+//				Set<String> cm_nodes = new HashSet<String>();
+//				cm_nodes.add(inode);
+//				cm_nodes.add(fnode);
+//				
+//				//update cm_node -> cm_node can be inode or fnode
+//				for(String cm_node : cm_nodes){
+//					//test if cm_node exists on nodes set
+//					if(nodes.contains(cm_node)){
+//						if( cm_node.equals(inode) ){
+//							cm.setInode(newNode);
+//						}
+//						if( cm_node.equals(fnode) ){
+//							cm.setFnode(newNode);
+//						}
+//					
+//					
+//						if (cm instanceof StochasticCommunicationMean){
+//							//get Stochastic_map
+//							Map<String, Double> map = ((StochasticCommunicationMean) cm).getStochastic_map();
+//							//get set of router_nodes
+//							Set<String> rn = this.getRouter_nodes();
+//							
+//							//get the map value for cm_node, before remove that cm_node
+//							Double value = map.get(cm_node);
+//							
+//							//if the cm_node exists in Stochastic_map, update the value
+//							if (map.containsKey(cm_node)){
+//								map.remove(cm_node);
+//								map.put(newNode, value);
+//							}
+//							
+//							//if the cm_node is also a router_node, update the router_nodes with the new cm_node
+//							if (rn.contains(cm_node)){
+//								rn.remove(cm_node);
+//								rn.add(newNode);
+//							}
+//						}
+//					}
+//				}
+//******************************************************		
 			}
 		}
-		
-		this.setPattern(pattern);
 		
 		return this;
 	}
 	
-	
 
-	/* 
-	public CoordinationPattern split(){
-		return cp1;
+	//SPLIT 
+	public CoordinationPattern split(String node){
+		
+		// "a.b" -> ["a", "b"]
+		String[] split_nodes = node.split("\\.");
+		
+		//get all channels
+		Set<CommunicationMean> pattern = this.getPattern();
+		
+		//Saves all channels with node input to aux
+		Set<CommunicationMean> aux = new HashSet<CommunicationMean>();
+		for (CommunicationMean cm : pattern) {
+			Set<String> cm_nodes = new HashSet<String>();
+			cm_nodes.add(cm.getInode()); 	//add inode
+			cm_nodes.add(cm.getFnode()); 	//add fnode
+
+			for(String cm_node : cm_nodes){
+				if (cm_node.equals(node)){
+					aux.add(cm);
+					break;
+				}
+			}
+		}
+
+		
+		int i = 0;
+		for (CommunicationMean cm : aux) {
+			if (cm.getInode().equals(node)){
+				cm.setInode( split_nodes[i] );
+				i++;
+			}
+			if (cm.getFnode().equals(node)){
+				cm.setFnode( split_nodes[i] );
+				i++;
+			}
+		}
+		return this;
 	}
 	
-	public CoordinationPattern remove(){
-		return cp1;
+	
+	//REMOVE
+	public CoordinationPattern remove(String ch_id) {
+		if ( this.names_of().contains(ch_id) ){
+			Set<CommunicationMean> pattern = this.getPattern();
+//			System.out.println(pattern);
+			
+			CommunicationMean ch = new CommunicationMean();
+			
+			for (CommunicationMean cm : pattern) {
+				if (cm.getId().equals(ch_id)){
+					ch = cm;
+					break;
+				}
+			}
+			
+			//******** REVER MELHOR ********
+//			System.out.println(ch);
+			boolean removed = pattern.remove(ch);
+//			System.out.println(pattern);
+//			System.out.println(removed);
+
+			if (removed){
+				Set<String> cm_nodes = new HashSet<String>();
+				cm_nodes.add(ch.getInode()); 	//add inode
+				cm_nodes.add(ch.getFnode()); 	//add fnode
+	
+				for(String cm_node : cm_nodes){
+	
+					if(cm_node.contains(".")){
+						for (CommunicationMean cm : pattern) {
+							if (cm.getInode().equals(cm_node)) {
+								cm.setInode( cm_node.substring(0, cm_node.lastIndexOf(".")) );
+							}
+							if (cm.getFnode().equals(cm_node)) {
+								cm.setFnode( cm_node.substring(0, cm_node.lastIndexOf(".")) );
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		return this;
+		//throw new InvalidReconfigurationOperationException("Operation 'remove' is not allowed.\nThe channel identifier doesn't exist in this coordination pattern.");	
 	}
-	*/
 	
 	/********************************************************************/
+	
 	
 	
 	
