@@ -3,7 +3,6 @@
  */
 package pt.uminho.di.cp.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -258,6 +257,16 @@ public class CoordinationPattern {
 		return names;
 	}
 	
+	public void updateRouterNodes(String old_node, String new_node){
+		Set<String> rn = this.getRouter_nodes();
+		
+		//if the old_node is also a router_node, update the router_nodes with the new_node
+		if (rn.contains(old_node)){
+			rn.remove(old_node);
+			rn.add(new_node);
+		}
+	}
+	
 	
 	
 	/********************* PRIMITIVES *********************/
@@ -318,6 +327,7 @@ public class CoordinationPattern {
 	}
 
 	
+	
 	//JOIN
 	public CoordinationPattern join(Set<String> nodes){
 		
@@ -332,18 +342,31 @@ public class CoordinationPattern {
 			    newNode += sep + node;
 		        sep = ".";
 			}
+			Set<CommunicationMean> aux_pattern = new LinkedHashSet<CommunicationMean>();
 			
+			Iterator<CommunicationMean> it = pattern.iterator();
 			
-			for (CommunicationMean cm : pattern) {
-			    String inode = cm.getInode();
+//			System.out.println("B1: " + pattern.toString());
+//			System.out.println("B2: " + aux_pattern.toString());
+			while(it.hasNext()){
+				
+				CommunicationMean cm = it.next();
+				it.remove();
+				
+				String inode = cm.getInode();
 				String fnode = cm.getFnode();
 				
 				if( nodes.contains(inode) ){
 					cm.setInode(newNode);
+					updateRouterNodes(inode, newNode);
 				}
 				if( nodes.contains(fnode) ){
 					cm.setFnode(newNode);
+					updateRouterNodes(fnode, newNode);
 				}
+				
+				aux_pattern.add(cm);
+				
 					
 //****************** Used for StochasticCommunicationMean Map update ****************** 			
 //				Set<String> cm_nodes = new HashSet<String>();
@@ -387,12 +410,16 @@ public class CoordinationPattern {
 //				}
 //******************************************************		
 			}
+
+//			System.out.println("A1: " + pattern.toString());
+//			System.out.println("A2: " + aux_pattern.toString());
+			this.setPattern(aux_pattern);
 		}
-		
 		return this;
 	}
 	
 
+	
 	//SPLIT 
 	public CoordinationPattern split(String node){
 		
@@ -402,42 +429,47 @@ public class CoordinationPattern {
 		//get all channels
 		Set<CommunicationMean> pattern = this.getPattern();
 		
-		//Saves all channels with node input to aux
-		Set<CommunicationMean> aux = new HashSet<CommunicationMean>();
-		for (CommunicationMean cm : pattern) {
-			Set<String> cm_nodes = new HashSet<String>();
-			cm_nodes.add(cm.getInode()); 	//add inode
-			cm_nodes.add(cm.getFnode()); 	//add fnode
+		Set<CommunicationMean> aux_pattern = new LinkedHashSet<CommunicationMean>();
 
-			for(String cm_node : cm_nodes){
-				if (cm_node.equals(node)){
-					aux.add(cm);
-					break;
-				}
-			}
-		}
-
-		
 		int i = 0;
-		for (CommunicationMean cm : aux) {
+		Iterator<CommunicationMean> it = pattern.iterator();
+		
+//		System.out.println("B1: " + pattern.toString());
+//		System.out.println("B2: " + aux_pattern.toString());
+		
+//		if (split_nodes.length == channels_where_input_node_appears.length){
+		while(it.hasNext()){
+			
+			CommunicationMean cm = it.next();
+		    it.remove();
+		    
 			if (cm.getInode().equals(node)){
 				cm.setInode( split_nodes[i] );
+				updateRouterNodes(node, split_nodes[i]);
 				i++;
 			}
 			if (cm.getFnode().equals(node)){
 				cm.setFnode( split_nodes[i] );
+				updateRouterNodes(node, split_nodes[i]);
 				i++;
 			}
+			aux_pattern.add(cm);
+			//System.out.print(cm + " ");
 		}
+		
+		this.setPattern(aux_pattern);
+
+//		System.out.println("A1: " + pattern.toString());
+//		System.out.println("A2: " + aux_pattern.toString());
 		return this;
 	}
+	
 	
 	
 	//REMOVE
 	public CoordinationPattern remove(String ch_id) {
 		if ( this.names_of().contains(ch_id) ){
 			Set<CommunicationMean> pattern = this.getPattern();
-//			System.out.println(pattern);
 			
 			CommunicationMean ch = new CommunicationMean();
 			
@@ -448,9 +480,9 @@ public class CoordinationPattern {
 				}
 			}
 			
-			//******** REVER MELHOR ********
 //			System.out.println(ch);
-			boolean removed = pattern.remove(ch);
+//			System.out.println(this.getPattern().contains(ch));
+			boolean removed = this.getPattern().remove(ch);
 //			System.out.println(pattern);
 //			System.out.println(removed);
 
@@ -458,16 +490,21 @@ public class CoordinationPattern {
 				Set<String> cm_nodes = new HashSet<String>();
 				cm_nodes.add(ch.getInode()); 	//add inode
 				cm_nodes.add(ch.getFnode()); 	//add fnode
-	
+				
+				//cm_nodes are the nodes of the removed channel
 				for(String cm_node : cm_nodes){
 	
 					if(cm_node.contains(".")){
+						//after remove the channel, test if any of the other channels have equal nodes, and change them ids
 						for (CommunicationMean cm : pattern) {
+							String new_node = cm_node.substring(0, cm_node.lastIndexOf(".")); 
 							if (cm.getInode().equals(cm_node)) {
-								cm.setInode( cm_node.substring(0, cm_node.lastIndexOf(".")) );
+								cm.setInode(new_node);
+								updateRouterNodes(cm_node, new_node);
 							}
 							if (cm.getFnode().equals(cm_node)) {
-								cm.setFnode( cm_node.substring(0, cm_node.lastIndexOf(".")) );
+								cm.setFnode( new_node );
+								updateRouterNodes(cm_node, new_node);
 							}
 						}
 					}

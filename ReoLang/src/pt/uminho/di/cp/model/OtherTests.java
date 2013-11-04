@@ -92,12 +92,12 @@ public class OtherTests {
 			p1.split("h.i.j");
 			System.out.println("SPLIT------------------");
 			System.out.println(p1);
+
 			
-			
-			//s1 e s3 não estão a funcionar / ser removidos (??)
-//			p1.remove("s2");
-//			System.out.println("REMOVE------------------");
-//			System.out.println(p1);
+			//s1 e s3 não estão a funcionar / ser removidos (??) - SOLVED
+			p1.remove("s3");
+			System.out.println("REMOVE------------------");
+			System.out.println(p1);
 		}
 		
 		catch(InvalidReconfigurationOperationException rne){
