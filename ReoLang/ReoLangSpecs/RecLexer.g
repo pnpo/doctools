@@ -40,8 +40,8 @@ DT_NODE
 	: 	'Node'
 	;
 	
-DT_LIST
-	:	'List'
+DT_SET
+	:	'Set'
 	;
 	
 DT_PAIR
@@ -90,6 +90,10 @@ OP_SND
 	
 OP_TRD
 	:	'trd'
+	;
+	
+OP_FTH
+	:	'fth'
 	;	
 	
 // binary operations

@@ -97,7 +97,7 @@ datatype
 	;
 	
 other_type
-	:	DT_NAME | DT_NODE | DT_LIST | DT_PAIR | DT_TRIPLE
+	:	DT_NAME | DT_NODE | DT_SET | DT_PAIR | DT_TRIPLE
 	;
 
 subtype
@@ -155,7 +155,8 @@ args
 	;
 	
 	
-for_instruction	:	RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block
+for_instruction	
+	:	RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block
 	;
 	
 	
