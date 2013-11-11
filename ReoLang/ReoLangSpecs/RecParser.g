@@ -116,9 +116,12 @@ reconfiguration_block
 instruction
 	:	declaration SEP_SEMICOLON
 	|	assignement SEP_SEMICOLON
-	|	structure_operation_call SEP_SEMICOLON
-	|	OP_APPLY reconfiguration_call SEP_SEMICOLON
+	|	reconfiguration_apply SEP_SEMICOLON
 	|	for_instruction
+	;
+	
+reconfiguration_apply
+	:	OP_APPLY reconfiguration_call
 	;
 	
 declaration 
@@ -131,12 +134,12 @@ var_def
 	;
 	
 assignement 
-	:	ID OP_EQUAL expression
+	:	ID OP_EQUAL (expression | reconfiguration_apply)
 	;
 	
 	
 reconfiguration_call
-	: ( OP_JOIN | OP_SPLIT | OP_PAR | OP_REMOVE | ID ) operation_args
+	: ( OP_JOIN | OP_SPLIT | OP_PAR | OP_REMOVE | OP_CONST | OP_ID | ID ) operation_args
 	
 	;
 	
@@ -181,12 +184,13 @@ factor
 	|	single_return_operation
 	|	triple_cons
 	|	pair_cons
-	|	list_cons
+	|	set_cons
+	| 	structure_operation_call 
 	;
 
 
 single_return_operation
-	:	 ( OP_FST | OP_SND | OP_TRD ) operation_args
+	:	 ( OP_FST | OP_SND | OP_TRD | OP_FTH | OP_IN | OP_OUT ) operation_args
 	;
 	
 	
@@ -201,8 +205,8 @@ pair_cons
 	
 	
 	
-list_cons
-	:	SEP_LIST_START  ( expression (SEP_COMMA expression)* )? SEP_LIST_END
+set_cons
+	:	SEP_SET_START  ( expression (SEP_COMMA expression)* )? SEP_SET_END
 	;
 	
 		

@@ -72,6 +72,14 @@ OP_REMOVE
 	: 'remove'
 	;
 	
+OP_CONST
+	: 'const'
+	;
+		
+OP_ID
+	: 'id'
+	;
+
 OP_PATH
 	:	'path'
 	;
@@ -96,6 +104,15 @@ OP_FTH
 	:	'fth'
 	;	
 	
+OP_IN
+	:	'in'
+	;
+
+OP_OUT
+	:	'out'
+	;
+	
+	
 // binary operations
 
 OP_APPLY
@@ -111,7 +128,7 @@ OP_INTERSECTION
 	;
 	
 OP_MINUS
-	:	'\\'
+	:	'-'
 	;
 
 OP_EQUAL
@@ -163,6 +180,14 @@ SEP_LIST_START
 	
 SEP_LIST_END
 	:	']'
+	;
+	
+SEP_SET_START
+	:	'{'
+	;
+	
+SEP_SET_END
+	:	'}'
 	;
 	
 SEP_SUBTYPE_START
