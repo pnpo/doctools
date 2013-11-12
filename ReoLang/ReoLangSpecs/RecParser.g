@@ -1,7 +1,7 @@
 parser grammar RecParser;
 
 options{
-	tokenVocab=RecLexer;
+	tokenVocab=RecLexer; 
 	output=AST;
 }
 
@@ -140,7 +140,6 @@ assignement
 	
 reconfiguration_call
 	: ( OP_JOIN | OP_SPLIT | OP_PAR | OP_REMOVE | OP_CONST | OP_ID | ID ) operation_args
-	
 	;
 	
 	
@@ -206,7 +205,7 @@ pair_cons
 	
 	
 set_cons
-	:	SEP_SET_START  ( expression (SEP_COMMA expression)* )? SEP_SET_END
+	:	CONS_SET SEP_ARGS_START  ( expression (SEP_COMMA expression)* )? SEP_ARGS_END
 	;
 	
 		
