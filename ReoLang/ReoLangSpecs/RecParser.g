@@ -1,12 +1,12 @@
 parser grammar RecParser;
 
 options{
-	tokenVocab=RecLexer; 
+	tokenVocab=RecLexer;
 	output=AST;
 }
 
 tokens {
-	RECONFIGS;
+	RECONFIGS; 
 	IMPORT;
 	RECONFIGURATION;
 	APPLICATION;
@@ -19,11 +19,14 @@ tokens {
 	package pt.uminho.di.reolang.reclang;
 	import java.text.*;
 	import java.util.Date;
+	/*
 	import pt.uminho.di.reolang.parsing.util.Error;
 	import pt.uminho.di.reolang.parsing.util.ErrorType;
+	*/
 }
 
 @members{
+	/*
 	private ArrayList<Error> syntax_errors = new ArrayList<Error>();
 	private String file_path;
 	
@@ -43,6 +46,7 @@ tokens {
 	public void setFilePath(String file) {
 		this.file_path = file;
 	}
+	*/
 }
 
 
@@ -91,17 +95,17 @@ args_def
 	;
 	
 datatype
-	: 	DT_PATTERN
+	: 	DT_PATTERN 
 	| 	DT_CHANNEL
 	|	other_type (SEP_SUBTYPE_START subtype SEP_SUBTYPE_END)?
 	;
 	
 other_type
-	:	DT_NAME | DT_NODE | DT_SET | DT_PAIR | DT_TRIPLE
+	:	DT_NAME | DT_NODE | DT_SET | DT_PAIR | DT_TRIPLE 
 	;
 
 subtype
-	:	datatype
+	:	datatype 
 	;
 	
 list_ids
@@ -135,7 +139,7 @@ var_def
 	
 assignement 
 	:	ID OP_EQUAL (expression | reconfiguration_apply)
-	;
+	; 
 	
 	
 reconfiguration_call
@@ -171,25 +175,30 @@ union_expr
 	;
 	
 intersect_expr
-	:	factor (OP_MINUS factor)?
+	:	factor (OP_MINUS factor)? 
 	;
 
 
 factor
-	:	ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END
+	:	ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END 
 	|	ID SEP_ACCESSOR ID	
 	|	SEP_ACCESSOR ID
 	|	ID
+	|	ID (SEP_OF ID)? SEP_ACCESSOR node_operation_call
 	|	single_return_operation
 	|	triple_cons
 	|	pair_cons
-	|	set_cons
+	|	set_cons 
 	| 	structure_operation_call 
 	;
 
 
 single_return_operation
-	:	 ( OP_FST | OP_SND | OP_TRD | OP_FTH | OP_IN | OP_OUT ) operation_args
+	:	 ( OP_FST | OP_SND | OP_TRD | OP_FTH ) operation_args
+	;
+	
+node_operation_call
+	:	 ( OP_IN | OP_OUT ) SEP_LIST_START INT SEP_LIST_END 
 	;
 	
 	

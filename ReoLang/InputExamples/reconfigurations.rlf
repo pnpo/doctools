@@ -51,5 +51,8 @@ reconfiguration implode(List<Node> l; Node j){
 }
 
 
-Sequencer @  implode([j1, j2, j3], j) 
+Sequencer s = Sequencer(a:o1,o2,o3,b);
+s @ implode([s:j1, s:j2, s:o3], j) 
+
+s @ replace(Sequencer s2, S(P(s:j3,s2:a)), S(s:s4,s:s5));
 

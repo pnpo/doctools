@@ -69,15 +69,15 @@ OP_SPLIT
 	;
 	
 OP_REMOVE
-	: 'remove'
+	: 	'remove'
 	;
 	
 OP_CONST
-	: 'const'
+	: 	'const'
 	;
 		
 OP_ID
-	: 'id'
+	: 	'id'
 	;
 
 OP_PATH
@@ -120,7 +120,7 @@ OP_APPLY
 	;
 
 OP_UNION
-	: '+'
+	: 	'+'
 	;
 
 OP_INTERSECTION
@@ -182,16 +182,8 @@ SEP_LIST_END
 	:	']'
 	;
 	
-SEP_SET_START
-	:	'{'
-	;
-	
-SEP_SET_END
-	:	'}'
-	;
-	
 SEP_SUBTYPE_START
-	: '<'
+	: 	'<'
 	;
 	
 SEP_SUBTYPE_END
@@ -200,6 +192,10 @@ SEP_SUBTYPE_END
 
 SEP_ACCESSOR
 	:	'.'
+	;
+	
+SEP_OF
+	:	'>>'
 	;
 
 //Constructors
@@ -212,7 +208,7 @@ CONS_TRIPLE
 	:	'T'
 	;
 
-CONS_TRIPLE
+CONS_SET
 	:	'S'
 	;
 
