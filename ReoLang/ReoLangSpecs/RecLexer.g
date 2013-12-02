@@ -100,16 +100,28 @@ OP_TRD
 	:	'trd'
 	;
 	
-OP_FTH
-	:	'fth'
-	;	
-	
 OP_IN
 	:	'in'
 	;
 
 OP_OUT
 	:	'out'
+	;
+	
+OP_NAME
+	:	'name'
+	;
+
+OP_NODES
+	:	'nodes'
+	;
+	
+OP_NAMES
+	:	'names'
+	;
+	
+OP_ENDS
+	:	'ends'
 	;
 	
 	
@@ -171,7 +183,7 @@ SEP_OPTIONAL
 	;
 	
 SEP_TRIGGER
-	:	'#'
+	:	'$'
 	;
 	
 SEP_LIST_START
@@ -194,8 +206,8 @@ SEP_ACCESSOR
 	:	'.'
 	;
 	
-SEP_OF
-	:	'>>'
+SEP_STRUCTURE
+	:	'#'
 	;
 
 //Constructors
