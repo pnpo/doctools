@@ -38,10 +38,10 @@ public class RecLangSyntax extends CompilerPart {
 	        
 	        //PARSER	        
 	        RecParser parser = new RecParser(tokens);
-			parser.setFilePath(this.getFile());
+			//parser.setFilePath(this.getFile());
 			
 			parser.reclang();
-	        this.setErrors(parser.getErrors());
+	        //this.setErrors(parser.getErrors());
 	
 		} catch(Throwable t) {
 	         System.out.println("exception: "+t);

@@ -18,11 +18,11 @@ public class Main {
         
         
         RecParser parser = new RecParser(tokens);
-		parser.setFilePath("InputExamples/reconfigurations.rlf");
+		//parser.setFilePath("InputExamples/reconfigurations.rlf");
 		
         try {
         	RecParser.reclang_return res = parser.reclang();
-        	System.out.println(parser.getErrors().toString());
+        	//System.out.println(parser.getErrors().toString());
         	System.out.println(((CommonTree) res.getTree()).toStringTree());
     		//CommonTree r = null;
     		

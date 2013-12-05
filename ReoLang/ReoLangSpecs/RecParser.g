@@ -3,7 +3,7 @@ parser grammar RecParser;
 options{
 	tokenVocab=RecLexer;
 	output=AST;
-	k=2;
+	//k=2;
 }
 
 tokens {

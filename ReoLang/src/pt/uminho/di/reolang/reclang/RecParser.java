@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g 2013-12-02 22:02:04
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g 2013-12-05 21:21:09
 
 	package pt.uminho.di.reolang.reclang; 
 
@@ -157,7 +157,7 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:40:5: directive_def
             	    {
-            	    pushFollow(FOLLOW_directive_def_in_reclang123);
+            	    pushFollow(FOLLOW_directive_def_in_reclang119);
             	    directive_def1=directive_def();
 
             	    state._fsp--;
@@ -187,7 +187,7 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:40:20: element
             	    {
-            	    pushFollow(FOLLOW_element_in_reclang126);
+            	    pushFollow(FOLLOW_element_in_reclang122);
             	    element2=element();
 
             	    state._fsp--;
@@ -282,7 +282,7 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:48:2: ( directive_import -> directive_import )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:48:4: directive_import
             {
-            pushFollow(FOLLOW_directive_import_in_directive_def155);
+            pushFollow(FOLLOW_directive_import_in_directive_def151);
             directive_import3=directive_import();
 
             state._fsp--;
@@ -356,13 +356,13 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:54:2: ( RW_IMPORT STRING SEP_SEMICOLON -> ^( IMPORT STRING ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:54:4: RW_IMPORT STRING SEP_SEMICOLON
             {
-            RW_IMPORT4=(Token)match(input,RW_IMPORT,FOLLOW_RW_IMPORT_in_directive_import175);  
+            RW_IMPORT4=(Token)match(input,RW_IMPORT,FOLLOW_RW_IMPORT_in_directive_import171);  
             stream_RW_IMPORT.add(RW_IMPORT4);
 
-            STRING5=(Token)match(input,STRING,FOLLOW_STRING_in_directive_import177);  
+            STRING5=(Token)match(input,STRING,FOLLOW_STRING_in_directive_import173);  
             stream_STRING.add(STRING5);
 
-            SEP_SEMICOLON6=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_directive_import179);  
+            SEP_SEMICOLON6=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_directive_import175);  
             stream_SEP_SEMICOLON.add(SEP_SEMICOLON6);
 
 
@@ -454,7 +454,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:64:4: reconfiguration_def
                     {
-                    pushFollow(FOLLOW_reconfiguration_def_in_element207);
+                    pushFollow(FOLLOW_reconfiguration_def_in_element203);
                     reconfiguration_def7=reconfiguration_def();
 
                     state._fsp--;
@@ -493,7 +493,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:65:4: applicaiton_def
                     {
-                    pushFollow(FOLLOW_applicaiton_def_in_element220);
+                    pushFollow(FOLLOW_applicaiton_def_in_element216);
                     applicaiton_def8=applicaiton_def();
 
                     state._fsp--;
@@ -585,13 +585,13 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:71:2: ( RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block -> ^( ID ^( ARGUMENTS ( args_def )? ) reconfiguration_block ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:71:4: RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block
             {
-            RW_RECONFIGURATION9=(Token)match(input,RW_RECONFIGURATION,FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def243);  
+            RW_RECONFIGURATION9=(Token)match(input,RW_RECONFIGURATION,FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def239);  
             stream_RW_RECONFIGURATION.add(RW_RECONFIGURATION9);
 
-            ID10=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_def245);  
+            ID10=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_def241);  
             stream_ID.add(ID10);
 
-            SEP_ARGS_START11=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_reconfiguration_def247);  
+            SEP_ARGS_START11=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_reconfiguration_def243);  
             stream_SEP_ARGS_START.add(SEP_ARGS_START11);
 
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:71:41: ( args_def )?
@@ -605,7 +605,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:71:41: args_def
                     {
-                    pushFollow(FOLLOW_args_def_in_reconfiguration_def249);
+                    pushFollow(FOLLOW_args_def_in_reconfiguration_def245);
                     args_def12=args_def();
 
                     state._fsp--;
@@ -617,10 +617,10 @@ public class RecParser extends Parser {
 
             }
 
-            SEP_ARGS_END13=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_reconfiguration_def252);  
+            SEP_ARGS_END13=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_reconfiguration_def248);  
             stream_SEP_ARGS_END.add(SEP_ARGS_END13);
 
-            pushFollow(FOLLOW_reconfiguration_block_in_reconfiguration_def254);
+            pushFollow(FOLLOW_reconfiguration_block_in_reconfiguration_def250);
             reconfiguration_block14=reconfiguration_block();
 
             state._fsp--;
@@ -629,7 +629,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: args_def, reconfiguration_block, ID
+            // elements: reconfiguration_block, args_def, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -719,13 +719,13 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:76:2: ( datatype list_ids ( SEP_SEMICOLON datatype list_ids )* -> ( ^( ARGUMENT datatype list_ids ) )+ )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:76:4: datatype list_ids ( SEP_SEMICOLON datatype list_ids )*
             {
-            pushFollow(FOLLOW_datatype_in_args_def283);
+            pushFollow(FOLLOW_datatype_in_args_def279);
             datatype15=datatype();
 
             state._fsp--;
 
             stream_datatype.add(datatype15.getTree());
-            pushFollow(FOLLOW_list_ids_in_args_def285);
+            pushFollow(FOLLOW_list_ids_in_args_def281);
             list_ids16=list_ids();
 
             state._fsp--;
@@ -746,16 +746,16 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:76:23: SEP_SEMICOLON datatype list_ids
             	    {
-            	    SEP_SEMICOLON17=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_args_def288);  
+            	    SEP_SEMICOLON17=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_args_def284);  
             	    stream_SEP_SEMICOLON.add(SEP_SEMICOLON17);
 
-            	    pushFollow(FOLLOW_datatype_in_args_def290);
+            	    pushFollow(FOLLOW_datatype_in_args_def286);
             	    datatype18=datatype();
 
             	    state._fsp--;
 
             	    stream_datatype.add(datatype18.getTree());
-            	    pushFollow(FOLLOW_list_ids_in_args_def292);
+            	    pushFollow(FOLLOW_list_ids_in_args_def288);
             	    list_ids19=list_ids();
 
             	    state._fsp--;
@@ -890,7 +890,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    DT_PATTERN20=(Token)match(input,DT_PATTERN,FOLLOW_DT_PATTERN_in_datatype321); 
+                    DT_PATTERN20=(Token)match(input,DT_PATTERN,FOLLOW_DT_PATTERN_in_datatype317); 
                     DT_PATTERN20_tree = (Object)adaptor.create(DT_PATTERN20);
                     adaptor.addChild(root_0, DT_PATTERN20_tree);
 
@@ -902,7 +902,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    DT_CHANNEL21=(Token)match(input,DT_CHANNEL,FOLLOW_DT_CHANNEL_in_datatype328); 
+                    DT_CHANNEL21=(Token)match(input,DT_CHANNEL,FOLLOW_DT_CHANNEL_in_datatype324); 
                     DT_CHANNEL21_tree = (Object)adaptor.create(DT_CHANNEL21);
                     adaptor.addChild(root_0, DT_CHANNEL21_tree);
 
@@ -914,7 +914,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_other_type_in_datatype333);
+                    pushFollow(FOLLOW_other_type_in_datatype329);
                     other_type22=other_type();
 
                     state._fsp--;
@@ -931,14 +931,14 @@ public class RecParser extends Parser {
                         case 1 :
                             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:83:17: SEP_SUBTYPE_START subtype SEP_SUBTYPE_END
                             {
-                            SEP_SUBTYPE_START23=(Token)match(input,SEP_SUBTYPE_START,FOLLOW_SEP_SUBTYPE_START_in_datatype337); 
-                            pushFollow(FOLLOW_subtype_in_datatype340);
+                            SEP_SUBTYPE_START23=(Token)match(input,SEP_SUBTYPE_START,FOLLOW_SEP_SUBTYPE_START_in_datatype333); 
+                            pushFollow(FOLLOW_subtype_in_datatype336);
                             subtype24=subtype();
 
                             state._fsp--;
 
                             adaptor.addChild(root_0, subtype24.getTree());
-                            SEP_SUBTYPE_END25=(Token)match(input,SEP_SUBTYPE_END,FOLLOW_SEP_SUBTYPE_END_in_datatype342); 
+                            SEP_SUBTYPE_END25=(Token)match(input,SEP_SUBTYPE_END,FOLLOW_SEP_SUBTYPE_END_in_datatype338); 
 
                             }
                             break;
@@ -1046,7 +1046,7 @@ public class RecParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_datatype_in_subtype386);
+            pushFollow(FOLLOW_datatype_in_subtype382);
             datatype27=datatype();
 
             state._fsp--;
@@ -1100,7 +1100,7 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:95:2: ( ID ( SEP_COMMA ID )* -> ( ID )+ )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:95:4: ID ( SEP_COMMA ID )*
             {
-            ID28=(Token)match(input,ID,FOLLOW_ID_in_list_ids399);  
+            ID28=(Token)match(input,ID,FOLLOW_ID_in_list_ids395);  
             stream_ID.add(ID28);
 
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:95:7: ( SEP_COMMA ID )*
@@ -1118,10 +1118,10 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:95:8: SEP_COMMA ID
             	    {
-            	    SEP_COMMA29=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_list_ids402);  
+            	    SEP_COMMA29=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_list_ids398);  
             	    stream_SEP_COMMA.add(SEP_COMMA29);
 
-            	    ID30=(Token)match(input,ID,FOLLOW_ID_in_list_ids404);  
+            	    ID30=(Token)match(input,ID,FOLLOW_ID_in_list_ids400);  
             	    stream_ID.add(ID30);
 
 
@@ -1207,7 +1207,7 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:100:2: ( SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS ( instruction )+ ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:100:4: SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END
             {
-            SEP_BLOCK_START31=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_reconfiguration_block426);  
+            SEP_BLOCK_START31=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_reconfiguration_block422);  
             stream_SEP_BLOCK_START.add(SEP_BLOCK_START31);
 
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:100:20: ( instruction )+
@@ -1226,7 +1226,7 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:100:20: instruction
             	    {
-            	    pushFollow(FOLLOW_instruction_in_reconfiguration_block428);
+            	    pushFollow(FOLLOW_instruction_in_reconfiguration_block424);
             	    instruction32=instruction();
 
             	    state._fsp--;
@@ -1245,7 +1245,7 @@ public class RecParser extends Parser {
                 cnt9++;
             } while (true);
 
-            SEP_BLOCK_END33=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_reconfiguration_block431);  
+            SEP_BLOCK_END33=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_reconfiguration_block427);  
             stream_SEP_BLOCK_END.add(SEP_BLOCK_END33);
 
 
@@ -1349,17 +1349,17 @@ public class RecParser extends Parser {
                 break;
             case ID:
                 {
-                int LA10_4 = input.LA(2);
+                int LA10_2 = input.LA(2);
 
-                if ( (LA10_4==OP_EQUAL) ) {
+                if ( (LA10_2==OP_EQUAL) ) {
                     alt10=2;
                 }
-                else if ( (LA10_4==OP_APPLY) ) {
+                else if ( (LA10_2==OP_APPLY) ) {
                     alt10=3;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 10, 4, input);
+                        new NoViableAltException("", 10, 2, input);
 
                     throw nvae;
                 }
@@ -1388,13 +1388,13 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_declaration_in_instruction455);
+                    pushFollow(FOLLOW_declaration_in_instruction451);
                     declaration34=declaration();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, declaration34.getTree());
-                    SEP_SEMICOLON35=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_instruction457); 
+                    SEP_SEMICOLON35=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_instruction453); 
 
                     }
                     break;
@@ -1403,13 +1403,13 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_assignment_in_instruction466);
+                    pushFollow(FOLLOW_assignment_in_instruction462);
                     assignment36=assignment();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, assignment36.getTree());
-                    SEP_SEMICOLON37=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_instruction468); 
+                    SEP_SEMICOLON37=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_instruction464); 
 
                     }
                     break;
@@ -1418,13 +1418,13 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_reconfiguration_apply_in_instruction476);
+                    pushFollow(FOLLOW_reconfiguration_apply_in_instruction472);
                     reconfiguration_apply38=reconfiguration_apply();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, reconfiguration_apply38.getTree());
-                    SEP_SEMICOLON39=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_instruction478); 
+                    SEP_SEMICOLON39=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_instruction474); 
 
                     }
                     break;
@@ -1433,7 +1433,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_for_instruction_in_instruction485);
+                    pushFollow(FOLLOW_for_instruction_in_instruction481);
                     for_instruction40=for_instruction();
 
                     state._fsp--;
@@ -1500,7 +1500,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:112:4: ID
                     {
-                    ID41=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_apply501);  
+                    ID41=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_apply497);  
                     stream_ID.add(ID41);
 
 
@@ -1509,10 +1509,10 @@ public class RecParser extends Parser {
 
             }
 
-            OP_APPLY42=(Token)match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconfiguration_apply504);  
+            OP_APPLY42=(Token)match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconfiguration_apply500);  
             stream_OP_APPLY.add(OP_APPLY42);
 
-            pushFollow(FOLLOW_reconfiguration_call_in_reconfiguration_apply506);
+            pushFollow(FOLLOW_reconfiguration_call_in_reconfiguration_apply502);
             reconfiguration_call43=reconfiguration_call();
 
             state._fsp--;
@@ -1521,7 +1521,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: reconfiguration_call, ID, OP_APPLY
+            // elements: reconfiguration_call, OP_APPLY, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1601,13 +1601,13 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:116:2: ( datatype var_def ( SEP_COMMA var_def )* -> ^( DECLARATION datatype ( var_def )+ ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:116:4: datatype var_def ( SEP_COMMA var_def )*
             {
-            pushFollow(FOLLOW_datatype_in_declaration530);
+            pushFollow(FOLLOW_datatype_in_declaration526);
             datatype44=datatype();
 
             state._fsp--;
 
             stream_datatype.add(datatype44.getTree());
-            pushFollow(FOLLOW_var_def_in_declaration532);
+            pushFollow(FOLLOW_var_def_in_declaration528);
             var_def45=var_def();
 
             state._fsp--;
@@ -1628,10 +1628,10 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:116:22: SEP_COMMA var_def
             	    {
-            	    SEP_COMMA46=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_declaration535);  
+            	    SEP_COMMA46=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_declaration531);  
             	    stream_SEP_COMMA.add(SEP_COMMA46);
 
-            	    pushFollow(FOLLOW_var_def_in_declaration537);
+            	    pushFollow(FOLLOW_var_def_in_declaration533);
             	    var_def47=var_def();
 
             	    state._fsp--;
@@ -1649,7 +1649,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: datatype, var_def
+            // elements: var_def, datatype
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1754,7 +1754,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    ID48=(Token)match(input,ID,FOLLOW_ID_in_var_def562); 
+                    ID48=(Token)match(input,ID,FOLLOW_ID_in_var_def558); 
                     ID48_tree = (Object)adaptor.create(ID48);
                     adaptor.addChild(root_0, ID48_tree);
 
@@ -1766,7 +1766,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_assignment_in_var_def567);
+                    pushFollow(FOLLOW_assignment_in_var_def563);
                     assignment49=assignment();
 
                     state._fsp--;
@@ -1822,13 +1822,13 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:125:2: ( ID OP_EQUAL assignment_member -> ^( ASSIGNMENT ID assignment_member ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:125:4: ID OP_EQUAL assignment_member
             {
-            ID50=(Token)match(input,ID,FOLLOW_ID_in_assignment580);  
+            ID50=(Token)match(input,ID,FOLLOW_ID_in_assignment576);  
             stream_ID.add(ID50);
 
-            OP_EQUAL51=(Token)match(input,OP_EQUAL,FOLLOW_OP_EQUAL_in_assignment582);  
+            OP_EQUAL51=(Token)match(input,OP_EQUAL,FOLLOW_OP_EQUAL_in_assignment578);  
             stream_OP_EQUAL.add(OP_EQUAL51);
 
-            pushFollow(FOLLOW_assignment_member_in_assignment584);
+            pushFollow(FOLLOW_assignment_member_in_assignment580);
             assignment_member52=assignment_member();
 
             state._fsp--;
@@ -1905,14 +1905,56 @@ public class RecParser extends Parser {
         try {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:129:2: ( expression | reconfiguration_apply )
             int alt14=2;
-            alt14 = dfa14.predict(input);
+            switch ( input.LA(1) ) {
+            case ID:
+                {
+                int LA14_1 = input.LA(2);
+
+                if ( ((LA14_1>=OP_UNION && LA14_1<=OP_MINUS)||(LA14_1>=SEP_COMMA && LA14_1<=SEP_SEMICOLON)||LA14_1==SEP_SUBTYPE_START||(LA14_1>=SEP_ACCESSOR && LA14_1<=SEP_STRUCTURE)) ) {
+                    alt14=1;
+                }
+                else if ( (LA14_1==OP_APPLY) ) {
+                    alt14=2;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 14, 1, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case OP_PATH:
+            case OP_UPDATE:
+            case OP_FST:
+            case OP_SND:
+            case OP_TRD:
+            case CONS_PAIR:
+            case CONS_TRIPLE:
+            case CONS_SET:
+                {
+                alt14=1;
+                }
+                break;
+            case OP_APPLY:
+                {
+                alt14=2;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 14, 0, input);
+
+                throw nvae;
+            }
+
             switch (alt14) {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:129:4: expression
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_expression_in_assignment_member610);
+                    pushFollow(FOLLOW_expression_in_assignment_member606);
                     expression53=expression();
 
                     state._fsp--;
@@ -1926,7 +1968,7 @@ public class RecParser extends Parser {
                     {
                     root_0 = (Object)adaptor.nil();
 
-                    pushFollow(FOLLOW_reconfiguration_apply_in_assignment_member616);
+                    pushFollow(FOLLOW_reconfiguration_apply_in_assignment_member612);
                     reconfiguration_apply54=reconfiguration_apply();
 
                     state._fsp--;
@@ -2041,7 +2083,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:6: OP_JOIN
                     {
-                    OP_JOIN55=(Token)match(input,OP_JOIN,FOLLOW_OP_JOIN_in_reconfiguration_call630); 
+                    OP_JOIN55=(Token)match(input,OP_JOIN,FOLLOW_OP_JOIN_in_reconfiguration_call626); 
                     OP_JOIN55_tree = (Object)adaptor.create(OP_JOIN55);
                     root_0 = (Object)adaptor.becomeRoot(OP_JOIN55_tree, root_0);
 
@@ -2051,7 +2093,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:17: OP_SPLIT
                     {
-                    OP_SPLIT56=(Token)match(input,OP_SPLIT,FOLLOW_OP_SPLIT_in_reconfiguration_call635); 
+                    OP_SPLIT56=(Token)match(input,OP_SPLIT,FOLLOW_OP_SPLIT_in_reconfiguration_call631); 
                     OP_SPLIT56_tree = (Object)adaptor.create(OP_SPLIT56);
                     root_0 = (Object)adaptor.becomeRoot(OP_SPLIT56_tree, root_0);
 
@@ -2061,7 +2103,7 @@ public class RecParser extends Parser {
                 case 3 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:29: OP_PAR
                     {
-                    OP_PAR57=(Token)match(input,OP_PAR,FOLLOW_OP_PAR_in_reconfiguration_call640); 
+                    OP_PAR57=(Token)match(input,OP_PAR,FOLLOW_OP_PAR_in_reconfiguration_call636); 
                     OP_PAR57_tree = (Object)adaptor.create(OP_PAR57);
                     root_0 = (Object)adaptor.becomeRoot(OP_PAR57_tree, root_0);
 
@@ -2071,7 +2113,7 @@ public class RecParser extends Parser {
                 case 4 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:39: OP_REMOVE
                     {
-                    OP_REMOVE58=(Token)match(input,OP_REMOVE,FOLLOW_OP_REMOVE_in_reconfiguration_call645); 
+                    OP_REMOVE58=(Token)match(input,OP_REMOVE,FOLLOW_OP_REMOVE_in_reconfiguration_call641); 
                     OP_REMOVE58_tree = (Object)adaptor.create(OP_REMOVE58);
                     root_0 = (Object)adaptor.becomeRoot(OP_REMOVE58_tree, root_0);
 
@@ -2081,7 +2123,7 @@ public class RecParser extends Parser {
                 case 5 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:52: OP_CONST
                     {
-                    OP_CONST59=(Token)match(input,OP_CONST,FOLLOW_OP_CONST_in_reconfiguration_call650); 
+                    OP_CONST59=(Token)match(input,OP_CONST,FOLLOW_OP_CONST_in_reconfiguration_call646); 
                     OP_CONST59_tree = (Object)adaptor.create(OP_CONST59);
                     root_0 = (Object)adaptor.becomeRoot(OP_CONST59_tree, root_0);
 
@@ -2091,7 +2133,7 @@ public class RecParser extends Parser {
                 case 6 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:64: OP_ID
                     {
-                    OP_ID60=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_reconfiguration_call655); 
+                    OP_ID60=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_reconfiguration_call651); 
                     OP_ID60_tree = (Object)adaptor.create(OP_ID60);
                     root_0 = (Object)adaptor.becomeRoot(OP_ID60_tree, root_0);
 
@@ -2101,7 +2143,7 @@ public class RecParser extends Parser {
                 case 7 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:134:73: ID
                     {
-                    ID61=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_call660); 
+                    ID61=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_call656); 
                     ID61_tree = (Object)adaptor.create(ID61);
                     root_0 = (Object)adaptor.becomeRoot(ID61_tree, root_0);
 
@@ -2111,7 +2153,7 @@ public class RecParser extends Parser {
 
             }
 
-            pushFollow(FOLLOW_operation_args_in_reconfiguration_call664);
+            pushFollow(FOLLOW_operation_args_in_reconfiguration_call660);
             operation_args62=operation_args();
 
             state._fsp--;
@@ -2185,7 +2227,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:139:6: OP_PATH
                     {
-                    OP_PATH63=(Token)match(input,OP_PATH,FOLLOW_OP_PATH_in_structure_operation_call680); 
+                    OP_PATH63=(Token)match(input,OP_PATH,FOLLOW_OP_PATH_in_structure_operation_call676); 
                     OP_PATH63_tree = (Object)adaptor.create(OP_PATH63);
                     root_0 = (Object)adaptor.becomeRoot(OP_PATH63_tree, root_0);
 
@@ -2195,7 +2237,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:139:17: OP_UPDATE
                     {
-                    OP_UPDATE64=(Token)match(input,OP_UPDATE,FOLLOW_OP_UPDATE_in_structure_operation_call685); 
+                    OP_UPDATE64=(Token)match(input,OP_UPDATE,FOLLOW_OP_UPDATE_in_structure_operation_call681); 
                     OP_UPDATE64_tree = (Object)adaptor.create(OP_UPDATE64);
                     root_0 = (Object)adaptor.becomeRoot(OP_UPDATE64_tree, root_0);
 
@@ -2205,7 +2247,7 @@ public class RecParser extends Parser {
 
             }
 
-            pushFollow(FOLLOW_operation_args_in_structure_operation_call690);
+            pushFollow(FOLLOW_operation_args_in_structure_operation_call686);
             operation_args65=operation_args();
 
             state._fsp--;
@@ -2259,15 +2301,19 @@ public class RecParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            SEP_ARGS_START66=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_operation_args705); 
+            SEP_ARGS_START66=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_operation_args701); 
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:144:20: ( args )?
             int alt17=2;
-            alt17 = dfa17.predict(input);
+            int LA17_0 = input.LA(1);
+
+            if ( ((LA17_0>=OP_PATH && LA17_0<=OP_TRD)||(LA17_0>=CONS_PAIR && LA17_0<=ID)) ) {
+                alt17=1;
+            }
             switch (alt17) {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:144:20: args
                     {
-                    pushFollow(FOLLOW_args_in_operation_args708);
+                    pushFollow(FOLLOW_args_in_operation_args704);
                     args67=args();
 
                     state._fsp--;
@@ -2279,7 +2325,7 @@ public class RecParser extends Parser {
 
             }
 
-            SEP_ARGS_END68=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_operation_args711); 
+            SEP_ARGS_END68=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_operation_args707); 
 
             }
 
@@ -2327,7 +2373,7 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:148:2: ( expression ( SEP_COMMA expression )* -> ( expression )+ )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:148:4: expression ( SEP_COMMA expression )*
             {
-            pushFollow(FOLLOW_expression_in_args725);
+            pushFollow(FOLLOW_expression_in_args721);
             expression69=expression();
 
             state._fsp--;
@@ -2348,10 +2394,10 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:148:16: SEP_COMMA expression
             	    {
-            	    SEP_COMMA70=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_args728);  
+            	    SEP_COMMA70=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_args724);  
             	    stream_SEP_COMMA.add(SEP_COMMA70);
 
-            	    pushFollow(FOLLOW_expression_in_args730);
+            	    pushFollow(FOLLOW_expression_in_args726);
             	    expression71=expression();
 
             	    state._fsp--;
@@ -2454,31 +2500,31 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:154:2: ( RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block -> ^( FORALL datatype ID ID reconfiguration_block ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:154:4: RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block
             {
-            RW_FORALL72=(Token)match(input,RW_FORALL,FOLLOW_RW_FORALL_in_for_instruction754);  
+            RW_FORALL72=(Token)match(input,RW_FORALL,FOLLOW_RW_FORALL_in_for_instruction750);  
             stream_RW_FORALL.add(RW_FORALL72);
 
-            SEP_ARGS_START73=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_for_instruction756);  
+            SEP_ARGS_START73=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_for_instruction752);  
             stream_SEP_ARGS_START.add(SEP_ARGS_START73);
 
-            pushFollow(FOLLOW_datatype_in_for_instruction758);
+            pushFollow(FOLLOW_datatype_in_for_instruction754);
             datatype74=datatype();
 
             state._fsp--;
 
             stream_datatype.add(datatype74.getTree());
-            ID75=(Token)match(input,ID,FOLLOW_ID_in_for_instruction760);  
+            ID75=(Token)match(input,ID,FOLLOW_ID_in_for_instruction756);  
             stream_ID.add(ID75);
 
-            SEP_COLON76=(Token)match(input,SEP_COLON,FOLLOW_SEP_COLON_in_for_instruction762);  
+            SEP_COLON76=(Token)match(input,SEP_COLON,FOLLOW_SEP_COLON_in_for_instruction758);  
             stream_SEP_COLON.add(SEP_COLON76);
 
-            ID77=(Token)match(input,ID,FOLLOW_ID_in_for_instruction764);  
+            ID77=(Token)match(input,ID,FOLLOW_ID_in_for_instruction760);  
             stream_ID.add(ID77);
 
-            SEP_ARGS_END78=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_for_instruction766);  
+            SEP_ARGS_END78=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_for_instruction762);  
             stream_SEP_ARGS_END.add(SEP_ARGS_END78);
 
-            pushFollow(FOLLOW_reconfiguration_block_in_for_instruction768);
+            pushFollow(FOLLOW_reconfiguration_block_in_for_instruction764);
             reconfiguration_block79=reconfiguration_block();
 
             state._fsp--;
@@ -2487,7 +2533,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: datatype, reconfiguration_block, ID, ID
+            // elements: ID, ID, reconfiguration_block, datatype
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2562,7 +2608,7 @@ public class RecParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_union_expr_in_expression798);
+            pushFollow(FOLLOW_union_expr_in_expression794);
             union_expr80=union_expr();
 
             state._fsp--;
@@ -2583,11 +2629,11 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:160:16: OP_UNION union_expr
             	    {
-            	    OP_UNION81=(Token)match(input,OP_UNION,FOLLOW_OP_UNION_in_expression801); 
+            	    OP_UNION81=(Token)match(input,OP_UNION,FOLLOW_OP_UNION_in_expression797); 
             	    OP_UNION81_tree = (Object)adaptor.create(OP_UNION81);
             	    root_0 = (Object)adaptor.becomeRoot(OP_UNION81_tree, root_0);
 
-            	    pushFollow(FOLLOW_union_expr_in_expression804);
+            	    pushFollow(FOLLOW_union_expr_in_expression800);
             	    union_expr82=union_expr();
 
             	    state._fsp--;
@@ -2650,7 +2696,7 @@ public class RecParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_intersect_expr_in_union_expr821);
+            pushFollow(FOLLOW_intersect_expr_in_union_expr817);
             intersect_expr83=intersect_expr();
 
             state._fsp--;
@@ -2671,11 +2717,11 @@ public class RecParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:165:20: OP_INTERSECTION intersect_expr
             	    {
-            	    OP_INTERSECTION84=(Token)match(input,OP_INTERSECTION,FOLLOW_OP_INTERSECTION_in_union_expr824); 
+            	    OP_INTERSECTION84=(Token)match(input,OP_INTERSECTION,FOLLOW_OP_INTERSECTION_in_union_expr820); 
             	    OP_INTERSECTION84_tree = (Object)adaptor.create(OP_INTERSECTION84);
             	    root_0 = (Object)adaptor.becomeRoot(OP_INTERSECTION84_tree, root_0);
 
-            	    pushFollow(FOLLOW_intersect_expr_in_union_expr827);
+            	    pushFollow(FOLLOW_intersect_expr_in_union_expr823);
             	    intersect_expr85=intersect_expr();
 
             	    state._fsp--;
@@ -2738,7 +2784,7 @@ public class RecParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            pushFollow(FOLLOW_factor_in_intersect_expr844);
+            pushFollow(FOLLOW_factor_in_intersect_expr840);
             factor86=factor();
 
             state._fsp--;
@@ -2755,11 +2801,11 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:170:12: OP_MINUS factor
                     {
-                    OP_MINUS87=(Token)match(input,OP_MINUS,FOLLOW_OP_MINUS_in_intersect_expr847); 
+                    OP_MINUS87=(Token)match(input,OP_MINUS,FOLLOW_OP_MINUS_in_intersect_expr843); 
                     OP_MINUS87_tree = (Object)adaptor.create(OP_MINUS87);
                     root_0 = (Object)adaptor.becomeRoot(OP_MINUS87_tree, root_0);
 
-                    pushFollow(FOLLOW_factor_in_intersect_expr850);
+                    pushFollow(FOLLOW_factor_in_intersect_expr846);
                     factor88=factor();
 
                     state._fsp--;
@@ -2855,16 +2901,16 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:176:4: ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END
                     {
-                    ID89=(Token)match(input,ID,FOLLOW_ID_in_factor868);  
+                    ID89=(Token)match(input,ID,FOLLOW_ID_in_factor864);  
                     stream_ID.add(ID89);
 
-                    SEP_SUBTYPE_START90=(Token)match(input,SEP_SUBTYPE_START,FOLLOW_SEP_SUBTYPE_START_in_factor870);  
+                    SEP_SUBTYPE_START90=(Token)match(input,SEP_SUBTYPE_START,FOLLOW_SEP_SUBTYPE_START_in_factor866);  
                     stream_SEP_SUBTYPE_START.add(SEP_SUBTYPE_START90);
 
-                    ID91=(Token)match(input,ID,FOLLOW_ID_in_factor872);  
+                    ID91=(Token)match(input,ID,FOLLOW_ID_in_factor868);  
                     stream_ID.add(ID91);
 
-                    SEP_SUBTYPE_END92=(Token)match(input,SEP_SUBTYPE_END,FOLLOW_SEP_SUBTYPE_END_in_factor874);  
+                    SEP_SUBTYPE_END92=(Token)match(input,SEP_SUBTYPE_END,FOLLOW_SEP_SUBTYPE_END_in_factor870);  
                     stream_SEP_SUBTYPE_END.add(SEP_SUBTYPE_END92);
 
 
@@ -2900,7 +2946,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:177:4: ID
                     {
-                    ID93=(Token)match(input,ID,FOLLOW_ID_in_factor890);  
+                    ID93=(Token)match(input,ID,FOLLOW_ID_in_factor886);  
                     stream_ID.add(ID93);
 
 
@@ -2928,7 +2974,7 @@ public class RecParser extends Parser {
                 case 3 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:178:4: ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call
                     {
-                    ID94=(Token)match(input,ID,FOLLOW_ID_in_factor906);  
+                    ID94=(Token)match(input,ID,FOLLOW_ID_in_factor902);  
                     stream_ID.add(ID94);
 
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:178:7: ( SEP_STRUCTURE ID )?
@@ -2942,10 +2988,10 @@ public class RecParser extends Parser {
                         case 1 :
                             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:178:8: SEP_STRUCTURE ID
                             {
-                            SEP_STRUCTURE95=(Token)match(input,SEP_STRUCTURE,FOLLOW_SEP_STRUCTURE_in_factor909);  
+                            SEP_STRUCTURE95=(Token)match(input,SEP_STRUCTURE,FOLLOW_SEP_STRUCTURE_in_factor905);  
                             stream_SEP_STRUCTURE.add(SEP_STRUCTURE95);
 
-                            ID96=(Token)match(input,ID,FOLLOW_ID_in_factor911);  
+                            ID96=(Token)match(input,ID,FOLLOW_ID_in_factor907);  
                             stream_ID.add(ID96);
 
 
@@ -2954,10 +3000,10 @@ public class RecParser extends Parser {
 
                     }
 
-                    SEP_ACCESSOR97=(Token)match(input,SEP_ACCESSOR,FOLLOW_SEP_ACCESSOR_in_factor915);  
+                    SEP_ACCESSOR97=(Token)match(input,SEP_ACCESSOR,FOLLOW_SEP_ACCESSOR_in_factor911);  
                     stream_SEP_ACCESSOR.add(SEP_ACCESSOR97);
 
-                    pushFollow(FOLLOW_attribute_call_in_factor917);
+                    pushFollow(FOLLOW_attribute_call_in_factor913);
                     attribute_call98=attribute_call();
 
                     state._fsp--;
@@ -3011,7 +3057,7 @@ public class RecParser extends Parser {
                 case 4 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:179:4: single_return_operation
                     {
-                    pushFollow(FOLLOW_single_return_operation_in_factor940);
+                    pushFollow(FOLLOW_single_return_operation_in_factor936);
                     single_return_operation99=single_return_operation();
 
                     state._fsp--;
@@ -3042,7 +3088,7 @@ public class RecParser extends Parser {
                 case 5 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:180:4: triple_cons
                     {
-                    pushFollow(FOLLOW_triple_cons_in_factor954);
+                    pushFollow(FOLLOW_triple_cons_in_factor950);
                     triple_cons100=triple_cons();
 
                     state._fsp--;
@@ -3073,7 +3119,7 @@ public class RecParser extends Parser {
                 case 6 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:181:4: pair_cons
                     {
-                    pushFollow(FOLLOW_pair_cons_in_factor969);
+                    pushFollow(FOLLOW_pair_cons_in_factor965);
                     pair_cons101=pair_cons();
 
                     state._fsp--;
@@ -3104,7 +3150,7 @@ public class RecParser extends Parser {
                 case 7 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:182:4: set_cons
                     {
-                    pushFollow(FOLLOW_set_cons_in_factor984);
+                    pushFollow(FOLLOW_set_cons_in_factor980);
                     set_cons102=set_cons();
 
                     state._fsp--;
@@ -3135,7 +3181,7 @@ public class RecParser extends Parser {
                 case 8 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:183:5: structure_operation_call
                     {
-                    pushFollow(FOLLOW_structure_operation_call_in_factor1002);
+                    pushFollow(FOLLOW_structure_operation_call_in_factor998);
                     structure_operation_call103=structure_operation_call();
 
                     state._fsp--;
@@ -3241,7 +3287,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:188:7: OP_FST
                     {
-                    OP_FST104=(Token)match(input,OP_FST,FOLLOW_OP_FST_in_single_return_operation1026); 
+                    OP_FST104=(Token)match(input,OP_FST,FOLLOW_OP_FST_in_single_return_operation1022); 
                     OP_FST104_tree = (Object)adaptor.create(OP_FST104);
                     root_0 = (Object)adaptor.becomeRoot(OP_FST104_tree, root_0);
 
@@ -3251,7 +3297,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:188:17: OP_SND
                     {
-                    OP_SND105=(Token)match(input,OP_SND,FOLLOW_OP_SND_in_single_return_operation1031); 
+                    OP_SND105=(Token)match(input,OP_SND,FOLLOW_OP_SND_in_single_return_operation1027); 
                     OP_SND105_tree = (Object)adaptor.create(OP_SND105);
                     root_0 = (Object)adaptor.becomeRoot(OP_SND105_tree, root_0);
 
@@ -3261,7 +3307,7 @@ public class RecParser extends Parser {
                 case 3 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:188:27: OP_TRD
                     {
-                    OP_TRD106=(Token)match(input,OP_TRD,FOLLOW_OP_TRD_in_single_return_operation1036); 
+                    OP_TRD106=(Token)match(input,OP_TRD,FOLLOW_OP_TRD_in_single_return_operation1032); 
                     OP_TRD106_tree = (Object)adaptor.create(OP_TRD106);
                     root_0 = (Object)adaptor.becomeRoot(OP_TRD106_tree, root_0);
 
@@ -3271,7 +3317,7 @@ public class RecParser extends Parser {
 
             }
 
-            pushFollow(FOLLOW_operation_args_in_single_return_operation1041);
+            pushFollow(FOLLOW_operation_args_in_single_return_operation1037);
             operation_args107=operation_args();
 
             state._fsp--;
@@ -3407,7 +3453,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:192:4: OP_IN ( SEP_LIST_START INT SEP_LIST_END )?
                     {
-                    OP_IN108=(Token)match(input,OP_IN,FOLLOW_OP_IN_in_attribute_call1053);  
+                    OP_IN108=(Token)match(input,OP_IN,FOLLOW_OP_IN_in_attribute_call1049);  
                     stream_OP_IN.add(OP_IN108);
 
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:192:10: ( SEP_LIST_START INT SEP_LIST_END )?
@@ -3421,13 +3467,13 @@ public class RecParser extends Parser {
                         case 1 :
                             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:192:11: SEP_LIST_START INT SEP_LIST_END
                             {
-                            SEP_LIST_START109=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_attribute_call1056);  
+                            SEP_LIST_START109=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_attribute_call1052);  
                             stream_SEP_LIST_START.add(SEP_LIST_START109);
 
-                            INT110=(Token)match(input,INT,FOLLOW_INT_in_attribute_call1058);  
+                            INT110=(Token)match(input,INT,FOLLOW_INT_in_attribute_call1054);  
                             stream_INT.add(INT110);
 
-                            SEP_LIST_END111=(Token)match(input,SEP_LIST_END,FOLLOW_SEP_LIST_END_in_attribute_call1060);  
+                            SEP_LIST_END111=(Token)match(input,SEP_LIST_END,FOLLOW_SEP_LIST_END_in_attribute_call1056);  
                             stream_SEP_LIST_END.add(SEP_LIST_END111);
 
 
@@ -3474,7 +3520,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:193:5: OP_OUT ( SEP_LIST_START INT SEP_LIST_END )?
                     {
-                    OP_OUT112=(Token)match(input,OP_OUT,FOLLOW_OP_OUT_in_attribute_call1079);  
+                    OP_OUT112=(Token)match(input,OP_OUT,FOLLOW_OP_OUT_in_attribute_call1075);  
                     stream_OP_OUT.add(OP_OUT112);
 
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:193:12: ( SEP_LIST_START INT SEP_LIST_END )?
@@ -3488,13 +3534,13 @@ public class RecParser extends Parser {
                         case 1 :
                             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:193:13: SEP_LIST_START INT SEP_LIST_END
                             {
-                            SEP_LIST_START113=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_attribute_call1082);  
+                            SEP_LIST_START113=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_attribute_call1078);  
                             stream_SEP_LIST_START.add(SEP_LIST_START113);
 
-                            INT114=(Token)match(input,INT,FOLLOW_INT_in_attribute_call1084);  
+                            INT114=(Token)match(input,INT,FOLLOW_INT_in_attribute_call1080);  
                             stream_INT.add(INT114);
 
-                            SEP_LIST_END115=(Token)match(input,SEP_LIST_END,FOLLOW_SEP_LIST_END_in_attribute_call1086);  
+                            SEP_LIST_END115=(Token)match(input,SEP_LIST_END,FOLLOW_SEP_LIST_END_in_attribute_call1082);  
                             stream_SEP_LIST_END.add(SEP_LIST_END115);
 
 
@@ -3506,7 +3552,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: OP_OUT, INT
+                    // elements: INT, OP_OUT
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3541,7 +3587,7 @@ public class RecParser extends Parser {
                 case 3 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:194:4: OP_NAME
                     {
-                    OP_NAME116=(Token)match(input,OP_NAME,FOLLOW_OP_NAME_in_attribute_call1102);  
+                    OP_NAME116=(Token)match(input,OP_NAME,FOLLOW_OP_NAME_in_attribute_call1098);  
                     stream_OP_NAME.add(OP_NAME116);
 
 
@@ -3569,7 +3615,7 @@ public class RecParser extends Parser {
                 case 4 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:195:4: OP_NODES
                     {
-                    OP_NODES117=(Token)match(input,OP_NODES,FOLLOW_OP_NODES_in_attribute_call1116);  
+                    OP_NODES117=(Token)match(input,OP_NODES,FOLLOW_OP_NODES_in_attribute_call1112);  
                     stream_OP_NODES.add(OP_NODES117);
 
 
@@ -3597,7 +3643,7 @@ public class RecParser extends Parser {
                 case 5 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:196:4: OP_NAMES
                     {
-                    OP_NAMES118=(Token)match(input,OP_NAMES,FOLLOW_OP_NAMES_in_attribute_call1129);  
+                    OP_NAMES118=(Token)match(input,OP_NAMES,FOLLOW_OP_NAMES_in_attribute_call1125);  
                     stream_OP_NAMES.add(OP_NAMES118);
 
 
@@ -3625,25 +3671,25 @@ public class RecParser extends Parser {
                 case 6 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:197:4: OP_ENDS SEP_ARGS_START expression SEP_ARGS_END
                     {
-                    OP_ENDS119=(Token)match(input,OP_ENDS,FOLLOW_OP_ENDS_in_attribute_call1142);  
+                    OP_ENDS119=(Token)match(input,OP_ENDS,FOLLOW_OP_ENDS_in_attribute_call1138);  
                     stream_OP_ENDS.add(OP_ENDS119);
 
-                    SEP_ARGS_START120=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_attribute_call1144);  
+                    SEP_ARGS_START120=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_attribute_call1140);  
                     stream_SEP_ARGS_START.add(SEP_ARGS_START120);
 
-                    pushFollow(FOLLOW_expression_in_attribute_call1146);
+                    pushFollow(FOLLOW_expression_in_attribute_call1142);
                     expression121=expression();
 
                     state._fsp--;
 
                     stream_expression.add(expression121.getTree());
-                    SEP_ARGS_END122=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_attribute_call1148);  
+                    SEP_ARGS_END122=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_attribute_call1144);  
                     stream_SEP_ARGS_END.add(SEP_ARGS_END122);
 
 
 
                     // AST REWRITE
-                    // elements: expression, OP_ENDS
+                    // elements: OP_ENDS, expression
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3673,7 +3719,7 @@ public class RecParser extends Parser {
                 case 7 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:198:4: ID
                     {
-                    ID123=(Token)match(input,ID,FOLLOW_ID_in_attribute_call1162);  
+                    ID123=(Token)match(input,ID,FOLLOW_ID_in_attribute_call1158);  
                     stream_ID.add(ID123);
 
 
@@ -3757,37 +3803,37 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:203:2: ( CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END -> ^( TRIPLE expression expression expression ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:203:4: CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END
             {
-            CONS_TRIPLE124=(Token)match(input,CONS_TRIPLE,FOLLOW_CONS_TRIPLE_in_triple_cons1185);  
+            CONS_TRIPLE124=(Token)match(input,CONS_TRIPLE,FOLLOW_CONS_TRIPLE_in_triple_cons1181);  
             stream_CONS_TRIPLE.add(CONS_TRIPLE124);
 
-            SEP_ARGS_START125=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_triple_cons1187);  
+            SEP_ARGS_START125=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_triple_cons1183);  
             stream_SEP_ARGS_START.add(SEP_ARGS_START125);
 
-            pushFollow(FOLLOW_expression_in_triple_cons1189);
+            pushFollow(FOLLOW_expression_in_triple_cons1185);
             expression126=expression();
 
             state._fsp--;
 
             stream_expression.add(expression126.getTree());
-            SEP_COMMA127=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_triple_cons1191);  
+            SEP_COMMA127=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_triple_cons1187);  
             stream_SEP_COMMA.add(SEP_COMMA127);
 
-            pushFollow(FOLLOW_expression_in_triple_cons1193);
+            pushFollow(FOLLOW_expression_in_triple_cons1189);
             expression128=expression();
 
             state._fsp--;
 
             stream_expression.add(expression128.getTree());
-            SEP_COMMA129=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_triple_cons1195);  
+            SEP_COMMA129=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_triple_cons1191);  
             stream_SEP_COMMA.add(SEP_COMMA129);
 
-            pushFollow(FOLLOW_expression_in_triple_cons1197);
+            pushFollow(FOLLOW_expression_in_triple_cons1193);
             expression130=expression();
 
             state._fsp--;
 
             stream_expression.add(expression130.getTree());
-            SEP_ARGS_END131=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_triple_cons1199);  
+            SEP_ARGS_END131=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_triple_cons1195);  
             stream_SEP_ARGS_END.add(SEP_ARGS_END131);
 
 
@@ -3875,28 +3921,28 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:209:2: ( CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END -> ^( PAIR expression expression ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:209:4: CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END
             {
-            CONS_PAIR132=(Token)match(input,CONS_PAIR,FOLLOW_CONS_PAIR_in_pair_cons1228);  
+            CONS_PAIR132=(Token)match(input,CONS_PAIR,FOLLOW_CONS_PAIR_in_pair_cons1224);  
             stream_CONS_PAIR.add(CONS_PAIR132);
 
-            SEP_ARGS_START133=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_pair_cons1230);  
+            SEP_ARGS_START133=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_pair_cons1226);  
             stream_SEP_ARGS_START.add(SEP_ARGS_START133);
 
-            pushFollow(FOLLOW_expression_in_pair_cons1232);
+            pushFollow(FOLLOW_expression_in_pair_cons1228);
             expression134=expression();
 
             state._fsp--;
 
             stream_expression.add(expression134.getTree());
-            SEP_COMMA135=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_pair_cons1234);  
+            SEP_COMMA135=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_pair_cons1230);  
             stream_SEP_COMMA.add(SEP_COMMA135);
 
-            pushFollow(FOLLOW_expression_in_pair_cons1236);
+            pushFollow(FOLLOW_expression_in_pair_cons1232);
             expression136=expression();
 
             state._fsp--;
 
             stream_expression.add(expression136.getTree());
-            SEP_ARGS_END137=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_pair_cons1238);  
+            SEP_ARGS_END137=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_pair_cons1234);  
             stream_SEP_ARGS_END.add(SEP_ARGS_END137);
 
 
@@ -3983,20 +4029,24 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:216:2: ( CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END -> ^( SET ( expression )* ) )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:216:4: CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END
             {
-            CONS_SET138=(Token)match(input,CONS_SET,FOLLOW_CONS_SET_in_set_cons1266);  
+            CONS_SET138=(Token)match(input,CONS_SET,FOLLOW_CONS_SET_in_set_cons1262);  
             stream_CONS_SET.add(CONS_SET138);
 
-            SEP_ARGS_START139=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_set_cons1268);  
+            SEP_ARGS_START139=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_set_cons1264);  
             stream_SEP_ARGS_START.add(SEP_ARGS_START139);
 
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:216:29: ( expression ( SEP_COMMA expression )* )?
             int alt29=2;
-            alt29 = dfa29.predict(input);
+            int LA29_0 = input.LA(1);
+
+            if ( ((LA29_0>=OP_PATH && LA29_0<=OP_TRD)||(LA29_0>=CONS_PAIR && LA29_0<=ID)) ) {
+                alt29=1;
+            }
             switch (alt29) {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:216:31: expression ( SEP_COMMA expression )*
                     {
-                    pushFollow(FOLLOW_expression_in_set_cons1273);
+                    pushFollow(FOLLOW_expression_in_set_cons1269);
                     expression140=expression();
 
                     state._fsp--;
@@ -4017,10 +4067,10 @@ public class RecParser extends Parser {
                     	case 1 :
                     	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:216:43: SEP_COMMA expression
                     	    {
-                    	    SEP_COMMA141=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_set_cons1276);  
+                    	    SEP_COMMA141=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_set_cons1272);  
                     	    stream_SEP_COMMA.add(SEP_COMMA141);
 
-                    	    pushFollow(FOLLOW_expression_in_set_cons1278);
+                    	    pushFollow(FOLLOW_expression_in_set_cons1274);
                     	    expression142=expression();
 
                     	    state._fsp--;
@@ -4041,7 +4091,7 @@ public class RecParser extends Parser {
 
             }
 
-            SEP_ARGS_END143=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_set_cons1285);  
+            SEP_ARGS_END143=(Token)match(input,SEP_ARGS_END,FOLLOW_SEP_ARGS_END_in_set_cons1281);  
             stream_SEP_ARGS_END.add(SEP_ARGS_END143);
 
 
@@ -4127,13 +4177,13 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:228:2: ( ID OP_APPLY list_reconfigurations ( trigger_def )? -> ID list_reconfigurations ( trigger_def )? )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:228:4: ID OP_APPLY list_reconfigurations ( trigger_def )?
             {
-            ID144=(Token)match(input,ID,FOLLOW_ID_in_applicaiton_def1320);  
+            ID144=(Token)match(input,ID,FOLLOW_ID_in_applicaiton_def1316);  
             stream_ID.add(ID144);
 
-            OP_APPLY145=(Token)match(input,OP_APPLY,FOLLOW_OP_APPLY_in_applicaiton_def1322);  
+            OP_APPLY145=(Token)match(input,OP_APPLY,FOLLOW_OP_APPLY_in_applicaiton_def1318);  
             stream_OP_APPLY.add(OP_APPLY145);
 
-            pushFollow(FOLLOW_list_reconfigurations_in_applicaiton_def1325);
+            pushFollow(FOLLOW_list_reconfigurations_in_applicaiton_def1321);
             list_reconfigurations146=list_reconfigurations();
 
             state._fsp--;
@@ -4150,7 +4200,7 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:228:40: trigger_def
                     {
-                    pushFollow(FOLLOW_trigger_def_in_applicaiton_def1328);
+                    pushFollow(FOLLOW_trigger_def_in_applicaiton_def1324);
                     trigger_def147=trigger_def();
 
                     state._fsp--;
@@ -4165,7 +4215,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: list_reconfigurations, ID, trigger_def
+            // elements: ID, list_reconfigurations, trigger_def
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4260,10 +4310,10 @@ public class RecParser extends Parser {
                 case 1 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:233:5: SEP_BLOCK_START reconfiguration_call ( SEP_COMMA reconfiguration_call )* SEP_BLOCK_END
                     {
-                    SEP_BLOCK_START148=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1353);  
+                    SEP_BLOCK_START148=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1349);  
                     stream_SEP_BLOCK_START.add(SEP_BLOCK_START148);
 
-                    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1355);
+                    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1351);
                     reconfiguration_call149=reconfiguration_call();
 
                     state._fsp--;
@@ -4284,10 +4334,10 @@ public class RecParser extends Parser {
                     	case 1 :
                     	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:233:43: SEP_COMMA reconfiguration_call
                     	    {
-                    	    SEP_COMMA150=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_list_reconfigurations1358);  
+                    	    SEP_COMMA150=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_list_reconfigurations1354);  
                     	    stream_SEP_COMMA.add(SEP_COMMA150);
 
-                    	    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1360);
+                    	    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1356);
                     	    reconfiguration_call151=reconfiguration_call();
 
                     	    state._fsp--;
@@ -4302,7 +4352,7 @@ public class RecParser extends Parser {
                         }
                     } while (true);
 
-                    SEP_BLOCK_END152=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_list_reconfigurations1364);  
+                    SEP_BLOCK_END152=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_list_reconfigurations1360);  
                     stream_SEP_BLOCK_END.add(SEP_BLOCK_END152);
 
 
@@ -4337,7 +4387,7 @@ public class RecParser extends Parser {
                 case 2 :
                     // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:234:4: reconfiguration_call
                     {
-                    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1375);
+                    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1371);
                     reconfiguration_call153=reconfiguration_call();
 
                     state._fsp--;
@@ -4409,10 +4459,10 @@ public class RecParser extends Parser {
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:238:2: ( SEP_TRIGGER trigger_block -> trigger_block )
             // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g:238:4: SEP_TRIGGER trigger_block
             {
-            SEP_TRIGGER154=(Token)match(input,SEP_TRIGGER,FOLLOW_SEP_TRIGGER_in_trigger_def1399);  
+            SEP_TRIGGER154=(Token)match(input,SEP_TRIGGER,FOLLOW_SEP_TRIGGER_in_trigger_def1395);  
             stream_SEP_TRIGGER.add(SEP_TRIGGER154);
 
-            pushFollow(FOLLOW_trigger_block_in_trigger_def1401);
+            pushFollow(FOLLOW_trigger_block_in_trigger_def1397);
             trigger_block155=trigger_block();
 
             state._fsp--;
@@ -4483,11 +4533,11 @@ public class RecParser extends Parser {
             {
             root_0 = (Object)adaptor.nil();
 
-            SEP_BLOCK_START156=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_trigger_block1420); 
+            SEP_BLOCK_START156=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_trigger_block1416); 
             SEP_BLOCK_START156_tree = (Object)adaptor.create(SEP_BLOCK_START156);
             adaptor.addChild(root_0, SEP_BLOCK_START156_tree);
 
-            SEP_BLOCK_END157=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_trigger_block1422); 
+            SEP_BLOCK_END157=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_trigger_block1418); 
             SEP_BLOCK_END157_tree = (Object)adaptor.create(SEP_BLOCK_END157);
             adaptor.addChild(root_0, SEP_BLOCK_END157_tree);
 
@@ -4515,162 +4565,22 @@ public class RecParser extends Parser {
     // Delegated rules
 
 
-    protected DFA14 dfa14 = new DFA14(this);
-    protected DFA17 dfa17 = new DFA17(this);
     protected DFA23 dfa23 = new DFA23(this);
-    protected DFA29 dfa29 = new DFA29(this);
-    static final String DFA14_eotS =
-        "\24\uffff";
-    static final String DFA14_eofS =
-        "\24\uffff";
-    static final String DFA14_minS =
-        "\1\24\1\37\22\uffff";
-    static final String DFA14_maxS =
-        "\1\66\1\62\22\uffff";
-    static final String DFA14_acceptS =
-        "\2\uffff\1\1\7\uffff\1\2\11\uffff";
-    static final String DFA14_specialS =
-        "\24\uffff}>";
-    static final String[] DFA14_transitionS = {
-            "\5\2\6\uffff\1\12\23\uffff\3\2\1\1",
-            "\1\12\3\2\3\uffff\2\2\7\uffff\1\2\1\uffff\2\2",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA14_eot = DFA.unpackEncodedString(DFA14_eotS);
-    static final short[] DFA14_eof = DFA.unpackEncodedString(DFA14_eofS);
-    static final char[] DFA14_min = DFA.unpackEncodedStringToUnsignedChars(DFA14_minS);
-    static final char[] DFA14_max = DFA.unpackEncodedStringToUnsignedChars(DFA14_maxS);
-    static final short[] DFA14_accept = DFA.unpackEncodedString(DFA14_acceptS);
-    static final short[] DFA14_special = DFA.unpackEncodedString(DFA14_specialS);
-    static final short[][] DFA14_transition;
-
-    static {
-        int numStates = DFA14_transitionS.length;
-        DFA14_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA14_transition[i] = DFA.unpackEncodedString(DFA14_transitionS[i]);
-        }
-    }
-
-    class DFA14 extends DFA {
-
-        public DFA14(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 14;
-            this.eot = DFA14_eot;
-            this.eof = DFA14_eof;
-            this.min = DFA14_min;
-            this.max = DFA14_max;
-            this.accept = DFA14_accept;
-            this.special = DFA14_special;
-            this.transition = DFA14_transition;
-        }
-        public String getDescription() {
-            return "128:1: assignment_member : ( expression | reconfiguration_apply );";
-        }
-    }
-    static final String DFA17_eotS =
-        "\13\uffff";
-    static final String DFA17_eofS =
-        "\13\uffff";
-    static final String DFA17_minS =
-        "\1\24\12\uffff";
-    static final String DFA17_maxS =
-        "\1\66\12\uffff";
-    static final String DFA17_acceptS =
-        "\1\uffff\1\1\10\uffff\1\2";
-    static final String DFA17_specialS =
-        "\13\uffff}>";
-    static final String[] DFA17_transitionS = {
-            "\5\1\21\uffff\1\12\10\uffff\4\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA17_eot = DFA.unpackEncodedString(DFA17_eotS);
-    static final short[] DFA17_eof = DFA.unpackEncodedString(DFA17_eofS);
-    static final char[] DFA17_min = DFA.unpackEncodedStringToUnsignedChars(DFA17_minS);
-    static final char[] DFA17_max = DFA.unpackEncodedStringToUnsignedChars(DFA17_maxS);
-    static final short[] DFA17_accept = DFA.unpackEncodedString(DFA17_acceptS);
-    static final short[] DFA17_special = DFA.unpackEncodedString(DFA17_specialS);
-    static final short[][] DFA17_transition;
-
-    static {
-        int numStates = DFA17_transitionS.length;
-        DFA17_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA17_transition[i] = DFA.unpackEncodedString(DFA17_transitionS[i]);
-        }
-    }
-
-    class DFA17 extends DFA {
-
-        public DFA17(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 17;
-            this.eot = DFA17_eot;
-            this.eof = DFA17_eof;
-            this.min = DFA17_min;
-            this.max = DFA17_max;
-            this.accept = DFA17_accept;
-            this.special = DFA17_special;
-            this.transition = DFA17_transition;
-        }
-        public String getDescription() {
-            return "144:20: ( args )?";
-        }
-    }
     static final String DFA23_eotS =
-        "\23\uffff";
+        "\12\uffff";
     static final String DFA23_eofS =
-        "\23\uffff";
+        "\12\uffff";
     static final String DFA23_minS =
-        "\1\24\1\40\21\uffff";
+        "\1\24\1\40\10\uffff";
     static final String DFA23_maxS =
-        "\1\66\1\62\21\uffff";
+        "\1\66\1\62\10\uffff";
     static final String DFA23_acceptS =
-        "\2\uffff\1\4\2\uffff\1\5\1\6\1\7\1\10\1\uffff\1\1\1\3\1\uffff\1"+
-        "\2\5\uffff";
+        "\2\uffff\1\4\1\5\1\6\1\7\1\10\1\1\1\3\1\2";
     static final String DFA23_specialS =
-        "\23\uffff}>";
+        "\12\uffff}>";
     static final String[] DFA23_transitionS = {
-            "\2\10\3\2\32\uffff\1\6\1\5\1\7\1\1",
-            "\3\15\3\uffff\2\15\2\uffff\1\15\4\uffff\1\12\1\uffff\2\13",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\2\6\3\2\32\uffff\1\4\1\3\1\5\1\1",
+            "\3\11\3\uffff\2\11\2\uffff\1\11\4\uffff\1\7\1\uffff\2\10",
             "",
             "",
             "",
@@ -4714,223 +4624,164 @@ public class RecParser extends Parser {
             return "175:1: factor : ( ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END -> ^( ID ID ) | ID -> ID | ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | single_return_operation -> single_return_operation | triple_cons -> triple_cons | pair_cons -> pair_cons | set_cons -> set_cons | structure_operation_call -> structure_operation_call );";
         }
     }
-    static final String DFA29_eotS =
-        "\13\uffff";
-    static final String DFA29_eofS =
-        "\13\uffff";
-    static final String DFA29_minS =
-        "\1\24\12\uffff";
-    static final String DFA29_maxS =
-        "\1\66\12\uffff";
-    static final String DFA29_acceptS =
-        "\1\uffff\1\1\10\uffff\1\2";
-    static final String DFA29_specialS =
-        "\13\uffff}>";
-    static final String[] DFA29_transitionS = {
-            "\5\1\21\uffff\1\12\10\uffff\4\1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-    };
-
-    static final short[] DFA29_eot = DFA.unpackEncodedString(DFA29_eotS);
-    static final short[] DFA29_eof = DFA.unpackEncodedString(DFA29_eofS);
-    static final char[] DFA29_min = DFA.unpackEncodedStringToUnsignedChars(DFA29_minS);
-    static final char[] DFA29_max = DFA.unpackEncodedStringToUnsignedChars(DFA29_maxS);
-    static final short[] DFA29_accept = DFA.unpackEncodedString(DFA29_acceptS);
-    static final short[] DFA29_special = DFA.unpackEncodedString(DFA29_specialS);
-    static final short[][] DFA29_transition;
-
-    static {
-        int numStates = DFA29_transitionS.length;
-        DFA29_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA29_transition[i] = DFA.unpackEncodedString(DFA29_transitionS[i]);
-        }
-    }
-
-    class DFA29 extends DFA {
-
-        public DFA29(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 29;
-            this.eot = DFA29_eot;
-            this.eof = DFA29_eof;
-            this.min = DFA29_min;
-            this.max = DFA29_max;
-            this.accept = DFA29_accept;
-            this.special = DFA29_special;
-            this.transition = DFA29_transition;
-        }
-        public String getDescription() {
-            return "216:29: ( expression ( SEP_COMMA expression )* )?";
-        }
-    }
  
 
-    public static final BitSet FOLLOW_directive_def_in_reclang123 = new BitSet(new long[]{0x0040000000000052L});
-    public static final BitSet FOLLOW_element_in_reclang126 = new BitSet(new long[]{0x0040000000000012L});
-    public static final BitSet FOLLOW_directive_import_in_directive_def155 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RW_IMPORT_in_directive_import175 = new BitSet(new long[]{0x0800000000000000L});
-    public static final BitSet FOLLOW_STRING_in_directive_import177 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_SEP_SEMICOLON_in_directive_import179 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_def_in_element207 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_applicaiton_def_in_element220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def243 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_ID_in_reconfiguration_def245 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_reconfiguration_def247 = new BitSet(new long[]{0x0000040000003F80L});
-    public static final BitSet FOLLOW_args_def_in_reconfiguration_def249 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_reconfiguration_def252 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_reconfiguration_block_in_reconfiguration_def254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_datatype_in_args_def283 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_list_ids_in_args_def285 = new BitSet(new long[]{0x0000008000000002L});
-    public static final BitSet FOLLOW_SEP_SEMICOLON_in_args_def288 = new BitSet(new long[]{0x0000000000003F80L});
-    public static final BitSet FOLLOW_datatype_in_args_def290 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_list_ids_in_args_def292 = new BitSet(new long[]{0x0000008000000002L});
-    public static final BitSet FOLLOW_DT_PATTERN_in_datatype321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_CHANNEL_in_datatype328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_other_type_in_datatype333 = new BitSet(new long[]{0x0000800000000002L});
-    public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_datatype337 = new BitSet(new long[]{0x0000000000003F80L});
-    public static final BitSet FOLLOW_subtype_in_datatype340 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_SEP_SUBTYPE_END_in_datatype342 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_directive_def_in_reclang119 = new BitSet(new long[]{0x0040000000000052L});
+    public static final BitSet FOLLOW_element_in_reclang122 = new BitSet(new long[]{0x0040000000000012L});
+    public static final BitSet FOLLOW_directive_import_in_directive_def151 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RW_IMPORT_in_directive_import171 = new BitSet(new long[]{0x0800000000000000L});
+    public static final BitSet FOLLOW_STRING_in_directive_import173 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_SEP_SEMICOLON_in_directive_import175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_def_in_element203 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_applicaiton_def_in_element216 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def239 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_ID_in_reconfiguration_def241 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_reconfiguration_def243 = new BitSet(new long[]{0x0000040000003F80L});
+    public static final BitSet FOLLOW_args_def_in_reconfiguration_def245 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_reconfiguration_def248 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_reconfiguration_block_in_reconfiguration_def250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_datatype_in_args_def279 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_list_ids_in_args_def281 = new BitSet(new long[]{0x0000008000000002L});
+    public static final BitSet FOLLOW_SEP_SEMICOLON_in_args_def284 = new BitSet(new long[]{0x0000000000003F80L});
+    public static final BitSet FOLLOW_datatype_in_args_def286 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_list_ids_in_args_def288 = new BitSet(new long[]{0x0000008000000002L});
+    public static final BitSet FOLLOW_DT_PATTERN_in_datatype317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_CHANNEL_in_datatype324 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_other_type_in_datatype329 = new BitSet(new long[]{0x0000800000000002L});
+    public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_datatype333 = new BitSet(new long[]{0x0000000000003F80L});
+    public static final BitSet FOLLOW_subtype_in_datatype336 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_SEP_SUBTYPE_END_in_datatype338 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_other_type0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_datatype_in_subtype386 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_list_ids399 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_list_ids402 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_ID_in_list_ids404 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_SEP_BLOCK_START_in_reconfiguration_block426 = new BitSet(new long[]{0x0040000080003FA0L});
-    public static final BitSet FOLLOW_instruction_in_reconfiguration_block428 = new BitSet(new long[]{0x0040002080003FA0L});
-    public static final BitSet FOLLOW_SEP_BLOCK_END_in_reconfiguration_block431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_declaration_in_instruction455 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction457 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_instruction466 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction468 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_apply_in_instruction476 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_for_instruction_in_instruction485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_reconfiguration_apply501 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_OP_APPLY_in_reconfiguration_apply504 = new BitSet(new long[]{0x00400000000FC000L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_reconfiguration_apply506 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_datatype_in_declaration530 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_var_def_in_declaration532 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_declaration535 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_var_def_in_declaration537 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_ID_in_var_def562 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_var_def567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_assignment580 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_OP_EQUAL_in_assignment582 = new BitSet(new long[]{0x0078000081F00000L});
-    public static final BitSet FOLLOW_assignment_member_in_assignment584 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_assignment_member610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_apply_in_assignment_member616 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_JOIN_in_reconfiguration_call630 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_SPLIT_in_reconfiguration_call635 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_PAR_in_reconfiguration_call640 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_REMOVE_in_reconfiguration_call645 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_CONST_in_reconfiguration_call650 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_ID_in_reconfiguration_call655 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_ID_in_reconfiguration_call660 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call664 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_PATH_in_structure_operation_call680 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_UPDATE_in_structure_operation_call685 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_operation_args_in_structure_operation_call690 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_operation_args705 = new BitSet(new long[]{0x0078040001F00000L});
-    public static final BitSet FOLLOW_args_in_operation_args708 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_operation_args711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_args725 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_args728 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_args730 = new BitSet(new long[]{0x0000004000000002L});
-    public static final BitSet FOLLOW_RW_FORALL_in_for_instruction754 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_for_instruction756 = new BitSet(new long[]{0x0000000000003F80L});
-    public static final BitSet FOLLOW_datatype_in_for_instruction758 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_ID_in_for_instruction760 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_SEP_COLON_in_for_instruction762 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_ID_in_for_instruction764 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_for_instruction766 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_reconfiguration_block_in_for_instruction768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_union_expr_in_expression798 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_OP_UNION_in_expression801 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_union_expr_in_expression804 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_intersect_expr_in_union_expr821 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_OP_INTERSECTION_in_union_expr824 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_intersect_expr_in_union_expr827 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_factor_in_intersect_expr844 = new BitSet(new long[]{0x0000000400000002L});
-    public static final BitSet FOLLOW_OP_MINUS_in_intersect_expr847 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_factor_in_intersect_expr850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_factor868 = new BitSet(new long[]{0x0000800000000000L});
-    public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_factor870 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_ID_in_factor872 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_SEP_SUBTYPE_END_in_factor874 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_factor890 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_factor906 = new BitSet(new long[]{0x0006000000000000L});
-    public static final BitSet FOLLOW_SEP_STRUCTURE_in_factor909 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_ID_in_factor911 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_SEP_ACCESSOR_in_factor915 = new BitSet(new long[]{0x004000007E000000L});
-    public static final BitSet FOLLOW_attribute_call_in_factor917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_single_return_operation_in_factor940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_triple_cons_in_factor954 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_pair_cons_in_factor969 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_cons_in_factor984 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_structure_operation_call_in_factor1002 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_FST_in_single_return_operation1026 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_SND_in_single_return_operation1031 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_OP_TRD_in_single_return_operation1036 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_operation_args_in_single_return_operation1041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_IN_in_attribute_call1053 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1056 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_INT_in_attribute_call1058 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_SEP_LIST_END_in_attribute_call1060 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_OUT_in_attribute_call1079 = new BitSet(new long[]{0x0000200000000002L});
-    public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1082 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_INT_in_attribute_call1084 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_SEP_LIST_END_in_attribute_call1086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NAME_in_attribute_call1102 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NODES_in_attribute_call1116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NAMES_in_attribute_call1129 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_ENDS_in_attribute_call1142 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_attribute_call1144 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_attribute_call1146 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_attribute_call1148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_attribute_call1162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CONS_TRIPLE_in_triple_cons1185 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_triple_cons1187 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_datatype_in_subtype382 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_list_ids395 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_list_ids398 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_ID_in_list_ids400 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_SEP_BLOCK_START_in_reconfiguration_block422 = new BitSet(new long[]{0x0040000080003FA0L});
+    public static final BitSet FOLLOW_instruction_in_reconfiguration_block424 = new BitSet(new long[]{0x0040002080003FA0L});
+    public static final BitSet FOLLOW_SEP_BLOCK_END_in_reconfiguration_block427 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_declaration_in_instruction451 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction453 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignment_in_instruction462 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_apply_in_instruction472 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction474 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_for_instruction_in_instruction481 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_reconfiguration_apply497 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_OP_APPLY_in_reconfiguration_apply500 = new BitSet(new long[]{0x00400000000FC000L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_reconfiguration_apply502 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_datatype_in_declaration526 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_var_def_in_declaration528 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_declaration531 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_var_def_in_declaration533 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_ID_in_var_def558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignment_in_var_def563 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_assignment576 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_OP_EQUAL_in_assignment578 = new BitSet(new long[]{0x0078000081F00000L});
+    public static final BitSet FOLLOW_assignment_member_in_assignment580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_assignment_member606 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_apply_in_assignment_member612 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_JOIN_in_reconfiguration_call626 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_SPLIT_in_reconfiguration_call631 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_PAR_in_reconfiguration_call636 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_REMOVE_in_reconfiguration_call641 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_CONST_in_reconfiguration_call646 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_ID_in_reconfiguration_call651 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_ID_in_reconfiguration_call656 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call660 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_PATH_in_structure_operation_call676 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_UPDATE_in_structure_operation_call681 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_operation_args_in_structure_operation_call686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_operation_args701 = new BitSet(new long[]{0x0078040001F00000L});
+    public static final BitSet FOLLOW_args_in_operation_args704 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_operation_args707 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_args721 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_args724 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_expression_in_args726 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_RW_FORALL_in_for_instruction750 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_for_instruction752 = new BitSet(new long[]{0x0000000000003F80L});
+    public static final BitSet FOLLOW_datatype_in_for_instruction754 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_ID_in_for_instruction756 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_SEP_COLON_in_for_instruction758 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_ID_in_for_instruction760 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_for_instruction762 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_reconfiguration_block_in_for_instruction764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_union_expr_in_expression794 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_OP_UNION_in_expression797 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_union_expr_in_expression800 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_intersect_expr_in_union_expr817 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_OP_INTERSECTION_in_union_expr820 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_intersect_expr_in_union_expr823 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_factor_in_intersect_expr840 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_OP_MINUS_in_intersect_expr843 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_factor_in_intersect_expr846 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_factor864 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_factor866 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_ID_in_factor868 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_SEP_SUBTYPE_END_in_factor870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_factor886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_factor902 = new BitSet(new long[]{0x0006000000000000L});
+    public static final BitSet FOLLOW_SEP_STRUCTURE_in_factor905 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_ID_in_factor907 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_SEP_ACCESSOR_in_factor911 = new BitSet(new long[]{0x004000007E000000L});
+    public static final BitSet FOLLOW_attribute_call_in_factor913 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_single_return_operation_in_factor936 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_triple_cons_in_factor950 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_pair_cons_in_factor965 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_cons_in_factor980 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_structure_operation_call_in_factor998 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_FST_in_single_return_operation1022 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_SND_in_single_return_operation1027 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_OP_TRD_in_single_return_operation1032 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_operation_args_in_single_return_operation1037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_IN_in_attribute_call1049 = new BitSet(new long[]{0x0000200000000002L});
+    public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1052 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_INT_in_attribute_call1054 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_SEP_LIST_END_in_attribute_call1056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_OUT_in_attribute_call1075 = new BitSet(new long[]{0x0000200000000002L});
+    public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1078 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_INT_in_attribute_call1080 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_SEP_LIST_END_in_attribute_call1082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NAME_in_attribute_call1098 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NODES_in_attribute_call1112 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NAMES_in_attribute_call1125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_ENDS_in_attribute_call1138 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_attribute_call1140 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_expression_in_attribute_call1142 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_attribute_call1144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_attribute_call1158 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CONS_TRIPLE_in_triple_cons1181 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_triple_cons1183 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_expression_in_triple_cons1185 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1187 = new BitSet(new long[]{0x0078000001F00000L});
     public static final BitSet FOLLOW_expression_in_triple_cons1189 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1191 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_triple_cons1193 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1195 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_triple_cons1197 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_triple_cons1199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CONS_PAIR_in_pair_cons1228 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_pair_cons1230 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_pair_cons1232 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_pair_cons1234 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_pair_cons1236 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_pair_cons1238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CONS_SET_in_set_cons1266 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_START_in_set_cons1268 = new BitSet(new long[]{0x0078040001F00000L});
-    public static final BitSet FOLLOW_expression_in_set_cons1273 = new BitSet(new long[]{0x0000044000000000L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_set_cons1276 = new BitSet(new long[]{0x0078000001F00000L});
-    public static final BitSet FOLLOW_expression_in_set_cons1278 = new BitSet(new long[]{0x0000044000000000L});
-    public static final BitSet FOLLOW_SEP_ARGS_END_in_set_cons1285 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_applicaiton_def1320 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_OP_APPLY_in_applicaiton_def1322 = new BitSet(new long[]{0x00400010000FC000L});
-    public static final BitSet FOLLOW_list_reconfigurations_in_applicaiton_def1325 = new BitSet(new long[]{0x0000100000000002L});
-    public static final BitSet FOLLOW_trigger_def_in_applicaiton_def1328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1353 = new BitSet(new long[]{0x00400000000FC000L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1355 = new BitSet(new long[]{0x0000006000000000L});
-    public static final BitSet FOLLOW_SEP_COMMA_in_list_reconfigurations1358 = new BitSet(new long[]{0x00400000000FC000L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1360 = new BitSet(new long[]{0x0000006000000000L});
-    public static final BitSet FOLLOW_SEP_BLOCK_END_in_list_reconfigurations1364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1375 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SEP_TRIGGER_in_trigger_def1399 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_trigger_block_in_trigger_def1401 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SEP_BLOCK_START_in_trigger_block1420 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_SEP_BLOCK_END_in_trigger_block1422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_triple_cons1193 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_triple_cons1195 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CONS_PAIR_in_pair_cons1224 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_pair_cons1226 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_expression_in_pair_cons1228 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_pair_cons1230 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_expression_in_pair_cons1232 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_pair_cons1234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CONS_SET_in_set_cons1262 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_START_in_set_cons1264 = new BitSet(new long[]{0x0078040001F00000L});
+    public static final BitSet FOLLOW_expression_in_set_cons1269 = new BitSet(new long[]{0x0000044000000000L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_set_cons1272 = new BitSet(new long[]{0x0078000001F00000L});
+    public static final BitSet FOLLOW_expression_in_set_cons1274 = new BitSet(new long[]{0x0000044000000000L});
+    public static final BitSet FOLLOW_SEP_ARGS_END_in_set_cons1281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_applicaiton_def1316 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_OP_APPLY_in_applicaiton_def1318 = new BitSet(new long[]{0x00400010000FC000L});
+    public static final BitSet FOLLOW_list_reconfigurations_in_applicaiton_def1321 = new BitSet(new long[]{0x0000100000000002L});
+    public static final BitSet FOLLOW_trigger_def_in_applicaiton_def1324 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1349 = new BitSet(new long[]{0x00400000000FC000L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1351 = new BitSet(new long[]{0x0000006000000000L});
+    public static final BitSet FOLLOW_SEP_COMMA_in_list_reconfigurations1354 = new BitSet(new long[]{0x00400000000FC000L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1356 = new BitSet(new long[]{0x0000006000000000L});
+    public static final BitSet FOLLOW_SEP_BLOCK_END_in_list_reconfigurations1360 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SEP_TRIGGER_in_trigger_def1395 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_trigger_block_in_trigger_def1397 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SEP_BLOCK_START_in_trigger_block1416 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_SEP_BLOCK_END_in_trigger_block1418 = new BitSet(new long[]{0x0000000000000002L});
 
 }
