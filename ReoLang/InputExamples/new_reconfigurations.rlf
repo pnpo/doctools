@@ -1,0 +1,48 @@
+reconfiguration removeP	(Set<Name> Cs )
+	forall ( Name n : Cs)
+	{	
+		@ remove(n);
+	}
+}
+
+
+/*
+reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
+	@ par (p);
+	forall(Pair<Node> n : X) {
+		Node n1, n2; 
+		n1 = fst(n); 
+		n2 = snd(n); 
+		
+		Set<Node> E = S(n1, n2);
+		@ join(E);
+	}
+}
+
+
+
+reconfiguration insertP(Pattern p; Node n, mi, mo, j1, j2) {
+	Pattern p1 = @ par(p);
+	Pattern p2 = @ split(n);
+	Set<Node> n2= p2.in - p1.in ;
+	Set<Node> n2 = p2.out - p1.out ;
+	Set<Node> E1 = n1 + S(mi);
+	@ join(E1);
+	Set<Node> E2 = n2 + S(mo);
+	@ join(E2);  
+}
+
+
+
+reconfiguration implodeP(Set<Node> X; Set<Name> Cs; Node j){
+	@ removeP(Cs);
+	@ join (X);
+}
+
+
+
+reconfiguration replaceP(Pattern p; Set<Pair<Node>> X; Set<Name> Cs) {
+	@ removeP(Cs);
+	@ overlapP(p, X);
+}
+*/

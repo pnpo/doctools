@@ -3,7 +3,6 @@ parser grammar RecParser;
 options{
 	tokenVocab=RecLexer;
 	output=AST;
-	//k=2;
 }
 
 tokens {
@@ -38,7 +37,7 @@ tokens {
 
 reclang
 	: 	directive_def* element*
-		-> ^(RECONFIGS directive_def* element*)
+		-> ^(RECONFIGS directive_def* element*) 
 	;
 
 
@@ -69,18 +68,23 @@ element
 
 reconfiguration_def
 	:	RW_RECONFIGURATION ID SEP_ARGS_START args_def? SEP_ARGS_END reconfiguration_block
-		-> ^(ID ^(ARGUMENTS args_def?) reconfiguration_block) 
+		-> ^(ID args_def? reconfiguration_block) 
 	;
 
 args_def
-	:	datatype list_ids (SEP_SEMICOLON datatype list_ids)*
-		-> ^(ARGUMENT datatype list_ids)+ 
+	:	arg_def (SEP_SEMICOLON arg_def)*
+		-> ^(ARGUMENTS arg_def+)
+	;
+	
+arg_def
+	: 	datatype list_ids
+		-> ^(ARGUMENT datatype list_ids)
 	;
 	
 datatype
 	: 	DT_PATTERN 
 	| 	DT_CHANNEL
-	|	other_type^ (SEP_SUBTYPE_START! subtype SEP_SUBTYPE_END!)? //-> ^(other_type subtype?)
+	|	other_type (SEP_SUBTYPE_START subtype SEP_SUBTYPE_END)? -> ^(other_type subtype?)
 	;
 	
 other_type
@@ -98,14 +102,14 @@ list_ids
 	
 reconfiguration_block 
 	:	SEP_BLOCK_START instruction+ SEP_BLOCK_END 
-		-> ^(INSTRUCTIONS instruction+)
+		-> ^(INSTRUCTIONS instruction (instruction)*)
 	;
 	
 instruction
-	:	declaration SEP_SEMICOLON! 		//-> declaration
-	|	assignment SEP_SEMICOLON!		//-> assignement
-	|	reconfiguration_apply SEP_SEMICOLON!	//-> reconfiguration_apply
-	|	for_instruction				//-> for_instruction
+	:	declaration SEP_SEMICOLON 		-> declaration
+	|	assignment SEP_SEMICOLON		-> assignment
+	|	reconfiguration_apply SEP_SEMICOLON	-> reconfiguration_apply
+	|	for_instruction				-> for_instruction
 	;
 	
 reconfiguration_apply
@@ -141,7 +145,7 @@ structure_operation_call
 	
 	
 operation_args
-	:	SEP_ARGS_START! args? SEP_ARGS_END!	//-> args?
+	:	SEP_ARGS_START args? SEP_ARGS_END	-> args?
 	;
 	
 args
@@ -230,8 +234,7 @@ applicaiton_def
 	;
 	
 list_reconfigurations
-	: 	SEP_BLOCK_START reconfiguration_call (SEP_COMMA reconfiguration_call)* SEP_BLOCK_END 	-> reconfiguration_call+
-	|	reconfiguration_call									-> reconfiguration_call
+	: 	SEP_BLOCK_START? reconfiguration_call (SEP_COMMA reconfiguration_call)* SEP_BLOCK_END? 	-> reconfiguration_call+
 	;
 	
 trigger_def
