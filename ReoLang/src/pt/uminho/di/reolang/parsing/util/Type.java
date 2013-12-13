@@ -8,7 +8,17 @@ package pt.uminho.di.reolang.parsing.util;
  */
 
 public enum Type {
+	PATTERN,
+		TYPE,
 	CHANNEL,
+	NAME,
+	NODE,
+	SET,
+	TRIPLE,
+	PAIR,
+	RECONFIG,
+	ARG,
+	VAR,
 	EXTENSION,
 	PORT,
 		IN_PORT,
@@ -18,11 +28,8 @@ public enum Type {
 	INSTANCE,
 	TIME,
 	STRUCTURE,
-	PATTERN,
-		TYPE,
 	NULL,
 	CONDITION,
 	CONDITION_ELEMENT,
-	NODE,
 	LABEL
 }
