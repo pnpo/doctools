@@ -4,7 +4,6 @@ options{
 	tokenVocab = RecParser;
 	ASTLabelType = CommonTree;
 	//backtrack = true;
-	//k = 2;
 }
 
 @header{
@@ -15,19 +14,25 @@ options{
 
 @members{
 	private TinySymbolsTable ids_table = new TinySymbolsTable();
-	
-	int scope = 0;
 }
 
 
 
 //GRAMMAR
 
-reclang returns[String test]
+reclang returns[TinySymbolsTable global_table]
+scope{
+	int scope_id;
+	int parent_id;
+}
+@init{
+	$reclang::scope_id = 0;
+	$reclang::parent_id = 0;
+}
 	: ^(RECONFIGS directive_def* element*
 	
 	{
-		$reclang.test = "...";
+		$reclang.global_table = ids_table;
 	}
 	) 
 	
@@ -61,16 +66,16 @@ reconfiguration_def
 scope{
 	TinySymbol rec_symbol;
 	TinySymbolsTable main_scope;
+	List<TinySymbolsTable> sub_scopes;
 	List<Type> datatype;
+	String scope;
 }
 @init{
 	$reconfiguration_def::rec_symbol = new TinySymbol();
 	$reconfiguration_def::main_scope = new TinySymbolsTable();
+	$reconfiguration_def::sub_scopes = new ArrayList<TinySymbolsTable>();
 	$reconfiguration_def::datatype = new ArrayList<Type>();
-	//scope++;
-	//reconfig.setScopeRel( new Pair<Integer, Integer>(scope, 0) );	//scope_id, parent_id
-	
-	//List<TinySymbolsTable> scopes = new ArrayList<TinySymbolsTable>();
+	$reconfiguration_def::scope = "main";
 }
 	: ^(ID 
 	{
@@ -90,15 +95,18 @@ scope{
 	args_def? reconfiguration_block
 	{
 		$reconfiguration_def::rec_symbol.addScope($reconfiguration_def::main_scope);
-		ids_table.addSymbol($reconfiguration_def::rec_symbol);
-		System.out.println(ids_table.toString());
+		$reconfiguration_def::rec_symbol.addScopes($reconfiguration_def::sub_scopes);
+		if(!ids_table.containsSymbol($ID.text)){
+			ids_table.addSymbol($reconfiguration_def::rec_symbol);
+		}
 	}
 	) 
 	;
 
-args_def returns[TinySymbolsTable table]
+args_def
 @init{
-	//$reconfiguration_def.main_scope.setScopeRel( new Pair<Integer, Integer>(scope, parent) );	//scope_id, parent_id
+	$reconfiguration_def::main_scope.setScopeRel( new Pair<Integer, Integer>($reclang::scope_id, $reclang::parent_id) );
+	$reclang::scope_id++;
 }
 	: ^(ARGUMENTS arg_def+
 	)
@@ -108,13 +116,7 @@ arg_def
 @init{
 	$reconfiguration_def::datatype = new ArrayList<Type>();
 }
-	: ^(ARGUMENT datatype 
-	{
-		System.out.println( $reconfiguration_def::datatype.toString() );
-	}
-	
-	list_ids
-	)
+	: ^(ARGUMENT datatype list_ids)
 	;
 	
 datatype
@@ -163,14 +165,16 @@ list_ids
 		s.setLine($ID.line);
 		s.setPosition($ID.pos);
 		
-		$reconfiguration_def::main_scope.addSymbol(s);
+		if (!$reconfiguration_def::main_scope.containsSymbol($ID.text)){
+			$reconfiguration_def::main_scope.addSymbol(s);
+		}
 	}
 	)+
 	;
 	
 	
-reconfiguration_block 
-	: ^(INSTRUCTIONS instruction (instruction)*)
+reconfiguration_block
+	: ^(INSTRUCTIONS instruction+)
 	;
 	
 instruction
@@ -178,6 +182,12 @@ instruction
 	| assignment
 	| reconfiguration_apply
 	| for_instruction
+	{
+		$reclang::parent_id--;
+		if ($reclang::parent_id == 0) {
+			$reconfiguration_def::scope = "main";
+		}
+	}
 	;
 	
 reconfiguration_apply
@@ -185,16 +195,72 @@ reconfiguration_apply
 	;
 	
 declaration 
+@init{
+	$reconfiguration_def::datatype = new ArrayList<Type>();
+}
 	: ^(DECLARATION datatype var_def+)
 	;
 	
 var_def
 	: ID
+	{
+		TinySymbol s = new TinySymbol();
+		s.setId($ID.text);
+		
+		s.setDataType( $reconfiguration_def::datatype );
+		
+		Type classtype = Type.VAR;
+		s.setClassType(classtype);
+		
+		s.setLine($ID.line);
+		s.setPosition($ID.pos);
+		
+		if ($reconfiguration_def::scope.equals("main")){
+			if (!$reconfiguration_def::main_scope.containsSymbol($ID.text)){
+				$reconfiguration_def::main_scope.addSymbol(s);
+			}
+		}
+		else {
+			if (!$for_instruction::forall_table.containsSymbol($ID.text)){
+				$for_instruction::forall_table.addSymbol(s);
+			}
+		}
+		
+	
+	}
 	| assignment
+	{
+		if ($reconfiguration_def::scope.equals("main")){
+			if ( !$reconfiguration_def::main_scope.containsSymbol($assignment.symbol.getId()) ){
+				$reconfiguration_def::main_scope.addSymbol($assignment.symbol);
+			}
+		}
+		else {
+			if ( !$for_instruction::forall_table.containsSymbol($assignment.symbol.getId()) ){
+				$for_instruction::forall_table.addSymbol($assignment.symbol);
+			}
+		}
+	}
 	;
 	
-assignment 
-	: ^(ASSIGNMENT ID assignment_member) 
+assignment returns[TinySymbol symbol]
+	: ^(ASSIGNMENT ID 
+	{
+		TinySymbol s = new TinySymbol();
+		s.setId($ID.text);
+		
+		s.setDataType( $reconfiguration_def::datatype );
+		
+		Type classtype = Type.VAR;
+		s.setClassType(classtype);
+		
+		s.setLine($ID.line);
+		s.setPosition($ID.pos);
+		
+		$assignment.symbol = s;
+	}
+	
+	assignment_member) 
 	; 
 	
 assignment_member
@@ -228,8 +294,42 @@ args
 	;
 	
 	
-for_instruction	
-	: ^(FORALL datatype ID ID reconfiguration_block)
+for_instruction
+scope{
+	TinySymbolsTable forall_table;
+}
+@init{
+	
+	$reconfiguration_def::datatype = new ArrayList<Type>();
+	$for_instruction::forall_table = new TinySymbolsTable();
+	$reconfiguration_def::scope = "forall";
+	$for_instruction::forall_table.setScopeRel( new Pair<Integer, Integer>($reclang::scope_id, $reclang::parent_id) );
+	$reclang::scope_id++;
+	$reclang::parent_id++;
+}
+	: ^(FORALL datatype id1=ID
+	{
+		TinySymbol s = new TinySymbol();
+		s.setId($id1.text);
+		
+		s.setDataType( $reconfiguration_def::datatype );
+		
+		Type classtype = Type.VAR;
+		s.setClassType(classtype);
+		
+		s.setLine($id1.line);
+		s.setPosition($id1.pos);
+		
+		if (!$for_instruction::forall_table.containsSymbol($id1.text)){
+			$for_instruction::forall_table.addSymbol(s);
+		}
+	}
+	
+	id2=ID reconfiguration_block
+	{
+		$reconfiguration_def::sub_scopes.add($for_instruction::forall_table);
+	}
+	)
 	;
 	
 	

@@ -9,7 +9,6 @@ import pt.uminho.di.reolang.ReoLangSemantics.reolang_return;
 import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 import pt.uminho.di.reolang.parsing.util.Type;
-import pt.uminho.di.reolang.reclang.RecTG1.reclang_return;
 
 public class Main {
 
@@ -29,16 +28,13 @@ public class Main {
 			CommonTreeNodeStream tree = new CommonTreeNodeStream(res.getTree());
 			System.out.println(((CommonTree) res.getTree()).toStringTree());
 			
-			//Testes
-			//System.out.println(Type.valueOf("PATTERN"));
-			
 			RecTG walker_tabid = new RecTG(tree);
-			String walker_ret = walker_tabid.reclang(); 
-			System.out.println(walker_ret);
+			TinySymbolsTable walker_ret = walker_tabid.reclang(); 
+			System.out.println( walker_ret.toString() );
 			
 			/*
 			CommonTreeNodeStream tree2 = new CommonTreeNodeStream(ret.getTree());
-			CmbTG_ver_sem walker_ver_sem = new CmbTG_ver_sem(tree2);
+			RecTG_ver_sem walker_ver_sem = new RecTG_ver_sem(tree2);
 			walker_ver_sem.programa(walker_ret);
 			
 			System.out.println(walker_ver_sem.getErrors());
