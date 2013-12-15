@@ -1,5 +1,6 @@
 package pt.uminho.di.reolang.parsing.util;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -114,6 +115,11 @@ public class TinySymbol {
 	
 	public void addScope(TinySymbolsTable scope) {
 		this.scopes.add(scope);
+	}
+	
+	public void addScopes(List<TinySymbolsTable> scopes) {
+		Collections.reverse(scopes); //reorder the sub_scopes
+		this.scopes.addAll(scopes);
 	}
 
 

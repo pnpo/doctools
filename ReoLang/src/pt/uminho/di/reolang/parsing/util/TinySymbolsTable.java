@@ -30,6 +30,15 @@ public class TinySymbolsTable {
 		this.symbols.put(ts.getId(), ts);
 	}
 	
+	public boolean containsSymbol(String symbol_id){
+		TinySymbol symbol = this.symbols.get(symbol_id);
+		if (symbol != null) {
+		    return true;
+		} else {
+		    return false;
+		}
+	}
+	
 	
 	public Pair<Integer, Integer> getScopeRel(){
 		return this.scope_rel;
