@@ -17,7 +17,7 @@ public class Reconfiguration implements IReconfiguration {
 	//this pattern shall be internal (therefore, the unique way of setting this
 	// pattern is by using setCP. We dont't have a method GET for this.
 	//Only this class can manage this pattern internally.
-	private CoordinationPattern2 pattern ;
+	private CoordinationPattern2 pattern ; //perhaps this should be a map of variable name to coordination pattern
 	private LinkedList<IReconfiguration> reconfigurations;
 	
 	
@@ -121,7 +121,7 @@ public class Reconfiguration implements IReconfiguration {
 	 * @see pt.uminho.di.cp.reconfigurations.IReconfiguration#apply(pt.uminho.di.cp.model.CoordinationPattern2)
 	 */
 	@Override
-	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
+	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
 		// TODO Auto-generated method stub
 		return null;
 	}

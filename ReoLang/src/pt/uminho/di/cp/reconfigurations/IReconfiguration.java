@@ -13,6 +13,6 @@ import pt.uminho.di.cp.model.CoordinationPattern2;
 
 public interface IReconfiguration {
 	
-	public CoordinationPattern2 apply(CoordinationPattern2 cp);
+	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store);
 	
 }

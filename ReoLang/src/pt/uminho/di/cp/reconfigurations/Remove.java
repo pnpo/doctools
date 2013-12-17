@@ -61,7 +61,7 @@ public class Remove implements IReconfiguration {
 	 * @see pt.uminho.di.cp.reconfigurations.IReconfiguration#apply(pt.uminho.di.cp.model.CoordinationPattern2)
 	 */
 	@Override
-	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
+	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
 		// TODO Auto-generated method stub
 		return null;
 	}

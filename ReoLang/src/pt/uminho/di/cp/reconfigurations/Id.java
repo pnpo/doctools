@@ -14,7 +14,7 @@ public class Id implements IReconfiguration {
 
 	
 	@Override
-	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
+	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
 		// TODO Auto-generated method stub
 		return null;
 	}
