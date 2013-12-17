@@ -181,8 +181,7 @@ public class CommunicationMean2 {
 	 */
 	@Override
 	public String toString() {
-		return "CommunicationMean2 [inodes=" + inodes + ", onodes=" + onodes
-				+ ", id=" + id + ", type=" + type + "]";
+		return  "<" + inodes + ", " +  id + ", " + type + ", " + onodes + ">\n" ;
 	}
 
 

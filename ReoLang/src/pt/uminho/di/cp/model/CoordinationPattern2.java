@@ -268,7 +268,7 @@ public class CoordinationPattern2 {
 	 */
 	@Override
 	public String toString() {
-		return "CoordinationPattern2 [pattern=" + pattern + ", id=" + id + "]";
+		return id+"\n" + pattern + "";
 	}
 
 

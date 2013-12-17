@@ -108,6 +108,17 @@ public class Node {
 	}
 	
 	
+	
+	/**
+	 * Checks wether a given end is in this node
+	 * @return true if the end is in this node
+	 */
+	public boolean containsEnd(String end) {
+		return this.getEnds().contains(end);
+	}
+	
+	
+	
 	//################################//
 	
 	
@@ -119,7 +130,7 @@ public class Node {
 	 */
 	@Override
 	public String toString() {
-		return "Node [ends=" + ends + "]";
+		return   ends.toString() ;
 	}
 
 	
@@ -158,6 +169,7 @@ public class Node {
 			return false;
 		return true;
 	}
+
 	
 	
 	
