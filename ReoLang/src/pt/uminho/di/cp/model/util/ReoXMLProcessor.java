@@ -4,20 +4,16 @@
 package pt.uminho.di.cp.model.util;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import pt.uminho.di.cp.model.CommunicationMean2;
 import pt.uminho.di.cp.model.CoordinationPattern2;
@@ -65,6 +61,7 @@ public class ReoXMLProcessor {
 		CoordinationPattern2 cp = new CoordinationPattern2();
 		
 		try {
+			//LOAD THE REO XML FILE
 			File stocks = new File(this.path);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder;
@@ -73,6 +70,18 @@ public class ReoXMLProcessor {
 			
 			Document doc = dBuilder.parse(stocks);
 			doc.getDocumentElement().normalize();
+			
+			
+			//PROCESS the connector name
+			String connector_id = "";
+			NamedNodeMap outer_connector_node = doc.getElementsByTagName("connectors").item(0).getAttributes(); 
+			if( outer_connector_node.getNamedItem("name") != null) {
+				connector_id = outer_connector_node.getNamedItem("name").getNodeValue();
+			}
+			else {
+				connector_id = outer_connector_node.getNamedItem("xmi:id").getNodeValue();
+			}
+			cp.setId(connector_id);
 			
 			
 			//Process nodes
@@ -104,7 +113,6 @@ public class ReoXMLProcessor {
 			
 			//Process primitives
 			NodeList primitives = doc.getElementsByTagName("primitives");
-			ArrayList<CommunicationMean2> model_primitives = new ArrayList<CommunicationMean2>();
 			for(int i = 0 ; i < primitives.getLength() ; i++){
 				Node primitive = primitives.item(i);
 				CommunicationMean2 cm = new CommunicationMean2();
@@ -153,7 +161,6 @@ public class ReoXMLProcessor {
 					}
 				}
 				
-				
 				cp.getPattern().add(cm);
 			}
 			
@@ -161,6 +168,7 @@ public class ReoXMLProcessor {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 		//System.out.println(cp);
 		return cp;
