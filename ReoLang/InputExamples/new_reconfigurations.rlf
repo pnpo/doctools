@@ -20,7 +20,7 @@ reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
 }
 
 
-/*
+
 reconfiguration insertP(Pattern p; Node n, mi, mo, j1, j2) {
 	Pattern p1 = @ par(p);
 	Pattern p2 = @ split(n);
@@ -45,4 +45,3 @@ reconfiguration replaceP(Pattern p; Set<Pair<Node>> X; Set<Name> Cs) {
 	@ removeP(Cs);
 	@ overlapP(p, X);
 }
-*/

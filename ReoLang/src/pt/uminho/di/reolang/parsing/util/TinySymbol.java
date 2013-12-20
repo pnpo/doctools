@@ -1,5 +1,6 @@
 package pt.uminho.di.reolang.parsing.util;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -113,32 +114,82 @@ public class TinySymbol {
 		this.scopes = scopes;
 	}
 	
-	public void addScope(TinySymbolsTable scope) {
-		this.scopes.add(scope);
-	}
 	
-	public void addScopes(List<TinySymbolsTable> scopes) {
-		Collections.reverse(scopes); //reorder the sub_scopes
-		this.scopes.addAll(scopes);
+	public void addScopes(TinySymbolsTable main_scope, List<TinySymbolsTable> sub_scopes) {
+		List<TinySymbolsTable> s = new ArrayList<TinySymbolsTable>(sub_scopes);
+		s.add(0, main_scope);
+		
+		for (TinySymbolsTable forall : sub_scopes){
+			int scope_id = forall.getScopeRel().fst();
+			s.set(scope_id, forall);
+		}
+		this.scopes.addAll(s);
 	}
 
+	
+	public void removeRepeatedIds(){		
+		List<TinySymbolsTable> scopes = this.getScopes();
+		Collections.reverse(scopes);	//last to first
+		for (TinySymbolsTable scope : scopes){
 
-/*  ORIGINAL
+			List<TinySymbol> to_remove = new ArrayList<TinySymbol>();
+			
+			Collection<TinySymbol> all_symbols = scope.getSymbols().values();
+			for (TinySymbol symbol : all_symbols){
+				
+				int scope_id = scope.getScopeRel().fst();
+				String symbol_id = symbol.getId();
+				
+				List<TinySymbolsTable> parent_scopes = new ArrayList<TinySymbolsTable>();
+				for (TinySymbolsTable s : scopes){
+					Pair<Integer, Integer> scope_relation = s.getScopeRel();
+					if( scope_relation.fst().equals(scope_id) ){
+						parent_scopes.add(s);
+						scope_id = scope_relation.snd();
+					}
+				}
+				
+				parent_scopes.remove(0); //remove self_scope					
+				for (TinySymbolsTable parent : parent_scopes){
+					if (parent.containsSymbol(symbol_id)){
+						to_remove.add(symbol); 
+						break;		//one parent with same symbol_id is enough
+					}
+				}
+			}
+
+
+			for (TinySymbol rs : to_remove){
+				scope.removeSymbol(rs);
+			}
+			
+		}
+
+		Collections.reverse(scopes);	//first to last
+	}
+
+	
+/*  
+	//ORIGINAL
 	@Override
 	public String toString() {
 		return "TinySymbol [id=" + id + ", datatype=" + datatype
 				+ ", classType=" + classType + ", line=" + line + 
 				", position=" + position + ", scopes=" + scopes + "]";
 	}
-*/
 
-	
 
-//CUSTOM toString
-	
+	//SHORT VERSION
 	@Override
 	public String toString() {
-		return "TinySymbol -> \n\t\t(\n\t\t id: " + id + ", \n\t\t datatype: " + datatype
+		return  scopes + "\n";
+	}
+*/	
+
+	//CUSTOM toString
+	@Override
+	public String toString() {
+		return  "TinySymbol -> \n\t\t(\n\t\t id: " + id + ", \n\t\t datatype: " + datatype
 				+ ", \n\t\t classType: " + classType + ", \n\t\t line: " + line + 
 				", \n\t\t position: " + position + ", \n\t\t scopes: " + scopes + "\n\t\t)\n\t";
 	}	

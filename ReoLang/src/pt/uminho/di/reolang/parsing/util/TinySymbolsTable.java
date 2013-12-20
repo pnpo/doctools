@@ -2,6 +2,7 @@ package pt.uminho.di.reolang.parsing.util;
 
 import java.util.HashMap;
 
+
 public class TinySymbolsTable {
 	private HashMap<String, TinySymbol> symbols;
 	private Pair<Integer, Integer> scope_rel; 	//relation between scopes (first integer: scope_id; second integer: parent_scope_id)
@@ -30,13 +31,19 @@ public class TinySymbolsTable {
 		this.symbols.put(ts.getId(), ts);
 	}
 	
+	public void removeSymbol(TinySymbol ts) {
+		this.symbols.remove(ts.getId());
+	}
+	
 	public boolean containsSymbol(String symbol_id){
+		boolean out;
 		TinySymbol symbol = this.symbols.get(symbol_id);
 		if (symbol != null) {
-		    return true;
+		    out = true;
 		} else {
-		    return false;
+		    out = false;
 		}
+		return out;
 	}
 	
 	
@@ -47,8 +54,10 @@ public class TinySymbolsTable {
 	public void setScopeRel(Pair<Integer, Integer> scope_rel){
 		this.scope_rel = scope_rel;
 	}
+
+	
 /*
-	public String toString2(){
+	public String toString(){
 		String res = "";
 		
 		for(String ch : this.symbols.keySet()) {
@@ -67,8 +76,8 @@ public class TinySymbolsTable {
 */
 	@Override
 	public String toString() {
-		return "[symbols=\n\t" + symbols + ", \nscope_rel="
-				+ scope_rel + "\n]";
+		return "[symbols=\n\t" + symbols + ", "+
+				"\nscope_rel=" + scope_rel + "\n]";
 	}
 	
 	

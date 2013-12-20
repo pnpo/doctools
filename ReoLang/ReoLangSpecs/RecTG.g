@@ -32,6 +32,7 @@ scope{
 	: ^(RECONFIGS directive_def* element*
 	
 	{
+		//ids_table.removeRepeatedSymbols();
 		$reclang.global_table = ids_table;
 	}
 	) 
@@ -76,6 +77,7 @@ scope{
 	$reconfiguration_def::sub_scopes = new ArrayList<TinySymbolsTable>();
 	$reconfiguration_def::datatype = new ArrayList<Type>();
 	$reconfiguration_def::scope = "main";
+	$reclang::scope_id = 0;
 }
 	: ^(ID 
 	{
@@ -94,8 +96,9 @@ scope{
 	
 	args_def? reconfiguration_block
 	{
-		$reconfiguration_def::rec_symbol.addScope($reconfiguration_def::main_scope);
-		$reconfiguration_def::rec_symbol.addScopes($reconfiguration_def::sub_scopes);
+		$reconfiguration_def::rec_symbol.addScopes($reconfiguration_def::main_scope, $reconfiguration_def::sub_scopes);
+		
+		$reconfiguration_def::rec_symbol.removeRepeatedIds();
 		if(!ids_table.containsSymbol($ID.text)){
 			ids_table.addSymbol($reconfiguration_def::rec_symbol);
 		}
