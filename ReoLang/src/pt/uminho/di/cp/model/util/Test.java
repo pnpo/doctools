@@ -13,13 +13,13 @@ import pt.uminho.di.cp.model.CoordinationPattern2;
 public class Test {
 	
 	public static void main(String[] args) {
-		String file = "/Users/nunooliveira/Documents/NetBeansProjects/ReoTestingStuff/drain_spout.reo";
+		String file = "Resources/default.reo";
 		
 		ReoXMLProcessor proc = new ReoXMLProcessor(file);
 		CoordinationPattern2 cp = proc.toCoordinationPattern();
-		
 		System.out.println(cp);
-		
+		proc.toReoXML(cp, "reconfigd.reo");
+				
 		
 	}
 	
