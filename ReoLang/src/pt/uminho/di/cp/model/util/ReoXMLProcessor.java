@@ -446,7 +446,7 @@ public class ReoXMLProcessor {
 				node_child1.appendChild(node_child2);
 				node_child1.appendChild(node_layout2);
 				
-				ch3.appendChild(node_child1);
+				ch3.appendChild(node_child1); 
 				
 			}
 			
