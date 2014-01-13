@@ -2,6 +2,8 @@ package pt.uminho.di.cp.model;
 
 import java.util.LinkedHashSet;
 
+import pt.uminho.di.reolang.parsing.util.Pair;
+
 
 /**
  * @author Nuno Oliveira
@@ -165,6 +167,34 @@ public class CommunicationMean2 {
 			}
 		}
 		return res;
+	}
+	
+	
+	
+	
+	
+	public Pair<Node, Node> getSourceTarget(){
+		Pair<Node, Node> s_t = new Pair<Node, Node> ();
+		Object[] in =  this.getInodes().toArray();
+		Object[] out = this.getOnodes().toArray();
+		switch(in.length){
+			case 1 : {
+				s_t.setFirst((Node) in[0]);
+				s_t.setSecond((Node) out[0]);
+			} ; break ;
+			
+			case 2 : {
+				s_t.setFirst((Node) in[0]);
+				s_t.setSecond((Node) in[1]);
+			} ; break ;
+			
+			default : {
+				s_t.setFirst((Node) out[0]);
+				s_t.setSecond((Node) out[1]);
+			} ; break ;
+		}
+		
+		return s_t;
 	}
 	
 	////////////////////////////////

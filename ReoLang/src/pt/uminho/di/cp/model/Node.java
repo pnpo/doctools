@@ -119,6 +119,39 @@ public class Node {
 	
 	
 	
+	
+	/**
+	 * Concatenates the end names into a single string, separated
+	 * by the separator sep
+	 * @return a string of all ends of the node concatenated by sep. 
+	 */
+	public String formatXMLID(String sep){
+		String res = "";
+		for(String s : this.ends){
+			res += s + sep;
+		}
+		
+		if(sep.length() > 0) {
+			res = res.substring(0,res.lastIndexOf(sep));
+		}
+		
+		return res;
+	}
+	
+	
+	/**
+	 * Removes and returns the first end in the set of ends
+	 *   
+	 * @return an end
+	 */
+	public String takeEnd(){
+		Object[] ends = this.ends.toArray();
+		String fst = (String) ends[0];
+		this.removeEnd(fst);
+		return fst;
+	}
+	
+	
 	//################################//
 	
 	
