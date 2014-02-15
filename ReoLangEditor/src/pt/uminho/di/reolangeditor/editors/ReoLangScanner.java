@@ -8,7 +8,7 @@ import org.eclipse.swt.SWT;
 
 public class ReoLangScanner extends RuleBasedScanner {
 
-	private static String[] reolang_keywords = {"channel", "pattern", "import", "extends"};
+	private static String[] reolang_keywords = {"channel", "pattern", "import", "extends", "stochastic"};
 	private static String[] reolang_special_keywords = {"as", "of", "NULL"};
 	private static String[] reolang_separators = {"in", "use", "observers", "state"};
 	private static String[] reolang_operators = {"remaining", "join", "flow", "to"};

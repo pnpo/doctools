@@ -12,6 +12,7 @@ public class MainFRL {
 
 	public static void main(String[] args) throws Exception {
 	    
+		String file = "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/Test/test.rlf";
 		CharStream input = new ANTLRFileStream("InputExamples/error_rec_input.txt", "UTF8");
 		FuzzyPreProcessor lex = new FuzzyPreProcessor(input);
 		TokenStream tokens = new CommonTokenStream(lex);
@@ -20,11 +21,17 @@ public class MainFRL {
 		//System.out.println(cleaned_text);
 		
 		FuzzyParserReoLang fprl = new FuzzyParserReoLang(new ANTLRStringStream(cleaned_text));
-		fprl.setFile("InputExamples/error_rec_input.txt");
+		fprl.setFile(file);
 		CommonTokenStream tokens2 = new CommonTokenStream(fprl);
 		tokens2.toString();
 		System.out.println(fprl.getGlobalTable().getSymbols());
 		
+		
+//		FuzzyPatternViewReoLang fprl2 = new FuzzyPatternViewReoLang(new ANTLRStringStream(cleaned_text), fprl.getGlobalTable());
+//		fprl2.setFile(file);
+//		CommonTokenStream tokens3 = new CommonTokenStream(fprl2);
+//		tokens3.toString();
+//		System.out.println(fprl2.getGraph());
 		
 		
 		

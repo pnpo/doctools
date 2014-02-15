@@ -34,7 +34,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
 
-import pt.uminho.di.ap.model.graph.ArchPatternAbstractGraph;
+import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
 import pt.uminho.di.reolang.FuzzyParserReoLang;
 import pt.uminho.di.reolang.FuzzyPreProcessor;
 import pt.uminho.di.reolang.parsing.FuzzyAnalysis;
@@ -103,7 +103,7 @@ public class ReoLangReconcilingStrategy implements IReconcilingStrategy, IReconc
 			Semantics compiler = new Semantics(file, this.document.get());
 			compiler.performSemanticAnalysis(new SymbolsTable());
 			annotateDocumentWithErrors(compiler.getErrors(), resource);
-			//System.out.println(compiler.getErrors());
+			System.out.println(compiler.getErrors());
 			
 			/*Fuzzy Analysis for CONSTRUCTING OUTLINE*/
 			FuzzyAnalysis fuzzy = new FuzzyAnalysis(file, this.document.get());

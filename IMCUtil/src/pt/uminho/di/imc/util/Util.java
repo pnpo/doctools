@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package pt.uminho.di.imc.util;
 
 import java.io.BufferedReader;

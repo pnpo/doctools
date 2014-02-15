@@ -31,9 +31,9 @@ import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 
 
-import pt.uminho.di.ap.model.Node;
-import pt.uminho.di.ap.model.graph.ArchPatternAbstractGraph;
-import pt.uminho.di.ap.model.graph.Edge;
+import pt.uminho.di.cp.model.graph.Node;
+import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
+import pt.uminho.di.cp.model.graph.Edge;
 
 
 /**

@@ -11,7 +11,7 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditor;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
-import pt.uminho.di.ap.model.graph.ArchPatternAbstractGraph;
+import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
 import pt.uminho.di.reolang.parsing.util.SimpleSymbol;
 import pt.uminho.di.reolangeditor.editors.outline.ReoLangContentOutlinePage;
 import pt.uminho.di.reolangeditor.views.ReoLangPatternView;
