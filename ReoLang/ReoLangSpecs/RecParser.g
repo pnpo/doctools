@@ -84,11 +84,13 @@ arg_def
 datatype
 	: 	DT_PATTERN 
 	| 	DT_CHANNEL
-	|	other_type (SEP_SUBTYPE_START subtype SEP_SUBTYPE_END)? -> ^(other_type subtype?)
+	|	DT_NAME
+	|	DT_NODE
+	|	other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^(other_type subtype)
 	;
 	
 other_type
-	:	DT_NAME | DT_NODE | DT_SET | DT_PAIR | DT_TRIPLE 
+	:	DT_SET | DT_PAIR | DT_TRIPLE 
 	;
 
 subtype
@@ -177,16 +179,23 @@ intersect_expr
 
 
 factor
-	:	ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END 	 	-> ^(ID ID)
+	:	ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END 	 	-> ^(ID ID)  //rever se faz falta
 	|	ID						 	-> ID
-	|	ID (SEP_STRUCTURE ID)? SEP_ACCESSOR attribute_call 	-> ^(ACCESS ID ^(STRUCTURE ID)? attribute_call)
-	|	single_return_operation				 	-> single_return_operation
-	|	triple_cons					 	-> triple_cons
-	|	pair_cons					 	-> pair_cons
-	|	set_cons 					 	-> set_cons 
-	| 	structure_operation_call 			 	-> structure_operation_call
+	|	operation
+	|	constructor
 	;
 
+operation
+	: 	ID (SEP_STRUCTURE ID)? SEP_ACCESSOR attribute_call 	-> ^(ACCESS ID ^(STRUCTURE ID)? attribute_call)
+	| 	single_return_operation					-> single_return_operation
+	| 	structure_operation_call 			 	-> structure_operation_call
+	;
+	
+constructor
+	:	triple_cons					 	-> triple_cons
+	|	pair_cons					 	-> pair_cons
+	|	set_cons 					 	-> set_cons 
+	;
 
 single_return_operation
 	:	 ( OP_FST^ | OP_SND^ | OP_TRD^ ) operation_args
@@ -198,7 +207,7 @@ attribute_call
 	|	OP_NAME						-> OP_NAME
 	|	OP_NODES					-> OP_NODES
 	|	OP_NAMES					-> OP_NAMES
-	|	OP_ENDS SEP_ARGS_START expression SEP_ARGS_END	-> ^(OP_ENDS expression) 
+	|	OP_ENDS SEP_ARGS_START expression SEP_ARGS_END	-> ^(OP_ENDS expression)  //rever se faz falta (expression --> ID de um padrao)?
 	|	ID						-> ID
 	;
 	

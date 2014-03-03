@@ -123,29 +123,21 @@ arg_def
 	;
 	
 datatype
-	: DT_PATTERN 
-	{
-		$reconfiguration_def::datatype.add( Type.PATTERN );
-	}
+	: DT_PATTERN { $reconfiguration_def::datatype.add( Type.PATTERN ); }
+	| DT_CHANNEL { $reconfiguration_def::datatype.add( Type.CHANNEL ); }
+	| DT_NAME { $reconfiguration_def::datatype.add( Type.NAME ); }
+	| DT_NODE { $reconfiguration_def::datatype.add( Type.NODE ); }
 	
-	| DT_CHANNEL
-	{
-		$reconfiguration_def::datatype.add( Type.CHANNEL );
-	}
-	
-	|  ^( other_type 
+	|  ^( other_type
 	{
 		$reconfiguration_def::datatype.add( $other_type.type );
 	}
-	
-	subtype? 
+	subtype
 	)
 	;
 	
 other_type returns[Type type]
-	: DT_NAME   { $other_type.type = Type.NAME; }
-	| DT_NODE   { $other_type.type = Type.NODE; }
-	| DT_SET    { $other_type.type = Type.SET; }
+	: DT_SET    { $other_type.type = Type.SET; }
 	| DT_PAIR   { $other_type.type = Type.PAIR; }
 	| DT_TRIPLE { $other_type.type = Type.TRIPLE; }
 	;
@@ -347,15 +339,22 @@ expression
 factor
 	: ^(ID ID)
 	| ID
-	| ^(ACCESS ID (^(STRUCTURE ID))? attribute_call)
+	| operation
+	| constructor
+	;
+	
+operation
+	: ^(ACCESS ID (^(STRUCTURE ID))? attribute_call)
 	| single_return_operation
-	| triple_cons
+	| structure_operation_call
+	;	
+
+constructor
+	: triple_cons
 	| pair_cons
 	| set_cons
-	| structure_operation_call
 	;
-
-
+	
 single_return_operation
 	: ^(OP_FST operation_args)
 	| ^(OP_SND operation_args) 
