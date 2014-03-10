@@ -112,6 +112,10 @@ OP_NAME
 	:	'name'
 	;
 
+OP_ENDS
+	:	'ends'
+	;
+	
 OP_NODES
 	:	'nodes'
 	;
@@ -120,8 +124,8 @@ OP_NAMES
 	:	'names'
 	;
 	
-OP_ENDS
-	:	'ends'
+OP_CHANNELS
+	:	'channels'
 	;
 	
 	
@@ -224,6 +228,10 @@ CONS_SET
 	:	'S'
 	;
 
+CONS_NODE
+	:	'N'
+	; 
+	
 
 ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
     ;

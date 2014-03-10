@@ -345,7 +345,7 @@ factor
 	
 operation
 	: ^(ACCESS ID (^(STRUCTURE ID))? attribute_call)
-	| single_return_operation
+//	| single_return_operation
 	| structure_operation_call
 	;	
 
@@ -353,13 +353,14 @@ constructor
 	: triple_cons
 	| pair_cons
 	| set_cons
+	| node_cons
 	;
 	
-single_return_operation
-	: ^(OP_FST operation_args)
-	| ^(OP_SND operation_args) 
-	| ^(OP_TRD operation_args)
-	;
+//single_return_operation
+//	: ^(OP_FST operation_args)
+//	| ^(OP_SND operation_args) 
+//	| ^(OP_TRD operation_args)
+//	;
 	
 attribute_call
 	: ^(OP_IN INT?)
@@ -368,6 +369,9 @@ attribute_call
 	| OP_NODES
 	| OP_NAMES
 	| ^(OP_ENDS expression) 
+	| OP_FST
+	| OP_SND
+	| OP_TRD
 	| ID
 	;
 	
@@ -388,7 +392,9 @@ set_cons
 	;
 	
 		
-	
+node_cons
+	: ^(NODE ID+)
+	;
 
 
 

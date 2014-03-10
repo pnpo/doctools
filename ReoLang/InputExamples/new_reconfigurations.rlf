@@ -11,8 +11,8 @@ reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
 	@ par (p);
 	forall(Pair<Node> n : X) {
 		Node n1, n2; 
-		n1 = fst(n); 
-		n2 = snd(n); 
+		n1 = n.fst; 
+		n2 = n.snd; 
 		
 		Set<Node> E = S(n1, n2);
 		@ join(E);
