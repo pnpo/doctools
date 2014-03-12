@@ -19,6 +19,7 @@ tokens {
 	TRIPLE;
 	PAIR;
 	SET;
+	NODE;
 	ACCESS;
 	STRUCTURE;
 	APPLICATION;
@@ -187,7 +188,7 @@ factor
 
 operation
 	: 	ID (SEP_STRUCTURE ID)? SEP_ACCESSOR attribute_call 	-> ^(ACCESS ID ^(STRUCTURE ID)? attribute_call)
-	| 	single_return_operation					-> single_return_operation
+//	| 	single_return_operation					-> single_return_operation
 	| 	structure_operation_call 			 	-> structure_operation_call
 	;
 	
@@ -195,19 +196,24 @@ constructor
 	:	triple_cons					 	-> triple_cons
 	|	pair_cons					 	-> pair_cons
 	|	set_cons 					 	-> set_cons 
+	|	node_cons						-> node_cons
 	;
 
-single_return_operation
-	:	 ( OP_FST^ | OP_SND^ | OP_TRD^ ) operation_args
-	;
+//single_return_operation
+//	:	 ( OP_FST^ | OP_SND^ | OP_TRD^ ) operation_args
+//	;
 	
 attribute_call
 	:	OP_IN (SEP_LIST_START INT SEP_LIST_END)?  	-> ^(OP_IN INT?)
 	| 	OP_OUT (SEP_LIST_START INT SEP_LIST_END)?	-> ^(OP_OUT INT?)
 	|	OP_NAME						-> OP_NAME
+	|	OP_ENDS SEP_ARGS_START expression SEP_ARGS_END	-> ^(OP_ENDS expression)  //rever se faz falta (expression --> ID de um padrao)?
 	|	OP_NODES					-> OP_NODES
 	|	OP_NAMES					-> OP_NAMES
-	|	OP_ENDS SEP_ARGS_START expression SEP_ARGS_END	-> ^(OP_ENDS expression)  //rever se faz falta (expression --> ID de um padrao)?
+	|	OP_CHANNELS					-> OP_CHANNELS
+	|	OP_FST						-> OP_FST
+	|	OP_SND						-> OP_SND
+	|	OP_TRD						-> OP_TRD
 	|	ID						-> ID
 	;
 	
@@ -231,6 +237,10 @@ set_cons
 	;
 	
 		
+node_cons
+	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* SEP_ARGS_END
+		-> ^(NODE ID+) 
+	;
 	
 
 
