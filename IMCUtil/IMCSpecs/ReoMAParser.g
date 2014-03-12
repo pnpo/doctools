@@ -159,6 +159,16 @@ state[LinkedHashSet<String> ports] returns [IMCREOState value]
 		state_id = ( state_id.equals("E") && ! $transmissions.transset.equals("") ) ? $transmissions.transset : state_id + $transmissions.transset;
 	}
 	)? 
+	(reads
+	{
+		state_id = (state_id.equals("E") && ! $reads.readsset.equals("") ) ? $reads.readsset : state_id + $reads.readsset;
+	}
+	)?
+	(writes
+	{
+		state_id = (state_id.equals("E") && ! $writes.writesset.equals("") ) ? $writes.writesset : state_id + $writes.writesset;
+	}
+	)?
 	('#' {bs="#"; st.getBuffer().add(new IMCREOInternalState(IMCREOBufferState.FULL, new LinkedHashSet<String>(ports)));} 
 	|'&' {bs="&"; st.getBuffer().add(new IMCREOInternalState(IMCREOBufferState.EMPTY, new LinkedHashSet<String>()));} 
 	)*
@@ -199,6 +209,38 @@ transmissions returns [String transset]
 	)+ '}'
 	{
 		$transmissions.transset = trans.substring(0,trans.length()-1) + "}";
+	}
+	;
+
+
+
+reads returns [String readsset]
+@init {
+	String rds = "+" ;
+}
+	: '+' (ID
+	{
+		rds += $ID.text + ",";
+	}
+	)+ '+'
+	{
+		$reads.readsset = rds.substring(0,rds.length()-1) + "+";
+	}
+	;
+
+
+
+writes returns [String writesset]
+@init {
+	String wrts = "-" ;
+}
+	: '-' (ID
+	{
+		wrts += $ID.text + ",";
+	}
+	)+ '-'
+	{
+		$writes.writesset = wrts.substring(0,wrts.length()-1) + "-";
 	}
 	;
 

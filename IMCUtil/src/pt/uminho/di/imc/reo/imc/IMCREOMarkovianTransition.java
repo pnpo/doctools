@@ -250,7 +250,13 @@ public class IMCREOMarkovianTransition extends IMCREOTransition {
 	private IMCREOMarkovianTransitionSort retriveSortFromLabel(String label) {
 		IMCREOMarkovianTransitionSort s = 
 				label.contains("_ARR_") ? IMCREOMarkovianTransitionSort.ARRIVAL : 
-					(label.contains("_TR") ? IMCREOMarkovianTransitionSort.TRANSMISSION : IMCREOMarkovianTransitionSort.NONE) ;
+					(label.contains("_TR") ? IMCREOMarkovianTransitionSort.TRANSMISSION : 
+						(label.contains("_RD") ? IMCREOMarkovianTransitionSort.READ : 
+							(label.contains("_WR")? IMCREOMarkovianTransitionSort.WRITE : 
+								IMCREOMarkovianTransitionSort.NONE
+							)
+						)
+					);
 		
 		return s;
 	}

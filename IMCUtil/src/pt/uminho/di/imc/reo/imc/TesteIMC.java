@@ -52,7 +52,7 @@ public class TesteIMC {
 			IMCREOimc imc3 = new IMCTransformer(p.getImc()).toIMCREO(new POPorts());
 			LinkedHashSet<String> mx = new LinkedHashSet<String>();
 			mx.add("b");
-			System.out.println(imc3.removeForcedNonDeterminism(mx));
+			System.out.println(imc3.removeForcedNonDeterminism(mx, false));
 			
 		} catch (InvalidIMCFileException e) {
 			// TODO Auto-generated catch block

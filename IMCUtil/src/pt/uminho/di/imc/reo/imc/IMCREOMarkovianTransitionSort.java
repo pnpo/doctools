@@ -11,5 +11,7 @@ package pt.uminho.di.imc.reo.imc;
 public enum IMCREOMarkovianTransitionSort {
 	ARRIVAL,
 	TRANSMISSION,
+	READ,
+	WRITE,
 	NONE
 }

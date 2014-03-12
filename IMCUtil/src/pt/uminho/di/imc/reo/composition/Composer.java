@@ -246,9 +246,9 @@ public class Composer {
 		System.out.println("-------------------------\nCOMPi\n------------------------------");
 		System.out.println(res_internal);
 		
-		res_internal = res_internal.mixedRequestsReduction(mixedports);
-		System.out.println("-------------------------\nREDi\n------------------------------");
-		System.out.println(res_internal);
+//		res_internal = res_internal.mixedRequestsReduction(mixedports);
+//		System.out.println("-------------------------\nREDi\n------------------------------");
+//		System.out.println(res_internal);
 		
 		return res_internal;
 		
@@ -417,7 +417,7 @@ public class Composer {
 //		System.out.println("----------------------------\nREDUCED\n----------------------------");
 //		System.out.println(res);
 
-		return res.pruneIMCREO(this.mixed_ports);
+		return res.pruneIMCREO(this.mixed_ports, false);
 		
 	}
 

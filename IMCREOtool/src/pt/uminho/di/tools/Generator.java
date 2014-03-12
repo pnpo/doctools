@@ -246,7 +246,7 @@ public class Generator {
 						
 						System.out.print("Composing and Synchronising...");
 						long startTime = System.currentTimeMillis();
-						imc_result = imc1.compose(imc2, ports_set).mixedRequestsReduction(ports_set).pruneIMCREO(ports_set);
+						imc_result = imc1.compose(imc2, ports_set).mixedRequestsReduction(ports_set).pruneIMCREO(ports_set, false);
 						long endTime   = System.currentTimeMillis();
 						long totalTime = endTime - startTime;
 						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");

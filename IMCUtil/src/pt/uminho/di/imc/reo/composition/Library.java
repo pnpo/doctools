@@ -33,6 +33,9 @@ public final class Library {
 	}
 	
 	
+
+	
+	
 	
 	public static String drain( String id, String a, String b, String ga, String gb, String gab){
 		
@@ -164,6 +167,80 @@ public static String exrouter(String id, String a, String b, String c, String ga
 		return exrouter_abc.toString();
 		
 	}
+
+
+
+
+
+	public static String sync_( String id, String a, String b, String gab){
+		
+		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
+		StringTemplate sync_ab = group.getInstanceOf(path + "sync_");
+		sync_ab.setAttribute("a", a);
+		sync_ab.setAttribute("b", b);
+		sync_ab.setAttribute("gab", gab);
+		sync_ab.setAttribute("id", id);
+		
+		return sync_ab.toString();
+		
+	}
 	
+	
+	
+	public static String lossy_( String id, String a, String b, String gab, String gaL){
+		
+		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
+		StringTemplate lossy_ab = group.getInstanceOf(path + "lossy_");
+		lossy_ab.setAttribute("a", a);
+		lossy_ab.setAttribute("b", b);
+		lossy_ab.setAttribute("gab", gab);
+		lossy_ab.setAttribute("gaL", gaL);
+		lossy_ab.setAttribute("id", id);
+		
+		return lossy_ab.toString();
+		
+	}
+	
+	
+	public static String fifo1e_(String id, String a, String b,  String gaB, String gBb){
+		
+		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
+		StringTemplate fifo_ab = group.getInstanceOf(path + "fifo1e_");
+		fifo_ab.setAttribute("a", a);
+		fifo_ab.setAttribute("b", b);
+		fifo_ab.setAttribute("gaB", gaB);
+		fifo_ab.setAttribute("gBb", gBb);
+		fifo_ab.setAttribute("id", id);
+		 
+		return fifo_ab.toString();
+		
+	}
+	
+	
+	
+	public static String node_( String id, String a, String b, String gr, String gw ){
+		
+		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
+		StringTemplate node_id = group.getInstanceOf(path + "node_");
+		node_id.setAttribute("a", a);
+		node_id.setAttribute("gr", gr);
+		node_id.setAttribute("gw", gw);
+		node_id.setAttribute("id", id);
+		
+		return node_id.toString();
+		
+	}
+	
+public static String environment_( String id, String a, String ga ){
+		
+		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
+		StringTemplate env_id = group.getInstanceOf(path + "environment_");
+		env_id.setAttribute("a", a);
+		env_id.setAttribute("ga", ga);
+		env_id.setAttribute("id", id);
+		
+		return env_id.toString();
+		
+	}
 	
 }
