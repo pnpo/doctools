@@ -1,7 +1,8 @@
-reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
+reconfiguration overlapP(Pattern p,p1; Set<Pair<Node>> X) {
 	@ par (p);
 	forall(Pair<Node> n : X) {
-		Node n1, n2; 
+		Node n1,n2; 
+		Node n1;
 		n1 = n.fst; 
 		n2 = n.snd; 
 		
@@ -14,9 +15,9 @@ reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
 			Pattern p1 = @ par(p);
 			forall (Pattern p3 : U) {
 				Set<Node> E5 = n1 + S(mi);
-				forall (Pattern p4 : U) {
+				forall (Pattern p5 : U) {
 					Set<Node> E6 = n1 + S(mi);
-					Set<Node> E7 = n1 + S(mi);
+					Set<Node> E6 = n1 + S(mi);
 					Set<Node> E8 = n1 + S(mi);
 				}
 				Set<Node> E9 = n1 + S(mi);
@@ -38,4 +39,5 @@ reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
 	}
 	Set<Node> n2 = p2.in - p1.in ;
 	Set<Node> n3 = p2.out - p1.out ;
+	Set<Node> n4 = p2.out - p1.out ;
 }

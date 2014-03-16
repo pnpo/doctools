@@ -152,38 +152,56 @@ public class TinySymbol {
 				parent_scopes.remove(0); //remove self_scope					
 				for (TinySymbolsTable parent : parent_scopes){
 					if (parent.containsSymbol(symbol_id)){
-						to_remove.add(symbol); 
-						break;		//one parent with same symbol_id is enough
+						TinySymbol parent_symbol = parent.getSymbols().get(symbol_id);
+						if ( parent_symbol.getLine() < symbol.getLine() ){
+							to_remove.add(symbol);
+							break;		//one parent with same symbol_id is enough
+						}
 					}
 				}
 			}
 
-
 			for (TinySymbol rs : to_remove){
 				scope.removeSymbol(rs);
 			}
-			
 		}
 
 		Collections.reverse(scopes);	//first to last
+		//this.setScopes(scopes);
+	}
+	
+	
+	public TinySymbol hasValue(String name, Integer scope_id){
+		TinySymbol ts = null;//new TinySymbol();
+		
+		List<TinySymbolsTable> scopes = this.getScopes();
+		Collections.reverse(scopes);	//last to first
+		
+		List<TinySymbolsTable> parent_scopes = new ArrayList<TinySymbolsTable>();
+		for (TinySymbolsTable scope : scopes){
+			Pair<Integer, Integer> scope_relation = scope.getScopeRel();
+			if( scope_relation.fst().equals(scope_id) ){
+				parent_scopes.add(scope);
+				scope_id = scope_relation.snd();
+			}
+		}		
+		for (TinySymbolsTable parent : parent_scopes){
+			if (parent.containsSymbol(name)){
+				ts = parent.getSymbols().get(name);
+				break;		//one parent with same name is enough
+			}
+		}
+
+		Collections.reverse(scopes);	//first to last
+		return ts;
 	}
 
 	
-/*  
-	//ORIGINAL
-	@Override
-	public String toString() {
-		return "TinySymbol [id=" + id + ", datatype=" + datatype
-				+ ", classType=" + classType + ", line=" + line + 
-				", position=" + position + ", scopes=" + scopes + "]";
-	}
-
-
-	//SHORT VERSION
+/*	//SHORT VERSION
 	@Override
 	public String toString() {
 		return  scopes + "\n";
-	}
+	} 
 */	
 
 	//CUSTOM toString
@@ -192,6 +210,6 @@ public class TinySymbol {
 		return  "TinySymbol -> \n\t\t(\n\t\t id: " + id + ", \n\t\t datatype: " + datatype
 				+ ", \n\t\t classType: " + classType + ", \n\t\t line: " + line + 
 				", \n\t\t position: " + position + ", \n\t\t scopes: " + scopes + "\n\t\t)\n\t";
-	}	
+	}
 	
 }

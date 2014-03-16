@@ -36,12 +36,10 @@ public class TinySymbolsTable {
 	}
 	
 	public boolean containsSymbol(String symbol_id){
-		boolean out;
+		boolean out = false;
 		TinySymbol symbol = this.symbols.get(symbol_id);
 		if (symbol != null) {
 		    out = true;
-		} else {
-		    out = false;
 		}
 		return out;
 	}

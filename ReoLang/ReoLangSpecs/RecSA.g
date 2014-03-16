@@ -15,7 +15,7 @@ options{
 }
 
 @members{
-	SimpleError se = new SimpleError();
+	//SimpleError se = new SimpleError();
 }
 
 
@@ -25,9 +25,11 @@ options{
 reclang[TinySymbolsTable global_table] returns[ArrayList<SimpleError> errors]
 scope{
 	TinySymbolsTable ids_table; 
+	int scope_id;
 }
 @init{
 	$reclang::ids_table = $reclang.global_table;
+	$reclang::scope_id = 0;
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
 	: ^(RECONFIGS (directive_def
@@ -84,21 +86,25 @@ element returns[ArrayList<SimpleError> errors]
 
 reconfiguration_def returns[ArrayList<SimpleError> errors]
 scope{
+	TinySymbol name;
 	ArrayList<TinySymbolsTable> scopes;
 }
 @init{
+	$reconfiguration_def::name = new TinySymbol();
 	$reconfiguration_def::scopes = new ArrayList<TinySymbolsTable>();
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	$reclang::scope_id = 0;
 
 }
 	: ^(ID 
 	{		
 		TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
+		$reconfiguration_def::name = ts;
 		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
 		
 		if ($reclang::ids_table.containsSymbol($ID.text)){
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
-				local_errors.add( se.report(ErrorType.ERROR, se.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 			}
 		}
 	}
@@ -106,7 +112,11 @@ scope{
 	{
 		local_errors.addAll($args_def.errors);
 	}
-	)? reconfiguration_block) 
+	)? reconfiguration_block
+	{
+		local_errors.addAll($reconfiguration_block.errors);
+	}
+	) 
 	
 	{
 		$reconfiguration_def.errors = local_errors;
@@ -120,6 +130,7 @@ scope{
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$args_def::scope = $reconfiguration_def::scopes.get(0);
+	$reclang::scope_id++;
 }
 	: ^(ARGUMENTS (arg_def
 	{
@@ -177,7 +188,7 @@ list_ids returns[ArrayList<SimpleError> errors]
 		if ($args_def::scope.containsSymbol($ID.text)){
 			TinySymbol ts = $args_def::scope.getSymbols().get($ID.text);
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
-				local_errors.add( se.report(ErrorType.ERROR, se.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 			}
 		}
 	}
@@ -189,32 +200,131 @@ list_ids returns[ArrayList<SimpleError> errors]
 	;
 	
 	
-reconfiguration_block
-	: ^(INSTRUCTIONS instruction+)
+reconfiguration_block returns[ArrayList<SimpleError> errors]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+
+}
+	: ^(INSTRUCTIONS (instruction
+	{
+		local_errors.addAll($instruction.errors);
+	}
+	)+
+	)
+	
+	{
+		$reconfiguration_block.errors = local_errors;
+	}
 	;
 	
-instruction
-	: declaration
-	| assignment
-	| reconfiguration_apply
+instruction returns[ArrayList<SimpleError> errors]
+scope{
+	TinySymbolsTable scope;
+}
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+
+	Integer scope_id = $reclang::scope_id;
+	for (int i = 0; i < $reconfiguration_def::scopes.size(); i++){
+		TinySymbolsTable tst = $reconfiguration_def::scopes.get(i);
+		if ( tst.getScopeRel().fst().equals(scope_id) ) {
+			$instruction::scope = $reconfiguration_def::scopes.get(i-1);
+			break;
+		}
+	}
+}
+	: declaration 
+	{ 
+		local_errors.addAll($declaration.errors); 
+		$instruction.errors = local_errors;
+	}
+	| assignment[false] { $instruction.errors = local_errors; }
+	| reconfiguration_apply { $instruction.errors = local_errors; }
 	| for_instruction
+	{
+		local_errors.addAll($for_instruction.errors);
+		$instruction.errors = local_errors;
+		$reclang::scope_id--;
+	}
 	;
 	
 reconfiguration_apply
 	: ^(OP_APPLY reconfiguration_call ID?)
 	;
 	
-declaration
-	: ^(DECLARATION datatype var_def+)
+declaration returns[ArrayList<SimpleError> errors]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+
+}
+	: ^(DECLARATION datatype (var_def
+	{
+		local_errors.addAll($var_def.errors);
+	}
+	)+)
+	
+	{
+		$declaration.errors = local_errors;
+	}
 	;
 	
-var_def
+var_def returns[ArrayList<SimpleError> errors]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+
+}
 	: ID
-	| assignment
+	{
+		if ($instruction::scope.containsSymbol($ID.text)){
+			TinySymbol ts = $instruction::scope.getSymbols().get($ID.text);
+			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+			}
+		}
+		else {
+			Integer s_id = $instruction::scope.getScopeRel().fst();
+			TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
+			if ( ts != null ){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+			}
+		}
+		$var_def.errors = local_errors;
+	}
+	
+	| assignment[true] 
+	{
+		local_errors.addAll($assignment.errors);
+		$var_def.errors = local_errors; 
+	}
 	;
 	
-assignment
-	: ^(ASSIGNMENT ID assignment_member) 
+assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+
+}
+	: ^(ASSIGNMENT ID
+	{
+		if (isDeclaration) {
+			if ($instruction::scope.containsSymbol($ID.text)){
+				TinySymbol ts = $instruction::scope.getSymbols().get($ID.text);
+				if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
+					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+				}
+			}
+			else {
+				Integer s_id = $instruction::scope.getScopeRel().fst();
+				TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
+				if ( ts != null ){
+					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+				}
+			}
+		}
+	}
+	assignment_member) 
+	{
+		$assignment.errors = local_errors;
+	}
 	; 
 	
 assignment_member
@@ -248,8 +358,30 @@ args
 	;
 	
 	
-for_instruction
-	: ^(FORALL datatype id1=ID id2=ID reconfiguration_block)
+for_instruction returns[ArrayList<SimpleError> errors]
+@init{
+	$reclang::scope_id++;
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+}
+	: ^(FORALL datatype id1=ID
+	{
+		Integer s_id = $instruction::scope.getScopeRel().fst();
+		TinySymbol ts = $reconfiguration_def::name.hasValue($id1.text, s_id);
+		if ( ts != null ){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($id1.text, ts.getLine(), ts.getPosition()), $id1.line, $id1.pos) );
+		}
+	}
+	
+	id2=ID reconfiguration_block
+	{
+		local_errors.addAll($reconfiguration_block.errors);
+	}
+	)
+	
+	{
+		$for_instruction.errors = local_errors;
+	}
+
 	;
 	
 	
