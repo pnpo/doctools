@@ -1281,7 +1281,7 @@ public IMCREOimc compose(IMCREOimc other, Set<String> mixedports){
 							A_inter_B.retainAll(B);
 							
 							//check for non determinism
-							if((! A_inter_M.isEmpty() || ! B_inter_M.isEmpty()) && !A_inter_B.isEmpty()) {
+							if(/*(! A_inter_M.isEmpty() || ! B_inter_M.isEmpty()) &&*/ !A_inter_B.isEmpty()) {
 								
 								//Lets get the state of the buffers from the current_state
 								IMCREOBufferState internal_state = current_state.getInternalState();

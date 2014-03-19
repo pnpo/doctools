@@ -469,16 +469,19 @@ port_definition [String patt_name]
 	;
 	
 port_actual_definition [String patt_name, String port]
-	: 	^(PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port])
+	: 	^(PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port, false])
 	| 	^(PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port])
 	;
 
-port_access [String patt_name, String port]
+port_access [String patt_name, String port, boolean isXOR]
 	:	^(PORT_ACCESS i1=ID i2=ID
 	{
 		CoordinationPattern p = this.patterns.get($port_access.patt_name).getCP();
 		p.replacePortNames($i2.text, $i1.text, $port_access.port);
-		p.getRouter_nodes().add($port_access.port);
+		if($port_access.isXOR){
+			p.getRouter_nodes().add($port_access.port);
+		}
+		
 	}
 	)
 	;
@@ -494,13 +497,13 @@ join_part [String patt_name, String port]
 	;	 
 	
 port_access_list [String patt_name, String port]
-	:	^(PORT_ACCESS_LIST port_access[$port_access_list.patt_name, $port_access_list.port]+)
+	:	^(PORT_ACCESS_LIST port_access[$port_access_list.patt_name, $port_access_list.port, false]+)
 	//|	^(PORT_ACCESS_LIST RW_REMAINING)
 	;
 	
 	
 special_port_access_list [String patt_name, String port]
-	:	^(PORT_ACCESS_LIST port_access[$special_port_access_list.patt_name, $special_port_access_list.port]+)
+	:	^(PORT_ACCESS_LIST port_access[$special_port_access_list.patt_name, $special_port_access_list.port, true]+)
 	;
 
 

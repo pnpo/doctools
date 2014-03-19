@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g 2013-10-07 18:10:35
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g 2014-03-19 15:21:13
 
 	package pt.uminho.di.reolang;
 	
@@ -2562,10 +2562,10 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "port_actual_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:471:1: port_actual_definition[String patt_name, String port] : ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:471:1: port_actual_definition[String patt_name, String port] : ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port, false] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) );
     public final void port_actual_definition(String patt_name, String port) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:472:2: ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:472:2: ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port, false] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -2603,13 +2603,13 @@ public class ReoLangCPModel extends TreeParser {
             }
             switch (alt34) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:472:5: ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:472:5: ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name, $port_actual_definition.port, false] )
                     {
                     match(input,PORT_ACTUAL_DEFINITION,FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1131); 
 
                     match(input, Token.DOWN, null); 
                     pushFollow(FOLLOW_port_access_in_port_actual_definition1133);
-                    port_access(patt_name, port);
+                    port_access(patt_name, port, false);
 
                     state._fsp--;
 
@@ -2649,8 +2649,8 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "port_access"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:476:1: port_access[String patt_name, String port] : ^( PORT_ACCESS i1= ID i2= ID ) ;
-    public final void port_access(String patt_name, String port) throws RecognitionException {
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:476:1: port_access[String patt_name, String port, boolean isXOR] : ^( PORT_ACCESS i1= ID i2= ID ) ;
+    public final void port_access(String patt_name, String port, boolean isXOR) throws RecognitionException {
         CommonTree i1=null;
         CommonTree i2=null;
 
@@ -2666,7 +2666,10 @@ public class ReoLangCPModel extends TreeParser {
 
             		CoordinationPattern p = this.patterns.get(patt_name).getCP();
             		p.replacePortNames((i2!=null?i2.getText():null), (i1!=null?i1.getText():null), port);
-            		p.getRouter_nodes().add(port);
+            		if(isXOR){
+            			p.getRouter_nodes().add(port);
+            		}
+            		
             	
 
             match(input, Token.UP, null); 
@@ -2686,13 +2689,13 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "join_operation"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:486:1: join_operation[String patt_name] : ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:489:1: join_operation[String patt_name] : ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) ;
     public final void join_operation(String patt_name) throws RecognitionException {
         CommonTree ID10=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:487:2: ( ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:487:4: ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:490:2: ( ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:490:4: ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] )
             {
             match(input,JOIN_OP,FOLLOW_JOIN_OP_in_join_operation1189); 
 
@@ -2721,10 +2724,10 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "join_part"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:490:1: join_part[String patt_name, String port] : ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:493:1: join_part[String patt_name, String port] : ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) );
     public final void join_part(String patt_name, String port) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:491:2: ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:494:2: ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) )
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -2742,7 +2745,7 @@ public class ReoLangCPModel extends TreeParser {
             }
             switch (alt35) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:491:5: ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:494:5: ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] )
                     {
                     match(input,RW_JOIN,FOLLOW_RW_JOIN_in_join_part1213); 
 
@@ -2758,7 +2761,7 @@ public class ReoLangCPModel extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:492:5: ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:495:5: ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] )
                     {
                     match(input,RW_DECIDE,FOLLOW_RW_DECIDE_in_join_part1225); 
 
@@ -2788,16 +2791,16 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:496:1: port_access_list[String patt_name, String port] : ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name, $port_access_list.port] )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:499:1: port_access_list[String patt_name, String port] : ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name, $port_access_list.port, false] )+ ) ;
     public final void port_access_list(String patt_name, String port) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:497:2: ( ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name, $port_access_list.port] )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:497:4: ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name, $port_access_list.port] )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:500:2: ( ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name, $port_access_list.port, false] )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:500:4: ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name, $port_access_list.port, false] )+ )
             {
             match(input,PORT_ACCESS_LIST,FOLLOW_PORT_ACCESS_LIST_in_port_access_list1249); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:497:23: ( port_access[$port_access_list.patt_name, $port_access_list.port] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:500:23: ( port_access[$port_access_list.patt_name, $port_access_list.port, false] )+
             int cnt36=0;
             loop36:
             do {
@@ -2811,10 +2814,10 @@ public class ReoLangCPModel extends TreeParser {
 
                 switch (alt36) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:497:23: port_access[$port_access_list.patt_name, $port_access_list.port]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:500:23: port_access[$port_access_list.patt_name, $port_access_list.port, false]
             	    {
             	    pushFollow(FOLLOW_port_access_in_port_access_list1251);
-            	    port_access(patt_name, port);
+            	    port_access(patt_name, port, false);
 
             	    state._fsp--;
 
@@ -2849,16 +2852,16 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "special_port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:502:1: special_port_access_list[String patt_name, String port] : ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port] )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:505:1: special_port_access_list[String patt_name, String port] : ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port, true] )+ ) ;
     public final void special_port_access_list(String patt_name, String port) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:503:2: ( ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port] )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:503:4: ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port] )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:506:2: ( ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port, true] )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:506:4: ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port, true] )+ )
             {
             match(input,PORT_ACCESS_LIST,FOLLOW_PORT_ACCESS_LIST_in_special_port_access_list1273); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:503:23: ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:506:23: ( port_access[$special_port_access_list.patt_name, $special_port_access_list.port, true] )+
             int cnt37=0;
             loop37:
             do {
@@ -2872,10 +2875,10 @@ public class ReoLangCPModel extends TreeParser {
 
                 switch (alt37) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:503:23: port_access[$special_port_access_list.patt_name, $special_port_access_list.port]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:506:23: port_access[$special_port_access_list.patt_name, $special_port_access_list.port, true]
             	    {
             	    pushFollow(FOLLOW_port_access_in_special_port_access_list1275);
-            	    port_access(patt_name, port);
+            	    port_access(patt_name, port, true);
 
             	    state._fsp--;
 
@@ -2910,7 +2913,7 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "stochastic_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:510:1: stochastic_def : ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:513:1: stochastic_def : ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list ) ;
     public final void stochastic_def() throws RecognitionException {
         CommonTree i1=null;
         CommonTree i2=null;
@@ -2918,8 +2921,8 @@ public class ReoLangCPModel extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:511:2: ( ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:511:4: ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:514:2: ( ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:514:4: ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list )
             {
             match(input,RW_STOCHASTIC,FOLLOW_RW_STOCHASTIC_in_stochastic_def1295); 
 
@@ -2960,7 +2963,7 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "stochastic_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:526:1: stochastic_list returns [LinkedHashMap<String, Double> o_values] : (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:529:1: stochastic_list returns [LinkedHashMap<String, Double> o_values] : (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* ) ;
     public final LinkedHashMap<String, Double> stochastic_list() throws RecognitionException {
         LinkedHashMap<String, Double> o_values = null;
 
@@ -2973,18 +2976,18 @@ public class ReoLangCPModel extends TreeParser {
         	LinkedHashMap<String, Double> stoch_map = new LinkedHashMap<String, Double>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:530:2: ( (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:530:4: (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:533:2: ( (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:533:4: (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* )
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:530:4: (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:530:6: a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:533:4: (a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:533:6: a= stoch_elem[stoch_map] (b= stoch_elem[$a.o_stoch_map] )*
             {
             pushFollow(FOLLOW_stoch_elem_in_stochastic_list1335);
             a=stoch_elem(stoch_map);
 
             state._fsp--;
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:530:30: (b= stoch_elem[$a.o_stoch_map] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:533:30: (b= stoch_elem[$a.o_stoch_map] )*
             loop38:
             do {
                 int alt38=2;
@@ -2997,7 +3000,7 @@ public class ReoLangCPModel extends TreeParser {
 
                 switch (alt38) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:530:32: b= stoch_elem[$a.o_stoch_map]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:533:32: b= stoch_elem[$a.o_stoch_map]
             	    {
             	    pushFollow(FOLLOW_stoch_elem_in_stochastic_list1342);
             	    b=stoch_elem(a);
@@ -3037,7 +3040,7 @@ public class ReoLangCPModel extends TreeParser {
 
 
     // $ANTLR start "stoch_elem"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:542:1: stoch_elem[LinkedHashMap<String, Double> i_stoch_map] returns [LinkedHashMap<String, Double> o_stoch_map] : ^( STOCH i1= ID (i2= ID )? FLOAT ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:545:1: stoch_elem[LinkedHashMap<String, Double> i_stoch_map] returns [LinkedHashMap<String, Double> o_stoch_map] : ^( STOCH i1= ID (i2= ID )? FLOAT ) ;
     public final LinkedHashMap<String, Double> stoch_elem(LinkedHashMap<String, Double> i_stoch_map) throws RecognitionException {
         LinkedHashMap<String, Double> o_stoch_map = null;
 
@@ -3046,14 +3049,14 @@ public class ReoLangCPModel extends TreeParser {
         CommonTree FLOAT12=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:543:2: ( ^( STOCH i1= ID (i2= ID )? FLOAT ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:543:4: ^( STOCH i1= ID (i2= ID )? FLOAT )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:546:2: ( ^( STOCH i1= ID (i2= ID )? FLOAT ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:546:4: ^( STOCH i1= ID (i2= ID )? FLOAT )
             {
             match(input,STOCH,FOLLOW_STOCH_in_stoch_elem1376); 
 
             match(input, Token.DOWN, null); 
             i1=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem1380); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:543:18: (i2= ID )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:546:18: (i2= ID )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -3062,7 +3065,7 @@ public class ReoLangCPModel extends TreeParser {
             }
             switch (alt39) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:543:19: i2= ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCPModel.g:546:19: i2= ID
                     {
                     i2=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem1385); 
 
