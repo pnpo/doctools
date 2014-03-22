@@ -94,7 +94,6 @@ public class OtherTests {
 			System.out.println(p1);
 
 			
-			//s1 e s3 não estão a funcionar / ser removidos (??) - SOLVED
 			p1.remove("s3");
 			System.out.println("REMOVE------------------");
 			System.out.println(p1);
