@@ -3,7 +3,13 @@
  */
 package pt.uminho.di.cp.reconfigurations;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import pt.uminho.di.cp.model.CommunicationMean2;
 import pt.uminho.di.cp.model.CoordinationPattern2;
+import pt.uminho.di.cp.model.Node;
 
 /**
  * @author Nuno Oliveira
@@ -62,8 +68,70 @@ public class Remove implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String ch_id = this.getId();
+		if ( cp.getNames().contains(ch_id) ){
+			Set<CommunicationMean2> pattern = cp.getPattern();
+			
+			CommunicationMean2 ch = new CommunicationMean2();
+			for (CommunicationMean2 cm : pattern) {
+				if (cm.getId().equals(ch_id)){
+					ch = cm;
+					break;
+				}
+			}
+			
+//			System.out.println(ch);
+//			System.out.println(pattern.contains(ch));
+			boolean removed = pattern.remove(ch);
+//			System.out.println(pattern);
+//			System.out.println(removed);
+
+			if (removed){
+				LinkedHashSet<Node> cm_nodes = new LinkedHashSet<Node>();
+				cm_nodes.addAll( ch.getInodes() ); 	//add input nodes
+				cm_nodes.addAll( ch.getOnodes() ); 	//add output nodes
+				
+				//cm_nodes are the nodes of the removed channel
+				for(Node cm_node : cm_nodes){
+	
+					if(cm_node.getEnds().size() > 1){
+						//after remove the channel, test if any of the other channels have equal nodes, and change them ids
+						for (CommunicationMean2 cm : pattern) {
+
+							LinkedHashSet<Node> inodes = cm.getInodes();
+							LinkedHashSet<Node> onodes = cm.getOnodes();
+							
+							ArrayList<String> aux_node = new ArrayList<String>();
+							for ( String end : cm_node.getEnds() ){
+								aux_node.add(end);
+							}
+							aux_node.remove(aux_node.size() - 1);
+							
+							LinkedHashSet<String> ends = new LinkedHashSet<String>(aux_node);
+							Node new_node = new Node(ends);
+							
+							for (Node inode : inodes){
+								if( inode.equals(cm_node) ){
+									cm.getInodes().remove(inode);
+									cm.getInodes().add(new_node); 
+								}
+							}
+
+							for (Node onode : onodes){
+								if( onode.equals(cm_node) ){
+									cm.getOnodes().remove(onode);
+									cm.getOnodes().add(new_node);
+								}
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		return cp;
 	}
 
 

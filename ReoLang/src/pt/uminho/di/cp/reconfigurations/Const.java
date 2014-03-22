@@ -61,8 +61,7 @@ public class Const implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getPattern();
 	}
 
 

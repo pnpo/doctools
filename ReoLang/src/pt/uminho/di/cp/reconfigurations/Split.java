@@ -3,6 +3,11 @@
  */
 package pt.uminho.di.cp.reconfigurations;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import pt.uminho.di.cp.model.CommunicationMean2;
 import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.cp.model.Node;
 
@@ -72,8 +77,40 @@ public class Split implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
-		// TODO Auto-generated method stub
-		return null;
+		Node node = this.getNode();	
+		
+		ArrayList<Node> sn = new ArrayList<Node>();
+		for ( String end : node.getEnds() ){
+			Node n = new Node();
+			n.addEnd(end);
+			sn.add(n);
+		}
+		
+		//get all channels
+		Set<CommunicationMean2> pattern = cp.getPattern();
+
+		int i = 0; //sn.size() - 1 -> i--
+		
+		for (CommunicationMean2 cm : pattern){
+			LinkedHashSet<Node> inodes = cm.getInodes();
+			LinkedHashSet<Node> onodes = cm.getOnodes();
+			
+			for (Node inode : inodes){
+				if( inode.equals(node) ){
+					cm.getInodes().remove(inode);
+					cm.getInodes().add( sn.get(i) ); 
+					i++;
+				}
+			}
+			for (Node onode : onodes){
+				if( onode.equals(node) ){
+					cm.getOnodes().remove(onode);
+					cm.getOnodes().add( sn.get(i) );
+					i++;
+				}
+			}
+		}
+		return cp;
 	}
 
 

@@ -3,7 +3,12 @@
  */
 package pt.uminho.di.cp.reconfigurations;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import pt.uminho.di.cp.model.CoordinationPattern2;
+//import pt.uminho.di.cp.model.InvalidReconfigurationOperationException;
+import pt.uminho.di.cp.model.Node;
 
 /**
  * @author Nuno Oliveira
@@ -61,8 +66,44 @@ public class Par implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//get nodes of this.pattern
+		Set<Node> nodes_cp1 = this.getPattern().getNodes(); 
+		//get nodes of cp
+		Set<Node> nodes_cp2 = cp.getNodes();
+		
+		//save cp nodes on n1_inter_n2
+		Set<Node> n1_inter_n2 = new HashSet<Node>(nodes_cp1);
+		//keep only n1_inter_n2 nodes that are equals to cp2 nodes
+		n1_inter_n2.retainAll(nodes_cp2);
+	
+		//if there aren't nodes equal to cp2 nodes, the cp1_inter_cp2 set is empty
+		//otherwise, if cp1_inter_cp2 set isn't empty, exists repeated nodes
+		if( !n1_inter_n2.isEmpty() ) {
+			//throw new InvalidReconfigurationOperationException("Operation 'par' is not allowed.\nSome nodes are equal: " + n1_inter_n2.toString() );
+		}
+		else {
+			//get channel identifiers of cp1
+			Set<String> ids_cp1 = this.getPattern().getNames(); 
+			//get channel identifiers of cp2
+			Set<String> ids_cp2 = cp.getNames();
+			
+			Set<String> ids1_inter_ids2 = new HashSet<String>(ids_cp1);
+			ids1_inter_ids2.retainAll(ids_cp2);	
+
+			if( !ids1_inter_ids2.isEmpty() ) {
+				//throw new InvalidReconfigurationOperationException("Operation 'par' is not allowed.\nSome channel identifiers are equal.");
+			}
+			
+			//no errors
+			else{
+				CoordinationPattern2 cp2 = this.getPattern();
+				//pattern.getPattern(); -> getPattern gets all communication means
+				cp.getPattern().addAll(cp2.getPattern());
+				//return cp;
+			}
+		}
+		return cp;
 	}
 
 
