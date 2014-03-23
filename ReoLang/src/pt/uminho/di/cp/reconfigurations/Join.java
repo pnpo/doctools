@@ -3,6 +3,7 @@
  */
 package pt.uminho.di.cp.reconfigurations;
 
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -75,8 +76,13 @@ public class Join implements IReconfiguration {
 		//Test if nodes exist in coordination pattern
 		if ( cp.getNodes().containsAll(nodes) ) {
 			Set<CommunicationMean2> pattern = cp.getPattern();
-
-			for (CommunicationMean2 cm : pattern){
+			Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
+			
+			Iterator<CommunicationMean2> it = pattern.iterator();
+			while(it.hasNext()){
+				CommunicationMean2 cm = it.next();
+				it.remove();
+				
 				LinkedHashSet<Node> inodes = cm.getInodes();
 				LinkedHashSet<Node> onodes = cm.getOnodes();
 				
@@ -92,7 +98,10 @@ public class Join implements IReconfiguration {
 						cm.getOnodes().add(new_node);
 					}
 				}
+				
+				aux_pattern.add(cm);
 			}
+			cp.setPattern(aux_pattern);
 		}
 		return cp;
 	}

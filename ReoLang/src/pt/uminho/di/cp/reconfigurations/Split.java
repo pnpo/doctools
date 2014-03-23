@@ -4,6 +4,7 @@
 package pt.uminho.di.cp.reconfigurations;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -88,10 +89,15 @@ public class Split implements IReconfiguration {
 		
 		//get all channels
 		Set<CommunicationMean2> pattern = cp.getPattern();
+		Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
 
-		int i = 0; //sn.size() - 1 -> i--
+		int i = 0; //sn.size() - 1 --> i--
+		Iterator<CommunicationMean2> it = pattern.iterator();
 		
-		for (CommunicationMean2 cm : pattern){
+		while(it.hasNext()){
+			CommunicationMean2 cm = it.next();
+		    it.remove();
+		
 			LinkedHashSet<Node> inodes = cm.getInodes();
 			LinkedHashSet<Node> onodes = cm.getOnodes();
 			
@@ -109,9 +115,13 @@ public class Split implements IReconfiguration {
 					i++;
 				}
 			}
+			
+			aux_pattern.add(cm);
 		}
+		
+		cp.setPattern(aux_pattern);
 		return cp;
-	}
+	}	
 
 
 
