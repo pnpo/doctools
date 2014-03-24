@@ -75,7 +75,7 @@ public class OtherTests2 {
 		System.out.println(p);
 		
 		Id id = new Id();
-		p = id.apply(p, true);
+		p = id.apply(p);
 		System.out.println("ID------------------");
 		System.out.println(p);
 		
@@ -117,12 +117,12 @@ public class OtherTests2 {
 		p2.setPattern(cms2);
 		
 //		Const cons = new Const(p2);
-//		p = cons.apply(p, true);
+//		p = cons.apply(p);
 //		System.out.println("CONST------------------");
 //		System.out.println(p);
 		
 		Par par = new Par(p2);
-		p = par.apply(p, true);
+		p = par.apply(p);
 		System.out.println("PAR------------------");
 		System.out.println(p);
 		
@@ -131,7 +131,7 @@ public class OtherTests2 {
 		n.add(e);
 		n.add(g);
 		Join join = new Join(n);
-		p = join.apply(p, true);
+		p = join.apply(p);
 		System.out.println("JOIN------------------");
 		System.out.println(p);
 
@@ -140,12 +140,12 @@ public class OtherTests2 {
 //		deg.addEnd("e");
 //		deg.addEnd("g");
 		Split split = new Split(hi);
-		p = split.apply(p, true);
+		p = split.apply(p);
 		System.out.println("SPLIT------------------");
 		System.out.println(p);
 		
 		Remove remove = new Remove("s1");
-		p = remove.apply(p, true);
+		p = remove.apply(p);
 		System.out.println("REMOVE------------------");
 		System.out.println(p);
 	}

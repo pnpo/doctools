@@ -61,7 +61,7 @@ public class Join implements IReconfiguration {
 	 * @see pt.uminho.di.cp.reconfigurations.IReconfiguration#apply(pt.uminho.di.cp.model.CoordinationPattern2)
 	 */
 	@Override
-	public CoordinationPattern2 apply(CoordinationPattern2 cp, boolean store) {
+	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
 
 		LinkedHashSet<Node> nodes = this.getNodes(); 
 		
