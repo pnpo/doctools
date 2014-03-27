@@ -41,7 +41,18 @@ public class SimpleError {
     	return "Name '" + id + "' is already defined at line " + line + ":" + pos + "!";
     }
     
+    /**
+     * @param id the name of the variable not yet defined
+     * @return string with a message
+     */
+    public static String nameNotDefined(String id){
+    	return "Name '" + id + "' is not in the scope!";
+    }
     
+    
+    public static String wrongDatatype(String id, String dt){
+    	return "Variable '" + id + "' is not of type " + dt + "!";
+    }
     
     
     //****************INSTANCE PART****************//

@@ -1,5 +1,5 @@
 reconfiguration overlapP(Pattern p,p1; Set<Pair<Node>> X) {
-	@ par (p);
+	@ par (X);
 	forall(Pair<Node> n : X) {
 		Node n1,n2; 
 		Node n1;
