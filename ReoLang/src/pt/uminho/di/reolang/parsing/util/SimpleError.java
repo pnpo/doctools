@@ -51,8 +51,13 @@ public class SimpleError {
     
     
     public static String wrongDatatype(String id, String dt){
-    	return "Variable '" + id + "' is not of type " + dt + "!";
+    	return "Variable '" + id + "' is not of type '" + dt + "'!";
     }
+    
+    public static String invalidArgument(String id){
+    	return "The argument '" + id + "' is not valid!";
+    }
+    
     
     
     //****************INSTANCE PART****************//
