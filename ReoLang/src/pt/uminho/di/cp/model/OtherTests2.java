@@ -35,11 +35,11 @@ public class OtherTests2 {
 		cm1.setInodes(in);
 		cm1.setOnodes(out);
 		
-		in = new LinkedHashSet<Node>();
+		in.clear();
 		in.add(bc);
 		Node d = new Node();
 		d.addEnd("d");
-		out = new LinkedHashSet<Node>();
+		out.clear();
 		out.add(d);
 		CommunicationMean2 cm2 = new CommunicationMean2(); //"b.c", "s2", "sync", "d"
 		cm2.setId("s2");
@@ -49,11 +49,11 @@ public class OtherTests2 {
 		
 		Node e = new Node();
 		e.addEnd("e");
-		in = new LinkedHashSet<Node>();
+		in.clear();
 		in.add(e);
 		Node f = new Node();
 		f.addEnd("f");
-		out = new LinkedHashSet<Node>();
+		out.clear();
 		out.add(f);
 		CommunicationMean2 cm3 = new CommunicationMean2(); //"e", "f1", "fifo_e", "f"
 		cm3.setId("f1");
@@ -87,9 +87,9 @@ public class OtherTests2 {
 		hi.addEnd("h");
 		hi.addEnd("i");
 		
-		in = new LinkedHashSet<Node>();
+		in.clear();
 		in.add(g);
-		out = new LinkedHashSet<Node>();
+		out.clear();
 		out.add(hi);
 		CommunicationMean2 cm4 = new CommunicationMean2(); //"g", "s3", "sync", "h.i"
 		cm4.setId("s3");
@@ -97,11 +97,11 @@ public class OtherTests2 {
 		cm4.setInodes(in);
 		cm4.setOnodes(out);
 		
-		in = new LinkedHashSet<Node>();
+		in.clear();
 		in.add(hi);
 		Node j = new Node();
 		j.addEnd("j");
-		out = new LinkedHashSet<Node>();
+		out.clear();
 		out.add(j);
 		CommunicationMean2 cm5 = new CommunicationMean2(); //"h.i", "s4", "sync", "j"
 		cm5.setId("s4");
