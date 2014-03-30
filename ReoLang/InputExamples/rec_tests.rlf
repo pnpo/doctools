@@ -1,6 +1,12 @@
-reconfiguration overlapP(Pattern p,p1; Set<Pair<Node>> X) {
+reconfiguration bla (Node x) {
+	@ id ();
+}
+
+reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 	@ par (p1);
-	@ id (y);
+	@ id (y,z);
+	Name ab;
+	@ bla (p,p1,X);
 	forall(Pair<Node> n : X) {
 		Node n1,n2; 
 		Node n1;
@@ -42,3 +48,4 @@ reconfiguration overlapP(Pattern p,p1; Set<Pair<Node>> X) {
 	Set<Node> n3 = p2.out - p1.out ;
 	Set<Node> n4 = p2.out - p1.out ;
 }
+

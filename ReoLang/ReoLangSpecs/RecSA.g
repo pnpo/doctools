@@ -130,7 +130,7 @@ scope{
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$args_def::scope = $reconfiguration_def::scopes.get(0);
-	$reclang::scope_id++;
+	//$reclang::scope_id++;
 }
 	: ^(ARGUMENTS (arg_def
 	{
@@ -230,7 +230,7 @@ scope{
 	for (int i = 0; i < $reconfiguration_def::scopes.size(); i++){
 		TinySymbolsTable tst = $reconfiguration_def::scopes.get(i);
 		if ( tst.getScopeRel().fst().equals(scope_id) ) {
-			$instruction::scope = $reconfiguration_def::scopes.get(i-1);
+			$instruction::scope = $reconfiguration_def::scopes.get(i);
 			break;
 		}
 	}
@@ -364,6 +364,15 @@ assignment_member returns[ArrayList<SimpleError> errors]
 	;
 	
 reconfiguration_call returns[ArrayList<SimpleError> errors]
+scope{
+	TinySymbolsTable args;
+	String name;
+}
+@init{
+	$reconfiguration_call::name = "";
+	$reconfiguration_call::args = new TinySymbolsTable();
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+}
 	: ^(OP_JOIN 	{ $instruction::rec_type = "join"; }
 	operation_args) { $reconfiguration_call.errors = $operation_args.errors; }
 	
@@ -382,18 +391,45 @@ reconfiguration_call returns[ArrayList<SimpleError> errors]
 	| ^(OP_ID 	{ $instruction::rec_type = "id"; }
 	operation_args)  
 	{
-		ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 		$reconfiguration_call.errors = new ArrayList<SimpleError>();
-		if(!$operation_args.start.isNil()){
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidArgument($operation_args.start.toString()) , $OP_ID.line, $OP_ID.pos+4) );
+		if($operation_args.start != null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($instruction::rec_type) , $OP_ID.line, $OP_ID.pos) );
+			//local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidArgument($operation_args.start.toString()) , $OP_ID.line, $OP_ID.pos+4) );			
+			
+			////is not necessary since 'id' has no arguments
+			//local_errors.addAll($operation_args.errors);
 		}
 		
-		local_errors.addAll($operation_args.errors);
+		
 		$reconfiguration_call.errors = local_errors;
 	}
 	
-	| ^(ID 		{ $instruction::rec_type = "custom"; }
-	operation_args)	{ $reconfiguration_call.errors = $operation_args.errors; }
+	| ^(ID 		
+	{ 
+		$instruction::rec_type = "custom"; 
+		$reconfiguration_call::name = $ID.text;
+		
+		if ($reclang::ids_table.containsSymbol($ID.text)){
+			TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
+			if (ts.getLine() > $reconfiguration_def::name.getLine()){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.recNotDefined($ID.text), $ID.line, $ID.pos) );
+			}
+			$reconfiguration_call::args = ts.getScopes().get(0);
+		}
+		else{
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.recNotDefined($ID.text), $ID.line, $ID.pos) );
+		}
+	}
+	operation_args)	
+	{	
+		if($operation_args.start != null){
+			local_errors.addAll($operation_args.errors);
+		}
+		else{
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($ID.text) , $ID.line, $ID.pos) );
+		}
+		$reconfiguration_call.errors = local_errors;
+	}
 	;
 	
 	
@@ -404,21 +440,62 @@ structure_operation_call
 	
 	
 operation_args returns[ArrayList<SimpleError> errors]
-	: (args { $operation_args.errors = $args.errors; })? 
-	;
-	
-args returns[ArrayList<SimpleError> errors]
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
+	: (args 
+	{ 
+		//reconfiguration of type "custom" can have more than one argument; id primitive tested before (do not even have one argument)
+		if ($args.counter > 1 && !$instruction::rec_type.equals("custom") && !$instruction::rec_type.equals("id")){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($instruction::rec_type) , $args.start.getLine()) );
+		}
+		//if the number of arguments are correct, check their type (possible errors)
+		else {
+			local_errors.addAll($args.errors);
+		}
+	})? 
+	
+	{
+		$operation_args.errors = local_errors; 
+	}
+	;
+	
+args returns[ArrayList<SimpleError> errors, int counter]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	int i = 0;
+}
 	: (expression
 	{
+		if ($instruction::rec_type.equals("custom")){
+			//original argument
+			TinySymbol ts1 = $reconfiguration_call::args.getSymbol(i);
+			
+			if (ts1 != null){
+				//local_errors.addAll($expression.errors);
+				String value = $expression.value;
+				
+				Integer s_id = $instruction::scope.getScopeRel().fst();
+				//if contains symbol, value of new argument is obtained from $instruction::scope, else from $reconfiguration_def::name
+				TinySymbol ts2 = $instruction::scope.containsSymbol(value) ? $instruction::scope.getSymbols().get(value) : $reconfiguration_def::name.hasValue(value, s_id);
+				if ( ts2 != null && !ts2.getDataType().equals(ts1.getDataType()) ){
+					String datatype = ts1.dataTypeToString();
+					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype(value, datatype) , $expression.start.getLine()) );
+				}
+			}
+			else{
+				//rever
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($reconfiguration_call::name) , $expression.start.getLine()) );
+			}
+		}		
 		local_errors.addAll($expression.errors);
+		i++;
 	}
 	)+
 	
 	{
 		$args.errors = local_errors;
+		$args.counter = i;
 	}
 	
 	;
@@ -451,15 +528,19 @@ for_instruction returns[ArrayList<SimpleError> errors]
 	;
 	
 	
-expression returns[ArrayList<SimpleError> errors]
+expression returns[ArrayList<SimpleError> errors, String value]
 	: ^(OP_UNION expression expression)
 	| ^(OP_INTERSECTION expression expression)
 	| ^(OP_MINUS expression expression)
-	| factor { $expression.errors = $factor.errors; }
+	| factor 
+	{ 
+		$expression.errors = $factor.errors; 
+		$expression.value = $factor.value; 
+	}
 	;
 
 
-factor returns[ArrayList<SimpleError> errors]
+factor returns[ArrayList<SimpleError> errors, String value]
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 
@@ -467,6 +548,7 @@ factor returns[ArrayList<SimpleError> errors]
 	: ^(ID ID) { $factor.errors = local_errors; }
 	| ID
 	{
+		$factor.value = $ID.text;
 		Integer s_id = $instruction::scope.getScopeRel().fst();
 		TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
 		if (!$instruction::scope.containsSymbol($ID.text) && ts == null){

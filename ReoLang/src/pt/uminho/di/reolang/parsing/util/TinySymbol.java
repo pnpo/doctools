@@ -196,6 +196,20 @@ public class TinySymbol {
 		return ts;
 	}
 
+	public String dataTypeToString(){
+		String datatype = "";
+		for (Type dt : this.getDataType()){
+			datatype += "<";
+			datatype += dt.toString();
+		}
+		for(int j = 0; j < this.getDataType().size()-1; j++) {
+		    datatype += '>';
+		}
+		
+		//remove first '<'
+		return datatype.substring(1);
+	}
+	
 	
 /*	//SHORT VERSION
 	@Override

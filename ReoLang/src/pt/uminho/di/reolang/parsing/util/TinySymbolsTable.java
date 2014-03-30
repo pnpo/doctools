@@ -44,6 +44,20 @@ public class TinySymbolsTable {
 		return out;
 	}
 	
+	public TinySymbol getSymbol(int position){
+		TinySymbol ts = null;
+		
+		int i = 0;
+		for (String symbol_name: this.getSymbols().keySet()) {
+			if (i == position){
+				ts = getSymbols().get(symbol_name);
+				break;
+			}
+			i++;
+		}
+		return ts;
+	}
+	
 	
 	public Pair<Integer, Integer> getScopeRel(){
 		return this.scope_rel;

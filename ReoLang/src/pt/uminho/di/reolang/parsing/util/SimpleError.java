@@ -49,15 +49,24 @@ public class SimpleError {
     	return "Name '" + id + "' is not in the scope!";
     }
     
+    public static String recNotDefined(String id){
+    	return "Reconfiguration '" + id + "' is not previously defined!";
+    }
+    
     
     public static String wrongDatatype(String id, String dt){
     	return "Variable '" + id + "' is not of type '" + dt + "'!";
     }
     
+    
+    //not used yet --> compare to 'wrongDatatype'
     public static String invalidArgument(String id){
     	return "The argument '" + id + "' is not valid!";
     }
     
+    public static String numberOfArguments(String reconf){
+    	return "Wrong number of arguments for the reconfiguration '" + reconf + "'!";
+    }    
     
     
     //****************INSTANCE PART****************//
