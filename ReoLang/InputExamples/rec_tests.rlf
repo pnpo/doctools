@@ -1,4 +1,5 @@
-reconfiguration bla (Node x) {
+reconfiguration bla (Node x; Name y) {
+	Pattern g;
 	@ id ();
 }
 

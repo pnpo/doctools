@@ -11,7 +11,9 @@ options{
 	
 	import pt.uminho.di.reolang.parsing.util.SimpleError;
 	import pt.uminho.di.reolang.parsing.util.*;
-	import pt.uminho.di.reolang.parsing.*;
+	//import java.util.*;
+	import java.util.Collections;
+	import java.util.Comparator;
 }
 
 @members{
@@ -359,18 +361,22 @@ assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
 	; 
 	
 assignment_member returns[ArrayList<SimpleError> errors]
-	: expression { $assignment_member.errors = new ArrayList<SimpleError>(); }
+	: expression 
+	{ 
+		System.out.println($expression.errors);
+		$assignment_member.errors = $expression.errors; 
+	}
 	| reconfiguration_apply { $assignment_member.errors = $reconfiguration_apply.errors; }
 	;
 	
 reconfiguration_call returns[ArrayList<SimpleError> errors]
 scope{
-	TinySymbolsTable args;
+	List<TinySymbol> args;
 	String name;
 }
 @init{
 	$reconfiguration_call::name = "";
-	$reconfiguration_call::args = new TinySymbolsTable();
+	$reconfiguration_call::args = new ArrayList<TinySymbol>();
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
 	: ^(OP_JOIN 	{ $instruction::rec_type = "join"; }
@@ -458,7 +464,31 @@ scope{
 			if (ts.getLine() > $reconfiguration_def::name.getLine()){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.recNotDefined($ID.text), $ID.line, $ID.pos) );
 			}
-			$reconfiguration_call::args = ts.getScopes().get(0);
+			else{
+				TinySymbolsTable tst = ts.getScopes().get(0);
+				List<TinySymbol> symbols = new ArrayList<TinySymbol>(tst.getSymbols().values());
+			
+				Collections.sort(symbols, new Comparator<TinySymbol>() {
+			        	public int compare(TinySymbol ts1, TinySymbol ts2) {
+						int value;
+				        
+				        	if (ts1.getLine() == ts2.getLine()){
+				        		value = ts1.getPosition() - ts2.getPosition();
+				        	}
+				        	else{
+				    	        value = ts1.getLine() - ts2.getLine();
+				        	}
+						return value;
+				        }
+				});
+				 
+				for (TinySymbol symbol : symbols){
+					//if symbol is an argument, save it
+					if (ts.getLine() == symbol.getLine()){
+						$reconfiguration_call::args.add(symbol);
+					}
+				}
+			}
 		}
 		else{
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.recNotDefined($ID.text), $ID.line, $ID.pos) );
@@ -495,7 +525,12 @@ operation_args returns[ArrayList<SimpleError> errors]
 		}
 		//if the number of arguments are correct, check their type (possible errors)
 		else {
-			local_errors.addAll($args.errors);
+			if ($instruction::rec_type.equals("custom") && $args.counter < $reconfiguration_call::args.size()){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($reconfiguration_call::name) , $args.start.getLine()) );
+			}
+			else{
+				local_errors.addAll($args.errors);
+			}
 		}
 	})? 
 	
@@ -514,12 +549,12 @@ args returns[ArrayList<SimpleError> errors, int counter]
 	: (expression
 	{
 		if ($instruction::rec_type.equals("custom")){
-			//original argument
-			TinySymbol ts1 = $reconfiguration_call::args.getSymbol(i);
-			
-			if (ts1 != null){
+			if ($reconfiguration_call::args.size() > i){
+				//original argument
+				TinySymbol ts1 = $reconfiguration_call::args.get(i);
+
+//			if (ts1 != null){				
 				String value = $expression.value;
-				
 				Integer s_id = $instruction::scope.getScopeRel().fst();
 				//if contains symbol, value of new argument is obtained from $instruction::scope, else from $reconfiguration_def::name
 				TinySymbol ts2 = $instruction::scope.containsSymbol(value) ? $instruction::scope.getSymbols().get(value) : $reconfiguration_def::name.hasValue(value, s_id);
