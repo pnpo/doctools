@@ -184,7 +184,7 @@ public class IMCREOimc {
 	 * 
 	 * 
 	 */
-public IMCREOimc compose(IMCREOimc other, Set<String> mixedports){
+public IMCREOimc compose(IMCREOimc other/*, Set<String> mixedports*/){
 		   
 		
 		//the new IMC
@@ -380,7 +380,7 @@ public IMCREOimc compose(IMCREOimc other, Set<String> mixedports){
 	public IMCREOimc fix_environment(List<IMCREOimc> envs , Set<String> mixedports){
 		IMCREOimc newimc = this;
 		for(IMCREOimc env : envs){
-			newimc = newimc.compose(env, mixedports).pruneIMCREO(mixedports, false);
+			newimc = newimc.compose(env/*, mixedports*/).pruneIMCREO(mixedports, false);
 		}
 		return newimc.pruneIMCREO(mixedports, true);
 	}

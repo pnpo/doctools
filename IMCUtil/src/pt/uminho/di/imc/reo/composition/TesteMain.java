@@ -198,7 +198,7 @@ public class TesteMain {
 //		Composer cs = sp.parser();
 		
 		
-		IMCREOimc res = imc2.compose(imc1, mixed).pruneIMCREO(mixed, false).fix_environment(envs, mixed);
+		IMCREOimc res = imc2.compose(imc1).pruneIMCREO(mixed, false).fix_environment(envs, mixed);
 		
 //		IMCREOimc res = cs.intelligentCompose(false, "", "", "", "");
 		//res.hide(cs.getMixed_ports());
@@ -209,51 +209,19 @@ public class TesteMain {
 		 long totalTime = endTime - startTime;
 		 System.out.println("took..." + totalTime);
 		
+	
+//		 LinkedList<Integer> ints = new LinkedList<Integer>() {{
+//			 add(1); add(2); add(4); add(5); 
+//			 add(7); add(8); add(9); add(10);
+//			 add(13); add(112); add(21); add(11);
+//			 add(100);
+//			 }} ;
+//			 
+//		Composer2 c = new Composer2(ints, new LinkedList<IMCREOimc>());
+//		c.compose();
+		
 		 
-//		 "{j|1$1, j|0$1, a}_e-f-"
-//		 "{j|1$1, j|0$1, a}_e-f-"
 		 
-		 
-		 
-//		 IMCREOState s1 = new IMCREOState();
-//		 s1.getTransmissions().add("j|1$1");
-//		 s1.getTransmissions().add("j|0$1");
-//		 s1.getTransmissions().add("a");
-//		 s1.getBuffer().add(IMCREOBufferState.EMPTY);
-//		 s1.getBuffer().add(IMCREOBufferState.NONE);
-//		 s1.getBuffer().add(IMCREOBufferState.FULL);
-//		 s1.getBuffer().add(IMCREOBufferState.NONE);
-//		 
-//		 IMCREOState s3 = s1.copy();
-//		 IMCREOState s4 = new IMCREOState();
-//		 s4.setRequests(new HashSet<String>(s1.getRequests()));
-//		 s4.setTransmissions(new HashSet<String>(s1.getTransmissions()));
-//		 s4.setBuffer(new ArrayList<IMCREOBufferState>(s1.getBuffer()));
-//		 
-//		 IMCREOState s2 = new IMCREOState();
-//		 s2.getTransmissions().add("j|0$1");
-//		 s2.getTransmissions().add("j|1$1");
-//		 s2.getTransmissions().add("a");
-//		 s2.getBuffer().add(IMCREOBufferState.EMPTY);
-//		 s2.getBuffer().add(IMCREOBufferState.NONE);
-//		 s2.getBuffer().add(IMCREOBufferState.FULL);
-//		 s2.getBuffer().add(IMCREOBufferState.NONE);
-//		 
-//		 
-//		 HashMap<IMCREOState, String> map = new HashMap<IMCREOState, String>();
-//		 
-//		 map.put(s1, "s1");
-//		 map.put(s3, "s3");
-//		 map.put(s4, "s4");
-//		 
-//		 
-//		 System.out.println(s1 + " --- " + s1.getTransmissions().hashCode() +  " --- " + s1.getRequests().hashCode() +  " --- " + s1.getBuffer().hashCode() +  " --- " + s1.toString().hashCode() + " --- " + s1.hashCode());
-//		 System.out.println(s3 + " --- " + s3.getTransmissions().hashCode() +  " --- " + s3.getRequests().hashCode() +  " --- " + s3.getBuffer().hashCode() +  " --- " + s3.toString().hashCode() + " --- " + s3.hashCode());
-//		 System.out.println(s4 + " --- " + s4.getTransmissions().hashCode() +  " --- " + s4.getRequests().hashCode() +  " --- " + s4.getBuffer().hashCode() +  " --- " + s4.toString().hashCode() + " --- " + s4.hashCode());
-//		 System.out.println("s1=s3? + " + s1.equals(s3));
-//		 System.out.println("s1=s4? + " + s1.equals(s4));
-//		 System.out.println("s3=s4? + " + s3.equals(s4));
-//		 
 	}
 	
 }

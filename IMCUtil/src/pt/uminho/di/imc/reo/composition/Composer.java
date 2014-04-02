@@ -242,7 +242,7 @@ public class Composer {
 			imc1 = imc1.minimize(mixedports, output+File.separator, "tmpfile1", cadp, cadp_bin, cadp_com, output);
 			imc2 = imc2.minimize(mixedports, output+File.separator, "tmpfile2", cadp, cadp_bin, cadp_com, output);
 		}
-		res_internal = imc1.compose(imc2, mixedports); 
+		res_internal = imc1.compose(imc2/*, mixedports*/); 
 		System.out.println("-------------------------\nCOMPi\n------------------------------");
 		System.out.println(res_internal);
 		
