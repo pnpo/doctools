@@ -172,7 +172,10 @@ public class CommunicationMean2 {
 	
 	
 	
-	
+	/**
+	 * 
+	 * @return a Pair with source and target nodes of the comm. mean.
+	 */
 	public Pair<Node, Node> getSourceTarget(){
 		Pair<Node, Node> s_t = new Pair<Node, Node> ();
 		Object[] in =  this.getInodes().toArray();

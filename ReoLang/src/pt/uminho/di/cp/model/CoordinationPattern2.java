@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import pt.uminho.di.reolang.parsing.util.Pair;
+
 
 /**
  * @author Nuno Oliveira
@@ -262,6 +264,146 @@ public class CoordinationPattern2 {
 	
 	
 	
+	
+	
+	/**
+	 * Defines a string that is a script of channels to compose into IMCREO
+	 * @return a formatted string as a script accepted by the IMCREOScript parser. 
+	 */
+	public String intoIMCScript(){
+		
+		CoordinationPattern2 decomposed = this.decompose();
+		
+		StringBuffer sb = new StringBuffer();
+		//---- CHANNELS
+		for(CommunicationMean2 cm : decomposed.getPattern()) {
+			sb.append(cm.getType()).append("_ ").append(cm.getId()).append(" ");
+			for(Node in : cm.getInodes()) {
+				sb.append((new Node(in)).takeEnd()).append(" ");
+			}
+			for(Node out : cm.getOnodes()) {
+				sb.append((new Node(out)).takeEnd()).append(" ");
+			}
+			//TODO: append stochastic information
+			sb.append("\n");
+		}
+		
+		
+		//---- MER_REP
+		for(Node n : this.getMixed()) {
+			Pair<String, String> ports = createMergerReplicatorPorts(n, decomposed);
+			sb.append("mer_rep ").append(ports.fst()).append(ports.snd()).append(" ");
+			//TODO: append stochastic information
+			sb.append("\n");
+		}
+		
+		//---- MER_XOR
+		//TODO add merger_xor support
+		
+		//---- ENVIRONMENT
+		for(Node n : this.getIn()) {
+			sb.append("env ").append((new Node(n).takeEnd())).append(" ");
+			//TODO: append stochastic information
+			sb.append("\n");
+		}
+		
+		for(Node n : this.getOut()) {
+			sb.append("env ").append((new Node(n).takeEnd())).append(" ");
+			//TODO: append stochastic information
+			sb.append("\n");
+		}
+		
+		return sb.toString();
+	}
+	
+
+	
+	
+	/**
+	 * 
+	 * @param n - a mixed node
+	 * @param decomposed - a CP decomposed. This is, a CP with a single end per node
+	 * @return A pair of formated strings (in, out) referring to the ends of the given node
+	 * that are input or output ports of the nodes to be created.
+	 */
+	private Pair<String, String> createMergerReplicatorPorts(Node n, CoordinationPattern2 decomposed) {
+		
+		Pair<String, String> ports = new Pair<String, String>();
+		String in = "";
+		String out= "";
+		
+		for(String end : n.getEnds()) {
+			Node temp_node = new Node();
+			temp_node.addEnd(end);
+			for(CommunicationMean2 cm : decomposed.getPattern()) {
+				if(cm.getInodes().contains(temp_node)){
+					out += end + " ";
+				}
+				else {
+					if(cm.getOnodes().contains(temp_node)){
+						in += end + " ";
+					}
+				}
+			}
+		}
+		
+		in = "[" + in.trim() + "]";
+		out = "[" + out.trim() + "]";
+		
+		ports.setFirst(in);
+		ports.setSecond(out);
+		return ports;
+	}
+
+
+
+	/**
+	 * Decomposes a CP as follows:
+	 * 
+	 * Each communication mean has nodes with single ends.
+	 * The ends are picked randomly from the original mixed nodes. 
+	 * 
+	 * @return a CP decomposed.
+	 */
+	private CoordinationPattern2 decompose() {
+		Set<String> ends_used = new LinkedHashSet<String>();
+		CoordinationPattern2 cp2 = new CoordinationPattern2();
+		
+		for(CommunicationMean2 cm : this.pattern) {
+			CommunicationMean2 cm_new = new CommunicationMean2();
+			LinkedHashSet<Node> inodes = new LinkedHashSet<Node>();
+			LinkedHashSet<Node> onodes = new LinkedHashSet<Node>();
+			for(Node in : cm.getInodes()){
+				Node in_minus_used = new Node(in);
+				in_minus_used.getEnds().removeAll(ends_used);
+				String end = in_minus_used.takeEnd();
+				Node n = new Node();
+				n.addEnd(end);
+				inodes.add(n);
+				ends_used.add(end);
+			}
+			for(Node out : cm.getOnodes()) {
+				Node out_minus_used = new Node(out);
+				out_minus_used.getEnds().removeAll(ends_used);
+				String end = out_minus_used.takeEnd();
+				Node n = new Node();
+				n.addEnd(end);
+				onodes.add(n);
+				ends_used.add(end);
+			}
+			
+			cm_new.setId(cm.getId());
+			cm_new.setType(cm.getType());
+			cm_new.setInodes(inodes);
+			cm_new.setOnodes(onodes);
+			
+			cp2.getPattern().add(cm_new);
+		}
+		
+		return cp2;
+	}
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

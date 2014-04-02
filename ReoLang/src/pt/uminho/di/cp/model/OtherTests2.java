@@ -71,8 +71,13 @@ public class OtherTests2 {
 		cms.add(cm3);
 		p.setPattern(cms);
 		
+		
+		
+		
 		System.out.println("INIT------------------");
 		System.out.println(p);
+		System.out.println(p.intoIMCScript());
+		
 		
 		Id id = new Id();
 		p = id.apply(p);
