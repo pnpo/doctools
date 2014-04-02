@@ -14,4 +14,4 @@
 * [] -$a$- $gr$				@ NODE_$id$_RD_[$a$] @
 
 [] -$a$- !
-* [] $gw$						@ NODE_$id$_WR_[$a$] @
+* [] $gw$					@ NODE_$id$_WR_[$a$] @
