@@ -14,13 +14,13 @@ public class TesteNodes {
 		LinkedHashSet<String> outs = new LinkedHashSet<String>();
 		
 		outs.add("b3");
-		outs.add("b4");
+		//outs.add("b4");
 		
 		ins.add("b1");
 		ins.add("b2");
 		//ins.add("b5");
 		try{
-			IMCREOimc test  = Library.merger_router(10.0, 5.0, ins, outs);
+			IMCREOimc test  = Library.merger_replicator(ins, outs);
 			System.out.println(test.toString());
 		}
 		catch(IMCREOBadNodeException e) {

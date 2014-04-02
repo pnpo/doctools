@@ -354,6 +354,64 @@ public final class Library {
 	
 	
 	
+
+	/**
+	 * Creates the IMCREOimc of a special node (merger+replicator)
+	 * that can be added to the composition of an imcreo with
+	 * NON-DELAYING nodes.
+	 * 
+	 * It allows for different kind of nodes:
+	 * 
+	 * 1 - simple merger, if outs is a singleton;
+	 * 2 - simple replicator, if ins is a singleton;
+	 * 3 - simple node, if ins and outs are singletons.
+	 * 
+	 * @param ins - the names of the nodes that are input ports of the node.
+	 * @param outs - the names of the nodes that are output ports of the node.
+	 * @return IMCREOimc representing the stochastic node. 
+	 */
+	public static IMCREOimc merger_replicator(
+			Set<String> ins, 
+			Set<String> outs) throws IMCREOBadNodeException
+	{
+		IMCREOimc mr = new IMCREOimc(); 
+
+		if(ins.isEmpty() || outs.isEmpty()){
+			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
+		}
+		
+		//create initial state and add to the chain
+		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
+		mr.getChain().put(initial, new LinkedList<IMCREOTransition>());
+		mr.setInitial_state(initial);
+		
+		for(String end : ins) {
+
+			Set<String> actions = new LinkedHashSet<String>();
+			actions.add(end);
+			actions.addAll(outs);
+			
+			//create interactive transition and add to the chain (initial - i_tr - read_state)
+			IMCREOInteractiveTransition i_tr = new IMCREOInteractiveTransition(initial,actions);
+			mr.getChain().get(initial).add(i_tr);
+			
+
+		}
+
+		
+		//partial order...
+		for(String in : ins){
+			for(String out: outs){
+				Pair<String, String> order = new Pair<String, String>(in, out);
+				mr.getPoset().addSinglePOSet(order);
+			}
+		}
+		
+		return mr; 
+	} 
+	
+	
+	
 	
 	
 	
@@ -455,6 +513,74 @@ public final class Library {
 		return mr; 
 	}
 	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * Creates the IMCREOimc of a special node (merger+router)
+	 * that can be added to the composition of an imcreo with
+	 * NON-DELAYING nodes.
+	 * 
+	 * It allows for different kind of nodes:
+	 * 
+	 * 1 - simple router, if ins is a singleton;
+	 * 2 - simple node, if ins and outs are singletons.
+	 * 
+	 * 
+	 * @param ins - the set of input ends of the node
+	 * @param outs - the set of output ends of the node
+	 * @return IMCREOimc represeting a merger_router node
+	 * 
+	 * @throws IMCREOBadNodeException
+	 */
+	public static IMCREOimc merger_router(
+			Set<String> ins, 
+			Set<String> outs) throws IMCREOBadNodeException
+	{
+		IMCREOimc mr = new IMCREOimc(); 
+
+		if(ins.isEmpty() || outs.isEmpty()){
+			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
+		}
+		else {
+			if(outs.size() < 2) {
+				throw new IMCREOBadNodeException("The number of output ports of the node should be 2 or more!");
+			}
+		}
+		
+		//create initial state and add to the chain
+		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
+		mr.getChain().put(initial, new LinkedList<IMCREOTransition>());
+		mr.setInitial_state(initial);
+		
+		
+		for(String in_end : ins) {
+			for(String out_end : outs) {
+				Set<String> actions = new LinkedHashSet<String>();
+				actions.add(in_end);
+				actions.add(out_end);
+				
+				//create interactive transition and add to the chain (initial - i_tr - read_state)
+				IMCREOInteractiveTransition i_tr = new IMCREOInteractiveTransition(initial,actions);
+				mr.getChain().get(initial).add(i_tr);
+			}
+			
+		}
+		
+		
+		//partial order...
+		for(String in : ins){
+			for(String out: outs){
+				Pair<String, String> order = new Pair<String, String>(in, out);
+				mr.getPoset().addSinglePOSet(order);
+			}
+		}
+		
+		return mr; 
+	}
 	
 	
 	
