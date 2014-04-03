@@ -8,7 +8,7 @@
 
 #TRANSITIONS
 [] !
-* [$a$] $ga$					@ ENV_$id$_ARR_[$a$] @
+* [$a$] $ga$					@ ENV_$a$_ARR_[$a$] @
 
 [$a$] <$a$> 
 * [] 0			

@@ -417,7 +417,7 @@ public class Composer {
 //		System.out.println("----------------------------\nREDUCED\n----------------------------");
 //		System.out.println(res);
 
-		return res.pruneIMCREO(this.mixed_ports, false);
+		return res.pruneIMCREO(this.mixed_ports/*, false*/);
 		
 	}
 

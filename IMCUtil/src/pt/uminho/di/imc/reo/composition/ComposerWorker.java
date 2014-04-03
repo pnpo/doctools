@@ -32,7 +32,7 @@ public class ComposerWorker implements Callable<IMCREOimc>{
 		mixed.retainAll(this.imc2.getActs());
 		//TODO: verify if this mixed set is enough or if it has to be the history 
 		//of all ports already composed...
-		IMCREOimc res = this.imc1.compose(this.imc2).pruneIMCREO(mixed, false);
+		IMCREOimc res = this.imc1.compose(this.imc2).pruneIMCREO(mixed/*, false*/);
 		System.out.println(Thread.currentThread().getName()+" End.");
 		return res;
 	}

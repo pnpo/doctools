@@ -17,6 +17,10 @@ grammar IMCREOScriptParser;
 @members{
 	private Composer2 composer;
 	
+	public Composer2 getComposer() {
+		return this.composer;
+	}
+	
 	private IMCREOimc element2IMC(String method_name, ArrayList<String> str_args) {
 		Object[] args = new Object[str_args.size()];
 		str_args.toArray(args);
@@ -154,7 +158,7 @@ environment
 	{
 		args.add($ID.text);
 		args.add($stoch.rate);
-		this.composer.getElements().add(this.element2IMC("env_", args));
+		this.composer.getEnvironments().add(this.element2IMC("environment_", args));
 	}
 	;
 	

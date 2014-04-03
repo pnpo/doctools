@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g 2014-04-03 10:13:56
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g 2014-04-03 11:17:04
 
 	package pt.uminho.di.imc.reo.parsing;
 	import pt.uminho.di.imc.reo.composition.*;
@@ -54,6 +54,10 @@ public class IMCREOScriptParserParser extends Parser {
 
     	private Composer2 composer;
     	
+    	public Composer2 getComposer() {
+    		return this.composer;
+    	}
+    	
     	private IMCREOimc element2IMC(String method_name, ArrayList<String> str_args) {
     		Object[] args = new Object[str_args.size()];
     		str_args.toArray(args);
@@ -86,16 +90,16 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "script"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:51:1: script : ( element )+ ( environment )+ ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:1: script : ( element )+ ( environment )+ ;
     public final void script() throws RecognitionException {
 
         	composer = new Composer2();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:2: ( ( element )+ ( environment )+ )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:4: ( element )+ ( environment )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:2: ( ( element )+ ( environment )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:4: ( element )+ ( environment )+
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:4: ( element )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:4: ( element )+
             int cnt1=0;
             loop1:
             do {
@@ -109,7 +113,7 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:4: element
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:4: element
             	    {
             	    pushFollow(FOLLOW_element_in_script37);
             	    element();
@@ -129,7 +133,7 @@ public class IMCREOScriptParserParser extends Parser {
                 cnt1++;
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:13: ( environment )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:13: ( environment )+
             int cnt2=0;
             loop2:
             do {
@@ -143,7 +147,7 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:13: environment
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:13: environment
             	    {
             	    pushFollow(FOLLOW_environment_in_script40);
             	    environment();
@@ -179,10 +183,10 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "element"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:58:1: element : ( channel | node );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:1: element : ( channel | node );
     public final void element() throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:58:9: ( channel | node )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:9: ( channel | node )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -200,7 +204,7 @@ public class IMCREOScriptParserParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:58:11: channel
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:11: channel
                     {
                     pushFollow(FOLLOW_channel_in_element51);
                     channel();
@@ -211,7 +215,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:5: node
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:63:5: node
                     {
                     pushFollow(FOLLOW_node_in_element58);
                     node();
@@ -236,7 +240,7 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "channel"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:1: channel : ( 'sync' identification[new ArrayList<String>()] stoch | 'drain' identification[new ArrayList<String>()] stoch | 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:66:1: channel : ( 'sync' identification[new ArrayList<String>()] stoch | 'drain' identification[new ArrayList<String>()] stoch | 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch );
     public final void channel() throws RecognitionException {
         IMCREOScriptParserParser.stoch_return s1 = null;
 
@@ -258,7 +262,7 @@ public class IMCREOScriptParserParser extends Parser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:9: ( 'sync' identification[new ArrayList<String>()] stoch | 'drain' identification[new ArrayList<String>()] stoch | 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:66:9: ( 'sync' identification[new ArrayList<String>()] stoch | 'drain' identification[new ArrayList<String>()] stoch | 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch )
             int alt4=5;
             switch ( input.LA(1) ) {
             case 11:
@@ -295,7 +299,7 @@ public class IMCREOScriptParserParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:11: 'sync' identification[new ArrayList<String>()] stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:66:11: 'sync' identification[new ArrayList<String>()] stoch
                     {
                     match(input,11,FOLLOW_11_in_channel69); 
                     pushFollow(FOLLOW_identification_in_channel71);
@@ -316,7 +320,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:67:4: 'drain' identification[new ArrayList<String>()] stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:71:4: 'drain' identification[new ArrayList<String>()] stoch
                     {
                     match(input,12,FOLLOW_12_in_channel82); 
                     pushFollow(FOLLOW_identification_in_channel84);
@@ -337,7 +341,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:72:4: 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:76:4: 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch
                     {
                     match(input,13,FOLLOW_13_in_channel95); 
                     pushFollow(FOLLOW_identification_in_channel97);
@@ -364,7 +368,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:78:4: 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:82:4: 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch
                     {
                     match(input,14,FOLLOW_14_in_channel114); 
                     pushFollow(FOLLOW_identification_in_channel116);
@@ -391,7 +395,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:84:4: 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:88:4: 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch
                     {
                     match(input,15,FOLLOW_15_in_channel133); 
                     pushFollow(FOLLOW_identification_in_channel135);
@@ -432,7 +436,7 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "identification"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:92:1: identification[ArrayList<String> args_in] returns [ArrayList<String> args] : id= ID p1= ID p2= ID ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:96:1: identification[ArrayList<String> args_in] returns [ArrayList<String> args] : id= ID p1= ID p2= ID ;
     public final ArrayList<String> identification(ArrayList<String> args_in) throws RecognitionException {
         ArrayList<String> args = null;
 
@@ -441,8 +445,8 @@ public class IMCREOScriptParserParser extends Parser {
         Token p2=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:93:2: (id= ID p1= ID p2= ID )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:93:5: id= ID p1= ID p2= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:97:2: (id= ID p1= ID p2= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:97:5: id= ID p1= ID p2= ID
             {
             id=(Token)match(input,ID,FOLLOW_ID_in_identification168); 
             p1=(Token)match(input,ID,FOLLOW_ID_in_identification172); 
@@ -473,7 +477,7 @@ public class IMCREOScriptParserParser extends Parser {
     };
 
     // $ANTLR start "stoch"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:102:1: stoch returns [String rate, double d_rate] : NUMBER ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:106:1: stoch returns [String rate, double d_rate] : NUMBER ;
     public final IMCREOScriptParserParser.stoch_return stoch() throws RecognitionException {
         IMCREOScriptParserParser.stoch_return retval = new IMCREOScriptParserParser.stoch_return();
         retval.start = input.LT(1);
@@ -481,8 +485,8 @@ public class IMCREOScriptParserParser extends Parser {
         Token NUMBER8=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:103:2: ( NUMBER )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:103:5: NUMBER
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:107:2: ( NUMBER )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:107:5: NUMBER
             {
             NUMBER8=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_stoch196); 
 
@@ -507,7 +511,7 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "node"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:1: node : ( 'mer_rep' identification2 (s1= stoch s2= stoch )? | 'mer_xor' identification2 (s1= stoch s2= stoch )? );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:114:1: node : ( 'mer_rep' identification2 (s1= stoch s2= stoch )? | 'mer_xor' identification2 (s1= stoch s2= stoch )? );
     public final void node() throws RecognitionException {
         IMCREOScriptParserParser.stoch_return s1 = null;
 
@@ -519,7 +523,7 @@ public class IMCREOScriptParserParser extends Parser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:6: ( 'mer_rep' identification2 (s1= stoch s2= stoch )? | 'mer_xor' identification2 (s1= stoch s2= stoch )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:114:6: ( 'mer_rep' identification2 (s1= stoch s2= stoch )? | 'mer_xor' identification2 (s1= stoch s2= stoch )? )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -537,7 +541,7 @@ public class IMCREOScriptParserParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:8: 'mer_rep' identification2 (s1= stoch s2= stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:114:8: 'mer_rep' identification2 (s1= stoch s2= stoch )?
                     {
                     match(input,16,FOLLOW_16_in_node211); 
                     pushFollow(FOLLOW_identification2_in_node213);
@@ -545,7 +549,7 @@ public class IMCREOScriptParserParser extends Parser {
 
                     state._fsp--;
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:34: (s1= stoch s2= stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:114:34: (s1= stoch s2= stoch )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -554,7 +558,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:35: s1= stoch s2= stoch
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:114:35: s1= stoch s2= stoch
                             {
                             pushFollow(FOLLOW_stoch_in_node218);
                             s1=stoch();
@@ -586,7 +590,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:121:4: 'mer_xor' identification2 (s1= stoch s2= stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:125:4: 'mer_xor' identification2 (s1= stoch s2= stoch )?
                     {
                     match(input,17,FOLLOW_17_in_node232); 
                     pushFollow(FOLLOW_identification2_in_node234);
@@ -594,7 +598,7 @@ public class IMCREOScriptParserParser extends Parser {
 
                     state._fsp--;
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:121:30: (s1= stoch s2= stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:125:30: (s1= stoch s2= stoch )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -603,7 +607,7 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     switch (alt6) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:121:31: s1= stoch s2= stoch
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:125:31: s1= stoch s2= stoch
                             {
                             pushFollow(FOLLOW_stoch_in_node239);
                             s1=stoch();
@@ -653,7 +657,7 @@ public class IMCREOScriptParserParser extends Parser {
     };
 
     // $ANTLR start "identification2"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:136:1: identification2 returns [LinkedHashSet<String> ins, LinkedHashSet<String> outs] : '[' (i1= ID )+ ']' '[' (i2= ID )+ ']' ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:140:1: identification2 returns [LinkedHashSet<String> ins, LinkedHashSet<String> outs] : '[' (i1= ID )+ ']' '[' (i2= ID )+ ']' ;
     public final IMCREOScriptParserParser.identification2_return identification2() throws RecognitionException {
         IMCREOScriptParserParser.identification2_return retval = new IMCREOScriptParserParser.identification2_return();
         retval.start = input.LT(1);
@@ -666,11 +670,11 @@ public class IMCREOScriptParserParser extends Parser {
         	LinkedHashSet<String> _outs = new LinkedHashSet<String>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:2: ( '[' (i1= ID )+ ']' '[' (i2= ID )+ ']' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:4: '[' (i1= ID )+ ']' '[' (i2= ID )+ ']'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:145:2: ( '[' (i1= ID )+ ']' '[' (i2= ID )+ ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:145:4: '[' (i1= ID )+ ']' '[' (i2= ID )+ ']'
             {
             match(input,18,FOLLOW_18_in_identification2270); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:8: (i1= ID )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:145:8: (i1= ID )+
             int cnt8=0;
             loop8:
             do {
@@ -684,7 +688,7 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:10: i1= ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:145:10: i1= ID
             	    {
             	    i1=(Token)match(input,ID,FOLLOW_ID_in_identification2276); 
             	     _ins.add((i1!=null?i1.getText():null)) ;
@@ -703,7 +707,7 @@ public class IMCREOScriptParserParser extends Parser {
 
             match(input,19,FOLLOW_19_in_identification2283); 
             match(input,18,FOLLOW_18_in_identification2288); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:142:7: (i2= ID )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:146:7: (i2= ID )+
             int cnt9=0;
             loop9:
             do {
@@ -717,7 +721,7 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:142:9: i2= ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:146:9: i2= ID
             	    {
             	    i2=(Token)match(input,ID,FOLLOW_ID_in_identification2294); 
             	     _outs.add((i2!=null?i2.getText():null)); 
@@ -757,7 +761,7 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "environment"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:149:1: environment : 'env' ID stoch ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:153:1: environment : 'env' ID stoch ;
     public final void environment() throws RecognitionException {
         Token ID11=null;
         IMCREOScriptParserParser.stoch_return stoch12 = null;
@@ -767,8 +771,8 @@ public class IMCREOScriptParserParser extends Parser {
         	ArrayList<String> args = new ArrayList<String>();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:153:2: ( 'env' ID stoch )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:153:4: 'env' ID stoch
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:157:2: ( 'env' ID stoch )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:157:4: 'env' ID stoch
             {
             match(input,20,FOLLOW_20_in_environment321); 
             ID11=(Token)match(input,ID,FOLLOW_ID_in_environment323); 
@@ -780,7 +784,7 @@ public class IMCREOScriptParserParser extends Parser {
 
             		args.add((ID11!=null?ID11.getText():null));
             		args.add((stoch12!=null?stoch12.rate:null));
-            		this.composer.getElements().add(this.element2IMC("env_", args));
+            		this.composer.getEnvironments().add(this.element2IMC("environment_", args));
             	
 
             }
