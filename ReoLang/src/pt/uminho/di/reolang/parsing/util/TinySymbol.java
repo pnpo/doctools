@@ -44,6 +44,17 @@ public class TinySymbol {
 
 
 
+	public TinySymbol(TinySymbol s) {
+		this.id = s.getId();
+		this.datatype = s.getDataType();
+		this.classType = s.getClassType();
+		this.line = s.getLine();
+		this.position = s.getPosition();
+		this.scopes = new ArrayList<TinySymbolsTable>(s.getScopes());
+	}
+
+
+
 	public String getId() {
 		return id;
 	}

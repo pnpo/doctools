@@ -1,4 +1,5 @@
-reconfiguration bla (Node x; Name y) {
+reconfiguration bla (Node x; 
+Name y) {
 	Pattern g;
 	@ id ();
 }
@@ -6,13 +7,13 @@ reconfiguration bla (Node x; Name y) {
 reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 	@ par ();
 	@ id ();
-	Name ab;
-	@ bla ();
+	Name bla;
+	@ bla (ab,p);
 	forall(Pair<Node> n : X) {
 		Node n1,n2; 
 		Node n1;
 		nn1 = x.fst; 
-		n2 = n2.snd; 
+		n2 = n1.snd; 
 		
 		Set<Node> E = S(n1, n2);
 		@ join(E);

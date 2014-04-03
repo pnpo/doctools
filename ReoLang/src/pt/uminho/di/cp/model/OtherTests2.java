@@ -76,7 +76,7 @@ public class OtherTests2 {
 		
 		System.out.println("INIT------------------");
 		System.out.println(p);
-		System.out.println(p.intoIMCScript());
+//		System.out.println(p.intoIMCScript());
 		
 		
 		Id id = new Id();
@@ -135,7 +135,8 @@ public class OtherTests2 {
 		n.add(d);
 		n.add(e);
 		n.add(g);
-		Join join = new Join(n);
+		Join join;
+		join= new Join(n);
 		p = join.apply(p);
 		System.out.println("JOIN------------------");
 		System.out.println(p);
