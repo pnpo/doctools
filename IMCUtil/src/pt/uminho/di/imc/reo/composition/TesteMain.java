@@ -184,8 +184,8 @@ public class TesteMain {
 		
 		IMCREOimc imc1 = ReoMAParserFrontEnd.parse(Library.sync_("s1", "a", "b", "1.0"), false);
 		IMCREOimc imc2 = ReoMAParserFrontEnd.parse(Library.lossy_("l1", "b", "c", "2.0", "4.0"), false);
-		IMCREOimc env_a = ReoMAParserFrontEnd.parse(Library.environment_("Ea", "a", "3.0"), false);
-		IMCREOimc env_b = ReoMAParserFrontEnd.parse(Library.environment_("Ec", "c", "4.0"), false);
+		IMCREOimc env_a = ReoMAParserFrontEnd.parse(Library.environment_("a", "3.0"), false);
+		IMCREOimc env_b = ReoMAParserFrontEnd.parse(Library.environment_("c", "4.0"), false);
 		//IMCREOimc imc3 = ReoMAParserFrontEnd.parse(Library.sync_("l1", "c", "d", "4.0"), false);
 		LinkedHashSet<String> mixed = new LinkedHashSet<String>();
 		mixed.add("b");
@@ -198,7 +198,7 @@ public class TesteMain {
 //		Composer cs = sp.parser();
 		
 		
-		IMCREOimc res = imc2.compose(imc1).pruneIMCREO(mixed, false).fix_environment(envs, mixed);
+		IMCREOimc res = imc2.compose(imc1).pruneIMCREO(mixed/*, false*/).fix_environment(envs, mixed);
 		
 //		IMCREOimc res = cs.intelligentCompose(false, "", "", "", "");
 		//res.hide(cs.getMixed_ports());

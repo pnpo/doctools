@@ -7,8 +7,6 @@ import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 
-
-import pt.uminho.di.imc.reo.imc.IMCREOState;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
 
 public class ReoMAParserFrontEnd {
@@ -33,8 +31,5 @@ public class ReoMAParserFrontEnd {
 		 return imc1;
 		 
 	  }
-	  
-	  
-	  
-
+	
 }
