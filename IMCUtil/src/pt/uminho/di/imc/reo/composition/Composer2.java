@@ -32,6 +32,43 @@ public class Composer2 {
 	
 	
 	
+	
+	
+	
+	
+	
+	/**
+	 * @return the elements
+	 */
+	public LinkedList<IMCREOimc> getElements() {
+		return elements;
+	}
+
+
+	/**
+	 * @param elements the elements to set
+	 */
+	public void setElements(LinkedList<IMCREOimc> elements) {
+		this.elements = elements;
+	}
+
+
+	/**
+	 * @return the environments
+	 */
+	public LinkedList<IMCREOimc> getEnvironments() {
+		return environments;
+	}
+
+
+	/**
+	 * @param environments the environments to set
+	 */
+	public void setEnvironments(LinkedList<IMCREOimc> environments) {
+		this.environments = environments;
+	}
+
+
 	public IMCREOimc compose() {
 		
 		IMCREOimc composite = null;

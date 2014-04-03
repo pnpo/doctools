@@ -296,13 +296,13 @@ public final class Library {
 			double time_to_read, 
 			double time_to_write, 
 			Set<String> ins, 
-			Set<String> outs) throws IMCREOBadNodeException
+			Set<String> outs) //throws IMCREOBadNodeException
 	{
 		IMCREOimc mr = new IMCREOimc(); 
 
-		if(ins.isEmpty() || outs.isEmpty()){
-			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
-		}
+//		if(ins.isEmpty() || outs.isEmpty()){
+//			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
+//		}
 		
 		//create initial state and add to the chain
 		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
@@ -372,13 +372,13 @@ public final class Library {
 	 */
 	public static IMCREOimc merger_replicator(
 			Set<String> ins, 
-			Set<String> outs) throws IMCREOBadNodeException
+			Set<String> outs) //throws IMCREOBadNodeException
 	{
 		IMCREOimc mr = new IMCREOimc(); 
 
-		if(ins.isEmpty() || outs.isEmpty()){
-			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
-		}
+//		if(ins.isEmpty() || outs.isEmpty()){
+//			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
+//		}
 		
 		//create initial state and add to the chain
 		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
@@ -446,18 +446,18 @@ public final class Library {
 			double time_to_read, 
 			double time_to_write, 
 			Set<String> ins, 
-			Set<String> outs) throws IMCREOBadNodeException
+			Set<String> outs) //throws IMCREOBadNodeException
 	{
 		IMCREOimc mr = new IMCREOimc(); 
 
-		if(ins.isEmpty() || outs.isEmpty()){
-			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
-		}
-		else {
-			if(outs.size() < 2) {
-				throw new IMCREOBadNodeException("The number of output ports of the node should be 2 or more!");
-			}
-		}
+//		if(ins.isEmpty() || outs.isEmpty()){
+//			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
+//		}
+//		else {
+//			if(outs.size() < 2) {
+//				throw new IMCREOBadNodeException("The number of output ports of the node should be 2 or more!");
+//			}
+//		}
 		
 		//create initial state and add to the chain
 		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
@@ -489,12 +489,12 @@ public final class Library {
 				mr.getChain().put(write_state, new LinkedList<IMCREOTransition>());
 				
 				//create markovian transition and add to the chain (read_state - m_tr - write_state)
-				String label_read = formatMarkovianLabel(actions, id, IMCREOMarkovianTransitionSort.READ, "MXR");
+				String label_read = formatMarkovianLabel(actions, id, IMCREOMarkovianTransitionSort.READ, "MXOR");
 				IMCREOMarkovianTransition m_tr_rd = new IMCREOMarkovianTransition(write_state, time_to_read, label_read);
 				mr.getChain().get(read_state).add(m_tr_rd);
 				
 				//create markovian transition and add to the chain (write_state - m_tr - initial)
-				String label_write = formatMarkovianLabel(out_end, id, IMCREOMarkovianTransitionSort.WRITE, "MXR");
+				String label_write = formatMarkovianLabel(out_end, id, IMCREOMarkovianTransitionSort.WRITE, "MXOR");
 				IMCREOMarkovianTransition m_tr_wr = new IMCREOMarkovianTransition(initial, time_to_write, label_write);
 				mr.getChain().get(write_state).add(m_tr_wr);
 			}
@@ -538,18 +538,18 @@ public final class Library {
 	 */
 	public static IMCREOimc merger_router(
 			Set<String> ins, 
-			Set<String> outs) throws IMCREOBadNodeException
+			Set<String> outs) //throws IMCREOBadNodeException
 	{
 		IMCREOimc mr = new IMCREOimc(); 
 
-		if(ins.isEmpty() || outs.isEmpty()){
-			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
-		}
-		else {
-			if(outs.size() < 2) {
-				throw new IMCREOBadNodeException("The number of output ports of the node should be 2 or more!");
-			}
-		}
+//		if(ins.isEmpty() || outs.isEmpty()){
+//			throw new IMCREOBadNodeException("The input/output ports of the node should not be empty!");
+//		}
+//		else {
+//			if(outs.size() < 2) {
+//				throw new IMCREOBadNodeException("The number of output ports of the node should be 2 or more!");
+//			}
+//		}
 		
 		//create initial state and add to the chain
 		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());

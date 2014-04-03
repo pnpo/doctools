@@ -8,13 +8,18 @@ grammar IMCREOScriptParser;
 @header{
 	package pt.uminho.di.imc.reo.parsing;
 	import pt.uminho.di.imc.reo.composition.*;
+	import pt.uminho.di.imc.reo.imc.*;
+	import java.lang.reflect.*;
+	import java.util.LinkedHashSet;
 }
 
 
 @members{
 	private Composer2 composer;
 	
-	private IMCREOimc element2IMC(String method_name, Object[] args) {
+	private IMCREOimc element2IMC(String method_name, ArrayList<String> str_args) {
+		Object[] args = new Object[str_args.size()];
+		str_args.toArray(args);
 		IMCREOimc imc = null;
 		String class_name = "pt.uminho.di.imc.reo.composition.Library";
 		Class<?>[] arg_types = new Class[args.length];
@@ -54,57 +59,59 @@ element	:	channel
 	| 	node
 	;
 	
-channel	:	'sync_' identification[new Object[4]] stoch
+channel	:	'sync' identification[new ArrayList<String>()] stoch
 	{
-		$identification.args[3] = $stoch.rate;
-		this.composer.getElements().add(this.element2IMC('sync_', $identification.args));
+		$identification.args.add($stoch.rate);
+		this.composer.getElements().add(this.element2IMC("sync_", $identification.args));
 	}
-	|	'drain_' identification[new Object[4]] stoch
+	|	'drain' identification[new ArrayList<String>()] stoch
 	{
-		$identification.args[3] = $stoch.rate;
-		this.composer.getElements().add(this.element2IMC('drain_', $identification.args));
+		$identification.args.add($stoch.rate);
+		this.composer.getElements().add(this.element2IMC("drain_", $identification.args));
 	}
-	|	'lossy_' identification[new Object[5]] s1=stoch s2=stoch
+	|	'lossy' identification[new ArrayList<String>()] s1=stoch s2=stoch
 	{
-		$identification.args[3] = $s1.rate;
-		$identification.args[4] = $s2.rate;
-		this.composer.getElements().add(this.element2IMC('lossy_', $identification.args));
+		$identification.args.add($s1.rate);
+		$identification.args.add($s2.rate);
+		this.composer.getElements().add(this.element2IMC("lossy_", $identification.args));
 	}
-	|	'fifo1e_' identification s1=stoch s2=stoch
+	|	'fifo1e' identification[new ArrayList<String>()] s1=stoch s2=stoch
 	{
-		$identification.args[3] = $s1.rate;
-		$identification.args[4] = $s2.rate;
-		this.composer.getElements().add(this.element2IMC('lossy_', $identification.args));
+		$identification.args.add($s1.rate);
+		$identification.args.add($s2.rate);
+		this.composer.getElements().add(this.element2IMC("fifo1e_", $identification.args));
 	}
-	|	'fifo1f_' identification s1=stoch s2=stoch
+	|	'fifo1f' identification[new ArrayList<String>()] s1=stoch s2=stoch
 	{
-		$identification.args[3] = $s1.rate;
-		$identification.args[4] = $s2.rate;
-		this.composer.getElements().add(this.element2IMC('lossy_', $identification.args));
+		$identification.args.add($s1.rate);
+		$identification.args.add($s2.rate);
+		this.composer.getElements().add(this.element2IMC("fifo1f_", $identification.args));
 	}
 	;
 	
-identification returns [Object[] args]
+identification [ArrayList<String> args_in] returns [ArrayList<String> args]
 	:	 id=ID p1=ID p2=ID
 	{
-		$identification.args[0] = $id.text;
-		$identification.args[1] = $p1.text;
-		$identification.args[2] = $p2.text;
+		$identification.args_in.add($id.text);
+		$identification.args_in.add($p1.text);
+		$identification.args_in.add($p2.text);
+		$identification.args = $identification.args_in;
 	}
 	;
 
-stoch 	returns [String rate]
+stoch 	returns [String rate, double d_rate]
 	:	 NUMBER 
 	{
-		$stoch.rate = NUMBER.text;
+		$stoch.rate = $NUMBER.text;
+		$stoch.d_rate = Double.parseDouble($NUMBER.text);
 	}
 	;
 	
 node	:	'mer_rep' identification2 (s1=stoch s2=stoch)?
 	{
 		IMCREOimc res = null;
-		if($s1.rate !=null){
-			res = Library.merger_replicator($identification2.ins, $identification2.outs, $s1.rate, $s2.rate);
+		if($s1.rate != null){
+			res = Library.merger_replicator($s1.d_rate, $s2.d_rate, $identification2.ins, $identification2.outs);
 		}
 		else {
 			res = Library.merger_replicator($identification2.ins, $identification2.outs);
@@ -115,7 +122,7 @@ node	:	'mer_rep' identification2 (s1=stoch s2=stoch)?
 	{
 		IMCREOimc res = null;
 		if($s1.rate !=null){
-			res = Library.merger_router($identification2.ins, $identification2.outs, $s1.rate, $s2.rate);
+			res = Library.merger_router($s1.d_rate, $s2.d_rate, $identification2.ins, $identification2.outs);
 		}
 		else {
 			res = Library.merger_router($identification2.ins, $identification2.outs);
@@ -128,15 +135,27 @@ node	:	'mer_rep' identification2 (s1=stoch s2=stoch)?
 
 identification2 returns [LinkedHashSet<String> ins, LinkedHashSet<String> outs]
 @init{
-	ins = new LinkedHashSet<String>();
-	outs = new LinkedHashSet<String>();
+	LinkedHashSet<String> _ins = new LinkedHashSet<String>();
+	LinkedHashSet<String> _outs = new LinkedHashSet<String>();
 }
-	:	'[' ID {($identification2.ins.add($ID.text)})+ ']' 
-		'[' ID {($identificaiton2.outs.add($ID.text))}+ ']'
+	:	'[' ( i1=ID { _ins.add($i1.text) ;} )+ ']' 
+		'[' ( i2=ID { _outs.add($i2.text); } )+ ']'
+	{
+		$identification2.ins = _ins;
+		$identification2.outs = _outs;
+	}
 	;
 	
 environment 
+@init{
+	ArrayList<String> args = new ArrayList<String>();
+}
 	:	'env' ID stoch
+	{
+		args.add($ID.text);
+		args.add($stoch.rate);
+		this.composer.getElements().add(this.element2IMC("env_", args));
+	}
 	;
 	
 

@@ -19,13 +19,13 @@ public class TesteNodes {
 		ins.add("b1");
 		ins.add("b2");
 		//ins.add("b5");
-		try{
+//		try{
 			IMCREOimc test  = Library.merger_replicator(ins, outs);
 			System.out.println(test.toString());
-		}
-		catch(IMCREOBadNodeException e) {
-			e.printStackTrace();
-		}
+//		}
+//		catch(IMCREOBadNodeException e) {
+//			e.printStackTrace();
+//		}
 		
 		
 		

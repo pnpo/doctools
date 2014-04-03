@@ -1,10 +1,10 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g 2014-04-02 12:38:07
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g 2014-04-03 10:13:56
 
 	package pt.uminho.di.imc.reo.parsing;
+	import pt.uminho.di.imc.reo.composition.*;
 	import pt.uminho.di.imc.reo.imc.*;
-	import pt.uminho.di.imc.util.Pair;
+	import java.lang.reflect.*;
 	import java.util.LinkedHashSet;
-	import java.util.LinkedList;
 
 
 import org.antlr.runtime.*;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class IMCREOScriptParserParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "NUMBER", "FLOAT", "LABEL", "EXPONENT", "COMMENT", "WS", "'sync_'", "'drain_'", "'lossy_'", "'fifo1e_'", "'fifo1f_'", "'mer_rep'", "'mer_xor'", "'['", "']'", "'env'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ID", "NUMBER", "FLOAT", "LABEL", "EXPONENT", "COMMENT", "WS", "'sync'", "'drain'", "'lossy'", "'fifo1e'", "'fifo1f'", "'mer_rep'", "'mer_xor'", "'['", "']'", "'env'"
     };
     public static final int EXPONENT=8;
     public static final int T__20=20;
@@ -52,17 +52,50 @@ public class IMCREOScriptParserParser extends Parser {
     public String getGrammarFileName() { return "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g"; }
 
 
+    	private Composer2 composer;
+    	
+    	private IMCREOimc element2IMC(String method_name, ArrayList<String> str_args) {
+    		Object[] args = new Object[str_args.size()];
+    		str_args.toArray(args);
+    		IMCREOimc imc = null;
+    		String class_name = "pt.uminho.di.imc.reo.composition.Library";
+    		Class<?>[] arg_types = new Class[args.length];
+    			
+    		//define the type of each argument (all of them are strings)
+    		for(int i = 0 ; i < arg_types.length ; i ++) {   
+    			arg_types[i] = String.class ;
+    		}
+    		//invoke the method dynamically and store the result in the
+    		//structure_to_text map
+    		try {
+    			Class<?> cls = Class.forName(class_name);
+    			Method mthd = cls.getMethod(method_name, arg_types);
+    			String res = (String) mthd.invoke(null, args);
+    			
+    			imc = ReoMAParserFrontEnd.parse(res, false);					
+    		}
+    		catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		finally{
+    			return imc;
+    		}
+    	}
+    	
 
 
 
     // $ANTLR start "script"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:21:1: script : ( element )+ ( environment )+ ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:51:1: script : ( element )+ ( environment )+ ;
     public final void script() throws RecognitionException {
+
+        	composer = new Composer2();
+
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:22:2: ( ( element )+ ( environment )+ )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:22:4: ( element )+ ( environment )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:2: ( ( element )+ ( environment )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:4: ( element )+ ( environment )+
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:22:4: ( element )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:4: ( element )+
             int cnt1=0;
             loop1:
             do {
@@ -76,9 +109,9 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:22:4: element
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:4: element
             	    {
-            	    pushFollow(FOLLOW_element_in_script34);
+            	    pushFollow(FOLLOW_element_in_script37);
             	    element();
 
             	    state._fsp--;
@@ -96,7 +129,7 @@ public class IMCREOScriptParserParser extends Parser {
                 cnt1++;
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:22:13: ( environment )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:13: ( environment )+
             int cnt2=0;
             loop2:
             do {
@@ -110,9 +143,9 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:22:13: environment
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:55:13: environment
             	    {
-            	    pushFollow(FOLLOW_environment_in_script37);
+            	    pushFollow(FOLLOW_environment_in_script40);
             	    environment();
 
             	    state._fsp--;
@@ -146,10 +179,10 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "element"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:25:1: element : ( channel | node );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:58:1: element : ( channel | node );
     public final void element() throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:25:9: ( channel | node )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:58:9: ( channel | node )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -167,9 +200,9 @@ public class IMCREOScriptParserParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:25:11: channel
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:58:11: channel
                     {
-                    pushFollow(FOLLOW_channel_in_element48);
+                    pushFollow(FOLLOW_channel_in_element51);
                     channel();
 
                     state._fsp--;
@@ -178,9 +211,9 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:26:5: node
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:59:5: node
                     {
-                    pushFollow(FOLLOW_node_in_element55);
+                    pushFollow(FOLLOW_node_in_element58);
                     node();
 
                     state._fsp--;
@@ -203,10 +236,29 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "channel"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:29:1: channel : ( 'sync_' identification stoch | 'drain_' identification stoch | 'lossy_' identification stoch stoch | 'fifo1e_' identification stoch stoch | 'fifo1f_' identification stoch stoch );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:1: channel : ( 'sync' identification[new ArrayList<String>()] stoch | 'drain' identification[new ArrayList<String>()] stoch | 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch );
     public final void channel() throws RecognitionException {
+        IMCREOScriptParserParser.stoch_return s1 = null;
+
+        IMCREOScriptParserParser.stoch_return s2 = null;
+
+        ArrayList<String> identification1 = null;
+
+        IMCREOScriptParserParser.stoch_return stoch2 = null;
+
+        ArrayList<String> identification3 = null;
+
+        IMCREOScriptParserParser.stoch_return stoch4 = null;
+
+        ArrayList<String> identification5 = null;
+
+        ArrayList<String> identification6 = null;
+
+        ArrayList<String> identification7 = null;
+
+
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:29:9: ( 'sync_' identification stoch | 'drain_' identification stoch | 'lossy_' identification stoch stoch | 'fifo1e_' identification stoch stoch | 'fifo1f_' identification stoch stoch )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:9: ( 'sync' identification[new ArrayList<String>()] stoch | 'drain' identification[new ArrayList<String>()] stoch | 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch | 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch )
             int alt4=5;
             switch ( input.LA(1) ) {
             case 11:
@@ -243,102 +295,125 @@ public class IMCREOScriptParserParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:29:11: 'sync_' identification stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:62:11: 'sync' identification[new ArrayList<String>()] stoch
                     {
-                    match(input,11,FOLLOW_11_in_channel66); 
-                    pushFollow(FOLLOW_identification_in_channel68);
-                    identification();
+                    match(input,11,FOLLOW_11_in_channel69); 
+                    pushFollow(FOLLOW_identification_in_channel71);
+                    identification1=identification(new ArrayList<String>());
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel70);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel74);
+                    stoch2=stoch();
 
                     state._fsp--;
 
+
+                    		identification1.add((stoch2!=null?stoch2.rate:null));
+                    		this.composer.getElements().add(this.element2IMC("sync_", identification1));
+                    	
 
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:30:4: 'drain_' identification stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:67:4: 'drain' identification[new ArrayList<String>()] stoch
                     {
-                    match(input,12,FOLLOW_12_in_channel75); 
-                    pushFollow(FOLLOW_identification_in_channel77);
-                    identification();
+                    match(input,12,FOLLOW_12_in_channel82); 
+                    pushFollow(FOLLOW_identification_in_channel84);
+                    identification3=identification(new ArrayList<String>());
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel79);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel87);
+                    stoch4=stoch();
 
                     state._fsp--;
 
+
+                    		identification3.add((stoch4!=null?stoch4.rate:null));
+                    		this.composer.getElements().add(this.element2IMC("drain_", identification3));
+                    	
 
                     }
                     break;
                 case 3 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:31:4: 'lossy_' identification stoch stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:72:4: 'lossy' identification[new ArrayList<String>()] s1= stoch s2= stoch
                     {
-                    match(input,13,FOLLOW_13_in_channel84); 
-                    pushFollow(FOLLOW_identification_in_channel86);
-                    identification();
+                    match(input,13,FOLLOW_13_in_channel95); 
+                    pushFollow(FOLLOW_identification_in_channel97);
+                    identification5=identification(new ArrayList<String>());
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel88);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel102);
+                    s1=stoch();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel90);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel106);
+                    s2=stoch();
 
                     state._fsp--;
 
+
+                    		identification5.add((s1!=null?s1.rate:null));
+                    		identification5.add((s2!=null?s2.rate:null));
+                    		this.composer.getElements().add(this.element2IMC("lossy_", identification5));
+                    	
 
                     }
                     break;
                 case 4 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:32:4: 'fifo1e_' identification stoch stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:78:4: 'fifo1e' identification[new ArrayList<String>()] s1= stoch s2= stoch
                     {
-                    match(input,14,FOLLOW_14_in_channel95); 
-                    pushFollow(FOLLOW_identification_in_channel97);
-                    identification();
+                    match(input,14,FOLLOW_14_in_channel114); 
+                    pushFollow(FOLLOW_identification_in_channel116);
+                    identification6=identification(new ArrayList<String>());
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel99);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel121);
+                    s1=stoch();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel101);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel125);
+                    s2=stoch();
 
                     state._fsp--;
 
+
+                    		identification6.add((s1!=null?s1.rate:null));
+                    		identification6.add((s2!=null?s2.rate:null));
+                    		this.composer.getElements().add(this.element2IMC("fifo1e_", identification6));
+                    	
 
                     }
                     break;
                 case 5 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:33:4: 'fifo1f_' identification stoch stoch
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:84:4: 'fifo1f' identification[new ArrayList<String>()] s1= stoch s2= stoch
                     {
-                    match(input,15,FOLLOW_15_in_channel106); 
-                    pushFollow(FOLLOW_identification_in_channel108);
-                    identification();
+                    match(input,15,FOLLOW_15_in_channel133); 
+                    pushFollow(FOLLOW_identification_in_channel135);
+                    identification7=identification(new ArrayList<String>());
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel110);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel140);
+                    s1=stoch();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_stoch_in_channel112);
-                    stoch();
+                    pushFollow(FOLLOW_stoch_in_channel144);
+                    s2=stoch();
 
                     state._fsp--;
 
+
+                    		identification7.add((s1!=null?s1.rate:null));
+                    		identification7.add((s2!=null?s2.rate:null));
+                    		this.composer.getElements().add(this.element2IMC("fifo1f_", identification7));
+                    	
 
                     }
                     break;
@@ -357,19 +432,27 @@ public class IMCREOScriptParserParser extends Parser {
 
 
     // $ANTLR start "identification"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:36:1: identification : id= ID p1= ID p2= ID ;
-    public final void identification() throws RecognitionException {
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:92:1: identification[ArrayList<String> args_in] returns [ArrayList<String> args] : id= ID p1= ID p2= ID ;
+    public final ArrayList<String> identification(ArrayList<String> args_in) throws RecognitionException {
+        ArrayList<String> args = null;
+
         Token id=null;
         Token p1=null;
         Token p2=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:37:2: (id= ID p1= ID p2= ID )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:37:5: id= ID p1= ID p2= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:93:2: (id= ID p1= ID p2= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:93:5: id= ID p1= ID p2= ID
             {
-            id=(Token)match(input,ID,FOLLOW_ID_in_identification127); 
-            p1=(Token)match(input,ID,FOLLOW_ID_in_identification131); 
-            p2=(Token)match(input,ID,FOLLOW_ID_in_identification135); 
+            id=(Token)match(input,ID,FOLLOW_ID_in_identification168); 
+            p1=(Token)match(input,ID,FOLLOW_ID_in_identification172); 
+            p2=(Token)match(input,ID,FOLLOW_ID_in_identification176); 
+
+            		args_in.add((id!=null?id.getText():null));
+            		args_in.add((p1!=null?p1.getText():null));
+            		args_in.add((p2!=null?p2.getText():null));
+            		args = args_in;
+            	
 
             }
 
@@ -380,21 +463,36 @@ public class IMCREOScriptParserParser extends Parser {
         }
         finally {
         }
-        return ;
+        return args;
     }
     // $ANTLR end "identification"
 
+    public static class stoch_return extends ParserRuleReturnScope {
+        public String rate;
+        public double d_rate;
+    };
 
     // $ANTLR start "stoch"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:40:1: stoch : NUMBER ;
-    public final void stoch() throws RecognitionException {
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:102:1: stoch returns [String rate, double d_rate] : NUMBER ;
+    public final IMCREOScriptParserParser.stoch_return stoch() throws RecognitionException {
+        IMCREOScriptParserParser.stoch_return retval = new IMCREOScriptParserParser.stoch_return();
+        retval.start = input.LT(1);
+
+        Token NUMBER8=null;
+
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:40:8: ( NUMBER )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:40:11: NUMBER
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:103:2: ( NUMBER )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:103:5: NUMBER
             {
-            match(input,NUMBER,FOLLOW_NUMBER_in_stoch147); 
+            NUMBER8=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_stoch196); 
+
+            		retval.rate = (NUMBER8!=null?NUMBER8.getText():null);
+            		retval.d_rate = Double.parseDouble((NUMBER8!=null?NUMBER8.getText():null));
+            	
 
             }
+
+            retval.stop = input.LT(-1);
 
         }
         catch (RecognitionException re) {
@@ -403,16 +501,25 @@ public class IMCREOScriptParserParser extends Parser {
         }
         finally {
         }
-        return ;
+        return retval;
     }
     // $ANTLR end "stoch"
 
 
     // $ANTLR start "node"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:43:1: node : ( 'mer_rep' identification2 ( stoch stoch )? | 'mer_xor' identification2 ( stoch stoch )? );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:1: node : ( 'mer_rep' identification2 (s1= stoch s2= stoch )? | 'mer_xor' identification2 (s1= stoch s2= stoch )? );
     public final void node() throws RecognitionException {
+        IMCREOScriptParserParser.stoch_return s1 = null;
+
+        IMCREOScriptParserParser.stoch_return s2 = null;
+
+        IMCREOScriptParserParser.identification2_return identification29 = null;
+
+        IMCREOScriptParserParser.identification2_return identification210 = null;
+
+
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:43:6: ( 'mer_rep' identification2 ( stoch stoch )? | 'mer_xor' identification2 ( stoch stoch )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:6: ( 'mer_rep' identification2 (s1= stoch s2= stoch )? | 'mer_xor' identification2 (s1= stoch s2= stoch )? )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -430,15 +537,15 @@ public class IMCREOScriptParserParser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:43:8: 'mer_rep' identification2 ( stoch stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:8: 'mer_rep' identification2 (s1= stoch s2= stoch )?
                     {
-                    match(input,16,FOLLOW_16_in_node158); 
-                    pushFollow(FOLLOW_identification2_in_node160);
-                    identification2();
+                    match(input,16,FOLLOW_16_in_node211); 
+                    pushFollow(FOLLOW_identification2_in_node213);
+                    identification29=identification2();
 
                     state._fsp--;
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:43:34: ( stoch stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:34: (s1= stoch s2= stoch )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -447,15 +554,15 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:43:35: stoch stoch
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:110:35: s1= stoch s2= stoch
                             {
-                            pushFollow(FOLLOW_stoch_in_node163);
-                            stoch();
+                            pushFollow(FOLLOW_stoch_in_node218);
+                            s1=stoch();
 
                             state._fsp--;
 
-                            pushFollow(FOLLOW_stoch_in_node165);
-                            stoch();
+                            pushFollow(FOLLOW_stoch_in_node222);
+                            s2=stoch();
 
                             state._fsp--;
 
@@ -466,18 +573,28 @@ public class IMCREOScriptParserParser extends Parser {
                     }
 
 
+                    		IMCREOimc res = null;
+                    		if((s1!=null?s1.rate:null) != null){
+                    			res = Library.merger_replicator((s1!=null?s1.d_rate:0.0), (s2!=null?s2.d_rate:0.0), (identification29!=null?identification29.ins:null), (identification29!=null?identification29.outs:null));
+                    		}
+                    		else {
+                    			res = Library.merger_replicator((identification29!=null?identification29.ins:null), (identification29!=null?identification29.outs:null));
+                    		}
+                    		this.composer.getElements().add(res);
+                    	
+
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:44:4: 'mer_xor' identification2 ( stoch stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:121:4: 'mer_xor' identification2 (s1= stoch s2= stoch )?
                     {
-                    match(input,17,FOLLOW_17_in_node172); 
-                    pushFollow(FOLLOW_identification2_in_node174);
-                    identification2();
+                    match(input,17,FOLLOW_17_in_node232); 
+                    pushFollow(FOLLOW_identification2_in_node234);
+                    identification210=identification2();
 
                     state._fsp--;
 
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:44:30: ( stoch stoch )?
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:121:30: (s1= stoch s2= stoch )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -486,15 +603,15 @@ public class IMCREOScriptParserParser extends Parser {
                     }
                     switch (alt6) {
                         case 1 :
-                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:44:31: stoch stoch
+                            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:121:31: s1= stoch s2= stoch
                             {
-                            pushFollow(FOLLOW_stoch_in_node177);
-                            stoch();
+                            pushFollow(FOLLOW_stoch_in_node239);
+                            s1=stoch();
 
                             state._fsp--;
 
-                            pushFollow(FOLLOW_stoch_in_node179);
-                            stoch();
+                            pushFollow(FOLLOW_stoch_in_node243);
+                            s2=stoch();
 
                             state._fsp--;
 
@@ -504,6 +621,16 @@ public class IMCREOScriptParserParser extends Parser {
 
                     }
 
+
+                    		IMCREOimc res = null;
+                    		if((s1!=null?s1.rate:null) !=null){
+                    			res = Library.merger_router((s1!=null?s1.d_rate:0.0), (s2!=null?s2.d_rate:0.0), (identification210!=null?identification210.ins:null), (identification210!=null?identification210.outs:null));
+                    		}
+                    		else {
+                    			res = Library.merger_router((identification210!=null?identification210.ins:null), (identification210!=null?identification210.outs:null));
+                    		}
+                    		this.composer.getElements().add(res);
+                    	
 
                     }
                     break;
@@ -520,16 +647,30 @@ public class IMCREOScriptParserParser extends Parser {
     }
     // $ANTLR end "node"
 
+    public static class identification2_return extends ParserRuleReturnScope {
+        public LinkedHashSet<String> ins;
+        public LinkedHashSet<String> outs;
+    };
 
     // $ANTLR start "identification2"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:47:1: identification2 : '[' ( ID )+ ']' '[' ( ID )+ ']' ;
-    public final void identification2() throws RecognitionException {
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:136:1: identification2 returns [LinkedHashSet<String> ins, LinkedHashSet<String> outs] : '[' (i1= ID )+ ']' '[' (i2= ID )+ ']' ;
+    public final IMCREOScriptParserParser.identification2_return identification2() throws RecognitionException {
+        IMCREOScriptParserParser.identification2_return retval = new IMCREOScriptParserParser.identification2_return();
+        retval.start = input.LT(1);
+
+        Token i1=null;
+        Token i2=null;
+
+
+        	LinkedHashSet<String> _ins = new LinkedHashSet<String>();
+        	LinkedHashSet<String> _outs = new LinkedHashSet<String>();
+
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:48:2: ( '[' ( ID )+ ']' '[' ( ID )+ ']' )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:48:4: '[' ( ID )+ ']' '[' ( ID )+ ']'
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:2: ( '[' (i1= ID )+ ']' '[' (i2= ID )+ ']' )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:4: '[' (i1= ID )+ ']' '[' (i2= ID )+ ']'
             {
-            match(input,18,FOLLOW_18_in_identification2193); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:48:8: ( ID )+
+            match(input,18,FOLLOW_18_in_identification2270); 
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:8: (i1= ID )+
             int cnt8=0;
             loop8:
             do {
@@ -543,9 +684,10 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:48:8: ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:141:10: i1= ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_identification2195); 
+            	    i1=(Token)match(input,ID,FOLLOW_ID_in_identification2276); 
+            	     _ins.add((i1!=null?i1.getText():null)) ;
 
             	    }
             	    break;
@@ -559,9 +701,9 @@ public class IMCREOScriptParserParser extends Parser {
                 cnt8++;
             } while (true);
 
-            match(input,19,FOLLOW_19_in_identification2197); 
-            match(input,18,FOLLOW_18_in_identification2199); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:48:19: ( ID )+
+            match(input,19,FOLLOW_19_in_identification2283); 
+            match(input,18,FOLLOW_18_in_identification2288); 
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:142:7: (i2= ID )+
             int cnt9=0;
             loop9:
             do {
@@ -575,9 +717,10 @@ public class IMCREOScriptParserParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:48:19: ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:142:9: i2= ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_identification2201); 
+            	    i2=(Token)match(input,ID,FOLLOW_ID_in_identification2294); 
+            	     _outs.add((i2!=null?i2.getText():null)); 
 
             	    }
             	    break;
@@ -591,9 +734,15 @@ public class IMCREOScriptParserParser extends Parser {
                 cnt9++;
             } while (true);
 
-            match(input,19,FOLLOW_19_in_identification2203); 
+            match(input,19,FOLLOW_19_in_identification2301); 
+
+            		retval.ins = _ins;
+            		retval.outs = _outs;
+            	
 
             }
+
+            retval.stop = input.LT(-1);
 
         }
         catch (RecognitionException re) {
@@ -602,25 +751,37 @@ public class IMCREOScriptParserParser extends Parser {
         }
         finally {
         }
-        return ;
+        return retval;
     }
     // $ANTLR end "identification2"
 
 
     // $ANTLR start "environment"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:51:1: environment : 'env' ID stoch ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:149:1: environment : 'env' ID stoch ;
     public final void environment() throws RecognitionException {
+        Token ID11=null;
+        IMCREOScriptParserParser.stoch_return stoch12 = null;
+
+
+
+        	ArrayList<String> args = new ArrayList<String>();
+
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:52:2: ( 'env' ID stoch )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:52:4: 'env' ID stoch
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:153:2: ( 'env' ID stoch )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/IMCUtil/IMCSpecs/IMCREOScriptParser.g:153:4: 'env' ID stoch
             {
-            match(input,20,FOLLOW_20_in_environment216); 
-            match(input,ID,FOLLOW_ID_in_environment218); 
-            pushFollow(FOLLOW_stoch_in_environment220);
-            stoch();
+            match(input,20,FOLLOW_20_in_environment321); 
+            ID11=(Token)match(input,ID,FOLLOW_ID_in_environment323); 
+            pushFollow(FOLLOW_stoch_in_environment325);
+            stoch12=stoch();
 
             state._fsp--;
 
+
+            		args.add((ID11!=null?ID11.getText():null));
+            		args.add((stoch12!=null?stoch12.rate:null));
+            		this.composer.getElements().add(this.element2IMC("env_", args));
+            	
 
             }
 
@@ -640,48 +801,48 @@ public class IMCREOScriptParserParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_element_in_script34 = new BitSet(new long[]{0x000000000013F800L});
-    public static final BitSet FOLLOW_environment_in_script37 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_channel_in_element48 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_node_in_element55 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_channel66 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_identification_in_channel68 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel70 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_channel75 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_identification_in_channel77 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel79 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_channel84 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_identification_in_channel86 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel88 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel90 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_channel95 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_element_in_script37 = new BitSet(new long[]{0x000000000013F800L});
+    public static final BitSet FOLLOW_environment_in_script40 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_channel_in_element51 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_node_in_element58 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_11_in_channel69 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_identification_in_channel71 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel74 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_channel82 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_identification_in_channel84 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel87 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_channel95 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_identification_in_channel97 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel99 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_channel106 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_identification_in_channel108 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel110 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_channel112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_identification127 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_identification131 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_identification135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMBER_in_stoch147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_node158 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_identification2_in_node160 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_stoch_in_node163 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_node165 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_node172 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_identification2_in_node174 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_stoch_in_node177 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_node179 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_identification2193 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_identification2195 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_19_in_identification2197 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_identification2199 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_identification2201 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_19_in_identification2203 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_environment216 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ID_in_environment218 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_stoch_in_environment220 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_stoch_in_channel102 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_channel114 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_identification_in_channel116 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel121 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_channel133 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_identification_in_channel135 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel140 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_channel144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_identification168 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_identification172 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_identification176 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMBER_in_stoch196 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_node211 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_identification2_in_node213 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_stoch_in_node218 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_node222 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_node232 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_identification2_in_node234 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_stoch_in_node239 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_node243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_identification2270 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_identification2276 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_19_in_identification2283 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_identification2288 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_identification2294 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_19_in_identification2301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_environment321 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ID_in_environment323 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_stoch_in_environment325 = new BitSet(new long[]{0x0000000000000002L});
 
 }
