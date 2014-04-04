@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import pt.uminho.di.cp.reconfigurations.*;
+import pt.uminho.di.reolang.parsing.util.Pair;
 
 
 /**
@@ -153,6 +154,55 @@ public class OtherTests2 {
 		Remove remove = new Remove("s1");
 		p = remove.apply(p);
 		System.out.println("REMOVE------------------");
+		System.out.println(p);
+		
+		in = new LinkedHashSet<Node>();
+		Node k = new Node();
+		k.addEnd("k");
+		Node lm = new Node();
+		lm.addEnd("l");
+		lm.addEnd("m");
+		in.add(k);
+		in.add(lm);
+		//out = new LinkedHashSet<Node>();
+		//out.add(j);
+		CommunicationMean2 cm6 = new CommunicationMean2(); //"k", "d1", "drain", "l.m"
+		cm6.setId("d1");
+		cm6.setType("drain");
+		cm6.setInodes(in);
+		//cm6.setOnodes();
+		
+		in = new LinkedHashSet<Node>();
+		in.add(lm);
+		out = new LinkedHashSet<Node>();
+		Node o = new Node();
+		o.addEnd("o");
+		out.add(o);
+		CommunicationMean2 cm7 = new CommunicationMean2(); //"l.m", "s5", "sync", "o"
+		cm7.setId("s5");
+		cm7.setType("sync");
+		cm7.setInodes(in);
+		cm7.setOnodes(out);
+		
+		CoordinationPattern2 p3 = new CoordinationPattern2();
+		p3.setId("p3");
+		Set<CommunicationMean2> cms3 = new HashSet<CommunicationMean2>();
+		cms3.add(cm6); //drain
+		cms3.add(cm7);	//sync
+		p3.setPattern(cms3);
+		
+		System.out.println("CP TO OVERLAP------------------");
+		System.out.println(p3);
+		
+		Pair<Node,Node> pair = new Pair<Node,Node>();
+		pair.setFirst(f);
+		//pair.setSecond(lm);
+		pair.setSecond(k);
+		LinkedHashSet<Pair<Node,Node>> nodes = new LinkedHashSet<Pair<Node,Node>>();
+		nodes.add(pair);
+		OverlapP overlap = new OverlapP(p3, nodes);
+		p = overlap.apply(p);
+		System.out.println("OVERLAP------------------");
 		System.out.println(p);
 	}
 
