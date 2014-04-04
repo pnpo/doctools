@@ -133,6 +133,11 @@ scope{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$args_def::scope = $reconfiguration_def::scopes.get(0);
 	//$reclang::scope_id++;
+	TinySymbolsTable tst = new TinySymbolsTable($reclang::ids_table);
+	for (TinySymbol ts : tst.getSymbols().values()){
+		ts.getScopes().clear();
+		$args_def::scope.addSymbol(ts);
+	}
 }
 	: ^(ARGUMENTS (arg_def
 	{
@@ -187,6 +192,7 @@ list_ids returns[ArrayList<SimpleError> errors]
 }
 	: (ID
 	{
+		//if ($reclang::ids_table
 		if ($args_def::scope.containsSymbol($ID.text)){
 			TinySymbol ts = $args_def::scope.getSymbols().get($ID.text);
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
@@ -363,7 +369,7 @@ assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
 assignment_member returns[ArrayList<SimpleError> errors]
 	: expression 
 	{ 
-		System.out.println($expression.errors);
+		//System.out.println($expression.errors);
 		$assignment_member.errors = $expression.errors; 
 	}
 	| reconfiguration_apply { $assignment_member.errors = $reconfiguration_apply.errors; }
@@ -476,15 +482,14 @@ scope{
 				        		value = ts1.getPosition() - ts2.getPosition();
 				        	}
 				        	else{
-				    	        value = ts1.getLine() - ts2.getLine();
+				    	        	value = ts1.getLine() - ts2.getLine();
 				        	}
 						return value;
 				        }
 				});
 				 
-				for (TinySymbol symbol : symbols){
-					//if symbol is an argument, save it
-					if (ts.getLine() == symbol.getLine()){
+				for (TinySymbol symbol : symbols){		
+					if (symbol.getClassType().equals(Type.ARG)){
 						$reconfiguration_call::args.add(symbol);
 					}
 				}
@@ -733,8 +738,20 @@ operation returns[ArrayList<SimpleError> errors]
 	{
 	 	if (ts != null){
 			Type t = datatype.get(0);
-			if( $attribute_call.op.equals("snd") && (!t.equals(Type.PAIR) || !t.equals(Type.TRIPLE)) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, t.toString()), $id1.line, $id1.pos) );
+	 		if( ($attribute_call.op.equals("in") || $attribute_call.op.equals("out")) && !(t.equals(Type.PATTERN) || t.equals(Type.CHANNEL)) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern or Channel"), $id1.line, $id1.pos) );
+			}
+			if( ($attribute_call.op.equals("name") || $attribute_call.op.equals("ends")) && !t.equals(Type.CHANNEL) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Channel"), $id1.line, $id1.pos) );
+			}
+			if( ($attribute_call.op.equals("nodes") || $attribute_call.op.equals("names")) && !t.equals(Type.PATTERN) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern"), $id1.line, $id1.pos) );
+			}
+			if( ($attribute_call.op.equals("fst") || $attribute_call.op.equals("snd")) && !(t.equals(Type.PAIR) || t.equals(Type.TRIPLE)) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pair or Triple"), $id1.line, $id1.pos) );
+			}
+			if( $attribute_call.op.equals("trd") && !t.equals(Type.TRIPLE) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Triple"), $id1.line, $id1.pos) );
 			}
 		}
 		$operation.errors = local_errors;
@@ -757,17 +774,47 @@ constructor
 //	| ^(OP_TRD operation_args)
 //	;
 	
-attribute_call[List<Type> datatype] returns[String op]
-	: ^(OP_IN INT?) {$attribute_call.op = "in";}
-	| ^(OP_OUT INT?){$attribute_call.op = "out";}
-	| OP_NAME	{$attribute_call.op = "name";}
-	| OP_NODES	{$attribute_call.op = "nodes";}
-	| OP_NAMES	{$attribute_call.op = "names";}
-	| ^(OP_ENDS expression) 
-	| OP_FST	{$attribute_call.op = "fst";}//{ System.out.println(datatype); }
-	| OP_SND	{$attribute_call.op = "snd";}
-	| OP_TRD	{$attribute_call.op = "trd";}
-	| ID		{$attribute_call.op = $ID.text;}
+attribute_call[List<Type> datatype] returns[ArrayList<SimpleError> errors, String op]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	
+}
+	: ^(OP_IN (INT
+	{
+		List<Type> dt = new ArrayList<Type>();
+		dt.add(Type.PATTERN);
+//		if ( $INT > 1 && datatype.containsAll(dt) ){
+//			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.x() , $OP_IN.line, $OP_IN.pos );
+//		}
+	}
+	)?) 	
+	{
+		$attribute_call.op = "in";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| ^(OP_OUT (INT
+	{
+		List<Type> dt = new ArrayList<Type>();
+		dt.add(Type.PATTERN);
+//		if ( $INT > 1 && datatype.containsAll(dt) ){
+//			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.x() , $OP_IN.line, $OP_IN.pos );
+//		}
+	}
+	)?)	
+	{
+		$attribute_call.op = "out";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| OP_NAME		{$attribute_call.op = "name";}
+	| OP_NODES		{$attribute_call.op = "nodes";}
+	| OP_NAMES		{$attribute_call.op = "names";}
+	| ^(OP_ENDS expression) {$attribute_call.op = "ends";}
+	| OP_FST		{$attribute_call.op = "fst";}//{ System.out.println(datatype); }
+	| OP_SND		{$attribute_call.op = "snd";}
+	| OP_TRD		{$attribute_call.op = "trd";}
+	| ID			{$attribute_call.op = $ID.text;}
 	;
 	
 	

@@ -14,6 +14,15 @@ public class TinySymbolsTable {
 	}
 	
 	
+	public TinySymbolsTable (TinySymbolsTable tst){
+		this.symbols = new HashMap<String, TinySymbol>();
+		for(TinySymbol s : tst.getSymbols().values()){
+			this.addSymbol(new TinySymbol(s));
+		}
+		
+		this.scope_rel = new Pair<Integer, Integer>(tst.getScopeRel().fst(), tst.getScopeRel().snd());
+	}
+	
 	
 	public HashMap<String, TinySymbol> getSymbols(){
 		return this.symbols;
