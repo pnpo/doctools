@@ -1149,16 +1149,41 @@ public IMCREOimc compose(IMCREOimc other/*, Set<String> mixedports*/){
 								if((ti_sort.equals(IMCREOMarkovianTransitionSort.READ) || ti_sort.equals(IMCREOMarkovianTransitionSort.WRITE)) && 
 										tj_sort.equals(IMCREOMarkovianTransitionSort.TRANSMISSION))
 								{
-									transitions.remove(j);
-									j--;
+									//And if the transmission nodes are shared with the reading/writing nodes...
+									//TRS[b0] vs RD[b0] --> TRS[b0] prevails
+									//TRS[b1] vs WR[b1] --> WR[b1] prevails
+									if(!p1_inter_p2.isEmpty() ) {
+										if(ti_sort.equals(IMCREOMarkovianTransitionSort.READ)){
+											transitions.remove(i);
+											i--;
+											break;
+										}
+										else {
+											if (ti_sort.equals(IMCREOMarkovianTransitionSort.WRITE)){
+												transitions.remove(j);
+												j--;
+											}
+										}
+									}
+									
 								}
 								else {
 									if((tj_sort.equals(IMCREOMarkovianTransitionSort.READ) || tj_sort.equals(IMCREOMarkovianTransitionSort.WRITE)) && 
 											ti_sort.equals(IMCREOMarkovianTransitionSort.TRANSMISSION))
 									{
-										transitions.remove(i);
-										i--;	
-										break;
+										if(!p1_inter_p2.isEmpty() ) {
+											if(tj_sort.equals(IMCREOMarkovianTransitionSort.READ)){
+												transitions.remove(j);
+												j--;
+											}
+											else {
+												if (tj_sort.equals(IMCREOMarkovianTransitionSort.WRITE)){
+													transitions.remove(i);
+													i--;
+													break;
+												}
+											}
+										}
 									}
 								}
 								//OTHERWISE

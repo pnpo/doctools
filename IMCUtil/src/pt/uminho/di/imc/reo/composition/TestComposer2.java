@@ -12,13 +12,14 @@ public class TestComposer2 {
 		
 		String script = "" +
 				//"sync s1 a b0 5 " +
-				//"lossy l1 a b0 10 24 " +
-				"fifo1e f2 b1 c 15 35 " +
+				"fifo1f l1 a b0 10 24 " +
+				"fifo1f f2 b1 c 15 35 " +
 				//"fifo1e f1 d c 15 20 " +
-				//"mer_rep [b0 b4] [b1] " +
-				//"mer_rep [b0] [b1]  " +
-				"env b1 1 " +
-				"env c 2 ";
+				"mer_rep [c] [a] " +
+				"mer_rep [b0] [b1] " +
+				//"env a 1 " +
+				//"env c 2 " +
+				"" ;
 		
 		
 		Composer2 c = IMCREOScriptParserFrontEnd.parse(script, false);

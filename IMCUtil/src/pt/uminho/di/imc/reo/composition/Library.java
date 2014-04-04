@@ -10,6 +10,7 @@ import java.util.Set;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 
+import pt.uminho.di.imc.reo.imc.IMCREOBufferState;
 import pt.uminho.di.imc.reo.imc.IMCREOInteractiveTransition;
 import pt.uminho.di.imc.reo.imc.IMCREOInternalState;
 import pt.uminho.di.imc.reo.imc.IMCREOMarkovianTransition;
@@ -151,7 +152,10 @@ public final class Library {
 //		}
 		
 		//create initial state and add to the chain
-		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
+		LinkedList<IMCREOInternalState> int_state = new LinkedList<IMCREOInternalState>();
+		int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+		IMCREOState initial = new IMCREOState("E", int_state);
+		
 		mr.getChain().put(initial, new LinkedList<IMCREOTransition>());
 		mr.setInitial_state(initial);
 		
@@ -160,12 +164,16 @@ public final class Library {
 		String id = formatId(ins, outs);
 		
 		//create write state and add to the chain
-		IMCREOState write_state = new IMCREOState("-" + outs_formated + "-", new LinkedList<IMCREOInternalState>());
+		int_state = new LinkedList<IMCREOInternalState>();
+		int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+		IMCREOState write_state = new IMCREOState("-" + outs_formated + "-", int_state);
 		mr.getChain().put(write_state, new LinkedList<IMCREOTransition>());
 		
 		for(String end : ins) {
 			//create a read state and add to the chain
-			IMCREOState read_state = new IMCREOState("+" + end + "+", new LinkedList<IMCREOInternalState>());
+			int_state = new LinkedList<IMCREOInternalState>();
+			int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+			IMCREOState read_state = new IMCREOState("+" + end + "+", int_state);
 			mr.getChain().put(read_state, new LinkedList<IMCREOTransition>());
 			
 			Set<String> actions = new LinkedHashSet<String>();
@@ -227,7 +235,9 @@ public final class Library {
 //		}
 		
 		//create initial state and add to the chain
-		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
+		LinkedList<IMCREOInternalState> int_state = new LinkedList<IMCREOInternalState>();
+		int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+		IMCREOState initial = new IMCREOState("E", int_state);
 		mr.getChain().put(initial, new LinkedList<IMCREOTransition>());
 		mr.setInitial_state(initial);
 		
@@ -306,7 +316,9 @@ public final class Library {
 //		}
 		
 		//create initial state and add to the chain
-		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
+		LinkedList<IMCREOInternalState> int_state = new LinkedList<IMCREOInternalState>();
+		int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+		IMCREOState initial = new IMCREOState("E", int_state);
 		mr.getChain().put(initial, new LinkedList<IMCREOTransition>());
 		mr.setInitial_state(initial);
 		
@@ -323,7 +335,9 @@ public final class Library {
 				actions.add(out_end);
 				
 				//create a read state and add to the chain
-				IMCREOState read_state = new IMCREOState("+" + formatState(actions) + "+", new LinkedList<IMCREOInternalState>());
+				int_state = new LinkedList<IMCREOInternalState>();
+				int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+				IMCREOState read_state = new IMCREOState("+" + formatState(actions) + "+", int_state);
 				mr.getChain().put(read_state, new LinkedList<IMCREOTransition>());
 				
 				//create interactive transition and add to the chain (initial - i_tr - read_state)
@@ -331,7 +345,9 @@ public final class Library {
 				mr.getChain().get(initial).add(i_tr);
 				
 				//create write state and add to the chain
-				IMCREOState write_state = new IMCREOState("-" + out_end + "-", new LinkedList<IMCREOInternalState>());
+				int_state = new LinkedList<IMCREOInternalState>();
+				int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+				IMCREOState write_state = new IMCREOState("-" + out_end + "-", int_state);
 				mr.getChain().put(write_state, new LinkedList<IMCREOTransition>());
 				
 				//create markovian transition and add to the chain (read_state - m_tr - write_state)
@@ -398,7 +414,9 @@ public final class Library {
 //		}
 		
 		//create initial state and add to the chain
-		IMCREOState initial = new IMCREOState("E", new LinkedList<IMCREOInternalState>());
+		LinkedList<IMCREOInternalState> int_state = new LinkedList<IMCREOInternalState>();
+		int_state.add(new IMCREOInternalState(IMCREOBufferState.NONE, new LinkedHashSet<String>()));
+		IMCREOState initial = new IMCREOState("E", int_state);
 		mr.getChain().put(initial, new LinkedList<IMCREOTransition>());
 		mr.setInitial_state(initial);
 		
