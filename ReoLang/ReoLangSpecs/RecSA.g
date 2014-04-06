@@ -18,6 +18,17 @@ options{
 
 @members{
 	//SimpleError se = new SimpleError();
+	private TinySymbolsTable getScope(Integer scope_id){
+		TinySymbolsTable scope = null;
+		for (int i = 0; i < $reconfiguration_def::scopes.size(); i++){
+			TinySymbolsTable tst = $reconfiguration_def::scopes.get(i);
+			if ( tst.getScopeRel().fst().equals(scope_id) ) {
+				scope = $reconfiguration_def::scopes.get(i);
+				break;
+			}
+		}
+		return scope;
+	}
 }
 
 
@@ -47,6 +58,18 @@ scope{
 	
 	) 
 	{
+		for (int i=0; i<local_errors.size(); i++) {
+          		for (int j=0; j<local_errors.size(); j++) {
+       		        	if (local_errors.get(i).getMessage().equals(local_errors.get(j).getMessage()) && i != j) {
+					if (local_errors.get(i).getLine() < local_errors.get(j).getLine()){
+                   		        	local_errors.remove(j);
+                   			}
+                   		       	else{
+                   		        	local_errors.remove(i);
+                   		        }
+       		         	}
+       		    	}
+       		}
 		$reclang.errors = local_errors;
 	}
 	
@@ -233,15 +256,7 @@ scope{
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$instruction::rec_type = "";
-
-	Integer scope_id = $reclang::scope_id;
-	for (int i = 0; i < $reconfiguration_def::scopes.size(); i++){
-		TinySymbolsTable tst = $reconfiguration_def::scopes.get(i);
-		if ( tst.getScopeRel().fst().equals(scope_id) ) {
-			$instruction::scope = $reconfiguration_def::scopes.get(i);
-			break;
-		}
-	}
+	$instruction::scope = this.getScope($reclang::scope_id);
 }
 	: declaration 
 	{ 
@@ -605,7 +620,34 @@ for_instruction returns[ArrayList<SimpleError> errors]
 		}
 	}
 	
-	id2=ID reconfiguration_block
+	id2=ID 
+	{
+		ts = $reconfiguration_def::name.hasValue($id2.text, s_id);
+		if (!$instruction::scope.containsSymbol($id2.text) && ts == null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id2.text), $id2.line, $id2.pos) );
+		}
+		else{
+			if (local_errors.isEmpty()){
+				$instruction::scope = this.getScope($reclang::scope_id);
+
+				TinySymbol ts1 = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
+				TinySymbol ts2 = $instruction::scope.containsSymbol($id2.text) ? $instruction::scope.getSymbols().get($id2.text) : $reconfiguration_def::name.hasValue($id2.text, s_id);				
+
+				if (!ts2.getDataType().get(0).equals(Type.SET)){
+					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id2.text, "Set<T>"), $id2.line, $id2.pos) );
+				}
+				else{
+					ts2.getDataType().remove(0);
+					List<Type> datatype = ts2.getDataType();
+					if (!ts1.getDataType().equals(datatype)){
+						local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, ts2.dataTypeToString()), $id1.line, $id1.pos) );
+					}
+				}
+			}
+		}
+	}
+	
+	reconfiguration_block
 	{
 		local_errors.addAll($reconfiguration_block.errors);
 	}
@@ -739,7 +781,7 @@ operation returns[ArrayList<SimpleError> errors]
 	 	if (ts != null){
 			Type t = datatype.get(0);
 	 		if( ($attribute_call.op.equals("in") || $attribute_call.op.equals("out")) && !(t.equals(Type.PATTERN) || t.equals(Type.CHANNEL)) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern or Channel"), $id1.line, $id1.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern' or 'Channel"), $id1.line, $id1.pos) );
 			}
 			if( ($attribute_call.op.equals("name") || $attribute_call.op.equals("ends")) && !t.equals(Type.CHANNEL) ) {
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Channel"), $id1.line, $id1.pos) );
@@ -748,11 +790,15 @@ operation returns[ArrayList<SimpleError> errors]
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern"), $id1.line, $id1.pos) );
 			}
 			if( ($attribute_call.op.equals("fst") || $attribute_call.op.equals("snd")) && !(t.equals(Type.PAIR) || t.equals(Type.TRIPLE)) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pair or Triple"), $id1.line, $id1.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pair' or 'Triple"), $id1.line, $id1.pos) );
 			}
 			if( $attribute_call.op.equals("trd") && !t.equals(Type.TRIPLE) ) {
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Triple"), $id1.line, $id1.pos) );
 			}
+		}
+		
+		if($attribute_call.errors != null){
+			local_errors.addAll($attribute_call.errors);
 		}
 		$operation.errors = local_errors;
 	}
@@ -782,10 +828,10 @@ attribute_call[List<Type> datatype] returns[ArrayList<SimpleError> errors, Strin
 	: ^(OP_IN (INT
 	{
 		List<Type> dt = new ArrayList<Type>();
-		dt.add(Type.PATTERN);
-//		if ( $INT > 1 && datatype.containsAll(dt) ){
-//			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.x() , $OP_IN.line, $OP_IN.pos );
-//		}
+		dt.add(Type.CHANNEL);
+		if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_IN.text) , $INT.line, $INT.pos) );
+		}
 	}
 	)?) 	
 	{
@@ -796,10 +842,10 @@ attribute_call[List<Type> datatype] returns[ArrayList<SimpleError> errors, Strin
 	| ^(OP_OUT (INT
 	{
 		List<Type> dt = new ArrayList<Type>();
-		dt.add(Type.PATTERN);
-//		if ( $INT > 1 && datatype.containsAll(dt) ){
-//			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.x() , $OP_IN.line, $OP_IN.pos );
-//		}
+		dt.add(Type.CHANNEL);
+		if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_OUT.text) , $INT.line, $INT.pos) );
+		}
 	}
 	)?)	
 	{
@@ -832,8 +878,8 @@ pair_cons
 set_cons
 	: ^(SET expression*) 
 	;
-	
 		
+			
 node_cons
 	: ^(NODE ID+)
 	;

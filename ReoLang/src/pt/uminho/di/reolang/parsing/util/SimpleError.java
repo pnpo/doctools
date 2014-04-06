@@ -68,6 +68,10 @@ public class SimpleError {
     	return "Wrong number of arguments for the reconfiguration '" + reconf + "'!";
     }    
     
+    public static String numberOfArguments(String type, String name){
+    	return "Wrong number of arguments for the "+ type +" '" + name + "'!";
+    }
+    
     
     //****************INSTANCE PART****************//
     

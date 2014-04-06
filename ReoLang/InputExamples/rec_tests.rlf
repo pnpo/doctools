@@ -7,18 +7,18 @@ Name y) {
 reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 	@ par ();
 	@ id ();
-	Name bla;
+	Name ab;
 	@ bla (ab,p);
-	forall(Pair<Node> n : X) {
+	forall(Node n : X) {
 		Node n1,n2; 
-		Node n1;
+		Channel n3;
 		nn1 = x.fst; 
-		n2 = n1.snd; 
+		n2 = n3.in[2]; 
 		
 		Set<Node> E = S(n1, n2);
 		@ join(E);
 		
-		forall ( Name n : Cs)
+		forall ( Name nn : p)
 		{	
 			@ remove(n);
 			Pattern p1 = @ par(p);
@@ -46,8 +46,12 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 		Set<Node> E2 = n2 + S(mo);
 		@ join(E2);  
 	}
-	Set<Node> n2 = p2.in - p1.in ;
-	Set<Node> n3 = p2.out - p1.out ;
-	Set<Node> n4 = p2.out - p1.out ;
+	Node pp1;
+	Node pp2;
+	Node pp2;
+	Node pp2;
+	Set<Node> n2 = pp2.in - pp1.in ;
+	Set<Node> n3 = pp2.out - pp1.out ;
+	Set<Node> n4 = pp2.out - pp1.out ;
 }
 
