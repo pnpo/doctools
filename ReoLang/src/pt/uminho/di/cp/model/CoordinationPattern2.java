@@ -350,32 +350,59 @@ public class CoordinationPattern2 {
 			for(Node out : cm.getOnodes()) {
 				sb.append((new Node(out)).takeEnd()).append(" ");
 			}
-			//TODO: append stochastic information
+			//append stochastic information from channels
+			for(String sd : cm.getDelays().keySet()){
+				sb.append(cm.getDelays().get(sd)).append(" ");
+			}
 			sb.append("\n");
 		}
 		
 		
 		//---- MER_REP
-		for(Node n : this.getMixed()) {
-			Pair<String, String> ports = createMergerReplicatorPorts(n, decomposed);
+		for(Node n : this.getMixedNonXOR()) {
+			Pair<String, String> ports = createMixedNodesPorts(n, decomposed);
 			sb.append("mer_rep ").append(ports.fst()).append(ports.snd()).append(" ");
-			//TODO: append stochastic information
+			// append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+				 sb.append(this.delays.get(n).snd()).append(" ");
+			}
+			
 			sb.append("\n");
 		}
 		
 		//---- MER_XOR
-		//TODO add merger_xor support
+		for(Node n : this.getXors()) {
+			Pair<String, String> ports = createMixedNodesPorts(n, decomposed);
+			sb.append("mer_xor ").append(ports.fst()).append(ports.snd()).append(" ");
+			// append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+				 sb.append(this.delays.get(n).snd()).append(" ");
+			}
+			
+			sb.append("\n");
+		}
+		
+		
 		
 		//---- ENVIRONMENT
 		for(Node n : this.getIn()) {
 			sb.append("env ").append((new Node(n).takeEnd())).append(" ");
-			//TODO: append stochastic information
+			//append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+			}
+
 			sb.append("\n");
 		}
 		
 		for(Node n : this.getOut()) {
 			sb.append("env ").append((new Node(n).takeEnd())).append(" ");
-			//TODO: append stochastic information
+			//append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+			}
 			sb.append("\n");
 		}
 		
@@ -392,7 +419,7 @@ public class CoordinationPattern2 {
 	 * @return A pair of formated strings (in, out) referring to the ends of the given node
 	 * that are input or output ports of the nodes to be created.
 	 */
-	private Pair<String, String> createMergerReplicatorPorts(Node n, CoordinationPattern2 decomposed) {
+	private Pair<String, String> createMixedNodesPorts(Node n, CoordinationPattern2 decomposed) {
 		
 		Pair<String, String> ports = new Pair<String, String>();
 		String in = "";

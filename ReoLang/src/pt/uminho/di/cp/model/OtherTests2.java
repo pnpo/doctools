@@ -77,7 +77,7 @@ public class OtherTests2 {
 		
 		System.out.println("INIT------------------");
 		System.out.println(p);
-//		System.out.println(p.intoIMCScript());
+		System.out.println(p.intoIMCScript());
 		
 		
 		Id id = new Id();
