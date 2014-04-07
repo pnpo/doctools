@@ -1,7 +1,9 @@
 package pt.uminho.di.cp.model;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import pt.uminho.di.reolang.parsing.util.Pair;
@@ -17,7 +19,10 @@ public class CoordinationPattern2 {
 
 	private Set<CommunicationMean2> pattern;
 	private String id;
-	
+	//a mapping from node to pairs of doubles (read, write)
+	private Map<Node, Pair<Double,Double>> delays;
+	//xor nodes
+	private LinkedHashSet<Node> xors;
 	
 	
 	
@@ -28,6 +33,8 @@ public class CoordinationPattern2 {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>();
 		this.id = "unnamed";
+		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>();
+		this.xors = new LinkedHashSet<Node>();
 	}
 	
 	
@@ -36,10 +43,14 @@ public class CoordinationPattern2 {
 	 * @param pattern
 	 * @param id
 	 */
-	public CoordinationPattern2(Set<CommunicationMean2> pattern, String id) {
+	public CoordinationPattern2(Set<CommunicationMean2> pattern, String id, 
+			LinkedHashMap<Node, Pair<Double, Double>>delays,
+			LinkedHashSet<Node> xors) {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>(pattern);
 		this.id = id;
+		this.delays = delays;
+		this.xors = xors;
 	}
 	
 
@@ -51,6 +62,8 @@ public class CoordinationPattern2 {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>(cp.getPattern());
 		this.id = cp.getId();
+		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>(cp.getDelays());
+		this.xors = new LinkedHashSet<Node>(cp.getXors());
 	}
 	
 	
@@ -83,15 +96,50 @@ public class CoordinationPattern2 {
 		this.id = id;
 	}
 
+	
+	/**
+	 * @return the delays
+	 */
+	public Map<Node, Pair<Double, Double>> getDelays() {
+		return delays;
+	}
+
+
+
+	/**
+	 * @param delays the delays to set
+	 */
+	public void setDelays(Map<Node, Pair<Double, Double>> delays) {
+		this.delays = delays;
+	}
+	
 
 
 	
-	
+	/**
+	 * @return the xors
+	 */
+	public LinkedHashSet<Node> getXors() {
+		return xors;
+	}
+
+
+
+	/**
+	 * @param xors the xors to set
+	 */
+	public void setXors(LinkedHashSet<Node> xors) {
+		this.xors = xors;
+	}
 	
 	
 	
 	//// SPECIFIC METHODS //////
 	
+
+
+
+
 	/**
 	 * This method implements the I(p) operations as
 	 * described in: 
@@ -224,6 +272,24 @@ public class CoordinationPattern2 {
 	}
 	
 	
+	/**
+	 * This method implements the mixed_of(p) as described in:
+	 * 
+	 * "Reasoning about reconfigurations: the behavioural and structural perspectives"
+	 * 
+	 * with a slight difference: it does not export the nodes that are XOR.
+	 * 
+	 * @return A set with all mixed nodes 
+	 */
+	public Set<Node> getMixedNonXOR(){
+		Set<Node> res =  this.getMixed();
+		res.removeAll(this.xors);
+		
+		return res;
+	}
+	
+	
+	
 	
 	/**
 	 * This method implements the names_of(p) as described in:
@@ -284,32 +350,59 @@ public class CoordinationPattern2 {
 			for(Node out : cm.getOnodes()) {
 				sb.append((new Node(out)).takeEnd()).append(" ");
 			}
-			//TODO: append stochastic information
+			//append stochastic information from channels
+			for(String sd : cm.getDelays().keySet()){
+				sb.append(cm.getDelays().get(sd)).append(" ");
+			}
 			sb.append("\n");
 		}
 		
 		
 		//---- MER_REP
-		for(Node n : this.getMixed()) {
-			Pair<String, String> ports = createMergerReplicatorPorts(n, decomposed);
+		for(Node n : this.getMixedNonXOR()) {
+			Pair<String, String> ports = createMixedNodesPorts(n, decomposed);
 			sb.append("mer_rep ").append(ports.fst()).append(ports.snd()).append(" ");
-			//TODO: append stochastic information
+			// append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+				 sb.append(this.delays.get(n).snd()).append(" ");
+			}
+			
 			sb.append("\n");
 		}
 		
 		//---- MER_XOR
-		//TODO add merger_xor support
+		for(Node n : this.getXors()) {
+			Pair<String, String> ports = createMixedNodesPorts(n, decomposed);
+			sb.append("mer_xor ").append(ports.fst()).append(ports.snd()).append(" ");
+			// append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+				 sb.append(this.delays.get(n).snd()).append(" ");
+			}
+			
+			sb.append("\n");
+		}
+		
+		
 		
 		//---- ENVIRONMENT
 		for(Node n : this.getIn()) {
 			sb.append("env ").append((new Node(n).takeEnd())).append(" ");
-			//TODO: append stochastic information
+			//append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+			}
+
 			sb.append("\n");
 		}
 		
 		for(Node n : this.getOut()) {
 			sb.append("env ").append((new Node(n).takeEnd())).append(" ");
-			//TODO: append stochastic information
+			//append stochastic information
+			if(this.delays.containsKey(n)){
+				 sb.append(this.delays.get(n).fst()).append(" ");
+			}
 			sb.append("\n");
 		}
 		
@@ -326,7 +419,7 @@ public class CoordinationPattern2 {
 	 * @return A pair of formated strings (in, out) referring to the ends of the given node
 	 * that are input or output ports of the nodes to be created.
 	 */
-	private Pair<String, String> createMergerReplicatorPorts(Node n, CoordinationPattern2 decomposed) {
+	private Pair<String, String> createMixedNodesPorts(Node n, CoordinationPattern2 decomposed) {
 		
 		Pair<String, String> ports = new Pair<String, String>();
 		String in = "";
@@ -410,7 +503,7 @@ public class CoordinationPattern2 {
 	 */
 	@Override
 	public String toString() {
-		return id+"\n" + pattern + "";
+		return id+"\n" + pattern + "\n@ " + this.delays + "\nXORs: " + this.xors ;
 	}
 
 
@@ -422,8 +515,10 @@ public class CoordinationPattern2 {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((delays == null) ? 0 : delays.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((pattern == null) ? 0 : pattern.hashCode());
+		result = prime * result + ((xors == null) ? 0 : xors.hashCode());
 		return result;
 	}
 
@@ -441,6 +536,11 @@ public class CoordinationPattern2 {
 		if (!(obj instanceof CoordinationPattern2))
 			return false;
 		CoordinationPattern2 other = (CoordinationPattern2) obj;
+		if (delays == null) {
+			if (other.delays != null)
+				return false;
+		} else if (!delays.equals(other.delays))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -451,8 +551,16 @@ public class CoordinationPattern2 {
 				return false;
 		} else if (!pattern.equals(other.pattern))
 			return false;
+		if (xors == null) {
+			if (other.xors != null)
+				return false;
+		} else if (!xors.equals(other.xors))
+			return false;
 		return true;
 	}
+
+
+
 	
 	
 	
