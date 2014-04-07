@@ -42,7 +42,6 @@ public class Main {
 			//System.out.println( ids_table.toString() );
 			
 			
-			
 			//************SEMANTICS ANALYSIS************//
 			CommonTreeNodeStream tree_sa = new CommonTreeNodeStream(res.getTree());
 			RecSA walker_sa = new RecSA(tree_sa);

@@ -182,6 +182,12 @@ public class TinySymbol {
 	}
 	
 	
+	/**
+	 * 
+	 * @param name
+	 * @param scope_id
+	 * @return TinySymbol if any "parent" has symbol previously declared (checked by scope_id) with the same name
+	 */
 	public TinySymbol hasValue(String name, Integer scope_id){
 		TinySymbol ts = null;//new TinySymbol();
 		

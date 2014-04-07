@@ -83,8 +83,8 @@ public class Join implements IReconfiguration {
 				CommunicationMean2 cm = it.next();
 				it.remove();
 				
-				LinkedHashSet<Node> inodes = cm.getInodes();
-				LinkedHashSet<Node> onodes = cm.getOnodes();
+				LinkedHashSet<Node> inodes = new LinkedHashSet<Node>(cm.getInodes());
+				LinkedHashSet<Node> onodes = new LinkedHashSet<Node>(cm.getOnodes());
 				
 				for (Node inode : inodes){
 					if( nodes.contains(inode) ){
