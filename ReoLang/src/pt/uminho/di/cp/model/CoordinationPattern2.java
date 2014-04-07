@@ -1,7 +1,9 @@
 package pt.uminho.di.cp.model;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import pt.uminho.di.reolang.parsing.util.Pair;
@@ -17,6 +19,8 @@ public class CoordinationPattern2 {
 
 	private Set<CommunicationMean2> pattern;
 	private String id;
+	//a mapping from node to pairs of doubles (read, write)
+	private Map<Node, Pair<Double,Double>> delays;
 	
 	
 	
@@ -28,6 +32,7 @@ public class CoordinationPattern2 {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>();
 		this.id = "unnamed";
+		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>();
 	}
 	
 	
@@ -36,10 +41,11 @@ public class CoordinationPattern2 {
 	 * @param pattern
 	 * @param id
 	 */
-	public CoordinationPattern2(Set<CommunicationMean2> pattern, String id) {
+	public CoordinationPattern2(Set<CommunicationMean2> pattern, String id, LinkedHashMap<Node, Pair<Double, Double>>delays) {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>(pattern);
 		this.id = id;
+		this.delays = delays;
 	}
 	
 
@@ -51,6 +57,7 @@ public class CoordinationPattern2 {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>(cp.getPattern());
 		this.id = cp.getId();
+		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>(cp.getDelays());
 	}
 	
 	
@@ -83,6 +90,23 @@ public class CoordinationPattern2 {
 		this.id = id;
 	}
 
+	
+	/**
+	 * @return the delays
+	 */
+	public Map<Node, Pair<Double, Double>> getDelays() {
+		return delays;
+	}
+
+
+
+	/**
+	 * @param delays the delays to set
+	 */
+	public void setDelays(Map<Node, Pair<Double, Double>> delays) {
+		this.delays = delays;
+	}
+	
 
 
 	
@@ -92,6 +116,10 @@ public class CoordinationPattern2 {
 	
 	//// SPECIFIC METHODS //////
 	
+
+
+
+
 	/**
 	 * This method implements the I(p) operations as
 	 * described in: 
@@ -422,6 +450,7 @@ public class CoordinationPattern2 {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((delays == null) ? 0 : delays.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((pattern == null) ? 0 : pattern.hashCode());
 		return result;
@@ -441,6 +470,11 @@ public class CoordinationPattern2 {
 		if (!(obj instanceof CoordinationPattern2))
 			return false;
 		CoordinationPattern2 other = (CoordinationPattern2) obj;
+		if (delays == null) {
+			if (other.delays != null)
+				return false;
+		} else if (!delays.equals(other.delays))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -453,6 +487,9 @@ public class CoordinationPattern2 {
 			return false;
 		return true;
 	}
+
+
+
 	
 	
 	

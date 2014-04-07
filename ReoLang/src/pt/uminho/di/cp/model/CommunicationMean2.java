@@ -1,5 +1,6 @@
 package pt.uminho.di.cp.model;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 import pt.uminho.di.reolang.parsing.util.Pair;
@@ -21,6 +22,8 @@ public class CommunicationMean2 {
 	private String id;
 	//comm. mean type
 	private String type;
+	//stochastic table
+	private LinkedHashMap<String, Double> delays; 
 	
 	
 	
@@ -32,6 +35,7 @@ public class CommunicationMean2 {
 		this.onodes = new LinkedHashSet<Node>();
 		this.id = "";
 		this.type = "";
+		this.delays = new LinkedHashMap<String, Double>();
 	}
 
 	
@@ -43,12 +47,13 @@ public class CommunicationMean2 {
 	 * @param type
 	 */
 	public CommunicationMean2(LinkedHashSet<Node> inodes,
-			LinkedHashSet<Node> onodes, String id, String type) {
+			LinkedHashSet<Node> onodes, String id, String type, LinkedHashMap<String, Double> delays) {
 		super();
 		this.inodes = inodes;
 		this.onodes = onodes;
 		this.id = id;
 		this.type = type;
+		this.delays = delays;
 	}
 	
 	
@@ -62,6 +67,7 @@ public class CommunicationMean2 {
 		this.onodes = new LinkedHashSet<Node>(cm.getOnodes());
 		this.id = cm.getId();
 		this.type = cm.getType();
+		this.delays = new LinkedHashMap<String, Double>(cm.getDelays());
 	}
 
 
@@ -137,10 +143,30 @@ public class CommunicationMean2 {
 	}
 	
 	
+	/**
+	 * @return the delays
+	 */
+	public LinkedHashMap<String, Double> getDelays() {
+		return delays;
+	}
+
+
+
+	/**
+	 * @param delays the delays to set
+	 */
+	public void setDelays(LinkedHashMap<String, Double> delays) {
+		this.delays = delays;
+	}
+	
 	
 	
 	///// SPECIFIC METHODS ////////
 	
+	
+
+
+
 	/**
 	 * Takes all the nodes from the communication mean
 	 * @return a set with the nodes of this communication mean
@@ -214,7 +240,7 @@ public class CommunicationMean2 {
 	 */
 	@Override
 	public String toString() {
-		return  "<" + inodes + ", " +  id + ", " + type + ", " + onodes + ">\n" ;
+		return  "<" + inodes + ", " +  id + ", " + type + ", " + onodes + " @ " + delays + ">\n" ;
 	}
 
 
@@ -226,6 +252,7 @@ public class CommunicationMean2 {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((delays == null) ? 0 : delays.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((inodes == null) ? 0 : inodes.hashCode());
 		result = prime * result + ((onodes == null) ? 0 : onodes.hashCode());
@@ -247,6 +274,11 @@ public class CommunicationMean2 {
 		if (!(obj instanceof CommunicationMean2))
 			return false;
 		CommunicationMean2 other = (CommunicationMean2) obj;
+		if (delays == null) {
+			if (other.delays != null)
+				return false;
+		} else if (!delays.equals(other.delays))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -269,6 +301,9 @@ public class CommunicationMean2 {
 			return false;
 		return true;
 	}
+
+
+
 	
 	
 	
