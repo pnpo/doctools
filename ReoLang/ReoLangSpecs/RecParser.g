@@ -1,7 +1,7 @@
 parser grammar RecParser;
 
 options{
-	tokenVocab=RecLexer;
+	tokenVocab=RecLexer; 
 	output=AST;
 }
 
@@ -20,6 +20,11 @@ tokens {
 	PAIR;
 	SET;
 	NODE;
+	IDS;
+	STOCHASTIC;
+	XOR;
+	IN;
+	OUT;
 	ACCESS;
 	STRUCTURE;
 	APPLICATION;
@@ -87,6 +92,7 @@ datatype
 	| 	DT_CHANNEL
 	|	DT_NAME
 	|	DT_NODE
+	|	DT_XOR
 	|	other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^(other_type subtype)
 	;
 	
@@ -197,6 +203,7 @@ constructor
 	|	pair_cons					 	-> pair_cons
 	|	set_cons 					 	-> set_cons 
 	|	node_cons						-> node_cons
+	|	xor_cons						-> xor_cons
 	;
 
 //single_return_operation
@@ -214,6 +221,8 @@ attribute_call
 	|	OP_FST						-> OP_FST
 	|	OP_SND						-> OP_SND
 	|	OP_TRD						-> OP_TRD
+	|	OP_READ						-> OP_READ
+	|	OP_WRITE					-> OP_WRITE
 	|	ID						-> ID
 	;
 	
@@ -238,11 +247,14 @@ set_cons
 	
 		
 node_cons
-	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* SEP_ARGS_END
-		-> ^(NODE ID+) 
+	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* (SEP_COLON INT SEP_COMMA INT)? SEP_ARGS_END
+		-> ^(NODE ^(IDS ID+) (^(STOCHASTIC INT INT))? ) 
 	;
 	
-
+xor_cons
+	:	CONS_XOR SEP_ARGS_START ID (SEP_COMMA ID)* SEP_COLON ID (SEP_COMMA ID)+ SEP_ARGS_END
+		-> ^(XOR  ^(IN ID+) ^(OUT ID ID+) )
+	;
 
 
 

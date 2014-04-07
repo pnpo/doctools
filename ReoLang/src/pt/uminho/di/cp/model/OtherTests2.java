@@ -204,6 +204,15 @@ public class OtherTests2 {
 		p = overlap.apply(p);
 		System.out.println("OVERLAP------------------");
 		System.out.println(p);
+		
+//		Node deg = new Node();
+//		deg.addEnd("d");
+//		deg.addEnd("e");
+//		deg.addEnd("g");
+//		split = new Split(deg); //deg
+//		p = split.apply(p);
+//		System.out.println("SPLIT2------------------");
+//		System.out.println(p);
 	}
 
 }

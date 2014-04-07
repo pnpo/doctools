@@ -6,15 +6,9 @@ import java.util.ArrayList;
 
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
-import org.antlr.stringtemplate.StringTemplate;
 
-import pt.uminho.di.reolang.ReoLangParser;
-import pt.uminho.di.reolang.ReoLangRSLTranslator;
-import pt.uminho.di.reolang.ReoLangSemantics.reolang_return;
 import pt.uminho.di.reolang.parsing.util.SimpleError;
-import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
-import pt.uminho.di.reolang.parsing.util.Type;
 
 public class Main {
 
@@ -40,7 +34,6 @@ public class Main {
 			RecTG walker_idtab = new RecTG(tree_it);
 			TinySymbolsTable ids_table = walker_idtab.reclang(); 
 			//System.out.println( ids_table.toString() );
-			
 			
 			//************SEMANTICS ANALYSIS************//
 			CommonTreeNodeStream tree_sa = new CommonTreeNodeStream(res.getTree());
