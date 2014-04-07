@@ -21,7 +21,8 @@ public class CoordinationPattern2 {
 	private String id;
 	//a mapping from node to pairs of doubles (read, write)
 	private Map<Node, Pair<Double,Double>> delays;
-	
+	//xor nodes
+	private LinkedHashSet<Node> xors;
 	
 	
 	
@@ -33,6 +34,7 @@ public class CoordinationPattern2 {
 		this.pattern = new LinkedHashSet<CommunicationMean2>();
 		this.id = "unnamed";
 		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>();
+		this.xors = new LinkedHashSet<Node>();
 	}
 	
 	
@@ -41,11 +43,14 @@ public class CoordinationPattern2 {
 	 * @param pattern
 	 * @param id
 	 */
-	public CoordinationPattern2(Set<CommunicationMean2> pattern, String id, LinkedHashMap<Node, Pair<Double, Double>>delays) {
+	public CoordinationPattern2(Set<CommunicationMean2> pattern, String id, 
+			LinkedHashMap<Node, Pair<Double, Double>>delays,
+			LinkedHashSet<Node> xors) {
 		super();
 		this.pattern = new LinkedHashSet<CommunicationMean2>(pattern);
 		this.id = id;
 		this.delays = delays;
+		this.xors = xors;
 	}
 	
 
@@ -58,6 +63,7 @@ public class CoordinationPattern2 {
 		this.pattern = new LinkedHashSet<CommunicationMean2>(cp.getPattern());
 		this.id = cp.getId();
 		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>(cp.getDelays());
+		this.xors = new LinkedHashSet<Node>(cp.getXors());
 	}
 	
 	
@@ -110,7 +116,21 @@ public class CoordinationPattern2 {
 
 
 	
-	
+	/**
+	 * @return the xors
+	 */
+	public LinkedHashSet<Node> getXors() {
+		return xors;
+	}
+
+
+
+	/**
+	 * @param xors the xors to set
+	 */
+	public void setXors(LinkedHashSet<Node> xors) {
+		this.xors = xors;
+	}
 	
 	
 	
@@ -250,6 +270,24 @@ public class CoordinationPattern2 {
 		}
 		return mixeds;
 	}
+	
+	
+	/**
+	 * This method implements the mixed_of(p) as described in:
+	 * 
+	 * "Reasoning about reconfigurations: the behavioural and structural perspectives"
+	 * 
+	 * with a slight difference: it does not export the nodes that are XOR.
+	 * 
+	 * @return A set with all mixed nodes 
+	 */
+	public Set<Node> getMixedNonXOR(){
+		Set<Node> res =  this.getMixed();
+		res.removeAll(this.xors);
+		
+		return res;
+	}
+	
 	
 	
 	
@@ -438,7 +476,7 @@ public class CoordinationPattern2 {
 	 */
 	@Override
 	public String toString() {
-		return id+"\n" + pattern + "";
+		return id+"\n" + pattern + "\n@ " + this.delays + "\nXORs: " + this.xors ;
 	}
 
 
@@ -453,6 +491,7 @@ public class CoordinationPattern2 {
 		result = prime * result + ((delays == null) ? 0 : delays.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((pattern == null) ? 0 : pattern.hashCode());
+		result = prime * result + ((xors == null) ? 0 : xors.hashCode());
 		return result;
 	}
 
@@ -484,6 +523,11 @@ public class CoordinationPattern2 {
 			if (other.pattern != null)
 				return false;
 		} else if (!pattern.equals(other.pattern))
+			return false;
+		if (xors == null) {
+			if (other.xors != null)
+				return false;
+		} else if (!xors.equals(other.xors))
 			return false;
 		return true;
 	}

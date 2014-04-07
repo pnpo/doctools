@@ -23,7 +23,8 @@ public class CommunicationMean2 {
 	//comm. mean type
 	private String type;
 	//stochastic table
-	private LinkedHashMap<String, Double> delays; 
+	private LinkedHashMap<String, Double> delays;
+	
 	
 	
 	
@@ -36,6 +37,7 @@ public class CommunicationMean2 {
 		this.id = "";
 		this.type = "";
 		this.delays = new LinkedHashMap<String, Double>();
+		
 	}
 
 	
@@ -54,6 +56,7 @@ public class CommunicationMean2 {
 		this.id = id;
 		this.type = type;
 		this.delays = delays;
+		
 	}
 	
 	
@@ -68,6 +71,7 @@ public class CommunicationMean2 {
 		this.id = cm.getId();
 		this.type = cm.getType();
 		this.delays = new LinkedHashMap<String, Double>(cm.getDelays());
+		
 	}
 
 
@@ -161,10 +165,18 @@ public class CommunicationMean2 {
 	
 	
 	
+
+	
+	
+	
+	
 	///// SPECIFIC METHODS ////////
 	
 	
 
+
+
+	
 
 
 	/**
