@@ -20,8 +20,6 @@ tokens {
 	PAIR;
 	SET;
 	NODE;
-	IDS;
-	STOCHASTIC;
 	XOR;
 	IN;
 	OUT;
@@ -221,8 +219,6 @@ attribute_call
 	|	OP_FST						-> OP_FST
 	|	OP_SND						-> OP_SND
 	|	OP_TRD						-> OP_TRD
-	|	OP_READ						-> OP_READ
-	|	OP_WRITE					-> OP_WRITE
 	|	ID						-> ID
 	;
 	
@@ -247,13 +243,13 @@ set_cons
 	
 		
 node_cons
-	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* (SEP_COLON INT SEP_COMMA INT)? SEP_ARGS_END
-		-> ^(NODE ^(IDS ID+) (^(STOCHASTIC INT INT))? ) 
+	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* SEP_ARGS_END
+		-> ^(NODE ID+ ) 
 	;
 	
 xor_cons
-	:	CONS_XOR SEP_ARGS_START ID (SEP_COMMA ID)* SEP_COLON ID (SEP_COMMA ID)+ SEP_ARGS_END
-		-> ^(XOR  ^(IN ID+) ^(OUT ID ID+) )
+	:	CONS_XOR SEP_ARGS_START id1=ID (SEP_COMMA id2=ID)* SEP_COLON id3=ID (SEP_COMMA id4=ID)+ SEP_ARGS_END
+		-> ^(XOR  ^(IN $id1 $id2*) ^(OUT $id3 $id4+) )
 	;
 
 

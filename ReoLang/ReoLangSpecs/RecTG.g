@@ -374,8 +374,6 @@ attribute_call
 	| OP_FST
 	| OP_SND
 	| OP_TRD
-	| OP_READ
-	| OP_WRITE
 	| ID
 	;
 	
@@ -397,11 +395,11 @@ set_cons
 	
 		
 node_cons
-	: ^(NODE ^(IDS ID+) (^(STOCHASTIC INT INT))? )
+	: ^(NODE ID+ ) 
 	;
 
 xor_cons
-	: ^(XOR  ^(IN ID+) ^(OUT ID ID+) )
+	: ^(XOR  ^(IN ID ID*) ^(OUT ID ID+) )
 	;
 
 

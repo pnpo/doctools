@@ -26,9 +26,10 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
 			@ remove(n);
 			Pattern p1 = @ par(p);
 			forall (Pattern p3 : U) {
-				Set<Node> E5 = n1 + S(mi);
+				Set<Node> E5 = E + S(S(g),S(n2));
+				Set<Node> E65 = E + S(N(g));
 				forall (Pattern p5 : U) {
-					Set<Node> E6 = n1 + S(mi);
+					Set<Node> E6 = E + S(N(g));
 					Set<Node> E6 = n1 + S(mi);
 					Set<Node> E8 = n1 + S(mi);
 				}
