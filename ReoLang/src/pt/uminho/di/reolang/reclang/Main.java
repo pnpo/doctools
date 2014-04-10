@@ -26,7 +26,6 @@ public class Main {
 			RecParser.reclang_return res = parser.reclang();
 			
 			
-			
 			//************IDENTIFIERS TABLE************//
 			CommonTreeNodeStream tree_it = new CommonTreeNodeStream(res.getTree());
 			System.out.println(((CommonTree) res.getTree()).toStringTree());

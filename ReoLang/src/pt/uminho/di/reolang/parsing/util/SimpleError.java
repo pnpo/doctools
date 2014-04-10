@@ -58,18 +58,16 @@ public class SimpleError {
     	return "Variable '" + id + "' is not of type '" + dt + "'!";
     }
     
-    
-    //not used yet --> compare to 'wrongDatatype'
-    public static String invalidArgument(String id){
-    	return "The argument '" + id + "' is not valid!";
-    }
-    
     public static String numberOfArguments(String reconf){
     	return "Wrong number of arguments for the reconfiguration '" + reconf + "'!";
     }    
     
     public static String numberOfArguments(String type, String name){
     	return "Wrong number of arguments for the "+ type +" '" + name + "'!";
+    }
+
+    public static String invalidElements(String constructor){
+    	return "The elements of " + constructor + " are not all of the same type!";
     }
     
     

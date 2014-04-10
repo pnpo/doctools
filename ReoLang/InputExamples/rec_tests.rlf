@@ -1,18 +1,23 @@
-reconfiguration bla (Node x; 
-Name y) {
+reconfiguration bla (Name x;
+					Name y) {
 	Pattern g;
 	@ id ();
 }
 
 reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
-	@ par ();
+	@ par (p);
 	@ id ();
-	Name ab;
+	Name a;
+	Name y = a;
+	Name b;
+	Name c;
 	Node h;
-	Xor yy = X(ab:h,y);
-	Name g = N(h);
-	@ bla (ab,p);
+	
+	Set<Node> yy = S(N(a,b,c) + h) + S(h);
+	Name g = N(a);
+	@ bla (b+c,h);
 	forall(Node n : M) {
+		Name y = b;
 		Node n1,n2; 
 		Channel n3;
 		nn1 = x.fst; 
