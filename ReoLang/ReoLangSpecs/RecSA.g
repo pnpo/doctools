@@ -12,17 +12,19 @@ options{
 	import pt.uminho.di.reolang.parsing.util.SimpleError;
 	import pt.uminho.di.reolang.parsing.util.*;
 	//import java.util.*;
+	import java.util.HashMap;
+	import java.util.HashSet;
 	import java.util.Collections;
 	import java.util.Comparator;
 }
 
 @members{
 	//SimpleError se = new SimpleError();
-	private TinySymbolsTable getScope(Integer scope_id){
+	private TinySymbolsTable getScope(Integer id){
 		TinySymbolsTable scope = null;
 		for (int i = 0; i < $reconfiguration_def::scopes.size(); i++){
 			TinySymbolsTable tst = $reconfiguration_def::scopes.get(i);
-			if ( tst.getScopeRel().fst().equals(scope_id) ) {
+			if ( tst.getScopeRel().fst().equals(id) ) {
 				scope = $reconfiguration_def::scopes.get(i);
 				break;
 			}
@@ -39,10 +41,15 @@ reclang[TinySymbolsTable global_table] returns[ArrayList<SimpleError> errors]
 scope{
 	TinySymbolsTable ids_table; 
 	int scope_id;
+	int parent_id;
+	int id;
+	HashMap<Integer,Integer> scope_rel;
 }
 @init{
 	$reclang::ids_table = $reclang.global_table;
 	$reclang::scope_id = 0;
+	$reclang::parent_id = 0;
+	$reclang::scope_rel = new HashMap<Integer,Integer>();
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
 	: ^(RECONFIGS (directive_def
@@ -58,6 +65,7 @@ scope{
 	
 	) 
 	{
+		System.out.println($reclang::scope_rel);
 		for (int i=0; i<local_errors.size(); i++) {
           		for (int j=0; j<local_errors.size(); j++) {
        		        	if (local_errors.get(i).getMessage().equals(local_errors.get(j).getMessage()) && i != j) {
@@ -195,6 +203,7 @@ datatype
 	| DT_CHANNEL
 	| DT_NAME
 	| DT_NODE
+	| DT_XOR
 	|  ^( other_type subtype )
 	;
 	
@@ -256,7 +265,7 @@ scope{
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$instruction::rec_type = "";
-	$instruction::scope = this.getScope($reclang::scope_id);
+	$instruction::scope = this.getScope($reclang::id);
 }
 	: declaration 
 	{ 
@@ -277,7 +286,8 @@ scope{
 	{
 		local_errors.addAll($for_instruction.errors);
 		$instruction.errors = local_errors;
-		$reclang::scope_id--;
+		$reclang::parent_id--;
+		$reclang::id = $reclang::scope_rel.get($reclang::scope_id);
 	}
 	;
 	
@@ -330,6 +340,7 @@ var_def returns[ArrayList<SimpleError> errors]
 		else {
 			Integer s_id = $instruction::scope.getScopeRel().fst();
 			TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
+			
 			if ( ts != null ){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 			}
@@ -350,7 +361,23 @@ assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
 
 }
 	: ^(ASSIGNMENT ID
-	{
+	{	
+	
+		Integer s_id = $instruction::scope.getScopeRel().fst();
+/*
+		TinySymbol ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);		
+
+		if (isDeclaration) {
+			if ( ts != null && (!($ID.line == ts.getLine() && $ID.pos == ts.getPosition())) ){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
+			}
+		}
+		else {
+			if ( ts == null){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
+			}
+		}
+/**/
 		if (isDeclaration) {
 			if ($instruction::scope.containsSymbol($ID.text)){
 				TinySymbol ts = $instruction::scope.getSymbols().get($ID.text);
@@ -359,35 +386,69 @@ assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
 				}
 			}
 			else {
-				Integer s_id = $instruction::scope.getScopeRel().fst();
 				TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
-				if ( ts != null ){
+				
+				if ( ts != null){
 					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 				}
 			}
 		}
+
 		else{
-			Integer s_id = $instruction::scope.getScopeRel().fst();
 			TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
 			if (!$instruction::scope.containsSymbol($ID.text) && ts == null){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
 			}
 		}
+		TinySymbol ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);
+//*/		
 	}
-	assignment_member) 
+	assignment_member[ts, $ID.line, $ID.pos]) 
 	{
 		local_errors.addAll($assignment_member.errors);
 		$assignment.errors = local_errors;
 	}
 	; 
 	
-assignment_member returns[ArrayList<SimpleError> errors]
+assignment_member[TinySymbol symbol, int id_line, int id_pos] returns[ArrayList<SimpleError> errors]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	TinySymbol ts = $assignment_member.symbol;
+}
 	: expression 
-	{ 
-		//System.out.println($expression.errors);
-		$assignment_member.errors = $expression.errors; 
+	{
+/**/		if (!$expression.errors.isEmpty()){
+			local_errors.addAll($expression.errors);
+		}
+		else{
+//*/
+			if (ts != null) {
+				//System.out.println(ts.getId() +" - " + ts.getDataType());
+				//System.out.println($expression.name +" - " + $expression.datatype);
+				//System.out.println("equals? " + ts.getDataType().equals($expression.datatype));		
+				if ( !ts.getDataType().equals($expression.datatype) ){
+					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($expression.name, ts.dataTypeToString()), $expression.start.getLine(), $expression.start.getCharPositionInLine()) );
+			 	}
+			}
+		}
+/*
+		if (local_errors.isEmpty()){
+			local_errors.addAll($expression.errors);
+		}
+*/
+		$assignment_member.errors = local_errors; 
 	}
-	| reconfiguration_apply { $assignment_member.errors = $reconfiguration_apply.errors; }
+	| reconfiguration_apply 
+	{ 
+		
+		if (!ts.getDataType().equals(Type.PATTERN)){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype(ts.getId(), "Pattern") , $assignment_member.id_line, $assignment_member.id_pos) );
+		}	
+		else{
+			local_errors.addAll($reconfiguration_apply.errors); 
+		}
+		$assignment_member.errors = local_errors; 
+	}
 	;
 	
 reconfiguration_call returns[ArrayList<SimpleError> errors]
@@ -407,7 +468,7 @@ scope{
 			local_errors.addAll($operation_args.errors);
 		}
 		else{
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_JOIN.text) , $OP_JOIN.line) ); //$ID.pos
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_JOIN.text) , $OP_JOIN.line, $OP_JOIN.pos) );
 		}
 		$reconfiguration_call.errors = local_errors;
 	}
@@ -419,7 +480,7 @@ scope{
 			local_errors.addAll($operation_args.errors);
 		}
 		else{
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_SPLIT.text) , $OP_SPLIT.line) ); //$ID.pos
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_SPLIT.text) , $OP_SPLIT.line, $OP_SPLIT.pos) );
 		}
 		$reconfiguration_call.errors = local_errors;
 	}
@@ -431,7 +492,7 @@ scope{
 			local_errors.addAll($operation_args.errors);
 		}
 		else{
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_PAR.text) , $OP_PAR.line) ); //$ID.pos
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_PAR.text) , $OP_PAR.line, $OP_PAR.pos) ); 
 		}
 		$reconfiguration_call.errors = local_errors;
 	}
@@ -443,7 +504,7 @@ scope{
 			local_errors.addAll($operation_args.errors);
 		}
 		else{
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_REMOVE.text) , $OP_REMOVE.line) ); //$ID.pos
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_REMOVE.text) , $OP_REMOVE.line, $OP_REMOVE.pos) );
 		}
 		$reconfiguration_call.errors = local_errors;
 	}
@@ -455,7 +516,7 @@ scope{
 			local_errors.addAll($operation_args.errors);
 		}
 		else{
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_CONST.text) , $OP_CONST.line) ); //$ID.pos
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($OP_CONST.text) , $OP_CONST.line, $OP_CONST.pos) );
 		}
 		$reconfiguration_call.errors = local_errors;
 	}
@@ -464,7 +525,7 @@ scope{
 	operation_args)  
 	{
 		if($operation_args.start != null){
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($instruction::rec_type) , $OP_ID.line) ); //$OP_ID.pos
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($instruction::rec_type) , $OP_ID.line, $OP_ID.pos) );
 			//local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidArgument($operation_args.start.toString()) , $OP_ID.line, $OP_ID.pos+4) );			
 			
 			////is not necessary since 'id' has no arguments
@@ -520,7 +581,9 @@ scope{
 			local_errors.addAll($operation_args.errors);
 		}
 		else{
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($ID.text) , $ID.line) ); //$ID.pos
+			if (!$reconfiguration_call::args.isEmpty()){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($ID.text) , $ID.line, $ID.pos) ); //$ID.pos
+			}
 		}
 		$reconfiguration_call.errors = local_errors;
 	}
@@ -541,12 +604,12 @@ operation_args returns[ArrayList<SimpleError> errors]
 	{
 		//reconfiguration of type "custom" can have more than one argument; id primitive tested before (do not even have one argument)
 		if ($args.counter > 1 && !$instruction::rec_type.equals("custom") && !$instruction::rec_type.equals("id")){
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($instruction::rec_type) , $args.start.getLine()) );
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($instruction::rec_type) , $args.start.getLine(), $args.start.getCharPositionInLine()) );
 		}
 		//if the number of arguments are correct, check their type (possible errors)
 		else {
 			if ($instruction::rec_type.equals("custom") && $args.counter < $reconfiguration_call::args.size()){
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($reconfiguration_call::name) , $args.start.getLine()) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($reconfiguration_call::name) , $args.start.getLine(), $args.start.getCharPositionInLine()) );
 			}
 			else{
 				local_errors.addAll($args.errors);
@@ -574,13 +637,13 @@ args returns[ArrayList<SimpleError> errors, int counter]
 				TinySymbol ts1 = $reconfiguration_call::args.get(i);
 
 //			if (ts1 != null){				
-				String value = $expression.value;
+				String value = $expression.name;
 				Integer s_id = $instruction::scope.getScopeRel().fst();
 				//if contains symbol, value of new argument is obtained from $instruction::scope, else from $reconfiguration_def::name
 				TinySymbol ts2 = $instruction::scope.containsSymbol(value) ? $instruction::scope.getSymbols().get(value) : $reconfiguration_def::name.hasValue(value, s_id);
 				if ( ts2 != null && !ts2.getDataType().equals(ts1.getDataType()) ){
 					String datatype = ts1.dataTypeToString();
-					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype(value, datatype) , $expression.start.getLine()) );
+					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype(value, datatype) , $expression.start.getLine(), $expression.start.getCharPositionInLine() ) );
 				}
 			}
 			else{
@@ -594,7 +657,7 @@ args returns[ArrayList<SimpleError> errors, int counter]
 	
 	{
 		if (exceeded){
-			global_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($reconfiguration_call::name) , $expression.start.getLine()) );
+			global_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments($reconfiguration_call::name) , $expression.start.getLine(), $expression.start.getCharPositionInLine() ) );
 		}
 		else{
 			global_errors.addAll(local_errors);
@@ -609,6 +672,10 @@ args returns[ArrayList<SimpleError> errors, int counter]
 for_instruction returns[ArrayList<SimpleError> errors]
 @init{
 	$reclang::scope_id++;
+	$reclang::id = $reclang::scope_id;
+	$reclang::scope_rel.put($reclang::scope_id, $reclang::parent_id);
+	$reclang::parent_id++;
+	
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
 	: ^(FORALL datatype id1=ID
@@ -628,7 +695,7 @@ for_instruction returns[ArrayList<SimpleError> errors]
 		}
 		else{
 			if (local_errors.isEmpty()){
-				$instruction::scope = this.getScope($reclang::scope_id);
+				$instruction::scope = this.getScope($reclang::id);
 
 				TinySymbol ts1 = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
 				TinySymbol ts2 = $instruction::scope.containsSymbol($id2.text) ? $instruction::scope.getSymbols().get($id2.text) : $reconfiguration_def::name.hasValue($id2.text, s_id);				
@@ -637,10 +704,12 @@ for_instruction returns[ArrayList<SimpleError> errors]
 					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id2.text, "Set<T>"), $id2.line, $id2.pos) );
 				}
 				else{
-					ts2.getDataType().remove(0);
-					List<Type> datatype = ts2.getDataType();
-					if (!ts1.getDataType().equals(datatype)){
-						local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, ts2.dataTypeToString()), $id1.line, $id1.pos) );
+					if (ts1 != null){
+						ts2.getDataType().remove(0);
+						List<Type> datatype = ts2.getDataType();
+						if (!ts1.getDataType().equals(datatype)){
+							local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, ts2.dataTypeToString()), $id1.line, $id1.pos) );
+						}
 					}
 				}
 			}
@@ -660,57 +729,196 @@ for_instruction returns[ArrayList<SimpleError> errors]
 	;
 	
 	
-expression returns[ArrayList<SimpleError> errors, String value]
+expression returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	List<Type> dt = new ArrayList<Type>();
+	int nulls = 0;
+	HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
 }
-	: ^(OP_UNION e1=expression { local_errors.addAll($e1.errors);} e2=expression
+
+	: ^(OP_UNION e1=expression 
+	{ 
+		if ($e1.datatype.isEmpty()){
+			local_errors.addAll($e1.errors);
+			nulls++;
+		}
+		else{
+			//if $e1.datatype is a Set<T>
+			if ($e1.datatype.get(0).equals(Type.SET)){
+				datatypes.add($e1.datatype);
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e1.name, "Set<T>"), $e1.start.getLine(), $e1.start.getCharPositionInLine()) );
+				nulls++;
+			}
+		}
+	} 
+	
+	e2=expression
 	{
-		local_errors.addAll($e2.errors);
-		$expression.errors = local_errors; 
+		//System.out.println("e2: "+ $e2.name+":"+$e2.datatype);
+		if ($e2.datatype.isEmpty()){
+			local_errors.addAll($e2.errors);
+			nulls++;
+		}
+		else{
+			//if $e2.datatype is a Set<T>
+			if ($e2.datatype.get(0).equals(Type.SET)){
+				datatypes.add($e2.datatype);
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e2.name, "Set<T>"), $e2.start.getLine(), $e2.start.getCharPositionInLine()) );
+				nulls++;
+			}
+		}
+		
+		//System.out.println("dt: " + datatypes);
+		$expression.errors = local_errors;
+		$expression.name = $e1.name + " + " + $e2.name;
+		
+//		System.out.println("bla"+datatypes + ": "+datatypes.size());
+//		System.out.println(nulls);
+//		System.out.println(datatypes.size() + nulls == 1);
+		if(datatypes.size() + nulls == 1){
+			dt.addAll(datatypes.iterator().next());
+		}
+		$expression.datatype = dt;
 	}
 	)
 	
-	| ^(OP_INTERSECTION e1=expression { local_errors.addAll($e1.errors);} e2=expression
+	| ^(OP_INTERSECTION e1=expression
+	{ 
+		if ($e1.datatype.isEmpty()){
+			local_errors.addAll($e1.errors);
+			nulls++;
+		}
+		else{
+			//if $e1.datatype is a Set<T>
+			if ($e1.datatype.get(0).equals(Type.SET)){
+				datatypes.add($e1.datatype);
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e1.name, "Set<T>"), $e1.start.getLine(), $e1.start.getCharPositionInLine()) );
+				nulls++;
+			}
+		}
+	} 
+	
+	e2=expression
 	{
-		local_errors.addAll($e2.errors);
-		$expression.errors = local_errors; 
+		if ($e2.errors != null){
+			local_errors.addAll($e2.errors);
+		}
+		
+		if ($e2.datatype.isEmpty()){
+			local_errors.addAll($e2.errors);
+			nulls++;
+		}
+		else{
+			//if $e2.datatype is a Set<T>
+			if ($e2.datatype.get(0).equals(Type.SET)){
+				datatypes.add($e2.datatype);
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e2.name, "Set<T>"), $e2.start.getLine(), $e2.start.getCharPositionInLine()) );
+				nulls++;
+			}
+		}
+		
+		$expression.errors = local_errors;
+		$expression.name = $e1.name + "+ " + $e2.name;
+		
+		if(datatypes.size() + nulls == 1){
+			dt.addAll(datatypes.iterator().next());
+		}
+		/*
+		else {
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("SET"), $SET.line, $SET.pos) );
+		}
+		*/
+		$expression.datatype = dt;
 	}
 	)
 	
-	| ^(OP_MINUS e1=expression { local_errors.addAll($e1.errors);} e2=expression
+	| ^(OP_MINUS e1=expression 
+	{ 
+		if ($e1.datatype.isEmpty()){
+			local_errors.addAll($e1.errors);
+			nulls++;
+		}
+		else{
+			//if $e1.datatype is a Set<T>
+			if ($e1.datatype.get(0).equals(Type.SET)){
+				datatypes.add($e1.datatype);
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e1.name, "Set<T>"), $e1.start.getLine(), $e1.start.getCharPositionInLine()) );
+				nulls++;
+			}
+		}
+	}
+	
+	e2=expression
 	{
-		local_errors.addAll($e2.errors);
-		$expression.errors = local_errors; 
+		if ($e2.datatype.isEmpty()){
+			local_errors.addAll($e2.errors);
+			nulls++;
+		}
+		else{
+			//if $e2.datatype is a Set<T>
+			if ($e2.datatype.get(0).equals(Type.SET)){
+				datatypes.add($e2.datatype);
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e2.name, "Set<T>"), $e2.start.getLine(), $e2.start.getCharPositionInLine()) );
+				nulls++;
+			}
+		}
+		
+		$expression.errors = local_errors;
+		$expression.name = $e1.name + "+ " + $e2.name;
+		
+		if(datatypes.size() + nulls == 1){
+			dt.addAll(datatypes.iterator().next());
+		}
+		$expression.datatype = dt;
 	}
 	)
 	
 	| factor 
-	{ 
+	{
 		$expression.errors = $factor.errors; 
-		$expression.value = $factor.value; 
+		$expression.name = $factor.name; 
+		$expression.datatype = $factor.datatype;
 	}
 	;
 
 
-factor returns[ArrayList<SimpleError> errors, String value]
+factor returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	List<Type> dt = new ArrayList<Type>();
 }
-	: ^(ID ID) { $factor.errors = local_errors; }
+	: ^(ID ID) 
+	{
+		$factor.errors = local_errors;
+		$factor.datatype = dt;
+	}
+	
 	| ID
 	{
-		$factor.value = $ID.text;
+		$factor.name = $ID.text;
+		
 		Integer s_id = $instruction::scope.getScopeRel().fst();
 		TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
 		if (!$instruction::scope.containsSymbol($ID.text) && ts == null){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
 		}
 		else{
-			//System.out.println($ID.text);
 			TinySymbol symbol = ts != null ? ts : $instruction::scope.getSymbols().get($ID.text);
-			//System.out.println(ts);
-			List<Type> dt = new ArrayList<Type>();
+			
+			dt.clear();
 			dt.add(Type.PATTERN);
 			if ($instruction::rec_type.equals("const") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($ID.text, "Pattern"), $ID.line, $ID.pos) );
@@ -738,80 +946,126 @@ factor returns[ArrayList<SimpleError> errors, String value]
 			if ($instruction::rec_type.equals("remove") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($ID.text, "Name"), $ID.line, $ID.pos) );
 			}
+			
+			dt.clear();
+			dt.addAll( symbol.getDataType() );
 		}
+		
+		$factor.datatype = dt;
 		$factor.errors = local_errors; 
 	}
-	| operation { $factor.errors = $operation.errors; }
-	| constructor { $factor.errors = local_errors; }
+	| operation 
+	{
+		$factor.name = $operation.name;
+		$factor.datatype = $operation.datatype;
+		$factor.errors = $operation.errors; 
+	}
+	
+	| constructor 
+	{
+		$factor.name = $constructor.name;
+		$factor.datatype = $constructor.datatype;
+		$factor.errors = $constructor.errors; 
+		
+	}
 	;
 	
-operation returns[ArrayList<SimpleError> errors]
+operation returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+scope{
+	String id;
+	int line;
+	int pos;
+}
 @init{
+	$operation::id = "";
+	$operation::line = 0;
+	$operation::pos = 0;
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	
 }
 	: ^(ACCESS id1=ID
 	{
-		List<Type> datatype = new ArrayList<Type>();
+		$operation::id = $id1.text;
+		$operation::line = $id1.line;
+		$operation::pos = $id1.pos;
+		
 		Integer s_id = $instruction::scope.getScopeRel().fst();
 		//if contains symbol, tiny symbol is obtained from $instruction::scope, else from $reconfiguration_def::name
 		TinySymbol ts = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
 //		System.out.println(ts);
-		if (ts != null){
-			datatype = ts.getDataType();
-		}
-		else{
+		if (ts == null){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id1.text), $id1.line, $id1.pos) );
 		}
 	}
 	(^(STRUCTURE id2=ID
 	{
+		$operation::id = $id2.text;
+		$operation::line = $id2.line;
+		$operation::pos = $id2.pos;
+		
 		//if contains symbol, tiny symbol is obtained from $instruction::scope, else from $reconfiguration_def::name
 		ts = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
 //		System.out.println(ts);
-		if (ts != null){
-			datatype = ts.getDataType();
-		}
-		else{
+		if (ts == null){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id1.text), $id1.line, $id1.pos) );
 		}
 	}
-	))? attribute_call[datatype])
+	))? attribute_call[ts])
 	{
-	 	if (ts != null){
-			Type t = datatype.get(0);
-	 		if( ($attribute_call.op.equals("in") || $attribute_call.op.equals("out")) && !(t.equals(Type.PATTERN) || t.equals(Type.CHANNEL)) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern' or 'Channel"), $id1.line, $id1.pos) );
-			}
-			if( ($attribute_call.op.equals("name") || $attribute_call.op.equals("ends")) && !t.equals(Type.CHANNEL) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Channel"), $id1.line, $id1.pos) );
-			}
-			if( ($attribute_call.op.equals("nodes") || $attribute_call.op.equals("names")) && !t.equals(Type.PATTERN) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pattern"), $id1.line, $id1.pos) );
-			}
-			if( ($attribute_call.op.equals("fst") || $attribute_call.op.equals("snd")) && !(t.equals(Type.PAIR) || t.equals(Type.TRIPLE)) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Pair' or 'Triple"), $id1.line, $id1.pos) );
-			}
-			if( $attribute_call.op.equals("trd") && !t.equals(Type.TRIPLE) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Triple"), $id1.line, $id1.pos) );
-			}
-		}
-		
 		if($attribute_call.errors != null){
 			local_errors.addAll($attribute_call.errors);
 		}
+		
 		$operation.errors = local_errors;
+		$operation.name = $operation::id + "." + $attribute_call.name;
+		$operation.datatype = $attribute_call.datatype;
 	}
 	 
 //	| single_return_operation
-	| structure_operation_call 	{ $operation.errors = local_errors; }
+	| structure_operation_call 	
+	{ 
+		$operation.errors = local_errors; 
+	}
 	;	
 
-constructor
-	: triple_cons
-	| pair_cons
-	| set_cons
-	| node_cons
+constructor returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+	: triple_cons	
+	{ 
+		$constructor.errors = $triple_cons.errors; 
+		$constructor.name = $triple_cons.name; 
+		$constructor.datatype = $triple_cons.datatype; 
+	}
+	
+	| pair_cons	
+	{ 
+		$constructor.errors = $pair_cons.errors; 		
+		$constructor.name = $pair_cons.name; 
+		$constructor.datatype = $pair_cons.datatype; 
+
+	}
+	
+	| set_cons	
+	{ 
+		$constructor.errors = $set_cons.errors;
+		$constructor.name = $set_cons.name; 
+		$constructor.datatype = $set_cons.datatype; 
+ 
+	}
+	
+	| node_cons	
+	{ 
+		$constructor.errors = $node_cons.errors; 
+		$constructor.name = $node_cons.name; 
+		$constructor.datatype = $node_cons.datatype; 
+
+	}
+	
+	| xor_cons	
+	{ 
+		$constructor.errors = $xor_cons.errors; 
+		$constructor.name = $xor_cons.name; 
+		$constructor.datatype = $xor_cons.datatype; 
+	}
 	;
 	
 //single_return_operation
@@ -820,71 +1074,510 @@ constructor
 //	| ^(OP_TRD operation_args)
 //	;
 	
-attribute_call[List<Type> datatype] returns[ArrayList<SimpleError> errors, String op]
+attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
 @init{
-	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();	
+	List<Type> datatype = new ArrayList<Type>();
+	if (ts != null){
+		datatype = $attribute_call.ts.getDataType();
+	}
 	
+	List<Type> dt = new ArrayList<Type>();
 }
 	: ^(OP_IN (INT
 	{
-		List<Type> dt = new ArrayList<Type>();
-		dt.add(Type.CHANNEL);
-		if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_IN.text) , $INT.line, $INT.pos) );
+		if ($attribute_call.ts != null){
+			dt.add(Type.CHANNEL);
+			if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_IN.text) , $INT.line, $INT.pos) );
+			}
 		}
 	}
 	)?) 	
 	{
-		$attribute_call.op = "in";
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !(t.equals(Type.PATTERN) || t.equals(Type.CHANNEL)) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				dt = new ArrayList<Type>();
+				dt.add(Type.SET);
+				dt.add(Type.NODE);
+			}
+		}
+		$attribute_call.datatype = dt;
+		$attribute_call.name = "in";
 		$attribute_call.errors = local_errors;
 	}
 	
 	| ^(OP_OUT (INT
 	{
-		List<Type> dt = new ArrayList<Type>();
-		dt.add(Type.CHANNEL);
-		if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
-			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_OUT.text) , $INT.line, $INT.pos) );
+		if ($attribute_call.ts != null){
+			dt.add(Type.CHANNEL);
+			if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_OUT.text) , $INT.line, $INT.pos) );
+			}
 		}
 	}
 	)?)	
 	{
-		$attribute_call.op = "out";
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !(t.equals(Type.PATTERN) || t.equals(Type.CHANNEL)) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				dt = new ArrayList<Type>();
+				dt.add(Type.SET);
+				dt.add(Type.NODE);
+			}
+		}
+		
+		$attribute_call.datatype = dt;
+		$attribute_call.name = "out";
 		$attribute_call.errors = local_errors;
 	}
 	
-	| OP_NAME		{$attribute_call.op = "name";}
-	| OP_NODES		{$attribute_call.op = "nodes";}
-	| OP_NAMES		{$attribute_call.op = "names";}
-	| ^(OP_ENDS expression) {$attribute_call.op = "ends";}
-	| OP_FST		{$attribute_call.op = "fst";}//{ System.out.println(datatype); }
-	| OP_SND		{$attribute_call.op = "snd";}
-	| OP_TRD		{$attribute_call.op = "trd";}
-	| ID			{$attribute_call.op = $ID.text;}
+	| OP_NAME		
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !t.equals(Type.CHANNEL) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Channel"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				dt.add(Type.NAME);
+			}
+		}
+		
+		$attribute_call.datatype = dt;
+		$attribute_call.name = "name";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| OP_NODES		
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !t.equals(Type.PATTERN) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				dt.add(Type.SET);
+				dt.add(Type.NODE);
+			}
+		}
+		
+		$attribute_call.datatype = dt;		
+		$attribute_call.name = "nodes";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| OP_NAMES		
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !t.equals(Type.PATTERN) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				dt.add(Type.SET);
+				dt.add(Type.NAME);
+			}
+		}
+		
+		$attribute_call.datatype = dt;		
+		$attribute_call.name = "names";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| ^(OP_ENDS expression) 
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !t.equals(Type.CHANNEL) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Channel"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				dt.add(Type.SET);
+				dt.add(Type.NAME);
+			}
+		}
+		
+		$attribute_call.datatype = dt;		
+		$attribute_call.name = "ends";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| OP_FST		
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !(t.equals(Type.PAIR) || t.equals(Type.TRIPLE)) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pair' or 'Triple"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				datatype.remove(0);
+				dt.addAll(datatype);
+			}
+		}
+
+		$attribute_call.datatype = dt;				
+		$attribute_call.name = "fst";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| OP_SND		
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !(t.equals(Type.PAIR) || t.equals(Type.TRIPLE)) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pair' or 'Triple"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				datatype.remove(0);
+				dt.addAll(datatype);
+			}
+		}
+		
+		$attribute_call.datatype = dt;		
+		$attribute_call.name = "snd";
+		$attribute_call.errors = local_errors;
+	}
+	| OP_TRD		
+	{
+		if ($attribute_call.ts != null){
+			Type t = datatype.get(0);
+		 	if( !t.equals(Type.TRIPLE) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Triple"), $operation::line, $operation::pos) );
+			}
+			//else
+			if (local_errors.isEmpty()){
+				datatype.remove(0);
+				dt.addAll(datatype);
+			}
+		}
+		
+		$attribute_call.datatype = dt;		
+		$attribute_call.name = "trd";
+		$attribute_call.errors = local_errors;
+	}
+	
+	| ID			
+	{
+		$attribute_call.datatype = dt;
+		$attribute_call.name = $ID.text;		
+		$attribute_call.errors = local_errors;
+	}
 	;
 	
 	
-triple_cons
-	: ^(TRIPLE expression expression expression)
+triple_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	List<Type> dt = new ArrayList<Type>();
+	HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
+	int nulls = 0;
+	String name = "T(";
+}
+	: ^(TRIPLE e1=expression
+	{
+		local_errors.addAll($e1.errors);
+		if ( !$e1.datatype.isEmpty() ) {
+			datatypes.add($e1.datatype);
+		}
+		else{
+			nulls++;
+		}
+		name += $e1.name + ", ";
+	} 
+	
+	e2=expression 
+	{
+		local_errors.addAll($e2.errors);
+		if ( !$e2.datatype.isEmpty() ) {
+			datatypes.add($e2.datatype);
+		}
+		else{
+			nulls++;
+		}
+		name += $e2.name + ", ";
+	} 
+	
+	e3=expression
+	{
+		local_errors.addAll($e3.errors);
+		if ( !$e3.datatype.isEmpty() ) {
+			datatypes.add($e3.datatype);
+		}
+		else{
+			nulls++;
+		}
+		name += $e3.name;
+	}
+	
+	)
+	{
+		if (local_errors.isEmpty()){
+			if(datatypes.size() + nulls == 1){
+				dt.add(Type.TRIPLE);
+				dt.addAll(datatypes.iterator().next());
+			}
+			else {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("TRIPLE"), $TRIPLE.line, $TRIPLE.pos) );
+			}
+		}
+		$triple_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$triple_cons.name = name + ")";
+
+		$triple_cons.datatype = dt;
+	}
 	;
 	
 	
-pair_cons 
-	: ^(PAIR expression expression)
+
+set_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();	
+	List<Type> dt = new ArrayList<Type>();
+	HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
+	int nulls = 0;
+	String name = "S(";
+}
+	: ^(SET (expression
+	{
+		local_errors.addAll($expression.errors);
+		if ( !$expression.datatype.isEmpty() ) {
+			datatypes.add($expression.datatype);
+		}
+		else{
+			nulls++;
+		}
+		name += $expression.name + ",";
+	}
+	)*
+	
+	{
+		if (local_errors.isEmpty()){
+			if(datatypes.size() + nulls == 1){
+				dt.add(Type.SET);
+				dt.addAll(datatypes.iterator().next());
+			}
+			else {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("SET"), $SET.line, $SET.pos) );
+			}
+		}
+		$set_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$set_cons.name = name + ")";
+
+		$set_cons.datatype = dt;
+	}
+	) 
+	;
+pair_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	List<Type> dt = new ArrayList<Type>();
+	HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
+	int nulls = 0;
+	String name = "P(";
+}
+	: ^(PAIR e1=expression
+	{
+		local_errors.addAll($e1.errors);
+		if ( !$e1.datatype.isEmpty() ) {
+			datatypes.add($e1.datatype);
+		}
+		else{
+			nulls++;
+		}
+		name += $e1.name + ", ";
+	} 
+	e2=expression
+	{
+		local_errors.addAll($e2.errors);
+		
+		if ( !$e2.datatype.isEmpty() ) {
+			datatypes.add($e2.datatype);
+		}
+		else{
+			nulls++;
+		}
+		name += $e2.name;
+	}
+	)
+	
+	{
+		if (local_errors.isEmpty()){
+			if(datatypes.size() + nulls == 1){
+				dt.add(Type.PAIR);
+				dt.addAll(datatypes.iterator().next());
+			}
+			else {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("PAIR"), $PAIR.line, $PAIR.pos) );
+			}
+		}
+		$pair_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$pair_cons.name = name + ")";
+
+		$pair_cons.datatype = dt;
+	}
 	;
 	
 	
 	
-set_cons
-	: ^(SET expression*) 
-	;
 		
 			
-node_cons
-	: ^(NODE ID+)
+node_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();	
+	List<Type> dt = new ArrayList<Type>();
+	String name = "N(";
+}
+	: ^(NODE (ID
+	{
+		Integer s_id = $instruction::scope.getScopeRel().fst();
+		TinySymbol ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);
+		
+		if (ts == null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
+		}
+		else{
+			dt = new ArrayList<Type>();
+			dt.add(Type.NAME);
+			if (!ts.getDataType().equals(dt)){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($ID.text, "Name"), $ID.line, $ID.pos) );
+			}
+		}
+		name += $ID.text + ",";
+		
+	}
+	)+
+	
+	{
+		$node_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$node_cons.name = name + ")";
+
+		if (local_errors.isEmpty()){
+			dt = new ArrayList<Type>();
+			dt.add(Type.NODE);
+			$node_cons.datatype = dt;
+		}
+	}
+	)
 	;
 
 
+xor_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
+@init{
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	List<Type> dt = new ArrayList<Type>();
+	String name = "X(";
+	
+}
+	: ^(XOR  ^(IN id1=ID
+	{
+		Integer s_id = $instruction::scope.getScopeRel().fst();
+		TinySymbol ts = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
+		
+		if (ts == null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id1.text), $id1.line, $id1.pos) );
+		}
+		else{
+			dt = new ArrayList<Type>();
+			dt.add(Type.NAME);
+			if (!ts.getDataType().equals(dt)){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, "Name"), $id1.line, $id1.pos) );
+			}
+		}
+		name += $id1.text + ",";		
+	} 
+	
+	(id2=ID
+	{
+		ts = $instruction::scope.containsSymbol($id2.text) ? $instruction::scope.getSymbols().get($id2.text) : $reconfiguration_def::name.hasValue($id2.text, s_id);
+		
+		if (ts == null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id2.text), $id2.line, $id2.pos) );
+		}
+		else{
+			dt = new ArrayList<Type>();
+			dt.add(Type.NAME);
+			if (!ts.getDataType().equals(dt)){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id2.text, "Name"), $id2.line, $id2.pos) );
+			}
+		}
+		name += $id2.text + ",";
+	} 
+	)*
+	) ^(OUT id3=ID
+	{
+		name = name.substring(0, name.length()-1);
+		name += ":";
+		
+		ts = $instruction::scope.containsSymbol($id3.text) ? $instruction::scope.getSymbols().get($id3.text) : $reconfiguration_def::name.hasValue($id3.text, s_id);
+		
+		if (ts == null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id3.text), $id3.line, $id3.pos) );
+		}
+		else{
+			dt = new ArrayList<Type>();
+			dt.add(Type.NAME);
+			if (!ts.getDataType().equals(dt)){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id3.text, "Name"), $id3.line, $id3.pos) );
+			}
+		}
+		name += $id3.text + ",";		
+	} 
+	(id4=ID
+	{
+		ts = $instruction::scope.containsSymbol($id4.text) ? $instruction::scope.getSymbols().get($id4.text) : $reconfiguration_def::name.hasValue($id4.text, s_id);
+		
+		if (ts == null){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id4.text), $id4.line, $id4.pos) );
+		}
+		else{
+			dt = new ArrayList<Type>();
+			dt.add(Type.NAME);
+			if (!ts.getDataType().equals(dt)){
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id4.text, "Name"), $id4.line, $id4.pos) );
+			}
+		}
+		name += $id4.text + ",";
+	} 
+	)+)
+	{
+		$xor_cons.errors = local_errors;
+		
+		name = name.substring(0, name.length()-1);
+		$xor_cons.name = name + ")";
+
+		if (local_errors.isEmpty()){
+			dt = new ArrayList<Type>();
+			dt.add(Type.XOR);
+			$xor_cons.datatype = dt;
+		}
+	}
+	)
+	;
+	
 
 
 

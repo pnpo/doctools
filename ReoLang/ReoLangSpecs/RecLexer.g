@@ -40,6 +40,10 @@ DT_NODE
 	: 	'Node'
 	;
 	
+DT_XOR
+	: 	'Xor'
+	;
+	
 DT_SET
 	:	'Set'
 	;
@@ -126,6 +130,14 @@ OP_NAMES
 	
 OP_CHANNELS
 	:	'channels'
+	;
+	
+OP_READ
+	:	'read'
+	;
+	
+OP_WRITE
+	:	'write'
 	;
 	
 	
@@ -230,7 +242,11 @@ CONS_SET
 
 CONS_NODE
 	:	'N'
-	; 
+	;
+	
+CONS_XOR
+	:	'X'
+	;
 	
 
 ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*

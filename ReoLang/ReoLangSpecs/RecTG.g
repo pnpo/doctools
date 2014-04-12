@@ -126,7 +126,8 @@ datatype
 	: DT_PATTERN { $reconfiguration_def::datatype.add( Type.PATTERN ); }
 	| DT_CHANNEL { $reconfiguration_def::datatype.add( Type.CHANNEL ); }
 	| DT_NAME { $reconfiguration_def::datatype.add( Type.NAME ); }
-	| DT_NODE { $reconfiguration_def::datatype.add( Type.NODE ); }
+	| DT_NODE { $reconfiguration_def::datatype.add( Type.NODE ); }	
+	| DT_XOR { $reconfiguration_def::datatype.add( Type.XOR ); }
 	
 	|  ^( other_type
 	{
@@ -354,6 +355,7 @@ constructor
 	| pair_cons
 	| set_cons
 	| node_cons
+	| xor_cons
 	;
 	
 //single_return_operation
@@ -393,10 +395,12 @@ set_cons
 	
 		
 node_cons
-	: ^(NODE ID+)
+	: ^(NODE ID+ ) 
 	;
 
-
+xor_cons
+	: ^(XOR  ^(IN ID ID*) ^(OUT ID ID+) )
+	;
 
 
 

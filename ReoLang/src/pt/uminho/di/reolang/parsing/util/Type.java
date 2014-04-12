@@ -13,6 +13,7 @@ public enum Type {
 	CHANNEL,
 	NAME,
 	NODE,
+	XOR,
 	SET,
 	TRIPLE,
 	PAIR,

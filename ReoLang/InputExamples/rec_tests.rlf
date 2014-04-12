@@ -1,15 +1,23 @@
-reconfiguration bla (Node x; 
-Name y) {
+reconfiguration bla (Name x;
+					Name y) {
 	Pattern g;
 	@ id ();
 }
 
-reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
-	@ par ();
+reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
+	@ par (p);
 	@ id ();
-	Name ab;
-	@ bla (ab,p);
-	forall(Node n : X) {
+	Name a;
+	Name y = a;
+	Name b;
+	Name c;
+	Node h;
+	
+	Set<Node> yy = S(N(a,b,c) + h) + S(h);
+	Name g = N(a);
+	@ bla (b+c,h);
+	forall(Node n : M) {
+		Name y = b;
 		Node n1,n2; 
 		Channel n3;
 		nn1 = x.fst; 
@@ -23,9 +31,10 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 			@ remove(n);
 			Pattern p1 = @ par(p);
 			forall (Pattern p3 : U) {
-				Set<Node> E5 = n1 + S(mi);
+				Set<Node> E5 = E + S(S(g),S(n2));
+				Set<Node> E65 = E + S(N(g));
 				forall (Pattern p5 : U) {
-					Set<Node> E6 = n1 + S(mi);
+					Set<Node> E6 = E + S(N(g));
 					Set<Node> E6 = n1 + S(mi);
 					Set<Node> E8 = n1 + S(mi);
 				}
@@ -34,7 +43,7 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 			}
 			
 			forall (Pattern p5 : U) {
-				Set<Node> E12 = n1 + S(mi);
+				E12 = n1 + S(mi);
 				Set<Node> E13 = n1 + S(mi);
 				Set<Node> E14 = n1 + S(mi);
 			}
@@ -47,8 +56,6 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> X) {
 		@ join(E2);  
 	}
 	Node pp1;
-	Node pp2;
-	Node pp2;
 	Node pp2;
 	Set<Node> n2 = pp2.in - pp1.in ;
 	Set<Node> n3 = pp2.out - pp1.out ;

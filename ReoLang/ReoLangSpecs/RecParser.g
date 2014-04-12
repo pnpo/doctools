@@ -1,7 +1,7 @@
 parser grammar RecParser;
 
 options{
-	tokenVocab=RecLexer;
+	tokenVocab=RecLexer; 
 	output=AST;
 }
 
@@ -20,6 +20,9 @@ tokens {
 	PAIR;
 	SET;
 	NODE;
+	XOR;
+	IN;
+	OUT;
 	ACCESS;
 	STRUCTURE;
 	APPLICATION;
@@ -87,6 +90,7 @@ datatype
 	| 	DT_CHANNEL
 	|	DT_NAME
 	|	DT_NODE
+	|	DT_XOR
 	|	other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^(other_type subtype)
 	;
 	
@@ -197,6 +201,7 @@ constructor
 	|	pair_cons					 	-> pair_cons
 	|	set_cons 					 	-> set_cons 
 	|	node_cons						-> node_cons
+	|	xor_cons						-> xor_cons
 	;
 
 //single_return_operation
@@ -239,10 +244,13 @@ set_cons
 		
 node_cons
 	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* SEP_ARGS_END
-		-> ^(NODE ID+) 
+		-> ^(NODE ID+ ) 
 	;
 	
-
+xor_cons
+	:	CONS_XOR SEP_ARGS_START id1=ID (SEP_COMMA id2=ID)* SEP_COLON id3=ID (SEP_COMMA id4=ID)+ SEP_ARGS_END
+		-> ^(XOR  ^(IN $id1 $id2*) ^(OUT $id3 $id4+) )
+	;
 
 
 
