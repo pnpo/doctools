@@ -55,6 +55,7 @@ tokens{
 	JOIN_OP;
 	PORT_ACCESS_LIST;
 	STOCH;
+	STOCH_VAL;
 }
 
 @header{
@@ -360,6 +361,13 @@ stochastic_list
 	;
 	
 stoch_elem
-	:	(ID (LABEL_MARK ID)? EQUALS FLOAT SEMICOLON)
-		-> ^(STOCH ID ID? FLOAT)
+	:	(ID (LABEL_MARK ID)? EQUALS stoch_val SEMICOLON)
+		-> ^(STOCH ID ID? stoch_val)
+	;
+	
+stoch_val
+	:	FLOAT						
+		-> ^(STOCH_VAL FLOAT)
+	|	PORTS_OPEN FLOAT COMMA FLOAT PORTS_CLOSE	
+		-> ^(STOCH_VAL FLOAT FLOAT)
 	;

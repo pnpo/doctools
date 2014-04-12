@@ -13,11 +13,17 @@ options{
 	import java.text.*;
 	import java.util.Date;
 	import java.util.Iterator;	
+	import java.util.HashMap;
 	import pt.uminho.di.reolang.parsing.util.Error;
 	import pt.uminho.di.reolang.parsing.util.*;
-	import pt.uminho.di.reolang.parsing.*;
-	
+	import pt.uminho.di.reolang.parsing.*;	
 }
+
+
+@members {
+	private HashMap<String, ArrayList<String>> pattern_nodes;
+}
+
 
 
 //RULES
@@ -34,6 +40,7 @@ reolang[ArrayList<Error> i_errors, String i_file, SymbolsTable i_gtable] returns
 		$reolang::file = $reolang.i_file;
 		$reolang::actual_scope = null;
 		ArrayList<Error> local_errors = new ArrayList<Error>();
+		pattern_nodes = new HashMap<String, ArrayList<String>>();
 		
 	}
 	
@@ -1340,6 +1347,8 @@ pattern_signature returns [ArrayList<Error> o_errors]
 		local_errors.addAll(($out.o_errors != null ? $out.o_errors : new ArrayList<Error>(0)));
 			
 		$pattern_signature.o_errors = local_errors ;
+		this.pattern_nodes.put($pattern_def::pattern_name, new ArrayList<String>());
+		
 	}
 	
 	;
@@ -1813,6 +1822,8 @@ join_operation [ArrayList<String> i_unused_accesses] returns [ArrayList<Error> o
 		local_errors.addAll($join_part.o_errors);
 		$join_operation.o_errors = local_errors;
 		$join_operation.o_unused_accesses = $join_part.o_unused_accesses;
+		
+		this.pattern_nodes.get($pattern_def::pattern_name).add($ID.text);
 	}
 	
 	;
@@ -1984,12 +1995,13 @@ stochastic_list[String pattern_name ] returns [ArrayList<Error> o_errors]
 	ArrayList<String> ports = is_pattern_in_scope ? new ArrayList<String>($reolang::global_table.get(pattern_name).getInArgs()) : new ArrayList<String>();	
 	ports.addAll(is_pattern_in_scope ? new ArrayList<String>($reolang::global_table.get(pattern_name).getOutArgs()) : new ArrayList<String>());
 	ArrayList<String> labels = new ArrayList<String>($reolang::global_table.get(pattern_name).getFlowLabels());
+	ArrayList<String> nodes = new ArrayList<String>(this.pattern_nodes.get(pattern_name));
 }
-	:	( a=stoch_elem[ports, labels] 
+	:	( a=stoch_elem[ports, labels, nodes] 
 	{
 		local_errors.addAll($a.o_errors);
 	}
-	(	b=stoch_elem[$a.o_ports, $a.o_labels] 
+	(	b=stoch_elem[$a.o_ports, $a.o_labels, nodes] 
 	{
 		a = b ;
 		local_errors.addAll($a.o_errors);
@@ -2014,21 +2026,29 @@ stochastic_list[String pattern_name ] returns [ArrayList<Error> o_errors]
 
 
 
-stoch_elem [ArrayList<String> i_ports, ArrayList<String> i_labels] returns [ArrayList<String> o_ports, ArrayList<String> o_labels, ArrayList<Error> o_errors, int line, int pos]
+stoch_elem [ArrayList<String> i_ports, ArrayList<String> i_labels, ArrayList<String> nodes] returns [ArrayList<String> o_ports, ArrayList<String> o_labels, ArrayList<Error> o_errors, int line, int pos]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 }
-	:	^(STOCH i1=ID (i2=ID)? FLOAT
+	:	^(STOCH i1=ID (i2=ID)? stoch_val
 	{
 		//i1 is port? then should not have been used?
 		//if it is a port, ie, if there is not a second part on the stoch spec
 		if($i2==null){
-			//i1 shall be in the list of ports
-			if(!$stoch_elem.i_ports.contains($i1.text)){
+			//i1 shall be in the list of ports or nodes
+			if(!$stoch_elem.i_ports.contains($i1.text) || !$stoch_elem.nodes.contains($i1.text)){
 				local_errors.add( new Error(ErrorType.ERROR, Error.stochasticLabelAlreadyDefined($i1.text), $i1.line, $i1.pos, $reolang::file));
 			}
 			else {
-				$stoch_elem.i_ports.remove($i1.text);
+				if($stoch_elem.i_ports.contains($i1.text)) {
+					$stoch_elem.i_ports.remove($i1.text);
+				}
+				else {
+					if($stoch_elem.nodes.contains($i1.text)) {
+						$stoch_elem.nodes.remove($i1.text);
+					}
+				}
+				
 			}
 		}
 		//i2 is defined then i2 shall be a channel stochastic label
@@ -2050,3 +2070,12 @@ stoch_elem [ArrayList<String> i_ports, ArrayList<String> i_labels] returns [Arra
 	}
 	)
 	;
+
+
+
+stoch_val 
+	:	^(STOCH_VAL FLOAT)
+	|	^(STOCH_VAL FLOAT FLOAT)
+	;
+	
+	

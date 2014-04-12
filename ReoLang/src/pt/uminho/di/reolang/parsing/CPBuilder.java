@@ -12,7 +12,8 @@ import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
-import pt.uminho.di.reolang.ReoLangCPModel;
+import pt.uminho.di.cp.model.CPModelInternal;
+import pt.uminho.di.reolang.ReoLangCP2;
 import pt.uminho.di.reolang.ReoLangLexer;
 import pt.uminho.di.reolang.ReoLangParser;
 import pt.uminho.di.reolang.parsing.util.Error;
@@ -52,12 +53,12 @@ public class CPBuilder extends CompilerPart {
 	
 	
 	@SuppressWarnings("finally")
-	public ReoLangCPModel performModelConstruction(CommonTreeNodeStream tree, LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> stoch_instances, SymbolsTable tab) {
-		ReoLangCPModel final_result = null;
+	public ReoLangCP2 performModelConstruction(CommonTreeNodeStream tree, LinkedHashMap<String, CPModelInternal> patterns, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> stoch_instances, SymbolsTable tab) {
+		ReoLangCP2 final_result = null;
 		
 		try {
-			ReoLangCPModel walker = new ReoLangCPModel(tree);
-		    walker.reolang(this.getFile(), patterns, stoch_instances, tab);
+			ReoLangCP2 walker = new ReoLangCP2(tree);
+		    walker.reolang(this.getFile(), patterns, tab);
 		    final_result = walker;
 		       			
 		} catch(Throwable t) {
@@ -77,8 +78,8 @@ public class CPBuilder extends CompilerPart {
 	
 	
 	@SuppressWarnings("finally")
-	public ReoLangCPModel performModelConstruction(LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, Double>>> stoch_instances, SymbolsTable tab) {
-		ReoLangCPModel final_result = null;
+	public ReoLangCP2 performModelConstruction(LinkedHashMap<String, CPModelInternal> patterns, SymbolsTable tab) {
+		ReoLangCP2 final_result = null;
 		
 		try {
 			CharStream stream = this.getContent().equals("") ? new ANTLRFileStream(this.getFile(), "UTF8"): new ANTLRStringStream(this.getContent());
@@ -93,8 +94,8 @@ public class CPBuilder extends CompilerPart {
 			ReoLangParser.reolang_return root = parser.reolang();
 	        
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(root.getTree());
-			ReoLangCPModel walker = new ReoLangCPModel(nodes);
-		    walker.reolang(this.getFile(), patterns, stoch_instances, tab);
+			ReoLangCP2 walker = new ReoLangCP2(nodes);
+		    walker.reolang(this.getFile(), patterns, tab);
 		    final_result = walker;   	
 		    
 		} catch(Throwable t) {

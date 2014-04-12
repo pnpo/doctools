@@ -332,6 +332,49 @@ public class CoordinationPattern2 {
 	
 	
 	
+	
+	/**
+	 * This method looks into the IO nodes of all Comm. Means 
+	 * and replaces them by a Node n when they share ends.
+	 * 
+	 * An assertion here is that n is bigger than all the
+	 * IO nodes of the comm. means 
+	 * 
+	 * @param n the node to replace all nodes that contain ends on n
+	 */
+	public void replaceNodesBy(Node n){
+		
+		for(CommunicationMean2 cm : this.getPattern()){
+			LinkedHashSet<Node> to_remove = new LinkedHashSet<Node>();
+			for(Node i : cm.getInodes()){
+				LinkedHashSet<String> intersect_inodes = new LinkedHashSet<String>(i.getEnds());
+				intersect_inodes.retainAll(n.getEnds());
+				if(! intersect_inodes.isEmpty()) {
+					to_remove.add(i);
+				}
+			}
+			
+			cm.getInodes().removeAll(to_remove);
+			cm.getInodes().add(n);
+			to_remove.clear();
+			
+			for(Node o : cm.getOnodes()){
+				LinkedHashSet<String> intersect_onodes = new LinkedHashSet<String>(o.getEnds());
+				intersect_onodes.retainAll(n.getEnds());
+				if(! intersect_onodes.isEmpty()) {
+					to_remove.add(o);
+				}
+			}
+			
+			cm.getOnodes().removeAll(to_remove);
+			cm.getOnodes().add(n);
+		}
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Defines a string that is a script of channels to compose into IMCREO
 	 * @return a formatted string as a script accepted by the IMCREOScript parser. 
