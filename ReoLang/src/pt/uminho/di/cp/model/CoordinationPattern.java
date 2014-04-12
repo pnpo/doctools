@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.Set;
 
 
-import pt.uminho.di.reolang.ReoLangCPModel;
-
 /**
  * @author Nuno Oliveira
  * @date 4 de Abr de 2013
