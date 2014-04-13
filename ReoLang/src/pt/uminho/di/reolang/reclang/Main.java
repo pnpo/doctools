@@ -1,7 +1,6 @@
 package pt.uminho.di.reolang.reclang;
 
 
-
 import java.util.ArrayList;
 
 import org.antlr.runtime.*;

@@ -1,5 +1,5 @@
 reconfiguration bla (Name x;
-					Name y) {
+					Node y) {
 	Pattern g;
 	@ id ();
 }
@@ -7,58 +7,67 @@ reconfiguration bla (Name x;
 reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
 	@ par (p);
 	@ id ();
-	Name a;
-	Name y = a;
+	Node a;
 	Name b;
+	Name y = b;
 	Name c;
 	Node h;
 	
-	Set<Node> yy = S(N(a,b,c) + h) + S(h);
-	Name g = N(a);
-	@ bla (b+c,h);
-	forall(Node n : M) {
-		Name y = b;
+	Node g = N(b);
+	@ bla (b,h);
+	forall(Pair<Node> n : M) {
 		Node n1,n2; 
 		Channel n3;
-		nn1 = x.fst; 
-		n2 = n3.in[2]; 
+		n1 = n.fst; 
+		n2 = n.snd; 
 		
 		Set<Node> E = S(n1, n2);
 		@ join(E);
 		
-		forall ( Name nn : p)
+		forall (Pair<Node> nn : M)
 		{	
-			@ remove(n);
-			Pattern p1 = @ par(p);
+			@ remove(b);
+			p1 = @ par(p);
+			Set<Pattern> U;
 			forall (Pattern p3 : U) {
-				Set<Node> E5 = E + S(S(g),S(n2));
-				Set<Node> E65 = E + S(N(g));
+				Set<Node> E5 = E + S(g,n2);
+				Set<Node> E65 = E + S(N(c));
 				forall (Pattern p5 : U) {
-					Set<Node> E6 = E + S(N(g));
-					Set<Node> E6 = n1 + S(mi);
-					Set<Node> E8 = n1 + S(mi);
+					Set<Node> E6 = E + S(N(c));
+					Set<Node> E7 = S(n1);
+					Set<Node> E8 = S(n2);
 				}
-				Set<Node> E9 = n1 + S(mi);
-				Set<Node> E10 = n1 + S(mi);
+				Set<Node> E9 = S(n2);
+				Set<Node> E10 = S(n1);
 			}
 			
 			forall (Pattern p5 : U) {
-				E12 = n1 + S(mi);
-				Set<Node> E13 = n1 + S(mi);
-				Set<Node> E14 = n1 + S(mi);
+				E = S(g);
+				Set<Node> E13 = S(a);
+				forall (Pattern p6 : U){
+					Node E22 = a;
+				}
+				Set<Node> E14 = S(g);
 			}
-			Set<Node> E1 = n1 + S(mi);
+			Set<Pattern> I;
+			forall (Pattern p6 : I){
+					Node E22 = a;
+				}
+			Set<Node> E1 = S(a);
 			@ join(E1);
-			Set<Node> E11 = n1 + S(mi);
+			Set<Node> E11 = S(g);
 		}
+		forall (Pattern p6 : I){
+					Channel ch = n3;
+				}
 		Pattern p2 = @ split(n);
-		Set<Node> E2 = n2 + S(mo);
+		Set<Node> E2 = S(a);
 		@ join(E2);  
 	}
-	Node pp1;
-	Node pp2;
-	Set<Node> n2 = pp2.in - pp1.in ;
-	Set<Node> n3 = pp2.out - pp1.out ;
-	Set<Node> n4 = pp2.out - pp1.out ;
+	Channel pp1;
+	Pattern pp2;
+	Set<Node> d = pp2.in - pp1.in ;
+	Set<Node> f = pp2.out - pp1.out ;
+	Set<Node> j = pp2.out - pp1.out ;
 }
 
