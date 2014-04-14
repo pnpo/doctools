@@ -75,10 +75,10 @@ public class Composer2 {
 	 * Performs composition of all elements (channels + nodes) in this composer.
 	 * 
 	 * It takes advantage of parallelism to speed up the composition.
-	 * 
+	 * @param isToDeploy a boolean specifying whether or not it shall be deployed 
 	 * @return the IMCREOimc composed
 	 */
-	public IMCREOimc compose() {
+	public IMCREOimc compose(boolean isToDeploy) {
 		
 		IMCREOimc composite = null;
 		int NTHREADS = this.elements.size() > 1 ? this.elements.size() / 2 : 1;
@@ -87,7 +87,9 @@ public class Composer2 {
 	    	//compose in parallel (with thread pool) and take the first (unique) element
 	    	//of the obtained list of IMCREOs...
 	    	composite = parallelComposition(this.elements, executor).get(0);
-	    	composite = deploy(composite);
+	    	if(isToDeploy){
+	    		composite = deploy(composite);
+	    	}
 	    	
 	    }
 	    catch(Exception e) {
@@ -138,7 +140,7 @@ public class Composer2 {
 	 * 
 	 * @return
 	 */
-	public IMCREOimc compose2(){
+	public IMCREOimc compose2(boolean isToDeploy){
 		IMCREOimc res = null;
 		if(this.elements.size() >= 2){
 			IMCREOimc i1 = this.elements.get(0);
@@ -157,7 +159,10 @@ public class Composer2 {
 			res = this.elements.get(0);
 		}
 		
-		res = deploy(res);
+		if(isToDeploy){
+			res = deploy(res);
+		}
+		
 		
 		return res;
 	}

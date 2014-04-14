@@ -23,15 +23,18 @@ import com.martiansoftware.jsap.Switch;
 import com.martiansoftware.jsap.UnflaggedOption;
 
 import pt.uminho.di.cp.model.CoordinationPattern;
+import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.imc.IMC;
 import pt.uminho.di.imc.IMCTransformer;
 import pt.uminho.di.imc.parsing.IMCParserWrapper;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
 import pt.uminho.di.imc.reo.composition.Composer;
+import pt.uminho.di.imc.reo.composition.Composer2;
 import pt.uminho.di.imc.reo.composition.ScriptParser;
+import pt.uminho.di.imc.reo.parsing.IMCREOScriptParserFrontEnd;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
 import pt.uminho.di.imc.util.Util;
-import pt.uminho.di.reolang.ReoLangCPModel;
+import pt.uminho.di.reolang.ReoLangCP2;
 import pt.uminho.di.reolang.ReoLangSemantics;
 import pt.uminho.di.reolang.parsing.CPBuilder;
 import pt.uminho.di.reolang.parsing.Semantics;
@@ -109,6 +112,12 @@ public class Generator {
 			hide.setHelp("Whether the joined ports are hidden.");
 			cmd_line.registerParameter(hide);
 			
+			Switch deploy = new Switch("deploy")
+				.setShortFlag('d')
+				.setLongFlag("deploy");
+			deploy.setHelp("Whether the pattern is to deploy.");
+			cmd_line.registerParameter(deploy);
+			
 			Switch labels = new Switch("labels")
 							.setShortFlag('l')
 							.setLongFlag("labels");
@@ -127,12 +136,13 @@ public class Generator {
 			cmd_line.registerParameter(verbose);
 			
 			
-			Switch efficient = new Switch("efficient")
-								.setShortFlag('e')
-								.setLongFlag("efficient");
-			efficient.setHelp(	"Whether it should be used weak-trace equivalence \n" +
-								"to minimize the state space, improving efficiency.");
-			cmd_line.registerParameter(efficient);
+			
+			
+			Switch unefficient = new Switch("unefficient")
+								.setShortFlag('u')
+								.setLongFlag("unefficient");
+			unefficient.setHelp(	"Whether it should use a sequential algorithm to compose.");
+			cmd_line.registerParameter(unefficient);
 			
 			
 			//output related
@@ -201,7 +211,7 @@ public class Generator {
 	            }
 	            
 	            System.err.println();
-	            System.err.println("Usage: java -jar IMCREOtool");
+	            System.err.println("Usage: java -jar IMCREOtool [generator, prismer]");
 	            System.err.println("                "
 	                                + cmd_line.getUsage());
 	            System.err.println();
@@ -246,7 +256,8 @@ public class Generator {
 						
 						System.out.print("Composing and Synchronising...");
 						long startTime = System.currentTimeMillis();
-						imc_result = imc1.compose(imc2, ports_set).mixedRequestsReduction(ports_set).pruneIMCREO(ports_set, false);
+						
+						imc_result = imc1.compose(imc2).mixedRequestsReduction(ports_set).pruneIMCREO(ports_set);
 						long endTime   = System.currentTimeMillis();
 						long totalTime = endTime - startTime;
 						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
@@ -257,7 +268,7 @@ public class Generator {
 			
 			if(config.userSpecified("reo_file")) {
 				if(!config.userSpecified("pattern_name")) {
-					System.err.println("If you are using a ReoLang script, specify a pattern name to convert!");
+					System.err.println("If you are using a ReoLang script, specify the name of stochastic instance of a pattern to convert!");
 					System.exit(1);
 				}
 				else {
@@ -279,15 +290,15 @@ public class Generator {
 					}
 					
 					CPBuilder cpb = new CPBuilder(file_name);
-					ReoLangCPModel rlcpm = cpb.performModelConstruction(new CommonTreeNodeStream(res.getTree()), null, null, res.symbols);
+					ReoLangCP2 rlcp = cpb.performModelConstruction(new CommonTreeNodeStream(res.getTree()), null, null, res.symbols);
 					//LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns = rlcpm.getPatterns();
 					
 					boolean found = false;
-					Iterator<String> it = rlcpm.getStochInstances().keySet().iterator();
+					Iterator<String> it = rlcp.getPatterns().keySet().iterator();
 					String pattern_associated = "";
 					while (it.hasNext() && !found){
 						String _cp = it.next();
-						if(rlcpm.getStochInstances().get(_cp).containsKey(patt_name)){
+						if(rlcp.getPatterns().get(_cp).getStochInstances().containsKey(patt_name)){
 							found = true;
 							pattern_associated = _cp;
 						}
@@ -299,25 +310,33 @@ public class Generator {
 					}
 					else {
 						if(config.getBoolean("verbose")){
-							System.out.println("Applying Stochastic Mappings...");
+							System.out.println("Getting stochastic instance " + patt_name + " of " + pattern_associated);
 						}
-						CoordinationPattern not_stochastic_cp = rlcpm.getPatterns().get(pattern_associated).getCP();
-						LinkedHashMap<String, Double> stoch_values = rlcpm.getStochInstances().get(pattern_associated).get(patt_name);
-						CoordinationPattern stochastic_cp = CoordinationPattern.applyStochasticMap(not_stochastic_cp, stoch_values, patt_name);
+						CoordinationPattern2 stochastic_cp = rlcp.getPatterns().get(pattern_associated).getStochInstances().get(patt_name);
+						//CoordinationPattern not_stochastic_cp = rlcpm.getPatterns().get(pattern_associated).getCP();
+						//LinkedHashMap<String, Double> stoch_values = rlcpm.getStochInstances().get(pattern_associated).get(patt_name);
+						//CoordinationPattern stochastic_cp = CoordinationPattern.applyStochasticMap(not_stochastic_cp, stoch_values, patt_name);
 						
 						String imc_script;
 						
 						imc_script = stochastic_cp.intoIMCScript();
 						System.out.println("Composing and Synchronising...");
 						long startTime = System.currentTimeMillis();
-						ScriptParser sp = new ScriptParser(imc_script);
-						Composer cs = sp.parser();
-						imc_result = cs.intelligentCompose(config.userSpecified("efficient"), CADP, CADP_BIN, CADP_COM, OUTPUT);
+						//ScriptParser sp = new ScriptParser(imc_script);
+						
+						Composer2 cs = IMCREOScriptParserFrontEnd.parse(imc_script, false);
+						if(config.getBoolean("unefficient")){
+							imc_result = cs.compose2(config.getBoolean("deploy"));
+						}
+						else {
+							imc_result = cs.compose(config.getBoolean("deploy"));
+						}
+						//intelligentCompose(config.userSpecified("efficient"), CADP, CADP_BIN, CADP_COM, OUTPUT);
 						long endTime   = System.currentTimeMillis();
 						long totalTime = endTime - startTime;
 						System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
 						
-						ports_set = (LinkedHashSet<String>)cs.getMixed_ports();
+						//ports_set = (LinkedHashSet<String>)cs.getMixed_ports();
 						
 					}
 				}

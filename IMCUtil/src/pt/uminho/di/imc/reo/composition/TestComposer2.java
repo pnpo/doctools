@@ -28,7 +28,7 @@ public class TestComposer2 {
 		System.out.println("ENVS: "+ c.getEnvironments().size());
 		
 		long startTime = System.currentTimeMillis();
-		IMCREOimc imc2 = c.compose2();
+		IMCREOimc imc2 = c.compose2(true);
 		long endTime   = System.currentTimeMillis();
 		long totalTime1 = endTime - startTime;
 		
@@ -36,7 +36,7 @@ public class TestComposer2 {
 		
 		
 		startTime = System.currentTimeMillis();
-		IMCREOimc imc = c.compose();
+		IMCREOimc imc = c.compose(true);
 		
 		endTime   = System.currentTimeMillis();
 		double totalTime2 = endTime - startTime;
