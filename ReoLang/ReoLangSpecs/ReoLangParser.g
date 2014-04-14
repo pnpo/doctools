@@ -351,7 +351,7 @@ special_port_access_list
 	
 
 stochastic_def
-	:	RW_STOCHASTIC i1=ID TIME_MARK  stochastic_list RW_AS i2=ID
+	:	RW_STOCHASTIC i1=ID  stochastic_list i2=ID
 		-> ^(RW_STOCHASTIC $i1 $i2 stochastic_list)
 	;
 	
@@ -361,7 +361,7 @@ stochastic_list
 	;
 	
 stoch_elem
-	:	(ID (LABEL_MARK ID)? EQUALS stoch_val SEMICOLON)
+	:	(ID (LABEL_MARK ID)? TIME_MARK stoch_val SEMICOLON)
 		-> ^(STOCH ID ID? stoch_val)
 	;
 	

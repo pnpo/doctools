@@ -60,7 +60,11 @@ public class CoordinationPattern2 {
 	 */
 	public CoordinationPattern2(CoordinationPattern2 cp) {
 		super();
-		this.pattern = new LinkedHashSet<CommunicationMean2>(cp.getPattern());
+		this.pattern = new LinkedHashSet<CommunicationMean2>();
+		for(CommunicationMean2 cm : cp.getPattern()) {
+			this.pattern.add(new CommunicationMean2(cm));
+		}
+		//this.pattern = new LinkedHashSet<CommunicationMean2>(cp.getPattern());
 		this.id = cp.getId();
 		this.delays = new LinkedHashMap<Node, Pair<Double,Double>>(cp.getDelays());
 		this.xors = new LinkedHashSet<Node>(cp.getXors());
@@ -355,7 +359,9 @@ public class CoordinationPattern2 {
 			}
 			
 			cm.getInodes().removeAll(to_remove);
-			cm.getInodes().add(n);
+			if(! to_remove.isEmpty()){
+				cm.getInodes().add(n);
+			}
 			to_remove.clear();
 			
 			for(Node o : cm.getOnodes()){
@@ -367,7 +373,9 @@ public class CoordinationPattern2 {
 			}
 			
 			cm.getOnodes().removeAll(to_remove);
-			cm.getOnodes().add(n);
+			if(! to_remove.isEmpty()){
+				cm.getOnodes().add(n);
+			}
 		}
 	}
 	

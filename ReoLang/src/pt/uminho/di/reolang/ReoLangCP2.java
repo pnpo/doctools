@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g 2014-04-12 16:58:50
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g 2014-04-14 14:16:01
 
 	package pt.uminho.di.reolang;
 	
@@ -493,7 +493,7 @@ public class ReoLangCP2 extends TreeParser {
     };
 
     // $ANTLR start "channel_signature"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:92:1: channel_signature[InspectionMode mode] returns [String o_name, int o_dim, LinkedHashSet<Node> o_ins, LinkedHashSet<Node> o_outs] : ^( SIGNATURE id1= ID (o= option )? ^( CHANNEL_PORTS ( ^( IN_PORTS p1= ports[$id1.text] ) )? ( ^( OUT_PORTS p2= ports[$id1.text] ) )? ) ( ^( CONDITION ID condition ) )? ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:92:1: channel_signature[InspectionMode mode] returns [String o_name, int o_dim, LinkedHashSet<Node> o_ins, LinkedHashSet<Node> o_outs] : ^( SIGNATURE id1= ID (o= option )? ^( CHANNEL_PORTS ( ^( IN_PORTS p1= ports ) )? ( ^( OUT_PORTS p2= ports ) )? ) ( ^( CONDITION ID condition ) )? ) ;
     public final ReoLangCP2.channel_signature_return channel_signature(InspectionMode mode) throws RecognitionException {
         ReoLangCP2.channel_signature_return retval = new ReoLangCP2.channel_signature_return();
         retval.start = input.LT(1);
@@ -507,8 +507,8 @@ public class ReoLangCP2 extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:2: ( ^( SIGNATURE id1= ID (o= option )? ^( CHANNEL_PORTS ( ^( IN_PORTS p1= ports[$id1.text] ) )? ( ^( OUT_PORTS p2= ports[$id1.text] ) )? ) ( ^( CONDITION ID condition ) )? ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:5: ^( SIGNATURE id1= ID (o= option )? ^( CHANNEL_PORTS ( ^( IN_PORTS p1= ports[$id1.text] ) )? ( ^( OUT_PORTS p2= ports[$id1.text] ) )? ) ( ^( CONDITION ID condition ) )? )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:2: ( ^( SIGNATURE id1= ID (o= option )? ^( CHANNEL_PORTS ( ^( IN_PORTS p1= ports ) )? ( ^( OUT_PORTS p2= ports ) )? ) ( ^( CONDITION ID condition ) )? ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:5: ^( SIGNATURE id1= ID (o= option )? ^( CHANNEL_PORTS ( ^( IN_PORTS p1= ports ) )? ( ^( OUT_PORTS p2= ports ) )? ) ( ^( CONDITION ID condition ) )? )
             {
             match(input,SIGNATURE,FOLLOW_SIGNATURE_in_channel_signature202); 
 
@@ -540,7 +540,7 @@ public class ReoLangCP2 extends TreeParser {
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:50: ( ^( IN_PORTS p1= ports[$id1.text] ) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:50: ( ^( IN_PORTS p1= ports ) )?
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
@@ -549,13 +549,13 @@ public class ReoLangCP2 extends TreeParser {
                 }
                 switch (alt6) {
                     case 1 :
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:51: ^( IN_PORTS p1= ports[$id1.text] )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:51: ^( IN_PORTS p1= ports )
                         {
                         match(input,IN_PORTS,FOLLOW_IN_PORTS_in_channel_signature218); 
 
                         match(input, Token.DOWN, null); 
                         pushFollow(FOLLOW_ports_in_channel_signature222);
-                        p1=ports((id1!=null?id1.getText():null));
+                        p1=ports();
 
                         state._fsp--;
 
@@ -567,7 +567,7 @@ public class ReoLangCP2 extends TreeParser {
 
                 }
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:85: ( ^( OUT_PORTS p2= ports[$id1.text] ) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:74: ( ^( OUT_PORTS p2= ports ) )?
                 int alt7=2;
                 int LA7_0 = input.LA(1);
 
@@ -576,13 +576,13 @@ public class ReoLangCP2 extends TreeParser {
                 }
                 switch (alt7) {
                     case 1 :
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:86: ^( OUT_PORTS p2= ports[$id1.text] )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:75: ^( OUT_PORTS p2= ports )
                         {
-                        match(input,OUT_PORTS,FOLLOW_OUT_PORTS_in_channel_signature230); 
+                        match(input,OUT_PORTS,FOLLOW_OUT_PORTS_in_channel_signature229); 
 
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_ports_in_channel_signature234);
-                        p2=ports((id1!=null?id1.getText():null));
+                        pushFollow(FOLLOW_ports_in_channel_signature233);
+                        p2=ports();
 
                         state._fsp--;
 
@@ -597,7 +597,7 @@ public class ReoLangCP2 extends TreeParser {
 
                 match(input, Token.UP, null); 
             }
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:122: ( ^( CONDITION ID condition ) )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:100: ( ^( CONDITION ID condition ) )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -606,13 +606,13 @@ public class ReoLangCP2 extends TreeParser {
             }
             switch (alt8) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:123: ^( CONDITION ID condition )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:93:101: ^( CONDITION ID condition )
                     {
-                    match(input,CONDITION,FOLLOW_CONDITION_in_channel_signature243); 
+                    match(input,CONDITION,FOLLOW_CONDITION_in_channel_signature241); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_channel_signature245); 
-                    pushFollow(FOLLOW_condition_in_channel_signature247);
+                    match(input,ID,FOLLOW_ID_in_channel_signature243); 
+                    pushFollow(FOLLOW_condition_in_channel_signature245);
                     condition();
 
                     state._fsp--;
@@ -697,10 +697,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:106:4: ^( OPTION timed )
                     {
-                    match(input,OPTION,FOLLOW_OPTION_in_option276); 
+                    match(input,OPTION,FOLLOW_OPTION_in_option274); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_timed_in_option278);
+                    pushFollow(FOLLOW_timed_in_option276);
                     timed();
 
                     state._fsp--;
@@ -714,10 +714,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:107:4: ^( OPTION structured )
                     {
-                    match(input,OPTION,FOLLOW_OPTION_in_option287); 
+                    match(input,OPTION,FOLLOW_OPTION_in_option285); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_structured_in_option289);
+                    pushFollow(FOLLOW_structured_in_option287);
                     structured2=structured();
 
                     state._fsp--;
@@ -749,10 +749,10 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:112:2: ( ^( TIMED time ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:112:5: ^( TIMED time )
             {
-            match(input,TIMED,FOLLOW_TIMED_in_timed306); 
+            match(input,TIMED,FOLLOW_TIMED_in_timed304); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_time_in_timed308);
+            pushFollow(FOLLOW_time_in_timed306);
             time();
 
             state._fsp--;
@@ -818,10 +818,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:117:5: ^( TIME ID )
                     {
-                    match(input,TIME,FOLLOW_TIME_in_time324); 
+                    match(input,TIME,FOLLOW_TIME_in_time322); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_time326); 
+                    match(input,ID,FOLLOW_ID_in_time324); 
 
                     match(input, Token.UP, null); 
 
@@ -830,10 +830,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:118:5: ^( TIME INT )
                     {
-                    match(input,TIME,FOLLOW_TIME_in_time334); 
+                    match(input,TIME,FOLLOW_TIME_in_time332); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,INT,FOLLOW_INT_in_time336); 
+                    match(input,INT,FOLLOW_INT_in_time334); 
 
                     match(input, Token.UP, null); 
 
@@ -865,7 +865,7 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:123:2: ( ^( STRUCTURED ( structure_dimension )+ ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:123:5: ^( STRUCTURED ( structure_dimension )+ )
             {
-            match(input,STRUCTURED,FOLLOW_STRUCTURED_in_structured356); 
+            match(input,STRUCTURED,FOLLOW_STRUCTURED_in_structured354); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:123:18: ( structure_dimension )+
@@ -884,7 +884,7 @@ public class ReoLangCP2 extends TreeParser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:123:18: structure_dimension
             	    {
-            	    pushFollow(FOLLOW_structure_dimension_in_structured358);
+            	    pushFollow(FOLLOW_structure_dimension_in_structured356);
             	    structure_dimension3=structure_dimension();
 
             	    state._fsp--;
@@ -971,10 +971,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:133:4: ^( DIMENSION ID )
                     {
-                    match(input,DIMENSION,FOLLOW_DIMENSION_in_structure_dimension385); 
+                    match(input,DIMENSION,FOLLOW_DIMENSION_in_structure_dimension383); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_structure_dimension387); 
+                    match(input,ID,FOLLOW_ID_in_structure_dimension385); 
                     dim = 0;
 
                     match(input, Token.UP, null); 
@@ -984,10 +984,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:134:5: ^( DIMENSION INT )
                     {
-                    match(input,DIMENSION,FOLLOW_DIMENSION_in_structure_dimension397); 
+                    match(input,DIMENSION,FOLLOW_DIMENSION_in_structure_dimension395); 
 
                     match(input, Token.DOWN, null); 
-                    INT4=(CommonTree)match(input,INT,FOLLOW_INT_in_structure_dimension399); 
+                    INT4=(CommonTree)match(input,INT,FOLLOW_INT_in_structure_dimension397); 
                     dim = (INT4!=null?Integer.valueOf(INT4.getText()):0);
 
                     match(input, Token.UP, null); 
@@ -1009,8 +1009,8 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "ports"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:138:1: ports[String inst_name] returns [LinkedHashSet<Node> o_ports] : ^( PORT ( ID )+ ) ;
-    public final LinkedHashSet<Node> ports(String inst_name) throws RecognitionException {
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:138:1: ports returns [LinkedHashSet<Node> o_ports] : ^( PORT ( ID )+ ) ;
+    public final LinkedHashSet<Node> ports() throws RecognitionException {
         LinkedHashSet<Node> o_ports = null;
 
         CommonTree ID5=null;
@@ -1022,7 +1022,7 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:142:2: ( ^( PORT ( ID )+ ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:142:5: ^( PORT ( ID )+ )
             {
-            match(input,PORT,FOLLOW_PORT_in_ports427); 
+            match(input,PORT,FOLLOW_PORT_in_ports423); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:142:12: ( ID )+
@@ -1041,10 +1041,10 @@ public class ReoLangCP2 extends TreeParser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:142:13: ID
             	    {
-            	    ID5=(CommonTree)match(input,ID,FOLLOW_ID_in_ports430); 
+            	    ID5=(CommonTree)match(input,ID,FOLLOW_ID_in_ports426); 
 
             	    		LinkedHashSet<String> ends = new LinkedHashSet<String>();
-            	    		ends.add(( ! inst_name.equals("") ? inst_name + "_" : "") +(ID5!=null?ID5.getText():null));
+            	    		ends.add((ID5!=null?ID5.getText():null));
             	    		_ports.add(new Node(ends));
             	    	
 
@@ -1087,7 +1087,7 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:157:2: ( ^( COND_ELEMENTS ( ID )+ ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:157:5: ^( COND_ELEMENTS ( ID )+ )
             {
-            match(input,COND_ELEMENTS,FOLLOW_COND_ELEMENTS_in_condition458); 
+            match(input,COND_ELEMENTS,FOLLOW_COND_ELEMENTS_in_condition454); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:157:21: ( ID )+
@@ -1106,7 +1106,7 @@ public class ReoLangCP2 extends TreeParser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:157:21: ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_condition460); 
+            	    match(input,ID,FOLLOW_ID_in_condition456); 
 
             	    }
             	    break;
@@ -1144,10 +1144,10 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:162:2: ( ^( EXTENSION ID ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:162:5: ^( EXTENSION ID )
             {
-            match(input,EXTENSION,FOLLOW_EXTENSION_in_extension477); 
+            match(input,EXTENSION,FOLLOW_EXTENSION_in_extension473); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_extension479); 
+            match(input,ID,FOLLOW_ID_in_extension475); 
 
             match(input, Token.UP, null); 
 
@@ -1172,7 +1172,7 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:167:2: ( ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:167:4: ^( CHANNEL_BODY ( state_def )? ^( FLOWS ( flow_def )+ ) )
             {
-            match(input,CHANNEL_BODY,FOLLOW_CHANNEL_BODY_in_channel_body494); 
+            match(input,CHANNEL_BODY,FOLLOW_CHANNEL_BODY_in_channel_body490); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:167:19: ( state_def )?
@@ -1186,7 +1186,7 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:167:19: state_def
                     {
-                    pushFollow(FOLLOW_state_def_in_channel_body496);
+                    pushFollow(FOLLOW_state_def_in_channel_body492);
                     state_def();
 
                     state._fsp--;
@@ -1197,7 +1197,7 @@ public class ReoLangCP2 extends TreeParser {
 
             }
 
-            match(input,FLOWS,FOLLOW_FLOWS_in_channel_body501); 
+            match(input,FLOWS,FOLLOW_FLOWS_in_channel_body497); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:167:39: ( flow_def )+
@@ -1216,7 +1216,7 @@ public class ReoLangCP2 extends TreeParser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:167:39: flow_def
             	    {
-            	    pushFollow(FOLLOW_flow_def_in_channel_body503);
+            	    pushFollow(FOLLOW_flow_def_in_channel_body499);
             	    flow_def();
 
             	    state._fsp--;
@@ -1260,16 +1260,16 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:172:2: ( ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:172:5: ^( CHANNEL_STATE ^( STATE_REF ID ) ^( STATE_OBS ( ID )+ ) )
             {
-            match(input,CHANNEL_STATE,FOLLOW_CHANNEL_STATE_in_state_def521); 
+            match(input,CHANNEL_STATE,FOLLOW_CHANNEL_STATE_in_state_def517); 
 
             match(input, Token.DOWN, null); 
-            match(input,STATE_REF,FOLLOW_STATE_REF_in_state_def524); 
+            match(input,STATE_REF,FOLLOW_STATE_REF_in_state_def520); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_state_def526); 
+            match(input,ID,FOLLOW_ID_in_state_def522); 
 
             match(input, Token.UP, null); 
-            match(input,STATE_OBS,FOLLOW_STATE_OBS_in_state_def530); 
+            match(input,STATE_OBS,FOLLOW_STATE_OBS_in_state_def526); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:172:49: ( ID )+
@@ -1288,7 +1288,7 @@ public class ReoLangCP2 extends TreeParser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:172:49: ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_state_def532); 
+            	    match(input,ID,FOLLOW_ID_in_state_def528); 
 
             	    }
             	    break;
@@ -1328,15 +1328,15 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:177:2: ( ^( FLOW requests flow_type ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:177:5: ^( FLOW requests flow_type )
             {
-            match(input,FLOW,FOLLOW_FLOW_in_flow_def551); 
+            match(input,FLOW,FOLLOW_FLOW_in_flow_def547); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_requests_in_flow_def553);
+            pushFollow(FOLLOW_requests_in_flow_def549);
             requests();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_flow_type_in_flow_def555);
+            pushFollow(FOLLOW_flow_type_in_flow_def551);
             flow_type();
 
             state._fsp--;
@@ -1365,7 +1365,7 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:183:2: ( ^( REQUESTS ( request )+ ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:183:4: ^( REQUESTS ( request )+ )
             {
-            match(input,REQUESTS,FOLLOW_REQUESTS_in_requests571); 
+            match(input,REQUESTS,FOLLOW_REQUESTS_in_requests567); 
 
             match(input, Token.DOWN, null); 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:183:15: ( request )+
@@ -1384,7 +1384,7 @@ public class ReoLangCP2 extends TreeParser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:183:15: request
             	    {
-            	    pushFollow(FOLLOW_request_in_requests573);
+            	    pushFollow(FOLLOW_request_in_requests569);
             	    request();
 
             	    state._fsp--;
@@ -1463,10 +1463,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:188:4: ^( REQUEST ID )
                     {
-                    match(input,REQUEST,FOLLOW_REQUEST_in_request590); 
+                    match(input,REQUEST,FOLLOW_REQUEST_in_request586); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_request592); 
+                    match(input,ID,FOLLOW_ID_in_request588); 
 
                     match(input, Token.UP, null); 
 
@@ -1475,11 +1475,11 @@ public class ReoLangCP2 extends TreeParser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:189:4: ^( REQUEST NOT_MARK ID )
                     {
-                    match(input,REQUEST,FOLLOW_REQUEST_in_request599); 
+                    match(input,REQUEST,FOLLOW_REQUEST_in_request595); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,NOT_MARK,FOLLOW_NOT_MARK_in_request601); 
-                    match(input,ID,FOLLOW_ID_in_request603); 
+                    match(input,NOT_MARK,FOLLOW_NOT_MARK_in_request597); 
+                    match(input,ID,FOLLOW_ID_in_request599); 
 
                     match(input, Token.UP, null); 
 
@@ -1543,10 +1543,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:194:4: ^( FLOW_TYPE normal_flow ( flow_operation normal_flow )? ( flow_label )? )
                     {
-                    match(input,FLOW_TYPE,FOLLOW_FLOW_TYPE_in_flow_type618); 
+                    match(input,FLOW_TYPE,FOLLOW_FLOW_TYPE_in_flow_type614); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_normal_flow_in_flow_type620);
+                    pushFollow(FOLLOW_normal_flow_in_flow_type616);
                     normal_flow();
 
                     state._fsp--;
@@ -1562,12 +1562,12 @@ public class ReoLangCP2 extends TreeParser {
                         case 1 :
                             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:194:29: flow_operation normal_flow
                             {
-                            pushFollow(FOLLOW_flow_operation_in_flow_type623);
+                            pushFollow(FOLLOW_flow_operation_in_flow_type619);
                             flow_operation();
 
                             state._fsp--;
 
-                            pushFollow(FOLLOW_normal_flow_in_flow_type625);
+                            pushFollow(FOLLOW_normal_flow_in_flow_type621);
                             normal_flow();
 
                             state._fsp--;
@@ -1589,7 +1589,7 @@ public class ReoLangCP2 extends TreeParser {
                         case 1 :
                             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:194:58: flow_label
                             {
-                            pushFollow(FOLLOW_flow_label_in_flow_type629);
+                            pushFollow(FOLLOW_flow_label_in_flow_type625);
                             flow_label();
 
                             state._fsp--;
@@ -1608,10 +1608,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:195:4: ^( FLOW_TYPE if_flow )
                     {
-                    match(input,FLOW_TYPE,FOLLOW_FLOW_TYPE_in_flow_type637); 
+                    match(input,FLOW_TYPE,FOLLOW_FLOW_TYPE_in_flow_type633); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_if_flow_in_flow_type639);
+                    pushFollow(FOLLOW_if_flow_in_flow_type635);
                     if_flow();
 
                     state._fsp--;
@@ -1642,10 +1642,10 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:200:2: ( ^( NORMAL_FLOW flow_point ( timed )? flow_point ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:200:5: ^( NORMAL_FLOW flow_point ( timed )? flow_point )
             {
-            match(input,NORMAL_FLOW,FOLLOW_NORMAL_FLOW_in_normal_flow655); 
+            match(input,NORMAL_FLOW,FOLLOW_NORMAL_FLOW_in_normal_flow651); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_flow_point_in_normal_flow657);
+            pushFollow(FOLLOW_flow_point_in_normal_flow653);
             flow_point();
 
             state._fsp--;
@@ -1661,7 +1661,7 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:200:30: timed
                     {
-                    pushFollow(FOLLOW_timed_in_normal_flow659);
+                    pushFollow(FOLLOW_timed_in_normal_flow655);
                     timed();
 
                     state._fsp--;
@@ -1672,7 +1672,7 @@ public class ReoLangCP2 extends TreeParser {
 
             }
 
-            pushFollow(FOLLOW_flow_point_in_normal_flow662);
+            pushFollow(FOLLOW_flow_point_in_normal_flow658);
             flow_point();
 
             state._fsp--;
@@ -1738,10 +1738,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:205:4: ^( FLOW_POINT ID )
                     {
-                    match(input,FLOW_POINT,FOLLOW_FLOW_POINT_in_flow_point678); 
+                    match(input,FLOW_POINT,FOLLOW_FLOW_POINT_in_flow_point674); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_flow_point680); 
+                    match(input,ID,FOLLOW_ID_in_flow_point676); 
 
                     match(input, Token.UP, null); 
 
@@ -1750,10 +1750,10 @@ public class ReoLangCP2 extends TreeParser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:206:5: ^( FLOW_POINT RW_NULL )
                     {
-                    match(input,FLOW_POINT,FOLLOW_FLOW_POINT_in_flow_point688); 
+                    match(input,FLOW_POINT,FOLLOW_FLOW_POINT_in_flow_point684); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,RW_NULL,FOLLOW_RW_NULL_in_flow_point690); 
+                    match(input,RW_NULL,FOLLOW_RW_NULL_in_flow_point686); 
 
                     match(input, Token.UP, null); 
 
@@ -1780,10 +1780,10 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:210:2: ( ^( FLOW_OP OP_SYNC ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:210:5: ^( FLOW_OP OP_SYNC )
             {
-            match(input,FLOW_OP,FOLLOW_FLOW_OP_in_flow_operation704); 
+            match(input,FLOW_OP,FOLLOW_FLOW_OP_in_flow_operation700); 
 
             match(input, Token.DOWN, null); 
-            match(input,OP_SYNC,FOLLOW_OP_SYNC_in_flow_operation706); 
+            match(input,OP_SYNC,FOLLOW_OP_SYNC_in_flow_operation702); 
 
             match(input, Token.UP, null); 
 
@@ -1808,14 +1808,14 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:215:2: ( ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( flow_label )? ) ^( FLOW_FALSE flow_type ( flow_label )? ) ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:215:4: ^( IF_FLOW ID ^( FLOW_TRUE flow_type ( flow_label )? ) ^( FLOW_FALSE flow_type ( flow_label )? ) )
             {
-            match(input,IF_FLOW,FOLLOW_IF_FLOW_in_if_flow721); 
+            match(input,IF_FLOW,FOLLOW_IF_FLOW_in_if_flow717); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_if_flow723); 
-            match(input,FLOW_TRUE,FOLLOW_FLOW_TRUE_in_if_flow726); 
+            match(input,ID,FOLLOW_ID_in_if_flow719); 
+            match(input,FLOW_TRUE,FOLLOW_FLOW_TRUE_in_if_flow722); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_flow_type_in_if_flow728);
+            pushFollow(FOLLOW_flow_type_in_if_flow724);
             flow_type();
 
             state._fsp--;
@@ -1831,7 +1831,7 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:215:39: flow_label
                     {
-                    pushFollow(FOLLOW_flow_label_in_if_flow730);
+                    pushFollow(FOLLOW_flow_label_in_if_flow726);
                     flow_label();
 
                     state._fsp--;
@@ -1844,10 +1844,10 @@ public class ReoLangCP2 extends TreeParser {
 
 
             match(input, Token.UP, null); 
-            match(input,FLOW_FALSE,FOLLOW_FLOW_FALSE_in_if_flow735); 
+            match(input,FLOW_FALSE,FOLLOW_FLOW_FALSE_in_if_flow731); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_flow_type_in_if_flow737);
+            pushFollow(FOLLOW_flow_type_in_if_flow733);
             flow_type();
 
             state._fsp--;
@@ -1863,7 +1863,7 @@ public class ReoLangCP2 extends TreeParser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:215:75: flow_label
                     {
-                    pushFollow(FOLLOW_flow_label_in_if_flow739);
+                    pushFollow(FOLLOW_flow_label_in_if_flow735);
                     flow_label();
 
                     state._fsp--;
@@ -1900,7 +1900,7 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:221:2: ( ID )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:221:5: ID
             {
-            match(input,ID,FOLLOW_ID_in_flow_label759); 
+            match(input,ID,FOLLOW_ID_in_flow_label755); 
 
             }
 
@@ -1926,15 +1926,15 @@ public class ReoLangCP2 extends TreeParser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:235:2: ( ^( PATTERN ps= pattern_signature pattern_body[$ps.o_name] ) )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:235:4: ^( PATTERN ps= pattern_signature pattern_body[$ps.o_name] )
             {
-            match(input,PATTERN,FOLLOW_PATTERN_in_pattern_def781); 
+            match(input,PATTERN,FOLLOW_PATTERN_in_pattern_def777); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_pattern_signature_in_pattern_def785);
+            pushFollow(FOLLOW_pattern_signature_in_pattern_def781);
             ps=pattern_signature();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_pattern_body_in_pattern_def787);
+            pushFollow(FOLLOW_pattern_body_in_pattern_def783);
             pattern_body(ps);
 
             state._fsp--;
@@ -1957,7 +1957,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "pattern_signature"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:243:1: pattern_signature returns [String o_name] : ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS p1= ports[\"\"] ) )? ( ^( OUT_PORTS p2= ports[\"\"] ) )? ) ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:243:1: pattern_signature returns [String o_name] : ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS p1= ports ) )? ( ^( OUT_PORTS p2= ports ) )? ) ) ;
     public final String pattern_signature() throws RecognitionException {
         String o_name = null;
 
@@ -1968,18 +1968,18 @@ public class ReoLangCP2 extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:2: ( ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS p1= ports[\"\"] ) )? ( ^( OUT_PORTS p2= ports[\"\"] ) )? ) ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:5: ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS p1= ports[\"\"] ) )? ( ^( OUT_PORTS p2= ports[\"\"] ) )? ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:2: ( ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS p1= ports ) )? ( ^( OUT_PORTS p2= ports ) )? ) ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:5: ^( PATTERN_SIGNATURE ID ^( PATTERN_PORTS ( ^( IN_PORTS p1= ports ) )? ( ^( OUT_PORTS p2= ports ) )? ) )
             {
-            match(input,PATTERN_SIGNATURE,FOLLOW_PATTERN_SIGNATURE_in_pattern_signature818); 
+            match(input,PATTERN_SIGNATURE,FOLLOW_PATTERN_SIGNATURE_in_pattern_signature814); 
 
             match(input, Token.DOWN, null); 
-            ID6=(CommonTree)match(input,ID,FOLLOW_ID_in_pattern_signature820); 
-            match(input,PATTERN_PORTS,FOLLOW_PATTERN_PORTS_in_pattern_signature823); 
+            ID6=(CommonTree)match(input,ID,FOLLOW_ID_in_pattern_signature816); 
+            match(input,PATTERN_PORTS,FOLLOW_PATTERN_PORTS_in_pattern_signature819); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:44: ( ^( IN_PORTS p1= ports[\"\"] ) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:44: ( ^( IN_PORTS p1= ports ) )?
                 int alt27=2;
                 int LA27_0 = input.LA(1);
 
@@ -1988,13 +1988,13 @@ public class ReoLangCP2 extends TreeParser {
                 }
                 switch (alt27) {
                     case 1 :
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:45: ^( IN_PORTS p1= ports[\"\"] )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:45: ^( IN_PORTS p1= ports )
                         {
-                        match(input,IN_PORTS,FOLLOW_IN_PORTS_in_pattern_signature827); 
+                        match(input,IN_PORTS,FOLLOW_IN_PORTS_in_pattern_signature823); 
 
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_ports_in_pattern_signature831);
-                        p1=ports("");
+                        pushFollow(FOLLOW_ports_in_pattern_signature827);
+                        p1=ports();
 
                         state._fsp--;
 
@@ -2006,7 +2006,7 @@ public class ReoLangCP2 extends TreeParser {
 
                 }
 
-                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:72: ( ^( OUT_PORTS p2= ports[\"\"] ) )?
+                // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:68: ( ^( OUT_PORTS p2= ports ) )?
                 int alt28=2;
                 int LA28_0 = input.LA(1);
 
@@ -2015,13 +2015,13 @@ public class ReoLangCP2 extends TreeParser {
                 }
                 switch (alt28) {
                     case 1 :
-                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:73: ^( OUT_PORTS p2= ports[\"\"] )
+                        // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:244:69: ^( OUT_PORTS p2= ports )
                         {
-                        match(input,OUT_PORTS,FOLLOW_OUT_PORTS_in_pattern_signature839); 
+                        match(input,OUT_PORTS,FOLLOW_OUT_PORTS_in_pattern_signature834); 
 
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_ports_in_pattern_signature843);
-                        p2=ports("");
+                        pushFollow(FOLLOW_ports_in_pattern_signature838);
+                        p2=ports();
 
                         state._fsp--;
 
@@ -2044,8 +2044,9 @@ public class ReoLangCP2 extends TreeParser {
             		cp.setId((ID6!=null?ID6.getText():null));
             		cpmi.setSimplePattern(cp);
             		
-            		LinkedHashSet<Node> env = new LinkedHashSet<Node>(p1);
-            		env.addAll(p2);
+            		
+            		LinkedHashSet<Node> env = new LinkedHashSet<Node>(p1==null ? new LinkedHashSet<Node>(0) : p1);
+            		env.addAll(p2==null ? new LinkedHashSet<Node>(0) : p2);
             		cpmi.setEnvironment(env);
             		this.patterns.put((ID6!=null?ID6.getText():null), cpmi);
             		
@@ -2068,21 +2069,21 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "pattern_body"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:269:1: pattern_body[String patt_name] : ^( PATTERN_BODY pattern_declarations[$pattern_body.patt_name] pattern_compositions[$pattern_body.patt_name] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:270:1: pattern_body[String patt_name] : ^( PATTERN_BODY pattern_declarations[$pattern_body.patt_name] pattern_compositions[$pattern_body.patt_name] ) ;
     public final void pattern_body(String patt_name) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:270:2: ( ^( PATTERN_BODY pattern_declarations[$pattern_body.patt_name] pattern_compositions[$pattern_body.patt_name] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:270:5: ^( PATTERN_BODY pattern_declarations[$pattern_body.patt_name] pattern_compositions[$pattern_body.patt_name] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:271:2: ( ^( PATTERN_BODY pattern_declarations[$pattern_body.patt_name] pattern_compositions[$pattern_body.patt_name] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:271:5: ^( PATTERN_BODY pattern_declarations[$pattern_body.patt_name] pattern_compositions[$pattern_body.patt_name] )
             {
-            match(input,PATTERN_BODY,FOLLOW_PATTERN_BODY_in_pattern_body885); 
+            match(input,PATTERN_BODY,FOLLOW_PATTERN_BODY_in_pattern_body879); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_pattern_declarations_in_pattern_body887);
+            pushFollow(FOLLOW_pattern_declarations_in_pattern_body881);
             pattern_declarations(patt_name);
 
             state._fsp--;
 
-            pushFollow(FOLLOW_pattern_compositions_in_pattern_body890);
+            pushFollow(FOLLOW_pattern_compositions_in_pattern_body884);
             pattern_compositions(patt_name);
 
             state._fsp--;
@@ -2105,16 +2106,16 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "pattern_declarations"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:273:1: pattern_declarations[String patt_name] : ^( PATTERN_DECLARATIONS ( declaration[$pattern_declarations.patt_name] )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:274:1: pattern_declarations[String patt_name] : ^( PATTERN_DECLARATIONS ( declaration[$pattern_declarations.patt_name] )+ ) ;
     public final void pattern_declarations(String patt_name) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:274:2: ( ^( PATTERN_DECLARATIONS ( declaration[$pattern_declarations.patt_name] )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:274:5: ^( PATTERN_DECLARATIONS ( declaration[$pattern_declarations.patt_name] )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:275:2: ( ^( PATTERN_DECLARATIONS ( declaration[$pattern_declarations.patt_name] )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:275:5: ^( PATTERN_DECLARATIONS ( declaration[$pattern_declarations.patt_name] )+ )
             {
-            match(input,PATTERN_DECLARATIONS,FOLLOW_PATTERN_DECLARATIONS_in_pattern_declarations908); 
+            match(input,PATTERN_DECLARATIONS,FOLLOW_PATTERN_DECLARATIONS_in_pattern_declarations902); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:274:28: ( declaration[$pattern_declarations.patt_name] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:275:28: ( declaration[$pattern_declarations.patt_name] )+
             int cnt29=0;
             loop29:
             do {
@@ -2128,9 +2129,9 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt29) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:274:28: declaration[$pattern_declarations.patt_name]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:275:28: declaration[$pattern_declarations.patt_name]
             	    {
-            	    pushFollow(FOLLOW_declaration_in_pattern_declarations910);
+            	    pushFollow(FOLLOW_declaration_in_pattern_declarations904);
             	    declaration(patt_name);
 
             	    state._fsp--;
@@ -2166,24 +2167,24 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "declaration"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:284:1: declaration[String patt_name] : ^( DECLARATION sig= reference_signature instances[$sig.o_name, $sig.o_type, $sig.o_ins, $sig.o_outs, $declaration.patt_name] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:285:1: declaration[String patt_name] : ^( DECLARATION sig= reference_signature instances[$sig.o_name, $sig.o_type, $sig.o_ins, $sig.o_outs, $declaration.patt_name] ) ;
     public final void declaration(String patt_name) throws RecognitionException {
         ReoLangCP2.reference_signature_return sig = null;
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:285:2: ( ^( DECLARATION sig= reference_signature instances[$sig.o_name, $sig.o_type, $sig.o_ins, $sig.o_outs, $declaration.patt_name] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:285:5: ^( DECLARATION sig= reference_signature instances[$sig.o_name, $sig.o_type, $sig.o_ins, $sig.o_outs, $declaration.patt_name] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:286:2: ( ^( DECLARATION sig= reference_signature instances[$sig.o_name, $sig.o_type, $sig.o_ins, $sig.o_outs, $declaration.patt_name] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:286:5: ^( DECLARATION sig= reference_signature instances[$sig.o_name, $sig.o_type, $sig.o_ins, $sig.o_outs, $declaration.patt_name] )
             {
-            match(input,DECLARATION,FOLLOW_DECLARATION_in_declaration943); 
+            match(input,DECLARATION,FOLLOW_DECLARATION_in_declaration937); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_reference_signature_in_declaration947);
+            pushFollow(FOLLOW_reference_signature_in_declaration941);
             sig=reference_signature();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_instances_in_declaration949);
+            pushFollow(FOLLOW_instances_in_declaration943);
             instances((sig!=null?sig.o_name:null), (sig!=null?sig.o_type:null), (sig!=null?sig.o_ins:null), (sig!=null?sig.o_outs:null), patt_name);
 
             state._fsp--;
@@ -2213,7 +2214,7 @@ public class ReoLangCP2 extends TreeParser {
     };
 
     // $ANTLR start "reference_signature"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:295:1: reference_signature returns [String o_name, String o_type, int o_dim, LinkedHashSet<Node> o_ins, LinkedHashSet<Node> o_outs] : ^( DECLARATION_TYPE ( ID )? cs= channel_signature[InspectionMode.REF_BY_INSTANCE] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:296:1: reference_signature returns [String o_name, String o_type, int o_dim, LinkedHashSet<Node> o_ins, LinkedHashSet<Node> o_outs] : ^( DECLARATION_TYPE ( ID )? cs= channel_signature[InspectionMode.REF_BY_INSTANCE] ) ;
     public final ReoLangCP2.reference_signature_return reference_signature() throws RecognitionException {
         ReoLangCP2.reference_signature_return retval = new ReoLangCP2.reference_signature_return();
         retval.start = input.LT(1);
@@ -2223,13 +2224,13 @@ public class ReoLangCP2 extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:296:2: ( ^( DECLARATION_TYPE ( ID )? cs= channel_signature[InspectionMode.REF_BY_INSTANCE] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:296:4: ^( DECLARATION_TYPE ( ID )? cs= channel_signature[InspectionMode.REF_BY_INSTANCE] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:297:2: ( ^( DECLARATION_TYPE ( ID )? cs= channel_signature[InspectionMode.REF_BY_INSTANCE] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:297:4: ^( DECLARATION_TYPE ( ID )? cs= channel_signature[InspectionMode.REF_BY_INSTANCE] )
             {
-            match(input,DECLARATION_TYPE,FOLLOW_DECLARATION_TYPE_in_reference_signature982); 
+            match(input,DECLARATION_TYPE,FOLLOW_DECLARATION_TYPE_in_reference_signature976); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:296:23: ( ID )?
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:297:23: ( ID )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -2238,16 +2239,16 @@ public class ReoLangCP2 extends TreeParser {
             }
             switch (alt30) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:296:23: ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:297:23: ID
                     {
-                    ID7=(CommonTree)match(input,ID,FOLLOW_ID_in_reference_signature984); 
+                    ID7=(CommonTree)match(input,ID,FOLLOW_ID_in_reference_signature978); 
 
                     }
                     break;
 
             }
 
-            pushFollow(FOLLOW_channel_signature_in_reference_signature989);
+            pushFollow(FOLLOW_channel_signature_in_reference_signature983);
             cs=channel_signature(InspectionMode.REF_BY_INSTANCE);
 
             state._fsp--;
@@ -2277,18 +2278,18 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "instances"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:316:1: instances[String i_name, String i_type, LinkedHashSet<Node> i_ins, LinkedHashSet<Node> i_outs, String patt_name] : ^( INSTANCES ( ID )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:317:1: instances[String i_name, String i_type, LinkedHashSet<Node> i_ins, LinkedHashSet<Node> i_outs, String patt_name] : ^( INSTANCES ( ID )+ ) ;
     public final void instances(String i_name, String i_type, LinkedHashSet<Node> i_ins, LinkedHashSet<Node> i_outs, String patt_name) throws RecognitionException {
         CommonTree ID8=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:317:2: ( ^( INSTANCES ( ID )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:317:5: ^( INSTANCES ( ID )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:318:2: ( ^( INSTANCES ( ID )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:318:5: ^( INSTANCES ( ID )+ )
             {
-            match(input,INSTANCES,FOLLOW_INSTANCES_in_instances1031); 
+            match(input,INSTANCES,FOLLOW_INSTANCES_in_instances1025); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:317:17: ( ID )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:318:17: ( ID )+
             int cnt31=0;
             loop31:
             do {
@@ -2302,16 +2303,33 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt31) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:317:18: ID
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:318:18: ID
             	    {
-            	    ID8=(CommonTree)match(input,ID,FOLLOW_ID_in_instances1034); 
+            	    ID8=(CommonTree)match(input,ID,FOLLOW_ID_in_instances1028); 
 
             	    		//CHANNELS
             	    		if(! this.patterns.containsKey(i_name)) {
+            	    			LinkedHashSet<Node> _ins = new LinkedHashSet<Node>();
+            	    			LinkedHashSet<Node> _outs = new LinkedHashSet<Node>();
+            	    			Node n;
+            	    			for(Node _n : i_ins) {
+            	    				for(String e : _n.getEnds()) {
+            	    					n = new Node();
+            	    					n.addEnd((ID8!=null?ID8.getText():null) + "_" + e);
+            	    					_ins.add(n) ; 
+            	    				}
+            	    			}	
+            	    			for(Node _n : i_outs) {
+            	    				for(String e : _n.getEnds()) {
+            	    					n = new Node();
+            	    					n.addEnd((ID8!=null?ID8.getText():null) + "_" + e);
+            	    					_outs.add(n) ;
+            	    				}
+            	    			}			
             	    			
             	    			CommunicationMean2 cm;
             	    			cm = new CommunicationMean2(
-            	    				i_ins, i_outs, (ID8!=null?ID8.getText():null), 
+            	    				_ins, _outs, (ID8!=null?ID8.getText():null), 
             	    				i_type, new LinkedHashMap<String, Double>()
             	    			);
             	    			this.patterns.get(patt_name).getSimplePattern().getPattern().add(cm);
@@ -2362,16 +2380,16 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "pattern_compositions"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:360:1: pattern_compositions[String patt_name] : ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.patt_name] )+ ( join_operation[$pattern_compositions.patt_name] )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:378:1: pattern_compositions[String patt_name] : ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.patt_name] )+ ( join_operation[$pattern_compositions.patt_name] )* ) ;
     public final void pattern_compositions(String patt_name) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:361:2: ( ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.patt_name] )+ ( join_operation[$pattern_compositions.patt_name] )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:361:6: ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.patt_name] )+ ( join_operation[$pattern_compositions.patt_name] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:2: ( ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.patt_name] )+ ( join_operation[$pattern_compositions.patt_name] )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:6: ^( PATTERN_COMPOSITIONS ( port_definition[$pattern_compositions.patt_name] )+ ( join_operation[$pattern_compositions.patt_name] )* )
             {
-            match(input,PATTERN_COMPOSITIONS,FOLLOW_PATTERN_COMPOSITIONS_in_pattern_compositions1077); 
+            match(input,PATTERN_COMPOSITIONS,FOLLOW_PATTERN_COMPOSITIONS_in_pattern_compositions1071); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:361:29: ( port_definition[$pattern_compositions.patt_name] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:29: ( port_definition[$pattern_compositions.patt_name] )+
             int cnt32=0;
             loop32:
             do {
@@ -2385,9 +2403,9 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt32) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:361:29: port_definition[$pattern_compositions.patt_name]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:29: port_definition[$pattern_compositions.patt_name]
             	    {
-            	    pushFollow(FOLLOW_port_definition_in_pattern_compositions1079);
+            	    pushFollow(FOLLOW_port_definition_in_pattern_compositions1073);
             	    port_definition(patt_name);
 
             	    state._fsp--;
@@ -2405,7 +2423,7 @@ public class ReoLangCP2 extends TreeParser {
                 cnt32++;
             } while (true);
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:361:79: ( join_operation[$pattern_compositions.patt_name] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:79: ( join_operation[$pattern_compositions.patt_name] )*
             loop33:
             do {
                 int alt33=2;
@@ -2418,9 +2436,9 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt33) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:361:79: join_operation[$pattern_compositions.patt_name]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:79: join_operation[$pattern_compositions.patt_name]
             	    {
-            	    pushFollow(FOLLOW_join_operation_in_pattern_compositions1083);
+            	    pushFollow(FOLLOW_join_operation_in_pattern_compositions1077);
             	    join_operation(patt_name);
 
             	    state._fsp--;
@@ -2452,19 +2470,19 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "port_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:367:1: port_definition[String patt_name] : ^( PORT_DEFINITION ID port_actual_definition[$port_definition.patt_name, $ID.text] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:385:1: port_definition[String patt_name] : ^( PORT_DEFINITION ID port_actual_definition[$port_definition.patt_name, $ID.text] ) ;
     public final void port_definition(String patt_name) throws RecognitionException {
         CommonTree ID9=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:368:2: ( ^( PORT_DEFINITION ID port_actual_definition[$port_definition.patt_name, $ID.text] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:368:5: ^( PORT_DEFINITION ID port_actual_definition[$port_definition.patt_name, $ID.text] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:386:2: ( ^( PORT_DEFINITION ID port_actual_definition[$port_definition.patt_name, $ID.text] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:386:5: ^( PORT_DEFINITION ID port_actual_definition[$port_definition.patt_name, $ID.text] )
             {
-            match(input,PORT_DEFINITION,FOLLOW_PORT_DEFINITION_in_port_definition1108); 
+            match(input,PORT_DEFINITION,FOLLOW_PORT_DEFINITION_in_port_definition1102); 
 
             match(input, Token.DOWN, null); 
-            ID9=(CommonTree)match(input,ID,FOLLOW_ID_in_port_definition1110); 
-            pushFollow(FOLLOW_port_actual_definition_in_port_definition1112);
+            ID9=(CommonTree)match(input,ID,FOLLOW_ID_in_port_definition1104); 
+            pushFollow(FOLLOW_port_actual_definition_in_port_definition1106);
             port_actual_definition(patt_name, (ID9!=null?ID9.getText():null));
 
             state._fsp--;
@@ -2487,7 +2505,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "port_actual_definition"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:371:1: port_actual_definition[String patt_name, String port] : ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:389:1: port_actual_definition[String patt_name, String port] : ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) );
     public final void port_actual_definition(String patt_name, String port) throws RecognitionException {
         String port_access10 = null;
 
@@ -2495,7 +2513,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:372:2: ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:390:2: ( ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name] ) | ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] ) )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -2533,12 +2551,12 @@ public class ReoLangCP2 extends TreeParser {
             }
             switch (alt34) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:372:5: ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:390:5: ^( PORT_ACTUAL_DEFINITION port_access[$port_actual_definition.patt_name] )
                     {
-                    match(input,PORT_ACTUAL_DEFINITION,FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1130); 
+                    match(input,PORT_ACTUAL_DEFINITION,FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1124); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_port_access_in_port_actual_definition1132);
+                    pushFollow(FOLLOW_port_access_in_port_actual_definition1126);
                     port_access10=port_access(patt_name);
 
                     state._fsp--;
@@ -2555,12 +2573,12 @@ public class ReoLangCP2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:379:5: ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:397:5: ^( PORT_ACTUAL_DEFINITION join_part[$port_actual_definition.patt_name, $port_actual_definition.port] )
                     {
-                    match(input,PORT_ACTUAL_DEFINITION,FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1144); 
+                    match(input,PORT_ACTUAL_DEFINITION,FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1138); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_join_part_in_port_actual_definition1146);
+                    pushFollow(FOLLOW_join_part_in_port_actual_definition1140);
                     join_part11=join_part(patt_name, port);
 
                     state._fsp--;
@@ -2594,7 +2612,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "port_access"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:391:1: port_access[String patt_name] returns [String port_str] : ^( PORT_ACCESS i1= ID i2= ID ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:409:1: port_access[String patt_name] returns [String port_str] : ^( PORT_ACCESS i1= ID i2= ID ) ;
     public final String port_access(String patt_name) throws RecognitionException {
         String port_str = null;
 
@@ -2602,14 +2620,14 @@ public class ReoLangCP2 extends TreeParser {
         CommonTree i2=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:392:2: ( ^( PORT_ACCESS i1= ID i2= ID ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:392:4: ^( PORT_ACCESS i1= ID i2= ID )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:410:2: ( ^( PORT_ACCESS i1= ID i2= ID ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:410:4: ^( PORT_ACCESS i1= ID i2= ID )
             {
-            match(input,PORT_ACCESS,FOLLOW_PORT_ACCESS_in_port_access1170); 
+            match(input,PORT_ACCESS,FOLLOW_PORT_ACCESS_in_port_access1164); 
 
             match(input, Token.DOWN, null); 
-            i1=(CommonTree)match(input,ID,FOLLOW_ID_in_port_access1174); 
-            i2=(CommonTree)match(input,ID,FOLLOW_ID_in_port_access1178); 
+            i1=(CommonTree)match(input,ID,FOLLOW_ID_in_port_access1168); 
+            i2=(CommonTree)match(input,ID,FOLLOW_ID_in_port_access1172); 
 
             		port_str = (i1!=null?i1.getText():null) + "_" + (i2!=null?i2.getText():null);	
             	
@@ -2631,21 +2649,21 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "join_operation"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:399:1: join_operation[String patt_name] : ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:417:1: join_operation[String patt_name] : ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) ;
     public final void join_operation(String patt_name) throws RecognitionException {
         CommonTree ID12=null;
         ReoLangCP2.join_part_return join_part13 = null;
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:400:2: ( ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:400:4: ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:418:2: ( ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:418:4: ^( JOIN_OP ID join_part[$join_operation.patt_name, $ID.text] )
             {
-            match(input,JOIN_OP,FOLLOW_JOIN_OP_in_join_operation1199); 
+            match(input,JOIN_OP,FOLLOW_JOIN_OP_in_join_operation1193); 
 
             match(input, Token.DOWN, null); 
-            ID12=(CommonTree)match(input,ID,FOLLOW_ID_in_join_operation1201); 
-            pushFollow(FOLLOW_join_part_in_join_operation1203);
+            ID12=(CommonTree)match(input,ID,FOLLOW_ID_in_join_operation1195); 
+            pushFollow(FOLLOW_join_part_in_join_operation1197);
             join_part13=join_part(patt_name, (ID12!=null?ID12.getText():null));
 
             state._fsp--;
@@ -2681,7 +2699,7 @@ public class ReoLangCP2 extends TreeParser {
     };
 
     // $ANTLR start "join_part"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:413:1: join_part[String patt_name, String port] returns [Node node, Boolean isXOR] : ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:431:1: join_part[String patt_name, String port] returns [Node node, Boolean isXOR] : ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) );
     public final ReoLangCP2.join_part_return join_part(String patt_name, String port) throws RecognitionException {
         ReoLangCP2.join_part_return retval = new ReoLangCP2.join_part_return();
         retval.start = input.LT(1);
@@ -2692,7 +2710,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:414:2: ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:432:2: ( ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] ) | ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] ) )
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -2710,12 +2728,12 @@ public class ReoLangCP2 extends TreeParser {
             }
             switch (alt35) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:414:5: ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:432:5: ^( RW_JOIN port_access_list[$join_part.patt_name, $join_part.port] )
                     {
-                    match(input,RW_JOIN,FOLLOW_RW_JOIN_in_join_part1232); 
+                    match(input,RW_JOIN,FOLLOW_RW_JOIN_in_join_part1226); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_port_access_list_in_join_part1234);
+                    pushFollow(FOLLOW_port_access_list_in_join_part1228);
                     port_access_list14=port_access_list(patt_name, port);
 
                     state._fsp--;
@@ -2730,12 +2748,12 @@ public class ReoLangCP2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:420:5: ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:438:5: ^( RW_DECIDE special_port_access_list[$join_part.patt_name, $join_part.port] )
                     {
-                    match(input,RW_DECIDE,FOLLOW_RW_DECIDE_in_join_part1251); 
+                    match(input,RW_DECIDE,FOLLOW_RW_DECIDE_in_join_part1245); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_special_port_access_list_in_join_part1253);
+                    pushFollow(FOLLOW_special_port_access_list_in_join_part1247);
                     special_port_access_list15=special_port_access_list(patt_name, port);
 
                     state._fsp--;
@@ -2764,7 +2782,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:429:1: port_access_list[String patt_name, String port] returns [Node node] : ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name] )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:447:1: port_access_list[String patt_name, String port] returns [Node node] : ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name] )+ ) ;
     public final Node port_access_list(String patt_name, String port) throws RecognitionException {
         Node node = null;
 
@@ -2775,13 +2793,13 @@ public class ReoLangCP2 extends TreeParser {
         	Node _node = new Node(); 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:433:2: ( ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name] )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:433:4: ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name] )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:451:2: ( ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name] )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:451:4: ^( PORT_ACCESS_LIST ( port_access[$port_access_list.patt_name] )+ )
             {
-            match(input,PORT_ACCESS_LIST,FOLLOW_PORT_ACCESS_LIST_in_port_access_list1288); 
+            match(input,PORT_ACCESS_LIST,FOLLOW_PORT_ACCESS_LIST_in_port_access_list1282); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:433:23: ( port_access[$port_access_list.patt_name] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:451:23: ( port_access[$port_access_list.patt_name] )+
             int cnt36=0;
             loop36:
             do {
@@ -2795,9 +2813,9 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt36) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:433:24: port_access[$port_access_list.patt_name]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:451:24: port_access[$port_access_list.patt_name]
             	    {
-            	    pushFollow(FOLLOW_port_access_in_port_access_list1291);
+            	    pushFollow(FOLLOW_port_access_in_port_access_list1285);
             	    port_access16=port_access(patt_name);
 
             	    state._fsp--;
@@ -2839,7 +2857,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "special_port_access_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:445:1: special_port_access_list[String patt_name, String port] returns [Node node] : ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name] )+ ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:463:1: special_port_access_list[String patt_name, String port] returns [Node node] : ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name] )+ ) ;
     public final Node special_port_access_list(String patt_name, String port) throws RecognitionException {
         Node node = null;
 
@@ -2850,13 +2868,13 @@ public class ReoLangCP2 extends TreeParser {
         	Node _node = new Node();
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:449:2: ( ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name] )+ ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:449:4: ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name] )+ )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:467:2: ( ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name] )+ ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:467:4: ^( PORT_ACCESS_LIST ( port_access[$special_port_access_list.patt_name] )+ )
             {
-            match(input,PORT_ACCESS_LIST,FOLLOW_PORT_ACCESS_LIST_in_special_port_access_list1331); 
+            match(input,PORT_ACCESS_LIST,FOLLOW_PORT_ACCESS_LIST_in_special_port_access_list1325); 
 
             match(input, Token.DOWN, null); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:449:23: ( port_access[$special_port_access_list.patt_name] )+
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:467:23: ( port_access[$special_port_access_list.patt_name] )+
             int cnt37=0;
             loop37:
             do {
@@ -2870,9 +2888,9 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt37) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:449:24: port_access[$special_port_access_list.patt_name]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:467:24: port_access[$special_port_access_list.patt_name]
             	    {
-            	    pushFollow(FOLLOW_port_access_in_special_port_access_list1334);
+            	    pushFollow(FOLLOW_port_access_in_special_port_access_list1328);
             	    port_access17=port_access(patt_name);
 
             	    state._fsp--;
@@ -2914,20 +2932,20 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "stochastic_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:464:1: stochastic_def : ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[patt_name, inst_name] ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:482:1: stochastic_def : ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[patt_name, inst_name] ) ;
     public final void stochastic_def() throws RecognitionException {
         CommonTree i1=null;
         CommonTree i2=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:465:2: ( ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[patt_name, inst_name] ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:465:4: ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[patt_name, inst_name] )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:483:2: ( ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[patt_name, inst_name] ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:483:4: ^( RW_STOCHASTIC i1= ID i2= ID stochastic_list[patt_name, inst_name] )
             {
-            match(input,RW_STOCHASTIC,FOLLOW_RW_STOCHASTIC_in_stochastic_def1366); 
+            match(input,RW_STOCHASTIC,FOLLOW_RW_STOCHASTIC_in_stochastic_def1360); 
 
             match(input, Token.DOWN, null); 
-            i1=(CommonTree)match(input,ID,FOLLOW_ID_in_stochastic_def1370); 
-            i2=(CommonTree)match(input,ID,FOLLOW_ID_in_stochastic_def1374); 
+            i1=(CommonTree)match(input,ID,FOLLOW_ID_in_stochastic_def1364); 
+            i2=(CommonTree)match(input,ID,FOLLOW_ID_in_stochastic_def1368); 
 
             		String patt_name = (i1!=null?i1.getText():null);
             		String inst_name = (i2!=null?i2.getText():null);
@@ -2935,7 +2953,7 @@ public class ReoLangCP2 extends TreeParser {
             		CPModelInternal cpmi = this.patterns.get(patt_name);
             		cpmi.getStochInstances().put(inst_name, new CoordinationPattern2(cpmi.getSimplePattern()));
             	
-            pushFollow(FOLLOW_stochastic_list_in_stochastic_def1382);
+            pushFollow(FOLLOW_stochastic_list_in_stochastic_def1376);
             stochastic_list(patt_name, inst_name);
 
             state._fsp--;
@@ -2958,21 +2976,21 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "stochastic_list"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:476:1: stochastic_list[String p, String i] : ( stoch_elem[p, i] ( stoch_elem[p, i] )* ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:494:1: stochastic_list[String p, String i] : ( stoch_elem[p, i] ( stoch_elem[p, i] )* ) ;
     public final void stochastic_list(String p, String i) throws RecognitionException {
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:477:2: ( ( stoch_elem[p, i] ( stoch_elem[p, i] )* ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:477:4: ( stoch_elem[p, i] ( stoch_elem[p, i] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:495:2: ( ( stoch_elem[p, i] ( stoch_elem[p, i] )* ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:495:4: ( stoch_elem[p, i] ( stoch_elem[p, i] )* )
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:477:4: ( stoch_elem[p, i] ( stoch_elem[p, i] )* )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:477:6: stoch_elem[p, i] ( stoch_elem[p, i] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:495:4: ( stoch_elem[p, i] ( stoch_elem[p, i] )* )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:495:6: stoch_elem[p, i] ( stoch_elem[p, i] )*
             {
-            pushFollow(FOLLOW_stoch_elem_in_stochastic_list1401);
+            pushFollow(FOLLOW_stoch_elem_in_stochastic_list1395);
             stoch_elem(p, i);
 
             state._fsp--;
 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:477:23: ( stoch_elem[p, i] )*
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:495:23: ( stoch_elem[p, i] )*
             loop38:
             do {
                 int alt38=2;
@@ -2985,9 +3003,9 @@ public class ReoLangCP2 extends TreeParser {
 
                 switch (alt38) {
             	case 1 :
-            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:477:25: stoch_elem[p, i]
+            	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:495:25: stoch_elem[p, i]
             	    {
-            	    pushFollow(FOLLOW_stoch_elem_in_stochastic_list1406);
+            	    pushFollow(FOLLOW_stoch_elem_in_stochastic_list1400);
             	    stoch_elem(p, i);
 
             	    state._fsp--;
@@ -3020,7 +3038,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "stoch_elem"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:484:1: stoch_elem[String p, String i] : ^( STOCH i1= ID (i2= ID )? stoch_val ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:502:1: stoch_elem[String p, String i] : ^( STOCH i1= ID (i2= ID )? stoch_val ) ;
     public final void stoch_elem(String p, String i) throws RecognitionException {
         CommonTree i1=null;
         CommonTree i2=null;
@@ -3028,14 +3046,14 @@ public class ReoLangCP2 extends TreeParser {
 
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:485:2: ( ^( STOCH i1= ID (i2= ID )? stoch_val ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:485:4: ^( STOCH i1= ID (i2= ID )? stoch_val )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:503:2: ( ^( STOCH i1= ID (i2= ID )? stoch_val ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:503:4: ^( STOCH i1= ID (i2= ID )? stoch_val )
             {
-            match(input,STOCH,FOLLOW_STOCH_in_stoch_elem1427); 
+            match(input,STOCH,FOLLOW_STOCH_in_stoch_elem1421); 
 
             match(input, Token.DOWN, null); 
-            i1=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem1431); 
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:485:18: (i2= ID )?
+            i1=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem1425); 
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:503:18: (i2= ID )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -3044,16 +3062,16 @@ public class ReoLangCP2 extends TreeParser {
             }
             switch (alt39) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:485:19: i2= ID
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:503:19: i2= ID
                     {
-                    i2=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem1436); 
+                    i2=(CommonTree)match(input,ID,FOLLOW_ID_in_stoch_elem1430); 
 
                     }
                     break;
 
             }
 
-            pushFollow(FOLLOW_stoch_val_in_stoch_elem1440);
+            pushFollow(FOLLOW_stoch_val_in_stoch_elem1434);
             stoch_val18=stoch_val();
 
             state._fsp--;
@@ -3068,7 +3086,7 @@ public class ReoLangCP2 extends TreeParser {
             			
             			CommunicationMean2 cm = new CommunicationMean2();
             			for(CommunicationMean2 _cm : si.getPattern()){
-            				if(_cm.getId().equals((i2!=null?i2.getText():null))){
+            				if(_cm.getId().equals((i1!=null?i1.getText():null))){
             					cm = _cm;
             					break;
             				}
@@ -3094,7 +3112,7 @@ public class ReoLangCP2 extends TreeParser {
 
 
     // $ANTLR start "stoch_val"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:508:1: stoch_val returns [Pair<Double, Double> val] : ( ^( STOCH_VAL FLOAT ) | ^( STOCH_VAL f1= FLOAT f2= FLOAT ) );
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:526:1: stoch_val returns [Pair<Double, Double> val] : ( ^( STOCH_VAL FLOAT ) | ^( STOCH_VAL f1= FLOAT f2= FLOAT ) );
     public final Pair<Double, Double> stoch_val() throws RecognitionException {
         Pair<Double, Double> val = null;
 
@@ -3103,7 +3121,7 @@ public class ReoLangCP2 extends TreeParser {
         CommonTree FLOAT19=null;
 
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:509:2: ( ^( STOCH_VAL FLOAT ) | ^( STOCH_VAL f1= FLOAT f2= FLOAT ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:527:2: ( ^( STOCH_VAL FLOAT ) | ^( STOCH_VAL f1= FLOAT f2= FLOAT ) )
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -3151,12 +3169,12 @@ public class ReoLangCP2 extends TreeParser {
             }
             switch (alt40) {
                 case 1 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:509:4: ^( STOCH_VAL FLOAT )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:527:4: ^( STOCH_VAL FLOAT )
                     {
-                    match(input,STOCH_VAL,FOLLOW_STOCH_VAL_in_stoch_val1466); 
+                    match(input,STOCH_VAL,FOLLOW_STOCH_VAL_in_stoch_val1460); 
 
                     match(input, Token.DOWN, null); 
-                    FLOAT19=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1468); 
+                    FLOAT19=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1462); 
 
                     //		$stoch_val.isRW = false;
                     		val = new Pair<Double, Double>(Double.parseDouble((FLOAT19!=null?FLOAT19.getText():null)),0.0);
@@ -3167,13 +3185,13 @@ public class ReoLangCP2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:515:4: ^( STOCH_VAL f1= FLOAT f2= FLOAT )
+                    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangCP2.g:533:4: ^( STOCH_VAL f1= FLOAT f2= FLOAT )
                     {
-                    match(input,STOCH_VAL,FOLLOW_STOCH_VAL_in_stoch_val1480); 
+                    match(input,STOCH_VAL,FOLLOW_STOCH_VAL_in_stoch_val1474); 
 
                     match(input, Token.DOWN, null); 
-                    f1=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1484); 
-                    f2=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1488); 
+                    f1=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1478); 
+                    f2=(CommonTree)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1482); 
 
                     //		$stoch_val.isRW = true;
                     		val = new Pair<Double, Double>(Double.parseDouble((f1!=null?f1.getText():null)),Double.parseDouble((f2!=null?f2.getText():null)));
@@ -3224,139 +3242,139 @@ public class ReoLangCP2 extends TreeParser {
     public static final BitSet FOLLOW_CHANNEL_PORTS_in_channel_signature214 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_IN_PORTS_in_channel_signature218 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_ports_in_channel_signature222 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OUT_PORTS_in_channel_signature230 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ports_in_channel_signature234 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_CONDITION_in_channel_signature243 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_channel_signature245 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_condition_in_channel_signature247 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OPTION_in_option276 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_timed_in_option278 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OPTION_in_option287 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_structured_in_option289 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_TIMED_in_timed306 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_time_in_timed308 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_TIME_in_time324 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_time326 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_TIME_in_time334 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_INT_in_time336 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_STRUCTURED_in_structured356 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_structure_dimension_in_structured358 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_DIMENSION_in_structure_dimension385 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_structure_dimension387 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DIMENSION_in_structure_dimension397 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_INT_in_structure_dimension399 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PORT_in_ports427 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_ports430 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_COND_ELEMENTS_in_condition458 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_condition460 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_EXTENSION_in_extension477 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_extension479 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_CHANNEL_BODY_in_channel_body494 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_state_def_in_channel_body496 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_FLOWS_in_channel_body501 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_flow_def_in_channel_body503 = new BitSet(new long[]{0x0000000000000008L,0x0000000000000400L});
-    public static final BitSet FOLLOW_CHANNEL_STATE_in_state_def521 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_STATE_REF_in_state_def524 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_state_def526 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_STATE_OBS_in_state_def530 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_state_def532 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_FLOW_in_flow_def551 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_requests_in_flow_def553 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
-    public static final BitSet FOLLOW_flow_type_in_flow_def555 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_REQUESTS_in_requests571 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_request_in_requests573 = new BitSet(new long[]{0x0000000000000008L,0x0000000000001000L});
-    public static final BitSet FOLLOW_REQUEST_in_request590 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_request592 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_REQUEST_in_request599 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_NOT_MARK_in_request601 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_ID_in_request603 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_FLOW_TYPE_in_flow_type618 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_normal_flow_in_flow_type620 = new BitSet(new long[]{0x0000040000000008L,0x0000000000010000L});
-    public static final BitSet FOLLOW_flow_operation_in_flow_type623 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_normal_flow_in_flow_type625 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_flow_label_in_flow_type629 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_FLOW_TYPE_in_flow_type637 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_if_flow_in_flow_type639 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NORMAL_FLOW_in_normal_flow655 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_flow_point_in_normal_flow657 = new BitSet(new long[]{0x0400000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_timed_in_normal_flow659 = new BitSet(new long[]{0x0400000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_flow_point_in_normal_flow662 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_FLOW_POINT_in_flow_point678 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_flow_point680 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_FLOW_POINT_in_flow_point688 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_RW_NULL_in_flow_point690 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_FLOW_OP_in_flow_operation704 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_OP_SYNC_in_flow_operation706 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_IF_FLOW_in_if_flow721 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_if_flow723 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_FLOW_TRUE_in_if_flow726 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_flow_type_in_if_flow728 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_flow_label_in_if_flow730 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_FLOW_FALSE_in_if_flow735 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_flow_type_in_if_flow737 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_flow_label_in_if_flow739 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ID_in_flow_label759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PATTERN_in_pattern_def781 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_pattern_signature_in_pattern_def785 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
-    public static final BitSet FOLLOW_pattern_body_in_pattern_def787 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PATTERN_SIGNATURE_in_pattern_signature818 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_pattern_signature820 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_PATTERN_PORTS_in_pattern_signature823 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_IN_PORTS_in_pattern_signature827 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ports_in_pattern_signature831 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OUT_PORTS_in_pattern_signature839 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ports_in_pattern_signature843 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PATTERN_BODY_in_pattern_body885 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_pattern_declarations_in_pattern_body887 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_pattern_compositions_in_pattern_body890 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PATTERN_DECLARATIONS_in_pattern_declarations908 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_declaration_in_pattern_declarations910 = new BitSet(new long[]{0x0000000000000008L,0x0000000002000000L});
-    public static final BitSet FOLLOW_DECLARATION_in_declaration943 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_reference_signature_in_declaration947 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
-    public static final BitSet FOLLOW_instances_in_declaration949 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DECLARATION_TYPE_in_reference_signature982 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_reference_signature984 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_channel_signature_in_reference_signature989 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_INSTANCES_in_instances1031 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_instances1034 = new BitSet(new long[]{0x0000040000000008L});
-    public static final BitSet FOLLOW_PATTERN_COMPOSITIONS_in_pattern_compositions1077 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_port_definition_in_pattern_compositions1079 = new BitSet(new long[]{0x0000000000000008L,0x0000000120000000L});
-    public static final BitSet FOLLOW_join_operation_in_pattern_compositions1083 = new BitSet(new long[]{0x0000000000000008L,0x0000000100000000L});
-    public static final BitSet FOLLOW_PORT_DEFINITION_in_port_definition1108 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_port_definition1110 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
-    public static final BitSet FOLLOW_port_actual_definition_in_port_definition1112 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1130 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_port_access_in_port_actual_definition1132 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1144 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_join_part_in_port_actual_definition1146 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PORT_ACCESS_in_port_access1170 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_port_access1174 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_ID_in_port_access1178 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_JOIN_OP_in_join_operation1199 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_join_operation1201 = new BitSet(new long[]{0x0000000000000030L});
-    public static final BitSet FOLLOW_join_part_in_join_operation1203 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_RW_JOIN_in_join_part1232 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_port_access_list_in_join_part1234 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_RW_DECIDE_in_join_part1251 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_special_port_access_list_in_join_part1253 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PORT_ACCESS_LIST_in_port_access_list1288 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_port_access_in_port_access_list1291 = new BitSet(new long[]{0x0000000000000008L,0x0000000080000000L});
-    public static final BitSet FOLLOW_PORT_ACCESS_LIST_in_special_port_access_list1331 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_port_access_in_special_port_access_list1334 = new BitSet(new long[]{0x0000000000000008L,0x0000000080000000L});
-    public static final BitSet FOLLOW_RW_STOCHASTIC_in_stochastic_def1366 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_stochastic_def1370 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_ID_in_stochastic_def1374 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_stochastic_list_in_stochastic_def1382 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_stoch_elem_in_stochastic_list1401 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
-    public static final BitSet FOLLOW_stoch_elem_in_stochastic_list1406 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
-    public static final BitSet FOLLOW_STOCH_in_stoch_elem1427 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_stoch_elem1431 = new BitSet(new long[]{0x0000040000000000L,0x0000000800000000L});
-    public static final BitSet FOLLOW_ID_in_stoch_elem1436 = new BitSet(new long[]{0x0000040000000000L,0x0000000800000000L});
-    public static final BitSet FOLLOW_stoch_val_in_stoch_elem1440 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_STOCH_VAL_in_stoch_val1466 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_FLOAT_in_stoch_val1468 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_STOCH_VAL_in_stoch_val1480 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_FLOAT_in_stoch_val1484 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_FLOAT_in_stoch_val1488 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OUT_PORTS_in_channel_signature229 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ports_in_channel_signature233 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_CONDITION_in_channel_signature241 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_channel_signature243 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_condition_in_channel_signature245 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OPTION_in_option274 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_timed_in_option276 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OPTION_in_option285 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_structured_in_option287 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_TIMED_in_timed304 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_time_in_timed306 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_TIME_in_time322 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_time324 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_TIME_in_time332 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_INT_in_time334 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_STRUCTURED_in_structured354 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_structure_dimension_in_structured356 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_DIMENSION_in_structure_dimension383 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_structure_dimension385 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DIMENSION_in_structure_dimension395 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_INT_in_structure_dimension397 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PORT_in_ports423 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_ports426 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_COND_ELEMENTS_in_condition454 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_condition456 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_EXTENSION_in_extension473 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_extension475 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_CHANNEL_BODY_in_channel_body490 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_state_def_in_channel_body492 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_FLOWS_in_channel_body497 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_flow_def_in_channel_body499 = new BitSet(new long[]{0x0000000000000008L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CHANNEL_STATE_in_state_def517 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_STATE_REF_in_state_def520 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_state_def522 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_STATE_OBS_in_state_def526 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_state_def528 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_FLOW_in_flow_def547 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_requests_in_flow_def549 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
+    public static final BitSet FOLLOW_flow_type_in_flow_def551 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_REQUESTS_in_requests567 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_request_in_requests569 = new BitSet(new long[]{0x0000000000000008L,0x0000000000001000L});
+    public static final BitSet FOLLOW_REQUEST_in_request586 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_request588 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_REQUEST_in_request595 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_NOT_MARK_in_request597 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_ID_in_request599 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_FLOW_TYPE_in_flow_type614 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_normal_flow_in_flow_type616 = new BitSet(new long[]{0x0000040000000008L,0x0000000000010000L});
+    public static final BitSet FOLLOW_flow_operation_in_flow_type619 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_normal_flow_in_flow_type621 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_flow_label_in_flow_type625 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_FLOW_TYPE_in_flow_type633 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_if_flow_in_flow_type635 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NORMAL_FLOW_in_normal_flow651 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_flow_point_in_normal_flow653 = new BitSet(new long[]{0x0400000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_timed_in_normal_flow655 = new BitSet(new long[]{0x0400000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_flow_point_in_normal_flow658 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_FLOW_POINT_in_flow_point674 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_flow_point676 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_FLOW_POINT_in_flow_point684 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_RW_NULL_in_flow_point686 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_FLOW_OP_in_flow_operation700 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_OP_SYNC_in_flow_operation702 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_IF_FLOW_in_if_flow717 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_if_flow719 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
+    public static final BitSet FOLLOW_FLOW_TRUE_in_if_flow722 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_flow_type_in_if_flow724 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_flow_label_in_if_flow726 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_FLOW_FALSE_in_if_flow731 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_flow_type_in_if_flow733 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_flow_label_in_if_flow735 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ID_in_flow_label755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PATTERN_in_pattern_def777 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_pattern_signature_in_pattern_def781 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_pattern_body_in_pattern_def783 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PATTERN_SIGNATURE_in_pattern_signature814 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_pattern_signature816 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+    public static final BitSet FOLLOW_PATTERN_PORTS_in_pattern_signature819 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_IN_PORTS_in_pattern_signature823 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ports_in_pattern_signature827 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OUT_PORTS_in_pattern_signature834 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ports_in_pattern_signature838 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PATTERN_BODY_in_pattern_body879 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_pattern_declarations_in_pattern_body881 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_pattern_compositions_in_pattern_body884 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PATTERN_DECLARATIONS_in_pattern_declarations902 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_declaration_in_pattern_declarations904 = new BitSet(new long[]{0x0000000000000008L,0x0000000002000000L});
+    public static final BitSet FOLLOW_DECLARATION_in_declaration937 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_reference_signature_in_declaration941 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_instances_in_declaration943 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DECLARATION_TYPE_in_reference_signature976 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_reference_signature978 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_channel_signature_in_reference_signature983 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_INSTANCES_in_instances1025 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_instances1028 = new BitSet(new long[]{0x0000040000000008L});
+    public static final BitSet FOLLOW_PATTERN_COMPOSITIONS_in_pattern_compositions1071 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_port_definition_in_pattern_compositions1073 = new BitSet(new long[]{0x0000000000000008L,0x0000000120000000L});
+    public static final BitSet FOLLOW_join_operation_in_pattern_compositions1077 = new BitSet(new long[]{0x0000000000000008L,0x0000000100000000L});
+    public static final BitSet FOLLOW_PORT_DEFINITION_in_port_definition1102 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_port_definition1104 = new BitSet(new long[]{0x0000000000000000L,0x0000000040000000L});
+    public static final BitSet FOLLOW_port_actual_definition_in_port_definition1106 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1124 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_port_access_in_port_actual_definition1126 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PORT_ACTUAL_DEFINITION_in_port_actual_definition1138 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_join_part_in_port_actual_definition1140 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PORT_ACCESS_in_port_access1164 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_port_access1168 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_ID_in_port_access1172 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_JOIN_OP_in_join_operation1193 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_join_operation1195 = new BitSet(new long[]{0x0000000000000030L});
+    public static final BitSet FOLLOW_join_part_in_join_operation1197 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_RW_JOIN_in_join_part1226 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_port_access_list_in_join_part1228 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_RW_DECIDE_in_join_part1245 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_special_port_access_list_in_join_part1247 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PORT_ACCESS_LIST_in_port_access_list1282 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_port_access_in_port_access_list1285 = new BitSet(new long[]{0x0000000000000008L,0x0000000080000000L});
+    public static final BitSet FOLLOW_PORT_ACCESS_LIST_in_special_port_access_list1325 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_port_access_in_special_port_access_list1328 = new BitSet(new long[]{0x0000000000000008L,0x0000000080000000L});
+    public static final BitSet FOLLOW_RW_STOCHASTIC_in_stochastic_def1360 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_stochastic_def1364 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_ID_in_stochastic_def1368 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_stochastic_list_in_stochastic_def1376 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_stoch_elem_in_stochastic_list1395 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_stoch_elem_in_stochastic_list1400 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_STOCH_in_stoch_elem1421 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_stoch_elem1425 = new BitSet(new long[]{0x0000040000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_ID_in_stoch_elem1430 = new BitSet(new long[]{0x0000040000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_stoch_val_in_stoch_elem1434 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_STOCH_VAL_in_stoch_val1460 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_FLOAT_in_stoch_val1462 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_STOCH_VAL_in_stoch_val1474 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_FLOAT_in_stoch_val1478 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_FLOAT_in_stoch_val1482 = new BitSet(new long[]{0x0000000000000008L});
 
 }

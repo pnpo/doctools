@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2014-04-07 17:04:38
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g 2014-04-14 15:00:46
 
 	package pt.uminho.di.reolang;
 	import java.text.*;
@@ -736,7 +736,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: channel_body, extension, channel_signature
+            // elements: channel_body, channel_signature, extension
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -952,7 +952,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: condition, ID, ID, out, in, option
+            // elements: condition, option, in, ID, out, ID
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -2082,7 +2082,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: flow_def, state_def
+            // elements: state_def, flow_def
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2364,7 +2364,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: requests, flow_type
+            // elements: flow_type, requests
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2619,7 +2619,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: NOT_MARK, ID
+                    // elements: ID, NOT_MARK
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2781,7 +2781,7 @@ public class ReoLangParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: normal_flow, normal_flow, flow_label, flow_operation
+                    // elements: normal_flow, flow_operation, normal_flow, flow_label
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2800,13 +2800,13 @@ public class ReoLangParser extends Parser {
 
                         adaptor.addChild(root_1, stream_normal_flow.nextTree());
                         // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:218:30: ( flow_operation normal_flow )?
-                        if ( stream_normal_flow.hasNext()||stream_flow_operation.hasNext() ) {
+                        if ( stream_flow_operation.hasNext()||stream_normal_flow.hasNext() ) {
                             adaptor.addChild(root_1, stream_flow_operation.nextTree());
                             adaptor.addChild(root_1, stream_normal_flow.nextTree());
 
                         }
-                        stream_normal_flow.reset();
                         stream_flow_operation.reset();
+                        stream_normal_flow.reset();
                         // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:218:60: ( flow_label )?
                         if ( stream_flow_label.hasNext() ) {
                             adaptor.addChild(root_1, stream_flow_label.nextTree());
@@ -3320,7 +3320,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: f2, ID, flow_type, flow_type, f1
+            // elements: flow_type, flow_type, ID, f1, f2
             // token labels: 
             // rule labels: retval, f1, f2
             // token list labels: 
@@ -3667,7 +3667,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: in, out, ID
+            // elements: ID, in, out
             // token labels: 
             // rule labels: retval, in, out
             // token list labels: 
@@ -4139,7 +4139,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, channel_signature
+            // elements: channel_signature, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4545,7 +4545,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: port_actual_definition, ID
+            // elements: ID, port_actual_definition
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4854,7 +4854,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: join_part, ID
+            // elements: ID, join_part
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5287,7 +5287,7 @@ public class ReoLangParser extends Parser {
 
 
             // AST REWRITE
-            // elements: p4, p1, p2, p3
+            // elements: p3, p1, p2, p4
             // token labels: 
             // rule labels: retval, p4, p3, p2, p1
             // token list labels: 
@@ -5350,7 +5350,7 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "stochastic_def"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:353:1: stochastic_def : RW_STOCHASTIC i1= ID TIME_MARK stochastic_list RW_AS i2= ID -> ^( RW_STOCHASTIC $i1 $i2 stochastic_list ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:353:1: stochastic_def : RW_STOCHASTIC i1= ID stochastic_list i2= ID -> ^( RW_STOCHASTIC $i1 $i2 stochastic_list ) ;
     public final ReoLangParser.stochastic_def_return stochastic_def() throws RecognitionException {
         ReoLangParser.stochastic_def_return retval = new ReoLangParser.stochastic_def_return();
         retval.start = input.LT(1);
@@ -5360,24 +5360,18 @@ public class ReoLangParser extends Parser {
         Token i1=null;
         Token i2=null;
         Token RW_STOCHASTIC151=null;
-        Token TIME_MARK152=null;
-        Token RW_AS154=null;
-        ReoLangParser.stochastic_list_return stochastic_list153 = null;
+        ReoLangParser.stochastic_list_return stochastic_list152 = null;
 
 
         Object i1_tree=null;
         Object i2_tree=null;
         Object RW_STOCHASTIC151_tree=null;
-        Object TIME_MARK152_tree=null;
-        Object RW_AS154_tree=null;
-        RewriteRuleTokenStream stream_TIME_MARK=new RewriteRuleTokenStream(adaptor,"token TIME_MARK");
-        RewriteRuleTokenStream stream_RW_AS=new RewriteRuleTokenStream(adaptor,"token RW_AS");
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
         RewriteRuleTokenStream stream_RW_STOCHASTIC=new RewriteRuleTokenStream(adaptor,"token RW_STOCHASTIC");
         RewriteRuleSubtreeStream stream_stochastic_list=new RewriteRuleSubtreeStream(adaptor,"rule stochastic_list");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:354:2: ( RW_STOCHASTIC i1= ID TIME_MARK stochastic_list RW_AS i2= ID -> ^( RW_STOCHASTIC $i1 $i2 stochastic_list ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:354:4: RW_STOCHASTIC i1= ID TIME_MARK stochastic_list RW_AS i2= ID
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:354:2: ( RW_STOCHASTIC i1= ID stochastic_list i2= ID -> ^( RW_STOCHASTIC $i1 $i2 stochastic_list ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:354:4: RW_STOCHASTIC i1= ID stochastic_list i2= ID
             {
             RW_STOCHASTIC151=(Token)match(input,RW_STOCHASTIC,FOLLOW_RW_STOCHASTIC_in_stochastic_def1831);  
             stream_RW_STOCHASTIC.add(RW_STOCHASTIC151);
@@ -5385,25 +5379,19 @@ public class ReoLangParser extends Parser {
             i1=(Token)match(input,ID,FOLLOW_ID_in_stochastic_def1835);  
             stream_ID.add(i1);
 
-            TIME_MARK152=(Token)match(input,TIME_MARK,FOLLOW_TIME_MARK_in_stochastic_def1837);  
-            stream_TIME_MARK.add(TIME_MARK152);
-
-            pushFollow(FOLLOW_stochastic_list_in_stochastic_def1840);
-            stochastic_list153=stochastic_list();
+            pushFollow(FOLLOW_stochastic_list_in_stochastic_def1838);
+            stochastic_list152=stochastic_list();
 
             state._fsp--;
 
-            stream_stochastic_list.add(stochastic_list153.getTree());
-            RW_AS154=(Token)match(input,RW_AS,FOLLOW_RW_AS_in_stochastic_def1842);  
-            stream_RW_AS.add(RW_AS154);
-
-            i2=(Token)match(input,ID,FOLLOW_ID_in_stochastic_def1846);  
+            stream_stochastic_list.add(stochastic_list152.getTree());
+            i2=(Token)match(input,ID,FOLLOW_ID_in_stochastic_def1842);  
             stream_ID.add(i2);
 
 
 
             // AST REWRITE
-            // elements: RW_STOCHASTIC, stochastic_list, i2, i1
+            // elements: stochastic_list, i2, i1, RW_STOCHASTIC
             // token labels: i2, i1
             // rule labels: retval
             // token list labels: 
@@ -5465,13 +5453,13 @@ public class ReoLangParser extends Parser {
 
         Object root_0 = null;
 
-        Token BODY_OPEN155=null;
-        Token BODY_CLOSE157=null;
-        ReoLangParser.stoch_elem_return stoch_elem156 = null;
+        Token BODY_OPEN153=null;
+        Token BODY_CLOSE155=null;
+        ReoLangParser.stoch_elem_return stoch_elem154 = null;
 
 
-        Object BODY_OPEN155_tree=null;
-        Object BODY_CLOSE157_tree=null;
+        Object BODY_OPEN153_tree=null;
+        Object BODY_CLOSE155_tree=null;
         RewriteRuleTokenStream stream_BODY_OPEN=new RewriteRuleTokenStream(adaptor,"token BODY_OPEN");
         RewriteRuleTokenStream stream_BODY_CLOSE=new RewriteRuleTokenStream(adaptor,"token BODY_CLOSE");
         RewriteRuleSubtreeStream stream_stoch_elem=new RewriteRuleSubtreeStream(adaptor,"rule stoch_elem");
@@ -5479,8 +5467,8 @@ public class ReoLangParser extends Parser {
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:359:2: ( BODY_OPEN ( stoch_elem )+ BODY_CLOSE -> ( stoch_elem )+ )
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:359:4: BODY_OPEN ( stoch_elem )+ BODY_CLOSE
             {
-            BODY_OPEN155=(Token)match(input,BODY_OPEN,FOLLOW_BODY_OPEN_in_stochastic_list1874);  
-            stream_BODY_OPEN.add(BODY_OPEN155);
+            BODY_OPEN153=(Token)match(input,BODY_OPEN,FOLLOW_BODY_OPEN_in_stochastic_list1870);  
+            stream_BODY_OPEN.add(BODY_OPEN153);
 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:359:14: ( stoch_elem )+
             int cnt39=0;
@@ -5498,12 +5486,12 @@ public class ReoLangParser extends Parser {
             	case 1 :
             	    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:359:14: stoch_elem
             	    {
-            	    pushFollow(FOLLOW_stoch_elem_in_stochastic_list1876);
-            	    stoch_elem156=stoch_elem();
+            	    pushFollow(FOLLOW_stoch_elem_in_stochastic_list1872);
+            	    stoch_elem154=stoch_elem();
 
             	    state._fsp--;
 
-            	    stream_stoch_elem.add(stoch_elem156.getTree());
+            	    stream_stoch_elem.add(stoch_elem154.getTree());
 
             	    }
             	    break;
@@ -5517,8 +5505,8 @@ public class ReoLangParser extends Parser {
                 cnt39++;
             } while (true);
 
-            BODY_CLOSE157=(Token)match(input,BODY_CLOSE,FOLLOW_BODY_CLOSE_in_stochastic_list1879);  
-            stream_BODY_CLOSE.add(BODY_CLOSE157);
+            BODY_CLOSE155=(Token)match(input,BODY_CLOSE,FOLLOW_BODY_CLOSE_in_stochastic_list1875);  
+            stream_BODY_CLOSE.add(BODY_CLOSE155);
 
 
 
@@ -5573,40 +5561,40 @@ public class ReoLangParser extends Parser {
     };
 
     // $ANTLR start "stoch_elem"
-    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:363:1: stoch_elem : ( ID ( LABEL_MARK ID )? EQUALS stoch_val SEMICOLON ) -> ^( STOCH ID ( ID )? stoch_val ) ;
+    // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:363:1: stoch_elem : ( ID ( LABEL_MARK ID )? TIME_MARK stoch_val SEMICOLON ) -> ^( STOCH ID ( ID )? stoch_val ) ;
     public final ReoLangParser.stoch_elem_return stoch_elem() throws RecognitionException {
         ReoLangParser.stoch_elem_return retval = new ReoLangParser.stoch_elem_return();
         retval.start = input.LT(1);
 
         Object root_0 = null;
 
+        Token ID156=null;
+        Token LABEL_MARK157=null;
         Token ID158=null;
-        Token LABEL_MARK159=null;
-        Token ID160=null;
-        Token EQUALS161=null;
-        Token SEMICOLON163=null;
-        ReoLangParser.stoch_val_return stoch_val162 = null;
+        Token TIME_MARK159=null;
+        Token SEMICOLON161=null;
+        ReoLangParser.stoch_val_return stoch_val160 = null;
 
 
+        Object ID156_tree=null;
+        Object LABEL_MARK157_tree=null;
         Object ID158_tree=null;
-        Object LABEL_MARK159_tree=null;
-        Object ID160_tree=null;
-        Object EQUALS161_tree=null;
-        Object SEMICOLON163_tree=null;
-        RewriteRuleTokenStream stream_EQUALS=new RewriteRuleTokenStream(adaptor,"token EQUALS");
+        Object TIME_MARK159_tree=null;
+        Object SEMICOLON161_tree=null;
+        RewriteRuleTokenStream stream_TIME_MARK=new RewriteRuleTokenStream(adaptor,"token TIME_MARK");
         RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
         RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
         RewriteRuleTokenStream stream_LABEL_MARK=new RewriteRuleTokenStream(adaptor,"token LABEL_MARK");
         RewriteRuleSubtreeStream stream_stoch_val=new RewriteRuleSubtreeStream(adaptor,"rule stoch_val");
         try {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:2: ( ( ID ( LABEL_MARK ID )? EQUALS stoch_val SEMICOLON ) -> ^( STOCH ID ( ID )? stoch_val ) )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:4: ( ID ( LABEL_MARK ID )? EQUALS stoch_val SEMICOLON )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:2: ( ( ID ( LABEL_MARK ID )? TIME_MARK stoch_val SEMICOLON ) -> ^( STOCH ID ( ID )? stoch_val ) )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:4: ( ID ( LABEL_MARK ID )? TIME_MARK stoch_val SEMICOLON )
             {
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:4: ( ID ( LABEL_MARK ID )? EQUALS stoch_val SEMICOLON )
-            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:5: ID ( LABEL_MARK ID )? EQUALS stoch_val SEMICOLON
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:4: ( ID ( LABEL_MARK ID )? TIME_MARK stoch_val SEMICOLON )
+            // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:5: ID ( LABEL_MARK ID )? TIME_MARK stoch_val SEMICOLON
             {
-            ID158=(Token)match(input,ID,FOLLOW_ID_in_stoch_elem1900);  
-            stream_ID.add(ID158);
+            ID156=(Token)match(input,ID,FOLLOW_ID_in_stoch_elem1896);  
+            stream_ID.add(ID156);
 
             // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:8: ( LABEL_MARK ID )?
             int alt40=2;
@@ -5619,11 +5607,11 @@ public class ReoLangParser extends Parser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:364:9: LABEL_MARK ID
                     {
-                    LABEL_MARK159=(Token)match(input,LABEL_MARK,FOLLOW_LABEL_MARK_in_stoch_elem1903);  
-                    stream_LABEL_MARK.add(LABEL_MARK159);
+                    LABEL_MARK157=(Token)match(input,LABEL_MARK,FOLLOW_LABEL_MARK_in_stoch_elem1899);  
+                    stream_LABEL_MARK.add(LABEL_MARK157);
 
-                    ID160=(Token)match(input,ID,FOLLOW_ID_in_stoch_elem1905);  
-                    stream_ID.add(ID160);
+                    ID158=(Token)match(input,ID,FOLLOW_ID_in_stoch_elem1901);  
+                    stream_ID.add(ID158);
 
 
                     }
@@ -5631,17 +5619,17 @@ public class ReoLangParser extends Parser {
 
             }
 
-            EQUALS161=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_stoch_elem1909);  
-            stream_EQUALS.add(EQUALS161);
+            TIME_MARK159=(Token)match(input,TIME_MARK,FOLLOW_TIME_MARK_in_stoch_elem1905);  
+            stream_TIME_MARK.add(TIME_MARK159);
 
-            pushFollow(FOLLOW_stoch_val_in_stoch_elem1911);
-            stoch_val162=stoch_val();
+            pushFollow(FOLLOW_stoch_val_in_stoch_elem1907);
+            stoch_val160=stoch_val();
 
             state._fsp--;
 
-            stream_stoch_val.add(stoch_val162.getTree());
-            SEMICOLON163=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_stoch_elem1913);  
-            stream_SEMICOLON.add(SEMICOLON163);
+            stream_stoch_val.add(stoch_val160.getTree());
+            SEMICOLON161=(Token)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_stoch_elem1909);  
+            stream_SEMICOLON.add(SEMICOLON161);
 
 
             }
@@ -5714,19 +5702,19 @@ public class ReoLangParser extends Parser {
 
         Object root_0 = null;
 
+        Token FLOAT162=null;
+        Token PORTS_OPEN163=null;
         Token FLOAT164=null;
-        Token PORTS_OPEN165=null;
+        Token COMMA165=null;
         Token FLOAT166=null;
-        Token COMMA167=null;
-        Token FLOAT168=null;
-        Token PORTS_CLOSE169=null;
+        Token PORTS_CLOSE167=null;
 
+        Object FLOAT162_tree=null;
+        Object PORTS_OPEN163_tree=null;
         Object FLOAT164_tree=null;
-        Object PORTS_OPEN165_tree=null;
+        Object COMMA165_tree=null;
         Object FLOAT166_tree=null;
-        Object COMMA167_tree=null;
-        Object FLOAT168_tree=null;
-        Object PORTS_CLOSE169_tree=null;
+        Object PORTS_CLOSE167_tree=null;
         RewriteRuleTokenStream stream_FLOAT=new RewriteRuleTokenStream(adaptor,"token FLOAT");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleTokenStream stream_PORTS_OPEN=new RewriteRuleTokenStream(adaptor,"token PORTS_OPEN");
@@ -5753,8 +5741,8 @@ public class ReoLangParser extends Parser {
                 case 1 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:369:4: FLOAT
                     {
-                    FLOAT164=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1941);  
-                    stream_FLOAT.add(FLOAT164);
+                    FLOAT162=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1937);  
+                    stream_FLOAT.add(FLOAT162);
 
 
 
@@ -5789,20 +5777,20 @@ public class ReoLangParser extends Parser {
                 case 2 :
                     // /Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/Tools/doctools/ReoLang/ReoLangSpecs/ReoLangParser.g:371:4: PORTS_OPEN FLOAT COMMA FLOAT PORTS_CLOSE
                     {
-                    PORTS_OPEN165=(Token)match(input,PORTS_OPEN,FOLLOW_PORTS_OPEN_in_stoch_val1962);  
-                    stream_PORTS_OPEN.add(PORTS_OPEN165);
+                    PORTS_OPEN163=(Token)match(input,PORTS_OPEN,FOLLOW_PORTS_OPEN_in_stoch_val1958);  
+                    stream_PORTS_OPEN.add(PORTS_OPEN163);
+
+                    FLOAT164=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1960);  
+                    stream_FLOAT.add(FLOAT164);
+
+                    COMMA165=(Token)match(input,COMMA,FOLLOW_COMMA_in_stoch_val1962);  
+                    stream_COMMA.add(COMMA165);
 
                     FLOAT166=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1964);  
                     stream_FLOAT.add(FLOAT166);
 
-                    COMMA167=(Token)match(input,COMMA,FOLLOW_COMMA_in_stoch_val1966);  
-                    stream_COMMA.add(COMMA167);
-
-                    FLOAT168=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_stoch_val1968);  
-                    stream_FLOAT.add(FLOAT168);
-
-                    PORTS_CLOSE169=(Token)match(input,PORTS_CLOSE,FOLLOW_PORTS_CLOSE_in_stoch_val1970);  
-                    stream_PORTS_CLOSE.add(PORTS_CLOSE169);
+                    PORTS_CLOSE167=(Token)match(input,PORTS_CLOSE,FOLLOW_PORTS_CLOSE_in_stoch_val1966);  
+                    stream_PORTS_CLOSE.add(PORTS_CLOSE167);
 
 
 
@@ -6023,25 +6011,23 @@ public class ReoLangParser extends Parser {
     public static final BitSet FOLLOW_port_access_in_special_port_access_list1785 = new BitSet(new long[]{0x0000000001200000L});
     public static final BitSet FOLLOW_LIST_CLOSE_in_special_port_access_list1789 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RW_STOCHASTIC_in_stochastic_def1831 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_ID_in_stochastic_def1835 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_TIME_MARK_in_stochastic_def1837 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_stochastic_list_in_stochastic_def1840 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RW_AS_in_stochastic_def1842 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_ID_in_stochastic_def1846 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BODY_OPEN_in_stochastic_list1874 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_stoch_elem_in_stochastic_list1876 = new BitSet(new long[]{0x0000040020000000L});
-    public static final BitSet FOLLOW_BODY_CLOSE_in_stochastic_list1879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_stoch_elem1900 = new BitSet(new long[]{0x0000000400400000L});
-    public static final BitSet FOLLOW_LABEL_MARK_in_stoch_elem1903 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_ID_in_stoch_elem1905 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_EQUALS_in_stoch_elem1909 = new BitSet(new long[]{0x0000100004000000L});
-    public static final BitSet FOLLOW_stoch_val_in_stoch_elem1911 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_stoch_elem1913 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOAT_in_stoch_val1941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PORTS_OPEN_in_stoch_val1962 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_FLOAT_in_stoch_val1964 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_COMMA_in_stoch_val1966 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_FLOAT_in_stoch_val1968 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_PORTS_CLOSE_in_stoch_val1970 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_stochastic_def1835 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_stochastic_list_in_stochastic_def1838 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_ID_in_stochastic_def1842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BODY_OPEN_in_stochastic_list1870 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_stoch_elem_in_stochastic_list1872 = new BitSet(new long[]{0x0000040020000000L});
+    public static final BitSet FOLLOW_BODY_CLOSE_in_stochastic_list1875 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_stoch_elem1896 = new BitSet(new long[]{0x0000001400000000L});
+    public static final BitSet FOLLOW_LABEL_MARK_in_stoch_elem1899 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_ID_in_stoch_elem1901 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_TIME_MARK_in_stoch_elem1905 = new BitSet(new long[]{0x0000100004000000L});
+    public static final BitSet FOLLOW_stoch_val_in_stoch_elem1907 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_SEMICOLON_in_stoch_elem1909 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOAT_in_stoch_val1937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PORTS_OPEN_in_stoch_val1958 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_FLOAT_in_stoch_val1960 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_COMMA_in_stoch_val1962 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_FLOAT_in_stoch_val1964 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_PORTS_CLOSE_in_stoch_val1966 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -7,8 +7,8 @@ public class CPModelInternal {
 
 		private CoordinationPattern2 simple_pattern;
 		private LinkedHashMap<String, CoordinationPattern2> stoch_instances;
-		LinkedHashSet<Node> environment;
-		LinkedHashMap<String, Node> nodes;
+		private LinkedHashSet<Node> environment;
+		private LinkedHashMap<String, Node> nodes;
 		
 		
 		public CPModelInternal() {
@@ -49,6 +49,9 @@ public class CPModelInternal {
 			this.nodes = ns;
 		}
 		
-		public String toString(){return simple_pattern.toString();}
+		public String toString(){
+			return simple_pattern.toString() + "\n--STOCH--\n" + this.stoch_instances + 
+					"\n--ENV--\n" + this.environment + "\n--NODDES--\n" + this.nodes;
+		}
 	
 }

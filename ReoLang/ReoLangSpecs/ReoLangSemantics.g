@@ -1567,10 +1567,13 @@ instances [ArrayList<String> in_ports, ArrayList<String> out_ports, String i_typ
 			processed_instances.add($ID.text);
 			
 			
-			for(String lbl : $reolang::global_table.get(i_type).getFlowLabels()){
-				flow_labels.add($ID.text+"#"+lbl);
+			if($reolang::global_table.isDefined(i_type) ){
+				//System.out.println(i_type);
+				for(String lbl : $reolang::global_table.get(i_type).getFlowLabels()){
+					flow_labels.add($ID.text+"#"+lbl);
+				}
+				$reolang::global_table.get($pattern_def::pattern_name).getFlowLabels().addAll(flow_labels);
 			}
-			$reolang::global_table.get($pattern_def::pattern_name).getFlowLabels().addAll(flow_labels);
 			flow_labels.clear();
 		}
 		
@@ -2036,10 +2039,12 @@ stoch_elem [ArrayList<String> i_ports, ArrayList<String> i_labels, ArrayList<Str
 		//if it is a port, ie, if there is not a second part on the stoch spec
 		if($i2==null){
 			//i1 shall be in the list of ports or nodes
-			if(!$stoch_elem.i_ports.contains($i1.text) || !$stoch_elem.nodes.contains($i1.text)){
+			
+			if(!$stoch_elem.i_ports.contains($i1.text) && !$stoch_elem.nodes.contains($i1.text)){
 				local_errors.add( new Error(ErrorType.ERROR, Error.stochasticLabelAlreadyDefined($i1.text), $i1.line, $i1.pos, $reolang::file));
 			}
 			else {
+				
 				if($stoch_elem.i_ports.contains($i1.text)) {
 					$stoch_elem.i_ports.remove($i1.text);
 				}
@@ -2048,6 +2053,7 @@ stoch_elem [ArrayList<String> i_ports, ArrayList<String> i_labels, ArrayList<Str
 						$stoch_elem.nodes.remove($i1.text);
 					}
 				}
+				
 				
 			}
 		}

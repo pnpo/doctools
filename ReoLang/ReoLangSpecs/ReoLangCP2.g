@@ -90,7 +90,7 @@ channel_def
 
 	
 channel_signature [InspectionMode mode] returns [String o_name, int o_dim, LinkedHashSet<Node> o_ins, LinkedHashSet<Node> o_outs]
-	:	 ^(SIGNATURE id1=ID o=option? ^(CHANNEL_PORTS (^(IN_PORTS p1=ports[$id1.text]))? (^(OUT_PORTS p2=ports[$id1.text]))?) (^(CONDITION ID condition))?
+	:	 ^(SIGNATURE id1=ID o=option? ^(CHANNEL_PORTS (^(IN_PORTS p1=ports))? (^(OUT_PORTS p2=ports))?) (^(CONDITION ID condition))?
 	
 	{
 		$channel_signature.o_name = $id1.text;
@@ -135,14 +135,14 @@ structure_dimension returns [int dim]
 	;
 
 
-ports [String inst_name] returns [LinkedHashSet<Node> o_ports]
+ports returns [LinkedHashSet<Node> o_ports]
 @init {
 	LinkedHashSet<Node> _ports = new LinkedHashSet<Node>();
 }
 	:	 ^(PORT (ID
 	{
 		LinkedHashSet<String> ends = new LinkedHashSet<String>();
-		ends.add(( ! $ports.inst_name.equals("") ? $ports.inst_name + "_" : "") +$ID.text);
+		ends.add($ID.text);
 		_ports.add(new Node(ends));
 	}
 	)+
@@ -241,7 +241,7 @@ pattern_def
 	
 	
 pattern_signature returns [String o_name]
-	:	 ^(PATTERN_SIGNATURE ID ^(PATTERN_PORTS (^(IN_PORTS p1=ports[""]))? (^(OUT_PORTS p2=ports[""]))? ) 
+	:	 ^(PATTERN_SIGNATURE ID ^(PATTERN_PORTS (^(IN_PORTS p1=ports))? (^(OUT_PORTS p2=ports))? ) 
 	{	
 		$pattern_signature.o_name = $ID.text;
 		
@@ -250,8 +250,9 @@ pattern_signature returns [String o_name]
 		cp.setId($ID.text);
 		cpmi.setSimplePattern(cp);
 		
-		LinkedHashSet<Node> env = new LinkedHashSet<Node>($p1.o_ports);
-		env.addAll($p2.o_ports);
+		
+		LinkedHashSet<Node> env = new LinkedHashSet<Node>($p1.o_ports==null ? new LinkedHashSet<Node>(0) : $p1.o_ports);
+		env.addAll($p2.o_ports==null ? new LinkedHashSet<Node>(0) : $p2.o_ports);
 		cpmi.setEnvironment(env);
 		this.patterns.put($ID.text, cpmi);
 		
@@ -318,10 +319,27 @@ instances [String i_name, String i_type, LinkedHashSet<Node> i_ins, LinkedHashSe
 	{
 		//CHANNELS
 		if(! this.patterns.containsKey($instances.i_name)) {
+			LinkedHashSet<Node> _ins = new LinkedHashSet<Node>();
+			LinkedHashSet<Node> _outs = new LinkedHashSet<Node>();
+			Node n;
+			for(Node _n : $instances.i_ins) {
+				for(String e : _n.getEnds()) {
+					n = new Node();
+					n.addEnd($ID.text + "_" + e);
+					_ins.add(n) ; 
+				}
+			}	
+			for(Node _n : $instances.i_outs) {
+				for(String e : _n.getEnds()) {
+					n = new Node();
+					n.addEnd($ID.text + "_" + e);
+					_outs.add(n) ;
+				}
+			}			
 			
 			CommunicationMean2 cm;
 			cm = new CommunicationMean2(
-				$instances.i_ins, $instances.i_outs, $ID.text, 
+				_ins, _outs, $ID.text, 
 				$instances.i_type, new LinkedHashMap<String, Double>()
 			);
 			this.patterns.get($instances.patt_name).getSimplePattern().getPattern().add(cm);
@@ -493,7 +511,7 @@ stoch_elem[String p, String i]
 			
 			CommunicationMean2 cm = new CommunicationMean2();
 			for(CommunicationMean2 _cm : si.getPattern()){
-				if(_cm.getId().equals($i2.text)){
+				if(_cm.getId().equals($i1.text)){
 					cm = _cm;
 					break;
 				}

@@ -3,10 +3,12 @@ package pt.uminho.di.reolang;
 
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 
+import pt.uminho.di.cp.model.CPModelInternal;
 import pt.uminho.di.cp.model.CoordinationPattern;
 import pt.uminho.di.reolang.ReoLangSemantics.reolang_return;
 import pt.uminho.di.reolang.parsing.CPBuilder;
@@ -17,10 +19,21 @@ public class Main {
 
     public static void main(String args[]) throws Exception {
         
-    	String file = "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/TrainingCompany/channels_and_patterns.rlf";
+    	String file = "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/LossyFifos/lossyfifo.rlf";
+    	
     	Semantics c = new Semantics(file, new ANTLRFileStream(file, "UTF8").toString());
     	c.performSemanticAnalysis(new SymbolsTable());
     	System.out.println(c.getErrors());
+    	
+    	CPBuilder cpb = new CPBuilder(file);
+    	ReoLangCP2 rlcp = cpb.performModelConstruction(new LinkedHashMap<String, CPModelInternal>(), new SymbolsTable());
+    	System.out.println(rlcp.getPatterns().toString());
+    	
+    	
+    	
+    	//Semantics c = new Semantics(file, new ANTLRFileStream(file, "UTF8").toString());
+    	//c.performSemanticAnalysis(new SymbolsTable());
+    	//System.out.println(c.getErrors());
 //    	ReoLangLexer lex = new ReoLangLexer(new ANTLRFileStream(file, "UTF8"));
 //        CommonTokenStream tokens = new CommonTokenStream(lex);
 //        
