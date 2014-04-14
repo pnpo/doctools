@@ -16,6 +16,7 @@ options{
 	import java.util.HashSet;
 	import java.util.Collections;
 	import java.util.Comparator;
+	import java.util.LinkedList;
 }
 
 @members{
@@ -41,15 +42,18 @@ reclang[TinySymbolsTable global_table] returns[ArrayList<SimpleError> errors]
 scope{
 	TinySymbolsTable ids_table; 
 	int scope_id;
+	int aux_id;
 	int parent_id;
-	int id;
+	List<Integer> scopes;
 	HashMap<Integer,Integer> scope_rel;
 }
 @init{
 	$reclang::ids_table = $reclang.global_table;
 	$reclang::scope_id = 0;
+	$reclang::aux_id = 0;
 	$reclang::parent_id = 0;
-	$reclang::id = 0;
+	$reclang::scopes = new ArrayList<Integer>(); //LinkedList
+	$reclang::scopes.add(0);
 	$reclang::scope_rel = new HashMap<Integer,Integer>();
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
@@ -266,7 +270,7 @@ scope{
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$instruction::rec_type = "";
-	$instruction::scope = this.getScope($reclang::id);
+	$instruction::scope = this.getScope($reclang::scope_id); //rever
 }
 	: declaration 
 	{ 
@@ -286,9 +290,11 @@ scope{
 	| for_instruction
 	{
 		local_errors.addAll($for_instruction.errors);
-		$instruction.errors = local_errors;
-		$reclang::parent_id--;
-		$reclang::id = $reclang::scope_rel.get($reclang::scope_id);
+		$instruction.errors = local_errors;	
+		
+		$reclang::scopes.remove($reclang::scopes.size()-1);
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);
+		$reclang::aux_id--;
 	}
 	;
 	
@@ -342,7 +348,10 @@ var_def returns[ArrayList<SimpleError> errors]
 			Integer s_id = $instruction::scope.getScopeRel().fst();
 			TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
 			
-			if ( ts != null ){
+			System.out.println($ID.text);
+			System.out.println($instruction::scope);
+			System.out.println(ts);
+			if ( ts != null && !($ID.line == ts.getLine() && $ID.pos == ts.getPosition())){ //rever
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 			}
 		}
@@ -388,8 +397,7 @@ assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
 			}
 			else {
 				ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
-
-				if ( ts != null){
+				if ( ts != null && !($ID.line == ts.getLine() && $ID.pos == ts.getPosition())){ //rever
 					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 				}
 			}
@@ -671,15 +679,30 @@ args returns[ArrayList<SimpleError> errors, int counter]
 	
 for_instruction returns[ArrayList<SimpleError> errors]
 @init{
+	if ($reclang::scopes.contains($reclang::aux_id)){
+		$reclang::parent_id = $reclang::aux_id;
+	}
+	else{
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);    
+		//$reclang::scope_id;
+	}
 	$reclang::scope_id++;
-	$reclang::id = $reclang::scope_id;
-	$reclang::scope_rel.put($reclang::scope_id, $reclang::parent_id);
-	$reclang::parent_id++;
+	
+	$reclang::scope_rel.put($reclang::scope_id, $reclang::parent_id); //parent_id	
+	/*
+	System.out.println("-----------------------");
+	System.out.println($reclang::scopes);
+	System.out.println($reclang::scope_id + " : " + $reclang::aux_id + " vs "+ $reclang::parent_id + " (" + $reclang::scope_id + ":"+ $reclang::parent_id + ")");
+	*/
+	$reclang::scopes.add($reclang::scope_id);
+	$reclang::aux_id++;
 	
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
 	: ^(FORALL datatype id1=ID
-	{
+	{	
+		$instruction::scope = this.getScope($reclang::parent_id); //rever
+		
 		Integer s_id = $instruction::scope.getScopeRel().fst();
 		TinySymbol ts = $reconfiguration_def::name.hasValue($id1.text, s_id);
 		if ( ts != null ){
@@ -695,8 +718,6 @@ for_instruction returns[ArrayList<SimpleError> errors]
 		}
 		else{
 			if (local_errors.isEmpty()){
-				$instruction::scope = this.getScope($reclang::id);
-
 				TinySymbol ts1 = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
 				TinySymbol ts2 = $instruction::scope.containsSymbol($id2.text) ? $instruction::scope.getSymbols().get($id2.text) : $reconfiguration_def::name.hasValue($id2.text, s_id);				
 

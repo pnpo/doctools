@@ -12,6 +12,7 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
 	Name y = b;
 	Name c;
 	Node h;
+	Channel cc;
 	
 	Node g = N(b);
 	@ bla (b,h);
@@ -46,23 +47,43 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
 				Set<Node> E13 = S(a);
 				forall (Pattern p6 : U){
 					Node E22 = a;
+					forall (Pattern p10 : U){
+						Node E25 = a;
+					}
 				}
+				forall (Pattern p13 : U){
+					Node E22 = a;
+					forall (Pattern p10 : U){
+						Node E25 = a;
+					}
+				}
+				
 				Set<Node> E14 = S(g);
 			}
 			Set<Pattern> I;
 			forall (Pattern p6 : I){
-					Node E22 = a;
-				}
+				Node E22 = a;
+			}
 			Set<Node> E1 = S(a);
 			@ join(E1);
 			Set<Node> E11 = S(g);
 		}
+		Set<Pattern> I;
 		forall (Pattern p6 : I){
-					Channel ch = n3;
-				}
+			Channel ch = cc;
+			forall (Pattern p12 : I){
+				Channel ch2 = n3;
+			}
+		}
 		Pattern p2 = @ split(n);
 		Set<Node> E2 = S(a);
 		@ join(E2);  
+	}
+	forall (Pattern p10 : I){
+		Channel ch = cc;
+		forall (Pattern p12 : I){
+			Channel ch2 = n3;
+		}
 	}
 	Channel pp1;
 	Pattern pp2;
