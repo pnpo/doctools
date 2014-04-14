@@ -394,7 +394,7 @@ public class CoordinationPattern2 {
 		StringBuffer sb = new StringBuffer();
 		//---- CHANNELS
 		for(CommunicationMean2 cm : decomposed.getPattern()) {
-			sb.append(cm.getType()).append("_ ").append(cm.getId()).append(" ");
+			sb.append(cm.getType()).append(" ").append(cm.getId()).append(" ");
 			for(Node in : cm.getInodes()) {
 				sb.append((new Node(in)).takeEnd()).append(" ");
 			}
@@ -540,8 +540,10 @@ public class CoordinationPattern2 {
 			cm_new.setType(cm.getType());
 			cm_new.setInodes(inodes);
 			cm_new.setOnodes(onodes);
+			cm_new.setDelays(cm.getDelays());
 			
 			cp2.getPattern().add(cm_new);
+			cp2.setDelays(this.getDelays());
 		}
 		
 		return cp2;

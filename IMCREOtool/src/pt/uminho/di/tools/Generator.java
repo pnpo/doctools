@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 
@@ -16,6 +17,7 @@ import com.martiansoftware.jsap.JSAPResult;
 import com.martiansoftware.jsap.Switch;
 import com.martiansoftware.jsap.UnflaggedOption;
 
+import pt.uminho.di.cp.model.CPModelInternal;
 import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.imc.IMCTransformer;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
@@ -279,7 +281,8 @@ public class Generator {
 					}
 					
 					CPBuilder cpb = new CPBuilder(file_name);
-					ReoLangCP2 rlcp = cpb.performModelConstruction(new CommonTreeNodeStream(res.getTree()), null, null, res.symbols);
+					ReoLangCP2 rlcp = cpb.performModelConstruction(new LinkedHashMap<String, CPModelInternal>(), res.symbols);
+					//performModelConstruction(new CommonTreeNodeStream(res.getTree()), null, null, res.symbols);
 					//LinkedHashMap<String, ReoLangCPModel.CPModelInternal> patterns = rlcpm.getPatterns();
 					
 					boolean found = false;
