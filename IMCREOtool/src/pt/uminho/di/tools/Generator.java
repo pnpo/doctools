@@ -2,14 +2,8 @@ package pt.uminho.di.tools;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import java.io.PrintWriter;
-
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 
@@ -22,15 +16,10 @@ import com.martiansoftware.jsap.JSAPResult;
 import com.martiansoftware.jsap.Switch;
 import com.martiansoftware.jsap.UnflaggedOption;
 
-import pt.uminho.di.cp.model.CoordinationPattern;
 import pt.uminho.di.cp.model.CoordinationPattern2;
-import pt.uminho.di.imc.IMC;
 import pt.uminho.di.imc.IMCTransformer;
-import pt.uminho.di.imc.parsing.IMCParserWrapper;
 import pt.uminho.di.imc.reo.imc.IMCREOimc;
-import pt.uminho.di.imc.reo.composition.Composer;
 import pt.uminho.di.imc.reo.composition.Composer2;
-import pt.uminho.di.imc.reo.composition.ScriptParser;
 import pt.uminho.di.imc.reo.parsing.IMCREOScriptParserFrontEnd;
 import pt.uminho.di.imc.reo.parsing.ReoMAParserFrontEnd;
 import pt.uminho.di.imc.util.Util;
