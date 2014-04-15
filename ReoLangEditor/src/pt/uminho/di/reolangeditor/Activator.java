@@ -1,6 +1,12 @@
 package pt.uminho.di.reolangeditor;
 
+import java.io.PrintStream;
+
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -19,6 +25,16 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
+		MessageConsole myConsole = new MessageConsole("Console", null); // declare console
+
+		ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[]{ 
+		myConsole});
+
+		MessageConsoleStream stream = myConsole.newMessageStream();
+
+		PrintStream myS = new PrintStream(stream);
+		System.setOut(myS); // link standard output stream to the console
+		System.setErr(myS); // link error output stream to the console
 	}
 
 	/*
