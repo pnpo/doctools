@@ -60,18 +60,18 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
 				
 				Set<Node> E14 = S(g);
 			}
-			Set<Pattern> I;
-			forall (Pattern p6 : I){
+			Set<Pattern> this;
+			forall (Pattern p6 : this){
 				Node E22 = a;
 			}
 			Set<Node> E1 = S(a);
 			@ join(E1);
 			Set<Node> E11 = S(g);
 		}
-		Set<Pattern> I;
-		forall (Pattern p6 : I){
+		Set<Pattern> this;
+		forall (Pattern p6 : this){
 			Channel ch = cc;
-			forall (Pattern p12 : I){
+			forall (Pattern p12 : this){
 				Channel ch2 = n3;
 			}
 		}
@@ -79,10 +79,11 @@ reconfiguration blabla(Pattern p,p1; Set<Pair<Node>> M) {
 		Set<Node> E2 = S(a);
 		@ join(E2);  
 	}
-	forall (Pattern p10 : I){
+	Set<Pattern> this;
+	forall (Pattern p10 : this){
 		Channel ch = cc;
-		forall (Pattern p12 : I){
-			Channel ch2 = n3;
+		forall (Pattern p12 : this){
+			Channel ch2 = cc;
 		}
 	}
 	Channel pp1;

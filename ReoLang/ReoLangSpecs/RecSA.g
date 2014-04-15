@@ -42,19 +42,21 @@ reclang[TinySymbolsTable global_table] returns[ArrayList<SimpleError> errors]
 scope{
 	TinySymbolsTable ids_table; 
 	int scope_id;
-	int aux_id;
 	int parent_id;
+	int aux_id;	
 	List<Integer> scopes;
 	HashMap<Integer,Integer> scope_rel;
 }
 @init{
 	$reclang::ids_table = $reclang.global_table;
+
 	$reclang::scope_id = 0;
+	$reclang::parent_id = 0;	
 	$reclang::aux_id = 0;
-	$reclang::parent_id = 0;
 	$reclang::scopes = new ArrayList<Integer>(); //LinkedList
 	$reclang::scopes.add(0);
 	$reclang::scope_rel = new HashMap<Integer,Integer>();
+
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
 	: ^(RECONFIGS (directive_def
@@ -70,7 +72,7 @@ scope{
 	
 	) 
 	{
-		System.out.println($reclang::scope_rel);
+		//System.out.println($reclang::scope_rel);
 		for (int i=0; i<local_errors.size(); i++) {
           		for (int j=0; j<local_errors.size(); j++) {
        		        	if (local_errors.get(i).getMessage().equals(local_errors.get(j).getMessage()) && i != j) {
@@ -131,6 +133,7 @@ scope{
 	$reconfiguration_def::name = new TinySymbol();
 	$reconfiguration_def::scopes = new ArrayList<TinySymbolsTable>();
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	
 	$reclang::scope_id = 0;
 
 }
@@ -270,7 +273,7 @@ scope{
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	$instruction::rec_type = "";
-	$instruction::scope = this.getScope($reclang::scope_id); //rever
+	$instruction::scope = this.getScope( $reclang::scopes.get($reclang::scopes.size()-1) ); //rever
 }
 	: declaration 
 	{ 
@@ -348,9 +351,6 @@ var_def returns[ArrayList<SimpleError> errors]
 			Integer s_id = $instruction::scope.getScopeRel().fst();
 			TinySymbol ts = $reconfiguration_def::name.hasValue($ID.text, s_id);
 			
-			System.out.println($ID.text);
-			System.out.println($instruction::scope);
-			System.out.println(ts);
 			if ( ts != null && !($ID.line == ts.getLine() && $ID.pos == ts.getPosition())){ //rever
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos) );
 			}
@@ -683,17 +683,11 @@ for_instruction returns[ArrayList<SimpleError> errors]
 		$reclang::parent_id = $reclang::aux_id;
 	}
 	else{
-		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);    
-		//$reclang::scope_id;
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);
 	}
 	$reclang::scope_id++;
+	$reclang::scope_rel.put($reclang::scope_id, $reclang::parent_id); 
 	
-	$reclang::scope_rel.put($reclang::scope_id, $reclang::parent_id); //parent_id	
-	/*
-	System.out.println("-----------------------");
-	System.out.println($reclang::scopes);
-	System.out.println($reclang::scope_id + " : " + $reclang::aux_id + " vs "+ $reclang::parent_id + " (" + $reclang::scope_id + ":"+ $reclang::parent_id + ")");
-	*/
 	$reclang::scopes.add($reclang::scope_id);
 	$reclang::aux_id++;
 	
@@ -1343,19 +1337,21 @@ triple_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String n
 	
 	)
 	{
+	
+		$triple_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$triple_cons.name = name + ")";
+		
 		if (local_errors.isEmpty()){
 			if(datatypes.size() + nulls == 1){
 				dt.add(Type.TRIPLE);
 				dt.addAll(datatypes.iterator().next());
 			}
 			else {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("TRIPLE"), $TRIPLE.line, $TRIPLE.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements($triple_cons.name), $TRIPLE.line, $TRIPLE.pos) );
 			}
 		}
-		$triple_cons.errors = local_errors;
-
-		name = name.substring(0, name.length()-1);
-		$triple_cons.name = name + ")";
 
 		$triple_cons.datatype = dt;
 	}
@@ -1385,19 +1381,21 @@ set_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name
 	)*
 	
 	{
+	
+		$set_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$set_cons.name = name + ")";
+		
 		if (local_errors.isEmpty()){
 			if(datatypes.size() + nulls == 1){
 				dt.add(Type.SET);
 				dt.addAll(datatypes.iterator().next());
 			}
 			else {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("SET"), $SET.line, $SET.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements($set_cons.name), $SET.line, $SET.pos) );
 			}
 		}
-		$set_cons.errors = local_errors;
-
-		name = name.substring(0, name.length()-1);
-		$set_cons.name = name + ")";
 
 		$set_cons.datatype = dt;
 	}
@@ -1437,19 +1435,21 @@ pair_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String nam
 	)
 	
 	{
+	
+		$pair_cons.errors = local_errors;
+
+		name = name.substring(0, name.length()-1);
+		$pair_cons.name = name + ")";
+		
 		if (local_errors.isEmpty()){
 			if(datatypes.size() + nulls == 1){
 				dt.add(Type.PAIR);
 				dt.addAll(datatypes.iterator().next());
 			}
 			else {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements("PAIR"), $PAIR.line, $PAIR.pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidElements($pair_cons.name), $PAIR.line, $PAIR.pos) );
 			}
 		}
-		$pair_cons.errors = local_errors;
-
-		name = name.substring(0, name.length()-1);
-		$pair_cons.name = name + ")";
 
 		$pair_cons.datatype = dt;
 	}

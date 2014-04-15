@@ -24,10 +24,17 @@ reclang returns[TinySymbolsTable global_table]
 scope{
 	int scope_id;
 	int parent_id;
+	int aux_id;
+	List<Integer> scopes;
 }
 @init{
 	$reclang::scope_id = 0;
 	$reclang::parent_id = 0;
+	$reclang::aux_id = 0;
+	
+	$reclang::scopes = new ArrayList<Integer>(); //LinkedList or Stack
+	$reclang::scopes.add(0);
+	
 }
 	: ^(RECONFIGS directive_def* element*
 	
@@ -77,6 +84,7 @@ scope{
 	$reconfiguration_def::sub_scopes = new ArrayList<TinySymbolsTable>();
 	$reconfiguration_def::datatype = new ArrayList<Type>();
 	$reconfiguration_def::scope = "main";
+	
 	$reclang::scope_id = 0;
 }
 	: ^(ID 
@@ -179,7 +187,10 @@ instruction
 	| reconfiguration_apply
 	| for_instruction
 	{
-		$reclang::parent_id--;
+		$reclang::scopes.remove($reclang::scopes.size()-1);
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);
+		$reclang::aux_id--;
+			
 		if ($reclang::parent_id == 0) {
 			$reconfiguration_def::scope = "main";
 		}
@@ -299,9 +310,19 @@ scope{
 	$reconfiguration_def::datatype = new ArrayList<Type>();
 	$for_instruction::forall_table = new TinySymbolsTable();
 	$reconfiguration_def::scope = "forall";
+	
+	if ($reclang::scopes.contains($reclang::aux_id)){
+		$reclang::parent_id = $reclang::aux_id;
+	}
+	else{
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);
+	}
+	
 	$for_instruction::forall_table.setScopeRel( new Pair<Integer, Integer>($reclang::scope_id, $reclang::parent_id) );
+	
+	$reclang::scopes.add($reclang::scope_id);	
 	$reclang::scope_id++;
-	$reclang::parent_id++;
+	$reclang::aux_id++;
 }
 	: ^(FORALL datatype id1=ID
 	{
