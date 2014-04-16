@@ -114,6 +114,19 @@
             </command>
          </menu>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="reolang.menus.toolbar.IMCREOTool">
+            <command
+                  commandId="reolangeditor.commands.imcreoCommand"
+                  label="IMCREOTool"
+                  style="push"
+                  tooltip="IMCREOTool">
+            </command>
+         </toolbar>
+      </menuContribution>
    </extension>
 
 </plugin>

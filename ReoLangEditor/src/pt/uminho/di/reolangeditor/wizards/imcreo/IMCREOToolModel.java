@@ -11,6 +11,7 @@ import pt.uminho.di.reolang.ReoLangCP2;
 import pt.uminho.di.reolang.ReoLangSemantics;
 import pt.uminho.di.reolang.parsing.CPBuilder;
 import pt.uminho.di.reolang.parsing.Semantics;
+import pt.uminho.di.reolang.parsing.util.Pair;
 import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 
 public class IMCREOToolModel {
@@ -31,8 +32,8 @@ public class IMCREOToolModel {
 	private LinkedHashMap<String, CPModelInternal> patterns;
 	private String selected;
 	private CPModelInternal completePattern;
-	private ArrayList<Text> nodes;
-	private ArrayList<Text> envs;
+	private LinkedHashMap<String, Pair<Text, Text>> nodes;
+	private LinkedHashMap<String, Text> envs;
 	private HashMap<ToolOptions, Boolean> options;
 	private HashMap<OutputOptions, String> outputs;
 	
@@ -53,8 +54,8 @@ public class IMCREOToolModel {
 		this.patterns = null;
 		this.selected = "";
 		this.completePattern = null;
-		this.nodes = new ArrayList<Text>();
-		this.envs = new ArrayList<Text>();
+		this.nodes = null;
+		this.envs = null;
 		this.options = new LinkedHashMap<IMCREOToolModel.ToolOptions, Boolean>();
 		this.outputs = new LinkedHashMap<IMCREOToolModel.OutputOptions, String>();
 
@@ -75,7 +76,6 @@ public class IMCREOToolModel {
 	 * @param outputs
 	 */
 	public IMCREOToolModel(String file, String selected,
-			ArrayList<Text> nodes, ArrayList<Text> envs,
 			HashMap<ToolOptions, Boolean> options,
 			HashMap<OutputOptions, String> outputs) {
 		super();
@@ -85,8 +85,8 @@ public class IMCREOToolModel {
 		this.selected = selected;
 		this.completePattern = null;
 		this.setCompletePatternAutomatically();
-		this.nodes = nodes;
-		this.envs = envs;
+		this.nodes = null;
+		this.envs = null;
 		this.options = options;
 		this.outputs = outputs;
 	}
@@ -141,25 +141,25 @@ public class IMCREOToolModel {
 	/**
 	 * @return the nodes
 	 */
-	public ArrayList<Text> getNodes() {
+	public LinkedHashMap<String, Pair<Text, Text>> getNodes() {
 		return nodes;
 	}
 	/**
 	 * @param nodes the nodes to set
 	 */
-	public void setNodes(ArrayList<Text> nodes) {
+	public void setNodes(LinkedHashMap<String, Pair<Text, Text>> nodes) {
 		this.nodes = nodes;
 	}
 	/**
 	 * @return the envs
 	 */
-	public ArrayList<Text> getEnvs() {
+	public LinkedHashMap<String, Text> getEnvs() {
 		return envs;
 	}
 	/**
 	 * @param envs the envs to set
 	 */
-	public void setEnvs(ArrayList<Text> envs) {
+	public void setEnvs(LinkedHashMap<String, Text> envs) {
 		this.envs = envs;
 	}
 	/**

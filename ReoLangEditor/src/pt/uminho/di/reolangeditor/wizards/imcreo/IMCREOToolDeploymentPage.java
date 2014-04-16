@@ -1,9 +1,15 @@
 package pt.uminho.di.reolangeditor.wizards.imcreo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
@@ -28,6 +34,7 @@ import pt.uminho.di.reolang.parsing.util.Pair;
 public class IMCREOToolDeploymentPage extends WizardPage {
 	
 	private Composite container;
+	private final HashSet<Text> error_emiters = new HashSet<Text>();
 	
 	protected IMCREOToolDeploymentPage() {
 		super("Coordination Pattern Deployment");
@@ -58,6 +65,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	 */
 	public void updateControl() {
 		final IMCREOToolWizard wiz = (IMCREOToolWizard)this.getWizard();
+		final IMCREOToolDeploymentPage self = this;
 		final CPModelInternal cpmi = wiz.getModel().getCompletePattern();
 		final CoordinationPattern2 sp = cpmi.getStochInstances().get(wiz.getModel().getSelected());
 		
@@ -69,7 +77,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 		}
 		
 		//now redo it
-		//container = new Composite(container.getParent(), SWT.NONE);
+		
 		GridLayout layout = new GridLayout();
 	    container.setLayout(layout);
 	    layout.numColumns = 3;
@@ -89,8 +97,34 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	    //GridData data = new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1);
 	    //label_title.setLayoutData(data);
 	    
+	    KeyListener listener = new KeyListener() {
+			
+	    	public void keyReleased(KeyEvent e) {
+				Text t = (Text)e.widget;
+				String num = t.getText();
+				try{
+					if(! t.equals("")) {
+						Double.parseDouble(num);
+						error_emiters.remove(t);
+						if(error_emiters.size()==0){
+							self.setErrorMessage(null);
+							setPageComplete(true);
+						}
+					}
+				}
+				catch(NumberFormatException ex) {
+					self.setErrorMessage("Some fields are not well formatted: expecting a float!");
+					error_emiters.add(t);
+					setPageComplete(false);
+				}
+			}
+			
+			public void keyPressed(KeyEvent e) {}
+		};
 	    
-	    ArrayList<Text> nodes_info = new ArrayList<Text>();
+	    
+	    
+	    LinkedHashMap<String, Pair<Text, Text>> nodes_info = new LinkedHashMap<String, Pair<Text, Text>>();
 	    Label node_label;
 	    Text node_info_rd, node_info_wr;
 	    for(String n : cpmi.getNodes().keySet()) {
@@ -104,6 +138,10 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 			    
 			    node_info_rd = new Text(container, SWT.SINGLE);
 			    node_info_wr = new Text(container, SWT.SINGLE);
+			    //ADD LISTENERS for errors
+			    node_info_rd.addKeyListener(listener);
+			    node_info_wr.addKeyListener(listener);
+			    
 			    if(sp.getDelays().containsKey(__n)){
 			    	Pair<Double, Double> stoch_val = sp.getDelays().get(__n);
 			    	node_info_rd.setText(stoch_val.fst() == 0.0 ? "" : stoch_val.fst().toString());
@@ -114,11 +152,12 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 			    	node_info_wr.setText("");
 			    }
 			    
-			    nodes_info.add(node_info_rd);
-			    nodes_info.add(node_info_wr);
+			    nodes_info.put(n, new Pair<Text,Text>(node_info_rd, node_info_wr));
 	    	}
-	    	
 	    } 
+	    
+	    //update model
+	    wiz.getModel().setNodes(nodes_info);
 	    
 	    
 	    label_title = new Label(container, SWT.NONE);
@@ -147,7 +186,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	    data = new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1);
 	    container2.setLayoutData(data);
 	    
-	    ArrayList<Text> envs_info = new ArrayList<Text>();
+	    LinkedHashMap<String, Text> envs_info = new LinkedHashMap<String, Text>();
 	    Label env_label;
 	    Text env_info;
 	    for(String n : cpmi.getNodes().keySet()) {
@@ -160,6 +199,10 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 			    env_label.setToolTipText(__n.toString());
 			    
 			    env_info = new Text(container2, SWT.SINGLE);
+			    env_info.setEnabled(false);
+			    env_info.addKeyListener(listener);
+			    
+			    
 			    if(sp.getDelays().containsKey(__n)){
 			    	Double stoch_val = sp.getDelays().get(__n).fst();
 			    	env_info.setText(stoch_val == 0.0 ? "" : stoch_val.toString());
@@ -168,25 +211,36 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 			    	env_info.setText("");
 			    }
 			    
-			    envs_info.add(env_info);
+			    envs_info.put(n, env_info);
 	    	}
 	    	
 	    } 
 	    
-	    container2.setVisible(false);
-	    
-	    
+	   //container2.setEnabled(false);
 	    
 	    
 	    toDeploy.addListener(SWT.Selection, new Listener() {
 			
 			public void handleEvent(Event event) {
 				if(toDeploy.getSelection()){
-					container2.setVisible(true);
+					for(Control c : container2.getChildren()){
+						c.setEnabled(true);
+						Event e = new Event();
+					    event.type = SWT.KeyUp;
+					    event.keyCode = SWT.RIGHT;
+						c.notifyListeners(SWT.KeyUp, e);
+					}
 					container.update();
 				}
 				else {
-					container2.setVisible(false);
+					for(Control c : container2.getChildren()){
+						error_emiters.remove(c);
+						c.setEnabled(false);
+					}
+					if(error_emiters.size()==0){
+						self.setErrorMessage(null);
+						setPageComplete(true);
+					}
 					container.update();
 				}
 				
@@ -194,13 +248,10 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 		});
 	    
 	    
-	  //env
-	    
 	    
 	    container.layout(true);
 	    setPageComplete(true);
 	}
-	
 	
 	
 
