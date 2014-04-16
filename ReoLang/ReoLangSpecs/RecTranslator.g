@@ -3,7 +3,8 @@ tree grammar RecTranslator;
 options{
 	tokenVocab = RecParser;
 	ASTLabelType = CommonTree;
-	//backtrack = true;
+	output = template;
+	//language = java;
 }
 
 @header{

@@ -1,10 +1,13 @@
 package pt.uminho.di.reolang.reclang;
 
 
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
+import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
 
 import pt.uminho.di.reolang.parsing.util.SimpleError;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
@@ -38,7 +41,29 @@ public class Main {
 			RecSA walker_sa = new RecSA(tree_sa);
 			ArrayList<SimpleError> errors = walker_sa.reclang(ids_table);
 			
-			System.out.println(errors.toString());
+			//***************TRANSLATOR***************//
+			//if there is no parse errors...
+			if(errors.isEmpty()){
+				//TRANSLATOR
+		        CommonTreeNodeStream tree_tltr = new CommonTreeNodeStream(res.getTree());
+				RecTranslator walker_tltr = new RecTranslator(tree_tltr);
+				
+				// load in T.stg template group, put in templates variable
+				FileReader groupFileR = new FileReader("resources/template.stg"); 
+				StringTemplateGroup templates = new StringTemplateGroup(groupFileR); 
+				groupFileR.close();
+				
+				walker_tltr.setTemplateLib(templates);
+				/*
+				RecTranslator.reclang_return r = walker_tltr.reclang();
+				
+		        StringTemplate result = (StringTemplate)r.getTemplate();
+		        System.out.println(result.toString()); // emit translation
+		        //*/
+			}
+			else {
+				System.out.println(errors.toString());
+			}
 			
         } catch (Exception e) {
             //System.out.println("Erro estranho ocorreu! -- No tree created!! " + e.getMessage());
