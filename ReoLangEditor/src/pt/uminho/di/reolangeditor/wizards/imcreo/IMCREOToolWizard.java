@@ -3,12 +3,11 @@
  */
 package pt.uminho.di.reolangeditor.wizards.imcreo;
 
-import java.util.LinkedHashMap;
 
 import org.eclipse.jface.wizard.Wizard;
 
-import pt.uminho.di.cp.model.CPModelInternal;
-import pt.uminho.di.cp.model.CoordinationPattern2;
+import pt.uminho.di.reolangeditor.tools.IMCREOToolModel;
+
 
 /**
  * @author Nuno Oliveira
@@ -33,6 +32,7 @@ public class IMCREOToolWizard extends Wizard {
 		super();
 		this.model = new IMCREOToolModel();
 		this.model.setFile(file);
+		setNeedsProgressMonitor(true);
 	}
 	
 	
@@ -103,35 +103,7 @@ public class IMCREOToolWizard extends Wizard {
 
 
 
-
-
-
-
-	@Override
-	public void addPages() {
-		this.select_page = new IMCREOToolSelectPage();
-		this.deployment_page = new IMCREOToolDeploymentPage();
-		this.output_page = new IMCREOToolOutputPage();
-		this.addPage(this.select_page);
-		this.addPage(this.deployment_page);
-		//this.addPage(this.output_page);
-	}
 	
-	
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
-	 */
-	@Override
-	public boolean performFinish() {
-		System.out.println(this.model.getSelected());
-		return true;
-	}
-
-
-
-
-
 	/**
 	 * @return the model
 	 */
@@ -149,6 +121,39 @@ public class IMCREOToolWizard extends Wizard {
 	public void setModel(IMCREOToolModel model) {
 		this.model = model;
 	}
+
+
+
+
+	@Override
+	public void addPages() {
+		this.select_page = new IMCREOToolSelectPage();
+		this.deployment_page = new IMCREOToolDeploymentPage();
+		this.output_page = new IMCREOToolOutputPage();
+		this.addPage(this.select_page);
+		this.addPage(this.deployment_page);
+		this.addPage(this.output_page);
+	}
+	
+	
+	
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.wizard.Wizard#performFinish()
+	 */
+	@Override
+	public boolean performFinish() {
+		System.out.println(this.model.toString());
+		return true;
+	}
+
+
+
+
+
+	
 
 	
 	

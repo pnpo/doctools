@@ -1,27 +1,19 @@
 package pt.uminho.di.reolangeditor.wizards.imcreo;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -30,16 +22,27 @@ import pt.uminho.di.cp.model.CPModelInternal;
 import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.cp.model.Node;
 import pt.uminho.di.reolang.parsing.util.Pair;
+import pt.uminho.di.reolangeditor.tools.IMCREOToolModel.ToolOptions;
 
 public class IMCREOToolDeploymentPage extends WizardPage {
 	
+	
+	
+	
 	private Composite container;
 	private final HashSet<Text> error_emiters = new HashSet<Text>();
+	LinkedHashMap<String, Pair<Text, Text>>  nodes_info;
+	LinkedHashMap<String, Text>  envs_info;
+	boolean isToDeploy;
+	
+	
+	
+	
 	
 	protected IMCREOToolDeploymentPage() {
 		super("Coordination Pattern Deployment");
 		this.setTitle("Coordination Pattern Deployment");
-		this.setDescription("Review stochastic information. \n" +
+		this.setDescription("Review stochastic information." +
 				"Empty fields in the Environment section will be assumed 1.0 if Deploy? is checked.");
 	}
 
@@ -124,7 +127,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	    
 	    
 	    
-	    LinkedHashMap<String, Pair<Text, Text>> nodes_info = new LinkedHashMap<String, Pair<Text, Text>>();
+	    nodes_info = new LinkedHashMap<String, Pair<Text, Text>>();
 	    Label node_label;
 	    Text node_info_rd, node_info_wr;
 	    for(String n : cpmi.getNodes().keySet()) {
@@ -186,7 +189,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	    data = new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1);
 	    container2.setLayoutData(data);
 	    
-	    LinkedHashMap<String, Text> envs_info = new LinkedHashMap<String, Text>();
+	    envs_info = new LinkedHashMap<String, Text>();
 	    Label env_label;
 	    Text env_info;
 	    for(String n : cpmi.getNodes().keySet()) {
@@ -231,6 +234,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 						c.notifyListeners(SWT.KeyUp, e);
 					}
 					container.update();
+					isToDeploy = true;
 				}
 				else {
 					for(Control c : container2.getChildren()){
@@ -242,6 +246,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 						setPageComplete(true);
 					}
 					container.update();
+					isToDeploy = false;
 				}
 				
 			}
@@ -250,8 +255,26 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	    
 	    
 	    container.layout(true);
+	    container.pack();
 	    setPageComplete(true);
 	}
+	
+	
+	
+	
+	
+	
+	public IWizardPage getNextPage(){
+		IMCREOToolWizard wiz = (IMCREOToolWizard)this.getWizard();
+		wiz.getModel().setNodes(this.nodes_info);
+		wiz.getModel().setEnvs(this.envs_info);
+		wiz.getModel().getOptions().add(ToolOptions.DEPLOY);
+		
+		IMCREOToolOutputPage page = ((IMCREOToolWizard)this.getWizard()).getOutput_page();
+		return page;
+	}
+	
+	
 	
 	
 

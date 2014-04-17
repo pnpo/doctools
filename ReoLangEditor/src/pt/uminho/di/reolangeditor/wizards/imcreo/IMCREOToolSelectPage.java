@@ -24,9 +24,6 @@ import pt.uminho.di.reolang.parsing.Semantics;
 import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 
 public class IMCREOToolSelectPage extends WizardPage {
-
-	//private Composite container;
-	//private Combo combo_box;
 	
 	
 	protected IMCREOToolSelectPage() {

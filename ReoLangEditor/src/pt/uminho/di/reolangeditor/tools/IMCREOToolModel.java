@@ -1,7 +1,6 @@
-package pt.uminho.di.reolangeditor.wizards.imcreo;
+package pt.uminho.di.reolangeditor.tools;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import org.eclipse.swt.widgets.Text;
@@ -16,11 +15,11 @@ import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 
 public class IMCREOToolModel {
 
-	enum ToolOptions {
+	public enum ToolOptions {
 		DEPLOY
 	}
 	
-	enum OutputOptions {
+	public enum OutputOptions {
 		IMCA,
 		CADP,
 		PRISM,
@@ -34,8 +33,9 @@ public class IMCREOToolModel {
 	private CPModelInternal completePattern;
 	private LinkedHashMap<String, Pair<Text, Text>> nodes;
 	private LinkedHashMap<String, Text> envs;
-	private HashMap<ToolOptions, Boolean> options;
-	private HashMap<OutputOptions, String> outputs;
+	private HashSet<ToolOptions> options;
+	private HashSet<OutputOptions> outputs;
+	private String path;
 	
 	
 	
@@ -45,6 +45,13 @@ public class IMCREOToolModel {
 	
 	
 	
+
+
+
+
+
+
+
 	/**
 	 * 
 	 */
@@ -56,9 +63,54 @@ public class IMCREOToolModel {
 		this.completePattern = null;
 		this.nodes = null;
 		this.envs = null;
-		this.options = new LinkedHashMap<IMCREOToolModel.ToolOptions, Boolean>();
-		this.outputs = new LinkedHashMap<IMCREOToolModel.OutputOptions, String>();
+		this.options = new HashSet<ToolOptions>();
+		this.outputs = new HashSet<OutputOptions>();
+		this.path = "";
 
+	}
+
+
+
+
+
+
+//	/**
+//	 * @param file
+//	 * @param patterns
+//	 * @param selected
+//	 * @param nodes
+//	 * @param envs
+//	 * @param options
+//	 * @param outputs
+//	 */
+//	public IMCREOToolModel(String file, String selected,
+//			HashSet<ToolOptions> options,
+//			HashSet<OutputOptions> outputs) {
+//		super();
+//		this.file = file;
+//		this.patterns = null;
+//		this.processPatternsInCurrentFile();
+//		this.selected = selected;
+//		this.completePattern = null;
+//		this.setCompletePatternAutomatically();
+//		this.nodes = null;
+//		this.envs = null;
+//		this.options = options;
+//		this.outputs = outputs;
+//		this.path = "";
+//	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * @return the output
+	 */
+	public String getPath() {
+		return path;
 	}
 
 
@@ -67,37 +119,11 @@ public class IMCREOToolModel {
 
 
 	/**
-	 * @param file
-	 * @param patterns
-	 * @param selected
-	 * @param nodes
-	 * @param envs
-	 * @param options
-	 * @param outputs
+	 * @param output the output to set
 	 */
-	public IMCREOToolModel(String file, String selected,
-			HashMap<ToolOptions, Boolean> options,
-			HashMap<OutputOptions, String> outputs) {
-		super();
-		this.file = file;
-		this.patterns = null;
-		this.processPatternsInCurrentFile();
-		this.selected = selected;
-		this.completePattern = null;
-		this.setCompletePatternAutomatically();
-		this.nodes = null;
-		this.envs = null;
-		this.options = options;
-		this.outputs = outputs;
+	public void setPath(String path) {
+		this.path = path;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -165,25 +191,25 @@ public class IMCREOToolModel {
 	/**
 	 * @return the options
 	 */
-	public HashMap<ToolOptions, Boolean> getOptions() {
+	public HashSet<ToolOptions> getOptions() {
 		return options;
 	}
 	/**
 	 * @param options the options to set
 	 */
-	public void setOptions(HashMap<ToolOptions, Boolean> options) {
+	public void setOptions(HashSet<ToolOptions> options) {
 		this.options = options;
 	}
 	/**
 	 * @return the outputs
 	 */
-	public HashMap<OutputOptions, String> getOutputs() {
+	public HashSet<OutputOptions> getOutputs() {
 		return outputs;
 	}
 	/**
 	 * @param outputs the outputs to set
 	 */
-	public void setOutputs(HashMap<OutputOptions, String> outputs) {
+	public void setOutputs(HashSet<OutputOptions> outputs) {
 		this.outputs = outputs;
 	}
 	/**
@@ -257,6 +283,26 @@ public class IMCREOToolModel {
 		
 		return this.completePattern != null;
 	}
+
+
+
+
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "IMCREOToolModel [file=" + file + ", patterns=" + patterns
+				+ ", selected=" + selected + ", completePattern="
+				+ completePattern + ", nodes=" + nodes + ", envs=" + envs
+				+ ", options=" + options + ", outputs=" + outputs + ", path="
+				+ path + "]";
+	}
+	
+	
+	
 	
 	
 	
