@@ -4,9 +4,11 @@
 package pt.uminho.di.reolangeditor.wizards.imcreo;
 
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
 
-import pt.uminho.di.reolangeditor.tools.IMCREOToolModel;
+import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOTool;
+import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOToolModel;
 
 
 /**
@@ -145,7 +147,19 @@ public class IMCREOToolWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		System.out.println(this.model.toString());
+		IMCREOTool tool = new IMCREOTool(this.getModel());
+		boolean status = tool.generate();
+		
+		if(status){
+			MessageDialog.openConfirm(this.getShell(), "IMCREO Generation", "Files generated with success! \n\n " +
+					"See console for more details.");
+		}
+		else {
+			MessageDialog.openError(this.getShell(), "IMCREO Generation", "Errors occurred during generation of IMCREO model! \n\n" +
+					"See console for more details.");
+		}
+		
+		
 		return true;
 	}
 

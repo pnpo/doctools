@@ -1,4 +1,4 @@
-package pt.uminho.di.reolangeditor.tools;
+package pt.uminho.di.reolangeditor.tools.imcreotool;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 import org.eclipse.swt.widgets.Text;
 
 import pt.uminho.di.cp.model.CPModelInternal;
+import pt.uminho.di.cp.model.CoordinationPattern2;
+import pt.uminho.di.cp.model.Node;
 import pt.uminho.di.reolang.ReoLangCP2;
 import pt.uminho.di.reolang.ReoLangSemantics;
 import pt.uminho.di.reolang.parsing.CPBuilder;
@@ -16,14 +18,20 @@ import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 public class IMCREOToolModel {
 
 	public enum ToolOptions {
-		DEPLOY
+		DEPLOY,
+		VERBOSE,
+		SEQUENTIAL,
+		READABLE, 
+		LABELS,
+		HIDE
 	}
 	
 	public enum OutputOptions {
 		IMCA,
 		CADP,
 		PRISM,
-		REOMA
+		REOMA,
+		DOT,
 	}
 	
 	
@@ -39,15 +47,6 @@ public class IMCREOToolModel {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-
-
-
 
 
 
@@ -285,8 +284,81 @@ public class IMCREOToolModel {
 	}
 
 
+	
+	
+	
+	/**
+	 * Updates the stochastic values for the nodes and environment ports of
+	 * the selected stochastic coordination pattern...
+	 * 
+	 * It performs some verifications:
+	 * negative values originate its absolute value
+	 * 0 values originate highest possible double.
+	 * empty values on env with toDeploy active sets highest possible double
+	 * 
+	 * @return coordination pattern (stochastic) with stochastic values updated.
+	 */
+	public CoordinationPattern2 updateStochastics() {
+		
+		CoordinationPattern2 cp = null;
+		
+		cp = this.completePattern.getStochInstances().get(this.getSelected());
+		
+		for(String n : this.nodes.keySet()){
+			Node __n = this.completePattern.getNodes().get(n);
+			if(! (this.nodes.get(n).fst().getText().equals("") || this.nodes.get(n).snd().getText().equals(""))){
+				Double v1 = this.nodes.get(n).fst().getText().equals("") ? 
+						0.0 : Double.parseDouble(this.nodes.get(n).fst().getText());
+				Double v2 = this.nodes.get(n).snd().getText().equals("") ? 
+						0.0 : Double.parseDouble(this.nodes.get(n).snd().getText());
+				
+				if(v1==0.0 && v2==0.0){
+					v1 = Double.MAX_VALUE-1;
+					v2 = Double.MAX_VALUE-1;
+				} 
+				else {
+					if(! (v1 == 0.0 ^ v2 == 0.0)){
+						v1 = Math.abs(v1);
+						v2 = Math.abs(v2);
+					}
+				}
+
+				Pair<Double, Double> v1v2 = new Pair<Double, Double>(v1, v2);
+				
+				cp.getDelays().remove(__n);
+				cp.getDelays().put(__n, v1v2);
+			}
+			
+		}
+		
+		for(String n : this.envs.keySet()) {
+			Node __n = this.completePattern.getNodes().get(n);
+			Double v1;
+			Pair<Double, Double> pair_v1;
+			
+			if(! this.envs.get(n).getText().equals("")){
+				v1 = Double.parseDouble(this.envs.get(n).getText());
+				v1 = v1 == 0.0 ? Double.MAX_VALUE-1 : v1 < 0.0 ? Math.abs(v1) : v1;
+			}
+			else {
+				v1 = Double.MAX_VALUE-1;
+			}
+			
+			pair_v1 = new Pair<Double, Double>(v1, 0.0);
+			cp.getDelays().remove(__n);
+			cp.getDelays().put(__n, pair_v1);
+			
+		}
+		
+		return cp;
+	}
 
 
+	
+	
+	
+	
+	
 
 
 	/* (non-Javadoc)
@@ -300,6 +372,13 @@ public class IMCREOToolModel {
 				+ ", options=" + options + ", outputs=" + outputs + ", path="
 				+ path + "]";
 	}
+
+
+
+
+
+
+	
 	
 	
 	

@@ -21,7 +21,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
 
-import pt.uminho.di.reolangeditor.tools.IMCREOToolModel.OutputOptions;
+import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOToolModel.OutputOptions;
+import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOToolModel.ToolOptions;
 
 public class IMCREOToolOutputPage extends WizardPage {
 
@@ -119,7 +120,7 @@ public class IMCREOToolOutputPage extends WizardPage {
 	    
 		
 		Group options_grp = new Group(container, SWT.NONE);
-		options_grp.setText("Options");
+		options_grp.setText("Output Options");
 		GridLayout layout2 = new GridLayout(2,false);
 		options_grp.setLayout(layout2);
 		gd = new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1);
@@ -128,13 +129,46 @@ public class IMCREOToolOutputPage extends WizardPage {
 		for(OutputOptions o : OutputOptions.values()) {
 			switch(o){
 				case CADP : {
-					makeOptionEntry(options_grp, o, "CADP (creates file with .aut extension)", wiz);
+					makeOutputOptionEntry(options_grp, o, "CADP (creates file with .aut extension)", wiz);
 				} break;
 				case IMCA : {
-					makeOptionEntry(options_grp, o, "IMCA (creates file with .ma extension)", wiz);
+					makeOutputOptionEntry(options_grp, o, "IMCA (creates file with .ma extension)", wiz);
 				} break;
 				case REOMA : {
-					makeOptionEntry(options_grp, o, "Reo MA (creates file with .rma extension)", wiz);
+					makeOutputOptionEntry(options_grp, o, "Reo MA (creates file with .rma extension)", wiz);
+				} break;
+				case DOT : {
+					makeOutputOptionEntry(options_grp, o, "DOT (creates file with .dot extension)", wiz);
+				} break;
+				default : break;
+			}
+		}
+		
+		
+		
+		Group tool_options_grp = new Group(container, SWT.NONE);
+		options_grp.setText("Tool Options");
+		layout2 = new GridLayout(2,false);
+		tool_options_grp.setLayout(layout2);
+		gd = new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1);
+		tool_options_grp.setLayoutData(gd);
+	
+		for(ToolOptions o : ToolOptions.values()) {
+			switch(o){
+				case VERBOSE : {
+					makeToolOptionEntry(tool_options_grp, o, "verbose (prints info to the output)", wiz);
+				} break;
+				case SEQUENTIAL : {
+					makeToolOptionEntry(tool_options_grp, o, "sequential (composes IMCReo a channel at a time)", wiz);
+				} break;
+				case READABLE : {
+					makeToolOptionEntry(tool_options_grp, o, "readable (makes the generated states readable)", wiz);
+				} break;
+				case LABELS : {
+					makeToolOptionEntry(tool_options_grp, o, "labels (??)", wiz);
+				} break;
+				case HIDE : {
+					makeToolOptionEntry(tool_options_grp, o, "hide (performs the hiding of mixed nodes)", wiz);
 				} break;
 				default : break;
 			}
@@ -154,7 +188,35 @@ public class IMCREOToolOutputPage extends WizardPage {
 
 
 
-	private void makeOptionEntry(Group options_grp, final OutputOptions o, String text, final IMCREOToolWizard wiz) {
+	private void makeToolOptionEntry(Group options_grp, final ToolOptions o, String text, final IMCREOToolWizard wiz) {
+		Button btn = new Button(options_grp, SWT.CHECK);
+		btn.addSelectionListener(new SelectionListener() {
+			
+			public void widgetSelected(SelectionEvent e) {
+				//if selected
+				if(((Button)e.widget).getSelection()){
+					wiz.getModel().getOptions().add(o);
+				}
+				else {
+					wiz.getModel().getOptions().remove(o);
+				}
+			}
+			
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		Label lbl = new Label(options_grp, SWT.NONE);
+		lbl.setText(text);
+	}
+	
+	
+	
+
+
+
+	private void makeOutputOptionEntry(Group options_grp, final OutputOptions o, String text, final IMCREOToolWizard wiz) {
 		Button btn = new Button(options_grp, SWT.CHECK);
 		if(o.equals(OutputOptions.CADP)){
 			btn.setSelection(true);

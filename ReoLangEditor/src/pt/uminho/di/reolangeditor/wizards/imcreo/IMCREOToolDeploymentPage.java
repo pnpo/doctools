@@ -22,7 +22,7 @@ import pt.uminho.di.cp.model.CPModelInternal;
 import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.cp.model.Node;
 import pt.uminho.di.reolang.parsing.util.Pair;
-import pt.uminho.di.reolangeditor.tools.IMCREOToolModel.ToolOptions;
+import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOToolModel.ToolOptions;
 
 public class IMCREOToolDeploymentPage extends WizardPage {
 	
@@ -42,8 +42,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 	protected IMCREOToolDeploymentPage() {
 		super("Coordination Pattern Deployment");
 		this.setTitle("Coordination Pattern Deployment");
-		this.setDescription("Review stochastic information." +
-				"Empty fields in the Environment section will be assumed 1.0 if Deploy? is checked.");
+		this.setDescription("Review stochastic information.");
 	}
 
 	
@@ -106,7 +105,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 				Text t = (Text)e.widget;
 				String num = t.getText();
 				try{
-					if(! t.equals("")) {
+					if(! num.matches("^\\s*$")) {
 						Double.parseDouble(num);
 						error_emiters.remove(t);
 						if(error_emiters.size()==0){
