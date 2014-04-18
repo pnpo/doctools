@@ -115,5 +115,25 @@
          </toolbar>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="pt.uminho.di.reolangeditor.preferences.ReoLangEditorPreferences"
+            id="reolangeditor.preferences.ReoLangEditorPreferences"
+            name="ReoLang Editor">
+      </page>
+      <page
+            category="reolangeditor.preferences.ReoLangEditorPreferences"
+            class="pt.uminho.di.reolangeditor.preferences.IMCREOToolPreferences"
+            id="reolangeditor.preferences.IMCREOToolPreferences"
+            name="IMCReo Tool">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="pt.uminho.di.reolangeditor.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>

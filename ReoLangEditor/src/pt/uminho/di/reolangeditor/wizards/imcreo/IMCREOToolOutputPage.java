@@ -5,6 +5,7 @@ import java.io.File;
 
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -21,6 +22,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
 
+import pt.uminho.di.reolangeditor.Activator;
 import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOToolModel.OutputOptions;
 import pt.uminho.di.reolangeditor.tools.imcreotool.IMCREOToolModel.ToolOptions;
 
@@ -128,6 +130,9 @@ public class IMCREOToolOutputPage extends WizardPage {
 	
 		for(OutputOptions o : OutputOptions.values()) {
 			switch(o){
+				case PRISM : {
+					makeOutputOptionEntry(options_grp, o, "PRISM (creates file with .sm extension)", wiz);
+				} break;
 				case CADP : {
 					makeOutputOptionEntry(options_grp, o, "CADP (creates file with .aut extension)", wiz);
 				} break;
@@ -143,6 +148,10 @@ public class IMCREOToolOutputPage extends WizardPage {
 				default : break;
 			}
 		}
+		
+		
+		
+		
 		
 		
 		
@@ -222,23 +231,59 @@ public class IMCREOToolOutputPage extends WizardPage {
 			btn.setSelection(true);
 			wiz.getModel().getOutputs().add(o);
 		}
-		btn.addSelectionListener(new SelectionListener() {
-			
-			public void widgetSelected(SelectionEvent e) {
-				//if selected
-				if(((Button)e.widget).getSelection()){
-					wiz.getModel().getOutputs().add(o);
-				}
-				else {
-					wiz.getModel().getOutputs().remove(o);
-				}
-			}
-			
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
+		if(! o.equals(OutputOptions.PRISM)){
+			btn.addSelectionListener(new SelectionListener() {
 				
-			}
-		});
+				public void widgetSelected(SelectionEvent e) {
+					//if selected
+					if(((Button)e.widget).getSelection()){
+						wiz.getModel().getOutputs().add(o);
+					}
+					else {
+						wiz.getModel().getOutputs().remove(o);
+					}
+				}
+				
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
+		else { // IF IT IS PRISM!!
+			btn.addSelectionListener(new SelectionListener() {
+				
+				public void widgetSelected(SelectionEvent e) {
+					
+					//if selected					
+					if(((Button)e.widget).getSelection() ){
+						wiz.getModel().getOutputs().add(o);
+						//get all CADP variables
+						String cadp = Activator.getDefault().getPreferenceStore().getString("P_CADP");
+						String cadp_bin = Activator.getDefault().getPreferenceStore().getString("P_CADP_BIN");
+						String cadp_lib = Activator.getDefault().getPreferenceStore().getString("P_CADP_LIB");
+						if( cadp.equals("") && cadp_bin.equals("") && cadp_lib.equals("")){
+							setErrorMessage("Required variables need to be set in the preferences page!");
+							setPageComplete(false);
+						}
+					}
+					else {
+						wiz.getModel().getOutputs().remove(o);
+						setErrorMessage(null);
+						setPageComplete(
+								! output_name.getText().equals("") &&
+								! output_dir.getText().equals("")
+							);
+					}
+				}
+				
+				public void widgetDefaultSelected(SelectionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
+		
 		Label lbl = new Label(options_grp, SWT.NONE);
 		lbl.setText(text);
 	}

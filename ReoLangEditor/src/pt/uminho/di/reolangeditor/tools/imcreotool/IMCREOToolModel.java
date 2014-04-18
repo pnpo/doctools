@@ -27,9 +27,9 @@ public class IMCREOToolModel {
 	}
 	
 	public enum OutputOptions {
-		IMCA,
-		CADP,
 		PRISM,
+		CADP,
+		IMCA,
 		REOMA,
 		DOT,
 	}

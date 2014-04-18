@@ -30,7 +30,7 @@ public final class Util {
 		try {
 			Map<String, String> env = pb1.environment();
 			env.put("CADP", CADP);
-			env.put("PATH", env.get("PATH") + ":" + CADP_BIN + ":" + CADP_COM);
+			env.put("PATH", env.get("PATH") + File.pathSeparator + CADP_BIN + File.pathSeparator + CADP_COM);
 			
 			Process p = pb1.start();
 			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -50,6 +50,63 @@ public final class Util {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+	public static void convertToBCGorAUT(String file, String cadp, String cadp_bin, String cadp_com, String output){
+		ProcessBuilder pb1 = new ProcessBuilder("bcg_io", file, output);
+		processCommand(pb1, cadp, cadp_bin, cadp_com);
+	}
+	
+	
+	public static void test(String file, String cadp, String cadp_bin, String cadp_com, String output){
+		ProcessBuilder pb1 = new ProcessBuilder("rm", file);
+		processCommand(pb1, cadp, cadp_bin, cadp_com);
+	}
+	
+	
+	
+	
+	
+	
+	private static void setEnvironment(ProcessBuilder pb, String cadp, String cadp_bin, String cadp_com) {
+		Map<String, String> env = pb.environment();
+		env.clear();
+		env.put("CADP", cadp);
+		env.put("PATH", env.get("PATH") + File.pathSeparator + cadp_bin + File.pathSeparator + cadp_com);
+	}
+	
+	
+	private static void processCommand(ProcessBuilder pb, String cadp, String cadp_bin, String cadp_com) {
+		try{
+			String s;
+			setEnvironment(pb, cadp, cadp_bin, cadp_com);
+			
+			System.out.println(pb.environment());
+			
+			Process p = pb.start();
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+	        while ((s = stdInput.readLine()) != null) {
+	            System.out.println(s);
+	        }
+		
+			while ((s = stdError.readLine()) != null) {
+			    System.out.println(s);
+			}
+			
+			p.waitFor();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
 	
 	
 	

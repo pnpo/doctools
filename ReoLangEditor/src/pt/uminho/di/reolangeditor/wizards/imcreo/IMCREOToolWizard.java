@@ -22,10 +22,6 @@ public class IMCREOToolWizard extends Wizard {
 	private IMCREOToolDeploymentPage deployment_page;
 	private IMCREOToolOutputPage output_page;
 	
-//	private String file;
-//	private LinkedHashMap<String, CPModelInternal> patterns;
-//	private String selected;
-	
 	private IMCREOToolModel model;
 	
 	
