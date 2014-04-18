@@ -22,8 +22,7 @@ public class IMCREOToolWizard extends Wizard {
 	private IMCREOToolDeploymentPage deployment_page;
 	private IMCREOToolOutputPage output_page;
 	
-	private IMCREOToolModel model;
-	
+	private IMCREOToolModel model; 
 	
 	
 	public IMCREOToolWizard(String file){
@@ -143,10 +142,17 @@ public class IMCREOToolWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		IMCREOTool tool = new IMCREOTool(this.getModel());
-		boolean status = tool.generate();
+		final IMCREOTool tool = new IMCREOTool(this.getModel());
+		//final boolean status = false;
+		try{
+			this.getContainer().run(true, true, tool);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		if(status){
+		
+		if(tool.isProcessed()){
 			MessageDialog.openConfirm(this.getShell(), "IMCREO Generation", "Files generated with success! \n\n " +
 					"See console for more details.");
 		}
@@ -154,6 +160,8 @@ public class IMCREOToolWizard extends Wizard {
 			MessageDialog.openError(this.getShell(), "IMCREO Generation", "Errors occurred during generation of IMCREO model! \n\n" +
 					"See console for more details.");
 		}
+		
+		
 		
 		
 		return true;

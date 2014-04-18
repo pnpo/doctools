@@ -267,6 +267,7 @@ public class IMCREOToolDeploymentPage extends WizardPage {
 		IMCREOToolWizard wiz = (IMCREOToolWizard)this.getWizard();
 		wiz.getModel().setNodes(this.nodes_info);
 		wiz.getModel().setEnvs(this.envs_info);
+		wiz.getModel().updateStochastics();
 		if(isToDeploy){
 			wiz.getModel().getOptions().add(ToolOptions.DEPLOY);
 		}

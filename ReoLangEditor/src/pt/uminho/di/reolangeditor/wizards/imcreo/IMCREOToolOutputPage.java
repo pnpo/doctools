@@ -156,7 +156,7 @@ public class IMCREOToolOutputPage extends WizardPage {
 		
 		
 		Group tool_options_grp = new Group(container, SWT.NONE);
-		options_grp.setText("Tool Options");
+		tool_options_grp.setText("Tool Options");
 		layout2 = new GridLayout(2,false);
 		tool_options_grp.setLayout(layout2);
 		gd = new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1);
