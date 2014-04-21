@@ -51,7 +51,7 @@ public final class Library {
 	public static String drain_( String id, String a, String b, String gab){
 	
 		StringTemplateGroup group = new StringTemplateGroup("imc_templates");
-		StringTemplate drain_ab = group.getInstanceOf(path + "drain");
+		StringTemplate drain_ab = group.getInstanceOf(path + "drain_");
 		drain_ab.setAttribute("a", a);
 		drain_ab.setAttribute("b", b);
 		drain_ab.setAttribute("gab", gab);
