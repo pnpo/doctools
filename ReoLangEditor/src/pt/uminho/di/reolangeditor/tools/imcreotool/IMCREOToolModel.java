@@ -328,6 +328,9 @@ public class IMCREOToolModel {
 				cp.getDelays().remove(__n);
 				cp.getDelays().put(__n, v1v2);
 			}
+			else {
+				cp.getDelays().remove(__n);
+			}
 			
 		}
 		

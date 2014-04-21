@@ -142,7 +142,9 @@ public class IMCREOToolWizard extends Wizard {
 	 */
 	@Override
 	public boolean performFinish() {
+		this.getModel().updateStochastics();
 		final IMCREOTool tool = new IMCREOTool(this.getModel());
+		
 		//final boolean status = false;
 		try{
 			this.getContainer().run(true, true, tool);
