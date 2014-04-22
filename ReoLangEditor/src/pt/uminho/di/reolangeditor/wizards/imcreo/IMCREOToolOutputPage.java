@@ -174,7 +174,7 @@ public class IMCREOToolOutputPage extends WizardPage {
 					makeToolOptionEntry(tool_options_grp, o, "readable (makes the generated states readable)", wiz);
 				} break;
 				case LABELS : {
-					makeToolOptionEntry(tool_options_grp, o, "labels (??)", wiz);
+					makeToolOptionEntry(tool_options_grp, o, "labels (makes all actions become internal)", wiz);
 				} break;
 				case HIDE : {
 					makeToolOptionEntry(tool_options_grp, o, "hide (performs the hiding of mixed nodes)", wiz);

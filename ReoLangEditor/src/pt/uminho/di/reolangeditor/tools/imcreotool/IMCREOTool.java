@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -122,61 +124,7 @@ public class IMCREOTool implements IRunnableWithProgress {
 	
 	
 	
-	
-//	/**
-//	 * Generate an IMCREO model and outputs files, depending
-//	 * on the options set on the options set by the user
-//	 */
-//	public boolean generate () {
-//		
-//		boolean wasOK = true;
-//		try{
-//			CoordinationPattern2 cp = this.model.getCompletePattern().getStochInstances().get(this.model.getSelected());
-//			//this.model.updateStochastics();
-//			//options
-//			boolean deploy = this.model.getOptions().contains(ToolOptions.DEPLOY);
-//			boolean verbose = this.model.getOptions().contains(ToolOptions.VERBOSE);
-//			boolean sequential = this.model.getOptions().contains(ToolOptions.SEQUENTIAL);
-//			boolean readable = this.model.getOptions().contains(ToolOptions.READABLE);
-//			boolean labels = this.model.getOptions().contains(ToolOptions.LABELS);
-//			boolean hide = this.model.getOptions().contains(ToolOptions.HIDE);
-//			
-//			String imc_script = cp.intoIMCScript();
-//			
-//			
-//			long startTime = System.currentTimeMillis();
-//			
-//			IMCREOimc imc_result;
-//			Composer2 cs = IMCREOScriptParserFrontEnd.parse(imc_script, false);
-//			if(sequential){
-//				imc_result = cs.compose2(deploy);
-//			}
-//			else {
-//				imc_result = cs.compose(deploy);
-//			}
-//			
-//			long endTime   = System.currentTimeMillis();
-//			long totalTime = endTime - startTime;
-//			System.out.println("OK, generated " + imc_result.getIMCProfile() + " in " + totalTime + "ms");
-//			
-//			
-//			generateOutput(imc_result, readable, labels);
-//			
-//			if(this.model.getOutputs().contains(OutputOptions.PRISM)){
-//				wasOK = generatePrism(imc_result);
-//			}
-//			
-//			//Thread.sleep(50000);
-//			
-//			
-//		}
-//		catch(Exception e){
-//			wasOK = false;
-//			e.printStackTrace();
-//		}
-//		
-//		return wasOK;
-//	}
+
 	
 	
 	
@@ -194,7 +142,7 @@ public class IMCREOTool implements IRunnableWithProgress {
 		try{
 			//first create a aut file
 			monitor.setTaskName("Generating essential CADP file...");
-				String full_content = new IMCTransformer(imc.toIMC(false, false)).toAUTFormat(false, false);
+				String full_content = new IMCTransformer(imc.toIMC(false, false)).toAUTFormat(true, false);
 				String content = full_content.substring(0, full_content.indexOf("-- STATES MAPPING --\n\n"));
 				Util.createFile(this.model.getPath(), "aut", content);
 			monitor.worked(1);
@@ -204,11 +152,7 @@ public class IMCREOTool implements IRunnableWithProgress {
 				String directory = this.model.getPath().substring(0,last_sep + 1);
 				
 				//now convert to BCG, reduce, minimize, convert to aut
-				convertToBCGorAUT(this.model.getPath() + ".aut", cadp, cadp_bin, cadp_com, directory + "temp1.bcg");
-				reduceBCG(directory + "temp1.bcg", cadp, cadp_bin, cadp_com, directory + "temp2.bcg");
-				minimiseBCG(directory + "temp2.bcg", cadp, cadp_bin, cadp_com, directory + "temp3.bcg");
-				convertToBCGorAUT(directory + "temp3.bcg", cadp, cadp_bin, cadp_com, this.model.getPath() + "_minimized.aut");
-				clean(directory);
+				Util.minimize(this.model.getPath(), cadp, cadp_bin, cadp_com, directory);
 			monitor.worked(1);
 			
 			monitor.setTaskName("Generating Prism file...");
@@ -229,76 +173,6 @@ public class IMCREOTool implements IRunnableWithProgress {
 	}
 	
 	
-	
-	public static void convertToBCGorAUT(String file, String cadp, String cadp_bin, String cadp_com, String output){
-		ProcessBuilder pb1 = new ProcessBuilder(
-				cadp_bin + File.separator + "bcg_io", file, output
-			);
-		processCommand(pb1, cadp, cadp_bin, cadp_com);
-	}
-	
-	public static void reduceBCG(String file, String cadp, String cadp_bin, String cadp_com, String output){
-		ProcessBuilder pb1 = new ProcessBuilder(
-				cadp_com + File.separator + "bcg_open", file, "reductor", "-weaktrace", output
-			);
-		processCommand(pb1, cadp, cadp_bin, cadp_com);
-	}
-	
-	public static void minimiseBCG(String file, String cadp, String cadp_bin, String cadp_com, String output){
-		ProcessBuilder pb1 = new ProcessBuilder(
-				cadp_bin + File.separator + "bcg_min", "-branching", "-rate", "-self", file, output
-			);
-		processCommand(pb1, cadp, cadp_bin, cadp_com);
-	}
-	
-	public static void clean(String directory){
-		String os = System.getProperty("os.name");
-		String remove = os.contains("windows") ? "del" : "rm" ; 
-		ProcessBuilder pb1 = new ProcessBuilder(
-				remove, directory + "*.bcg", directory + "*.o" , directory + "reductor"
-			);
-		processCommand(pb1, "", "", "");
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	private static void setEnvironment(ProcessBuilder pb, String cadp, String cadp_bin, String cadp_com) {
-		Map<String, String> env = pb.environment();
-		env.put("CADP", cadp);
-		env.put("PATH", env.get("PATH") + File.pathSeparator + cadp_bin + File.pathSeparator + cadp_com);
-	}
-	
-	
-	private static synchronized void processCommand(ProcessBuilder pb, String cadp, String cadp_bin, String cadp_com) {
-		try{
-			String s;
-			setEnvironment(pb, cadp, cadp_bin, cadp_com);
-			
-			Process p = pb.start();
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-	        while ((s = stdInput.readLine()) != null) {
-	            System.out.println(s);
-	        }
-		
-			while ((s = stdError.readLine()) != null) {
-			    System.out.println(s);
-			}
-			
-			p.waitFor();
-			p.destroy();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 	
