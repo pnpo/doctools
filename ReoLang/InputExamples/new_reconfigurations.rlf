@@ -7,9 +7,9 @@ reconfiguration removeP	(Set<Name> Cs ) {
 
 
 
-reconfiguration overlapP(Pattern p; Set<Pair<Node>> X) {
+reconfiguration overlapP(Pattern p; Set<Pair<Node>> Xy) {
 	@ par (p);
-	forall(Pair<Node> n : X) {
+	forall(Pair<Node> n : Xy) {
 		Node n1, n2; 
 		n1 = n.fst; 
 		n2 = n.snd; 
@@ -34,14 +34,14 @@ reconfiguration insertP(Pattern p; Node n, mi, mo, j1, j2) {
 
 
 
-reconfiguration implodeP(Set<Node> X; Set<Name> Cs; Node j){
+reconfiguration implodeP(Set<Node> Xy; Set<Name> Cs; Node j){
 	@ removeP(Cs);
-	@ join (X);
+	@ join (Xy);
 }
 
 
 
-reconfiguration replaceP(Pattern p; Set<Pair<Node>> X; Set<Name> Cs) {
+reconfiguration replaceP(Pattern p; Set<Pair<Node>> Xy; Set<Name> Cs) {
 	@ removeP(Cs);
-	@ overlapP(p, X);
+	@ overlapP(p, Xy);
 }
