@@ -3,57 +3,37 @@ package pt.uminho.di.reolang.reclang;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.uminho.di.reolang.parsing.util.SimpleError;
+
 public class Main {
-
-	public static String datatypeToString(List<String> full_dt){
-		String datatype = "";
-		
-		for (int i = full_dt.size()-1; i>=0; i--){
-			String dt = full_dt.get(i);
-			if (dt.equals("Pair")){
-				datatype = dt + "<" + datatype + ", " + datatype +  ">";
-			}
-			else if(dt.equals("Triple")){
-				datatype = dt + "<" + datatype + ", " + datatype + ", " + datatype + ">";
-			}
-			else if(i != full_dt.size()-1){
-				datatype = dt + "<" + datatype + ">";
-			}
-			else {
-				datatype = dt;		
-			}
-		}
-		
-		return datatype;
-	}
-
 	
     public static void main(String args[]) throws Exception {
-        
+        /*
     	List<String> datatype = new ArrayList<String>();
     	datatype.add("LinkedHashSet");
     	//datatype.add("Pair");
     	datatype.add("Triple");
     	datatype.add("Node");
     	
-    	String dt = datatypeToString(datatype);
+    	RecTranslator rt = new RecTranslator(null);
+    	String dt = rt.datatypeToString(datatype);
     	
     	System.out.println(dt);
-    	
+    	*/
     	
         
-        /*
-    	Processor p = new Processor("InputExamples/new_reconfigurations.rlf");
+        
+    	Processor p = new Processor("InputExamples/new_reconfigurations.part.rlf");
     	List<SimpleError> errors = p.getSemanticErrors();
+    	System.out.println(errors);
     	
-    	String translation;
-    	if (errors != null && !errors.isEmpty()){
+    	ArrayList<String> translation = new ArrayList<String>();
+    	if (errors != null && errors.isEmpty()){
     		translation = p.getTranslation("resources/template.stg");
     	}
     	
     	//do something with translation...
-    	
-    	*/
+    	System.out.println(translation);
     }
 
     	

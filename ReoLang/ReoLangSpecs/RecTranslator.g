@@ -11,9 +11,19 @@ options{
 	package pt.uminho.di.reolang.reclang;
 	
 	import pt.uminho.di.reolang.parsing.util.*;
+	import pt.uminho.di.reolang.reclang.PkgConstants;
 }
 
 @members{
+
+
+	private ArrayList<String> reconfigurations;
+	
+	public ArrayList<String> getReconfigurations(){
+		return this.reconfigurations;
+	}
+	
+	
 	public String datatypeToString(List<String> full_dt){
 		String datatype = "";
 		
@@ -42,7 +52,14 @@ options{
 //GRAMMAR
 
 reclang
-	: ^(RECONFIGS directive_def* element*) 
+@init{
+	this.reconfigurations = new ArrayList<String>();
+}
+	: ^(RECONFIGS directive_def* (element
+	{	
+		this.reconfigurations.add($element.st.toString()); 
+	}
+	)*)
 	
 	;
 
@@ -64,24 +81,24 @@ directive_import
 
 	
 element
-	: ^(RECONFIGURATION reconfiguration_def)
-	| ^(APPLICATION applicaiton_def)	
+	: ^(RECONFIGURATION reconfiguration_def) -> {$reconfiguration_def.st}
+	| ^(APPLICATION applicaiton_def)	 -> {$applicaiton_def.st}
 	;
 
 
 
 reconfiguration_def
 scope{
-	List<String> datatype;	
+	List<String> datatype;
 }
-	: ^(ID args_def? reconfiguration_block) -> mkclass(n={$ID.text}, args={$args_def.st})
+	: ^(ID a=args_def? reconfiguration_block) -> mkclass(name={$ID.text}, rec_pkg={PkgConstants.CP_RECONFIGURATIONS})
 	;
 
 args_def
-	: ^(ARGUMENTS a1=arg_def a2+=arg_def*) -> list_args(first={$a1.dtype}, others={$a2})
+	: ^(ARGUMENTS arg_def+)
 	;
 	
-arg_def returns [String dtype]
+arg_def
 @init{
 	$reconfiguration_def::datatype = new ArrayList<String>();
 }
@@ -89,7 +106,7 @@ arg_def returns [String dtype]
 	{
 		String dt_name = datatypeToString($reconfiguration_def::datatype);
 	}
-	li=list_ids) -> arg(datatype={dt_name}, ids={$li.st})
+	li=list_ids) 
 	;
 	
 datatype
@@ -113,7 +130,7 @@ subtype
 	;
 	
 list_ids
-	: id1=ID id2=ID* -> list_ids(first={$id1.text}, others={$id2})
+	: ID+
 	;
 	
 	

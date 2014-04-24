@@ -1,27 +1,20 @@
 group Templates;
 
-mkclass(n, args) ::= <<
-	
+mkclass(name, rec_pkg) ::= <<
 ClassPool pool = ClassPool.getDefault();
-		
-pool.importPackage(CP_MODEL);
-pool.importPackage(JAVA_UTIL);
-pool.importPackage(REOLANG_PARSING_UTIL);
-pool.importPackage(CP_RECONFIGURATIONS);
+CtClass cc = pool.makeClass("<name>");
+CtClass sc = pool.get("<rec_pkg>.Reconfiguration");
+cc.setSuperclass(sc);
 >>
 
 
-list_args(first, others) ::= <<
-<first> <others:{o | ; <o>}>
+list_args(datatype, ids) ::= <<
+<ids:{ id | 
+CtField <id> = CtField.make("private <datatype> <id>;", cc); 
+cc.addField(<id>);}>
 >>
 
 
-arg(datatype, ids) ::= <<
-<ids:{o | <datatype> <o.text> ,}>
-
->>
-
-
-list_ids(first,others) ::= <<
-<first> <others:{o | , <o.text>}>
+proc_args(args) ::= <<
+<args:{ a | <a>}>
 >>

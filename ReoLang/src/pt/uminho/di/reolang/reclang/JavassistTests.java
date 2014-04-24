@@ -3,26 +3,21 @@ package pt.uminho.di.reolang.reclang;
 import java.util.ArrayList;
 
 import javassist.*;
+import pt.uminho.di.reolang.reclang.PkgConstants;
 
 public class JavassistTests {
- 
-	public static final String JAVASSIST = "javassist";
-	public static final String JAVA_UTIL = "java.util";
-	public static final String CP_MODEL = "pt.uminho.di.cp.model";
-	public static final String CP_RECONFIGURATIONS = "pt.uminho.di.cp.reconfigurations";
-	public static final String REOLANG_PARSING_UTIL = "pt.uminho.di.reolang.parsing.util";
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws Exception {
     
     	ClassPool pool = ClassPool.getDefault();
 		
-    	pool.importPackage(JAVASSIST);
+    	pool.importPackage(PkgConstants.JAVASSIST);
     	
-		pool.importPackage(CP_MODEL);
-		pool.importPackage(JAVA_UTIL);
-		pool.importPackage(REOLANG_PARSING_UTIL);
-		pool.importPackage(CP_RECONFIGURATIONS);
+		pool.importPackage(PkgConstants.CP_MODEL);
+		pool.importPackage(PkgConstants.JAVA_UTIL);
+		pool.importPackage(PkgConstants.REOLANG_PARSING_UTIL);
+		pool.importPackage(PkgConstants.CP_RECONFIGURATIONS);
 
 		CtClass cc = pool.makeClass("pt.uminho.di.reolang.reclang.G");
 		CtMethod generate = CtNewMethod.make("public static void generate() { return ; }", cc);
@@ -35,7 +30,7 @@ public class JavassistTests {
 	    	/*
 	    	lista.add("ClassPool pool = ClassPool.getDefault();\n"
 	    			+ "CtClass cc = pool.makeClass(\"OverlaP\");\n"
-	    			+ "CtClass sc = pool.get(\"" + CP_RECONFIGURATIONS + ".Reconfiguration\");\n"
+	    			+ "CtClass sc = pool.get(\"" + PkgConstants.CP_RECONFIGURATIONS + ".Reconfiguration\");\n"
 	    			+ "cc.setSuperclass(sc);\n");
 	    	*/
 	    	for (String l : lista){
