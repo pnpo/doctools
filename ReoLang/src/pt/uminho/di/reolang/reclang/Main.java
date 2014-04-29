@@ -20,16 +20,16 @@ public class Main {
     	
     	System.out.println(dt);
     	*/
-    	
-        
         
     	Processor p = new Processor("InputExamples/new_reconfigurations.part.rlf");
     	List<SimpleError> errors = p.getSemanticErrors();
-    	System.out.println(errors);
     	
     	ArrayList<String> translation = new ArrayList<String>();
     	if (errors != null && errors.isEmpty()){
     		translation = p.getTranslation("resources/template.stg");
+    	}
+    	else{
+    		System.out.println(errors);	
     	}
     	
     	//do something with translation...

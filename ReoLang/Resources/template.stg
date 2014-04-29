@@ -1,10 +1,15 @@
 group Templates;
 
-mkclass(name, rec_pkg) ::= <<
+mkclass(name, rec_pkg, attributes, constructor, body) ::= <<
 ClassPool pool = ClassPool.getDefault();
 CtClass cc = pool.makeClass("<name>");
 CtClass sc = pool.get("<rec_pkg>.Reconfiguration");
 cc.setSuperclass(sc);
+
+<attributes>
+
+<constructor>
+<body>
 >>
 
 
@@ -15,6 +20,10 @@ cc.addField(<id>);}>
 >>
 
 
-proc_args(args) ::= <<
-<args:{ a | <a>}>
+constructor(dts, ids) ::= <<
+CtConstructor c = CtNewConstructor.make(
+		"public OverlapP(<dts,ids:{ dt,id | <dt> <id>}; separator=", ">)" 
+		+ "{ <ids:{ id | this.<id> = <id>}; separator="; ">; }", 
+		cc);
+cc.addConstructor(c);
 >>

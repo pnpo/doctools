@@ -91,22 +91,49 @@ reconfiguration_def
 scope{
 	List<String> datatype;
 }
-	: ^(ID a=args_def? reconfiguration_block) -> mkclass(name={$ID.text}, rec_pkg={PkgConstants.CP_RECONFIGURATIONS})
+	: ^(ID args_def? reconfiguration_block) -> mkclass(name={$ID.text}, rec_pkg={PkgConstants.CP_RECONFIGURATIONS}, 
+	attributes={$args_def.values}, constructor={$args_def.st}, body={""}) //body={$reconfiguration_block.code}
 	;
 
-args_def
-	: ^(ARGUMENTS arg_def+)
+args_def returns[List<String> values]
+@init{
+	List<String> ctfields = new ArrayList<String>();
+	List<String> ids = new ArrayList<String>();
+	List<String> dts = new ArrayList<String>();
+}
+	: ^(ARGUMENTS 
+	(arg_def
+	{
+		ctfields.add($arg_def.st.toString());
+		ids.addAll($arg_def.values);
+		for (int i = 0; i < $arg_def.values.size(); i++){
+			dts.add($arg_def.datatype);
+		}
+	}
+	)+ )
+	{	
+		$args_def.values = ctfields;// + constructor;
+	}
+	
+	-> constructor(dts={dts}, ids={ids})
 	;
 	
-arg_def
+arg_def returns[String datatype, List<String> values]
 @init{
 	$reconfiguration_def::datatype = new ArrayList<String>();
+	List<String> args = new ArrayList<String>();	
 }
-	: ^(ARGUMENT dt=datatype 
+	: ^(ARGUMENT datatype 
 	{
-		String dt_name = datatypeToString($reconfiguration_def::datatype);
+		String dt = datatypeToString($reconfiguration_def::datatype);
 	}
-	li=list_ids) 
+	list_ids[dt]) 
+	{
+		$arg_def.values = $list_ids.values;
+		$arg_def.datatype = dt;
+	}
+	
+	-> {$list_ids.st}
 	;
 	
 datatype
@@ -129,8 +156,22 @@ subtype
 	: datatype
 	;
 	
-list_ids
-	: ID+
+list_ids [String dt] returns[List<String> values]
+@init{
+	List<String> ids = new ArrayList<String>();
+}
+	:(ID
+	{
+		ids.add($ID.text);
+	}
+	)+ 
+	{
+		$list_ids.values = ids; 
+		//System.out.println(ids);
+	}
+	
+	-> list_args(datatype={$list_ids.dt}, ids={ids})
+	
 	;
 	
 	
