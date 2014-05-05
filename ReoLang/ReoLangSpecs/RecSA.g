@@ -1094,13 +1094,26 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 	
 	List<Type> dt = new ArrayList<Type>();
 }
-	: ^(OP_IN (INT
+	: ^(OP_IN 
 	{
 		if ($attribute_call.ts != null){
+			dt = new ArrayList<Type>();
+			dt.add(Type.SET);
+			dt.add(Type.NODE);
+		}
+	}
+	
+	(INT
+	{
+		if ($attribute_call.ts != null){		
+			dt = new ArrayList<Type>();
 			dt.add(Type.CHANNEL);
 			if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_IN.text) , $INT.line, $INT.pos) );
 			}
+			
+			dt = new ArrayList<Type>();
+			dt.add(Type.NODE);
 		}
 	}
 	)?) 	
@@ -1111,24 +1124,37 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
 			}
 			//else
-			if (local_errors.isEmpty()){
-				dt = new ArrayList<Type>();
-				dt.add(Type.SET);
-				dt.add(Type.NODE);
-			}
 		}
+		
+		if (!local_errors.isEmpty()){
+			dt = new ArrayList<Type>();
+		}
+
 		$attribute_call.datatype = dt;
 		$attribute_call.name = "in";
 		$attribute_call.errors = local_errors;
 	}
 	
-	| ^(OP_OUT (INT
+	| ^(OP_OUT
 	{
 		if ($attribute_call.ts != null){
+			dt = new ArrayList<Type>();
+			dt.add(Type.SET);
+			dt.add(Type.NODE);
+		}
+	} 
+	
+	(INT
+	{
+		if ($attribute_call.ts != null){		
+			dt = new ArrayList<Type>();
 			dt.add(Type.CHANNEL);
 			if ( Integer.parseInt($INT.text) > 1 && datatype.containsAll(dt) ){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.numberOfArguments("attribute", $OP_OUT.text) , $INT.line, $INT.pos) );
 			}
+			
+			dt = new ArrayList<Type>();
+			dt.add(Type.NODE);
 		}
 	}
 	)?)	
@@ -1139,11 +1165,10 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
 			}
 			//else
-			if (local_errors.isEmpty()){
-				dt = new ArrayList<Type>();
-				dt.add(Type.SET);
-				dt.add(Type.NODE);
-			}
+		}
+		
+		if (!local_errors.isEmpty()){
+			dt = new ArrayList<Type>();
 		}
 		
 		$attribute_call.datatype = dt;

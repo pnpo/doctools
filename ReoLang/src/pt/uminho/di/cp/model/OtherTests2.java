@@ -142,10 +142,10 @@ public class OtherTests2 {
 		System.out.println("JOIN------------------");
 		System.out.println(p);
 
-//		Node deg = new Node();
-//		deg.addEnd("d");
-//		deg.addEnd("e");
-//		deg.addEnd("g");
+//		Node xyz = new Node();
+//		xyz.addEnd("x");
+//		xyz.addEnd("y");
+//		xyz.addEnd("z");
 		Split split = new Split(hi);
 		p = split.apply(p);
 		System.out.println("SPLIT------------------");
