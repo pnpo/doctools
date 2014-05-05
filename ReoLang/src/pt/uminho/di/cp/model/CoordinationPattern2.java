@@ -315,6 +315,19 @@ public class CoordinationPattern2 {
 	
 	
 	
+	public CommunicationMean2 getChannel(String id){
+		CommunicationMean2 channel = new CommunicationMean2();
+		
+		for(CommunicationMean2 cm : this.getPattern()) {
+			if(cm.getId().equals(id)) {
+				channel = cm;
+			}
+		}
+		
+		return channel;
+	}
+	
+	
 	public Set<Node> getEndsOf(String id) {
 		Set<Node> ends = new LinkedHashSet<Node>();
 		
