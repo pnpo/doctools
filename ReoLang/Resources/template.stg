@@ -20,10 +20,19 @@ cc.addField(<id>);}>
 >>
 
 
-constructor(dts, ids) ::= <<
+constructor(n, dts, ids) ::= <<
 CtConstructor c = CtNewConstructor.make(
-		"public OverlapP(<dts,ids:{ dt,id | <dt> <id>}; separator=", ">)" 
+		"public <n>(<dts,ids:{ dt,id | <dt> <id>}; separator=", ">)" 
 		+ "{ <ids:{ id | this.<id> = <id>}; separator="; ">; }", 
 		cc);
 cc.addConstructor(c);
+>>
+
+
+apply_method(body) ::= <<
+CtMethod m = CtNewMethod.make(
+		"public CoordinationPattern2 apply(CoordinationPattern2 $cp) { return $cp; }",
+		cc);
+m.insertBefore("{ <body> }");
+cc.addMethod(m);
 >>

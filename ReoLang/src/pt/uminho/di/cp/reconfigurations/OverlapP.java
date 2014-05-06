@@ -40,11 +40,11 @@ public class OverlapP extends Reconfiguration {
 	 * @see pt.uminho.di.cp.reconfigurations.IReconfiguration#apply(pt.uminho.di.cp.model.CoordinationPattern2)
 	 */
 	@Override
-	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
+	public CoordinationPattern2 apply(CoordinationPattern2 $cp) {
 		Par par;
 		Join join ;
 		par = new Par(this.p);
-		par.apply(cp);
+		par.apply($cp);
 		for(Pair<Node,Node> n : this.X) {
 			Node n1, n2;
 			n1 = n.fst();
@@ -54,9 +54,9 @@ public class OverlapP extends Reconfiguration {
 			E.add(n1);
 			E.add(n2);
 			join = new Join(E);
-			join.apply(cp);
+			join.apply($cp);
 		}
-		return cp ;
+		return $cp ;
 	}
 
 
