@@ -1232,17 +1232,18 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 		$attribute_call.errors = local_errors;
 	}
 	
-	| ^(OP_ENDS expression) 
+	| ^(OP_ENDS ID) 
 	{
 		if ($attribute_call.ts != null){
 			Type t = datatype.get(0);
-		 	if( !t.equals(Type.CHANNEL) ) {
+		 	if( !t.equals(Type.CHANNEL) ) { //rever -> or Pattern 		 || t.equals(Type.PATTERN)) ) {
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Channel"), $operation::line, $operation::pos) );
+				//local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
 			}
 			//else
 			if (local_errors.isEmpty()){
 				dt.add(Type.SET);
-				dt.add(Type.NAME);
+				dt.add(Type.NODE);
 			}
 		}
 		

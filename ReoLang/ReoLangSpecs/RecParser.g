@@ -212,7 +212,7 @@ attribute_call
 	:	OP_IN (SEP_LIST_START INT SEP_LIST_END)?  	-> ^(OP_IN INT?)
 	| 	OP_OUT (SEP_LIST_START INT SEP_LIST_END)?	-> ^(OP_OUT INT?)
 	|	OP_NAME						-> OP_NAME
-	|	OP_ENDS SEP_ARGS_START expression SEP_ARGS_END	-> ^(OP_ENDS expression)  //rever se faz falta (expression --> ID de um padrao)?
+	|	OP_ENDS SEP_ARGS_START ID SEP_ARGS_END		-> ^(OP_ENDS ID)
 	|	OP_NODES					-> OP_NODES
 	|	OP_NAMES					-> OP_NAMES
 	|	OP_CHANNELS					-> OP_CHANNELS

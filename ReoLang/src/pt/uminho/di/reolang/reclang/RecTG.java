@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g 2014-04-15 18:50:11
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g 2014-05-06 16:53:11
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -2218,10 +2218,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "attribute_call"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:388:1: attribute_call : ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | ^( OP_ENDS expression ) | OP_FST | OP_SND | OP_TRD | ID );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:388:1: attribute_call : ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | ^( OP_ENDS ID ) | OP_FST | OP_SND | OP_TRD | ID );
     public final void attribute_call() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:2: ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | ^( OP_ENDS expression ) | OP_FST | OP_SND | OP_TRD | ID )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:2: ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | ^( OP_ENDS ID ) | OP_FST | OP_SND | OP_TRD | ID )
             int alt26=10;
             switch ( input.LA(1) ) {
             case OP_IN:
@@ -2366,16 +2366,12 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:394:4: ^( OP_ENDS expression )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:394:4: ^( OP_ENDS ID )
                     {
                     match(input,OP_ENDS,FOLLOW_OP_ENDS_in_attribute_call886); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_expression_in_attribute_call888);
-                    expression();
-
-                    state._fsp--;
-
+                    match(input,ID,FOLLOW_ID_in_attribute_call888); 
 
                     match(input, Token.UP, null); 
 
@@ -2980,7 +2976,7 @@ public class RecTG extends TreeParser {
     public static final BitSet FOLLOW_OP_NODES_in_attribute_call875 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_OP_NAMES_in_attribute_call880 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_OP_ENDS_in_attribute_call886 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_attribute_call888 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ID_in_attribute_call888 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_OP_FST_in_attribute_call895 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_OP_SND_in_attribute_call900 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_OP_TRD_in_attribute_call905 = new BitSet(new long[]{0x0000000000000002L});
