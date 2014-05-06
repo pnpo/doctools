@@ -1,5 +1,6 @@
 package pt.uminho.di.cp.model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
@@ -172,11 +173,49 @@ public class CommunicationMean2 {
 	
 	///// SPECIFIC METHODS ////////
 	
+	// NEW METHODS //
+	/**
+	 * @return the inodes
+	 */
+	public LinkedHashSet<Node> getIn() {
+		return this.getInodes();
+	}
+
 	
-
-
-
+	/**
+	 * @return the inode on position i
+	 */
+	public Node getIn(int i) {
+		ArrayList<Node> inodes = new ArrayList<Node>(getInodes());
+		return inodes.get(i);
+	}
 	
+	/**
+	 * @return the onodes
+	 */
+	public LinkedHashSet<Node> getOut() {
+		return this.getOnodes();
+	}
+	
+	/**
+	 * @return the onode on position i
+	 */
+	public Node getOut(int i) {
+		ArrayList<Node> onodes = new ArrayList<Node>(getOnodes());
+		return onodes.get(i);
+	}
+	
+	
+	/**
+	 * @return 
+	 */
+	public LinkedHashSet<Node> getEndsOf(CoordinationPattern2 p) {
+		LinkedHashSet<Node> res = new LinkedHashSet<Node>();
+		return res;
+	}
+
+
+	///////////////
 
 
 	/**

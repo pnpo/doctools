@@ -1,5 +1,6 @@
 package pt.uminho.di.cp.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -172,6 +173,16 @@ public class CoordinationPattern2 {
 	}
 	
 	
+	public Node getIn(int i) {
+		ArrayList<Node> ports = new ArrayList<Node>(this.getIn());
+				
+		Node port = new Node();
+		if (ports.size() > i){
+			port = ports.get(i);
+		}
+		return port;
+	}
+	
 	private boolean isIn(Node n) {
 		
 		boolean is_in = true;
@@ -215,6 +226,17 @@ public class CoordinationPattern2 {
 		}
 		
 		return ports;
+	}
+	
+	
+	public Node getOut(int i) {
+		ArrayList<Node> ports = new ArrayList<Node>(this.getOut());
+		
+		Node port = new Node();
+		if (ports.size() > i){
+			port = ports.get(i);
+		}
+		return port;
 	}
 	
 	
