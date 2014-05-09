@@ -40,38 +40,46 @@ public class Main {
     		System.out.println(errors);	
     	}
     	
-    	/* TESTES */
+    	/* TESTES 
     	CoordinationPattern2 cp = new CoordinationPattern2();
     	CommunicationMean2 cm = new CommunicationMean2();
     	Pair<Node, Node> x = new Pair<Node, Node>();
     	Triple<Node, Node, Node> y = new Triple<Node, Node, Node>();
     	
-    	
-    	/*
-    	final Node n1 = new Node();
-    	n1.addEnd("a");
-    	n1.addEnd("b");
-    	final Node n2 = new Node();
-    	n2.addEnd("c");
-    	//new LinkedHashSet<Node>().addAll(c)
+
     	LinkedHashSet<Node> E = new LinkedHashSet<Node>();
-		E.add(n1);
-		E.add(n2);
-		
-		System.out.println(new LinkedHashSet<Node>(Arrays.asList(n1,n2)));
-		System.out.println(new LinkedHashSet<Node>(){{add(n1); add(n2); }});
-		
-		LinkedHashSet<Node> E2 = E; E2.addAll( new LinkedHashSet<Node>(Arrays.asList(n1,n2)) );
-		//LinkedHashSet<Node> E2 = E.addAll( new LinkedHashSet<Node>(){{add(n1);}} );
-		
-		//LinkedHashSet<Node> E2 = E.addAll( new LinkedHashSet<Node>(Arrays.asList(n1,n2)) );
-		*/
-		
+		ArrayList<Node> ns = new ArrayList<Node>(E);
+    	for (int i=0; i <ns.size(); i++){
+    		Node n = ns.get(i);
+    		
+    	}
+    	*/
+    	
+//    	final Node n1 = new Node();
+//    	n1.addEnd("a");
+//    	n1.addEnd("b");
+//    	final Node n2 = new Node();
+//    	n2.addEnd("c");
+//    	//new LinkedHashSet<Node>().addAll(c)
+//    	LinkedHashSet<Node> E = new LinkedHashSet<Node>();
+//		E.add(n1);
+//		E.add(n2);
+//		
+//		System.out.println(new LinkedHashSet<Node>(Arrays.asList(n1,n2)));
+//		System.out.println(new LinkedHashSet<Node>(){{add(n1); add(n2); }});
+//		
+//		LinkedHashSet<Node> E2 = new LinkedHashSet<Node>(E);
+//		E2.addAll( new LinkedHashSet<Node>(Arrays.asList(n1,n2)) );
+//		//LinkedHashSet<Node> E2 = E.addAll( new LinkedHashSet<Node>(){{add(n1);}} );
+//		
+//		//LinkedHashSet<Node> E2 = E.addAll( new LinkedHashSet<Node>(Arrays.asList(n1,n2)) );
+//		
+//		
 		
     	
     	
     	//do something with translation...
-    	//System.out.println(translation);
+//    	System.out.println(translation);
     }
 
     
