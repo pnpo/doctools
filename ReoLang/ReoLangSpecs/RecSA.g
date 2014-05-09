@@ -16,7 +16,6 @@ options{
 	import java.util.HashSet;
 	import java.util.Collections;
 	import java.util.Comparator;
-	import java.util.LinkedList;
 }
 
 @members{
@@ -1236,9 +1235,9 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 	{
 		if ($attribute_call.ts != null){
 			Type t = datatype.get(0);
-		 	if( !t.equals(Type.CHANNEL) ) { //rever -> or Pattern 		 || t.equals(Type.PATTERN)) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Channel"), $operation::line, $operation::pos) );
-				//local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
+		 	if( !t.equals(Type.CHANNEL) || t.equals(Type.PATTERN)) {
+				//local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Channel"), $operation::line, $operation::pos) );
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
 			}
 			//else
 			if (local_errors.isEmpty()){
