@@ -1,6 +1,6 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g 2014-05-06 16:52:46
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g 2014-05-14 20:56:54
 
-	package pt.uminho.di.reolang.reclang; 
+	package pt.uminho.di.reolang.reclang;  
 
 
 import org.antlr.runtime.*;
@@ -1059,7 +1059,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: other_type, subtype
+                    // elements: subtype, other_type
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1737,7 +1737,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, reconfiguration_call, OP_APPLY
+            // elements: reconfiguration_call, ID, OP_APPLY
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1865,7 +1865,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: datatype, var_def
+            // elements: var_def, datatype
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2776,7 +2776,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: reconfiguration_block, ID, ID, datatype
+            // elements: datatype, ID, reconfiguration_block, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3384,7 +3384,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: attribute_call, ID, ID
+                    // elements: ID, ID, attribute_call
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3891,7 +3891,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: OP_IN, INT
+                    // elements: INT, OP_IN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4036,7 +4036,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: OP_ENDS, ID
+                    // elements: ID, OP_ENDS
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4926,7 +4926,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: id1, id2, id4, id3
+            // elements: id3, id1, id2, id4
             // token labels: id2, id1, id4, id3
             // rule labels: retval
             // token list labels: 
@@ -5074,7 +5074,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, list_reconfigurations, trigger_def
+            // elements: trigger_def, ID, list_reconfigurations
             // token labels: 
             // rule labels: retval
             // token list labels: 

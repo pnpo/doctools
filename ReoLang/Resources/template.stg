@@ -1,38 +1,37 @@
 group Templates;
 
-mkclass(name, rec_pkg, attributes, constructor, body) ::= <<
-ClassPool pool = ClassPool.getDefault();
-CtClass cc = pool.makeClass(\"<name>\");
-CtClass sc = pool.get(\"<rec_pkg>.Reconfiguration\");
-cc.setSuperclass(sc);
+mkclass(name, fields, constructor, method) ::= <<
+public class <name> extends Reconfiguration {
 
-<attributes>
-
+<fields>
 <constructor>
-<body>
+
+<method>
+}
 >>
 
 
-list_args(datatype, ids) ::= <<
-<ids:{ id | 
-CtField <id> = CtField.make(\"private <datatype> <id>;\", cc); 
-cc.addField(<id>);}>
+list_fields(datatype, ids) ::= <<
+<ids:{ id | 	private <datatype> <id>;
+ }>
 >>
 
 
 constructor(n, dts, ids) ::= <<
-CtConstructor c = CtNewConstructor.make(
-		"public <n>(<dts,ids:{ dt,id | <dt> <id>}; separator=", ">)" +
-		"{ <ids:{ id | this.<id> = <id>}; separator="; ">; }", 
-		cc);
-cc.addConstructor(c);
+	public <n>(<dts,ids:{ dt,id | <dt> <id>}; separator=", ">) {
+		<ids:{ id | this.<id> = <id>}; separator="; 
+">;
+	}
 >>
 
 
-apply_method(body) ::= <<
-CtMethod m = CtNewMethod.make(
-		"public CoordinationPattern2 apply(CoordinationPattern2 $cp) { return $cp; }",
-		cc);
-m.insertBefore("{ <body> }");
-cc.addMethod(m);
+apply_method(reconfs, insts) ::= <<
+	@Override
+	public CoordinationPattern2 apply(CoordinationPattern2 $cp) { 
+		<reconfs:{ rec | <rec>}; separator="
+">
+		<insts:{ inst | <inst>}; separator="
+">
+		return new CoordinationPattern2($cp); 
+	}
 >>

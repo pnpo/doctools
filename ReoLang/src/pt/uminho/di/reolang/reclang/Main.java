@@ -11,6 +11,7 @@ import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.cp.model.Node;
 import pt.uminho.di.reolang.parsing.util.Pair;
 import pt.uminho.di.reolang.parsing.util.SimpleError;
+import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 import pt.uminho.di.reolang.parsing.util.Triple;
 
 public class Main {
@@ -30,11 +31,12 @@ public class Main {
     	*/
     	
     	Processor p = new Processor("InputExamples/new_reconfigurations.part.rlf"); //rec_tests.rlf ");
-    	List<SimpleError> errors = p.getSemanticErrors();
+    	TinySymbolsTable ids_table = p.getIdentifiersTable();
+    	List<SimpleError> errors = p.getSemanticErrors(ids_table);
     	
     	ArrayList<String> translation = new ArrayList<String>();
     	if (errors != null && errors.isEmpty()){
-    		translation = p.getTranslation("resources/template.stg");
+    		translation = p.getTranslation("resources/template.stg", ids_table);
     	}
     	else{
     		System.out.println(errors);	
@@ -55,31 +57,10 @@ public class Main {
     	}
     	*/
     	
-//    	final Node n1 = new Node();
-//    	n1.addEnd("a");
-//    	n1.addEnd("b");
-//    	final Node n2 = new Node();
-//    	n2.addEnd("c");
-//    	//new LinkedHashSet<Node>().addAll(c)
-//    	LinkedHashSet<Node> E = new LinkedHashSet<Node>();
-//		E.add(n1);
-//		E.add(n2);
-//		
-//		System.out.println(new LinkedHashSet<Node>(Arrays.asList(n1,n2)));
-//		System.out.println(new LinkedHashSet<Node>(){{add(n1); add(n2); }});
-//		
-//		LinkedHashSet<Node> E2 = new LinkedHashSet<Node>(E);
-//		E2.addAll( new LinkedHashSet<Node>(Arrays.asList(n1,n2)) );
-//		//LinkedHashSet<Node> E2 = E.addAll( new LinkedHashSet<Node>(){{add(n1);}} );
-//		
-//		//LinkedHashSet<Node> E2 = E.addAll( new LinkedHashSet<Node>(Arrays.asList(n1,n2)) );
-//		
-//		
-		
     	
     	
     	//do something with translation...
-//    	System.out.println(translation);
+    	System.out.println(translation);
     }
 
     

@@ -11,7 +11,9 @@ options{
 	package pt.uminho.di.reolang.reclang;
 	
 	import pt.uminho.di.reolang.parsing.util.*;
-	import pt.uminho.di.reolang.reclang.PkgConstants;
+	//import pt.uminho.di.reolang.reclang.PkgConstants;
+	import java.util.Set;
+	import java.util.HashSet;
 }
 
 @members{
@@ -24,7 +26,7 @@ options{
 	}
 	
 	
-	public String datatypeToString(List<String> full_dt){
+	private String datatypeToString(List<String> full_dt){
 		String datatype = "";
 		
 		for (int i = full_dt.size()-1; i>=0; i--){
@@ -45,15 +47,71 @@ options{
 		
 		return datatype;
 	}
+	
+	private List<String> convertRecooplaDatatype(List<Type> recoopla_datatype){
+		List<String> datatype = new ArrayList<String>();
+		for (Type t : recoopla_datatype){
+			String type = t.toString().toLowerCase();
+			type = Character.toUpperCase(type.charAt(0)) + type.substring(1);
+						
+			//convert ReCooPLa datatypes to java datatypes
+			type = type.replace("Set", "LinkedHashSet").replace("Pattern", "CoordinationPattern2").replace("Channel", "CommunicationMean2").replace("Name", "String");
+			
+			datatype.add(type);
+		}
+		return datatype;
+	}
+	
+	//convert list args to string, separated by ','
+	private String listToString(List<String> args){
+		String sep = "";
+		String values = "";
+		for (String a : args){
+			values += sep;
+			values += a;
+			
+		        sep = ", ";
+		}
+		return values;
+	}
+	
+	private TinySymbolsTable getScope(Integer id){
+		TinySymbolsTable scope = null;
+		for (int i = 0; i < $reconfiguration_def::scopes.size(); i++){
+			TinySymbolsTable tst = $reconfiguration_def::scopes.get(i);
+			if ( tst.getScopeRel().fst().equals(id) ) {
+				scope = $reconfiguration_def::scopes.get(i);
+				break;
+			}
+		}
+		return scope;
+	}
 }
 
 
 
 //GRAMMAR
 
-reclang
+reclang[TinySymbolsTable identifiers_table]
+scope{
+	TinySymbolsTable ids_table;
+
+	int scope_id;
+	int parent_id;
+	int aux_id;
+	List<Integer> scopes;
+}
 @init{
+	$reclang::ids_table = $reclang.identifiers_table;
 	this.reconfigurations = new ArrayList<String>();
+	
+	$reclang::scope_id = 0;
+	$reclang::parent_id = 0;
+	$reclang::aux_id = 0;
+	
+	$reclang::scopes = new ArrayList<Integer>(); //LinkedList or Stack
+	$reclang::scopes.add(0);
+	
 }
 	: ^(RECONFIGS directive_def* (element
 	{	
@@ -89,23 +147,30 @@ element
 
 reconfiguration_def
 scope{
+	TinySymbol name;
+	ArrayList<TinySymbolsTable> scopes;
+	
 	List<String> datatype;
 	String class_name;
 	List<String> args;
 	
 	//body	
-	List<String> reconfs;
+	Set<String> reconfs;
 	List<String> insts;
 	
 	//tabs
 	String adv;
 }
 @init{
+	$reconfiguration_def::name = new TinySymbol();
+	$reconfiguration_def::scopes = new ArrayList<TinySymbolsTable>();
+	$reclang::scope_id = 0;
+	
 	$reconfiguration_def::class_name = "";
 	$reconfiguration_def::args = new ArrayList<String>();
 	
 	//body
-	$reconfiguration_def::reconfs = new ArrayList<String>();
+	$reconfiguration_def::reconfs = new HashSet<String>();
 	$reconfiguration_def::insts = new ArrayList<String>();
 	
 	$reconfiguration_def::adv = "";
@@ -113,16 +178,20 @@ scope{
 	: ^(ID 
 	{
 		$reconfiguration_def::class_name = Character.toUpperCase($ID.text.charAt(0)) + $ID.text.substring(1);
+		
+		TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
+		$reconfiguration_def::name = ts;
+		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
 	}
 	
 	args_def? reconfiguration_block[false]
 	{
-		System.out.println($reconfiguration_def::reconfs.toString());
-		System.out.println($reconfiguration_def::insts.toString());
+		//System.out.println($reconfiguration_def::reconfs.toString());
+		//System.out.println($reconfiguration_def::insts.toString());
 	}
 	
-	) -> mkclass(name={$reconfiguration_def::class_name}, rec_pkg={PkgConstants.CP_RECONFIGURATIONS}, 
-	attributes={$args_def.values}, constructor={$args_def.st}, body={""}) //body={$reconfiguration_block.code}
+	) -> mkclass(name={$reconfiguration_def::class_name},
+	fields={$args_def.values}, constructor={$args_def.st}, method={$reconfiguration_block.st}) //body={$reconfiguration_block.code}
 	;
 
 args_def returns[List<String> values]
@@ -151,7 +220,6 @@ args_def returns[List<String> values]
 arg_def returns[String datatype, List<String> values]
 @init{
 	$reconfiguration_def::datatype = new ArrayList<String>();
-	List<String> args = new ArrayList<String>();	
 }
 	: ^(ARGUMENT datatype 
 	{
@@ -192,7 +260,7 @@ list_ids [String dt] returns[List<String> values]
 }
 	:(ID
 	{
-		ids.add($ID.text);
+		ids.add("_" + $ID.text);
 		$reconfiguration_def::args.add($ID.text);
 	}
 	)+ 
@@ -201,7 +269,7 @@ list_ids [String dt] returns[List<String> values]
 		//System.out.println(ids);
 	}
 	
-	-> list_args(datatype={$list_ids.dt}, ids={ids})
+	-> list_fields(datatype={$list_ids.dt}, ids={ids})
 	
 	;
 	
@@ -217,17 +285,32 @@ reconfiguration_block[boolean isForall]
 		}
 	}
 	)+
-	) -> apply_method(body={""})
+	) -> apply_method(reconfs={$reconfiguration_def::reconfs}, insts={$reconfiguration_def::insts})
 	;
 	
 instruction returns[String value]
+scope{
+	TinySymbolsTable scope;
+	String dt;
+}
+@init{
+	$instruction::scope = this.getScope( $reclang::scopes.get($reclang::scopes.size()-1) ); //rever
+	$instruction::dt = "";
+}
 	: declaration			{ $instruction.value = $declaration.value; }
 	| assignment			{ $instruction.value = $assignment.value; }
 	| reconfiguration_apply[false]	{ $instruction.value = $reconfiguration_apply.value; }
-	| for_instruction		{ $instruction.value = $for_instruction.value; }
+	| for_instruction		
+	{ 
+		$instruction.value = $for_instruction.value; 
+
+		$reclang::scopes.remove($reclang::scopes.size()-1);
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);
+		$reclang::aux_id--;
+	}
 	;
 	
-reconfiguration_apply[boolean isAssign] returns[String value]
+reconfiguration_apply[boolean isAssignment] returns[String value]
 	: ^(OP_APPLY reconfiguration_call 
 	{
 		String op = $reconfiguration_call.name;
@@ -237,31 +320,50 @@ reconfiguration_apply[boolean isAssign] returns[String value]
 		
 		String args = $reconfiguration_call.args;
 		
-		String rec = op + " = new " + class_name + "(" + args + ");\n" + op + ".apply(\$cp);"; //add template
-		$reconfiguration_apply.value = rec;
+		String rec = "";
+		if (isAssignment){
+			String var_name = "_" + $assignment::ts.getId();
+			String dt = $instruction::dt;
+			//List<String> dt = new ArrayList<String>( this.convertRecooplaDatatype( $assignment::ts.getDataType() ) );
+			//String datatype = datatypeToString(dt);
+			rec = op + " = new " + class_name + "(" + args + ");\n" + dt + var_name + " = " + op + ".apply(\$cp)"; //add template
+		}
+		else{
+			rec = op + " = new " + class_name + "(" + args + ");\n" + op + ".apply(\$cp)"; //add template
+		}
+		
+		$reconfiguration_apply.value = rec + ";";
 	}
 	
 	ID?)
 	;
 	
 declaration returns[String value]
-scope{
-	String dt;
-}
 @init{
 	$reconfiguration_def::datatype = new ArrayList<String>();
 	
-	$declaration::dt = "";
 	List<String> decls = new ArrayList<String>();
 }
 	: ^(DECLARATION datatype
 	{
-		$declaration::dt = datatypeToString($reconfiguration_def::datatype);
+		$instruction::dt = datatypeToString($reconfiguration_def::datatype) + " ";
 	}
 	 
 	(var_def
-	{
-		decls.add($declaration::dt + " " + $var_def.value + ";");
+	{	
+		if ($var_def.isRec) {
+			decls.add($var_def.value);
+		}
+		else {
+			if ($var_def.isAssignment){
+				decls.add($instruction::dt + $var_def.value);
+			}
+			else {
+				String v = $var_def.value;
+				v = v.substring(0, v.length()-1); //remove ';'
+				decls.add($instruction::dt + v + " = null;");
+			}
+		}
 	}
 	)+
 	{
@@ -275,22 +377,68 @@ scope{
 	)
 	;
 	
-var_def returns[String value]
-	: ID { $var_def.value = $ID.text; }
-	| assignment { $var_def.value = $assignment.value; }
+var_def returns[String value, boolean isRec, boolean isAssignment]
+	: ID 
+	{ 
+		$var_def.value = "_" + $ID.text + ";"; 
+		$var_def.isAssignment = false;
+	}
+	
+	| assignment 
+	{ 
+		$var_def.value = $assignment.value;
+		$var_def.isRec = $assignment.isRec;		
+		$var_def.isAssignment = true;
+		
+	}
 	;
 	
-assignment returns[String value]
-	: ^(ASSIGNMENT ID assignment_member 
+assignment returns[String value, boolean isRec]
+scope{
+	TinySymbol ts;
+}
+@init{
+	$assignment::ts = new TinySymbol();
+	List<String> dt = new ArrayList<String>();
+}
+	: ^(ASSIGNMENT ID 
 	{
-		$assignment.value = $ID.text + " = " + $assignment_member.value;
+		Integer s_id = $instruction::scope.getScopeRel().fst();	
+		$assignment::ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);	
+		
+		dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
+	}
+	
+	assignment_member[ this.datatypeToString(dt) ]
+	{
+		if ($assignment_member.isRec) {
+			$assignment.value = $assignment_member.value;
+		}
+		else{	
+			$assignment.value = "_" + $ID.text + " = " + $assignment_member.value + ";";
+		}
+		$assignment.isRec = $assignment_member.isRec;
 	}
 	) 
 	; 
 	
-assignment_member returns[String value]
-	: expression 			{ $assignment_member.value = $expression.value; }
-	| reconfiguration_apply[true]	{ $assignment_member.value = $reconfiguration_apply.value; } //rever
+assignment_member[String dt] returns[String value, boolean isRec]
+	: expression 			
+	{ 
+		if ($expression.isOp) {
+			$assignment_member.value = "new " + $assignment_member.dt + "();\n" + $expression.value; 
+		} 
+		else {
+			$assignment_member.value = $expression.value; 
+		}
+		$assignment_member.isRec = false;
+	}
+	
+	| reconfiguration_apply[true]	
+	{ 
+		$assignment_member.value = $reconfiguration_apply.value;
+		$assignment_member.isRec = true; 	
+	}
 	;
 	
 reconfiguration_call returns[String name, String args]
@@ -322,7 +470,7 @@ reconfiguration_call returns[String name, String args]
 	| ^(OP_ID operation_args)
 	{
 		$reconfiguration_call.name = $OP_ID.text;
-		$reconfiguration_call.args = $operation_args.values;
+		$reconfiguration_call.args = ""; //id does not have args
 	}
 	| ^(ID operation_args)
 	{
@@ -365,16 +513,7 @@ args returns[String values]
 	
 	{
 		//convert list args to string, separated by ','
-		String sep = "";
-		String values = "";
-		for (String a : args){
-			values += sep;
-			values += a;
-			
-		        sep = ", ";
-		}
-		
-		$args.values = values;
+		$args.values = listToString(args);
 	}
 	;
 	
@@ -382,13 +521,28 @@ args returns[String values]
 for_instruction returns[String value]
 scope{
 	List<String> insts;
+	TinySymbolsTable forall_table;
 }
 @init{
 	$reconfiguration_def::datatype = new ArrayList<String>();
 	$reconfiguration_def::adv += "\t";
 	
 	$for_instruction::insts = new ArrayList<String>();
+	
+	
+	if ($reclang::scopes.contains($reclang::aux_id)){
+		$reclang::parent_id = $reclang::aux_id;
+	}
+	else{
+		$reclang::parent_id = $reclang::scopes.get($reclang::scopes.size()-1);
+	}
+	$reclang::scope_id++;
+	
+	$reclang::scopes.add($reclang::scope_id);
+	$reclang::aux_id++;
 }
+
+
 	: ^(FORALL datatype 
 	{
 		String dt = datatypeToString($reconfiguration_def::datatype);
@@ -396,15 +550,17 @@ scope{
 	
 	id1=ID id2=ID 
 	{
-		String value = $id1.text;
+		$instruction::scope = this.getScope($reclang::parent_id); //rever
+	
+		String value = "_" + $id1.text;
 		
 		//name of set to iterate
 		String set_name = "";
 		if ($reconfiguration_def::args.contains($id2.text)){
-			set_name = "this." + $id2.text;
+			set_name = "this." + "_" + $id2.text;
 		}
 		else{
-			set_name = $id2.text;
+			set_name = "_" + $id2.text;
 		}
 	}
 	
@@ -414,7 +570,10 @@ scope{
 		String for_insts = "for(" + dt + " " + value + " : " + set_name + ") {\n"; //add template -> for(dt,v,set,insts)
 		
 		for (String i : $for_instruction::insts) {
-			for_insts += i + "\n";
+			String[] parts = i.split("\n"); //separate instructions by line breaks
+			for (String p : parts){
+				for_insts += "\t" + p + "\n";
+			}
 		}
 		for_insts += "}";
 		
@@ -424,81 +583,109 @@ scope{
 	;
 	
 	
-expression returns[String value]
+expression returns[String value, String dt, boolean isOp]
 @init{
 	String value = "";
 }
 	: ^(OP_UNION s1=expression s2=expression)
 	{
-		value = "(new LinkedHashSet<T>(" + s1 + ")).addAll(" + s2 + ")";
+		value += "_" + $assignment::ts.getId() + ".addAll( " + $s1.value + " );\n";		
+		value += "_" + $assignment::ts.getId() + ".addAll( " + $s2.value + " )";
+		$expression.value = value;
+				
+		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
+		$expression.isOp = true;
 	}
 	
 	| ^(OP_INTERSECTION s1=expression s2=expression)
 	{
-		value = "(new LinkedHashSet<T>(" + s1 + ")).removeAll(" + s2 + ")";
+		//rever
+		value += "_" + $assignment::ts.getId() + ".addAll( " + $s1.value + " );\n";		
+		value += "_" + $assignment::ts.getId() + ".retainAll( " + $s2.value + " )";
+		$expression.value = value;
+				
+		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
+		$expression.isOp = true;	
 	}
 	
 	| ^(OP_MINUS s1=expression s2=expression)
 	{
-		value = "(new LinkedHashSet<T>(" + s1 + ")).retainAll(" + s2 + ")";
+		//rever
+		value += "_" + $assignment::ts.getId() + ".addAll( " + $s1.value + " );\n";		
+		value += "_" + $assignment::ts.getId() + ".removeAll( " + $s2.value + " )";
+		$expression.value = value;
+				
+		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
+		$expression.isOp = true;
 	}
 		
 	| factor 
 	{
 		$expression.value = $factor.value;
+		$expression.dt = $factor.dt;
+		$expression.isOp = false;		
 	}
 	;
 
 
-factor returns[String value]
+factor returns[String value, String dt]
+@init{
+	List<String> dt = new ArrayList<String>();
+}
 	: ^(ID ID)
 	| ID 
 	{
 		if ($reconfiguration_def::args.contains($ID.text)){
-			$factor.value = "this." + $ID.text;
+			$factor.value = "this." + "_" + $ID.text;
 		}
 		else{
-			$factor.value = $ID.text;
+			$factor.value = "_" + $ID.text;
 		}
+		Integer s_id = $instruction::scope.getScopeRel().fst();	
+		TinySymbol ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);	
+		
+		dt = this.convertRecooplaDatatype( ts.getDataType() );
+		$factor.dt = this.datatypeToString(dt);
 	}
-	| operation 	{ $factor.value = $operation.value; }
-	| constructor	{ $factor.value = $constructor.value; }
+	| operation 	{ $factor.value = $operation.value; 	$factor.dt = $operation.dt; }
+	| constructor	{ $factor.value = $constructor.value; 	$factor.dt = $constructor.dt; }
 	;
 	
-operation returns[String value]
+operation returns[String value, String dt]
 @init{
 	String op = "";
-	String var = "";
 }
 	: ^(ACCESS id1=ID 
 	{
-		op += $id1.text;
-		var = $id1.text;
+		op += "_" + $id1.text;
+		
+		Integer s_id = $instruction::scope.getScopeRel().fst();	
+		TinySymbol ts = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);	
 	}
 	(^(STRUCTURE id2=ID) 
 	{
-		op += ".getChannel(" + $id2.text + ")";
-		var = $id2.text;
+		op += ".getChannel(" + "_" + $id2.text + ")";
 	}
 	)? 
 
-	attribute_call[var] //rever
+	attribute_call[ts]
 	{
-		op += "." + $attribute_call.value + ";";
+		op += "." + $attribute_call.value;
 		
 		$operation.value = op;
+		$operation.dt = $attribute_call.dt;
 	}
 	)
 //	| single_return_operation
 	| structure_operation_call
 	;	
 
-constructor returns[String value]
-	: triple_cons	{ $constructor.value = $triple_cons.value; }
-	| pair_cons	{ $constructor.value = $pair_cons.value; }
-	| set_cons 	{ $constructor.value = $set_cons.value; }
-	| node_cons	{ $constructor.value = $node_cons.value; }
-	| xor_cons	{ $constructor.value = $xor_cons.value; }
+constructor returns[String value, String dt]
+	: triple_cons	{ $constructor.value = $triple_cons.value; 	$constructor.dt = $triple_cons.dt; }
+	| pair_cons	{ $constructor.value = $pair_cons.value; 	$constructor.dt = $pair_cons.dt; }
+	| set_cons 	{ $constructor.value = $set_cons.value; 	$constructor.dt = $set_cons.dt; }
+	| node_cons	{ $constructor.value = $node_cons.value; 	$constructor.dt = $node_cons.dt; }
+	| xor_cons	{ $constructor.value = $xor_cons.value; 	$constructor.dt = $xor_cons.dt; }
 	;
 	
 //single_return_operation
@@ -507,41 +694,85 @@ constructor returns[String value]
 //	| ^(OP_TRD operation_args)
 //	;
 	
-attribute_call[String var] returns[String value]
+attribute_call[TinySymbol ts] returns[String value, String dt]
 @init{
 	String value = "";
+	String dt = "";
+	
+	List<String> datatype = new ArrayList<String>( this.convertRecooplaDatatype($attribute_call.ts.getDataType()) );
 }
 	: ^(OP_IN INT?)
 	{
 		if ($INT.text != null){
 			value = "getIn(" + $INT.text + ")";
+			dt = "Node";
 		}
 		else{
-			value = "getInodes()";
+			value = "getIn()";
+			dt = "LinkedHashSet<Node>";
 		}
 		
 		$attribute_call.value = value;
+		$attribute_call.dt = dt;
 	}
 	
 	| ^(OP_OUT INT?)
 	{
 		if ($INT.text != null){
 			value = "getOut(" + $INT.text + ")";
+			dt = "Node";
 		}
 		else{
-			value = "getOnodes()";
+			value = "getOut()";
+			dt = "LinkedHashSet<Node>";
 		}
 		
 		$attribute_call.value = value;
+		$attribute_call.dt = dt;
 	}
 	
-	| OP_NAME 	{ $attribute_call.value = "getId()"; } //channel
-	| OP_NODES	{ $attribute_call.value = "getNodes()"; } //pattern
-	| OP_NAMES	{ $attribute_call.value = "getNames()"; } //pattern	
-	| ^(OP_ENDS ID)	{ $attribute_call.value = "getEnds()"; } //channel -> pattern : getEndsOf(id)?
-	| OP_FST	{ $attribute_call.value = "fst()"; } //pair or triple	
-	| OP_SND	{ $attribute_call.value = "snd()"; } //pair or triple
-	| OP_TRD	{ $attribute_call.value = "trd()"; } //triple
+	| OP_NAME //channel
+	{ 
+		$attribute_call.value = "getId()"; 
+		$attribute_call.dt = "String";
+	} 
+	
+	| OP_NODES //pattern
+	{ 
+		$attribute_call.value = "getNodes()"; 
+		$attribute_call.dt = "LinkedHashSet<Node>";
+	}
+	
+	| OP_NAMES //pattern
+	{ 
+		$attribute_call.value = "getNames()"; 
+		$attribute_call.dt = "LinkedHashSet<String>";
+	}
+	
+	| ^(OP_ENDS ID) //channel -> pattern : getEndsOf(id)?
+	{ 
+		$attribute_call.value = "getEnds()"; 
+		$attribute_call.dt = "LinkedHashSet<Node>";
+	}
+	
+	| OP_FST //pair or triple
+	{ 
+		$attribute_call.value = "fst()";
+		$attribute_call.dt = this.datatypeToString(datatype);
+	}
+	
+	| OP_SND //pair or triple
+	{ 
+		$attribute_call.value = "snd()"; 
+		$attribute_call.dt = this.datatypeToString(datatype);
+	}
+	
+	| OP_TRD //triple
+	{ 
+		$attribute_call.value = "trd()"; 
+		$attribute_call.dt = this.datatypeToString(datatype);
+	} 
+	
 	| ID	//rever
 	;
 	
@@ -550,9 +781,11 @@ triple_cons returns[String value, String dt]
 @init{
 	String dt = "";
 }
-	: ^(TRIPLE expression expression expression)
+	: ^(TRIPLE e1=expression e2=expression e3=expression)
 	{
+		dt = $e1.dt;
 		$triple_cons.dt = "Triple<" + dt + ", " + dt + ", " + dt + ">";
+		$triple_cons.value = "new " + $triple_cons.dt + "(" + $e1.value + ", " + $e2.value + ", " + $e3.value + ")"; //add template		
 	}
 	;
 	
@@ -561,9 +794,11 @@ pair_cons returns[String value, String dt]
 @init{
 	String dt = "";
 }
-	: ^(PAIR expression expression)
+	: ^(PAIR e1=expression e2=expression)
 	{
-		$pair_cons.dt = "Pair<" + dt + ", " + dt + ">";
+		dt = $e1.dt;
+		$pair_cons.dt = "Pair<" + dt + ", " + dt + ">";		
+		$pair_cons.value = "new " + $pair_cons.dt + "(" + $e1.value + ", " + $e2.value + ")"; //add template
 	}
 	;
 	
@@ -571,33 +806,44 @@ pair_cons returns[String value, String dt]
 	
 set_cons returns[String value, String dt]
 @init{
-	String dt = "";
-	String value = "";
+	List<String> exps = new ArrayList<String>();
 }
-	: ^(SET 
+	: ^(SET (expression
 	{
-		value += "new " + $declaration::dt + "();\n"; //rever
+		exps.add($expression.value);
 	}
-	
-	expression*) 
+	)*
 	
 	{
-		$set_cons.dt = "LinkedHashSet<" + dt + ">";
+		$set_cons.dt = "LinkedHashSet<" + $expression.dt + ">";
+		$set_cons.value = "new " + $set_cons.dt + "(Arrays.asList(" + listToString(exps) + "))"; //add template
 	}
+	) 
 	;
 	
 		
 node_cons returns[String value, String dt]
-	: ^(NODE ID+ ) 
+@init{
+	String ends = "";
+}
+	: ^(NODE (ID
+	{
+		ends += "addEnd(\"" + $ID.text + "\"); "; //rever -> "id" ou id
+	}
+	)+
+	
 	{
 		$node_cons.dt = "Node";
+		$node_cons.value = "new " + $node_cons.dt + "(){{ " + ends + "}}"; //add template
 	}
+	)
 	;
 
 xor_cons returns[String value, String dt]
 	: ^(XOR  ^(IN ID ID*) ^(OUT ID ID+) )
 	{
-		$xor_cons.dt = "Node";
+		$xor_cons.dt = "";
+		$xor_cons.value = "";
 	}
 	;
 

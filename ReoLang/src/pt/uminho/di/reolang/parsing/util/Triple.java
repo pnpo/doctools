@@ -147,7 +147,7 @@ public class Triple<FIRST, SECOND, THIRD> implements Comparable<Triple<FIRST,SEC
 	 */
 	@Override
 	public String toString() {
-		return "Triple (" + first + ", " + second + ", " + third + ")";
+		return "(" + first + ", " + second + ", " + third + ")";
 	}
 
 }

@@ -32,7 +32,7 @@ tokens {
 
 
 @header{
-	package pt.uminho.di.reolang.reclang; 
+	package pt.uminho.di.reolang.reclang;  
 }
 
 
