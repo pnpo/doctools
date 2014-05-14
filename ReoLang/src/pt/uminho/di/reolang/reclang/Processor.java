@@ -35,19 +35,27 @@ public class Processor {
 		    }
 		}
 		
-		
-		public ArrayList<SimpleError> getSemanticErrors(){
-			
-			ArrayList<SimpleError> errors = null;
+		public TinySymbolsTable getIdentifiersTable(){
+			TinySymbolsTable ids_table = null;
 			try{
 				//************IDENTIFIERS TABLE************//
 				CommonTreeNodeStream tree_it = new CommonTreeNodeStream(this.res.getTree());
 				System.out.println(((CommonTree) res.getTree()).toStringTree());
 				
 				RecTG walker_idtab = new RecTG(tree_it);
-				TinySymbolsTable ids_table = walker_idtab.reclang(); 
-				//System.out.println( ids_table.toString() );
-				
+				ids_table = walker_idtab.reclang();
+			} catch (Exception e) {
+		        e.printStackTrace();
+		    }
+			
+			return ids_table;
+		}
+		
+		
+		public ArrayList<SimpleError> getSemanticErrors(TinySymbolsTable ids_table){
+			
+			ArrayList<SimpleError> errors = null;
+			try{
 				//***********SEMANTICS ANALYSIS************//
 				CommonTreeNodeStream tree_sa = new CommonTreeNodeStream(this.res.getTree());
 				RecSA walker_sa = new RecSA(tree_sa);
@@ -60,10 +68,11 @@ public class Processor {
 		}
 		
 		
-		public ArrayList<String> getTranslation(String template_path){
+		public ArrayList<String> getTranslation(String template_path, TinySymbolsTable ids_table){
 	        
 			ArrayList<String> translation = new ArrayList<String>();
 			try{
+				//************ TRANSLATOR ************//
 				CommonTreeNodeStream tree_tltr = new CommonTreeNodeStream(this.res.getTree());
 				RecTranslator walker_tltr = new RecTranslator(tree_tltr);
 
@@ -73,7 +82,7 @@ public class Processor {
 				groupFileR.close();
 				
 				walker_tltr.setTemplateLib(templates); 
-				walker_tltr.reclang();
+				walker_tltr.reclang(ids_table);
 				//RecTranslator.reclang_return r = walker_tltr.reclang();
 				//StringTemplate result = (StringTemplate)r.getTemplate();
 		        //System.out.println(result.toString()); // emit translation
