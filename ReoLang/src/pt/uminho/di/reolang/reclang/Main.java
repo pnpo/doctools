@@ -58,6 +58,53 @@ public class Main {
     	*/
     	
     	
+    	Node a = new Node();
+		a.addEnd("a");
+		
+		Node bc = new Node();
+		bc.addEnd("b");
+		bc.addEnd("c");
+		
+		Node d = new Node();
+		d.addEnd("d");
+		
+    	final LinkedHashSet<Node> x = new LinkedHashSet<Node>();
+    	x.add(a);
+    	final LinkedHashSet<Node> y = new LinkedHashSet<Node>();
+    	y.add(bc);
+    	final LinkedHashSet<Node> z = new LinkedHashSet<Node>();
+    	z.add(d);
+
+//    	Set<Node> x;
+//    	Set<Node> y;
+//    	Set<Node> z;
+//    	x = a + b
+//    	
+//    	@ rec(a+b, c);
+//    	S(a+b, c)
+//    	P(a+b, c)
+    	
+    	System.out.println( new LinkedHashSet<Node>(x){{addAll(y);}} );
+    	
+
+//    	Set<Set<Node>> s = S(x+y,z);
+    	final LinkedHashSet<Node> $1 = new LinkedHashSet<Node>(x){{addAll(y); }};
+    	LinkedHashSet<LinkedHashSet<Node>> s = new LinkedHashSet<LinkedHashSet<Node>>(){{ 
+    		add($1); 
+    		add(z); 
+    	}};
+    	
+    	LinkedHashSet<LinkedHashSet<Node>> s2 = new LinkedHashSet<LinkedHashSet<Node>>(){{ 
+    		add( new LinkedHashSet<Node>(x){{ addAll(y); }} ); 
+    		add(z); 
+    	}};
+    	
+    	LinkedHashSet<Node> s1 = new LinkedHashSet<Node>((Collection<? extends Node>) Arrays.asList( new LinkedHashSet<Node>(x).addAll(y),z) );
+    	System.out.println(s);
+    	//System.out.println(s1);
+    	System.out.println(s2);
+    	
+    	//*/
     	
     	//do something with translation...
     	System.out.println(translation);

@@ -326,7 +326,8 @@ reconfiguration_apply[boolean isAssignment] returns[String value]
 			String dt = $instruction::dt;
 			//List<String> dt = new ArrayList<String>( this.convertRecooplaDatatype( $assignment::ts.getDataType() ) );
 			//String datatype = datatypeToString(dt);
-			rec = op + " = new " + class_name + "(" + args + ");\n" + dt + var_name + " = " + op + ".apply(\$cp)"; //add template
+			rec = op + " = new " + class_name + "(" + args + ");\n";
+			rec += "final " + dt + var_name + " = " + op + ".apply(\$cp)"; //add template
 		}
 		else{
 			rec = op + " = new " + class_name + "(" + args + ");\n" + op + ".apply(\$cp)"; //add template
@@ -356,12 +357,12 @@ declaration returns[String value]
 		}
 		else {
 			if ($var_def.isAssignment){
-				decls.add($instruction::dt + $var_def.value);
+				decls.add("final " + $instruction::dt + $var_def.value);
 			}
 			else {
 				String v = $var_def.value;
 				v = v.substring(0, v.length()-1); //remove ';'
-				decls.add($instruction::dt + v + " = null;");
+				decls.add("final " + $instruction::dt + v + " = null;");
 			}
 		}
 	}
@@ -399,17 +400,14 @@ scope{
 }
 @init{
 	$assignment::ts = new TinySymbol();
-	List<String> dt = new ArrayList<String>();
 }
 	: ^(ASSIGNMENT ID 
 	{
 		Integer s_id = $instruction::scope.getScopeRel().fst();	
 		$assignment::ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);	
-		
-		dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
 	}
 	
-	assignment_member[ this.datatypeToString(dt) ]
+	assignment_member
 	{
 		if ($assignment_member.isRec) {
 			$assignment.value = $assignment_member.value;
@@ -422,15 +420,11 @@ scope{
 	) 
 	; 
 	
-assignment_member[String dt] returns[String value, boolean isRec]
+assignment_member returns[String value, boolean isRec]
 	: expression 			
 	{ 
-		if ($expression.isOp) {
-			$assignment_member.value = "new " + $assignment_member.dt + "();\n" + $expression.value; 
-		} 
-		else {
-			$assignment_member.value = $expression.value; 
-		}
+		//conditional isOp -> if (isOp) { $assignment_member.value = " bla bla" + $expression.value;}
+		$assignment_member.value = $expression.value;
 		$assignment_member.isRec = false;
 	}
 	
@@ -586,37 +580,59 @@ scope{
 expression returns[String value, String dt, boolean isOp]
 @init{
 	String value = "";
+	
+	List<String> dt = new ArrayList<String>();
+	String datatype = "";
 }
-	: ^(OP_UNION s1=expression s2=expression)
+	: ^(OP_UNION s1=factor s2=factor)
 	{
-		value += "_" + $assignment::ts.getId() + ".addAll( " + $s1.value + " );\n";		
-		value += "_" + $assignment::ts.getId() + ".addAll( " + $s2.value + " )";
+		dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
+		datatype = this.datatypeToString(dt);
+	
+		value += "new " + datatype + "(" + $s2.value + "){{ \n";
+		
+		value += "addAll( ";
+		String[] parts = $s1.value.split("\n"); //separate instructions by line breaks
+		for (String p : parts){
+			value += p + "\n\t";
+		}
+		//value = value.substring(1, value.size());
+		value += "); \n}}";
+		
 		$expression.value = value;
 				
 		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
-		$expression.isOp = true;
+		$expression.isOp = false; //true
 	}
 	
-	| ^(OP_INTERSECTION s1=expression s2=expression)
+	| ^(OP_INTERSECTION s1=factor s2=factor)
 	{
+		dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
+		datatype = this.datatypeToString(dt);
+		
 		//rever
-		value += "_" + $assignment::ts.getId() + ".addAll( " + $s1.value + " );\n";		
-		value += "_" + $assignment::ts.getId() + ".retainAll( " + $s2.value + " )";
+		value += "new " + datatype + "(" + $s2.value + "){{ \n";
+		value += "retainAll( " + $s1.value + " ); \n}}";
+		//value += "_" + $assignment::ts.getId() + ".retainAll( " + $s2.value + " )";
 		$expression.value = value;
 				
 		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
-		$expression.isOp = true;	
+		$expression.isOp = false; //true
 	}
 	
-	| ^(OP_MINUS s1=expression s2=expression)
+	| ^(OP_MINUS s1=factor s2=factor)
 	{
+		dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
+		datatype = this.datatypeToString(dt);
+		
 		//rever
-		value += "_" + $assignment::ts.getId() + ".addAll( " + $s1.value + " );\n";		
-		value += "_" + $assignment::ts.getId() + ".removeAll( " + $s2.value + " )";
+		value += "new " + datatype + "(" + $s2.value + "){{ \n";
+		value += "removeAll( " + $s1.value + " ); \n}}";
+		//value += "_" + $assignment::ts.getId() + ".removeAll( " + $s2.value + " )";
 		$expression.value = value;
 				
 		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
-		$expression.isOp = true;
+		$expression.isOp = false; //true
 	}
 		
 	| factor 
@@ -806,17 +822,19 @@ pair_cons returns[String value, String dt]
 	
 set_cons returns[String value, String dt]
 @init{
-	List<String> exps = new ArrayList<String>();
+	//List<String> exps = new ArrayList<String>();
+	String exps = "";
 }
 	: ^(SET (expression
 	{
-		exps.add($expression.value);
+		exps += "\tadd(" + $expression.value + "); \n";
 	}
 	)*
 	
 	{
 		$set_cons.dt = "LinkedHashSet<" + $expression.dt + ">";
-		$set_cons.value = "new " + $set_cons.dt + "(Arrays.asList(" + listToString(exps) + "))"; //add template
+		$set_cons.value = "new " + $set_cons.dt + "() {{ \n" + exps + "}}";  //add template
+		//Arrays.asList(" + listToString(exps) + "))"; //add template
 	}
 	) 
 	;

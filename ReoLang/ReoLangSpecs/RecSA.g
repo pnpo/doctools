@@ -31,6 +31,37 @@ options{
 		}
 		return scope;
 	}
+	
+	//method used in expression prduction
+	public Triple<List<SimpleError>, HashSet<List<Type>>, Integer> getData(String n, List<Type> t, List<SimpleError> e, CommonTree v){
+    		
+    		Triple<List<SimpleError>, HashSet<List<Type>>, Integer> res = new Triple<List<SimpleError>, HashSet<List<Type>>, Integer>();
+    		
+    		List<SimpleError> local_errors = new ArrayList<SimpleError>();
+    		HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
+    		Integer nulls = 0;
+    		
+    		if (t.isEmpty()){
+    			local_errors.addAll(e);
+    			nulls++;
+    		}
+    		else{
+    			//if dt is a Set<T>
+    			if (t.get(0).equals(Type.SET)){
+    				datatypes.add(t);
+    			}
+    			else{
+    				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype(n, "Set<T>"), v.getLine(), v.getCharPositionInLine()) );
+    				nulls++;
+    			}
+    		}
+    		
+    		res.setFirst(local_errors);
+    		res.setSecond(datatypes);
+    		res.setThird(nulls);
+    		
+    		return res;
+    	}
 }
 
 
@@ -745,49 +776,29 @@ for_instruction returns[ArrayList<SimpleError> errors]
 	
 expression returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
 @init{
+	Triple<List<SimpleError>, HashSet<List<Type>>, Integer> res = null;
+
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 	List<Type> dt = new ArrayList<Type>();
-	int nulls = 0;
+	
 	HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
+	int nulls = 0;
 }
 
-	: ^(OP_UNION e1=expression 
-	{ 
-		if ($e1.datatype.isEmpty()){
-			local_errors.addAll($e1.errors);
-			nulls++;
-		}
-		else{
-			//if $e1.datatype is a Set<T>
-			if ($e1.datatype.get(0).equals(Type.SET)){
-				datatypes.add($e1.datatype);
-			}
-			else{
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e1.name, "Set<T>"), $e1.start.getLine(), $e1.start.getCharPositionInLine()) );
-				nulls++;
-			}
-		}
-	} 
-	
-	e2=expression
+	: ^(OP_UNION f1=factor	f2=factor
 	{
-		if ($e2.datatype.isEmpty()){
-			local_errors.addAll($e2.errors);
-			nulls++;
-		}
-		else{
-			//if $e2.datatype is a Set<T>
-			if ($e2.datatype.get(0).equals(Type.SET)){
-				datatypes.add($e2.datatype);
-			}
-			else{
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e2.name, "Set<T>"), $e2.start.getLine(), $e2.start.getCharPositionInLine()) );
-				nulls++;
-			}
-		}
+		res = getData($f1.name, $f1.datatype, $f1.errors, $f1.start);
+		local_errors.addAll( res.fst() );
+		datatypes.addAll( res.snd() );
+		nulls = nulls + res.trd();
+		
+		res = getData($f2.name, $f2.datatype, $f2.errors, $f2.start);
+		local_errors.addAll( res.fst() );
+		datatypes.addAll( res.snd() );
+		nulls = nulls + res.trd();
 		
 		$expression.errors = local_errors;
-		$expression.name = $e1.name + " + " + $e2.name;
+		$expression.name = $f1.name + " + " + $f2.name;
 		
 		if(datatypes.size() + nulls == 1){
 			dt.addAll(datatypes.iterator().next());
@@ -796,47 +807,20 @@ expression returns[ArrayList<SimpleError> errors, List<Type> datatype, String na
 	}
 	)
 	
-	| ^(OP_INTERSECTION e1=expression
-	{ 
-		if ($e1.datatype.isEmpty()){
-			local_errors.addAll($e1.errors);
-			nulls++;
-		}
-		else{
-			//if $e1.datatype is a Set<T>
-			if ($e1.datatype.get(0).equals(Type.SET)){
-				datatypes.add($e1.datatype);
-			}
-			else{
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e1.name, "Set<T>"), $e1.start.getLine(), $e1.start.getCharPositionInLine()) );
-				nulls++;
-			}
-		}
-	} 
-	
-	e2=expression
+	| ^(OP_INTERSECTION f1=factor	f2=factor
 	{
-		if ($e2.errors != null){
-			local_errors.addAll($e2.errors);
-		}
+		res = getData($f1.name, $f1.datatype, $f1.errors, $f1.start);
+		local_errors.addAll( res.fst() );
+		datatypes.addAll( res.snd() );
+		nulls = nulls + res.trd();
 		
-		if ($e2.datatype.isEmpty()){
-			local_errors.addAll($e2.errors);
-			nulls++;
-		}
-		else{
-			//if $e2.datatype is a Set<T>
-			if ($e2.datatype.get(0).equals(Type.SET)){
-				datatypes.add($e2.datatype);
-			}
-			else{
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e2.name, "Set<T>"), $e2.start.getLine(), $e2.start.getCharPositionInLine()) );
-				nulls++;
-			}
-		}
+		res = getData($f2.name, $f2.datatype, $f2.errors, $f2.start);
+		local_errors.addAll( res.fst() );
+		datatypes.addAll( res.snd() );
+		nulls = nulls + res.trd();
 		
 		$expression.errors = local_errors;
-		$expression.name = $e1.name + "+ " + $e2.name;
+		$expression.name = $f1.name + "& " + $f2.name;
 		
 		if(datatypes.size() + nulls == 1){
 			dt.addAll(datatypes.iterator().next());
@@ -850,43 +834,20 @@ expression returns[ArrayList<SimpleError> errors, List<Type> datatype, String na
 	}
 	)
 	
-	| ^(OP_MINUS e1=expression 
-	{ 
-		if ($e1.datatype.isEmpty()){
-			local_errors.addAll($e1.errors);
-			nulls++;
-		}
-		else{
-			//if $e1.datatype is a Set<T>
-			if ($e1.datatype.get(0).equals(Type.SET)){
-				datatypes.add($e1.datatype);
-			}
-			else{
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e1.name, "Set<T>"), $e1.start.getLine(), $e1.start.getCharPositionInLine()) );
-				nulls++;
-			}
-		}
-	}
-	
-	e2=expression
+	| ^(OP_MINUS f1=factor	f2=factor
 	{
-		if ($e2.datatype.isEmpty()){
-			local_errors.addAll($e2.errors);
-			nulls++;
-		}
-		else{
-			//if $e2.datatype is a Set<T>
-			if ($e2.datatype.get(0).equals(Type.SET)){
-				datatypes.add($e2.datatype);
-			}
-			else{
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($e2.name, "Set<T>"), $e2.start.getLine(), $e2.start.getCharPositionInLine()) );
-				nulls++;
-			}
-		}
+		res = getData($f1.name, $f1.datatype, $f1.errors, $f1.start);
+		local_errors.addAll( res.fst() );
+		datatypes.addAll( res.snd() );
+		nulls = nulls + res.trd();
+		
+		res = getData($f2.name, $f2.datatype, $f2.errors, $f2.start);
+		local_errors.addAll( res.fst() );
+		datatypes.addAll( res.snd() );
+		nulls = nulls + res.trd();
 		
 		$expression.errors = local_errors;
-		$expression.name = $e1.name + "+ " + $e2.name;
+		$expression.name = $f1.name + "- " + $f2.name;
 		
 		if(datatypes.size() + nulls == 1){
 			dt.addAll(datatypes.iterator().next());
@@ -1528,15 +1489,18 @@ node_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String nam
 
 xor_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
 @init{
-	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();	
+
+	Integer s_id = $instruction::scope.getScopeRel().fst();
+	TinySymbol ts = null;
+	
 	List<Type> dt = new ArrayList<Type>();
 	String name = "X(";
 	
 }
 	: ^(XOR  ^(IN id1=ID
 	{
-		Integer s_id = $instruction::scope.getScopeRel().fst();
-		TinySymbol ts = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
+		ts = $instruction::scope.containsSymbol($id1.text) ? $instruction::scope.getSymbols().get($id1.text) : $reconfiguration_def::name.hasValue($id1.text, s_id);
 		
 		if (ts == null){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id1.text), $id1.line, $id1.pos) );

@@ -351,12 +351,11 @@ scope{
 	
 	
 expression
-	: ^(OP_UNION expression expression)
-	| ^(OP_INTERSECTION expression expression)
-	| ^(OP_MINUS expression expression)
-	| factor 
+	: ^(OP_UNION factor factor)
+	| ^(OP_INTERSECTION factor factor)
+	| ^(OP_MINUS factor factor)
+	| factor
 	;
-
 
 factor
 	: ^(ID ID)

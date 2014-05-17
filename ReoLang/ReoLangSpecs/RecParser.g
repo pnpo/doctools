@@ -168,18 +168,13 @@ for_instruction
 	
 	
 expression
-	:	union_expr (OP_UNION^ union_expr)*
-		//-> union_expr+
+	:	factor (expr_op^)?
 	;
 	
-union_expr
-	:	intersect_expr (OP_INTERSECTION^ intersect_expr)*
-		//-> intersect_expr+
-	;
-	
-intersect_expr
-	:	factor (OP_MINUS^ factor)? 
-		//-> ^(factor factor?)
+expr_op
+	:	OP_UNION^ factor
+	|	OP_INTERSECTION^ factor
+	| 	OP_MINUS^ factor 
 	;
 
 

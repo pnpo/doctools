@@ -12,7 +12,7 @@ public class <name> extends Reconfiguration {
 
 
 list_fields(datatype, ids) ::= <<
-<ids:{ id | 	private <datatype> <id>;
+<ids:{ id | 	final private <datatype> <id>;
  }>
 >>
 
