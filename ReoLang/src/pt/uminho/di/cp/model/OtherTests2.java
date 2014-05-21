@@ -205,6 +205,24 @@ public class OtherTests2 {
 		System.out.println("OVERLAP------------------");
 		System.out.println(p);
 		
+		
+		
+//		Node nss = new Node();
+//		nss.addEnd("d");
+//		nss.addEnd("e");
+//		nss.addEnd("g");
+//		
+//		Node mi = new Node();
+//		mi.addEnd("o");
+//		
+//		Node mo = new Node();
+//		mo.addEnd("k");
+//		
+//		InsertP insert = new InsertP(p3, nss, mi, mo, null, null);
+//		p = insert.apply(p);
+//		System.out.println("INSERT------------------");
+//		System.out.println(p);
+		
 //		Node deg = new Node();
 //		deg.addEnd("d");
 //		deg.addEnd("e");

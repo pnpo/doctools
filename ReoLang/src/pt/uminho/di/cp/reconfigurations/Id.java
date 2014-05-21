@@ -15,7 +15,7 @@ public class Id implements IReconfiguration {
 	
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
-		return cp;
+		return new CoordinationPattern2(cp);
 	}
 
 }

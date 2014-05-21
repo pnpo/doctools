@@ -19,9 +19,9 @@ options{
 @members{
 
 
-	private ArrayList<String> reconfigurations;
+	private HashMap<String,String> reconfigurations;
 	
-	public ArrayList<String> getReconfigurations(){
+	public HashMap<String,String> getReconfigurations(){
 		return this.reconfigurations;
 	}
 	
@@ -103,7 +103,7 @@ scope{
 }
 @init{
 	$reclang::ids_table = $reclang.identifiers_table;
-	this.reconfigurations = new ArrayList<String>();
+	this.reconfigurations = new HashMap<String, String>();
 	
 	$reclang::scope_id = 0;
 	$reclang::parent_id = 0;
@@ -115,7 +115,7 @@ scope{
 }
 	: ^(RECONFIGS directive_def* (element
 	{	
-		this.reconfigurations.add($element.st.toString()); 
+		this.reconfigurations.put($element.name, $element.st.toString()); 
 	}
 	)*)
 	
@@ -138,14 +138,21 @@ directive_import
 
 
 	
-element
-	: ^(RECONFIGURATION reconfiguration_def) -> {$reconfiguration_def.st}
-	| ^(APPLICATION applicaiton_def)	 -> {$applicaiton_def.st}
+element returns[String name]
+	: ^(RECONFIGURATION reconfiguration_def
+	{
+		$element.name = $reconfiguration_def.id;
+	}
+	)
+	-> {$reconfiguration_def.st}
+	
+	| ^(APPLICATION applicaiton_def)	 
+	-> {$applicaiton_def.st}
 	;
 
 
 
-reconfiguration_def
+reconfiguration_def returns[String id]
 scope{
 	TinySymbol name;
 	ArrayList<TinySymbolsTable> scopes;
@@ -181,17 +188,13 @@ scope{
 		
 		TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
 		$reconfiguration_def::name = ts;
+		$reconfiguration_def.id = $reconfiguration_def::class_name;
+		
 		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
 	}
 	
-	args_def? reconfiguration_block[false]
-	{
-		//System.out.println($reconfiguration_def::reconfs.toString());
-		//System.out.println($reconfiguration_def::insts.toString());
-	}
-	
-	) -> mkclass(name={$reconfiguration_def::class_name},
-	fields={$args_def.values}, constructor={$args_def.st}, method={$reconfiguration_block.st}) //body={$reconfiguration_block.code}
+	args_def? reconfiguration_block[false] ) -> mkclass(name={$reconfiguration_def::class_name},
+	fields={$args_def.values}, constructor={$args_def.st}, method={$reconfiguration_block.st})
 	;
 
 args_def returns[List<String> values]
@@ -550,12 +553,15 @@ scope{
 		
 		//name of set to iterate
 		String set_name = "";
+		/*
 		if ($reconfiguration_def::args.contains($id2.text)){
 			set_name = "this." + "_" + $id2.text;
 		}
 		else{
 			set_name = "_" + $id2.text;
 		}
+		*/
+		set_name = "_" + $id2.text;
 	}
 	
 	reconfiguration_block[true]
@@ -589,15 +595,20 @@ expression returns[String value, String dt, boolean isOp]
 		dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
 		datatype = this.datatypeToString(dt);
 	
-		value += "new " + datatype + "(" + $s2.value + "){{ \n";
+		value += "new " + datatype + "(" + $s1.value + "){{ \n";
 		
-		value += "addAll( ";
-		String[] parts = $s1.value.split("\n"); //separate instructions by line breaks
-		for (String p : parts){
-			value += p + "\n\t";
+		value += "\taddAll( ";
+		if ($s2.value.contains("\n")){
+			String[] parts = $s2.value.split("\n"); //separate instructions by line breaks
+			for (String p : parts){
+				value += p + "\n\t\t";
+			}
+			value = value.substring(0, value.length()-1) + ");";
 		}
-		//value = value.substring(1, value.size());
-		value += "); \n}}";
+		else {
+			value += $s2.value + " );";
+		}
+		value += "\n}}";
 		
 		$expression.value = value;
 				
@@ -611,9 +622,22 @@ expression returns[String value, String dt, boolean isOp]
 		datatype = this.datatypeToString(dt);
 		
 		//rever
-		value += "new " + datatype + "(" + $s2.value + "){{ \n";
-		value += "retainAll( " + $s1.value + " ); \n}}";
-		//value += "_" + $assignment::ts.getId() + ".retainAll( " + $s2.value + " )";
+		value += "new " + datatype + "(" + $s1.value + "){{ \n";
+		//value += "retainAll( " + $s1.value + " ); \n}}";
+		////value += "_" + $assignment::ts.getId() + ".retainAll( " + $s2.value + " )";
+		value += "\tretainAll( ";
+		if ($s2.value.contains("\n")){
+			String[] parts = $s2.value.split("\n"); //separate instructions by line breaks
+			for (String p : parts){
+				value += p + "\n\t\t";
+			}
+			value = value.substring(0, value.length()-1) + ");";
+		}
+		else {
+			value += $s2.value + " );";
+		}
+		value += "\n}}";
+		
 		$expression.value = value;
 				
 		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
@@ -626,9 +650,22 @@ expression returns[String value, String dt, boolean isOp]
 		datatype = this.datatypeToString(dt);
 		
 		//rever
-		value += "new " + datatype + "(" + $s2.value + "){{ \n";
-		value += "removeAll( " + $s1.value + " ); \n}}";
-		//value += "_" + $assignment::ts.getId() + ".removeAll( " + $s2.value + " )";
+		value += "new " + datatype + "(" + $s1.value + "){{ \n";
+		//value += "removeAll( " + $s1.value + " ); \n}}";
+		////value += "_" + $assignment::ts.getId() + ".removeAll( " + $s2.value + " )";
+		value += "\tremoveAll( ";
+		if ($s2.value.contains("\n")){
+			String[] parts = $s2.value.split("\n"); //separate instructions by line breaks
+			for (String p : parts){
+				value += p + "\n\t\t";
+			}
+			value = value.substring(0, value.length()-1) + ");";
+		}
+		else {
+			value += $s2.value + " );";
+		}
+		value += "\n}}";
+		
 		$expression.value = value;
 				
 		$expression.dt = $s1.dt; //s1 and s2 have the same datatype
@@ -651,12 +688,16 @@ factor returns[String value, String dt]
 	: ^(ID ID)
 	| ID 
 	{
+		/*
 		if ($reconfiguration_def::args.contains($ID.text)){
 			$factor.value = "this." + "_" + $ID.text;
 		}
 		else{
 			$factor.value = "_" + $ID.text;
 		}
+		*/
+		$factor.value = "_" + $ID.text;
+		
 		Integer s_id = $instruction::scope.getScopeRel().fst();	
 		TinySymbol ts = $instruction::scope.containsSymbol($ID.text) ? $instruction::scope.getSymbols().get($ID.text) : $reconfiguration_def::name.hasValue($ID.text, s_id);	
 		
@@ -764,12 +805,13 @@ attribute_call[TinySymbol ts] returns[String value, String dt]
 		$attribute_call.value = "getNames()"; 
 		$attribute_call.dt = "LinkedHashSet<String>";
 	}
-	
+	/*
 	| ^(OP_ENDS ID) //channel -> pattern : getEndsOf(id)?
 	{ 
 		$attribute_call.value = "getEnds()"; 
 		$attribute_call.dt = "LinkedHashSet<Node>";
 	}
+	*/
 	
 	| OP_FST //pair or triple
 	{ 

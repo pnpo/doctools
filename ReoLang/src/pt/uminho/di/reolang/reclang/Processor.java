@@ -2,6 +2,7 @@ package pt.uminho.di.reolang.reclang;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CharStream;
@@ -68,9 +69,9 @@ public class Processor {
 		}
 		
 		
-		public ArrayList<String> getTranslation(String template_path, TinySymbolsTable ids_table){
+		public HashMap<String, String> getTranslation(String template_path, TinySymbolsTable ids_table){
 	        
-			ArrayList<String> translation = new ArrayList<String>();
+			HashMap<String, String> translation = new HashMap<String, String>();
 			try{
 				//************ TRANSLATOR ************//
 				CommonTreeNodeStream tree_tltr = new CommonTreeNodeStream(this.res.getTree());

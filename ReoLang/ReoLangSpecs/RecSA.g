@@ -1158,8 +1158,8 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 	{
 		if ($attribute_call.ts != null){
 			Type t = datatype.get(0);
-		 	if( !t.equals(Type.PATTERN) ) {
-				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern"), $operation::line, $operation::pos) );
+		 	if( !t.equals(Type.PATTERN) || !t.equals(Type.CHANNEL) ) {
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($operation::id, "Pattern' or 'Channel"), $operation::line, $operation::pos) );
 			}
 			//else
 			if (local_errors.isEmpty()){
@@ -1191,7 +1191,7 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 		$attribute_call.name = "names";
 		$attribute_call.errors = local_errors;
 	}
-	
+	/*
 	| ^(OP_ENDS ID) 
 	{
 		if ($attribute_call.ts != null){
@@ -1211,6 +1211,7 @@ attribute_call[TinySymbol ts] returns[ArrayList<SimpleError> errors, List<Type> 
 		$attribute_call.name = "ends";
 		$attribute_call.errors = local_errors;
 	}
+	*/
 	
 	| OP_FST		
 	{

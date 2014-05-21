@@ -4,6 +4,7 @@
 package pt.uminho.di.cp.reconfigurations;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -97,20 +98,22 @@ public class Remove implements IReconfiguration {
 	
 					if(cm_node.getEnds().size() > 1){
 						//after remove the channel, test if any of the other channels have equal nodes, and change them ids
-						for (CommunicationMean2 cm : pattern) {
+						Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
 
-							LinkedHashSet<Node> inodes = cm.getInodes();
-							LinkedHashSet<Node> onodes = cm.getOnodes();
+						Iterator<CommunicationMean2> it = pattern.iterator();						
+						while(it.hasNext()){
+							CommunicationMean2 cm = it.next();
+						    it.remove();
+						
+							LinkedHashSet<Node> inodes = new LinkedHashSet<Node>(cm.getInodes());
+							LinkedHashSet<Node> onodes = new LinkedHashSet<Node>(cm.getOnodes());
 							
-							ArrayList<String> aux_node = new ArrayList<String>();
-							for ( String end : cm_node.getEnds() ){
-								aux_node.add(end);
-							}
-							aux_node.remove(aux_node.size() - 1);
-							
+							ArrayList<String> aux_node = new ArrayList<String>( cm_node.getEnds() );
+							aux_node.remove( aux_node.size()-1 ); //remove one end -> change name of new node (eg: a.b.c -> a.b)
+
 							LinkedHashSet<String> ends = new LinkedHashSet<String>(aux_node);
 							Node new_node = new Node(ends);
-							
+
 							for (Node inode : inodes){
 								if( inode.equals(cm_node) ){
 									cm.getInodes().remove(inode);
@@ -124,14 +127,18 @@ public class Remove implements IReconfiguration {
 									cm.getOnodes().add(new_node);
 								}
 							}
+
+							aux_pattern.add(cm);
 						}
+						
+						cp.setPattern(aux_pattern);
 					}
 					
 				}
 			}
 		}
 		
-		return cp;
+		return new CoordinationPattern2(cp);
 	}
 
 

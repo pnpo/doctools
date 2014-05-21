@@ -215,6 +215,9 @@ public class CommunicationMean2 {
 	}
 
 
+	public LinkedHashSet<Node> getNodes() {
+		return getEnds();
+	}
 	///////////////
 
 

@@ -41,7 +41,7 @@ tokens {
 
 reclang
 	: 	directive_def* element*
-		-> ^(RECONFIGS directive_def* element*) 
+		-> ^(RECONFIGS directive_def* element*)
 	;
 
 
@@ -166,17 +166,23 @@ for_instruction
 		-> ^(FORALL datatype ID ID reconfiguration_block)
 	;
 	
-	
+/*		
 expression
-	:	factor (expr_op^)?
+	:	factor OP_UNION^ factor
+	|	factor OP_INTERSECTION^ factor
+	|	factor OP_MINUS^ factor
+	|	factor
+	;	
+*/
+expression
+	:	factor (expr_op^ factor)? 
 	;
 	
 expr_op
-	:	OP_UNION^ factor
-	|	OP_INTERSECTION^ factor
-	| 	OP_MINUS^ factor 
+	:	OP_UNION
+	|	OP_INTERSECTION
+	| 	OP_MINUS
 	;
-
 
 factor
 	:	ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END 	 	-> ^(ID ID)  //rever se faz falta
@@ -207,10 +213,9 @@ attribute_call
 	:	OP_IN (SEP_LIST_START INT SEP_LIST_END)?  	-> ^(OP_IN INT?)
 	| 	OP_OUT (SEP_LIST_START INT SEP_LIST_END)?	-> ^(OP_OUT INT?)
 	|	OP_NAME						-> OP_NAME
-	|	OP_ENDS SEP_ARGS_START ID SEP_ARGS_END		-> ^(OP_ENDS ID)
+//	|	OP_ENDS SEP_ARGS_START ID SEP_ARGS_END		-> ^(OP_ENDS ID)
 	|	OP_NODES					-> OP_NODES
 	|	OP_NAMES					-> OP_NAMES
-	|	OP_CHANNELS					-> OP_CHANNELS
 	|	OP_FST						-> OP_FST
 	|	OP_SND						-> OP_SND
 	|	OP_TRD						-> OP_TRD

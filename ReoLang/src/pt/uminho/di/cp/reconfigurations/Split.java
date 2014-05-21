@@ -120,7 +120,7 @@ public class Split implements IReconfiguration {
 		}
 		
 		cp.setPattern(aux_pattern);
-		return cp;
+		return new CoordinationPattern2(cp);
 	}	
 
 

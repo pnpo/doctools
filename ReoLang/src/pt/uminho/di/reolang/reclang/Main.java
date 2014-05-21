@@ -1,115 +1,48 @@
 package pt.uminho.di.reolang.reclang;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
-import pt.uminho.di.cp.model.CommunicationMean2;
-import pt.uminho.di.cp.model.CoordinationPattern2;
-import pt.uminho.di.cp.model.Node;
-import pt.uminho.di.reolang.parsing.util.Pair;
 import pt.uminho.di.reolang.parsing.util.SimpleError;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
-import pt.uminho.di.reolang.parsing.util.Triple;
 
 public class Main {
 	
     public static void main(String args[]) throws Exception {
-        /*
-    	List<String> datatype = new ArrayList<String>();
-    	datatype.add("LinkedHashSet");
-    	//datatype.add("Pair");
-    	datatype.add("Triple");
-    	datatype.add("Node");
-    	
-    	RecTranslator rt = new RecTranslator(null);
-    	String dt = rt.datatypeToString(datatype);
-    	
-    	System.out.println(dt);
-    	*/
     	
     	Processor p = new Processor("InputExamples/new_reconfigurations.part.rlf"); //rec_tests.rlf ");
     	TinySymbolsTable ids_table = p.getIdentifiersTable();
     	List<SimpleError> errors = p.getSemanticErrors(ids_table);
     	
-    	ArrayList<String> translation = new ArrayList<String>();
+    	HashMap<String, String> translation = new HashMap<String, String>();
     	if (errors != null && errors.isEmpty()){
     		translation = p.getTranslation("resources/template.stg", ids_table);
     	}
     	else{
     		System.out.println(errors);	
     	}
-    	
-    	/* TESTES 
-    	CoordinationPattern2 cp = new CoordinationPattern2();
-    	CommunicationMean2 cm = new CommunicationMean2();
-    	Pair<Node, Node> x = new Pair<Node, Node>();
-    	Triple<Node, Node, Node> y = new Triple<Node, Node, Node>();
-    	
 
-    	LinkedHashSet<Node> E = new LinkedHashSet<Node>();
-		ArrayList<Node> ns = new ArrayList<Node>(E);
-    	for (int i=0; i <ns.size(); i++){
-    		Node n = ns.get(i);
-    		
-    	}
-    	*/
-    	
-    	
-    	Node a = new Node();
-		a.addEnd("a");
-		
-		Node bc = new Node();
-		bc.addEnd("b");
-		bc.addEnd("c");
-		
-		Node d = new Node();
-		d.addEnd("d");
-		
-    	final LinkedHashSet<Node> x = new LinkedHashSet<Node>();
-    	x.add(a);
-    	final LinkedHashSet<Node> y = new LinkedHashSet<Node>();
-    	y.add(bc);
-    	final LinkedHashSet<Node> z = new LinkedHashSet<Node>();
-    	z.add(d);
-
-//    	Set<Node> x;
-//    	Set<Node> y;
-//    	Set<Node> z;
-//    	x = a + b
-//    	
-//    	@ rec(a+b, c);
-//    	S(a+b, c)
-//    	P(a+b, c)
-    	
-    	System.out.println( new LinkedHashSet<Node>(x){{addAll(y);}} );
-    	
-
-//    	Set<Set<Node>> s = S(x+y,z);
-    	final LinkedHashSet<Node> $1 = new LinkedHashSet<Node>(x){{addAll(y); }};
-    	LinkedHashSet<LinkedHashSet<Node>> s = new LinkedHashSet<LinkedHashSet<Node>>(){{ 
-    		add($1); 
-    		add(z); 
-    	}};
-    	
-    	LinkedHashSet<LinkedHashSet<Node>> s2 = new LinkedHashSet<LinkedHashSet<Node>>(){{ 
-    		add( new LinkedHashSet<Node>(x){{ addAll(y); }} ); 
-    		add(z); 
-    	}};
-    	
-    	LinkedHashSet<Node> s1 = new LinkedHashSet<Node>((Collection<? extends Node>) Arrays.asList( new LinkedHashSet<Node>(x).addAll(y),z) );
-    	System.out.println(s);
-    	//System.out.println(s1);
-    	System.out.println(s2);
-    	
-    	//*/
     	
     	//do something with translation...
     	System.out.println(translation);
+    	
+    	for (String rec : translation.keySet()){
+    		PrintWriter writer = new PrintWriter("tests/output/" + rec + ".java", "UTF-8");
+    		writer.println("import " + PkgConstants.JAVA_UTIL + ".*;");
+    		writer.println("import " + PkgConstants.CP_MODEL + ".*;");
+    		writer.println("import " + PkgConstants.CP_RECONFIGURATIONS + ".*;");
+    		writer.println("import " + PkgConstants.REOLANG_PARSING_UTIL + ".*;\n");
+    		writer.print(translation.get(rec));
+    		writer.close();
+    		
+    		
+    	}
     }
 
+    
+    
+    
     
     
     

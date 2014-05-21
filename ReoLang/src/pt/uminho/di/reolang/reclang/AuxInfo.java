@@ -75,15 +75,15 @@ public class AuxInfo {
 		
 		
 		
-		System.out.println("INIT------------------");
-		System.out.println(p);
-		System.out.println(p.intoIMCScript());
+//		System.out.println("INIT------------------");
+//		System.out.println(p);
+//		System.out.println(p.intoIMCScript());
 		
 		
 		Id id = new Id();
 		p = id.apply(p);
-		System.out.println("ID------------------");
-		System.out.println(p);
+//		System.out.println("ID------------------");
+//		System.out.println(p);
 		
 		
 		Node g = new Node();
@@ -129,8 +129,8 @@ public class AuxInfo {
 		
 		Par par = new Par(p2);
 		p = par.apply(p);
-		System.out.println("PAR------------------");
-		System.out.println(p);
+//		System.out.println("PAR------------------");
+//		System.out.println(p);
 		
 		LinkedHashSet<Node> n = new LinkedHashSet<Node>();
 		n.add(d);
@@ -139,8 +139,8 @@ public class AuxInfo {
 		Join join;
 		join= new Join(n);
 		p = join.apply(p);
-		System.out.println("JOIN------------------");
-		System.out.println(p);
+//		System.out.println("JOIN------------------");
+//		System.out.println(p);
 	
 	//	Node xyz = new Node();
 	//	xyz.addEnd("x");
@@ -148,13 +148,13 @@ public class AuxInfo {
 	//	xyz.addEnd("z");
 		Split split = new Split(hi);
 		p = split.apply(p);
-		System.out.println("SPLIT------------------");
-		System.out.println(p);
+//		System.out.println("SPLIT------------------");
+//		System.out.println(p);
 		
 		Remove remove = new Remove("s1");
 		p = remove.apply(p);
-		System.out.println("REMOVE------------------");
-		System.out.println(p);
+//		System.out.println("REMOVE------------------");
+//		System.out.println(p);
 		
 		in = new LinkedHashSet<Node>();
 		Node k = new Node();
@@ -191,8 +191,8 @@ public class AuxInfo {
 		cms3.add(cm7);	//sync
 		p3.setPattern(cms3);
 		
-		System.out.println("CP TO OVERLAP------------------");
-		System.out.println(p3);
+//		System.out.println("CP TO OVERLAP------------------");
+//		System.out.println(p3);
 		
 		Pair<Node,Node> pair = new Pair<Node,Node>();
 		pair.setFirst(f);

@@ -390,7 +390,7 @@ attribute_call
 	| OP_NAME
 	| OP_NODES
 	| OP_NAMES
-	| ^(OP_ENDS ID) 
+//	| ^(OP_ENDS ID) 
 	| OP_FST
 	| OP_SND
 	| OP_TRD
