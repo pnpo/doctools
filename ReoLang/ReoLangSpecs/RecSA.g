@@ -150,6 +150,7 @@ element returns[ArrayList<SimpleError> errors]
 	}
 	)
 	| ^(APPLICATION applicaiton_def)	
+	| ^(MAIN main_def)
 	;
 
 
@@ -1604,3 +1605,39 @@ trigger_block
 	: SEP_BLOCK_START SEP_BLOCK_END
 	;
 
+
+
+
+main_def
+	: main_args? main_block
+	;
+
+main_args
+	: ^(ARGUMENTS main_arg+)
+	;
+
+main_arg
+	: ^(ARGUMENT ID ids)
+	;	
+
+ids
+	: ^(IDS ID+)
+	;	
+	
+
+main_block
+	: ^(INSTRUCTIONS main_instruction+)
+	;
+
+main_instruction
+	: main_declaration
+	| main_assignment
+	;
+
+main_declaration
+	: ^(DECLARATION ID ids)
+	;
+
+main_assignment
+	: ^( APPLICATION ( ^(DECLARATION ID? ids) )? ^(OP_APPLY ID reconfiguration_call) )
+	;

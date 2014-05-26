@@ -19,7 +19,10 @@ RW_IMPORT
 	:	'import'
 	;
 		
-	
+RW_MAIN
+	:	'main'
+	;	
+
 
 
 //DataTypes

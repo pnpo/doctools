@@ -19,6 +19,8 @@ import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 public class Processor {
 
 		private RecParser.reclang_return res;
+	    private ArrayList<SimpleError> syntax_errors;
+		
 		
 		public Processor(String input_file) {
 			
@@ -30,11 +32,19 @@ public class Processor {
 				RecParser parser = new RecParser(tokens);
 				
 				this.res = parser.reclang();
+				this.syntax_errors = parser.getErrors();
 				
 			} catch (Exception e) {
 		        e.printStackTrace();
 		    }
 		}
+		
+		
+		
+		public ArrayList<SimpleError> getSyntaxErrors(){
+			return syntax_errors;
+		}
+		
 		
 		public TinySymbolsTable getIdentifiersTable(){
 			TinySymbolsTable ids_table = null;

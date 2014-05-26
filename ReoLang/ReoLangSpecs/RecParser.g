@@ -26,16 +26,33 @@ tokens {
 	ACCESS;
 	STRUCTURE;
 	APPLICATION;
+	MAIN;
+	IDS;
 	SIGNATURE;
 } 
 
 
 
 @header{
-	package pt.uminho.di.reolang.reclang;  
+	package pt.uminho.di.reolang.reclang;
+	
+	import pt.uminho.di.reolang.parsing.util.SimpleError;
+	import pt.uminho.di.reolang.parsing.util.ErrorType;
 }
 
-
+@members{
+	private ArrayList<SimpleError> syntax_errors = new ArrayList<SimpleError>();
+	
+	@Override
+	public void emitErrorMessage(String msg) {
+        	syntax_errors.add(new SimpleError(ErrorType.ERROR, msg));
+	}
+	
+	//Notice the access to the errors of the imported grammars
+	public ArrayList<SimpleError> getErrors() {
+		return this.syntax_errors;
+	}
+}
 
 //GRAMMAR
 
@@ -66,6 +83,7 @@ directive_import
 element
 	:	reconfiguration_def	-> ^(RECONFIGURATION reconfiguration_def)
 	|	applicaiton_def		-> ^(APPLICATION applicaiton_def)	
+	| 	main_def		-> ^(MAIN main_def)
 	;
 
 
@@ -256,7 +274,7 @@ xor_cons
 
 
 applicaiton_def 
-	:	ID OP_APPLY  list_reconfigurations  trigger_def?
+	:	ID OP_APPLY  list_reconfigurations  trigger_def? 
 		-> ID list_reconfigurations trigger_def?
 	;
 	
@@ -273,3 +291,45 @@ trigger_block
 	:	SEP_BLOCK_START SEP_BLOCK_END
 	;
 
+
+
+
+main_def
+	:	RW_MAIN SEP_LIST_START main_args? SEP_LIST_END main_block
+		-> main_args? main_block
+	;
+
+main_args
+	:	main_arg (SEP_SEMICOLON main_arg)*
+		-> ^(ARGUMENTS main_arg+)
+	;
+
+main_arg
+	: 	dt=ID ids
+		-> ^(ARGUMENT ID ids)
+	;	
+
+ids
+	:	ID (SEP_COMMA ID)* -> ^(IDS ID+)
+	;	
+	
+
+main_block
+	:	SEP_BLOCK_START main_instruction+ SEP_BLOCK_END
+		-> ^(INSTRUCTIONS main_instruction+)
+	;
+
+main_instruction
+	:	main_declaration SEP_SEMICOLON 		-> main_declaration
+	|	main_assignment SEP_SEMICOLON		-> main_assignment
+	;
+
+main_declaration
+	:	dt=ID ids
+		-> ^(DECLARATION $dt ids)
+	;
+
+main_assignment
+	:	(dt=ID? ids OP_EQUAL)? id2=ID OP_APPLY reconfiguration_call
+		-> ^(APPLICATION ( ^(DECLARATION $dt? ids) )? ^(OP_APPLY $id2 reconfiguration_call) )
+	;

@@ -27,6 +27,13 @@ public class SimpleError {
     	return new SimpleError(type, message, 0, 0);
     }
   
+    /*
+    public static SimpleError report (ErrorType type, String message, boolean ofSystem)
+    {
+    	return new SimpleError(type, message);
+    }
+    */
+  
     
     
     
@@ -93,7 +100,15 @@ public class SimpleError {
     	this.setTime_stamp(formatter.format(date.getTime()));
     }
 	
-    
+    public SimpleError(ErrorType type, String full_message) {
+    	
+    	this.setFieldsFromFullMessage(full_message); //set fields 'message', 'line' and 'column'
+    	this.setType(type);
+    	
+    	DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+    	Date date = new Date();
+    	this.setTime_stamp(formatter.format(date.getTime()));
+    }
     
     
     /**
@@ -188,5 +203,53 @@ public class SimpleError {
 		"< " + this.time_stamp + " > " + this.type.toString() + " line " + this.line + ":" + this.position + " -> " + this.message +  "\n"
 		;
 	}
+
 	
+	
+	
+	
+	
+	
+	
+	//****************PRIVATE****************//
+	
+	/**
+     * This method processes the full formatted message
+     * and sets the following fields:
+     * . line
+     * . position
+     * . message 
+     * 
+     * @param full_message a formatted message of type:
+     * (PATH_TO_FILE)? line LINE:COLUMN MESSAGE
+     * 
+     */
+    private void setFieldsFromFullMessage(String full_message) {
+    	int idx_first_space;
+    	int idx_colon;
+    	
+    	String remaining = full_message;
+    	idx_first_space = full_message.indexOf(' ');
+    	
+    	String regexp = "^line [0-9]+";
+    	String initial_part = full_message.substring(0,6);
+
+    	if(!initial_part.matches(regexp)){ //if matches it is because there is a name of a file
+    		//file_path = full_message.substring(0,idx_first_space);
+    		
+        	remaining = full_message.substring(idx_first_space + 1);
+        	idx_first_space = remaining.indexOf(' ');
+    	}
+    	
+    	remaining = remaining.substring(idx_first_space + 1);
+    	idx_colon = remaining.indexOf(':');
+    	this.setLine(Integer.parseInt(remaining.substring(0,idx_colon)));
+    	
+    	remaining = remaining.substring(idx_colon + 1);
+    	idx_first_space = remaining.indexOf(' ');
+    	this.setPosition(Integer.parseInt(remaining.substring(0,idx_first_space)));
+    	
+    	remaining = remaining.substring(idx_first_space + 1);
+    	this.setMessage(remaining + "!");
+    }
 }
