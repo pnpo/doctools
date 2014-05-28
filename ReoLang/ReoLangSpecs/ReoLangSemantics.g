@@ -28,7 +28,7 @@ options{
 
 //RULES
 
-reolang[ArrayList<Error> i_errors, String i_file, SymbolsTable i_gtable] returns [ArrayList<Error> errors, SymbolsTable symbols]	
+reolang[ArrayList<Error> i_errors, String i_file, SymbolsTable i_gtable] returns [ArrayList<Error> errors, SymbolsTable symbols, HashMap<String, ArrayList<String>> nodes]	
 	scope{
 		SymbolsTable global_table; 
 		String file;
@@ -60,6 +60,7 @@ reolang[ArrayList<Error> i_errors, String i_file, SymbolsTable i_gtable] returns
 		local_errors.addAll($reolang.i_errors);
 		$reolang.errors = local_errors;
 		$reolang.symbols = $reolang::global_table;
+		$reolang.nodes = this.pattern_nodes; 
 	}
 	
 	;
@@ -123,6 +124,7 @@ directive_import returns [ArrayList<Error> o_errors]
 		ReoLangSemantics.reolang_return imported_atts = semantics.performSemanticAnalysis($reolang::global_table);
 		$directive_import.o_errors = imported_atts != null ? imported_atts.errors : new ArrayList<Error>(0);
 		$reolang::global_table = imported_atts != null ? imported_atts.symbols : $reolang::global_table ;
+		this.pattern_nodes.putAll(imported_atts.nodes);
 	}
 	
 	;
