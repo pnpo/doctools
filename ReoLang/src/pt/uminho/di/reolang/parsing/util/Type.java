@@ -8,6 +8,7 @@ package pt.uminho.di.reolang.parsing.util;
  */
 
 public enum Type {
+	MAIN,
 	PATTERN,
 		TYPE,
 	CHANNEL,

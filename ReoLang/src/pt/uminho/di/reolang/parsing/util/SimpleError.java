@@ -77,6 +77,10 @@ public class SimpleError {
     	return "The elements of " + constructor + " are not all of the same type!";
     }
     
+    public static String fileDoesNotExist(String file_path){
+    	return "File '" + file_path + "' does not exist!";
+    }
+    
     
     //****************INSTANCE PART****************//
     

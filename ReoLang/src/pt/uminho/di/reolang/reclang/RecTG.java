@@ -1,8 +1,10 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g 2014-05-22 21:28:08
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g 2014-05-29 01:25:49
 
 	package pt.uminho.di.reolang.reclang;
 	
 	import pt.uminho.di.reolang.parsing.util.*;
+	import java.util.HashMap;	
+	import java.io.File;
 
 
 import org.antlr.runtime.*;
@@ -135,7 +137,7 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "reclang"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:23:1: reclang returns [TinySymbolsTable global_table] : ^( RECONFIGS ( directive_def )* ( element )* ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:25:1: reclang returns [TinySymbolsTable global_table] : ^( RECONFIGS ( directive_def )* ( element )* ) ;
     public final TinySymbolsTable reclang() throws RecognitionException {
         reclang_stack.push(new reclang_scope());
         TinySymbolsTable global_table = null;
@@ -150,14 +152,14 @@ public class RecTG extends TreeParser {
         	
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:39:2: ( ^( RECONFIGS ( directive_def )* ( element )* ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:39:4: ^( RECONFIGS ( directive_def )* ( element )* )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:41:2: ( ^( RECONFIGS ( directive_def )* ( element )* ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:41:4: ^( RECONFIGS ( directive_def )* ( element )* )
             {
             match(input,RECONFIGS,FOLLOW_RECONFIGS_in_reclang61); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:39:16: ( directive_def )*
+                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:41:16: ( directive_def )*
                 loop1:
                 do {
                     int alt1=2;
@@ -170,7 +172,7 @@ public class RecTG extends TreeParser {
 
                     switch (alt1) {
                 	case 1 :
-                	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:39:16: directive_def
+                	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:41:16: directive_def
                 	    {
                 	    pushFollow(FOLLOW_directive_def_in_reclang63);
                 	    directive_def();
@@ -186,7 +188,7 @@ public class RecTG extends TreeParser {
                     }
                 } while (true);
 
-                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:39:31: ( element )*
+                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:41:31: ( element )*
                 loop2:
                 do {
                     int alt2=2;
@@ -199,7 +201,7 @@ public class RecTG extends TreeParser {
 
                     switch (alt2) {
                 	case 1 :
-                	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:39:31: element
+                	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:41:31: element
                 	    {
                 	    pushFollow(FOLLOW_element_in_reclang66);
                 	    element();
@@ -239,11 +241,11 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "directive_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:52:1: directive_def : directive_import ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:54:1: directive_def : directive_import ;
     public final void directive_def() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:53:2: ( directive_import )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:53:4: directive_import
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:55:2: ( directive_import )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:55:4: directive_import
             {
             pushFollow(FOLLOW_directive_import_in_directive_def92);
             directive_import();
@@ -266,16 +268,43 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "directive_import"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:57:1: directive_import : ^( IMPORT STRING ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:59:1: directive_import : ^( IMPORT STRING ) ;
     public final void directive_import() throws RecognitionException {
+        CommonTree STRING1=null;
+
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:58:2: ( ^( IMPORT STRING ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:58:4: ^( IMPORT STRING )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:60:2: ( ^( IMPORT STRING ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:60:4: ^( IMPORT STRING )
             {
             match(input,IMPORT,FOLLOW_IMPORT_in_directive_import106); 
 
             match(input, Token.DOWN, null); 
-            match(input,STRING,FOLLOW_STRING_in_directive_import108); 
+            STRING1=(CommonTree)match(input,STRING,FOLLOW_STRING_in_directive_import108); 
+
+            		String file_name = (STRING1!=null?STRING1.getText():null);
+            		String file = file_name.substring(1, file_name.length()-1); //remove " from string
+            		
+            	    	File f = new File( file );
+            	    	if( f.exists() ){
+            			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
+            			
+            			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
+            				Processor p = new Processor(file);
+            				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
+            				if ( !imported_ids_table.getSymbols().isEmpty() ){
+            					HashMap<String, TinySymbol> changed_symbols = new HashMap<String, TinySymbol>();
+            					for (TinySymbol ts : imported_ids_table.getSymbols().values()){
+            						ts.setLine((STRING1!=null?STRING1.getLine():0));
+            						changed_symbols.put(ts.getId(), ts);
+            					}
+            					this.ids_table.addSymbols( changed_symbols );
+            				}
+            			}
+            			else {	//if is a CooPLa file
+            				//...
+            			}
+            		}
+            	
 
             match(input, Token.UP, null); 
 
@@ -294,10 +323,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "element"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:66:1: element : ( ^( RECONFIGURATION reconfiguration_def ) | ^( APPLICATION applicaiton_def ) | ^( MAIN main_def ) );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:94:1: element : ( ^( RECONFIGURATION reconfiguration_def ) | ^( APPLICATION applicaiton_def ) | ^( MAIN main_def ) );
     public final void element() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:67:2: ( ^( RECONFIGURATION reconfiguration_def ) | ^( APPLICATION applicaiton_def ) | ^( MAIN main_def ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:95:2: ( ^( RECONFIGURATION reconfiguration_def ) | ^( APPLICATION applicaiton_def ) | ^( MAIN main_def ) )
             int alt3=3;
             switch ( input.LA(1) ) {
             case RECONFIGURATION:
@@ -324,12 +353,12 @@ public class RecTG extends TreeParser {
 
             switch (alt3) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:67:4: ^( RECONFIGURATION reconfiguration_def )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:95:4: ^( RECONFIGURATION reconfiguration_def )
                     {
-                    match(input,RECONFIGURATION,FOLLOW_RECONFIGURATION_in_element127); 
+                    match(input,RECONFIGURATION,FOLLOW_RECONFIGURATION_in_element132); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_reconfiguration_def_in_element129);
+                    pushFollow(FOLLOW_reconfiguration_def_in_element134);
                     reconfiguration_def();
 
                     state._fsp--;
@@ -340,12 +369,12 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:68:4: ^( APPLICATION applicaiton_def )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:96:4: ^( APPLICATION applicaiton_def )
                     {
-                    match(input,APPLICATION,FOLLOW_APPLICATION_in_element136); 
+                    match(input,APPLICATION,FOLLOW_APPLICATION_in_element141); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_applicaiton_def_in_element138);
+                    pushFollow(FOLLOW_applicaiton_def_in_element143);
                     applicaiton_def();
 
                     state._fsp--;
@@ -356,12 +385,12 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:69:4: ^( MAIN main_def )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:97:4: ^( MAIN main_def )
                     {
-                    match(input,MAIN,FOLLOW_MAIN_in_element146); 
+                    match(input,MAIN,FOLLOW_MAIN_in_element151); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_main_def_in_element148);
+                    pushFollow(FOLLOW_main_def_in_element153);
                     main_def();
 
                     state._fsp--;
@@ -395,10 +424,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "reconfiguration_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:74:1: reconfiguration_def : ^( ID ( args_def )? reconfiguration_block ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:102:1: reconfiguration_def : ^( ID ( args_def )? reconfiguration_block ) ;
     public final void reconfiguration_def() throws RecognitionException {
         reconfiguration_def_stack.push(new reconfiguration_def_scope());
-        CommonTree ID1=null;
+        CommonTree ID2=null;
 
 
         	((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol = new TinySymbol();
@@ -410,14 +439,14 @@ public class RecTG extends TreeParser {
         	((reclang_scope)reclang_stack.peek()).scope_id = 0;
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:91:2: ( ^( ID ( args_def )? reconfiguration_block ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:91:4: ^( ID ( args_def )? reconfiguration_block )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:119:2: ( ^( ID ( args_def )? reconfiguration_block ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:119:4: ^( ID ( args_def )? reconfiguration_block )
             {
-            ID1=(CommonTree)match(input,ID,FOLLOW_ID_in_reconfiguration_def170); 
+            ID2=(CommonTree)match(input,ID,FOLLOW_ID_in_reconfiguration_def175); 
 
 
             		
-            		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setId((ID1!=null?ID1.getText():null));
+            		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setId((ID2!=null?ID2.getText():null));
             		
             		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( Type.PATTERN );	//Type.values()[0]
             		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setDataType(((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype);
@@ -425,12 +454,12 @@ public class RecTG extends TreeParser {
             		Type classtype = Type.RECONFIG; 	//Type.valueOf("RECONFIG")
             		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setClassType(classtype);
             		
-            		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setLine((ID1!=null?ID1.getLine():0));
-            		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setPosition((ID1!=null?ID1.getCharPositionInLine():0));
+            		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setLine((ID2!=null?ID2.getLine():0));
+            		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.setPosition((ID2!=null?ID2.getCharPositionInLine():0));
             	
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:106:2: ( args_def )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:134:2: ( args_def )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -439,9 +468,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt4) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:106:2: args_def
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:134:2: args_def
                     {
-                    pushFollow(FOLLOW_args_def_in_reconfiguration_def179);
+                    pushFollow(FOLLOW_args_def_in_reconfiguration_def184);
                     args_def();
 
                     state._fsp--;
@@ -452,7 +481,7 @@ public class RecTG extends TreeParser {
 
             }
 
-            pushFollow(FOLLOW_reconfiguration_block_in_reconfiguration_def182);
+            pushFollow(FOLLOW_reconfiguration_block_in_reconfiguration_def187);
             reconfiguration_block();
 
             state._fsp--;
@@ -461,7 +490,7 @@ public class RecTG extends TreeParser {
             		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.addScopes(((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope, ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).sub_scopes);
             		
             		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol.removeRepeatedIds();
-            		if(!ids_table.containsSymbol((ID1!=null?ID1.getText():null))){
+            		if(!ids_table.containsSymbol((ID2!=null?ID2.getText():null))){
             			ids_table.addSymbol(((reconfiguration_def_scope)reconfiguration_def_stack.peek()).rec_symbol);
             		}
             	
@@ -484,20 +513,20 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "args_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:118:1: args_def : ^( ARGUMENTS ( arg_def )+ ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:146:1: args_def : ^( ARGUMENTS ( arg_def )+ ) ;
     public final void args_def() throws RecognitionException {
 
         	((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.setScopeRel( new Pair<Integer, Integer>(((reclang_scope)reclang_stack.peek()).scope_id, ((reclang_scope)reclang_stack.peek()).parent_id) );
         	((reclang_scope)reclang_stack.peek()).scope_id++;
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:123:2: ( ^( ARGUMENTS ( arg_def )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:123:4: ^( ARGUMENTS ( arg_def )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:151:2: ( ^( ARGUMENTS ( arg_def )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:151:4: ^( ARGUMENTS ( arg_def )+ )
             {
-            match(input,ARGUMENTS,FOLLOW_ARGUMENTS_in_args_def205); 
+            match(input,ARGUMENTS,FOLLOW_ARGUMENTS_in_args_def210); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:123:16: ( arg_def )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:151:16: ( arg_def )+
             int cnt5=0;
             loop5:
             do {
@@ -511,9 +540,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:123:16: arg_def
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:151:16: arg_def
             	    {
-            	    pushFollow(FOLLOW_arg_def_in_args_def207);
+            	    pushFollow(FOLLOW_arg_def_in_args_def212);
             	    arg_def();
 
             	    state._fsp--;
@@ -549,24 +578,24 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "arg_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:127:1: arg_def : ^( ARGUMENT datatype list_ids ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:155:1: arg_def : ^( ARGUMENT datatype list_ids ) ;
     public final void arg_def() throws RecognitionException {
 
         	((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype = new ArrayList<Type>();
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:131:2: ( ^( ARGUMENT datatype list_ids ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:131:4: ^( ARGUMENT datatype list_ids )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:159:2: ( ^( ARGUMENT datatype list_ids ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:159:4: ^( ARGUMENT datatype list_ids )
             {
-            match(input,ARGUMENT,FOLLOW_ARGUMENT_in_arg_def228); 
+            match(input,ARGUMENT,FOLLOW_ARGUMENT_in_arg_def233); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_datatype_in_arg_def230);
+            pushFollow(FOLLOW_datatype_in_arg_def235);
             datatype();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_list_ids_in_arg_def232);
+            pushFollow(FOLLOW_list_ids_in_arg_def237);
             list_ids();
 
             state._fsp--;
@@ -589,13 +618,13 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "datatype"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:134:1: datatype : ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | ^( other_type subtype ) );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:162:1: datatype : ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | ^( other_type subtype ) );
     public final void datatype() throws RecognitionException {
-        Type other_type2 = null;
+        Type other_type3 = null;
 
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:135:2: ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | ^( other_type subtype ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:163:2: ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | ^( other_type subtype ) )
             int alt6=6;
             switch ( input.LA(1) ) {
             case DT_PATTERN:
@@ -639,60 +668,60 @@ public class RecTG extends TreeParser {
 
             switch (alt6) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:135:4: DT_PATTERN
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:163:4: DT_PATTERN
                     {
-                    match(input,DT_PATTERN,FOLLOW_DT_PATTERN_in_datatype245); 
+                    match(input,DT_PATTERN,FOLLOW_DT_PATTERN_in_datatype250); 
                      ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( Type.PATTERN ); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:136:4: DT_CHANNEL
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:164:4: DT_CHANNEL
                     {
-                    match(input,DT_CHANNEL,FOLLOW_DT_CHANNEL_in_datatype252); 
+                    match(input,DT_CHANNEL,FOLLOW_DT_CHANNEL_in_datatype257); 
                      ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( Type.CHANNEL ); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:137:4: DT_NAME
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:165:4: DT_NAME
                     {
-                    match(input,DT_NAME,FOLLOW_DT_NAME_in_datatype259); 
+                    match(input,DT_NAME,FOLLOW_DT_NAME_in_datatype264); 
                      ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( Type.NAME ); 
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:138:4: DT_NODE
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:166:4: DT_NODE
                     {
-                    match(input,DT_NODE,FOLLOW_DT_NODE_in_datatype266); 
+                    match(input,DT_NODE,FOLLOW_DT_NODE_in_datatype271); 
                      ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( Type.NODE ); 
 
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:139:4: DT_XOR
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:167:4: DT_XOR
                     {
-                    match(input,DT_XOR,FOLLOW_DT_XOR_in_datatype274); 
+                    match(input,DT_XOR,FOLLOW_DT_XOR_in_datatype279); 
                      ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( Type.XOR ); 
 
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:141:5: ^( other_type subtype )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:169:5: ^( other_type subtype )
                     {
-                    pushFollow(FOLLOW_other_type_in_datatype286);
-                    other_type2=other_type();
+                    pushFollow(FOLLOW_other_type_in_datatype291);
+                    other_type3=other_type();
 
                     state._fsp--;
 
 
 
-                    		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( other_type2 );
+                    		((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype.add( other_type3 );
                     	
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_subtype_in_datatype292);
+                    pushFollow(FOLLOW_subtype_in_datatype297);
                     subtype();
 
                     state._fsp--;
@@ -717,12 +746,12 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "other_type"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:149:1: other_type returns [Type type] : ( DT_SET | DT_PAIR | DT_TRIPLE );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:177:1: other_type returns [Type type] : ( DT_SET | DT_PAIR | DT_TRIPLE );
     public final Type other_type() throws RecognitionException {
         Type type = null;
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:150:2: ( DT_SET | DT_PAIR | DT_TRIPLE )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:178:2: ( DT_SET | DT_PAIR | DT_TRIPLE )
             int alt7=3;
             switch ( input.LA(1) ) {
             case DT_SET:
@@ -749,25 +778,25 @@ public class RecTG extends TreeParser {
 
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:150:4: DT_SET
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:178:4: DT_SET
                     {
-                    match(input,DT_SET,FOLLOW_DT_SET_in_other_type310); 
+                    match(input,DT_SET,FOLLOW_DT_SET_in_other_type315); 
                      type = Type.SET; 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:151:4: DT_PAIR
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:179:4: DT_PAIR
                     {
-                    match(input,DT_PAIR,FOLLOW_DT_PAIR_in_other_type320); 
+                    match(input,DT_PAIR,FOLLOW_DT_PAIR_in_other_type325); 
                      type = Type.PAIR; 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:152:4: DT_TRIPLE
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:180:4: DT_TRIPLE
                     {
-                    match(input,DT_TRIPLE,FOLLOW_DT_TRIPLE_in_other_type329); 
+                    match(input,DT_TRIPLE,FOLLOW_DT_TRIPLE_in_other_type334); 
                      type = Type.TRIPLE; 
 
                     }
@@ -787,13 +816,13 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "subtype"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:155:1: subtype : datatype ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:183:1: subtype : datatype ;
     public final void subtype() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:156:2: ( datatype )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:156:4: datatype
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:184:2: ( datatype )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:184:4: datatype
             {
-            pushFollow(FOLLOW_datatype_in_subtype342);
+            pushFollow(FOLLOW_datatype_in_subtype347);
             datatype();
 
             state._fsp--;
@@ -814,15 +843,15 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "list_ids"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:159:1: list_ids : ( ID )+ ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:187:1: list_ids : ( ID )+ ;
     public final void list_ids() throws RecognitionException {
-        CommonTree ID3=null;
+        CommonTree ID4=null;
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:160:2: ( ( ID )+ )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:160:4: ( ID )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:188:2: ( ( ID )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:188:4: ( ID )+
             {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:160:4: ( ID )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:188:4: ( ID )+
             int cnt8=0;
             loop8:
             do {
@@ -836,22 +865,22 @@ public class RecTG extends TreeParser {
 
                 switch (alt8) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:160:5: ID
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:188:5: ID
             	    {
-            	    ID3=(CommonTree)match(input,ID,FOLLOW_ID_in_list_ids355); 
+            	    ID4=(CommonTree)match(input,ID,FOLLOW_ID_in_list_ids360); 
 
             	    		TinySymbol s = new TinySymbol();
-            	    		s.setId((ID3!=null?ID3.getText():null));
+            	    		s.setId((ID4!=null?ID4.getText():null));
             	    		
             	    		s.setDataType( ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype );
             	    		
             	    		Type classtype = Type.ARG;
             	    		s.setClassType(classtype);
             	    		
-            	    		s.setLine((ID3!=null?ID3.getLine():0));
-            	    		s.setPosition((ID3!=null?ID3.getCharPositionInLine():0));
+            	    		s.setLine((ID4!=null?ID4.getLine():0));
+            	    		s.setPosition((ID4!=null?ID4.getCharPositionInLine():0));
             	    		
-            	    		if (!((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.containsSymbol((ID3!=null?ID3.getText():null))){
+            	    		if (!((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.containsSymbol((ID4!=null?ID4.getText():null))){
             	    			((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.addSymbol(s);
             	    		}
             	    	
@@ -884,16 +913,16 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "reconfiguration_block"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:181:1: reconfiguration_block : ^( INSTRUCTIONS ( instruction )+ ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:209:1: reconfiguration_block : ^( INSTRUCTIONS ( instruction )+ ) ;
     public final void reconfiguration_block() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:182:2: ( ^( INSTRUCTIONS ( instruction )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:182:4: ^( INSTRUCTIONS ( instruction )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:210:2: ( ^( INSTRUCTIONS ( instruction )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:210:4: ^( INSTRUCTIONS ( instruction )+ )
             {
-            match(input,INSTRUCTIONS,FOLLOW_INSTRUCTIONS_in_reconfiguration_block377); 
+            match(input,INSTRUCTIONS,FOLLOW_INSTRUCTIONS_in_reconfiguration_block382); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:182:19: ( instruction )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:210:19: ( instruction )+
             int cnt9=0;
             loop9:
             do {
@@ -907,9 +936,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:182:19: instruction
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:210:19: instruction
             	    {
-            	    pushFollow(FOLLOW_instruction_in_reconfiguration_block379);
+            	    pushFollow(FOLLOW_instruction_in_reconfiguration_block384);
             	    instruction();
 
             	    state._fsp--;
@@ -945,10 +974,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "instruction"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:185:1: instruction : ( declaration | assignment | reconfiguration_apply | for_instruction );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:213:1: instruction : ( declaration | assignment | reconfiguration_apply | for_instruction );
     public final void instruction() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:186:2: ( declaration | assignment | reconfiguration_apply | for_instruction )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:214:2: ( declaration | assignment | reconfiguration_apply | for_instruction )
             int alt10=4;
             switch ( input.LA(1) ) {
             case DECLARATION:
@@ -980,9 +1009,9 @@ public class RecTG extends TreeParser {
 
             switch (alt10) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:186:4: declaration
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:214:4: declaration
                     {
-                    pushFollow(FOLLOW_declaration_in_instruction393);
+                    pushFollow(FOLLOW_declaration_in_instruction398);
                     declaration();
 
                     state._fsp--;
@@ -991,9 +1020,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:187:4: assignment
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:215:4: assignment
                     {
-                    pushFollow(FOLLOW_assignment_in_instruction398);
+                    pushFollow(FOLLOW_assignment_in_instruction403);
                     assignment();
 
                     state._fsp--;
@@ -1002,9 +1031,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:188:4: reconfiguration_apply
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:216:4: reconfiguration_apply
                     {
-                    pushFollow(FOLLOW_reconfiguration_apply_in_instruction403);
+                    pushFollow(FOLLOW_reconfiguration_apply_in_instruction408);
                     reconfiguration_apply();
 
                     state._fsp--;
@@ -1013,9 +1042,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:189:4: for_instruction
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:217:4: for_instruction
                     {
-                    pushFollow(FOLLOW_for_instruction_in_instruction408);
+                    pushFollow(FOLLOW_for_instruction_in_instruction413);
                     for_instruction();
 
                     state._fsp--;
@@ -1047,21 +1076,21 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "reconfiguration_apply"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:201:1: reconfiguration_apply : ^( OP_APPLY reconfiguration_call ( ID )? ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:229:1: reconfiguration_apply : ^( OP_APPLY reconfiguration_call ( ID )? ) ;
     public final void reconfiguration_apply() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:202:2: ( ^( OP_APPLY reconfiguration_call ( ID )? ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:202:4: ^( OP_APPLY reconfiguration_call ( ID )? )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:230:2: ( ^( OP_APPLY reconfiguration_call ( ID )? ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:230:4: ^( OP_APPLY reconfiguration_call ( ID )? )
             {
-            match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconfiguration_apply424); 
+            match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconfiguration_apply429); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_reconfiguration_call_in_reconfiguration_apply426);
+            pushFollow(FOLLOW_reconfiguration_call_in_reconfiguration_apply431);
             reconfiguration_call();
 
             state._fsp--;
 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:202:36: ( ID )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:230:36: ( ID )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1070,9 +1099,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:202:36: ID
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:230:36: ID
                     {
-                    match(input,ID,FOLLOW_ID_in_reconfiguration_apply428); 
+                    match(input,ID,FOLLOW_ID_in_reconfiguration_apply433); 
 
                     }
                     break;
@@ -1097,24 +1126,24 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "declaration"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:205:1: declaration : ^( DECLARATION datatype ( var_def )+ ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:233:1: declaration : ^( DECLARATION datatype ( var_def )+ ) ;
     public final void declaration() throws RecognitionException {
 
         	((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype = new ArrayList<Type>();
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:209:2: ( ^( DECLARATION datatype ( var_def )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:209:4: ^( DECLARATION datatype ( var_def )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:237:2: ( ^( DECLARATION datatype ( var_def )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:237:4: ^( DECLARATION datatype ( var_def )+ )
             {
-            match(input,DECLARATION,FOLLOW_DECLARATION_in_declaration448); 
+            match(input,DECLARATION,FOLLOW_DECLARATION_in_declaration453); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_datatype_in_declaration450);
+            pushFollow(FOLLOW_datatype_in_declaration455);
             datatype();
 
             state._fsp--;
 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:209:27: ( var_def )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:237:27: ( var_def )+
             int cnt12=0;
             loop12:
             do {
@@ -1128,9 +1157,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:209:27: var_def
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:237:27: var_def
             	    {
-            	    pushFollow(FOLLOW_var_def_in_declaration452);
+            	    pushFollow(FOLLOW_var_def_in_declaration457);
             	    var_def();
 
             	    state._fsp--;
@@ -1166,14 +1195,14 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "var_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:212:1: var_def : ( ID | assignment );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:240:1: var_def : ( ID | assignment );
     public final void var_def() throws RecognitionException {
-        CommonTree ID4=null;
-        TinySymbol assignment5 = null;
+        CommonTree ID5=null;
+        TinySymbol assignment6 = null;
 
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:213:2: ( ID | assignment )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:241:2: ( ID | assignment )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1191,28 +1220,28 @@ public class RecTG extends TreeParser {
             }
             switch (alt13) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:213:4: ID
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:241:4: ID
                     {
-                    ID4=(CommonTree)match(input,ID,FOLLOW_ID_in_var_def466); 
+                    ID5=(CommonTree)match(input,ID,FOLLOW_ID_in_var_def471); 
 
                     		TinySymbol s = new TinySymbol();
-                    		s.setId((ID4!=null?ID4.getText():null));
+                    		s.setId((ID5!=null?ID5.getText():null));
                     		
                     		s.setDataType( ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype );
                     		
                     		Type classtype = Type.VAR;
                     		s.setClassType(classtype);
                     		
-                    		s.setLine((ID4!=null?ID4.getLine():0));
-                    		s.setPosition((ID4!=null?ID4.getCharPositionInLine():0));
+                    		s.setLine((ID5!=null?ID5.getLine():0));
+                    		s.setPosition((ID5!=null?ID5.getCharPositionInLine():0));
                     		
                     		if (((reconfiguration_def_scope)reconfiguration_def_stack.peek()).scope.equals("main")){
-                    			if (!((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.containsSymbol((ID4!=null?ID4.getText():null))){
+                    			if (!((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.containsSymbol((ID5!=null?ID5.getText():null))){
                     				((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.addSymbol(s);
                     			}
                     		}
                     		else {
-                    			if (!((for_instruction_scope)for_instruction_stack.peek()).forall_table.containsSymbol((ID4!=null?ID4.getText():null))){
+                    			if (!((for_instruction_scope)for_instruction_stack.peek()).forall_table.containsSymbol((ID5!=null?ID5.getText():null))){
                     				((for_instruction_scope)for_instruction_stack.peek()).forall_table.addSymbol(s);
                     			}
                     		}
@@ -1223,22 +1252,22 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:239:4: assignment
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:267:4: assignment
                     {
-                    pushFollow(FOLLOW_assignment_in_var_def474);
-                    assignment5=assignment();
+                    pushFollow(FOLLOW_assignment_in_var_def479);
+                    assignment6=assignment();
 
                     state._fsp--;
 
 
                     		if (((reconfiguration_def_scope)reconfiguration_def_stack.peek()).scope.equals("main")){
-                    			if ( !((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.containsSymbol(assignment5.getId()) ){
-                    				((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.addSymbol(assignment5);
+                    			if ( !((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.containsSymbol(assignment6.getId()) ){
+                    				((reconfiguration_def_scope)reconfiguration_def_stack.peek()).main_scope.addSymbol(assignment6);
                     			}
                     		}
                     		else {
-                    			if ( !((for_instruction_scope)for_instruction_stack.peek()).forall_table.containsSymbol(assignment5.getId()) ){
-                    				((for_instruction_scope)for_instruction_stack.peek()).forall_table.addSymbol(assignment5);
+                    			if ( !((for_instruction_scope)for_instruction_stack.peek()).forall_table.containsSymbol(assignment6.getId()) ){
+                    				((for_instruction_scope)for_instruction_stack.peek()).forall_table.addSymbol(assignment6);
                     			}
                     		}
                     	
@@ -1260,35 +1289,35 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "assignment"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:254:1: assignment returns [TinySymbol symbol] : ^( ASSIGNMENT ID assignment_member ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:282:1: assignment returns [TinySymbol symbol] : ^( ASSIGNMENT ID assignment_member ) ;
     public final TinySymbol assignment() throws RecognitionException {
         TinySymbol symbol = null;
 
-        CommonTree ID6=null;
+        CommonTree ID7=null;
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:255:2: ( ^( ASSIGNMENT ID assignment_member ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:255:4: ^( ASSIGNMENT ID assignment_member )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:283:2: ( ^( ASSIGNMENT ID assignment_member ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:283:4: ^( ASSIGNMENT ID assignment_member )
             {
-            match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_assignment493); 
+            match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_assignment498); 
 
             match(input, Token.DOWN, null); 
-            ID6=(CommonTree)match(input,ID,FOLLOW_ID_in_assignment495); 
+            ID7=(CommonTree)match(input,ID,FOLLOW_ID_in_assignment500); 
 
             		TinySymbol s = new TinySymbol();
-            		s.setId((ID6!=null?ID6.getText():null));
+            		s.setId((ID7!=null?ID7.getText():null));
             		
             		s.setDataType( ((reconfiguration_def_scope)reconfiguration_def_stack.peek()).datatype );
             		
             		Type classtype = Type.VAR;
             		s.setClassType(classtype);
             		
-            		s.setLine((ID6!=null?ID6.getLine():0));
-            		s.setPosition((ID6!=null?ID6.getCharPositionInLine():0));
+            		s.setLine((ID7!=null?ID7.getLine():0));
+            		s.setPosition((ID7!=null?ID7.getCharPositionInLine():0));
             		
             		symbol = s;
             	
-            pushFollow(FOLLOW_assignment_member_in_assignment504);
+            pushFollow(FOLLOW_assignment_member_in_assignment509);
             assignment_member();
 
             state._fsp--;
@@ -1311,10 +1340,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "assignment_member"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:274:1: assignment_member : ( expression | reconfiguration_apply );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:302:1: assignment_member : ( expression | reconfiguration_apply );
     public final void assignment_member() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:275:2: ( expression | reconfiguration_apply )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:303:2: ( expression | reconfiguration_apply )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1332,9 +1361,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt14) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:275:4: expression
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:303:4: expression
                     {
-                    pushFollow(FOLLOW_expression_in_assignment_member519);
+                    pushFollow(FOLLOW_expression_in_assignment_member524);
                     expression();
 
                     state._fsp--;
@@ -1343,9 +1372,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:276:4: reconfiguration_apply
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:304:4: reconfiguration_apply
                     {
-                    pushFollow(FOLLOW_reconfiguration_apply_in_assignment_member525);
+                    pushFollow(FOLLOW_reconfiguration_apply_in_assignment_member530);
                     reconfiguration_apply();
 
                     state._fsp--;
@@ -1368,10 +1397,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "reconfiguration_call"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:279:1: reconfiguration_call : ( ^( OP_JOIN operation_args ) | ^( OP_SPLIT operation_args ) | ^( OP_PAR operation_args ) | ^( OP_REMOVE operation_args ) | ^( OP_CONST operation_args ) | ^( OP_ID operation_args ) | ^( ID operation_args ) );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:307:1: reconfiguration_call : ( ^( OP_JOIN operation_args ) | ^( OP_SPLIT operation_args ) | ^( OP_PAR operation_args ) | ^( OP_REMOVE operation_args ) | ^( OP_CONST operation_args ) | ^( OP_ID operation_args ) | ^( ID operation_args ) );
     public final void reconfiguration_call() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:280:2: ( ^( OP_JOIN operation_args ) | ^( OP_SPLIT operation_args ) | ^( OP_PAR operation_args ) | ^( OP_REMOVE operation_args ) | ^( OP_CONST operation_args ) | ^( OP_ID operation_args ) | ^( ID operation_args ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:308:2: ( ^( OP_JOIN operation_args ) | ^( OP_SPLIT operation_args ) | ^( OP_PAR operation_args ) | ^( OP_REMOVE operation_args ) | ^( OP_CONST operation_args ) | ^( OP_ID operation_args ) | ^( ID operation_args ) )
             int alt15=7;
             switch ( input.LA(1) ) {
             case OP_JOIN:
@@ -1418,13 +1447,13 @@ public class RecTG extends TreeParser {
 
             switch (alt15) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:280:4: ^( OP_JOIN operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:308:4: ^( OP_JOIN operation_args )
                     {
-                    match(input,OP_JOIN,FOLLOW_OP_JOIN_in_reconfiguration_call538); 
+                    match(input,OP_JOIN,FOLLOW_OP_JOIN_in_reconfiguration_call543); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call540);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call545);
                         operation_args();
 
                         state._fsp--;
@@ -1436,13 +1465,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:281:4: ^( OP_SPLIT operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:309:4: ^( OP_SPLIT operation_args )
                     {
-                    match(input,OP_SPLIT,FOLLOW_OP_SPLIT_in_reconfiguration_call547); 
+                    match(input,OP_SPLIT,FOLLOW_OP_SPLIT_in_reconfiguration_call552); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call549);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call554);
                         operation_args();
 
                         state._fsp--;
@@ -1454,13 +1483,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:282:4: ^( OP_PAR operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:310:4: ^( OP_PAR operation_args )
                     {
-                    match(input,OP_PAR,FOLLOW_OP_PAR_in_reconfiguration_call556); 
+                    match(input,OP_PAR,FOLLOW_OP_PAR_in_reconfiguration_call561); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call558);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call563);
                         operation_args();
 
                         state._fsp--;
@@ -1472,13 +1501,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:283:4: ^( OP_REMOVE operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:311:4: ^( OP_REMOVE operation_args )
                     {
-                    match(input,OP_REMOVE,FOLLOW_OP_REMOVE_in_reconfiguration_call565); 
+                    match(input,OP_REMOVE,FOLLOW_OP_REMOVE_in_reconfiguration_call570); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call567);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call572);
                         operation_args();
 
                         state._fsp--;
@@ -1490,13 +1519,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:284:4: ^( OP_CONST operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:312:4: ^( OP_CONST operation_args )
                     {
-                    match(input,OP_CONST,FOLLOW_OP_CONST_in_reconfiguration_call574); 
+                    match(input,OP_CONST,FOLLOW_OP_CONST_in_reconfiguration_call579); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call576);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call581);
                         operation_args();
 
                         state._fsp--;
@@ -1508,13 +1537,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:285:4: ^( OP_ID operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:313:4: ^( OP_ID operation_args )
                     {
-                    match(input,OP_ID,FOLLOW_OP_ID_in_reconfiguration_call583); 
+                    match(input,OP_ID,FOLLOW_OP_ID_in_reconfiguration_call588); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call585);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call590);
                         operation_args();
 
                         state._fsp--;
@@ -1526,13 +1555,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:286:4: ^( ID operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:314:4: ^( ID operation_args )
                     {
-                    match(input,ID,FOLLOW_ID_in_reconfiguration_call592); 
+                    match(input,ID,FOLLOW_ID_in_reconfiguration_call597); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call594);
+                        pushFollow(FOLLOW_operation_args_in_reconfiguration_call599);
                         operation_args();
 
                         state._fsp--;
@@ -1558,10 +1587,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "structure_operation_call"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:290:1: structure_operation_call : ( ^( OP_PATH operation_args ) | ^( OP_UPDATE operation_args ) );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:318:1: structure_operation_call : ( ^( OP_PATH operation_args ) | ^( OP_UPDATE operation_args ) );
     public final void structure_operation_call() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:291:2: ( ^( OP_PATH operation_args ) | ^( OP_UPDATE operation_args ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:319:2: ( ^( OP_PATH operation_args ) | ^( OP_UPDATE operation_args ) )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1579,13 +1608,13 @@ public class RecTG extends TreeParser {
             }
             switch (alt16) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:291:4: ^( OP_PATH operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:319:4: ^( OP_PATH operation_args )
                     {
-                    match(input,OP_PATH,FOLLOW_OP_PATH_in_structure_operation_call610); 
+                    match(input,OP_PATH,FOLLOW_OP_PATH_in_structure_operation_call615); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_structure_operation_call612);
+                        pushFollow(FOLLOW_operation_args_in_structure_operation_call617);
                         operation_args();
 
                         state._fsp--;
@@ -1597,13 +1626,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:292:4: ^( OP_UPDATE operation_args )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:320:4: ^( OP_UPDATE operation_args )
                     {
-                    match(input,OP_UPDATE,FOLLOW_OP_UPDATE_in_structure_operation_call619); 
+                    match(input,OP_UPDATE,FOLLOW_OP_UPDATE_in_structure_operation_call624); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        pushFollow(FOLLOW_operation_args_in_structure_operation_call621);
+                        pushFollow(FOLLOW_operation_args_in_structure_operation_call626);
                         operation_args();
 
                         state._fsp--;
@@ -1629,13 +1658,13 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "operation_args"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:296:1: operation_args : ( args )? ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:324:1: operation_args : ( args )? ;
     public final void operation_args() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:297:2: ( ( args )? )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:297:4: ( args )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:325:2: ( ( args )? )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:325:4: ( args )?
             {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:297:4: ( args )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:325:4: ( args )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1644,9 +1673,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt17) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:297:4: args
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:325:4: args
                     {
-                    pushFollow(FOLLOW_args_in_operation_args636);
+                    pushFollow(FOLLOW_args_in_operation_args641);
                     args();
 
                     state._fsp--;
@@ -1673,13 +1702,13 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "args"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:300:1: args : ( expression )+ ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:328:1: args : ( expression )+ ;
     public final void args() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:301:2: ( ( expression )+ )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:301:4: ( expression )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:329:2: ( ( expression )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:329:4: ( expression )+
             {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:301:4: ( expression )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:329:4: ( expression )+
             int cnt18=0;
             loop18:
             do {
@@ -1693,9 +1722,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt18) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:301:4: expression
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:329:4: expression
             	    {
-            	    pushFollow(FOLLOW_expression_in_args649);
+            	    pushFollow(FOLLOW_expression_in_args654);
             	    expression();
 
             	    state._fsp--;
@@ -1734,7 +1763,7 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "for_instruction"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:305:1: for_instruction : ^( FORALL datatype id1= ID id2= ID reconfiguration_block ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:333:1: for_instruction : ^( FORALL datatype id1= ID id2= ID reconfiguration_block ) ;
     public final void for_instruction() throws RecognitionException {
         for_instruction_stack.push(new for_instruction_scope());
         CommonTree id1=null;
@@ -1760,18 +1789,18 @@ public class RecTG extends TreeParser {
         	((reclang_scope)reclang_stack.peek()).aux_id++;
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:328:2: ( ^( FORALL datatype id1= ID id2= ID reconfiguration_block ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:328:4: ^( FORALL datatype id1= ID id2= ID reconfiguration_block )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:356:2: ( ^( FORALL datatype id1= ID id2= ID reconfiguration_block ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:356:4: ^( FORALL datatype id1= ID id2= ID reconfiguration_block )
             {
-            match(input,FORALL,FOLLOW_FORALL_in_for_instruction672); 
+            match(input,FORALL,FOLLOW_FORALL_in_for_instruction677); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_datatype_in_for_instruction674);
+            pushFollow(FOLLOW_datatype_in_for_instruction679);
             datatype();
 
             state._fsp--;
 
-            id1=(CommonTree)match(input,ID,FOLLOW_ID_in_for_instruction678); 
+            id1=(CommonTree)match(input,ID,FOLLOW_ID_in_for_instruction683); 
 
             		TinySymbol s = new TinySymbol();
             		s.setId((id1!=null?id1.getText():null));
@@ -1788,8 +1817,8 @@ public class RecTG extends TreeParser {
             			((for_instruction_scope)for_instruction_stack.peek()).forall_table.addSymbol(s);
             		}
             	
-            id2=(CommonTree)match(input,ID,FOLLOW_ID_in_for_instruction688); 
-            pushFollow(FOLLOW_reconfiguration_block_in_for_instruction690);
+            id2=(CommonTree)match(input,ID,FOLLOW_ID_in_for_instruction693); 
+            pushFollow(FOLLOW_reconfiguration_block_in_for_instruction695);
             reconfiguration_block();
 
             state._fsp--;
@@ -1816,10 +1845,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "expression"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:354:1: expression : ( ^( OP_UNION factor factor ) | ^( OP_INTERSECTION factor factor ) | ^( OP_MINUS factor factor ) | factor );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:382:1: expression : ( ^( OP_UNION factor factor ) | ^( OP_INTERSECTION factor factor ) | ^( OP_MINUS factor factor ) | factor );
     public final void expression() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:355:2: ( ^( OP_UNION factor factor ) | ^( OP_INTERSECTION factor factor ) | ^( OP_MINUS factor factor ) | factor )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:383:2: ( ^( OP_UNION factor factor ) | ^( OP_INTERSECTION factor factor ) | ^( OP_MINUS factor factor ) | factor )
             int alt19=4;
             switch ( input.LA(1) ) {
             case OP_UNION:
@@ -1859,17 +1888,17 @@ public class RecTG extends TreeParser {
 
             switch (alt19) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:355:4: ^( OP_UNION factor factor )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:383:4: ^( OP_UNION factor factor )
                     {
-                    match(input,OP_UNION,FOLLOW_OP_UNION_in_expression711); 
+                    match(input,OP_UNION,FOLLOW_OP_UNION_in_expression716); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_factor_in_expression713);
+                    pushFollow(FOLLOW_factor_in_expression718);
                     factor();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_factor_in_expression715);
+                    pushFollow(FOLLOW_factor_in_expression720);
                     factor();
 
                     state._fsp--;
@@ -1880,17 +1909,17 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:356:4: ^( OP_INTERSECTION factor factor )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:384:4: ^( OP_INTERSECTION factor factor )
                     {
-                    match(input,OP_INTERSECTION,FOLLOW_OP_INTERSECTION_in_expression722); 
+                    match(input,OP_INTERSECTION,FOLLOW_OP_INTERSECTION_in_expression727); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_factor_in_expression724);
+                    pushFollow(FOLLOW_factor_in_expression729);
                     factor();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_factor_in_expression726);
+                    pushFollow(FOLLOW_factor_in_expression731);
                     factor();
 
                     state._fsp--;
@@ -1901,17 +1930,17 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:357:4: ^( OP_MINUS factor factor )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:385:4: ^( OP_MINUS factor factor )
                     {
-                    match(input,OP_MINUS,FOLLOW_OP_MINUS_in_expression733); 
+                    match(input,OP_MINUS,FOLLOW_OP_MINUS_in_expression738); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_factor_in_expression735);
+                    pushFollow(FOLLOW_factor_in_expression740);
                     factor();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_factor_in_expression737);
+                    pushFollow(FOLLOW_factor_in_expression742);
                     factor();
 
                     state._fsp--;
@@ -1922,9 +1951,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:358:4: factor
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:386:4: factor
                     {
-                    pushFollow(FOLLOW_factor_in_expression743);
+                    pushFollow(FOLLOW_factor_in_expression748);
                     factor();
 
                     state._fsp--;
@@ -1947,10 +1976,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "factor"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:361:1: factor : ( ^( ID ID ) | ID | operation | constructor );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:1: factor : ( ^( ID ID ) | ID | operation | constructor );
     public final void factor() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:362:2: ( ^( ID ID ) | ID | operation | constructor )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:390:2: ( ^( ID ID ) | ID | operation | constructor )
             int alt20=4;
             switch ( input.LA(1) ) {
             case ID:
@@ -1996,28 +2025,28 @@ public class RecTG extends TreeParser {
 
             switch (alt20) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:362:4: ^( ID ID )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:390:4: ^( ID ID )
                     {
-                    match(input,ID,FOLLOW_ID_in_factor755); 
+                    match(input,ID,FOLLOW_ID_in_factor760); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_factor757); 
+                    match(input,ID,FOLLOW_ID_in_factor762); 
 
                     match(input, Token.UP, null); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:363:4: ID
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:391:4: ID
                     {
-                    match(input,ID,FOLLOW_ID_in_factor763); 
+                    match(input,ID,FOLLOW_ID_in_factor768); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:364:4: operation
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:392:4: operation
                     {
-                    pushFollow(FOLLOW_operation_in_factor768);
+                    pushFollow(FOLLOW_operation_in_factor773);
                     operation();
 
                     state._fsp--;
@@ -2026,9 +2055,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:365:4: constructor
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:393:4: constructor
                     {
-                    pushFollow(FOLLOW_constructor_in_factor773);
+                    pushFollow(FOLLOW_constructor_in_factor778);
                     constructor();
 
                     state._fsp--;
@@ -2051,10 +2080,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "operation"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:368:1: operation : ( ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:396:1: operation : ( ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call );
     public final void operation() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:369:2: ( ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:397:2: ( ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call )
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -2072,13 +2101,13 @@ public class RecTG extends TreeParser {
             }
             switch (alt22) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:369:4: ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:397:4: ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call )
                     {
-                    match(input,ACCESS,FOLLOW_ACCESS_in_operation786); 
+                    match(input,ACCESS,FOLLOW_ACCESS_in_operation791); 
 
                     match(input, Token.DOWN, null); 
-                    match(input,ID,FOLLOW_ID_in_operation788); 
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:369:16: ( ^( STRUCTURE ID ) )?
+                    match(input,ID,FOLLOW_ID_in_operation793); 
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:397:16: ( ^( STRUCTURE ID ) )?
                     int alt21=2;
                     int LA21_0 = input.LA(1);
 
@@ -2087,12 +2116,12 @@ public class RecTG extends TreeParser {
                     }
                     switch (alt21) {
                         case 1 :
-                            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:369:17: ^( STRUCTURE ID )
+                            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:397:17: ^( STRUCTURE ID )
                             {
-                            match(input,STRUCTURE,FOLLOW_STRUCTURE_in_operation792); 
+                            match(input,STRUCTURE,FOLLOW_STRUCTURE_in_operation797); 
 
                             match(input, Token.DOWN, null); 
-                            match(input,ID,FOLLOW_ID_in_operation794); 
+                            match(input,ID,FOLLOW_ID_in_operation799); 
 
                             match(input, Token.UP, null); 
 
@@ -2101,7 +2130,7 @@ public class RecTG extends TreeParser {
 
                     }
 
-                    pushFollow(FOLLOW_attribute_call_in_operation799);
+                    pushFollow(FOLLOW_attribute_call_in_operation804);
                     attribute_call();
 
                     state._fsp--;
@@ -2112,9 +2141,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:371:4: structure_operation_call
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:399:4: structure_operation_call
                     {
-                    pushFollow(FOLLOW_structure_operation_call_in_operation806);
+                    pushFollow(FOLLOW_structure_operation_call_in_operation811);
                     structure_operation_call();
 
                     state._fsp--;
@@ -2137,10 +2166,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "constructor"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:374:1: constructor : ( triple_cons | pair_cons | set_cons | node_cons | xor_cons );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:402:1: constructor : ( triple_cons | pair_cons | set_cons | node_cons | xor_cons );
     public final void constructor() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:375:2: ( triple_cons | pair_cons | set_cons | node_cons | xor_cons )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:403:2: ( triple_cons | pair_cons | set_cons | node_cons | xor_cons )
             int alt23=5;
             switch ( input.LA(1) ) {
             case TRIPLE:
@@ -2177,9 +2206,9 @@ public class RecTG extends TreeParser {
 
             switch (alt23) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:375:4: triple_cons
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:403:4: triple_cons
                     {
-                    pushFollow(FOLLOW_triple_cons_in_constructor818);
+                    pushFollow(FOLLOW_triple_cons_in_constructor823);
                     triple_cons();
 
                     state._fsp--;
@@ -2188,9 +2217,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:376:4: pair_cons
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:404:4: pair_cons
                     {
-                    pushFollow(FOLLOW_pair_cons_in_constructor823);
+                    pushFollow(FOLLOW_pair_cons_in_constructor828);
                     pair_cons();
 
                     state._fsp--;
@@ -2199,9 +2228,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:377:4: set_cons
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:405:4: set_cons
                     {
-                    pushFollow(FOLLOW_set_cons_in_constructor828);
+                    pushFollow(FOLLOW_set_cons_in_constructor833);
                     set_cons();
 
                     state._fsp--;
@@ -2210,9 +2239,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:378:4: node_cons
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:406:4: node_cons
                     {
-                    pushFollow(FOLLOW_node_cons_in_constructor833);
+                    pushFollow(FOLLOW_node_cons_in_constructor838);
                     node_cons();
 
                     state._fsp--;
@@ -2221,9 +2250,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:379:4: xor_cons
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:407:4: xor_cons
                     {
-                    pushFollow(FOLLOW_xor_cons_in_constructor838);
+                    pushFollow(FOLLOW_xor_cons_in_constructor843);
                     xor_cons();
 
                     state._fsp--;
@@ -2246,10 +2275,10 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "attribute_call"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:388:1: attribute_call : ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | OP_FST | OP_SND | OP_TRD | ID );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:416:1: attribute_call : ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | OP_FST | OP_SND | OP_TRD | ID );
     public final void attribute_call() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:2: ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | OP_FST | OP_SND | OP_TRD | ID )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:417:2: ( ^( OP_IN ( INT )? ) | ^( OP_OUT ( INT )? ) | OP_NAME | OP_NODES | OP_NAMES | OP_FST | OP_SND | OP_TRD | ID )
             int alt26=9;
             switch ( input.LA(1) ) {
             case OP_IN:
@@ -2306,13 +2335,13 @@ public class RecTG extends TreeParser {
 
             switch (alt26) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:4: ^( OP_IN ( INT )? )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:417:4: ^( OP_IN ( INT )? )
                     {
-                    match(input,OP_IN,FOLLOW_OP_IN_in_attribute_call858); 
+                    match(input,OP_IN,FOLLOW_OP_IN_in_attribute_call863); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:12: ( INT )?
+                        // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:417:12: ( INT )?
                         int alt24=2;
                         int LA24_0 = input.LA(1);
 
@@ -2321,9 +2350,9 @@ public class RecTG extends TreeParser {
                         }
                         switch (alt24) {
                             case 1 :
-                                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:389:12: INT
+                                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:417:12: INT
                                 {
-                                match(input,INT,FOLLOW_INT_in_attribute_call860); 
+                                match(input,INT,FOLLOW_INT_in_attribute_call865); 
 
                                 }
                                 break;
@@ -2337,13 +2366,13 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:390:4: ^( OP_OUT ( INT )? )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:418:4: ^( OP_OUT ( INT )? )
                     {
-                    match(input,OP_OUT,FOLLOW_OP_OUT_in_attribute_call868); 
+                    match(input,OP_OUT,FOLLOW_OP_OUT_in_attribute_call873); 
 
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
-                        // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:390:13: ( INT )?
+                        // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:418:13: ( INT )?
                         int alt25=2;
                         int LA25_0 = input.LA(1);
 
@@ -2352,9 +2381,9 @@ public class RecTG extends TreeParser {
                         }
                         switch (alt25) {
                             case 1 :
-                                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:390:13: INT
+                                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:418:13: INT
                                 {
-                                match(input,INT,FOLLOW_INT_in_attribute_call870); 
+                                match(input,INT,FOLLOW_INT_in_attribute_call875); 
 
                                 }
                                 break;
@@ -2368,51 +2397,51 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:391:4: OP_NAME
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:419:4: OP_NAME
                     {
-                    match(input,OP_NAME,FOLLOW_OP_NAME_in_attribute_call877); 
+                    match(input,OP_NAME,FOLLOW_OP_NAME_in_attribute_call882); 
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:392:4: OP_NODES
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:420:4: OP_NODES
                     {
-                    match(input,OP_NODES,FOLLOW_OP_NODES_in_attribute_call882); 
+                    match(input,OP_NODES,FOLLOW_OP_NODES_in_attribute_call887); 
 
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:393:4: OP_NAMES
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:421:4: OP_NAMES
                     {
-                    match(input,OP_NAMES,FOLLOW_OP_NAMES_in_attribute_call887); 
+                    match(input,OP_NAMES,FOLLOW_OP_NAMES_in_attribute_call892); 
 
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:395:4: OP_FST
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:4: OP_FST
                     {
-                    match(input,OP_FST,FOLLOW_OP_FST_in_attribute_call893); 
+                    match(input,OP_FST,FOLLOW_OP_FST_in_attribute_call898); 
 
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:396:4: OP_SND
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:424:4: OP_SND
                     {
-                    match(input,OP_SND,FOLLOW_OP_SND_in_attribute_call898); 
+                    match(input,OP_SND,FOLLOW_OP_SND_in_attribute_call903); 
 
                     }
                     break;
                 case 8 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:397:4: OP_TRD
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:425:4: OP_TRD
                     {
-                    match(input,OP_TRD,FOLLOW_OP_TRD_in_attribute_call903); 
+                    match(input,OP_TRD,FOLLOW_OP_TRD_in_attribute_call908); 
 
                     }
                     break;
                 case 9 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:398:4: ID
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:426:4: ID
                     {
-                    match(input,ID,FOLLOW_ID_in_attribute_call908); 
+                    match(input,ID,FOLLOW_ID_in_attribute_call913); 
 
                     }
                     break;
@@ -2431,26 +2460,26 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "triple_cons"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:402:1: triple_cons : ^( TRIPLE expression expression expression ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:430:1: triple_cons : ^( TRIPLE expression expression expression ) ;
     public final void triple_cons() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:403:2: ( ^( TRIPLE expression expression expression ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:403:4: ^( TRIPLE expression expression expression )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:431:2: ( ^( TRIPLE expression expression expression ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:431:4: ^( TRIPLE expression expression expression )
             {
-            match(input,TRIPLE,FOLLOW_TRIPLE_in_triple_cons923); 
+            match(input,TRIPLE,FOLLOW_TRIPLE_in_triple_cons928); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_expression_in_triple_cons925);
+            pushFollow(FOLLOW_expression_in_triple_cons930);
             expression();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_expression_in_triple_cons927);
+            pushFollow(FOLLOW_expression_in_triple_cons932);
             expression();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_expression_in_triple_cons929);
+            pushFollow(FOLLOW_expression_in_triple_cons934);
             expression();
 
             state._fsp--;
@@ -2473,21 +2502,21 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "pair_cons"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:407:1: pair_cons : ^( PAIR expression expression ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:435:1: pair_cons : ^( PAIR expression expression ) ;
     public final void pair_cons() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:408:2: ( ^( PAIR expression expression ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:408:4: ^( PAIR expression expression )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:436:2: ( ^( PAIR expression expression ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:436:4: ^( PAIR expression expression )
             {
-            match(input,PAIR,FOLLOW_PAIR_in_pair_cons946); 
+            match(input,PAIR,FOLLOW_PAIR_in_pair_cons951); 
 
             match(input, Token.DOWN, null); 
-            pushFollow(FOLLOW_expression_in_pair_cons948);
+            pushFollow(FOLLOW_expression_in_pair_cons953);
             expression();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_expression_in_pair_cons950);
+            pushFollow(FOLLOW_expression_in_pair_cons955);
             expression();
 
             state._fsp--;
@@ -2510,17 +2539,17 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "set_cons"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:413:1: set_cons : ^( SET ( expression )* ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:441:1: set_cons : ^( SET ( expression )* ) ;
     public final void set_cons() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:414:2: ( ^( SET ( expression )* ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:414:4: ^( SET ( expression )* )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:442:2: ( ^( SET ( expression )* ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:442:4: ^( SET ( expression )* )
             {
-            match(input,SET,FOLLOW_SET_in_set_cons968); 
+            match(input,SET,FOLLOW_SET_in_set_cons973); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:414:10: ( expression )*
+                // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:442:10: ( expression )*
                 loop27:
                 do {
                     int alt27=2;
@@ -2533,9 +2562,9 @@ public class RecTG extends TreeParser {
 
                     switch (alt27) {
                 	case 1 :
-                	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:414:10: expression
+                	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:442:10: expression
                 	    {
-                	    pushFollow(FOLLOW_expression_in_set_cons970);
+                	    pushFollow(FOLLOW_expression_in_set_cons975);
                 	    expression();
 
                 	    state._fsp--;
@@ -2568,16 +2597,16 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "node_cons"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:418:1: node_cons : ^( NODE ( ID )+ ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:446:1: node_cons : ^( NODE ( ID )+ ) ;
     public final void node_cons() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:419:2: ( ^( NODE ( ID )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:419:4: ^( NODE ( ID )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:447:2: ( ^( NODE ( ID )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:447:4: ^( NODE ( ID )+ )
             {
-            match(input,NODE,FOLLOW_NODE_in_node_cons989); 
+            match(input,NODE,FOLLOW_NODE_in_node_cons994); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:419:11: ( ID )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:447:11: ( ID )+
             int cnt28=0;
             loop28:
             do {
@@ -2591,9 +2620,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt28) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:419:11: ID
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:447:11: ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_node_cons991); 
+            	    match(input,ID,FOLLOW_ID_in_node_cons996); 
 
             	    }
             	    break;
@@ -2625,20 +2654,20 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "xor_cons"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:422:1: xor_cons : ^( XOR ^( IN ID ( ID )* ) ^( OUT ID ( ID )+ ) ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:450:1: xor_cons : ^( XOR ^( IN ID ( ID )* ) ^( OUT ID ( ID )+ ) ) ;
     public final void xor_cons() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:2: ( ^( XOR ^( IN ID ( ID )* ) ^( OUT ID ( ID )+ ) ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:4: ^( XOR ^( IN ID ( ID )* ) ^( OUT ID ( ID )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:2: ( ^( XOR ^( IN ID ( ID )* ) ^( OUT ID ( ID )+ ) ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:4: ^( XOR ^( IN ID ( ID )* ) ^( OUT ID ( ID )+ ) )
             {
-            match(input,XOR,FOLLOW_XOR_in_xor_cons1007); 
+            match(input,XOR,FOLLOW_XOR_in_xor_cons1012); 
 
             match(input, Token.DOWN, null); 
-            match(input,IN,FOLLOW_IN_in_xor_cons1011); 
+            match(input,IN,FOLLOW_IN_in_xor_cons1016); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_xor_cons1013); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:19: ( ID )*
+            match(input,ID,FOLLOW_ID_in_xor_cons1018); 
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:19: ( ID )*
             loop29:
             do {
                 int alt29=2;
@@ -2651,9 +2680,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt29) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:19: ID
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:19: ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_xor_cons1015); 
+            	    match(input,ID,FOLLOW_ID_in_xor_cons1020); 
 
             	    }
             	    break;
@@ -2665,11 +2694,11 @@ public class RecTG extends TreeParser {
 
 
             match(input, Token.UP, null); 
-            match(input,OUT,FOLLOW_OUT_in_xor_cons1020); 
+            match(input,OUT,FOLLOW_OUT_in_xor_cons1025); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_xor_cons1022); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:33: ( ID )+
+            match(input,ID,FOLLOW_ID_in_xor_cons1027); 
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:33: ( ID )+
             int cnt30=0;
             loop30:
             do {
@@ -2683,9 +2712,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt30) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:423:33: ID
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:33: ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_xor_cons1024); 
+            	    match(input,ID,FOLLOW_ID_in_xor_cons1029); 
 
             	    }
             	    break;
@@ -2719,19 +2748,19 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "applicaiton_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:428:1: applicaiton_def : ID list_reconfigurations ( trigger_def )? ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:456:1: applicaiton_def : ID list_reconfigurations ( trigger_def )? ;
     public final void applicaiton_def() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:429:2: ( ID list_reconfigurations ( trigger_def )? )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:429:4: ID list_reconfigurations ( trigger_def )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:457:2: ( ID list_reconfigurations ( trigger_def )? )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:457:4: ID list_reconfigurations ( trigger_def )?
             {
-            match(input,ID,FOLLOW_ID_in_applicaiton_def1042); 
-            pushFollow(FOLLOW_list_reconfigurations_in_applicaiton_def1044);
+            match(input,ID,FOLLOW_ID_in_applicaiton_def1047); 
+            pushFollow(FOLLOW_list_reconfigurations_in_applicaiton_def1049);
             list_reconfigurations();
 
             state._fsp--;
 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:429:29: ( trigger_def )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:457:29: ( trigger_def )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -2740,9 +2769,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt31) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:429:29: trigger_def
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:457:29: trigger_def
                     {
-                    pushFollow(FOLLOW_trigger_def_in_applicaiton_def1046);
+                    pushFollow(FOLLOW_trigger_def_in_applicaiton_def1051);
                     trigger_def();
 
                     state._fsp--;
@@ -2769,13 +2798,13 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "list_reconfigurations"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:432:1: list_reconfigurations : ( reconfiguration_call )+ ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:460:1: list_reconfigurations : ( reconfiguration_call )+ ;
     public final void list_reconfigurations() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:433:2: ( ( reconfiguration_call )+ )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:433:4: ( reconfiguration_call )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:461:2: ( ( reconfiguration_call )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:461:4: ( reconfiguration_call )+
             {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:433:4: ( reconfiguration_call )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:461:4: ( reconfiguration_call )+
             int cnt32=0;
             loop32:
             do {
@@ -2789,9 +2818,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt32) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:433:4: reconfiguration_call
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:461:4: reconfiguration_call
             	    {
-            	    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1059);
+            	    pushFollow(FOLLOW_reconfiguration_call_in_list_reconfigurations1064);
             	    reconfiguration_call();
 
             	    state._fsp--;
@@ -2825,13 +2854,13 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "trigger_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:436:1: trigger_def : trigger_block ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:464:1: trigger_def : trigger_block ;
     public final void trigger_def() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:437:2: ( trigger_block )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:437:4: trigger_block
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:465:2: ( trigger_block )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:465:4: trigger_block
             {
-            pushFollow(FOLLOW_trigger_block_in_trigger_def1072);
+            pushFollow(FOLLOW_trigger_block_in_trigger_def1077);
             trigger_block();
 
             state._fsp--;
@@ -2852,14 +2881,14 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "trigger_block"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:440:1: trigger_block : SEP_BLOCK_START SEP_BLOCK_END ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:468:1: trigger_block : SEP_BLOCK_START SEP_BLOCK_END ;
     public final void trigger_block() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:441:2: ( SEP_BLOCK_START SEP_BLOCK_END )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:441:4: SEP_BLOCK_START SEP_BLOCK_END
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:469:2: ( SEP_BLOCK_START SEP_BLOCK_END )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:469:4: SEP_BLOCK_START SEP_BLOCK_END
             {
-            match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_trigger_block1084); 
-            match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_trigger_block1086); 
+            match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_trigger_block1089); 
+            match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_trigger_block1091); 
 
             }
 
@@ -2874,15 +2903,29 @@ public class RecTG extends TreeParser {
     }
     // $ANTLR end "trigger_block"
 
+    protected static class main_def_scope {
+        TinySymbol symbol;
+        TinySymbolsTable scope;
+    }
+    protected Stack main_def_stack = new Stack();
+
 
     // $ANTLR start "main_def"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:447:1: main_def : ( main_args )? main_block ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:475:1: main_def : ( main_args )? main_block ;
     public final void main_def() throws RecognitionException {
+        main_def_stack.push(new main_def_scope());
+        RecTG.main_block_return main_block8 = null;
+
+
+
+        	((main_def_scope)main_def_stack.peek()).symbol = new TinySymbol();
+        	((main_def_scope)main_def_stack.peek()).scope = new TinySymbolsTable();
+
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:448:2: ( ( main_args )? main_block )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:448:4: ( main_args )? main_block
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:484:2: ( ( main_args )? main_block )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:484:4: ( main_args )? main_block
             {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:448:4: ( main_args )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:484:4: ( main_args )?
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -2891,9 +2934,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt33) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:448:4: main_args
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:484:4: main_args
                     {
-                    pushFollow(FOLLOW_main_args_in_main_def1100);
+                    pushFollow(FOLLOW_main_args_in_main_def1112);
                     main_args();
 
                     state._fsp--;
@@ -2904,11 +2947,33 @@ public class RecTG extends TreeParser {
 
             }
 
-            pushFollow(FOLLOW_main_block_in_main_def1103);
-            main_block();
+            pushFollow(FOLLOW_main_block_in_main_def1115);
+            main_block8=main_block();
 
             state._fsp--;
 
+
+            		
+            		((main_def_scope)main_def_stack.peek()).symbol.setId("$main");
+            		
+            		List<Type> datatype = new ArrayList<Type>();
+            		datatype.add( Type.NULL ); 	//main returns void
+            		((main_def_scope)main_def_stack.peek()).symbol.setDataType(datatype);
+            		
+            		Type classtype = Type.MAIN; 	//Type.valueOf("MAIN")
+            		((main_def_scope)main_def_stack.peek()).symbol.setClassType(classtype);
+            		
+            		((main_def_scope)main_def_stack.peek()).symbol.setLine( (main_block8!=null?((CommonTree)main_block8.start):null).getLine() );
+            		((main_def_scope)main_def_stack.peek()).symbol.setPosition( 0 );
+            		
+            		
+            		List<TinySymbolsTable> scopes = new ArrayList<TinySymbolsTable>();
+            		scopes.add(((main_def_scope)main_def_stack.peek()).scope);
+            		((main_def_scope)main_def_stack.peek()).symbol.setScopes( scopes );
+            		
+            		//((main_def_scope)main_def_stack.peek()).symbol.removeRepeatedIds();
+            		ids_table.addSymbol(((main_def_scope)main_def_stack.peek()).symbol);
+            	
 
             }
 
@@ -2918,6 +2983,7 @@ public class RecTG extends TreeParser {
             recover(input,re);
         }
         finally {
+            main_def_stack.pop();
         }
         return ;
     }
@@ -2925,16 +2991,16 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "main_args"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:451:1: main_args : ^( ARGUMENTS ( main_arg )+ ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:509:1: main_args : ^( ARGUMENTS ( main_arg )+ ) ;
     public final void main_args() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:452:2: ( ^( ARGUMENTS ( main_arg )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:452:4: ^( ARGUMENTS ( main_arg )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:510:2: ( ^( ARGUMENTS ( main_arg )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:510:4: ^( ARGUMENTS ( main_arg )+ )
             {
-            match(input,ARGUMENTS,FOLLOW_ARGUMENTS_in_main_args1115); 
+            match(input,ARGUMENTS,FOLLOW_ARGUMENTS_in_main_args1130); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:452:16: ( main_arg )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:510:16: ( main_arg )+
             int cnt34=0;
             loop34:
             do {
@@ -2948,9 +3014,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt34) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:452:16: main_arg
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:510:16: main_arg
             	    {
-            	    pushFollow(FOLLOW_main_arg_in_main_args1117);
+            	    pushFollow(FOLLOW_main_arg_in_main_args1132);
             	    main_arg();
 
             	    state._fsp--;
@@ -2986,18 +3052,18 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "main_arg"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:455:1: main_arg : ^( ARGUMENT ID ids ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:513:1: main_arg : ^( ARGUMENT ID ids[true, true] ) ;
     public final void main_arg() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:456:2: ( ^( ARGUMENT ID ids ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:456:4: ^( ARGUMENT ID ids )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:514:2: ( ^( ARGUMENT ID ids[true, true] ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:514:4: ^( ARGUMENT ID ids[true, true] )
             {
-            match(input,ARGUMENT,FOLLOW_ARGUMENT_in_main_arg1131); 
+            match(input,ARGUMENT,FOLLOW_ARGUMENT_in_main_arg1146); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_main_arg1133); 
-            pushFollow(FOLLOW_ids_in_main_arg1135);
-            ids();
+            match(input,ID,FOLLOW_ID_in_main_arg1148); 
+            pushFollow(FOLLOW_ids_in_main_arg1150);
+            ids(true, true);
 
             state._fsp--;
 
@@ -3019,16 +3085,18 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "ids"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:459:1: ids : ^( IDS ( ID )+ ) ;
-    public final void ids() throws RecognitionException {
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:517:1: ids[boolean toAdd, boolean isArg] : ^( IDS ( ID )+ ) ;
+    public final void ids(boolean toAdd, boolean isArg) throws RecognitionException {
+        CommonTree ID9=null;
+
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:460:2: ( ^( IDS ( ID )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:460:4: ^( IDS ( ID )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:518:2: ( ^( IDS ( ID )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:518:4: ^( IDS ( ID )+ )
             {
-            match(input,IDS,FOLLOW_IDS_in_ids1149); 
+            match(input,IDS,FOLLOW_IDS_in_ids1166); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:460:10: ( ID )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:518:10: ( ID )+
             int cnt35=0;
             loop35:
             do {
@@ -3042,9 +3110,34 @@ public class RecTG extends TreeParser {
 
                 switch (alt35) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:460:10: ID
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:518:11: ID
             	    {
-            	    match(input,ID,FOLLOW_ID_in_ids1151); 
+            	    ID9=(CommonTree)match(input,ID,FOLLOW_ID_in_ids1169); 
+
+            	    		if (toAdd){
+            	    			TinySymbol s = new TinySymbol();
+            	    			s.setId((ID9!=null?ID9.getText():null));
+            	    			
+            	    			List<Type> datatype = new ArrayList<Type>();
+            	    			datatype.add( Type.PATTERN );
+            	    			s.setDataType(datatype);
+            	    			
+            	    			Type classtype;
+            	    			if (isArg){ 
+            	    				classtype = Type.ARG;
+            	    			} else {
+            	    				classtype = Type.VAR;
+            	    			}
+            	    			s.setClassType(classtype);
+            	    			
+            	    			s.setLine((ID9!=null?ID9.getLine():0));
+            	    			s.setPosition((ID9!=null?ID9.getCharPositionInLine():0));
+            	    			
+            	    			if (!((main_def_scope)main_def_stack.peek()).scope.containsSymbol((ID9!=null?ID9.getText():null))){
+            	    				((main_def_scope)main_def_stack.peek()).scope.addSymbol(s);
+            	    			}
+            	    		}
+            	    	
 
             	    }
             	    break;
@@ -3074,18 +3167,23 @@ public class RecTG extends TreeParser {
     }
     // $ANTLR end "ids"
 
+    public static class main_block_return extends TreeRuleReturnScope {
+    };
 
     // $ANTLR start "main_block"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:464:1: main_block : ^( INSTRUCTIONS ( main_instruction )+ ) ;
-    public final void main_block() throws RecognitionException {
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:549:1: main_block : ^( INSTRUCTIONS ( main_instruction )+ ) ;
+    public final RecTG.main_block_return main_block() throws RecognitionException {
+        RecTG.main_block_return retval = new RecTG.main_block_return();
+        retval.start = input.LT(1);
+
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:465:2: ( ^( INSTRUCTIONS ( main_instruction )+ ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:465:4: ^( INSTRUCTIONS ( main_instruction )+ )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:550:2: ( ^( INSTRUCTIONS ( main_instruction )+ ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:550:4: ^( INSTRUCTIONS ( main_instruction )+ )
             {
-            match(input,INSTRUCTIONS,FOLLOW_INSTRUCTIONS_in_main_block1168); 
+            match(input,INSTRUCTIONS,FOLLOW_INSTRUCTIONS_in_main_block1194); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:465:19: ( main_instruction )+
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:550:19: ( main_instruction )+
             int cnt36=0;
             loop36:
             do {
@@ -3099,9 +3197,9 @@ public class RecTG extends TreeParser {
 
                 switch (alt36) {
             	case 1 :
-            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:465:19: main_instruction
+            	    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:550:19: main_instruction
             	    {
-            	    pushFollow(FOLLOW_main_instruction_in_main_block1170);
+            	    pushFollow(FOLLOW_main_instruction_in_main_block1196);
             	    main_instruction();
 
             	    state._fsp--;
@@ -3131,16 +3229,16 @@ public class RecTG extends TreeParser {
         }
         finally {
         }
-        return ;
+        return retval;
     }
     // $ANTLR end "main_block"
 
 
     // $ANTLR start "main_instruction"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:468:1: main_instruction : ( main_declaration | main_assignment );
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:553:1: main_instruction : ( main_declaration | main_assignment );
     public final void main_instruction() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:469:2: ( main_declaration | main_assignment )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:554:2: ( main_declaration | main_assignment )
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -3158,9 +3256,9 @@ public class RecTG extends TreeParser {
             }
             switch (alt37) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:469:4: main_declaration
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:554:4: main_declaration
                     {
-                    pushFollow(FOLLOW_main_declaration_in_main_instruction1183);
+                    pushFollow(FOLLOW_main_declaration_in_main_instruction1209);
                     main_declaration();
 
                     state._fsp--;
@@ -3169,9 +3267,9 @@ public class RecTG extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:470:4: main_assignment
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:555:4: main_assignment
                     {
-                    pushFollow(FOLLOW_main_assignment_in_main_instruction1188);
+                    pushFollow(FOLLOW_main_assignment_in_main_instruction1214);
                     main_assignment();
 
                     state._fsp--;
@@ -3194,18 +3292,18 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "main_declaration"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:473:1: main_declaration : ^( DECLARATION ID ids ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:558:1: main_declaration : ^( DECLARATION ID ids[true, false] ) ;
     public final void main_declaration() throws RecognitionException {
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:474:2: ( ^( DECLARATION ID ids ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:474:4: ^( DECLARATION ID ids )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:559:2: ( ^( DECLARATION ID ids[true, false] ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:559:4: ^( DECLARATION ID ids[true, false] )
             {
-            match(input,DECLARATION,FOLLOW_DECLARATION_in_main_declaration1200); 
+            match(input,DECLARATION,FOLLOW_DECLARATION_in_main_declaration1226); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_main_declaration1202); 
-            pushFollow(FOLLOW_ids_in_main_declaration1204);
-            ids();
+            match(input,ID,FOLLOW_ID_in_main_declaration1228); 
+            pushFollow(FOLLOW_ids_in_main_declaration1230);
+            ids(true, false);
 
             state._fsp--;
 
@@ -3227,16 +3325,18 @@ public class RecTG extends TreeParser {
 
 
     // $ANTLR start "main_assignment"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:477:1: main_assignment : ^( APPLICATION ( ^( DECLARATION ( ID )? ids ) )? ^( OP_APPLY ID reconfiguration_call ) ) ;
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:562:1: main_assignment : ^( APPLICATION ( ^( DECLARATION (dt= ID )? ids[toAdd, false] ) )? ^( OP_APPLY ID reconfiguration_call ) ) ;
     public final void main_assignment() throws RecognitionException {
+        CommonTree dt=null;
+
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:478:2: ( ^( APPLICATION ( ^( DECLARATION ( ID )? ids ) )? ^( OP_APPLY ID reconfiguration_call ) ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:478:4: ^( APPLICATION ( ^( DECLARATION ( ID )? ids ) )? ^( OP_APPLY ID reconfiguration_call ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:563:2: ( ^( APPLICATION ( ^( DECLARATION (dt= ID )? ids[toAdd, false] ) )? ^( OP_APPLY ID reconfiguration_call ) ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:563:4: ^( APPLICATION ( ^( DECLARATION (dt= ID )? ids[toAdd, false] ) )? ^( OP_APPLY ID reconfiguration_call ) )
             {
-            match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1218); 
+            match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1245); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:478:19: ( ^( DECLARATION ( ID )? ids ) )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:563:19: ( ^( DECLARATION (dt= ID )? ids[toAdd, false] ) )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -3245,12 +3345,12 @@ public class RecTG extends TreeParser {
             }
             switch (alt39) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:478:21: ^( DECLARATION ( ID )? ids )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:563:21: ^( DECLARATION (dt= ID )? ids[toAdd, false] )
                     {
-                    match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1223); 
+                    match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1250); 
 
                     match(input, Token.DOWN, null); 
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:478:35: ( ID )?
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:563:37: (dt= ID )?
                     int alt38=2;
                     int LA38_0 = input.LA(1);
 
@@ -3259,17 +3359,23 @@ public class RecTG extends TreeParser {
                     }
                     switch (alt38) {
                         case 1 :
-                            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:478:35: ID
+                            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTG.g:563:37: dt= ID
                             {
-                            match(input,ID,FOLLOW_ID_in_main_assignment1225); 
+                            dt=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1254); 
 
                             }
                             break;
 
                     }
 
-                    pushFollow(FOLLOW_ids_in_main_assignment1228);
-                    ids();
+                    	
+                    		boolean toAdd = false;
+                    		if ((dt!=null?dt.getText():null) != null){ //if is declaration
+                    			toAdd = true;
+                    		}
+                    	
+                    pushFollow(FOLLOW_ids_in_main_assignment1262);
+                    ids(toAdd, false);
 
                     state._fsp--;
 
@@ -3281,11 +3387,11 @@ public class RecTG extends TreeParser {
 
             }
 
-            match(input,OP_APPLY,FOLLOW_OP_APPLY_in_main_assignment1235); 
+            match(input,OP_APPLY,FOLLOW_OP_APPLY_in_main_assignment1270); 
 
             match(input, Token.DOWN, null); 
-            match(input,ID,FOLLOW_ID_in_main_assignment1237); 
-            pushFollow(FOLLOW_reconfiguration_call_in_main_assignment1239);
+            match(input,ID,FOLLOW_ID_in_main_assignment1272); 
+            pushFollow(FOLLOW_reconfiguration_call_in_main_assignment1274);
             reconfiguration_call();
 
             state._fsp--;
@@ -3319,160 +3425,160 @@ public class RecTG extends TreeParser {
     public static final BitSet FOLLOW_directive_import_in_directive_def92 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_IMPORT_in_directive_import106 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_STRING_in_directive_import108 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_RECONFIGURATION_in_element127 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_reconfiguration_def_in_element129 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_APPLICATION_in_element136 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_applicaiton_def_in_element138 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_MAIN_in_element146 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_main_def_in_element148 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ID_in_reconfiguration_def170 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_args_def_in_reconfiguration_def179 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_reconfiguration_block_in_reconfiguration_def182 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ARGUMENTS_in_args_def205 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_arg_def_in_args_def207 = new BitSet(new long[]{0x0000000000000008L,0x0000000000000400L});
-    public static final BitSet FOLLOW_ARGUMENT_in_arg_def228 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_datatype_in_arg_def230 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_list_ids_in_arg_def232 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DT_PATTERN_in_datatype245 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_CHANNEL_in_datatype252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_NAME_in_datatype259 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_NODE_in_datatype266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_XOR_in_datatype274 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_other_type_in_datatype286 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_subtype_in_datatype292 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DT_SET_in_other_type310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_PAIR_in_other_type320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DT_TRIPLE_in_other_type329 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_datatype_in_subtype342 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_list_ids355 = new BitSet(new long[]{0x2000000000000002L});
-    public static final BitSet FOLLOW_INSTRUCTIONS_in_reconfiguration_block377 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_instruction_in_reconfiguration_block379 = new BitSet(new long[]{0x0000001000000008L,0x000000000000E000L});
-    public static final BitSet FOLLOW_declaration_in_instruction393 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_instruction398 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_apply_in_instruction403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_for_instruction_in_instruction408 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_APPLY_in_reconfiguration_apply424 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_reconfiguration_apply426 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_ID_in_reconfiguration_apply428 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_DECLARATION_in_declaration448 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_datatype_in_declaration450 = new BitSet(new long[]{0x2000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_var_def_in_declaration452 = new BitSet(new long[]{0x2000000000000008L,0x0000000000004000L});
-    public static final BitSet FOLLOW_ID_in_var_def466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_in_var_def474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ASSIGNMENT_in_assignment493 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_assignment495 = new BitSet(new long[]{0x200000F000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_assignment_member_in_assignment504 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_expression_in_assignment_member519 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_apply_in_assignment_member525 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_JOIN_in_reconfiguration_call538 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call540 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_SPLIT_in_reconfiguration_call547 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call549 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_PAR_in_reconfiguration_call556 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call558 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_REMOVE_in_reconfiguration_call565 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call567 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_CONST_in_reconfiguration_call574 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call576 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_ID_in_reconfiguration_call583 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call585 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ID_in_reconfiguration_call592 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call594 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_PATH_in_structure_operation_call610 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_structure_operation_call612 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_UPDATE_in_structure_operation_call619 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_operation_args_in_structure_operation_call621 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_args_in_operation_args636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expression_in_args649 = new BitSet(new long[]{0x200000E000C00002L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_FORALL_in_for_instruction672 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_datatype_in_for_instruction674 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_ID_in_for_instruction678 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_ID_in_for_instruction688 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_reconfiguration_block_in_for_instruction690 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_UNION_in_expression711 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_factor_in_expression713 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_factor_in_expression715 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_INTERSECTION_in_expression722 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_factor_in_expression724 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_factor_in_expression726 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_MINUS_in_expression733 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_factor_in_expression735 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_factor_in_expression737 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_factor_in_expression743 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_factor755 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_factor757 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ID_in_factor763 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_operation_in_factor768 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_constructor_in_factor773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ACCESS_in_operation786 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_operation788 = new BitSet(new long[]{0x20000001BF000000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_STRUCTURE_in_operation792 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_operation794 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_attribute_call_in_operation799 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_structure_operation_call_in_operation806 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_triple_cons_in_constructor818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_pair_cons_in_constructor823 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_cons_in_constructor828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_node_cons_in_constructor833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_xor_cons_in_constructor838 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_IN_in_attribute_call858 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_INT_in_attribute_call860 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_OUT_in_attribute_call868 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_INT_in_attribute_call870 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_NAME_in_attribute_call877 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NODES_in_attribute_call882 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_NAMES_in_attribute_call887 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_FST_in_attribute_call893 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_SND_in_attribute_call898 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OP_TRD_in_attribute_call903 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_attribute_call908 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRIPLE_in_triple_cons923 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_triple_cons925 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_expression_in_triple_cons927 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_expression_in_triple_cons929 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_PAIR_in_pair_cons946 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_pair_cons948 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_expression_in_pair_cons950 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_SET_in_set_cons968 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_set_cons970 = new BitSet(new long[]{0x200000E000C00008L,0x00000000009F0000L});
-    public static final BitSet FOLLOW_NODE_in_node_cons989 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_node_cons991 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_XOR_in_xor_cons1007 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_IN_in_xor_cons1011 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_xor_cons1013 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_ID_in_xor_cons1015 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_OUT_in_xor_cons1020 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_xor_cons1022 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_ID_in_xor_cons1024 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_ID_in_applicaiton_def1042 = new BitSet(new long[]{0x20000000003F0000L});
-    public static final BitSet FOLLOW_list_reconfigurations_in_applicaiton_def1044 = new BitSet(new long[]{0x0000020000000002L});
-    public static final BitSet FOLLOW_trigger_def_in_applicaiton_def1046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1059 = new BitSet(new long[]{0x20000000003F0002L});
-    public static final BitSet FOLLOW_trigger_block_in_trigger_def1072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SEP_BLOCK_START_in_trigger_block1084 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_SEP_BLOCK_END_in_trigger_block1086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_main_args_in_main_def1100 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_main_block_in_main_def1103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ARGUMENTS_in_main_args1115 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_main_arg_in_main_args1117 = new BitSet(new long[]{0x0000000000000008L,0x0000000000000400L});
-    public static final BitSet FOLLOW_ARGUMENT_in_main_arg1131 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_main_arg1133 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
-    public static final BitSet FOLLOW_ids_in_main_arg1135 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_IDS_in_ids1149 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_ids1151 = new BitSet(new long[]{0x2000000000000008L});
-    public static final BitSet FOLLOW_INSTRUCTIONS_in_main_block1168 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_main_instruction_in_main_block1170 = new BitSet(new long[]{0x0000000000000008L,0x0000000002002000L});
-    public static final BitSet FOLLOW_main_declaration_in_main_instruction1183 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_main_assignment_in_main_instruction1188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DECLARATION_in_main_declaration1200 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_main_declaration1202 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
-    public static final BitSet FOLLOW_ids_in_main_declaration1204 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_APPLICATION_in_main_assignment1218 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_DECLARATION_in_main_assignment1223 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_main_assignment1225 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
-    public static final BitSet FOLLOW_ids_in_main_assignment1228 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1235 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_ID_in_main_assignment1237 = new BitSet(new long[]{0x20000000003F0000L});
-    public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1239 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_RECONFIGURATION_in_element132 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_reconfiguration_def_in_element134 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_APPLICATION_in_element141 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_applicaiton_def_in_element143 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_MAIN_in_element151 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_main_def_in_element153 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ID_in_reconfiguration_def175 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_args_def_in_reconfiguration_def184 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_reconfiguration_block_in_reconfiguration_def187 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ARGUMENTS_in_args_def210 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_arg_def_in_args_def212 = new BitSet(new long[]{0x0000000000000008L,0x0000000000000400L});
+    public static final BitSet FOLLOW_ARGUMENT_in_arg_def233 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_datatype_in_arg_def235 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_list_ids_in_arg_def237 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DT_PATTERN_in_datatype250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_CHANNEL_in_datatype257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_NAME_in_datatype264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_NODE_in_datatype271 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_XOR_in_datatype279 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_other_type_in_datatype291 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_subtype_in_datatype297 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DT_SET_in_other_type315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_PAIR_in_other_type325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DT_TRIPLE_in_other_type334 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_datatype_in_subtype347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_list_ids360 = new BitSet(new long[]{0x2000000000000002L});
+    public static final BitSet FOLLOW_INSTRUCTIONS_in_reconfiguration_block382 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_instruction_in_reconfiguration_block384 = new BitSet(new long[]{0x0000001000000008L,0x000000000000E000L});
+    public static final BitSet FOLLOW_declaration_in_instruction398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignment_in_instruction403 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_apply_in_instruction408 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_for_instruction_in_instruction413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_APPLY_in_reconfiguration_apply429 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_reconfiguration_apply431 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_ID_in_reconfiguration_apply433 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_DECLARATION_in_declaration453 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_datatype_in_declaration455 = new BitSet(new long[]{0x2000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_var_def_in_declaration457 = new BitSet(new long[]{0x2000000000000008L,0x0000000000004000L});
+    public static final BitSet FOLLOW_ID_in_var_def471 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignment_in_var_def479 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ASSIGNMENT_in_assignment498 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_assignment500 = new BitSet(new long[]{0x200000F000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_assignment_member_in_assignment509 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_expression_in_assignment_member524 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_apply_in_assignment_member530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_JOIN_in_reconfiguration_call543 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call545 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_SPLIT_in_reconfiguration_call552 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call554 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_PAR_in_reconfiguration_call561 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call563 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_REMOVE_in_reconfiguration_call570 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call572 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_CONST_in_reconfiguration_call579 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call581 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_ID_in_reconfiguration_call588 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call590 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ID_in_reconfiguration_call597 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_reconfiguration_call599 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_PATH_in_structure_operation_call615 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_structure_operation_call617 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_UPDATE_in_structure_operation_call624 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_operation_args_in_structure_operation_call626 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_args_in_operation_args641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expression_in_args654 = new BitSet(new long[]{0x200000E000C00002L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_FORALL_in_for_instruction677 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_datatype_in_for_instruction679 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_ID_in_for_instruction683 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_ID_in_for_instruction693 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_reconfiguration_block_in_for_instruction695 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_UNION_in_expression716 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_factor_in_expression718 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_factor_in_expression720 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_INTERSECTION_in_expression727 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_factor_in_expression729 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_factor_in_expression731 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_MINUS_in_expression738 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_factor_in_expression740 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_factor_in_expression742 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_factor_in_expression748 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_factor760 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_factor762 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ID_in_factor768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_operation_in_factor773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_constructor_in_factor778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ACCESS_in_operation791 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_operation793 = new BitSet(new long[]{0x20000001BF000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_STRUCTURE_in_operation797 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_operation799 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_attribute_call_in_operation804 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_structure_operation_call_in_operation811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_triple_cons_in_constructor823 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_pair_cons_in_constructor828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_cons_in_constructor833 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_node_cons_in_constructor838 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_xor_cons_in_constructor843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_IN_in_attribute_call863 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_INT_in_attribute_call865 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_OUT_in_attribute_call873 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_INT_in_attribute_call875 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_NAME_in_attribute_call882 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NODES_in_attribute_call887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_NAMES_in_attribute_call892 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_FST_in_attribute_call898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_SND_in_attribute_call903 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OP_TRD_in_attribute_call908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_attribute_call913 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRIPLE_in_triple_cons928 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_triple_cons930 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_expression_in_triple_cons932 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_expression_in_triple_cons934 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_PAIR_in_pair_cons951 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_pair_cons953 = new BitSet(new long[]{0x200000E000C00000L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_expression_in_pair_cons955 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_SET_in_set_cons973 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_set_cons975 = new BitSet(new long[]{0x200000E000C00008L,0x00000000009F0000L});
+    public static final BitSet FOLLOW_NODE_in_node_cons994 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_node_cons996 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_XOR_in_xor_cons1012 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_IN_in_xor_cons1016 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_xor_cons1018 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_ID_in_xor_cons1020 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_OUT_in_xor_cons1025 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_xor_cons1027 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_ID_in_xor_cons1029 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_ID_in_applicaiton_def1047 = new BitSet(new long[]{0x20000000003F0000L});
+    public static final BitSet FOLLOW_list_reconfigurations_in_applicaiton_def1049 = new BitSet(new long[]{0x0000020000000002L});
+    public static final BitSet FOLLOW_trigger_def_in_applicaiton_def1051 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1064 = new BitSet(new long[]{0x20000000003F0002L});
+    public static final BitSet FOLLOW_trigger_block_in_trigger_def1077 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SEP_BLOCK_START_in_trigger_block1089 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_SEP_BLOCK_END_in_trigger_block1091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_main_args_in_main_def1112 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_main_block_in_main_def1115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ARGUMENTS_in_main_args1130 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_main_arg_in_main_args1132 = new BitSet(new long[]{0x0000000000000008L,0x0000000000000400L});
+    public static final BitSet FOLLOW_ARGUMENT_in_main_arg1146 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_main_arg1148 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_ids_in_main_arg1150 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_IDS_in_ids1166 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_ids1169 = new BitSet(new long[]{0x2000000000000008L});
+    public static final BitSet FOLLOW_INSTRUCTIONS_in_main_block1194 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_main_instruction_in_main_block1196 = new BitSet(new long[]{0x0000000000000008L,0x0000000002002000L});
+    public static final BitSet FOLLOW_main_declaration_in_main_instruction1209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_main_assignment_in_main_instruction1214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DECLARATION_in_main_declaration1226 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_main_declaration1228 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_ids_in_main_declaration1230 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_APPLICATION_in_main_assignment1245 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_DECLARATION_in_main_assignment1250 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_main_assignment1254 = new BitSet(new long[]{0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_ids_in_main_assignment1262 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1270 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_ID_in_main_assignment1272 = new BitSet(new long[]{0x20000000003F0000L});
+    public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1274 = new BitSet(new long[]{0x0000000000000008L});
 
 }

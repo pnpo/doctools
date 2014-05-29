@@ -3,7 +3,7 @@ package pt.uminho.di.reolang.reclang;
 import javassist.*;
 import javassist.bytecode.MethodInfo;
 
-import pt.uminho.di.reolang.reclang.PkgConstants;
+import pt.uminho.di.reolang.reclang.Constants;
 
 public class JavassistTests {
 
@@ -11,13 +11,13 @@ public class JavassistTests {
     
     	ClassPool pool = ClassPool.getDefault();
 		
-    	pool.importPackage(PkgConstants.JAVASSIST);
+    	pool.importPackage(Constants.JAVASSIST);
     	
-		pool.importPackage(PkgConstants.CP_MODEL);
-		pool.importPackage(PkgConstants.JAVA_UTIL);
+		pool.importPackage(Constants.CP_MODEL);
+		pool.importPackage(Constants.JAVA_UTIL);
 		pool.importPackage("java.lang");
-		pool.importPackage(PkgConstants.REOLANG_PARSING_UTIL);
-		pool.importPackage(PkgConstants.CP_RECONFIGURATIONS);
+		pool.importPackage(Constants.REOLANG_PARSING_UTIL);
+		pool.importPackage(Constants.CP_RECONFIGURATIONS);
 
 
 		/*
@@ -27,7 +27,7 @@ public class JavassistTests {
 		*/
 		
 		CtClass cc = pool.makeClass("OverlaP");
-		CtClass sc = pool.get(PkgConstants.CP_RECONFIGURATIONS + ".Reconfiguration"); //import does not affect get() method in ClassPool
+		CtClass sc = pool.get(Constants.CP_RECONFIGURATIONS + ".Reconfiguration"); //import does not affect get() method in ClassPool
 		cc.setSuperclass(sc);
 
 		CtField p = CtField.make("private CoordinationPattern2 p;", cc);

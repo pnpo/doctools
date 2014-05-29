@@ -35,3 +35,42 @@ apply_method(reconfs, insts) ::= <<
 		return new CoordinationPattern2($cp); 
 	}
 >>
+
+
+
+mkmain(args, insts) ::= <<
+public class Main {
+	<args>
+	public static void main(String[] args){
+		try {
+			<insts>
+		}  
+        catch (Throwable e) {  
+            System.err.println(e);  
+        }  
+	}
+}
+>>
+
+list_args(cp, ids) ::= <<
+<ids:{ id |	private static final CoordinationPattern2 <id> = new CoordinationPattern2(map.get("<cp>").getPattern());
+}>
+>>
+
+declaration(cp, ids) ::= <<
+<ids:{ id |final CoordinationPattern2 <id> = new CoordinationPattern2(map.get("<cp>").getPattern());
+}>
+>>
+
+assignment(name, var, dts, ids, cp, res) ::= <<
+// ************* <name> ************* //
+Class <var>_class = Class.forName( "<name>" );
+			
+Constructor <var>_constructor = <var>_class.getConstructor(<dts:{ dt | <dt>.class}; separator=", ">);
+Object <var>_obj = <var>_constructor.newInstance(<ids>);
+			
+Method <var>_apply = <var>_class.getMethod("apply", CoordinationPattern2.class);
+<res:{ r | CoordinationPattern2 <r> = (CoordinationPattern2) <var>_apply.invoke(<var>_obj, <cp> );}; separator="
+">
+// ********************************* //
+>>			

@@ -7,10 +7,10 @@ import java.util.HashMap;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.stringtemplate.StringTemplateGroup;
 
+import pt.uminho.di.reolang.parsing.util.ErrorType;
 import pt.uminho.di.reolang.parsing.util.SimpleError;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 
@@ -35,7 +35,9 @@ public class Processor {
 				this.syntax_errors = parser.getErrors();
 				
 			} catch (Exception e) {
-		        e.printStackTrace();
+				System.out.println("exception: " + e);
+		        System.out.println(SimpleError.report(ErrorType.WARNING, "See Console for more details..."));
+				e.printStackTrace();
 		    }
 		}
 		
@@ -51,7 +53,7 @@ public class Processor {
 			try{
 				//************IDENTIFIERS TABLE************//
 				CommonTreeNodeStream tree_it = new CommonTreeNodeStream(this.res.getTree());
-				System.out.println(((CommonTree) res.getTree()).toStringTree());
+//				System.out.println(((CommonTree) res.getTree()).toStringTree());
 				
 				RecTG walker_idtab = new RecTG(tree_it);
 				ids_table = walker_idtab.reclang();

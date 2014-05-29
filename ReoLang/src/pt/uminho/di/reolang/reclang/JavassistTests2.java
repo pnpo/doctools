@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javassist.*;
-import pt.uminho.di.reolang.reclang.PkgConstants;
+import pt.uminho.di.reolang.reclang.Constants;
 
 public class JavassistTests2 {
 
@@ -15,13 +15,13 @@ public class JavassistTests2 {
     
     	ClassPool pool = ClassPool.getDefault();
 		
-    	pool.importPackage(PkgConstants.JAVASSIST);
+    	pool.importPackage(Constants.JAVASSIST);
     	
-		pool.importPackage(PkgConstants.CP_MODEL);
-		pool.importPackage(PkgConstants.JAVA_UTIL);
+		pool.importPackage(Constants.CP_MODEL);
+		pool.importPackage(Constants.JAVA_UTIL);
 		pool.importPackage("java.lang");
-		pool.importPackage(PkgConstants.REOLANG_PARSING_UTIL);
-		pool.importPackage(PkgConstants.CP_RECONFIGURATIONS);
+		pool.importPackage(Constants.REOLANG_PARSING_UTIL);
+		pool.importPackage(Constants.CP_RECONFIGURATIONS);
 
 		CtClass cc = pool.makeClass("pt.uminho.di.reolang.reclang.G");
 		CtMethod generate = CtNewMethod.make("public static void generate() { return ; }", cc);
@@ -41,7 +41,7 @@ public class JavassistTests2 {
 	    	
 	    	
 	    	String hello = "ClassPool pool = ClassPool.getDefault();" +
-					"pool.importPackage(\"" + PkgConstants.JAVA_UTIL + "\");" +
+					"pool.importPackage(\"" + Constants.JAVA_UTIL + "\");" +
 	    			"pool.importPackage(\"java.lang\");" +
 	    			"CtClass cc = pool.makeClass(\"Hello\");"  + 
 	    			
@@ -69,11 +69,11 @@ public class JavassistTests2 {
 	    	
 	    	
 	    	String head = "ClassPool pool = ClassPool.getDefault();" +
-	    			"pool.importPackage(\"" + PkgConstants.CP_MODEL + "\");" +
-					"pool.importPackage(\"" + PkgConstants.JAVA_UTIL + "\");" +
+	    			"pool.importPackage(\"" + Constants.CP_MODEL + "\");" +
+					"pool.importPackage(\"" + Constants.JAVA_UTIL + "\");" +
 	    			"pool.importPackage(\"java.lang\");" +
-					"pool.importPackage(\"" + PkgConstants.REOLANG_PARSING_UTIL + "\");" +
-					"pool.importPackage(\"" + PkgConstants.CP_RECONFIGURATIONS + "\");" +
+					"pool.importPackage(\"" + Constants.REOLANG_PARSING_UTIL + "\");" +
+					"pool.importPackage(\"" + Constants.CP_RECONFIGURATIONS + "\");" +
 	    			"CtClass cc = pool.makeClass(\"pt.uminho.di.cp.reconfigurations.Overlap\");" +
 	    			"CtClass sc = pool.get(\"pt.uminho.di.cp.reconfigurations.Reconfiguration\");" +
 	    			"cc.setSuperclass(sc);" +

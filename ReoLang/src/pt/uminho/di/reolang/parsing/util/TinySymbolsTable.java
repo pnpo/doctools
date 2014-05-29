@@ -35,6 +35,12 @@ public class TinySymbolsTable {
 	}
 	
 	
+	public void addSymbols(HashMap<String, TinySymbol> hts) {
+		for (TinySymbol ts : hts.values()){
+			this.symbols.put(ts.getId(), ts);
+		}
+	}
+	
 	
 	public void addSymbol(TinySymbol ts) {
 		this.symbols.put(ts.getId(), ts);

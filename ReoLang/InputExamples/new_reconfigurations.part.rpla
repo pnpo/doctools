@@ -1,0 +1,20 @@
+import "InputExamples/overlap.rpla";
+
+reconfiguration insertP(Pattern p; Node n, mi, mo) {
+	Pattern p1 = @ par(p);
+	Pattern p2 = @ split(n);
+	Set<Node> n1 = p2.in - p1.in ;
+	Set<Node> n2 = p2.out - p1.out ;
+	Set<Node> E1 = n1 + S(mi);
+	@ join(E1);
+	Set<Node> E2 = n2 + S(mo);
+	@ join(E2);
+}
+
+
+
+main [Sequencer seq1]{
+	Replicator p1;
+	
+	YYYY seq2, seq3 = seq1 @ insertP(p1, seq1#s1.in[0], p1#s2.out[0], p1#s3.in[0]);
+}

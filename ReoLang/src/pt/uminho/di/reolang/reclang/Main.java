@@ -1,9 +1,11 @@
 package pt.uminho.di.reolang.reclang;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
+import pt.uminho.di.reolang.parsing.util.ErrorType;
 import pt.uminho.di.reolang.parsing.util.SimpleError;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 
@@ -11,56 +13,71 @@ public class Main {
 	
     public static void main(String args[]) throws Exception {
     	
-    	Processor p = new Processor("InputExamples/new_reconfigurations.part.rlf"); //rec_tests.rlf ");
-    	List<SimpleError> syntax_errors = p.getSyntaxErrors();
-    	if ( !syntax_errors.isEmpty() ){
-    		System.out.println(syntax_errors);
+    	String input_file = "InputExamples/new_reconfigurations.part.rpla"; //rec_tests.rlf ");
+    	File f = new File(input_file);
+    	if(!f.exists()) {
+    		System.out.println(SimpleError.report(ErrorType.ERROR, SimpleError.fileDoesNotExist(input_file)));
     	}
     	else{
-    		
-        	TinySymbolsTable ids_table = p.getIdentifiersTable();
-        	List<SimpleError> errors = p.getSemanticErrors(ids_table);
-        	
-        	HashMap<String, String> translation = new HashMap<String, String>();
-        	if (errors != null && errors.isEmpty()){
-        		translation = p.getTranslation("resources/template.stg", ids_table);
-        	}
-        	else{
-        		System.out.println(errors);	
-        	}
-
-    	
-        	
-	    	//do something with translation...
-//	    	System.out.println(translation);
+	    	Processor p = new Processor(input_file);
 	    	
-	    	for (String rec : translation.keySet()){
-	    		String folder = "tests/";
-	    		
-	    		String file_name = rec + ".java";
-	    		String file_path = folder + file_name;
-	    		
-	    		PrintWriter writer = new PrintWriter(file_path, "UTF-8");
-	    		writer.println("import " + PkgConstants.JAVA_UTIL + ".*;");
-	    		writer.println("import " + PkgConstants.CP_MODEL + ".*;");
-	    		writer.println("import " + PkgConstants.CP_RECONFIGURATIONS + ".*;");
-	    		writer.println("import " + PkgConstants.REOLANG_PARSING_UTIL + ".*;\n");
-	    		writer.print(translation.get(rec));
-	    		writer.close();
-	    		
-	    		
-	    		String option = "-cp";
-	    		String classpath = folder + "recoopla.jar";
-	    		
-	    		//javac -cp file.jar file.java
-//	    		executeCommand("javac" + " " + option + " " + classpath + " " + file_path);
-	    		executeCommand("javac", option, classpath, file_path);
+	    	List<SimpleError> syntax_errors = p.getSyntaxErrors();
+	    	if ( !syntax_errors.isEmpty() ){
+	    		System.out.println(syntax_errors);
 	    	}
+	    	else{
+	    		System.out.println("Started!");
+	    		
+	        	TinySymbolsTable ids_table = p.getIdentifiersTable();
+//	        	System.out.println(ids_table);
+	        	List<SimpleError> errors = p.getSemanticErrors(ids_table);
+	        	
+	        	HashMap<String, String> translation = new HashMap<String, String>();
+	        	if (errors != null && errors.isEmpty()){
+	        		translation = p.getTranslation("resources/template.stg", ids_table);
+	        	}
+	        	else{
+	        		System.out.println(errors);	
+	        	}
+	
 	    	
-
-			System.out.println("Finished!");
+		    	//do something with translation...
+	//	    	System.out.println(translation);
+		    	
+		    	for (String t : translation.keySet()){
+		    		String folder = "tests/";
+		    		
+		    		String file_name = t + ".java";
+		    		String file_path = folder + file_name;
+		    		
+		    		PrintWriter writer = new PrintWriter(file_path, "UTF-8");
+		    	
+		    		writer.println("import " + Constants.JAVA_UTIL + ".*;");
+		    		writer.println("import " + Constants.CP_MODEL + ".*;");
+		    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
+		    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
+		    		if (t.equals("Main")){
+		    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;");
+		    			//writer.println("import " + PkgConstants.JAVA_LANG_REFLECT + ".Constructor;");
+			    		//writer.println("import " + PkgConstants.JAVA_LANG_REFLECT + ".Method;");
+		    			
+		    		}
+		    		writer.print(translation.get(t));
+		    		writer.close();
+		    		
+		    		
+		    		String option = "-cp";
+		    		String classpath = folder + "recoopla.jar";
+		    		
+		    		//javac -cp file.jar file.java
+	//	    		executeCommand("javac" + " " + option + " " + classpath + " " + file_path);
+		    		executeCommand("javac", option, classpath, file_path);
+		    	}
+		    	
+	
+				System.out.println("Finished!");
+	    	}
     	}
-     
     }
     
 

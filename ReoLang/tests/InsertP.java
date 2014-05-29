@@ -9,16 +9,12 @@ public class InsertP extends Reconfiguration {
  	final private Node _n;
  	final private Node _mi;
  	final private Node _mo;
- 	final private Node _j1;
- 	final private Node _j2;
  
-	public InsertP(CoordinationPattern2 _p, Node _n, Node _mi, Node _mo, Node _j1, Node _j2) {
+	public InsertP(CoordinationPattern2 _p, Node _n, Node _mi, Node _mo) {
 		this._p = _p; 
 		this._n = _n; 
 		this._mi = _mi; 
-		this._mo = _mo; 
-		this._j1 = _j1; 
-		this._j2 = _j2;
+		this._mo = _mo;
 	}
 
 	@Override

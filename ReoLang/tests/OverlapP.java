@@ -1,75 +1,36 @@
-/**
- * 
- */
-
-import java.util.LinkedHashSet;
-
-import pt.uminho.di.cp.model.CoordinationPattern2;
-import pt.uminho.di.cp.model.Node;
+import java.util.*;
+import pt.uminho.di.cp.model.*;
 import pt.uminho.di.cp.reconfigurations.*;
-import pt.uminho.di.reolang.parsing.util.Pair;
+import pt.uminho.di.reolang.parsing.util.*;
 
-/**
- * @author Nuno Oliveira
- * @date 16 de Dez de 2013
- *
- */
 public class OverlapP extends Reconfiguration {
 
-	private CoordinationPattern2 p;
-	private LinkedHashSet<Pair<Node,Node>> X;
-	
-	public static void main(String[] a){
-		System.out.println("Conseguimos!!");
+	final private CoordinationPattern2 _p;
+ 	final private LinkedHashSet<Pair<Node, Node>> _Xy;
+ 
+	public OverlapP(CoordinationPattern2 _p, LinkedHashSet<Pair<Node, Node>> _Xy) {
+		this._p = _p; 
+		this._Xy = _Xy;
 	}
 
-	
-	/**
-	 * 
-	 * @param arg1
-	 * @param arg2
-	 */
-	public OverlapP(CoordinationPattern2 arg1, LinkedHashSet <Pair<Node,Node>> arg2 ) {
-		this.p = arg1 ;
-		this.X = arg2 ;
-	}
-
-
-
-
-
-	/* (non-Javadoc)
-	 * @see pt.uminho.di.cp.reconfigurations.IReconfiguration#apply(pt.uminho.di.cp.model.CoordinationPattern2)
-	 */
 	@Override
-	public CoordinationPattern2 apply(CoordinationPattern2 __recoopla_pattern__) {
+	public CoordinationPattern2 apply(CoordinationPattern2 $cp) { 
+		Join join;
 		Par par;
-		Join join ;
-		par = new Par(this.p);
-		par.apply(__recoopla_pattern__);
-		for(Pair<Node,Node> n : this.X) {
-			Node n1, n2;
-			n1 = n.fst();
-			n2 = n.snd();
-			
-			LinkedHashSet<Node> E = new LinkedHashSet<Node>();
-			E.add(n1);
-			E.add(n2);
-			join = new Join(E);
-			join.apply(__recoopla_pattern__);
+		par = new Par(_p);
+		par.apply($cp);
+		for(Pair<Node, Node> _n : _Xy) {
+			final Node _n1 = null;
+			final Node _n2 = null;
+			_n1 = _n.fst();
+			_n2 = _n.snd();
+			final LinkedHashSet<Node> _E = new LinkedHashSet<Node>() {{ 
+				add(_n1); 
+				add(_n2); 
+			}};
+			join = new Join(_E);
+			join.apply($cp);
 		}
-		return __recoopla_pattern__ ;
+		return new CoordinationPattern2($cp); 
 	}
-
-
-	
-	
-	
-
-
-
-
-
-	
-	
 }

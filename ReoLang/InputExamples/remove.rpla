@@ -1,0 +1,6 @@
+reconfiguration removeP	(Set<Name> Cs ) {
+	forall ( Name n : Cs)
+	{	
+		@ remove(n);
+	}
+}

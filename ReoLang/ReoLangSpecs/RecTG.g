@@ -10,6 +10,8 @@ options{
 	package pt.uminho.di.reolang.reclang;
 	
 	import pt.uminho.di.reolang.parsing.util.*;
+	import java.util.HashMap;	
+	import java.io.File;
 }
 
 @members{
@@ -55,7 +57,33 @@ directive_def
 
 	
 directive_import
-	: ^(IMPORT STRING)
+	: ^(IMPORT STRING
+	{
+		String file_name = $STRING.text;
+		String file = file_name.substring(1, file_name.length()-1); //remove " from string
+		
+	    	File f = new File( file );
+	    	if( f.exists() ){
+			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
+			
+			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
+				Processor p = new Processor(file);
+				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
+				if ( !imported_ids_table.getSymbols().isEmpty() ){
+					HashMap<String, TinySymbol> changed_symbols = new HashMap<String, TinySymbol>();
+					for (TinySymbol ts : imported_ids_table.getSymbols().values()){
+						ts.setLine($STRING.line);
+						changed_symbols.put(ts.getId(), ts);
+					}
+					this.ids_table.addSymbols( changed_symbols );
+				}
+			}
+			else {	//if is a CooPLa file
+				//...
+			}
+		}
+	}
+	)
 	;
 
 
@@ -445,7 +473,37 @@ trigger_block
 
 
 main_def
+scope{
+	TinySymbol symbol;
+	TinySymbolsTable scope;
+}
+@init{
+	$main_def::symbol = new TinySymbol();
+	$main_def::scope = new TinySymbolsTable();
+}
 	: main_args? main_block
+	{
+		
+		$main_def::symbol.setId("\$main");
+		
+		List<Type> datatype = new ArrayList<Type>();
+		datatype.add( Type.NULL ); 	//main returns void
+		$main_def::symbol.setDataType(datatype);
+		
+		Type classtype = Type.MAIN; 	//Type.valueOf("MAIN")
+		$main_def::symbol.setClassType(classtype);
+		
+		$main_def::symbol.setLine( $main_block.start.getLine() );
+		$main_def::symbol.setPosition( 0 );
+		
+		
+		List<TinySymbolsTable> scopes = new ArrayList<TinySymbolsTable>();
+		scopes.add($main_def::scope);
+		$main_def::symbol.setScopes( scopes );
+		
+		//$main_def::symbol.removeRepeatedIds();
+		ids_table.addSymbol($main_def::symbol);
+	}
 	;
 
 main_args
@@ -453,11 +511,38 @@ main_args
 	;
 
 main_arg
-	: ^(ARGUMENT ID ids)
+	: ^(ARGUMENT ID ids[true, true])
 	;	
 
-ids
-	: ^(IDS ID+)
+ids[boolean toAdd, boolean isArg]
+	: ^(IDS (ID
+	{
+		if (toAdd){
+			TinySymbol s = new TinySymbol();
+			s.setId($ID.text);
+			
+			List<Type> datatype = new ArrayList<Type>();
+			datatype.add( Type.PATTERN );
+			s.setDataType(datatype);
+			
+			Type classtype;
+			if (isArg){ 
+				classtype = Type.ARG;
+			} else {
+				classtype = Type.VAR;
+			}
+			s.setClassType(classtype);
+			
+			s.setLine($ID.line);
+			s.setPosition($ID.pos);
+			
+			if (!$main_def::scope.containsSymbol($ID.text)){
+				$main_def::scope.addSymbol(s);
+			}
+		}
+	}
+	)+
+	)
 	;	
 	
 
@@ -471,9 +556,16 @@ main_instruction
 	;
 
 main_declaration
-	: ^(DECLARATION ID ids)
+	: ^(DECLARATION ID ids[true, false])
 	;
 
 main_assignment
-	: ^( APPLICATION ( ^(DECLARATION ID? ids) )? ^(OP_APPLY ID reconfiguration_call) )
+	: ^( APPLICATION ( ^(DECLARATION dt=ID? 
+	{	
+		boolean toAdd = false;
+		if ($dt.text != null){ //if is declaration
+			toAdd = true;
+		}
+	}
+	ids[toAdd, false]) )? ^(OP_APPLY ID reconfiguration_call) )
 	;

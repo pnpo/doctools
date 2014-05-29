@@ -36,8 +36,10 @@ tokens {
 @header{
 	package pt.uminho.di.reolang.reclang;
 	
+	import pt.uminho.di.reolang.reclang.Constants;
 	import pt.uminho.di.reolang.parsing.util.SimpleError;
 	import pt.uminho.di.reolang.parsing.util.ErrorType;
+	import java.io.File;
 }
 
 @members{
@@ -71,7 +73,38 @@ directive_def
 
 	
 directive_import
-	:	RW_IMPORT STRING SEP_SEMICOLON 
+	:	RW_IMPORT STRING
+	{
+		String file_name = $STRING.text;
+		String file = file_name.substring(1, file_name.length()-1); //remove " from string
+		
+	    	File f = new File( file );
+	    	if( f.exists() ){
+			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
+			
+			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
+				Processor p = new Processor(file);
+				ArrayList<SimpleError> imported_syntax_errors = p.getSyntaxErrors();
+				if ( !imported_syntax_errors.isEmpty() ){
+					this.syntax_errors.addAll( imported_syntax_errors );
+				}
+			}
+			else {	//if is a CooPLa file
+				/*
+				//LEXER
+				ReoLangLexer lex = new ReoLangLexer(stream);
+				CommonTokenStream tokens = new CommonTokenStream(lex);
+		        	//PARSER
+				ReoLangParser parser = new ReoLangParser(tokens);
+				parser.setFilePath(this.getFile());
+				final_result = parser.reolang();
+			        this.setErrors(parser.getErrors());
+			        */
+			}
+		}
+	}
+	SEP_SEMICOLON 
+		
 		-> ^(IMPORT STRING)
 	;
 
