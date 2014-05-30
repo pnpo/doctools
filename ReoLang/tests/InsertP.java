@@ -22,11 +22,11 @@ public class InsertP extends Reconfiguration {
 		Join join;
 		Par par;
 		Split split;
-		par = new Par(_p);
-		final CoordinationPattern2 _p1 = par.apply($cp);
-
 		split = new Split(_n);
 		final CoordinationPattern2 _p2 = split.apply($cp);
+
+		par = new Par(_p);
+		final CoordinationPattern2 _p1 = par.apply($cp);
 
 		final LinkedHashSet<Node> _n1 = new LinkedHashSet<Node>(_p2.getIn()){{ 
 			removeAll( _p1.getIn() );

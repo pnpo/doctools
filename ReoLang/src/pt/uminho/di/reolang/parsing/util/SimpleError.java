@@ -53,13 +53,20 @@ public class SimpleError {
      * @return string with a message
      */
     public static String nameNotDefined(String id){
-    	return "Name '" + id + "' is not in the scope!";
+    	return "Name '" + id + "' is not previously defined!";
     }
     
     public static String recNotDefined(String id){
     	return "Reconfiguration '" + id + "' is not previously defined!";
     }
     
+    public static String patternNotDefined(String id){
+    	return "Pattern '" + id + "' is not previously defined!";
+    }
+    
+    public static String patternAlreadyDefined(String id){
+    	return "Pattern '" + id + "' is previously defined!";
+    }
     
     public static String wrongDatatype(String id, String dt){
     	return "Variable '" + id + "' is not of type '" + dt + "'!";
@@ -79,6 +86,10 @@ public class SimpleError {
     
     public static String fileDoesNotExist(String file_path){
     	return "File '" + file_path + "' does not exist!";
+    }
+    
+    public static String invalidFile(String file_path){
+    	return "File '" + file_path + "' is not valid (only CooPLa and ReCooPLa files are accepted)!";
     }
     
     

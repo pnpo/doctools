@@ -238,9 +238,22 @@ public class TinySymbol {
 	//CUSTOM toString
 	@Override
 	public String toString() {
+		
 		return  "TinySymbol -> \n\t\t(\n\t\t id: " + id + ", \n\t\t datatype: " + datatype
 				+ ", \n\t\t classType: " + classType + ", \n\t\t line: " + line + 
 				", \n\t\t position: " + position + ", \n\t\t scopes: " + scopes + "\n\t\t)\n\t";
+		/*
+		String res = "";
+		res += (!this.id.equals("")) ? "ID		" + this.id: "";
+		res += this.datatype.size() > 0 ? "\nDATATYPE	" + this.datatype : "";
+		res += this.classType != null ? "\nCLASSTYPE	" + this.classType : "";		
+		res += this.line != 0 ? "\nLINE		" + this.line : ""; 			
+		res += this.position!= 0 ? "\nPOS		" + this.position : "";
+		res += this.scopes.size() > 0 ? "\n\nSCOPES		" + this.scopes : "";
+		res += "\n---------------------------\n";
+		
+		return res; 
+		*/
 	}
 	
 }

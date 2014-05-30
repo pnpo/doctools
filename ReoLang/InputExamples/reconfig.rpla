@@ -1,8 +1,11 @@
+//import "InputExamples/patterns.cpla";
+//import "InputExamples/sequencer.cpla";
+import "InputExamples/channels_and_patterns.cpla";
 import "InputExamples/overlap.rpla";
 
 reconfiguration insertP(Pattern p; Node n, mi, mo) {
-	Pattern p1 = @ par(p);
 	Pattern p2 = @ split(n);
+	Pattern p1 = @ par(p);
 	Set<Node> n1 = p2.in - p1.in ;
 	Set<Node> n2 = p2.out - p1.out ;
 	Set<Node> E1 = n1 + S(mi);
@@ -14,7 +17,7 @@ reconfiguration insertP(Pattern p; Node n, mi, mo) {
 
 
 main [Sequencer seq1]{
-	Replicator p1;
-	
-	YYYY seq2, seq3 = seq1 @ insertP(p1, seq1#s1.in[0], p1#s2.out[0], p1#s3.in[0]);
+	//Replicator p1;
+	Synchroniser p1;
+	NewCP rep = seq1 @ insertP(p1, seq1#s1.in[0], p1#s2.out[0], p1#s3.in[0]);
 }

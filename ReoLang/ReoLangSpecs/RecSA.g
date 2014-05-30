@@ -8,8 +8,10 @@ options{
 
 @header{
 	package pt.uminho.di.reolang.reclang;
-	
-	import pt.uminho.di.reolang.parsing.util.SimpleError;
+		
+	import pt.uminho.di.reolang.ReoLangSemantics;
+	import pt.uminho.di.reolang.parsing.Semantics;
+	import pt.uminho.di.reolang.parsing.util.Error;
 	import pt.uminho.di.reolang.parsing.util.*;
 	//import java.util.*;
 	import java.util.HashMap;
@@ -71,6 +73,7 @@ options{
 reclang[TinySymbolsTable global_table] returns[ArrayList<SimpleError> errors]
 scope{
 	TinySymbolsTable ids_table; 
+	SymbolsTable coopla_table;
 	int scope_id;
 	int parent_id;
 	int aux_id;	
@@ -79,7 +82,7 @@ scope{
 }
 @init{
 	$reclang::ids_table = $reclang.global_table;
-
+	$reclang::coopla_table = new SymbolsTable();
 	$reclang::scope_id = 0;
 	$reclang::parent_id = 0;	
 	$reclang::aux_id = 0;
@@ -88,18 +91,20 @@ scope{
 	$reclang::scope_rel = new HashMap<Integer,Integer>();
 
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
-	boolean existImports = false;
+	boolean exist_imported_errors = false;
 }
 	: ^(RECONFIGS (directive_def
 	{
 		local_errors.addAll($directive_def.errors);
-		existImports = true;
+		if ( !$directive_def.errors.isEmpty() ){
+			exist_imported_errors = true;
+		}
 	}
 	
 	)* (element
 	{
 		//rever -> join imported errors to file errors?
-		if( existImports ){ 
+		if( !exist_imported_errors ){ 
 			local_errors.addAll($element.errors);
 		}
 	}
@@ -153,7 +158,7 @@ directive_import returns[ArrayList<SimpleError> errors]
 	    	else{
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
-			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
+			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//*.rpla
 				Processor p = new Processor(file);
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
 				ArrayList<SimpleError> imported_semantic_errors = p.getSemanticErrors( imported_ids_table );
@@ -162,14 +167,18 @@ directive_import returns[ArrayList<SimpleError> errors]
 					local_errors.addAll( imported_semantic_errors );
 				}
 			}
-			else {	//if is a CooPLa file
-				//...
-				/*
+			else if (file_extension.equals(Constants.COOPLA_FILE_EXTENSION)) {	//*.cpla
 				Semantics semantics = new Semantics(file);
-				ReoLangSemantics.reolang_return imported_atts = semantics.performSemanticAnalysis(\$reolang::global_table);
-				\$directive_import.o_errors = imported_atts != null ? imported_atts.errors : new ArrayList<Error>(0);
-				\$reolang::global_table = imported_atts != null ? imported_atts.symbols : \$reolang::global_table ;
-				*/
+				
+				ReoLangSemantics.reolang_return imported_atts = semantics.performSemanticAnalysis($reclang::coopla_table);
+				ArrayList<Error> coopla_errors = imported_atts != null ? imported_atts.errors : new ArrayList<Error>(0);
+				for (Error e : coopla_errors){
+					local_errors.add( SimpleError.report(ErrorType.ERROR, e.getMessage(), e.getLine(), e.getPosition()) );
+				}
+				$reclang::coopla_table = imported_atts != null ? imported_atts.symbols : $reclang::coopla_table ;
+			}
+			else{
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.invalidFile(file), $STRING.line, $STRING.pos) );
 			}
 		}
 		
@@ -482,8 +491,9 @@ assignment[boolean isDeclaration] returns[ArrayList<SimpleError> errors]
 			}
 		}
 		else{
-			ts = $element::name.hasValue($ID.text, s_id);
-			if (!$element::current_scope.containsSymbol($ID.text) && ts == null){
+			ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);
+	
+			if ( ts == null || $ID.line < ts.getLine() ){
 				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
 			}
 		}
@@ -795,25 +805,25 @@ for_instruction returns[ArrayList<SimpleError> errors]
 
 	id2=ID 
 	{
-		ts = $element::name.hasValue($id2.text, s_id);
-		if (!$element::current_scope.containsSymbol($id2.text) && ts == null){
+		ts = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);
+
+		if ( ts == null || $id2.line < ts.getLine() ){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id2.text), $id2.line, $id2.pos) );
 		}
+		//if (local_errors.isEmpty()){
 		else{
-			if (local_errors.isEmpty()){
-				TinySymbol ts1 = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
-				TinySymbol ts2 = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);				
+			TinySymbol ts1 = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
+			TinySymbol ts2 = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);				
 
 				if (!ts2.getDataType().get(0).equals(Type.SET)){
-					local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id2.text, "Set<T>"), $id2.line, $id2.pos) );
-				}
-				else{
-					if (ts1 != null){
-						List<Type> datatype = new ArrayList<Type>(ts2.getDataType());
-						datatype.remove(0);
-						if (!ts1.getDataType().equals(datatype)){
-							local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, ts2.dataTypeToString()), $id1.line, $id1.pos) );
-						}
+				local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id2.text, "Set<T>"), $id2.line, $id2.pos) );
+			}
+			else{
+				if (ts1 != null){
+					List<Type> datatype = new ArrayList<Type>(ts2.getDataType());
+					datatype.remove(0);
+					if (!ts1.getDataType().equals(datatype)){
+						local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.wrongDatatype($id1.text, ts2.dataTypeToString()), $id1.line, $id1.pos) );
 					}
 				}
 			}
@@ -938,14 +948,17 @@ factor returns[ArrayList<SimpleError> errors, List<Type> datatype, String name]
 	| ID
 	{
 		$factor.name = $ID.text;
-
+		
 		Integer s_id = $element::current_scope.getScopeRel().fst();
-		TinySymbol ts = $element::name.hasValue($ID.text, s_id);
-		if (!$element::current_scope.containsSymbol($ID.text) && ts == null){
+		TinySymbol ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);
+
+		if ( ts == null || $ID.line < ts.getLine() ){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
 		}
+		
+		//if (local_errors.isEmpty()){
 		else{
-			TinySymbol symbol = ts != null ? ts : $element::current_scope.getSymbols().get($ID.text);
+			TinySymbol symbol = ts;
 
 			dt.clear();
 			dt.add(Type.PATTERN);
@@ -1024,9 +1037,10 @@ scope{
 		//if contains symbol, tiny symbol is obtained from $element::current_scope, else from $element::name
 		TinySymbol ts = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
 
-		if (ts == null){
+		if ( ts == null || $id1.line < ts.getLine() ){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id1.text), $id1.line, $id1.pos) );
 		}
+		
 	}
 	(^(STRUCTURE id2=ID
 	{
@@ -1517,7 +1531,7 @@ node_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String nam
 		Integer s_id = $element::current_scope.getScopeRel().fst();
 		TinySymbol ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);
 
-		if (ts == null){
+		if (ts == null || $ID.line < ts.getLine()){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($ID.text), $ID.line, $ID.pos) );
 		}
 		else{
@@ -1563,7 +1577,7 @@ xor_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name
 	{
 		ts = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
 
-		if (ts == null){
+		if (ts == null || $id1.line < ts.getLine()){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id1.text), $id1.line, $id1.pos) );
 		}
 		else{
@@ -1580,7 +1594,7 @@ xor_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name
 	{
 		ts = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);
 
-		if (ts == null){
+		if (ts == null || $id2.line < ts.getLine()){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id2.text), $id2.line, $id2.pos) );
 		}
 		else{
@@ -1600,7 +1614,7 @@ xor_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name
 
 		ts = $element::current_scope.containsSymbol($id3.text) ? $element::current_scope.getSymbols().get($id3.text) : $element::name.hasValue($id3.text, s_id);
 
-		if (ts == null){
+		if (ts == null || $id3.line < ts.getLine()){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id3.text), $id3.line, $id3.pos) );
 		}
 		else{
@@ -1616,7 +1630,7 @@ xor_cons returns[ArrayList<SimpleError> errors, List<Type> datatype, String name
 	{
 		ts = $element::current_scope.containsSymbol($id4.text) ? $element::current_scope.getSymbols().get($id4.text) : $element::name.hasValue($id4.text, s_id);
 
-		if (ts == null){
+		if (ts == null || $id4.line < ts.getLine()){
 			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.nameNotDefined($id4.text), $id4.line, $id4.pos) );
 		}
 		else{
@@ -1668,11 +1682,26 @@ trigger_block
 
 
 main_def returns[ArrayList<SimpleError> errors]
+scope{
+	//imported coopla patterns
+	List<String> patterns;
+}
 @init{
 	$element::name = $reclang::ids_table.getSymbols().get("\$main");
 	$element::current_scope = $element::name.getScopes().get(0); //main has only one scope
 	
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
+
+	// coopla data
+	$main_def::patterns = new ArrayList<String>();
+
+	HashMap<String, Symbol> coopla_symbols = $reclang::coopla_table.getSymbols();
+	for (String key : coopla_symbols.keySet()){
+		Symbol s = coopla_symbols.get(key);
+		if (s.getType().equals("PATTERN")){
+			$main_def::patterns.add(s.getId());
+		}
+	}
 }
 	: (main_args
 	{
@@ -1706,9 +1735,17 @@ main_arg returns[ArrayList<SimpleError> errors]
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
-	: ^(ARGUMENT ID ids[true]
+	: ^(ARGUMENT dt=ID
 	{
-		local_errors.addAll($ids.errors);
+		if (!$main_def::patterns.contains($dt.text)){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.patternNotDefined($dt.text), $dt.line, $dt.pos) );
+		}
+	}
+	ids[true]
+	{
+		if (local_errors.isEmpty()){
+			local_errors.addAll($ids.errors);
+		}
 		$main_arg.errors = local_errors;
 	}
 	)
@@ -1764,9 +1801,18 @@ main_declaration returns[ArrayList<SimpleError> errors]
 @init{
 	ArrayList<SimpleError> local_errors = new ArrayList<SimpleError>();
 }
-	: ^(DECLARATION ID ids[true]
+	: ^(DECLARATION dt=ID 
 	{
-		local_errors.addAll($ids.errors);
+		if (!$main_def::patterns.contains($dt.text)){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.patternNotDefined($dt.text), $dt.line, $dt.pos) );
+		}
+	}
+	
+		ids[true]
+	{
+		if (local_errors.isEmpty()){
+			local_errors.addAll($ids.errors);
+		}
 		$main_declaration.errors = local_errors;
 	}
 	)
@@ -1779,6 +1825,12 @@ main_assignment returns[ArrayList<SimpleError> errors]
 }
 	: ^( APPLICATION ( ^(DECLARATION (dt=ID
 	{	
+		if ($main_def::patterns.contains($dt.text)){
+			local_errors.add( SimpleError.report(ErrorType.ERROR, SimpleError.patternAlreadyDefined($dt.text), $dt.line, $dt.pos) );
+		} else {
+			$main_def::patterns.add($dt.text);
+		}
+		
 		if ($dt.text != null){ //if is declaration
 			toTest = true;
 		}

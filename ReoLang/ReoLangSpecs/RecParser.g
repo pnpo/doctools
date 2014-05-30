@@ -36,7 +36,10 @@ tokens {
 @header{
 	package pt.uminho.di.reolang.reclang;
 	
+	import pt.uminho.di.reolang.ReoLangLexer;
+	import pt.uminho.di.reolang.ReoLangParser;	
 	import pt.uminho.di.reolang.reclang.Constants;
+	import pt.uminho.di.reolang.parsing.util.Error;
 	import pt.uminho.di.reolang.parsing.util.SimpleError;
 	import pt.uminho.di.reolang.parsing.util.ErrorType;
 	import java.io.File;
@@ -89,17 +92,30 @@ directive_import
 					this.syntax_errors.addAll( imported_syntax_errors );
 				}
 			}
-			else {	//if is a CooPLa file
-				/*
-				//LEXER
-				ReoLangLexer lex = new ReoLangLexer(stream);
-				CommonTokenStream tokens = new CommonTokenStream(lex);
-		        	//PARSER
-				ReoLangParser parser = new ReoLangParser(tokens);
-				parser.setFilePath(this.getFile());
-				final_result = parser.reolang();
-			        this.setErrors(parser.getErrors());
-			        */
+			else if (file_extension.equals(Constants.COOPLA_FILE_EXTENSION)) {	//if is a CooPLa file
+				ReoLangParser.reolang_return final_result = null;
+				try{
+					CharStream stream = new ANTLRFileStream(file, "UTF8");
+					//LEXER
+					ReoLangLexer lex = new ReoLangLexer(stream);
+					CommonTokenStream tokens = new CommonTokenStream(lex);
+			        	//PARSER
+					ReoLangParser parser = new ReoLangParser(tokens);
+					parser.setFilePath(file);
+					final_result = parser.reolang();
+					//this.setErrors(parser.getErrors());
+					for (Error e : parser.getErrors()){
+						this.syntax_errors.add( SimpleError.report(ErrorType.ERROR, e.getMessage(), e.getLine(), e.getPosition()) );
+					}
+				}
+				catch(Throwable t){
+					System.out.println("exception: " + t);
+				        System.out.println(SimpleError.report(ErrorType.WARNING, "See Console for more details..."));
+					t.printStackTrace();
+				}
+			}
+			else {
+				//emit error -> import file invalid
 			}
 		}
 	}

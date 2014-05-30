@@ -38,6 +38,10 @@ public class SymbolsTable {
     	 return this.symbols.get(s);
      }
      
+     public HashMap<String, Symbol> getSymbols(){
+    	 return this.symbols;
+     }
+     
      
      
      //// SEMANTIC ANALYSIS

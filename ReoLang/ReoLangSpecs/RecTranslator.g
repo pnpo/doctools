@@ -10,10 +10,14 @@ options{
 @header{
 	package pt.uminho.di.reolang.reclang;
 	
-	import pt.uminho.di.reolang.parsing.util.*;
+	import pt.uminho.di.reolang.ReoLangCP2;
+	import pt.uminho.di.reolang.parsing.CPBuilder;
 	import pt.uminho.di.reolang.reclang.Constants;
+	import pt.uminho.di.reolang.parsing.util.*;
+	import pt.uminho.di.cp.model.CPModelInternal;
 	import java.util.Set;
 	import java.util.HashSet;
+	import java.util.LinkedHashMap;
 	import java.io.File;
 }
 
@@ -27,12 +31,13 @@ options{
 		return this.reconfigurations;
 	}
 	
-	
+	/* unused */
 	private Pair<String,String> main;
 	
 	public Pair<String,String> getMain(){
 		return this.main;
 	}
+	
 	
 	
 	private String datatypeToString(List<String> full_dt){
@@ -104,6 +109,8 @@ options{
 reclang[TinySymbolsTable identifiers_table]
 scope{
 	TinySymbolsTable ids_table;
+	SymbolsTable coopla_table;
+	List<String> imported_coopla_files;
 
 	int scope_id;
 	int parent_id;
@@ -112,6 +119,9 @@ scope{
 }
 @init{
 	$reclang::ids_table = $reclang.identifiers_table;
+	$reclang::coopla_table = new SymbolsTable();
+	$reclang::imported_coopla_files = new ArrayList<String>();
+	
 	this.reconfigurations = new HashMap<String, String>();
 	
 	$reclang::scope_id = 0;
@@ -156,8 +166,13 @@ directive_import
 				
 				this.reconfigurations.putAll(imported_translation);
 			}
-			else {	//if is a CooPLa file
-				//...
+			else if (file_extension.equals(Constants.COOPLA_FILE_EXTENSION)) {	//*.cpla
+				$reclang::imported_coopla_files.add(file);
+				/*
+				CPBuilder cp_model_builder = new CPBuilder(file);
+				ReoLangCP2 res = cp_model_builder.performModelConstruction(this.patterns, $reclang::coopla_table);
+				this.patterns = res.getPatterns() != null ? res.getPatterns() : this.patterns;
+				*/
 			}
 		}
 	}
@@ -1006,7 +1021,7 @@ main_def returns[String id]
 }
 	: main_args? main_block
 	
-	-> mkmain(args={$main_args.values}, insts={$main_block.values})
+	-> mkmain(files={$reclang::imported_coopla_files}, args={$main_args.values}, insts={$main_block.values})
 	;
 
 main_args returns[List<String> values]
@@ -1087,7 +1102,7 @@ main_declaration returns[String value]
 	: ^(DECLARATION cp=ID ids
 	{
 		for (String id : $ids.values){
-			value += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(map.get(\"" + $cp + "\").getPattern());\n";
+			value += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(patterns.get(\"" + $cp + "\").getSimplePattern());\n";
 		}
 	}
 	)

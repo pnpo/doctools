@@ -66,20 +66,19 @@ directive_import
 	    	if( f.exists() ){
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
-			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
+			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//*.rpla
 				Processor p = new Processor(file);
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
 				if ( !imported_ids_table.getSymbols().isEmpty() ){
 					HashMap<String, TinySymbol> changed_symbols = new HashMap<String, TinySymbol>();
 					for (TinySymbol ts : imported_ids_table.getSymbols().values()){
 						ts.setLine($STRING.line);
-						changed_symbols.put(ts.getId(), ts);
+						if( !ids_table.containsSymbol(ts.getId()) ){
+							changed_symbols.put(ts.getId(), ts);
+						}
 					}
 					this.ids_table.addSymbols( changed_symbols );
 				}
-			}
-			else {	//if is a CooPLa file
-				//...
 			}
 		}
 	}

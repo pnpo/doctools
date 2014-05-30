@@ -1,0 +1,72 @@
+/*This is an empty ReoLang file (.rlf)*/
+
+
+channel sync(a: b){
+	a,b -> flow a to b;
+} 
+
+channel sync_drain(a,b:) {
+	a,b -> flow a to NULL | flow b to NULL;
+}
+
+channel fifo~N(a:b) {
+	state: buffer;
+	observers: E, F;
+ 
+	// buffer = ELEM* 
+	// E = buffer.len = 0; 
+	// F = buffer.len = N;
+	
+	a,!F -> flow a to buffer;
+	!E,b -> flow buffer to b; 
+}
+  
+        
+
+pattern Sequencer(a:  crm, erp, ts, out){ 
+	use:    
+		sync(i:o) as s1, s2, s3, s4, s5 ;    
+		fifo~1(i:o) as f1, f2;
+	in:  
+		a = s1.i;  
+		crm = s2.o;            
+		erp = s3.o;      
+		ts = s4.o;               
+		out = s5.o;                                               
+		join [s1.o, s2.i, f1.i] as j1;    
+		join [s3.i, f1.o, f2.i] as j2;  
+		join [s4.i, s5.i, f2.o] as j3;
+} 
+
+
+
+pattern ParallelSplit(a: crm, erp, ts, o) {
+	use:
+		sync(i:e) as s1, s2, s3, s4, s5;
+	in:
+		a = s1.i;
+		crm = s2.e;   
+		erp = s3.e;   
+		ts = s4.e;
+		o = s5.e;
+		join [s1.e, s2.i, s3.i, s4.i, s5.i] as n;
+}
+
+
+pattern Synchroniser(a, crmi, erpi, tsi : b) {
+	use: 
+		sync(i:o) as s6, s7, s8, s9, s10;
+		sync_drain(i, ii :) as d1, d2, d3; 
+	in: 
+		a = s9.i; 
+		crmi = s6.i;   
+		erpi = s7.i;  
+		tsi = s8.i;
+		b = s10.o; 
+		join [s6.o, d1.i] as k4; 
+		join [s7.o, d1.ii, d2.i] as k3;
+		join [s8.o, d2.ii, d3.i] as k2;
+		join [s10.i, s9.o, d3.ii] as k1; //remaining as k1; //  
+}
+
+

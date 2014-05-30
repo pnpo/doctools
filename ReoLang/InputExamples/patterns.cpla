@@ -1,4 +1,4 @@
-import "InputExamples/channels.rlf";
+import "InputExamples/channels.cpla";
 
 pattern InputNode(a:b,c){
 	use:

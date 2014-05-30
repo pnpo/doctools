@@ -12,6 +12,7 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 
 import pt.uminho.di.reolang.parsing.util.ErrorType;
 import pt.uminho.di.reolang.parsing.util.SimpleError;
+import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 
 

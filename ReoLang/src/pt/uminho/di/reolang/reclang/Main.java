@@ -13,7 +13,7 @@ public class Main {
 	
     public static void main(String args[]) throws Exception {
     	
-    	String input_file = "InputExamples/new_reconfigurations.part.rpla"; //rec_tests.rlf ");
+    	String input_file = "InputExamples/reconfig.rpla";
     	File f = new File(input_file);
     	if(!f.exists()) {
     		System.out.println(SimpleError.report(ErrorType.ERROR, SimpleError.fileDoesNotExist(input_file)));
@@ -29,17 +29,19 @@ public class Main {
 	    		System.out.println("Started!");
 	    		
 	        	TinySymbolsTable ids_table = p.getIdentifiersTable();
-//	        	System.out.println(ids_table);
+//	        	System.out.println(ids_table.getSymbols().keySet());
 	        	List<SimpleError> errors = p.getSemanticErrors(ids_table);
 	        	
 	        	HashMap<String, String> translation = new HashMap<String, String>();
+//	        	translation = p.getTranslation("resources/template.stg", ids_table);
+
 	        	if (errors != null && errors.isEmpty()){
 	        		translation = p.getTranslation("resources/template.stg", ids_table);
 	        	}
 	        	else{
 	        		System.out.println(errors);	
 	        	}
-	
+	        	
 	    	
 		    	//do something with translation...
 	//	    	System.out.println(translation);
@@ -51,13 +53,14 @@ public class Main {
 		    		String file_path = folder + file_name;
 		    		
 		    		PrintWriter writer = new PrintWriter(file_path, "UTF-8");
-		    	
 		    		writer.println("import " + Constants.JAVA_UTIL + ".*;");
 		    		writer.println("import " + Constants.CP_MODEL + ".*;");
 		    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
 		    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
 		    		if (t.equals("Main")){
-		    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;");
+			    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
+			    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
+		    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
 		    			//writer.println("import " + PkgConstants.JAVA_LANG_REFLECT + ".Constructor;");
 			    		//writer.println("import " + PkgConstants.JAVA_LANG_REFLECT + ".Method;");
 		    			

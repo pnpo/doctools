@@ -103,8 +103,18 @@ public class TinySymbolsTable {
 */
 	@Override
 	public String toString() {
+		
 		return "[symbols=\n\t" + symbols + ", "+
 				"\nscope_rel=" + scope_rel + "\n]";
+		/*
+		String res = "\n";
+        for (String key : this.symbols.keySet()) {
+            res += (this.symbols.get(key)).toString();
+            res += "\n";
+        }
+
+        return res;
+        */
 	}
 	
 	
