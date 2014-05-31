@@ -1,0 +1,63 @@
+channel sync(a : b){
+	a,b -> flow a to b #ab;
+}
+
+
+channel lossy(a:b) extends sync {
+	a,!b -> flow a to NULL #aL;
+}
+
+
+channel filter(a:b:cond_pat=<_,_>) {
+	a,b -> cond_pat ? flow a to b #ab: flow a to NULL #aL; 
+}
+
+
+channel drain(a,b:) {
+	a,b -> flow a to NULL | flow b to NULL #ab;
+}
+
+
+channel syncspout(:a,b){
+	a,b -> flow NULL to a | flow NULL to b;
+}
+
+
+channel fifo~N(a:b){
+	state: buffer;
+	observers: E, F;
+	 
+	// buffer = ELEM* 
+	// E = buffer.len = 0;
+	// F = buffer.len = N;
+	
+	a,!F -> flow a to buffer #aB;
+	!E,b -> flow buffer to b #Bb;
+}
+
+
+channel asyncdrain(a,b:){
+	a,!b -> flow a to NULL;
+	b,!a -> flow b to NULL;
+}
+
+
+channel asyncspout(:a,b){
+	a,!b -> flow NULL to a;
+	b,!a -> flow NULL to b;
+}
+
+
+channel shiftFifo~N(a:b) extends fifo {
+	a, F -> flow buffer to NULL | flow a to buffer;
+}
+
+
+channel lossyFifo~N(a:b) extends fifo {
+	a, F -> flow a to NULL;
+}
+
+
+channel timed@T (a:b) {
+	a,b -> flow a to@T b;
+}

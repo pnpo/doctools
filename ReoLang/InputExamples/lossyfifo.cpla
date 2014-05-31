@@ -1,0 +1,92 @@
+import "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/LossyFifos/channels.rlf" ;
+
+ 
+
+pattern LossyFifo(a:c){
+	use: 
+		(E)fifo~1(i:o)		as fe ;
+		lossy(i:o)			as ls ;
+		 
+	in:  
+		a = ls.i;  
+		c = fe.o;  
+		join [fe.i, ls.o] as j ; 
+}
+
+
+stochastic LossyFifo {
+	a @ 15.958; 
+	c @ 94.304;
+	fe#aB @ 100000.0;
+	fe#Bb @ 100000.0;
+	ls#ab @ 100000.0;
+	ls#aL @ 100000.0;
+} lossyfifo
+
+
+
+stochastic LossyFifo  {
+	a @ 20.0;
+	c @ 30.0;
+	fe#aB @ 200000.0;
+	fe#Bb @ 300000.0;
+	ls#ab @ 400000.0;
+	ls#aL @ 500000.0;
+	j @ (25.0, 35.0);
+} lossyfifo2
+
+
+
+pattern LossyFifoSync(a,b:c){
+	use:
+		(E)fifo~1(i:o)		as fe ;
+		lossy(i:o)			as ls ; 
+		drain(i,ii:)		as dr ;
+		sync(i:o) as s1;
+		
+	in:  
+		a = ls.i;  
+		b = fe.i;   
+		c = s1.o;
+		join [fe.o, dr.ii, s1.i] as j1 ;
+		join [dr.i, ls.o] as j2 ; 
+}
+
+
+stochastic LossyFifoSync {
+	a @ 1.0;
+	b @ 2.0;
+	c  @ 5.0;
+	fe#aB @ 3.0;
+	fe#Bb @ 4.0;
+	ls#ab @ 5.0;
+	ls#aL @ 6.0;
+	dr#ab @ 7.0;
+	s1#ab @ 10.0;
+	j1 @ (8.0, 9.0);
+	j2 @ (10.0, 11.0);
+} lfs
+
+
+
+pattern Router(a:b,c) {
+	use :
+		sync(i:o)	as s1, s2, s3;
+	in:	
+		a = s1.i;
+		b = s2.o;
+		c = s3.o;
+		xor [s1.o : s2.i, s3.i] as x;
+}
+
+
+stochastic Router {
+	a @ 1.0;
+	b @ 2.0;
+	c @ 3.0;
+	s1#ab @ 4.0;
+	s2#ab @ 5.0;
+	s3#ab @ 6.0;
+	x @ (7.0, 8.0);
+} r_stoch
+

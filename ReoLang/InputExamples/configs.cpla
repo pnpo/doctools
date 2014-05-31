@@ -1,0 +1,218 @@
+import "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/Ask/channels.rlf" ;
+
+
+pattern Fifo(a:hre){
+	use: 
+		(E)fifo~1(i:o)		as fe ;
+		 
+	in:  
+		a = fe.i;   
+		hre = fe.o;  
+}
+
+stochastic Fifo {
+	a @ 13.459;
+	hre @ 14.220;
+	fe#aB @ 100000.0;
+	fe#Bb @ 100000.0;
+} f_stoch
+
+
+
+/*pattern Lossy(a:hre) {
+	use: 
+		lossy(i:o)		as ls;
+	in:
+		a = ls.i;
+		hre = ls.o;
+}
+
+
+stochastic Lossy {
+	a @ 95.876;
+	hre @ 1.42;
+	ls#ab @ 100000.0;
+	ls#aL @ 100000.0;
+} l_stoch
+*/
+
+
+
+pattern FScaledUp(a:hre) {
+	use:
+		(E)fifo~1(i:o)		as f1, f2;
+	in :
+		a = f1.i;
+		hre = f2.o; 
+		join [f1.o, f2.i] as j;
+}
+
+
+
+stochastic FScaledUp {
+	a @ 8.321;
+	hre @ 28.440;
+	f1#aB @ 100000.0;
+	f1#Bb @ 100000.0;
+	f2#aB @ 100000.0;
+	f2#Bb @ 100000.0;
+} fsu_stoch
+
+
+
+
+
+pattern FScaledOut(a:hre1,hre2) {
+	use :
+		(E)fifo~1(i:o)	as fe;
+		sync(i:o)		as s1, s2;
+	in :
+		a = fe.i;
+		hre1 = s1.o;
+		hre2 = s2.o; 
+		xor [fe.o : s1.i, s2.i] as x;
+}
+
+
+
+stochastic FScaledOut {
+	a @ 95.876;
+	hre1 @ 1.42;
+	hre2 @ 1.42;
+	fe#aB @ 100000.0;
+	fe#Bb @ 100000.0;
+	s1#ab @ 100000.0;
+	s2#ab @ 100000.0;
+} fso_stoch
+
+
+
+
+
+pattern FScaledOut2(a:hre1,hre2) {
+	use :
+		(E)fifo~1(i:o)	as f1,f2;
+		sync(i:o)		as s1;
+	in :
+		a = s1.i;
+		hre1 = f1.o;
+		hre2 = f2.o; 
+		xor [s1.o : f1.i, f2.i] as x;
+}
+
+
+
+stochastic FScaledOut2 {
+	a @ 30.460;
+	hre1 @ 28.440;
+	hre2 @ 28.440;
+	f1#aB @ 100000.0;
+	f1#Bb @ 100000.0;
+	s1#ab @ 100000.0;
+	f2#aB @ 100000.0;
+	f2#Bb @ 100000.0;
+} fso2_stoch
+
+
+
+
+
+pattern FScaledUpAndOut(a:hre1,hre2) {
+	use:
+		(E)fifo~1(i:o)		as f1, f2;
+		sync(i:o)		as s1, s2;
+	in :
+		a = f1.i;
+		hre1 = s1.o;
+		hre2 = s2.o; 
+		join [f1.o, f2.i] as j;
+		xor [f2.o : s1.i, s2.i] as x;
+}
+
+
+
+stochastic FScaledUpAndOut {
+	a @ 30.460;
+	hre1 @ 28.440;
+	hre2 @ 28.440;
+	f1#aB @ 10000.0;
+	f1#Bb @ 10000.0;
+	f2#aB @ 10000.0;
+	f2#Bb @ 10000.0;
+	s1#ab @ 10000.0;
+	s2#ab @ 10000.0;
+} fsuo_stoch
+
+
+
+
+
+
+
+
+pattern FFaultTollerant(a:hre1,hre2) {
+	use: 
+		sync(i:o)		as s1, s2, s3, s4, s5;
+		(E)fifo~1(i:o)	as f1, f2;
+		drain(i,ii:)	as d1, d2;
+	 in:
+	 	a = s1.i;
+	 	hre1 = s3.o;
+	 	hre2 = s5.o;
+	 	join [s1.o, f1.i, f2.i] as j1;
+	 	xor [f1.o : s2.i, d1.i] as x1;
+	 	xor [f2.o : s4.i, d2.i] as x2;
+	 	join [s2.o, s3.i, d2.ii] as j4;
+	 	join [s4.o, s5.i, d1.ii] as j5;
+}
+
+
+stochastic FFaultTollerant {
+	a @ 95.876;
+	hre1 @ 1.42;
+	hre2 @ 1.42;
+	f1#aB @ 100000.0;
+	f1#Bb @ 100000.0;
+	f2#aB @ 100000.0;
+	f2#Bb @ 100000.0;
+	s1#ab @ 100000.0;
+	s2#ab @ 100000.0;
+	s3#ab @ 100000.0;
+	s4#ab @ 100000.0;
+	s5#ab @ 100000.0;
+	d1#ab @ 100000.0;
+	d2#ab @ 100000.0;
+} fft_stoch
+
+
+
+pattern FRedundant(a:hre1,hre2) {
+	use: 
+		sync(i:o)		as s1, s2;
+		(E)fifo~1(i:o)	as f1, f2;
+		drain(i,ii:)	as d1;
+		lossy(i:o)		as l1;
+	 in:
+	 	a = s1.i;
+	 	hre1 = l1.o;
+	 	hre2 = s2.o;
+	 	join [s1.o, f1.i, f2.i] as j1;
+	 	join [f1.o, d1.i, l1.i] as j4;
+	 	join [f2.o, d1.ii, s2.i] as j5;
+}
+
+
+stochastic FRedundant {
+	a @ 30.460;
+	hre1 @ 28.440;
+	hre2 @ 28.440;
+	s1#ab @ 10000.0;
+	d1#ab @ 10000.0;
+	l1#ab @ 10000.0;
+	l1#aL @ 10000.0;
+	s2#ab @ 10000.0;
+	f1#aB @ 10000.0;
+	f1#Bb @ 10000.0;
+	f2#aB @ 10000.0;
+	f2#Bb @ 10000.0;
+} fred_stoc
