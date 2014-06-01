@@ -328,6 +328,12 @@ public class Error {
     }
     
     
+    public static String recAlreadyDefined(String id, int line, int pos, String file_path){
+		int idx = file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+    	return "Name '" + id + "' is already defined at line " + line + ":" + pos + ", in file " + resource + "!";
+    }
+    
     /*
     public static String nameNotDefined(String id){
     	return "Name '" + id + "' is not previously defined!";
@@ -360,6 +366,10 @@ public class Error {
 
     public static String invalidElements(String constructor){
     	return "The elements of " + constructor + " are not all of the same type!";
+    }
+    
+    public static String fileDoesNotExist(){
+    	return "File does not exist!";
     }
     
     public static String fileDoesNotExist(String file_path){
@@ -554,7 +564,7 @@ public class Error {
 	public String toString(){
 		
 		return 
-		"< " + this.time_stamp + " > " + this.type.toString() + " " + this.resource + " line " + this.line + ":" + this.position + " " + this.message +  "\n"
+		"< " + this.time_stamp + " > " + this.type.toString() + " " + this.resource + " line " + this.line + ":" + this.position + " >> " + this.message +  "\n"
 		;
 	}
 	

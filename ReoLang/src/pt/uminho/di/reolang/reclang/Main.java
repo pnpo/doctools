@@ -16,7 +16,7 @@ public class Main {
     	String input_file = "InputExamples/reconfig.rpla";
     	File f = new File(input_file);
     	if(!f.exists()) {
-    		System.out.println( Error.report(ErrorType.ERROR, Error.fileDoesNotExist(input_file), 0, input_file) );
+    		System.out.println( Error.report(ErrorType.ERROR, Error.fileDoesNotExist(), 0, input_file) );
     	}
 //    	if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	
     	else{
@@ -29,7 +29,7 @@ public class Main {
 	    	else{
 	    		System.out.println("Started!");
 	    		
-	        	TinySymbolsTable ids_table = p.getIdentifiersTable();
+	        	TinySymbolsTable ids_table = p.getIdentifiersTable(new TinySymbolsTable());
 //	        	System.out.println(ids_table.getSymbols().keySet());
 	        	List<Error> errors = p.getSemanticErrors(ids_table);
 	        	

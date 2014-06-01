@@ -3,6 +3,7 @@ package pt.uminho.di.reolang.reclang;
 import java.lang.reflect.Method;
 
 public class LoadMain {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args){
 		try {  
             Class c = Class.forName( "OverlapP" ); 

@@ -106,7 +106,7 @@ options{
 
 //GRAMMAR
 
-reclang[TinySymbolsTable identifiers_table]
+reclang[TinySymbolsTable global_table]
 scope{
 	TinySymbolsTable ids_table;
 	SymbolsTable coopla_table;
@@ -118,7 +118,7 @@ scope{
 	List<Integer> scopes;
 }
 @init{
-	$reclang::ids_table = $reclang.identifiers_table;
+	$reclang::ids_table = $reclang.global_table;
 	$reclang::coopla_table = new SymbolsTable();
 	$reclang::imported_coopla_files = new ArrayList<String>();
 	
@@ -161,7 +161,7 @@ directive_import
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
 				Processor p = new Processor(file);
-				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
+				TinySymbolsTable imported_ids_table = p.getIdentifiersTable($reclang::ids_table);
 				HashMap<String, String> imported_translation = p.getTranslation(this.template_file, imported_ids_table);
 				
 				this.reconfigurations.putAll(imported_translation);

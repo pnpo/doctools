@@ -43,8 +43,29 @@ options{
 		return scope;
 	}
 	
+	
+	private ArrayList<Error> removeRepeatedErrors(ArrayList<Error> errors){
+		ArrayList<Error> local_errors = new ArrayList<Error>(errors);
+		
+		for (int i=0; i<local_errors.size(); i++) {
+			for (int j=0; j<local_errors.size(); j++) {
+				if (local_errors.get(i).getMessage().equals(local_errors.get(j).getMessage()) && i != j) {
+					if (local_errors.get(i).getLine() < local_errors.get(j).getLine()){
+						local_errors.remove(j);
+					} else{
+						local_errors.remove(i);
+					}
+				}
+			}
+		}
+		
+		return local_errors;
+	}
+       	
+       		
+	
 	//method used in expression prduction
-	public Triple<List<Error>, HashSet<List<Type>>, Integer> getData(String n, List<Type> t, List<Error> e, CommonTree v){
+	private Triple<List<Error>, HashSet<List<Type>>, Integer> getData(String n, List<Type> t, List<Error> e, CommonTree v){
     		
     		List<Error> local_errors = new ArrayList<Error>();
     		HashSet<List<Type>> datatypes = new HashSet<List<Type>>();
@@ -112,27 +133,20 @@ scope{
 	)* (element
 	{
 		//rever -> join imported errors to file errors?
+		/*
 		if( !exist_imported_errors ){ 
 			local_errors.addAll($element.errors);
 		}
+		*/
+		local_errors.addAll($element.errors);
 	}
 	)*
 	
 	) 
 	{
 		//System.out.println($reclang::scope_rel);
-		for (int i=0; i<local_errors.size(); i++) {
-          		for (int j=0; j<local_errors.size(); j++) {
-       		        	if (local_errors.get(i).getMessage().equals(local_errors.get(j).getMessage()) && i != j) {
-					if (local_errors.get(i).getLine() < local_errors.get(j).getLine()){
-                   		        	local_errors.remove(j);
-                   			}
-                   		       	else{
-                   		        	local_errors.remove(i);
-                   		        }
-       		         	}
-       		    	}
-       		}
+		
+		//local_errors = this.removeRepeatedErrors(local_errors);
 		$reclang.errors = local_errors;
 	}
 	
@@ -166,9 +180,9 @@ directive_import returns[ArrayList<Error> errors]
 	    	else{
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
-			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//*.rpla
+			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {		//*.rpla
 				Processor p = new Processor(file);
-				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
+				TinySymbolsTable imported_ids_table = p.getIdentifiersTable($reclang::ids_table);
 				ArrayList<Error> imported_semantic_errors = p.getSemanticErrors( imported_ids_table );
 				
 				if ( !imported_semantic_errors.isEmpty() ){
@@ -183,11 +197,7 @@ directive_import returns[ArrayList<Error> errors]
 				if ( !coopla_errors.isEmpty() ){
 					local_errors.addAll( coopla_errors );
 				}
-				/*
-				for (Error e : coopla_errors){
-					local_errors.add( Error.report(ErrorType.ERROR, e.getMessage(), e.getLine(), e.getPosition()) );
-				}
-				*/
+				
 				$reclang::coopla_table = imported_atts != null ? imported_atts.symbols : $reclang::coopla_table ;
 			}
 			else{
@@ -240,7 +250,8 @@ scope{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 
 	$reclang::scope_id = 0;
-
+	
+	boolean recAlreadyDefined = false;
 }
 	: ^(ID 
 	{		
@@ -249,18 +260,26 @@ scope{
 		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
 
 		if ($reclang::ids_table.containsSymbol($ID.text)){
-			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
-				local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
+			int idx = this.file_path.lastIndexOf('/');
+			String resource = file_path.substring(idx + 1);
+			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition() && resource.equals(ts.getFile())) ){
+				//System.out.println(resource + " -> rec: " + $ID.text);
+				local_errors.add( Error.report(ErrorType.ERROR, Error.recAlreadyDefined($ID.text, ts.getLine(), ts.getPosition(), ts.getFile()), $ID.line, $ID.pos, this.file_path) );
+				recAlreadyDefined = true;
 			}
 		}
 	}
 	(args_def
 	{
-		local_errors.addAll($args_def.errors);
+		if (!recAlreadyDefined){
+			local_errors.addAll($args_def.errors);
+		}
 	}
 	)? reconfiguration_block
 	{
-		local_errors.addAll($reconfiguration_block.errors);
+		if (!recAlreadyDefined){
+			local_errors.addAll($reconfiguration_block.errors);
+		}
 	}
 	) 
 

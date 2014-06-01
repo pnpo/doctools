@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g 2014-05-30 18:41:04
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g 2014-06-01 15:42:04
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -253,8 +253,8 @@ public class RecTranslator extends TreeParser {
     };
 
     // $ANTLR start "reclang"
-    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:109:1: reclang[TinySymbolsTable identifiers_table] : ^( RECONFIGS ( directive_def )* ( element )* ) ;
-    public final RecTranslator.reclang_return reclang(TinySymbolsTable identifiers_table) throws RecognitionException {
+    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:109:1: reclang[TinySymbolsTable global_table] : ^( RECONFIGS ( directive_def )* ( element )* ) ;
+    public final RecTranslator.reclang_return reclang(TinySymbolsTable global_table) throws RecognitionException {
         reclang_stack.push(new reclang_scope());
         RecTranslator.reclang_return retval = new RecTranslator.reclang_return();
         retval.start = input.LT(1);
@@ -263,7 +263,7 @@ public class RecTranslator extends TreeParser {
 
 
 
-        	((reclang_scope)reclang_stack.peek()).ids_table = identifiers_table;
+        	((reclang_scope)reclang_stack.peek()).ids_table = global_table;
         	((reclang_scope)reclang_stack.peek()).coopla_table = new SymbolsTable();
         	((reclang_scope)reclang_stack.peek()).imported_coopla_files = new ArrayList<String>();
         	
@@ -432,7 +432,7 @@ public class RecTranslator extends TreeParser {
             			
             			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
             				Processor p = new Processor(file);
-            				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
+            				TinySymbolsTable imported_ids_table = p.getIdentifiersTable(((reclang_scope)reclang_stack.peek()).ids_table);
             				HashMap<String, String> imported_translation = p.getTranslation(this.template_file, imported_ids_table);
             				
             				this.reconfigurations.putAll(imported_translation);

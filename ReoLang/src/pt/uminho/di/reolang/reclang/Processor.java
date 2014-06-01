@@ -51,20 +51,22 @@ public class Processor {
 		}
 		
 		
-		public TinySymbolsTable getIdentifiersTable(){
-			TinySymbolsTable ids_table = null;
+		public TinySymbolsTable getIdentifiersTable(TinySymbolsTable ids_table){
+			TinySymbolsTable o_ids_table = null;
 			try{
 				//************IDENTIFIERS TABLE************//
 				CommonTreeNodeStream tree_it = new CommonTreeNodeStream(this.res.getTree());
 //				System.out.println(((CommonTree) res.getTree()).toStringTree());
 				
 				RecTG walker_idtab = new RecTG(tree_it);
-				ids_table = walker_idtab.reclang();
+				walker_idtab.setFilePath(this.file);
+				
+				o_ids_table = walker_idtab.reclang(ids_table);
 			} catch (Exception e) {
 		        e.printStackTrace();
 		    }
 			
-			return ids_table;
+			return o_ids_table;
 		}
 		
 		

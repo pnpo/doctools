@@ -12,6 +12,7 @@ public class TinySymbol {
 	private Type classType; 		//reconfig, arg, var 
 	private int line;
 	private int position;
+	private String file;
 	private List<TinySymbolsTable> scopes;
 	//private TinySymbolsTable main_scope;			//scope 1 (main)
 	//private List<TinySymbolsTable> sub_scopes;	//functions scopes
@@ -20,13 +21,14 @@ public class TinySymbol {
 	
 	
 	public TinySymbol(String id, List<Type> datatype, Type classType,
-			int line, int position, List<TinySymbolsTable> scopes) {
+			int line, int position, String file, List<TinySymbolsTable> scopes) {
 		super();
 		this.id = id;
 		this.datatype = datatype;
 		this.classType = classType;
 		this.line = line;
 		this.position = position;
+		this.file = file;
 		this.scopes = scopes;
 	}
 	
@@ -39,6 +41,7 @@ public class TinySymbol {
 		this.classType = null;
 		this.line = 0;
 		this.position = 0;
+		this.file = "";
 		this.scopes = new ArrayList<TinySymbolsTable>();
 	}
 
@@ -50,6 +53,7 @@ public class TinySymbol {
 		this.classType = s.getClassType();
 		this.line = s.getLine();
 		this.position = s.getPosition();
+		this.file = s.getFile();
 		this.scopes = new ArrayList<TinySymbolsTable>(s.getScopes());
 	}
 
@@ -115,6 +119,18 @@ public class TinySymbol {
 
 
 
+	public String getFile() {
+		return file;
+	}
+
+
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+	
+	
+	
 	public List<TinySymbolsTable> getScopes() {
 		return scopes;
 	}
@@ -241,7 +257,8 @@ public class TinySymbol {
 		
 		return  "TinySymbol -> \n\t\t(\n\t\t id: " + id + ", \n\t\t datatype: " + datatype
 				+ ", \n\t\t classType: " + classType + ", \n\t\t line: " + line + 
-				", \n\t\t position: " + position + ", \n\t\t scopes: " + scopes + "\n\t\t)\n\t";
+				", \n\t\t position: " + position + ", \n\t\t file: " + file + 
+				", \n\t\t scopes: " + scopes + "\n\t\t)\n\t";
 		/*
 		String res = "";
 		res += (!this.id.equals("")) ? "ID		" + this.id: "";
@@ -249,6 +266,7 @@ public class TinySymbol {
 		res += this.classType != null ? "\nCLASSTYPE	" + this.classType : "";		
 		res += this.line != 0 ? "\nLINE		" + this.line : ""; 			
 		res += this.position!= 0 ? "\nPOS		" + this.position : "";
+		res += (!this.file.equals("")) ? "FILE		" + this.file: "";
 		res += this.scopes.size() > 0 ? "\n\nSCOPES		" + this.scopes : "";
 		res += "\n---------------------------\n";
 		

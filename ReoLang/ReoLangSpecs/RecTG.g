@@ -16,13 +16,19 @@ options{
 
 @members{
 	private TinySymbolsTable ids_table = new TinySymbolsTable();
+	
+	private String file_path;
+
+	public void setFilePath(String file) {
+		this.file_path = file;
+	}
 }
 
 
 
 //GRAMMAR
 
-reclang returns[TinySymbolsTable global_table]
+reclang[TinySymbolsTable i_global_table] returns[TinySymbolsTable o_global_table]
 scope{
 	int scope_id;
 	int parent_id;
@@ -30,6 +36,7 @@ scope{
 	List<Integer> scopes;
 }
 @init{
+	this.ids_table = $reclang.i_global_table;
 	$reclang::scope_id = 0;
 	$reclang::parent_id = 0;
 	$reclang::aux_id = 0;
@@ -42,7 +49,7 @@ scope{
 	
 	{
 		//ids_table.removeRepeatedSymbols();
-		$reclang.global_table = ids_table;
+		$reclang.o_global_table = ids_table;
 	}
 	) 
 	
@@ -68,17 +75,17 @@ directive_import
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//*.rpla
 				Processor p = new Processor(file);
-				TinySymbolsTable imported_ids_table = p.getIdentifiersTable();
-				if ( !imported_ids_table.getSymbols().isEmpty() ){
-					HashMap<String, TinySymbol> changed_symbols = new HashMap<String, TinySymbol>();
-					for (TinySymbol ts : imported_ids_table.getSymbols().values()){
-						ts.setLine($STRING.line);
-						if( !ids_table.containsSymbol(ts.getId()) ){
-							changed_symbols.put(ts.getId(), ts);
-						}
-					}
-					this.ids_table.addSymbols( changed_symbols );
+				
+				TinySymbolsTable imported_ids_table = p.getIdentifiersTable(this.ids_table);
+				this.ids_table = imported_ids_table;
+				/*
+				TinySymbolsTable changed_table = new TinySymbolsTable(imported_ids_table);
+				for (TinySymbol ts : changed_table.getSymbols().values()){
+					ts.setLine(0);
 				}
+				this.ids_table = changed_table;
+				*/
+				
 			}
 		}
 	}
@@ -133,6 +140,10 @@ scope{
 	args_def? reconfiguration_block
 	{
 		$reconfiguration_def::rec_symbol.addScopes($reconfiguration_def::main_scope, $reconfiguration_def::sub_scopes);
+				
+		int idx = this.file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+		$reconfiguration_def::rec_symbol.setFile(resource);
 		
 		$reconfiguration_def::rec_symbol.removeRepeatedIds();
 		if(!ids_table.containsSymbol($ID.text)){
