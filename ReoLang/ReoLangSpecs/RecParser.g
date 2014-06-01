@@ -40,22 +40,26 @@ tokens {
 	import pt.uminho.di.reolang.ReoLangParser;	
 	import pt.uminho.di.reolang.reclang.Constants;
 	import pt.uminho.di.reolang.parsing.util.Error;
-	import pt.uminho.di.reolang.parsing.util.SimpleError;
 	import pt.uminho.di.reolang.parsing.util.ErrorType;
 	import java.io.File;
 }
 
 @members{
-	private ArrayList<SimpleError> syntax_errors = new ArrayList<SimpleError>();
+	private String file_path;
+	private ArrayList<Error> syntax_errors = new ArrayList<Error>();
 	
 	@Override
 	public void emitErrorMessage(String msg) {
-        	syntax_errors.add(new SimpleError(ErrorType.ERROR, msg));
+        	syntax_errors.add(Error.report(ErrorType.ERROR, msg, file_path));
 	}
 	
 	//Notice the access to the errors of the imported grammars
-	public ArrayList<SimpleError> getErrors() {
+	public ArrayList<Error> getErrors() {
 		return this.syntax_errors;
+	}
+	
+	public void setFilePath(String file) {
+		this.file_path = file;
 	}
 }
 
@@ -87,7 +91,7 @@ directive_import
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
 				Processor p = new Processor(file);
-				ArrayList<SimpleError> imported_syntax_errors = p.getSyntaxErrors();
+				ArrayList<Error> imported_syntax_errors = p.getSyntaxErrors();
 				if ( !imported_syntax_errors.isEmpty() ){
 					this.syntax_errors.addAll( imported_syntax_errors );
 				}
@@ -104,13 +108,18 @@ directive_import
 					parser.setFilePath(file);
 					final_result = parser.reolang();
 					//this.setErrors(parser.getErrors());
+					if ( !parser.getErrors().isEmpty() ){
+						this.syntax_errors.addAll( parser.getErrors() );
+					}
+					/*
 					for (Error e : parser.getErrors()){
 						this.syntax_errors.add( SimpleError.report(ErrorType.ERROR, e.getMessage(), e.getLine(), e.getPosition()) );
 					}
+					*/
 				}
 				catch(Throwable t){
 					System.out.println("exception: " + t);
-				        System.out.println(SimpleError.report(ErrorType.WARNING, "See Console for more details..."));
+				        System.out.println(Error.report(ErrorType.WARNING, "See Console for more details...", 0, this.file_path));
 					t.printStackTrace();
 				}
 			}

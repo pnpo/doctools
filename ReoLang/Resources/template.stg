@@ -44,6 +44,10 @@ public class Main {
 	private static LinkedHashMap\<String, CPModelInternal\> patterns;
 	
 	public static void main(String[] args){
+	
+		CPModelInternal $cpmi = null;
+		CoordinationPattern2 $new_cp = null;
+	
 		String[] files = {
 			<files:{ file | "<file>"}; separator=", 
 			">

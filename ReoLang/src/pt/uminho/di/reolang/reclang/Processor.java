@@ -10,9 +10,8 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.stringtemplate.StringTemplateGroup;
 
+import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.ErrorType;
-import pt.uminho.di.reolang.parsing.util.SimpleError;
-import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 
 
@@ -20,7 +19,8 @@ import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 public class Processor {
 
 		private RecParser.reclang_return res;
-	    private ArrayList<SimpleError> syntax_errors;
+	    private ArrayList<Error> syntax_errors;
+	    private String file;
 		
 		
 		public Processor(String input_file) {
@@ -31,20 +31,22 @@ public class Processor {
 				CommonTokenStream tokens = new CommonTokenStream(lexer);
 		 		
 				RecParser parser = new RecParser(tokens);
+				parser.setFilePath(input_file);
 				
 				this.res = parser.reclang();
 				this.syntax_errors = parser.getErrors();
+				this.file = input_file;
 				
 			} catch (Exception e) {
 				System.out.println("exception: " + e);
-		        System.out.println(SimpleError.report(ErrorType.WARNING, "See Console for more details..."));
+		        System.out.println(Error.report(ErrorType.WARNING, "See Console for more details...", 0, input_file));
 				e.printStackTrace();
 		    }
 		}
 		
 		
 		
-		public ArrayList<SimpleError> getSyntaxErrors(){
+		public ArrayList<Error> getSyntaxErrors(){
 			return syntax_errors;
 		}
 		
@@ -66,13 +68,15 @@ public class Processor {
 		}
 		
 		
-		public ArrayList<SimpleError> getSemanticErrors(TinySymbolsTable ids_table){
+		public ArrayList<Error> getSemanticErrors(TinySymbolsTable ids_table){
 			
-			ArrayList<SimpleError> errors = null;
+			ArrayList<Error> errors = null;
 			try{
 				//***********SEMANTICS ANALYSIS************//
 				CommonTreeNodeStream tree_sa = new CommonTreeNodeStream(this.res.getTree());
 				RecSA walker_sa = new RecSA(tree_sa);
+				walker_sa.setFilePath(this.file);
+				
 				errors = walker_sa.reclang(ids_table);
 			} catch (Exception e) {
 		        e.printStackTrace();

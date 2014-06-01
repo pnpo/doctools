@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g 2014-05-30 02:11:51
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g 2014-05-30 18:41:04
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -4443,7 +4443,7 @@ public class RecTranslator extends TreeParser {
 
 
             		for (String id : (ids64!=null?ids64.values:null)){
-            			value += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(patterns.get(\"" + cp + "\").getSimplePattern());\n";
+            			value += "\nfinal CoordinationPattern2 " + id + " = new CoordinationPattern2(patterns.get(\"" + cp + "\").getSimplePattern());\n";
             		}
             	
 
@@ -4486,23 +4486,24 @@ public class RecTranslator extends TreeParser {
 
 
 
-        	((main_block_scope)main_block_stack.peek()).i++;
         	Integer i = ((main_block_scope)main_block_stack.peek()).i++;
         	String value = "";
         	
+        	String first_id = "";
         	String first_decl = "";
         	String remaining = "";
         	
-        	boolean isAssignment = true;
+        	boolean isDeclaration = false;
+        	String add_pattern = "";
 
         try {
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1126:2: ( ^( APPLICATION ( ^( DECLARATION (id1= ID )? ids ) )? ^( OP_APPLY id2= ID reconfiguration_call ) ) )
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1126:4: ^( APPLICATION ( ^( DECLARATION (id1= ID )? ids ) )? ^( OP_APPLY id2= ID reconfiguration_call ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1127:2: ( ^( APPLICATION ( ^( DECLARATION (id1= ID )? ids ) )? ^( OP_APPLY id2= ID reconfiguration_call ) ) )
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1127:4: ^( APPLICATION ( ^( DECLARATION (id1= ID )? ids ) )? ^( OP_APPLY id2= ID reconfiguration_call ) )
             {
             match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1949); 
 
             match(input, Token.DOWN, null); 
-            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1126:19: ( ^( DECLARATION (id1= ID )? ids ) )?
+            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1127:19: ( ^( DECLARATION (id1= ID )? ids ) )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -4511,12 +4512,12 @@ public class RecTranslator extends TreeParser {
             }
             switch (alt39) {
                 case 1 :
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1126:21: ^( DECLARATION (id1= ID )? ids )
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1127:21: ^( DECLARATION (id1= ID )? ids )
                     {
                     match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1954); 
 
                     match(input, Token.DOWN, null); 
-                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1126:35: (id1= ID )?
+                    // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1127:35: (id1= ID )?
                     int alt38=2;
                     int LA38_0 = input.LA(1);
 
@@ -4525,12 +4526,12 @@ public class RecTranslator extends TreeParser {
                     }
                     switch (alt38) {
                         case 1 :
-                            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1126:36: id1= ID
+                            // C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g:1127:36: id1= ID
                             {
                             id1=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1959); 
 
-                            		//rever --> adicionar novo tipo de padrão a uma tabela de padroes (eg: Replicator x = ... -> add Replicator)
-                            		isAssignment = false;
+                            		isDeclaration = true;
+                            	
                             	
 
                             }
@@ -4546,12 +4547,22 @@ public class RecTranslator extends TreeParser {
 
                     match(input, Token.UP, null); 
 
-                    		String first_id = (ids65!=null?ids65.values:null).get(0);
-                    		first_decl = "CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
+                    		first_id = (ids65!=null?ids65.values:null).get(0);
+                    		first_decl = "final CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
                     				
                     		(ids65!=null?ids65.values:null).remove(0);
                     		for (String id : (ids65!=null?ids65.values:null)){
-                    			remaining += "CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
+                    			remaining += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
+                    		}
+                    		
+                    		
+                    		if (isDeclaration){
+                    			//adiciona novo tipo de padrão a um map de padroes (eg: Replicator x = ... -> add "Replicator")
+                    			add_pattern += "\n$new_cp = new CoordinationPattern2(" + first_id + ");\n";
+                    			add_pattern += "$new_cp.setId(\"" + id1 + "\");\n";
+                    			add_pattern += "$cpmi = new CPModelInternal();\n";
+                    			add_pattern += "$cpmi.setSimplePattern($new_cp);\n";
+                    			add_pattern += "patterns.put( \"" + id1 + "\", $cpmi );\n";
                     		}
                     	
 
@@ -4589,14 +4600,16 @@ public class RecTranslator extends TreeParser {
             		}
             		String datatypes = listToString(dts);
             		
-            		String rec = "Class " + op + " = Class.forName( \"" + class_name + "\" );\n";
+            		String rec = "\nClass " + op + " = Class.forName( \"" + class_name + "\" );\n";
             		rec += "Constructor " + op + "_constructor = " + op + ".getConstructor(" + datatypes + ");\n";	
             		((main_block_scope)main_block_stack.peek()).reconfs.add(rec);
             		
-            		value = "Object " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
+            		value = "\nObject " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
             		value += "Method " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
             		value += first_decl + op + i + "_apply.invoke(" + op + i + "_obj, _" + id2 + " );\n";
             		value += remaining;
+            		
+            		value += add_pattern;
             	
 
             match(input, Token.UP, null); 

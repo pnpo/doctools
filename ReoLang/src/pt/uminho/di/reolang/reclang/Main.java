@@ -5,8 +5,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
+import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.ErrorType;
-import pt.uminho.di.reolang.parsing.util.SimpleError;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 
 public class Main {
@@ -16,12 +16,13 @@ public class Main {
     	String input_file = "InputExamples/reconfig.rpla";
     	File f = new File(input_file);
     	if(!f.exists()) {
-    		System.out.println(SimpleError.report(ErrorType.ERROR, SimpleError.fileDoesNotExist(input_file)));
+    		System.out.println( Error.report(ErrorType.ERROR, Error.fileDoesNotExist(input_file), 0, input_file) );
     	}
+//    	if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	
     	else{
 	    	Processor p = new Processor(input_file);
 	    	
-	    	List<SimpleError> syntax_errors = p.getSyntaxErrors();
+	    	List<Error> syntax_errors = p.getSyntaxErrors();
 	    	if ( !syntax_errors.isEmpty() ){
 	    		System.out.println(syntax_errors);
 	    	}
@@ -30,7 +31,7 @@ public class Main {
 	    		
 	        	TinySymbolsTable ids_table = p.getIdentifiersTable();
 //	        	System.out.println(ids_table.getSymbols().keySet());
-	        	List<SimpleError> errors = p.getSemanticErrors(ids_table);
+	        	List<Error> errors = p.getSemanticErrors(ids_table);
 	        	
 	        	HashMap<String, String> translation = new HashMap<String, String>();
 //	        	translation = p.getTranslation("resources/template.stg", ids_table);

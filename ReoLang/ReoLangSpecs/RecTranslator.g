@@ -1102,7 +1102,7 @@ main_declaration returns[String value]
 	: ^(DECLARATION cp=ID ids
 	{
 		for (String id : $ids.values){
-			value += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(patterns.get(\"" + $cp + "\").getSimplePattern());\n";
+			value += "\nfinal CoordinationPattern2 " + id + " = new CoordinationPattern2(patterns.get(\"" + $cp + "\").getSimplePattern());\n";
 		}
 	}
 	)
@@ -1114,28 +1114,39 @@ main_declaration returns[String value]
 
 main_assignment returns[String value]
 @init{
-	$main_block::i++;
 	Integer i = $main_block::i++;
 	String value = "";
 	
+	String first_id = "";
 	String first_decl = "";
 	String remaining = "";
 	
-	boolean isAssignment = true;
+	boolean isDeclaration = false;
+	String add_pattern = "";
 }
 	: ^( APPLICATION ( ^(DECLARATION (id1=ID
 	{
-		//rever --> adicionar novo tipo de padrão a uma tabela de padroes (eg: Replicator x = ... -> add Replicator)
-		isAssignment = false;
+		isDeclaration = true;
+	
 	}
 	)? ids) 
 	{
-		String first_id = $ids.values.get(0);
-		first_decl = "CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
+		first_id = $ids.values.get(0);
+		first_decl = "final CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
 				
 		$ids.values.remove(0);
 		for (String id : $ids.values){
-			remaining += "CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
+			remaining += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
+		}
+		
+		
+		if (isDeclaration){
+			//adiciona novo tipo de padrão a um map de padroes (eg: Replicator x = ... -> add "Replicator")
+			add_pattern += "\n\$new_cp = new CoordinationPattern2(" + first_id + ");\n";
+			add_pattern += "\$new_cp.setId(\"" + $id1 + "\");\n";
+			add_pattern += "\$cpmi = new CPModelInternal();\n";
+			add_pattern += "\$cpmi.setSimplePattern(\$new_cp);\n";
+			add_pattern += "patterns.put( \"" + $id1 + "\", \$cpmi );\n";
 		}
 	}
 	)? 
@@ -1161,14 +1172,16 @@ main_assignment returns[String value]
 		}
 		String datatypes = listToString(dts);
 		
-		String rec = "Class " + op + " = Class.forName( \"" + class_name + "\" );\n";
+		String rec = "\nClass " + op + " = Class.forName( \"" + class_name + "\" );\n";
 		rec += "Constructor " + op + "_constructor = " + op + ".getConstructor(" + datatypes + ");\n";	
 		$main_block::reconfs.add(rec);
 		
-		value = "Object " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
+		value = "\nObject " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
 		value += "Method " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
 		value += first_decl + op + i + "_apply.invoke(" + op + i + "_obj, _" + $id2 + " );\n";
 		value += remaining;
+		
+		value += add_pattern;
 	}
 	) 
 	

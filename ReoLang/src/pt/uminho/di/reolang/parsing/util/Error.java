@@ -1,6 +1,6 @@
 
 /*
- * @author Nuno Oliveira 
+ * @author Nuno Oliveira
  */
 
 
@@ -318,6 +318,64 @@ public class Error {
     }
     
     
+  //****************ERROR/WARNING MESSAGES TEMPLATES (ReCooPLa):
+    /**
+     * @param id the name of the variable being redefined
+     * @return string with a message
+     */
+    public static String nameAlreadyDefined(String id, int line, int pos){
+    	return "Name '" + id + "' is already defined at line " + line + ":" + pos + "!";
+    }
+    
+    
+    /*
+    public static String nameNotDefined(String id){
+    	return "Name '" + id + "' is not previously defined!";
+    }
+    */
+    
+    public static String recNotDefined(String id){
+    	return "Reconfiguration '" + id + "' is not previously defined!";
+    }
+    
+    public static String patternNotDefined(String id){
+    	return "Pattern '" + id + "' is not previously defined!";
+    }
+    
+    public static String patternAlreadyDefined(String id){
+    	return "Pattern '" + id + "' is previously defined!";
+    }
+    
+    public static String wrongDatatype(String id, String dt){
+    	return "Variable '" + id + "' is not of type '" + dt + "'!";
+    }
+    
+    public static String numberOfArguments(String reconf){
+    	return "Wrong number of arguments for the reconfiguration '" + reconf + "'!";
+    }    
+    
+    public static String numberOfArguments(String type, String name){
+    	return "Wrong number of arguments for the "+ type +" '" + name + "'!";
+    }
+
+    public static String invalidElements(String constructor){
+    	return "The elements of " + constructor + " are not all of the same type!";
+    }
+    
+    public static String fileDoesNotExist(String file_path){
+		int idx = file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+    	return "File '" + resource + "' does not exist!";
+    }
+    
+    public static String invalidFile(String file_path){
+		int idx = file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+    	return "File '" + resource + "' is not valid (only CooPLa and ReCooPLa files are accepted)!";
+    }
+    
+    
+    
     
     
     ////////////INSTANCE PART////////////
@@ -535,6 +593,7 @@ public class Error {
     private void setFieldsFromFullMessage(String full_message, String file_path) {
     	int idx_first_space;
     	int idx_colon;
+    	
     	String remaining = full_message;
     	String path = file_path;
     	idx_first_space = full_message.indexOf(' ');
@@ -551,26 +610,18 @@ public class Error {
     	}
     	
     	this.setFilePath(path);
-    	
     	this.setResource(retriveResourceFromFilePath(path));
     	
     	remaining = remaining.substring(idx_first_space + 1);
-    	
     	idx_colon = remaining.indexOf(':');
-    	
     	this.setLine(Integer.parseInt(remaining.substring(0,idx_colon)));
     	
     	remaining = remaining.substring(idx_colon + 1);
-    	
     	idx_first_space = remaining.indexOf(' ');
-    	
     	this.setPosition(Integer.parseInt(remaining.substring(0,idx_first_space)));
     	
     	remaining = remaining.substring(idx_first_space + 1);
-    	
     	this.setMessage(remaining + "!");
-    	
-    	
     }
     
     
