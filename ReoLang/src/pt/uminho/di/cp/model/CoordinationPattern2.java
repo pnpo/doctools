@@ -141,7 +141,28 @@ public class CoordinationPattern2 {
 	
 	//// SPECIFIC METHODS //////
 	
+	public void updateXors() {
+		LinkedHashSet<Node> xors = new LinkedHashSet<Node>();
+		Set<Node> mixed = this.getMixed();
+		for (Node n : mixed){
+			int in = 0;
+			int out = 0;
+			for (CommunicationMean2 cm : this.getPattern()){
+				if (cm.getInodes().contains(n)){
+					in++;
+				}
+				if (cm.getOnodes().contains(n)){
+					out++;
+				}
+			}
 
+			if (in >= 1 && out >= 2){
+				xors.add(n);
+			}
+		}
+		
+		this.xors = xors;
+	}
 
 
 

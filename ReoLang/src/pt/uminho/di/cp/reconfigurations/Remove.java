@@ -137,7 +137,7 @@ public class Remove implements IReconfiguration {
 				}
 			}
 		}
-		
+		cp.updateXors();
 		return new CoordinationPattern2(cp);
 	}
 

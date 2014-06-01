@@ -173,7 +173,9 @@ public class CommunicationMean2 {
 	
 	///// SPECIFIC METHODS ////////
 	
+	
 	// NEW METHODS //
+	
 	/**
 	 * @return the inodes
 	 */

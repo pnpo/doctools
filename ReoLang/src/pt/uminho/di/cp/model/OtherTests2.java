@@ -136,6 +136,7 @@ public class OtherTests2 {
 		n.add(d);
 		n.add(e);
 		n.add(g);
+		//n.add(j);
 		Join join;
 		join= new Join(n);
 		p = join.apply(p);
@@ -146,6 +147,10 @@ public class OtherTests2 {
 //		xyz.addEnd("x");
 //		xyz.addEnd("y");
 //		xyz.addEnd("z");
+//		Node dej = new Node();
+//		dej.addEnd("d");
+//		dej.addEnd("e");
+//		dej.addEnd("j");
 		Split split = new Split(hi);
 		p = split.apply(p);
 		System.out.println("SPLIT------------------");

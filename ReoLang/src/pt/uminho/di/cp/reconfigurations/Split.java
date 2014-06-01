@@ -80,46 +80,49 @@ public class Split implements IReconfiguration {
 	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
 		Node node = this.getNode();	
 		
-		ArrayList<Node> sn = new ArrayList<Node>();
-		for ( String end : node.getEnds() ){
-			Node n = new Node();
-			n.addEnd(end);
-			sn.add(n);
-		}
-		
-		//get all channels
-		Set<CommunicationMean2> pattern = cp.getPattern();
-		Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
-
-		int i = 0; //sn.size() - 1 --> i--
-		Iterator<CommunicationMean2> it = pattern.iterator();
-		
-		while(it.hasNext()){
-			CommunicationMean2 cm = it.next();
-		    it.remove();
-		
-			LinkedHashSet<Node> inodes = new LinkedHashSet<Node>(cm.getInodes());
-			LinkedHashSet<Node> onodes = new LinkedHashSet<Node>(cm.getOnodes());
-			
-			for (Node inode : inodes){
-				if( inode.equals(node) ){
-					cm.getInodes().remove(inode);
-					cm.getInodes().add( sn.get(i) ); 
-					i++;
-				}
-			}
-			for (Node onode : onodes){
-				if( onode.equals(node) ){
-					cm.getOnodes().remove(onode);
-					cm.getOnodes().add( sn.get(i) );
-					i++;
-				}
+		//Test if node exists in coordination pattern
+		if ( cp.getNodes().contains(node) ) {
+			ArrayList<Node> sn = new ArrayList<Node>();
+			for ( String end : node.getEnds() ){
+				Node n = new Node();
+				n.addEnd(end);
+				sn.add(n);
 			}
 			
-			aux_pattern.add(cm);
+			//get all channels
+			Set<CommunicationMean2> pattern = cp.getPattern();
+			Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
+	
+			int i = 0; //sn.size() - 1 --> i--
+			Iterator<CommunicationMean2> it = pattern.iterator();
+			
+			while(it.hasNext()){
+				CommunicationMean2 cm = it.next();
+			    it.remove();
+			
+				LinkedHashSet<Node> inodes = new LinkedHashSet<Node>(cm.getInodes());
+				LinkedHashSet<Node> onodes = new LinkedHashSet<Node>(cm.getOnodes());
+				
+				for (Node inode : inodes){
+					if( inode.equals(node) ){
+						cm.getInodes().remove(inode);
+						cm.getInodes().add( sn.get(i) ); 
+						i++;
+					}
+				}
+				for (Node onode : onodes){
+					if( onode.equals(node) ){
+						cm.getOnodes().remove(onode);
+						cm.getOnodes().add( sn.get(i) );
+						i++;
+					}
+				}
+				
+				aux_pattern.add(cm);
+			}
+			cp.setPattern(aux_pattern);
 		}
-		
-		cp.setPattern(aux_pattern);
+		cp.updateXors();
 		return new CoordinationPattern2(cp);
 	}	
 

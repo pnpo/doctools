@@ -61,6 +61,7 @@ public class Const implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
+		this.getPattern().updateXors();
 		return new CoordinationPattern2(this.getPattern());
 	}
 

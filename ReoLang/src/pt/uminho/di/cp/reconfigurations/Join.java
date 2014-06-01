@@ -62,19 +62,18 @@ public class Join implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
-
 		LinkedHashSet<Node> nodes = this.getNodes(); 
-		
-		Node new_node = new Node();
-		for (Node n : nodes)
-		{
-			for (String e : n.getEnds()){
-				new_node.addEnd(e);
-			}
-		}
-		
+
 		//Test if nodes exist in coordination pattern
 		if ( cp.getNodes().containsAll(nodes) ) {
+			Node new_node = new Node();
+			for (Node n : nodes)
+			{
+				for (String e : n.getEnds()){
+					new_node.addEnd(e);
+				}
+			}
+			
 			Set<CommunicationMean2> pattern = cp.getPattern();
 			Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
 			
@@ -103,6 +102,7 @@ public class Join implements IReconfiguration {
 			}
 			cp.setPattern(aux_pattern);
 		}
+		cp.updateXors();
 		return new CoordinationPattern2(cp);
 	}
 
