@@ -17,7 +17,7 @@ reconfiguration insertP(Pattern p; Node n, mi, mo) {
 
 
 main [Sequencer seq1]{
-	//Replicator p1;
+	//Replicator p2;
 	Synchroniser p1;
 	NewCP rep = seq1 @ insertP(p1, seq1#s1.in[0], p1#s2.out[0], p1#s3.in[0]);
 	UltraCP ucp = seq1 @ insertP(p1, seq1#s1.in[0], p1#s2.out[0], p1#s3.in[0]);

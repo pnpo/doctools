@@ -1,4 +1,4 @@
-import "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/Ask/channels.rlf" ;
+//import "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/Ask/channels.rlf" ;
 
 
 pattern Fifo(a:hre){

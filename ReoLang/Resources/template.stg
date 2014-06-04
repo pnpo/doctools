@@ -50,7 +50,7 @@ public class Main {
 	
 		String[] files = {
 			<files:{ file | "<file>"}; separator=", 
-			">
+">
 		};
 		
 		for (String file : files){

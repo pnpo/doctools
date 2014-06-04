@@ -28,7 +28,12 @@ options{
 		this.file_path = file;
 	}
 
-
+	private String retriveResourceFromFilePath(String file_path) {
+		int idx = file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+		return resource;
+	}
+	
 
 	//Error se = new Error();
 	private TinySymbolsTable getScope(Integer id){
@@ -130,17 +135,19 @@ scope{
 		}
 	}
 	
-	)* (element
+	)* 
+	
+	content
 	{
+		
 		//rever -> join imported errors to file errors?
 		/*
 		if( !exist_imported_errors ){ 
-			local_errors.addAll($element.errors);
+			local_errors.addAll($content.errors);
 		}
 		*/
-		local_errors.addAll($element.errors);
+		local_errors.addAll($content.errors);
 	}
-	)*
 	
 	) 
 	{
@@ -213,9 +220,7 @@ directive_import returns[ArrayList<Error> errors]
 
 
 
-
-	
-element returns[ArrayList<Error> errors]
+content returns[ArrayList<Error> errors]
 scope{
 	TinySymbol name;
 		
@@ -223,20 +228,44 @@ scope{
 	TinySymbolsTable current_scope;
 	String rec_type;
 }
+@init{
+	ArrayList<Error> local_errors = new ArrayList<Error>();
+
+}
+	: (element
+	{
+		local_errors.addAll($element.errors);
+	}
+	)* 
+	
+	(main
+	{
+		local_errors.addAll($main.errors);
+	}
+	)?
+	
+	{
+		$content.errors = local_errors;
+	}
+	;
+	
+element returns[ArrayList<Error> errors]
 	: ^(RECONFIGURATION reconfiguration_def 
 	{
 		$element.errors = $reconfiguration_def.errors;
 	}
 	)
 	
-	| ^(APPLICATION applicaiton_def)	
+	| ^(APPLICATION applicaiton_def)
+	;
 	
-	| ^(MAIN main_def
+main returns[ArrayList<Error> errors]
+	: ^(MAIN main_def
 	{
-		$element.errors = $main_def.errors;
+		$main.errors = $main_def.errors;
 	}
 	)
-	;
+	;	
 
 
 
@@ -245,7 +274,7 @@ scope{
 	ArrayList<TinySymbolsTable> scopes;
 }
 @init{
-	$element::name = new TinySymbol();
+	$content::name = new TinySymbol();
 	$reconfiguration_def::scopes = new ArrayList<TinySymbolsTable>();
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 
@@ -256,12 +285,11 @@ scope{
 	: ^(ID 
 	{		
 		TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
-		$element::name = ts;
+		$content::name = ts;
 		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
 
 		if ($reclang::ids_table.containsSymbol($ID.text)){
-			int idx = this.file_path.lastIndexOf('/');
-			String resource = file_path.substring(idx + 1);
+			String resource = this.retriveResourceFromFilePath(this.file_path);
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition() && resource.equals(ts.getFile())) ){
 				//System.out.println(resource + " -> rec: " + $ID.text);
 				local_errors.add( Error.report(ErrorType.ERROR, Error.recAlreadyDefined($ID.text, ts.getLine(), ts.getPosition(), ts.getFile()), $ID.line, $ID.pos, this.file_path) );
@@ -392,8 +420,8 @@ reconfiguration_block returns[ArrayList<Error> errors]
 instruction returns[ArrayList<Error> errors]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
-	$element::rec_type = "";
-	$element::current_scope = this.getScope( $reclang::scopes.get($reclang::scopes.size()-1) ); //rever
+	$content::rec_type = "";
+	$content::current_scope = this.getScope( $reclang::scopes.get($reclang::scopes.size()-1) ); //rever
 }
 	: declaration 
 	{ 
@@ -461,15 +489,15 @@ var_def returns[ArrayList<Error> errors]
 }
 	: ID
 	{
-		if ($element::current_scope.containsSymbol($ID.text)){
-			TinySymbol ts = $element::current_scope.getSymbols().get($ID.text);
+		if ($content::current_scope.containsSymbol($ID.text)){
+			TinySymbol ts = $content::current_scope.getSymbols().get($ID.text);
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
 			}
 		}
 		else {
-			Integer s_id = $element::current_scope.getScopeRel().fst();
-			TinySymbol ts = $element::name.hasValue($ID.text, s_id);
+			Integer s_id = $content::current_scope.getScopeRel().fst();
+			TinySymbol ts = $content::name.hasValue($ID.text, s_id);
 
 			if ( ts != null && !($ID.line == ts.getLine() && $ID.pos == ts.getPosition())){ //rever
 				local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
@@ -493,9 +521,9 @@ assignment[boolean isDeclaration] returns[ArrayList<Error> errors]
 }
 	: ^(ASSIGNMENT ID
 	{		
-		Integer s_id = $element::current_scope.getScopeRel().fst();	
+		Integer s_id = $content::current_scope.getScopeRel().fst();	
 /*		
-		ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);	
+		ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::name.hasValue($ID.text, s_id);	
 
 		if (isDeclaration){
 			if ( ts != null && !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
@@ -509,28 +537,28 @@ assignment[boolean isDeclaration] returns[ArrayList<Error> errors]
 		}				
 */				
 		if (isDeclaration){
-			if ($element::current_scope.containsSymbol($ID.text)) {
-				ts = $element::current_scope.getSymbols().get($ID.text);
+			if ($content::current_scope.containsSymbol($ID.text)) {
+				ts = $content::current_scope.getSymbols().get($ID.text);
 				if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
 					local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
 				}
 			}
 			else {
-				ts = $element::name.hasValue($ID.text, s_id);
+				ts = $content::name.hasValue($ID.text, s_id);
 				if ( ts != null && !($ID.line == ts.getLine() && $ID.pos == ts.getPosition())){ //rever
 					local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
 				}
 			}
 		}
 		else{
-			ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);
+			ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::name.hasValue($ID.text, s_id);
 	
 			if ( ts == null || $ID.line < ts.getLine() ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($ID.text), $ID.line, $ID.pos, this.file_path) );
 			}
 		}
 
-		ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);	
+		ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::name.hasValue($ID.text, s_id);	
 	}
 	assignment_member[ts, $ID.line, $ID.pos]) 
 	{
@@ -590,7 +618,7 @@ scope{
 	$reconfiguration_call::args = new ArrayList<TinySymbol>();
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 }
-	: ^(OP_JOIN 	{ $element::rec_type = "join"; }
+	: ^(OP_JOIN 	{ $content::rec_type = "join"; }
 	operation_args) 
 	{ 
 		if($operation_args.start != null){
@@ -602,7 +630,7 @@ scope{
 		$reconfiguration_call.errors = local_errors;
 	}
 
-	| ^(OP_SPLIT 	{ $element::rec_type = "split"; }
+	| ^(OP_SPLIT 	{ $content::rec_type = "split"; }
 	operation_args) 
 	{ 
 		if($operation_args.start != null){
@@ -614,7 +642,7 @@ scope{
 		$reconfiguration_call.errors = local_errors;
 	}
 
-	| ^(OP_PAR 	{ $element::rec_type = "par"; }
+	| ^(OP_PAR 	{ $content::rec_type = "par"; }
 	operation_args)
 	{ 
 		if($operation_args.start != null){
@@ -626,7 +654,7 @@ scope{
 		$reconfiguration_call.errors = local_errors;
 	}
 
-	| ^(OP_REMOVE 	{ $element::rec_type = "remove"; }
+	| ^(OP_REMOVE 	{ $content::rec_type = "remove"; }
 	operation_args)	
 	{ 
 		if($operation_args.start != null){
@@ -638,7 +666,7 @@ scope{
 		$reconfiguration_call.errors = local_errors;
 	}
 
-	| ^(OP_CONST 	{ $element::rec_type = "const"; }
+	| ^(OP_CONST 	{ $content::rec_type = "const"; }
 	operation_args)
 	{ 
 		if($operation_args.start != null){
@@ -650,11 +678,11 @@ scope{
 		$reconfiguration_call.errors = local_errors;
 	}
 
-	| ^(OP_ID 	{ $element::rec_type = "id"; }
+	| ^(OP_ID 	{ $content::rec_type = "id"; }
 	operation_args)  
 	{
 		if($operation_args.start != null){
-			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($element::rec_type) , $OP_ID.line, $OP_ID.pos, this.file_path) );
+			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($content::rec_type) , $OP_ID.line, $OP_ID.pos, this.file_path) );
 			//local_errors.add( Error.report(ErrorType.ERROR, Error.invalidArgument($operation_args.start.toString()) , $OP_ID.line, $OP_ID.pos+4, this.file_path) );			
 
 			////is not necessary since 'id' has no arguments
@@ -667,13 +695,13 @@ scope{
 
 	| ^(ID 		
 	{ 
-		$element::rec_type = "custom"; 
+		$content::rec_type = "custom"; 
 		$reconfiguration_call::name = $ID.text;
 
 		if ($reclang::ids_table.containsSymbol($ID.text)){
 			TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
 				
-			if (ts.getLine() > $element::name.getLine()){
+			if (ts.getLine() > $content::name.getLine()){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.recNotDefined($ID.text), $ID.line, $ID.pos, this.file_path) );
 			}
 			else{
@@ -733,12 +761,12 @@ operation_args returns[ArrayList<Error> errors]
 	: (args 
 	{
 		//reconfiguration of type "custom" can have more than one argument; id primitive tested before (do not even have one argument)
-		if ($args.counter > 1 && !$element::rec_type.equals("custom") && !$element::rec_type.equals("id")){
-			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($element::rec_type) , $args.start.getLine(), $args.start.getCharPositionInLine(), this.file_path) );
+		if ($args.counter > 1 && !$content::rec_type.equals("custom") && !$content::rec_type.equals("id")){
+			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($content::rec_type) , $args.start.getLine(), $args.start.getCharPositionInLine(), this.file_path) );
 		}
 		//if the number of arguments are correct, check their type (possible errors)
 		else {
-			if ($element::rec_type.equals("custom") && $args.counter < $reconfiguration_call::args.size()){
+			if ($content::rec_type.equals("custom") && $args.counter < $reconfiguration_call::args.size()){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($reconfiguration_call::name) , $args.start.getLine(), $args.start.getCharPositionInLine(), this.file_path) );
 			}
 			else{
@@ -762,16 +790,16 @@ args returns[ArrayList<Error> errors, int counter]
 }
 	: (expression
 	{
-		if ($element::rec_type.equals("custom")){
+		if ($content::rec_type.equals("custom")){
 			if ($reconfiguration_call::args.size() > i){
 				//original argument
 				TinySymbol ts1 = $reconfiguration_call::args.get(i);
 
 //			if (ts1 != null){				
 				String value = $expression.name;
-				Integer s_id = $element::current_scope.getScopeRel().fst();
-				//if contains symbol, value of new argument is obtained from $element::current_scope, else from $element::name
-				TinySymbol ts2 = $element::current_scope.containsSymbol(value) ? $element::current_scope.getSymbols().get(value) : $element::name.hasValue(value, s_id);
+				Integer s_id = $content::current_scope.getScopeRel().fst();
+				//if contains symbol, value of new argument is obtained from $content::current_scope, else from $content::name
+				TinySymbol ts2 = $content::current_scope.containsSymbol(value) ? $content::current_scope.getSymbols().get(value) : $content::name.hasValue(value, s_id);
 				
 				if (ts2 != null){
 					dt = ts2.getDataType();
@@ -826,10 +854,10 @@ for_instruction returns[ArrayList<Error> errors]
 }
 	: ^(FORALL datatype id1=ID
 	{	
-		$element::current_scope = this.getScope($reclang::parent_id); //rever
+		$content::current_scope = this.getScope($reclang::parent_id); //rever
 
-		Integer s_id = $element::current_scope.getScopeRel().fst();
-		TinySymbol ts = $element::name.hasValue($id1.text, s_id);
+		Integer s_id = $content::current_scope.getScopeRel().fst();
+		TinySymbol ts = $content::name.hasValue($id1.text, s_id);
 		if ( ts != null ){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($id1.text, ts.getLine(), ts.getPosition()), $id1.line, $id1.pos, this.file_path) );
 		}
@@ -837,15 +865,15 @@ for_instruction returns[ArrayList<Error> errors]
 
 	id2=ID 
 	{
-		ts = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);
+		ts = $content::current_scope.containsSymbol($id2.text) ? $content::current_scope.getSymbols().get($id2.text) : $content::name.hasValue($id2.text, s_id);
 
 		if ( ts == null || $id2.line < ts.getLine() ){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id2.text), $id2.line, $id2.pos, this.file_path) );
 		}
 		//if (local_errors.isEmpty()){
 		else{
-			TinySymbol ts1 = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
-			TinySymbol ts2 = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);				
+			TinySymbol ts1 = $content::current_scope.containsSymbol($id1.text) ? $content::current_scope.getSymbols().get($id1.text) : $content::name.hasValue($id1.text, s_id);
+			TinySymbol ts2 = $content::current_scope.containsSymbol($id2.text) ? $content::current_scope.getSymbols().get($id2.text) : $content::name.hasValue($id2.text, s_id);				
 
 				if (!ts2.getDataType().get(0).equals(Type.SET)){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($id2.text, "Set<T>"), $id2.line, $id2.pos, this.file_path) );
@@ -981,8 +1009,8 @@ factor returns[ArrayList<Error> errors, List<Type> datatype, String name]
 	{
 		$factor.name = $ID.text;
 		
-		Integer s_id = $element::current_scope.getScopeRel().fst();
-		TinySymbol ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);
+		Integer s_id = $content::current_scope.getScopeRel().fst();
+		TinySymbol ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::name.hasValue($ID.text, s_id);
 
 		if ( ts == null || $ID.line < ts.getLine() ){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($ID.text), $ID.line, $ID.pos, this.file_path) );
@@ -994,30 +1022,30 @@ factor returns[ArrayList<Error> errors, List<Type> datatype, String name]
 
 			dt.clear();
 			dt.add(Type.PATTERN);
-			if ($element::rec_type.equals("const") && !symbol.getDataType().containsAll(dt) ){
+			if ($content::rec_type.equals("const") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Pattern"), $ID.line, $ID.pos, this.file_path) );
 			}
 
-			if ($element::rec_type.equals("par") && !symbol.getDataType().containsAll(dt) ){
+			if ($content::rec_type.equals("par") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Pattern"), $ID.line, $ID.pos, this.file_path) );
 			}
 
 			dt.clear();
 			dt.add(Type.SET);
 			dt.add(Type.NODE);
-			if ($element::rec_type.equals("join") && !symbol.getDataType().containsAll(dt) ){
+			if ($content::rec_type.equals("join") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Set<Node>"), $ID.line, $ID.pos, this.file_path) );
 			}
 
 			dt.clear();
 			dt.add(Type.NODE);
-			if ($element::rec_type.equals("split") && !symbol.getDataType().containsAll(dt) ){
+			if ($content::rec_type.equals("split") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Node"), $ID.line, $ID.pos, this.file_path) );
 			}
 
 			dt.clear();
 			dt.add(Type.NAME);
-			if ($element::rec_type.equals("remove") && !symbol.getDataType().containsAll(dt) ){
+			if ($content::rec_type.equals("remove") && !symbol.getDataType().containsAll(dt) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Name"), $ID.line, $ID.pos, this.file_path) );
 			}
 
@@ -1065,9 +1093,9 @@ scope{
 		$operation::line = $id1.line;
 		$operation::pos = $id1.pos;
 
-		Integer s_id = $element::current_scope.getScopeRel().fst();
-		//if contains symbol, tiny symbol is obtained from $element::current_scope, else from $element::name
-		TinySymbol ts = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
+		Integer s_id = $content::current_scope.getScopeRel().fst();
+		//if contains symbol, tiny symbol is obtained from $content::current_scope, else from $content::name
+		TinySymbol ts = $content::current_scope.containsSymbol($id1.text) ? $content::current_scope.getSymbols().get($id1.text) : $content::name.hasValue($id1.text, s_id);
 
 		if ( ts == null || $id1.line < ts.getLine() ){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id1.text), $id1.line, $id1.pos, this.file_path) );
@@ -1560,8 +1588,8 @@ node_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 }
 	: ^(NODE (ID
 	{
-		Integer s_id = $element::current_scope.getScopeRel().fst();
-		TinySymbol ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::name.hasValue($ID.text, s_id);
+		Integer s_id = $content::current_scope.getScopeRel().fst();
+		TinySymbol ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::name.hasValue($ID.text, s_id);
 
 		if (ts == null || $ID.line < ts.getLine()){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($ID.text), $ID.line, $ID.pos, this.file_path) );
@@ -1598,7 +1626,7 @@ xor_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();	
 
-	Integer s_id = $element::current_scope.getScopeRel().fst();
+	Integer s_id = $content::current_scope.getScopeRel().fst();
 	TinySymbol ts = null;
 
 	List<Type> dt = new ArrayList<Type>();
@@ -1607,7 +1635,7 @@ xor_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 }
 	: ^(XOR  ^(IN id1=ID
 	{
-		ts = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::name.hasValue($id1.text, s_id);
+		ts = $content::current_scope.containsSymbol($id1.text) ? $content::current_scope.getSymbols().get($id1.text) : $content::name.hasValue($id1.text, s_id);
 
 		if (ts == null || $id1.line < ts.getLine()){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id1.text), $id1.line, $id1.pos, this.file_path) );
@@ -1624,7 +1652,7 @@ xor_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 
 	(id2=ID
 	{
-		ts = $element::current_scope.containsSymbol($id2.text) ? $element::current_scope.getSymbols().get($id2.text) : $element::name.hasValue($id2.text, s_id);
+		ts = $content::current_scope.containsSymbol($id2.text) ? $content::current_scope.getSymbols().get($id2.text) : $content::name.hasValue($id2.text, s_id);
 
 		if (ts == null || $id2.line < ts.getLine()){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id2.text), $id2.line, $id2.pos, this.file_path) );
@@ -1644,7 +1672,7 @@ xor_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 		name = name.substring(0, name.length()-1);
 		name += ":";
 
-		ts = $element::current_scope.containsSymbol($id3.text) ? $element::current_scope.getSymbols().get($id3.text) : $element::name.hasValue($id3.text, s_id);
+		ts = $content::current_scope.containsSymbol($id3.text) ? $content::current_scope.getSymbols().get($id3.text) : $content::name.hasValue($id3.text, s_id);
 
 		if (ts == null || $id3.line < ts.getLine()){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id3.text), $id3.line, $id3.pos, this.file_path) );
@@ -1660,7 +1688,7 @@ xor_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 	} 
 	(id4=ID
 	{
-		ts = $element::current_scope.containsSymbol($id4.text) ? $element::current_scope.getSymbols().get($id4.text) : $element::name.hasValue($id4.text, s_id);
+		ts = $content::current_scope.containsSymbol($id4.text) ? $content::current_scope.getSymbols().get($id4.text) : $content::name.hasValue($id4.text, s_id);
 
 		if (ts == null || $id4.line < ts.getLine()){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id4.text), $id4.line, $id4.pos, this.file_path) );
@@ -1719,8 +1747,8 @@ scope{
 	List<String> patterns;
 }
 @init{
-	$element::name = $reclang::ids_table.getSymbols().get("\$main");
-	$element::current_scope = $element::name.getScopes().get(0); //main has only one scope
+	$content::name = $reclang::ids_table.getSymbols().get("\$main");
+	$content::current_scope = $content::name.getScopes().get(0); //main has only one scope
 	
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 
@@ -1734,14 +1762,24 @@ scope{
 			$main_def::patterns.add(s.getId());
 		}
 	}
+	
+	
+	boolean recAlreadyDefined = false;
 }
 	: (main_args
-	{
+	{		
 		local_errors.addAll($main_args.errors);
 	}
 	)? main_block
 	{
 		local_errors.addAll($main_block.errors);
+		
+		TinySymbol ts = $content::name;
+		String resource = this.retriveResourceFromFilePath(this.file_path);
+		if ( !(ts.getLine() == $main_block.start.getLine() && ts.getPosition() == 0 && ts.getFile().equals(resource)) ){
+			local_errors = new ArrayList<Error>(); //ignore other main errors
+			local_errors.add( Error.report(ErrorType.WARNING, Error.multipleMain(ts.getLine(), ts.getPosition(), ts.getFile()), $main_block.start.getLine(), 0, this.file_path) );
+		}
 		$main_def.errors = local_errors;
 	}
 	;
@@ -1789,8 +1827,8 @@ ids[boolean toTest] returns[ArrayList<Error> errors]
 }
 	: ^(IDS (ID
 	{
-		if (toTest && $element::current_scope.containsSymbol($ID.text)){
-			TinySymbol ts = $element::current_scope.getSymbols().get($ID.text);
+		if (toTest && $content::current_scope.containsSymbol($ID.text)){
+			TinySymbol ts = $content::current_scope.getSymbols().get($ID.text);
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
 			}
@@ -1823,7 +1861,7 @@ main_block returns[ArrayList<Error> errors]
 
 main_instruction returns[ArrayList<Error> errors]
 @init{
-	$element::rec_type = "";
+	$content::rec_type = "";
 }
 	: main_declaration	{ $main_instruction.errors = $main_declaration.errors; }
 	| main_assignment	{ $main_instruction.errors = $main_assignment.errors; }

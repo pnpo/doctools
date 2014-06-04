@@ -132,12 +132,7 @@ scope{
 	$reclang::scopes.add(0);
 	
 }
-	: ^(RECONFIGS directive_def* (element
-	{	
-		this.reconfigurations.put($element.name, $element.st.toString()); 
-		//this.main = new Pair<String, String>($element.name, $element.st.toString()); //if element.type.equals("main")
-	}
-	)*)
+	: ^(RECONFIGS directive_def* content)
 	
 	;
 
@@ -182,33 +177,46 @@ directive_import
 
 
 
-
-	
-element returns[String name, String type]
+content
 scope{
 	TinySymbol ts;
 	TinySymbolsTable current_scope;
 }
+	: (element
+	{	
+		this.reconfigurations.put($element.name, $element.st.toString());
+	}
+	)*
+	
+	(main
+	{	
+		this.reconfigurations.put($main.name, $main.st.toString());
+		//this.main = new Pair<String, String>($main.name, $main.st.toString());
+	}
+	)?
+	;
+
+	
+element returns[String name]
 	: ^(RECONFIGURATION reconfiguration_def
 	{
 		$element.name = $reconfiguration_def.id;
-		$element.type = "reconf";
 	}
 	)
 	-> {$reconfiguration_def.st}
 	
 	| ^(APPLICATION applicaiton_def)
 	-> {$applicaiton_def.st}
-	
-	| ^(MAIN main_def
+	;
+
+main returns[String name]
+	: ^(MAIN main_def
 	{
-		$element.name = $main_def.id;
-		$element.type = "main";
+		$main.name = $main_def.id;
 	}
 	)
 	-> {$main_def.st}
 	;
-
 
 
 reconfiguration_def returns[String id]
@@ -227,7 +235,7 @@ scope{
 	String adv;
 }
 @init{
-	$element::ts = new TinySymbol();
+	$content::ts = new TinySymbol();
 	$reconfiguration_def::scopes = new ArrayList<TinySymbolsTable>();
 	$reclang::scope_id = 0;
 	
@@ -245,7 +253,7 @@ scope{
 		$reconfiguration_def::class_name = Character.toUpperCase($ID.text.charAt(0)) + $ID.text.substring(1);
 		
 		TinySymbol ts = $reclang::ids_table.getSymbols().get($ID.text);
-		$element::ts = ts;
+		$content::ts = ts;
 		$reconfiguration_def.id = $reconfiguration_def::class_name;
 		
 		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
@@ -354,7 +362,7 @@ scope{
 	String dt;
 }
 @init{
-	$element::current_scope = this.getScope( $reclang::scopes.get($reclang::scopes.size()-1) ); //rever
+	$content::current_scope = this.getScope( $reclang::scopes.get($reclang::scopes.size()-1) ); //rever
 	$instruction::dt = "";
 }
 	: declaration			{ $instruction.value = $declaration.value; }
@@ -463,8 +471,8 @@ scope{
 }
 	: ^(ASSIGNMENT ID 
 	{
-		Integer s_id = $element::current_scope.getScopeRel().fst();	
-		$assignment::ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::ts.hasValue($ID.text, s_id);	
+		Integer s_id = $content::current_scope.getScopeRel().fst();	
+		$assignment::ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::ts.hasValue($ID.text, s_id);	
 	}
 	
 	assignment_member
@@ -617,7 +625,7 @@ scope{
 	
 	id1=ID id2=ID 
 	{
-		$element::current_scope = this.getScope($reclang::parent_id); //rever
+		$content::current_scope = this.getScope($reclang::parent_id); //rever
 	
 		String value = "_" + $id1.text;
 		
@@ -662,7 +670,7 @@ expression returns[String value, String dt, boolean isOp]
 }
 	: ^(OP_UNION s1=factor s2=factor)
 	{	
-		if ($element::ts.getId().equals("\$main")){
+		if ($content::ts.getId().equals("\$main")){
 			datatype = "LinkedHashSet<" + $s1.dt + ">";
 		} else{
 			dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
@@ -692,7 +700,7 @@ expression returns[String value, String dt, boolean isOp]
 	
 	| ^(OP_INTERSECTION s1=factor s2=factor)
 	{
-		if ($element::ts.getId().equals("\$main")){
+		if ($content::ts.getId().equals("\$main")){
 			datatype = "LinkedHashSet<" + $s1.dt + ">";
 		} else{
 			dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
@@ -724,7 +732,7 @@ expression returns[String value, String dt, boolean isOp]
 	
 	| ^(OP_MINUS s1=factor s2=factor)
 	{
-		if ($element::ts.getId().equals("\$main")){
+		if ($content::ts.getId().equals("\$main")){
 			datatype = "LinkedHashSet<" + $s1.dt + ">";
 		} else{
 			dt = this.convertRecooplaDatatype( $assignment::ts.getDataType() );
@@ -780,8 +788,8 @@ factor returns[String value, String dt]
 		*/
 		$factor.value = "_" + $ID.text;
 		
-		Integer s_id = $element::current_scope.getScopeRel().fst();	
-		TinySymbol ts = $element::current_scope.containsSymbol($ID.text) ? $element::current_scope.getSymbols().get($ID.text) : $element::ts.hasValue($ID.text, s_id);	
+		Integer s_id = $content::current_scope.getScopeRel().fst();	
+		TinySymbol ts = $content::current_scope.containsSymbol($ID.text) ? $content::current_scope.getSymbols().get($ID.text) : $content::ts.hasValue($ID.text, s_id);	
 		
 		dt = this.convertRecooplaDatatype( ts.getDataType() );
 		$factor.dt = this.datatypeToString(dt);
@@ -798,8 +806,8 @@ operation returns[String value, String dt]
 	{
 		op += "_" + $id1.text;
 		
-		Integer s_id = $element::current_scope.getScopeRel().fst();	
-		TinySymbol ts = $element::current_scope.containsSymbol($id1.text) ? $element::current_scope.getSymbols().get($id1.text) : $element::ts.hasValue($id1.text, s_id);	
+		Integer s_id = $content::current_scope.getScopeRel().fst();	
+		TinySymbol ts = $content::current_scope.containsSymbol($id1.text) ? $content::current_scope.getSymbols().get($id1.text) : $content::ts.hasValue($id1.text, s_id);	
 	}
 	(^(STRUCTURE id2=ID) 
 	{
@@ -1014,8 +1022,8 @@ trigger_block
 
 main_def returns[String id]
 @init{
-	$element::ts = $reclang::ids_table.getSymbols().get("\$main");
-	$element::current_scope = $element::ts.getScopes().get(0); //main has only one scope
+	$content::ts = $reclang::ids_table.getSymbols().get("\$main");
+	$content::current_scope = $content::ts.getScopes().get(0); //main has only one scope
 	
 	$main_def.id = "Main";
 }

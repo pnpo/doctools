@@ -66,8 +66,8 @@ tokens {
 //GRAMMAR
 
 reclang
-	: 	directive_def* element*
-		-> ^(RECONFIGS directive_def* element*)
+	: 	directive_def* content
+		-> ^(RECONFIGS directive_def* content)
 	;
 
 
@@ -136,12 +136,19 @@ directive_import
 
 
 
-
+content
+	: 	element* main?
+	;
+	
 	
 element
 	:	reconfiguration_def	-> ^(RECONFIGURATION reconfiguration_def)
 	|	applicaiton_def		-> ^(APPLICATION applicaiton_def)	
-	| 	main_def		-> ^(MAIN main_def)
+	;
+
+
+main
+	:	main_def		-> ^(MAIN main_def)
 	;
 
 

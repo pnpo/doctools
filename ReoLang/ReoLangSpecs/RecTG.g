@@ -17,10 +17,17 @@ options{
 @members{
 	private TinySymbolsTable ids_table = new TinySymbolsTable();
 	
+	
 	private String file_path;
 
 	public void setFilePath(String file) {
 		this.file_path = file;
+	}
+	
+	private String retriveResourceFromFilePath(String file_path) {
+		int idx = file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+		return resource;
 	}
 }
 
@@ -45,7 +52,7 @@ scope{
 	$reclang::scopes.add(0);
 	
 }
-	: ^(RECONFIGS directive_def* element*
+	: ^(RECONFIGS directive_def* content
 	
 	{
 		//ids_table.removeRepeatedSymbols();
@@ -77,7 +84,11 @@ directive_import
 				Processor p = new Processor(file);
 				
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable(this.ids_table);
+				if (imported_ids_table.containsSymbol("\$main")){
+					imported_ids_table.getSymbols().remove("\$main"); //ignore imported main's
+				}
 				this.ids_table = imported_ids_table;
+				
 				/*
 				TinySymbolsTable changed_table = new TinySymbolsTable(imported_ids_table);
 				for (TinySymbol ts : changed_table.getSymbols().values()){
@@ -95,12 +106,17 @@ directive_import
 
 
 
-
+content
+	: element* main?
+	;
 	
 element
 	: ^(RECONFIGURATION reconfiguration_def)
-	| ^(APPLICATION applicaiton_def)	
-	| ^(MAIN main_def)
+	| ^(APPLICATION applicaiton_def)
+	;
+
+main
+	: ^(MAIN main_def)
 	;
 
 
@@ -141,9 +157,7 @@ scope{
 	{
 		$reconfiguration_def::rec_symbol.addScopes($reconfiguration_def::main_scope, $reconfiguration_def::sub_scopes);
 				
-		int idx = this.file_path.lastIndexOf('/');
-		String resource = file_path.substring(idx + 1);
-		$reconfiguration_def::rec_symbol.setFile(resource);
+		$reconfiguration_def::rec_symbol.setFile( retriveResourceFromFilePath(this.file_path) );
 		
 		$reconfiguration_def::rec_symbol.removeRepeatedIds();
 		if(!ids_table.containsSymbol($ID.text)){
@@ -505,14 +519,16 @@ scope{
 		
 		$main_def::symbol.setLine( $main_block.start.getLine() );
 		$main_def::symbol.setPosition( 0 );
-		
+		$main_def::symbol.setFile( retriveResourceFromFilePath(this.file_path) );
 		
 		List<TinySymbolsTable> scopes = new ArrayList<TinySymbolsTable>();
 		scopes.add($main_def::scope);
 		$main_def::symbol.setScopes( scopes );
 		
 		//$main_def::symbol.removeRepeatedIds();
-		ids_table.addSymbol($main_def::symbol);
+		if(!ids_table.containsSymbol("\$main")){
+			ids_table.addSymbol($main_def::symbol);
+		}
 	}
 	;
 

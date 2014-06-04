@@ -334,6 +334,14 @@ public class Error {
     	return "Name '" + id + "' is already defined at line " + line + ":" + pos + ", in file " + resource + "!";
     }
     
+    
+    public static String multipleMain(int line, int pos, String file_path){
+		int idx = file_path.lastIndexOf('/');
+		String resource = file_path.substring(idx + 1);
+    	return "Multiple main reconfigurations were found. Assuming the main in file " + resource + ", at line " + line + ":" + pos + "!";
+    }
+    
+    
     /*
     public static String nameNotDefined(String id){
     	return "Name '" + id + "' is not previously defined!";

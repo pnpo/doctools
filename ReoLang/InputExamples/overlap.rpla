@@ -1,3 +1,5 @@
+import "InputExamples/channels_and_patterns.cpla";
+
 reconfiguration overlapP(Pattern p; Set<Pair<Node>> Xy) {
 	@ par (p);
 	forall(Pair<Node> n : Xy) {
@@ -9,3 +11,9 @@ reconfiguration overlapP(Pattern p; Set<Pair<Node>> Xy) {
 		@ join(E);
 	}
 }
+
+/*
+main [Sequencer seq1]{
+	Synchroniser p1;
+}
+*/
