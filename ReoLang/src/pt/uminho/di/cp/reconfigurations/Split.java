@@ -6,11 +6,13 @@ package pt.uminho.di.cp.reconfigurations;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import pt.uminho.di.cp.model.CommunicationMean2;
 import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.cp.model.Node;
+import pt.uminho.di.reolang.parsing.util.Pair;
 
 /**
  * @author Nuno Oliveira
@@ -78,7 +80,20 @@ public class Split implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
-		Node node = this.getNode();	
+		Node node = this.getNode();
+		
+		//remove node from xors, if it is a xor
+		LinkedHashSet<Node> xors = cp.getXors();
+		if (xors.contains(node)){
+			xors.remove(node);
+		}
+
+		Map<Node, Pair<Double,Double>> delays = cp.getDelays();
+		Pair<Double,Double> value = null;
+		if (delays.containsKey(node)){
+			value = delays.get(node);
+			delays.remove(node);
+		}
 		
 		//Test if node exists in coordination pattern
 		if ( cp.getNodes().contains(node) ) {
@@ -106,7 +121,10 @@ public class Split implements IReconfiguration {
 				for (Node inode : inodes){
 					if( inode.equals(node) ){
 						cm.getInodes().remove(inode);
-						cm.getInodes().add( sn.get(i) ); 
+						cm.getInodes().add( sn.get(i) );
+						if (value != null) {
+							delays.put( sn.get(i), new Pair<Double,Double>(value.fst(), null) );
+						}
 						i++;
 					}
 				}
@@ -114,6 +132,9 @@ public class Split implements IReconfiguration {
 					if( onode.equals(node) ){
 						cm.getOnodes().remove(onode);
 						cm.getOnodes().add( sn.get(i) );
+						if (value != null) {
+							delays.put( sn.get(i), new Pair<Double,Double>(value.fst(), null) );	
+						}
 						i++;
 					}
 				}
@@ -122,7 +143,7 @@ public class Split implements IReconfiguration {
 			}
 			cp.setPattern(aux_pattern);
 		}
-		cp.updateXors();
+
 		return new CoordinationPattern2(cp);
 	}	
 

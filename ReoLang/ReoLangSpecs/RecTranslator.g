@@ -831,8 +831,8 @@ constructor returns[String value, String dt]
 	: triple_cons	{ $constructor.value = $triple_cons.value; 	$constructor.dt = $triple_cons.dt; }
 	| pair_cons	{ $constructor.value = $pair_cons.value; 	$constructor.dt = $pair_cons.dt; }
 	| set_cons 	{ $constructor.value = $set_cons.value; 	$constructor.dt = $set_cons.dt; }
-	| node_cons	{ $constructor.value = $node_cons.value; 	$constructor.dt = $node_cons.dt; }
-	| xor_cons	{ $constructor.value = $xor_cons.value; 	$constructor.dt = $xor_cons.dt; }
+//	| node_cons	{ $constructor.value = $node_cons.value; 	$constructor.dt = $node_cons.dt; }
+//	| xor_cons	{ $constructor.value = $xor_cons.value; 	$constructor.dt = $xor_cons.dt; }
 	;
 	
 //single_return_operation
@@ -972,7 +972,7 @@ set_cons returns[String value, String dt]
 	) 
 	;
 	
-		
+/*		
 node_cons returns[String value, String dt]
 @init{
 	String ends = "";
@@ -997,7 +997,7 @@ xor_cons returns[String value, String dt]
 		$xor_cons.value = "";
 	}
 	;
-
+*/
 
 
 applicaiton_def 

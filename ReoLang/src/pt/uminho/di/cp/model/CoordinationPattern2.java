@@ -140,7 +140,7 @@ public class CoordinationPattern2 {
 	
 	
 	//// SPECIFIC METHODS //////
-	
+	/*
 	public void updateXors() {
 		LinkedHashSet<Node> xors = new LinkedHashSet<Node>();
 		Set<Node> mixed = this.getMixed();
@@ -163,8 +163,15 @@ public class CoordinationPattern2 {
 		
 		this.xors = xors;
 	}
+	*/
 
-
+	public Set<Node> getPorts() {
+		Set<Node> ports = new LinkedHashSet<Node>(this.getIn());
+		ports.addAll( new LinkedHashSet<Node>(this.getOut()) );
+		
+		return ports;
+	}
+	
 
 	/**
 	 * This method implements the I(p) operations as

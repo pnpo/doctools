@@ -103,7 +103,7 @@ public class Par implements IReconfiguration {
 				//return cp;
 			}
 		}
-		cp.updateXors();
+
 		return new CoordinationPattern2(cp);
 	}
 

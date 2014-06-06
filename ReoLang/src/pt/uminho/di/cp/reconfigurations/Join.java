@@ -5,11 +5,13 @@ package pt.uminho.di.cp.reconfigurations;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import pt.uminho.di.cp.model.CommunicationMean2;
 import pt.uminho.di.cp.model.CoordinationPattern2;
 import pt.uminho.di.cp.model.Node;
+import pt.uminho.di.reolang.parsing.util.Pair;
 
 /**
  * @author Nuno Oliveira
@@ -62,8 +64,8 @@ public class Join implements IReconfiguration {
 	 */
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 cp) {
-		LinkedHashSet<Node> nodes = this.getNodes(); 
-
+		LinkedHashSet<Node> nodes = this.getNodes();
+		
 		//Test if nodes exist in coordination pattern
 		if ( cp.getNodes().containsAll(nodes) ) {
 			Node new_node = new Node();
@@ -73,6 +75,41 @@ public class Join implements IReconfiguration {
 					new_node.addEnd(e);
 				}
 			}
+			
+			
+			//update xors by the new node, if at least one node to join is xor
+			LinkedHashSet<Node> xors = cp.getXors();
+			int num_xors = 0;
+			
+			Map<Node, Pair<Double,Double>> delays = cp.getDelays();
+			int num_delays = 0;
+			Pair<Double,Double> value = null;			//only read -> port nodes
+			Pair<Double,Double> full_value = null; 		//read and write -> mixed/xor nodes
+
+			Set<Node> mixed_nodes = cp.getMixed();
+			
+			for (Node n : nodes){
+				if (xors.contains(n)){
+					xors.remove(n);
+					num_xors++;
+				}
+				
+				if (delays.containsKey(n)){
+					num_delays++;
+					
+					if (mixed_nodes.contains(n)){
+						full_value = delays.get(n);
+					} else{
+						value = delays.get(n);
+					}
+					
+					delays.remove(n);
+				}
+			}
+			if (num_xors > 0){
+				xors.add(new_node);
+			}
+			
 			
 			Set<CommunicationMean2> pattern = cp.getPattern();
 			Set<CommunicationMean2> aux_pattern = new LinkedHashSet<CommunicationMean2>();
@@ -100,9 +137,25 @@ public class Join implements IReconfiguration {
 				
 				aux_pattern.add(cm);
 			}
+			
 			cp.setPattern(aux_pattern);
+			
+			mixed_nodes = cp.getMixed();
+			if (num_delays > 0){
+				if (mixed_nodes.contains(new_node)){
+					if (full_value != null){
+						delays.put(new_node, full_value);
+					} else{
+						delays.put( new_node, new Pair<Double,Double>(value.fst(), Double.MAX_VALUE) );
+					}
+				} 
+				//else never occurs? -> result of join is always a mixed node?
+				else{
+					delays.put(new_node, value);
+				}
+			}
 		}
-		cp.updateXors();
+
 		return new CoordinationPattern2(cp);
 	}
 

@@ -284,8 +284,8 @@ constructor
 	:	triple_cons					 	-> triple_cons
 	|	pair_cons					 	-> pair_cons
 	|	set_cons 					 	-> set_cons 
-	|	node_cons						-> node_cons
-	|	xor_cons						-> xor_cons
+//	|	node_cons						-> node_cons
+//	|	xor_cons						-> xor_cons
 	;
 
 //single_return_operation
@@ -324,7 +324,8 @@ set_cons
 		-> ^(SET expression*) 
 	;
 	
-		
+
+/*		
 node_cons
 	:	CONS_NODE SEP_ARGS_START  ID (SEP_COMMA ID)* SEP_ARGS_END
 		-> ^(NODE ID+ ) 
@@ -334,7 +335,7 @@ xor_cons
 	:	CONS_XOR SEP_ARGS_START id1=ID (SEP_COMMA id2=ID)* SEP_COLON id3=ID (SEP_COMMA id4=ID)+ SEP_ARGS_END
 		-> ^(XOR  ^(IN $id1 $id2*) ^(OUT $id3 $id4+) )
 	;
-
+*/
 
 
 

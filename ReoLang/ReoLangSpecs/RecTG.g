@@ -157,7 +157,7 @@ scope{
 	{
 		$reconfiguration_def::rec_symbol.addScopes($reconfiguration_def::main_scope, $reconfiguration_def::sub_scopes);
 				
-		$reconfiguration_def::rec_symbol.setFile( retriveResourceFromFilePath(this.file_path) );
+		$reconfiguration_def::rec_symbol.setFile( this.file_path ); //retriveResourceFromFilePath(this.file_path)
 		
 		$reconfiguration_def::rec_symbol.removeRepeatedIds();
 		if(!ids_table.containsSymbol($ID.text)){
@@ -427,8 +427,8 @@ constructor
 	: triple_cons
 	| pair_cons
 	| set_cons
-	| node_cons
-	| xor_cons
+//	| node_cons
+//	| xor_cons
 	;
 	
 //single_return_operation
@@ -466,7 +466,7 @@ set_cons
 	: ^(SET expression*) 
 	;
 	
-		
+/*		
 node_cons
 	: ^(NODE ID+ ) 
 	;
@@ -474,7 +474,7 @@ node_cons
 xor_cons
 	: ^(XOR  ^(IN ID ID*) ^(OUT ID ID+) )
 	;
-
+*/
 
 
 applicaiton_def 
@@ -519,7 +519,7 @@ scope{
 		
 		$main_def::symbol.setLine( $main_block.start.getLine() );
 		$main_def::symbol.setPosition( 0 );
-		$main_def::symbol.setFile( retriveResourceFromFilePath(this.file_path) );
+		$main_def::symbol.setFile( this.file_path ); //retriveResourceFromFilePath(this.file_path)
 		
 		List<TinySymbolsTable> scopes = new ArrayList<TinySymbolsTable>();
 		scopes.add($main_def::scope);

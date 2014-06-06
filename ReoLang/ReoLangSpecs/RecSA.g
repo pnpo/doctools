@@ -289,10 +289,10 @@ scope{
 		$reconfiguration_def::scopes = (ArrayList<TinySymbolsTable>) ts.getScopes();
 
 		if ($reclang::ids_table.containsSymbol($ID.text)){
-			String resource = this.retriveResourceFromFilePath(this.file_path);
-			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition() && resource.equals(ts.getFile())) ){
+			String resource = this.retriveResourceFromFilePath(ts.getFile());
+			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition() && this.file_path.equals(ts.getFile())) ){
 				//System.out.println(resource + " -> rec: " + $ID.text);
-				local_errors.add( Error.report(ErrorType.ERROR, Error.recAlreadyDefined($ID.text, ts.getLine(), ts.getPosition(), ts.getFile()), $ID.line, $ID.pos, this.file_path) );
+				local_errors.add( Error.report(ErrorType.ERROR, Error.recAlreadyDefined($ID.text, ts.getLine(), ts.getPosition(), resource), $ID.line, $ID.pos, this.file_path) );
 				recAlreadyDefined = true;
 			}
 		}
@@ -1150,7 +1150,7 @@ constructor returns[ArrayList<Error> errors, List<Type> datatype, String name]
 		$constructor.datatype = $set_cons.datatype; 
  
 	}
-
+/*
 	| node_cons	
 	{ 
 		$constructor.errors = $node_cons.errors; 
@@ -1165,7 +1165,9 @@ constructor returns[ArrayList<Error> errors, List<Type> datatype, String name]
 		$constructor.name = $xor_cons.name; 
 		$constructor.datatype = $xor_cons.datatype; 
 	}
+*/	
 	;
+
 
 //single_return_operation
 //	: ^(OP_FST operation_args)
@@ -1579,7 +1581,7 @@ pair_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 
 
 
-
+/*
 node_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();	
@@ -1718,7 +1720,7 @@ xor_cons returns[ArrayList<Error> errors, List<Type> datatype, String name]
 	}
 	)
 	;
-
+*/
 
 
 
@@ -1775,10 +1777,10 @@ scope{
 		local_errors.addAll($main_block.errors);
 		
 		TinySymbol ts = $content::name;
-		String resource = this.retriveResourceFromFilePath(this.file_path);
-		if ( !(ts.getLine() == $main_block.start.getLine() && ts.getPosition() == 0 && ts.getFile().equals(resource)) ){
+		String resource = this.retriveResourceFromFilePath(ts.getFile());
+		if ( !(ts.getLine() == $main_block.start.getLine() && ts.getPosition() == 0 && ts.getFile().equals(this.file_path)) ){
 			local_errors = new ArrayList<Error>(); //ignore other main errors
-			local_errors.add( Error.report(ErrorType.WARNING, Error.multipleMain(ts.getLine(), ts.getPosition(), ts.getFile()), $main_block.start.getLine(), 0, this.file_path) );
+			local_errors.add( Error.report(ErrorType.WARNING, Error.multipleMain(ts.getLine(), ts.getPosition(), resource), $main_block.start.getLine(), 0, this.file_path) );
 		}
 		$main_def.errors = local_errors;
 	}

@@ -4,7 +4,9 @@
 package pt.uminho.di.cp.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import pt.uminho.di.cp.reconfigurations.*;
@@ -143,14 +145,41 @@ public class OtherTests2 {
 		System.out.println("JOIN------------------");
 		System.out.println(p);
 
+
+//**************************************************************
+		/*
+		Node dej = new Node();
+		dej.addEnd("d");
+		dej.addEnd("e");
+		dej.addEnd("j");
+		
+		LinkedHashSet<Node> xors = new LinkedHashSet<Node>();
+		xors.add(dej);
+		p.setXors( xors );
+		
+		Map<Node, Pair<Double,Double>> delays = new LinkedHashMap<Node, Pair<Double,Double>>();
+		delays.put(dej, new Pair<Double, Double>(Double.MAX_VALUE , Double.MAX_VALUE));
+		delays.put(a, new Pair<Double, Double>(Double.MAX_VALUE , null));
+		//delays.put(hi, new Pair<Double, Double>(Double.MAX_VALUE , Double.MAX_VALUE));
+		p.setDelays(delays);
+		
+		LinkedHashSet<Node> n2 = new LinkedHashSet<Node>();
+		//n2.add(dej);
+		n2.add(a);
+		//n2.add(hi);
+		n2.add(g);
+		
+		join = new Join(n2);
+		p = join.apply(p);
+		System.out.println("JOIN2------------------");
+		System.out.println(p);
+		*/
+//****************************************************************		
+		
 //		Node xyz = new Node();
 //		xyz.addEnd("x");
 //		xyz.addEnd("y");
-//		xyz.addEnd("z");
-//		Node dej = new Node();
-//		dej.addEnd("d");
-//		dej.addEnd("e");
-//		dej.addEnd("j");
+//		xyz.addEnd("z");		
 		Split split = new Split(hi);
 		p = split.apply(p);
 		System.out.println("SPLIT------------------");
