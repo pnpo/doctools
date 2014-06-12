@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g 2014-06-04 19:49:50
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecParser.g 2014-06-12 17:55:25
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -380,7 +380,7 @@ public class RecParser extends Parser {
             			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
             			
             			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
-            				Processor p = new Processor(file);
+            				Processor p = new Processor(file, "");
             				ArrayList<Error> imported_syntax_errors = p.getSyntaxErrors();
             				if ( !imported_syntax_errors.isEmpty() ){
             					this.syntax_errors.addAll( imported_syntax_errors );
@@ -859,7 +859,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, reconfiguration_block, args_def
+            // elements: args_def, reconfiguration_block, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1957,7 +1957,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, reconfiguration_call, OP_APPLY
+            // elements: reconfiguration_call, OP_APPLY, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2273,7 +2273,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, assignment_member
+            // elements: assignment_member, ID
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2994,7 +2994,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: datatype, ID, reconfiguration_block, ID
+            // elements: datatype, ID, ID, reconfiguration_block
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3481,7 +3481,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: ID, ID, attribute_call
+                    // elements: attribute_call, ID, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3886,7 +3886,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: INT, OP_IN
+                    // elements: OP_IN, INT
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3953,7 +3953,7 @@ public class RecParser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: INT, OP_OUT
+                    // elements: OP_OUT, INT
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4652,7 +4652,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: ID, trigger_def, list_reconfigurations
+            // elements: ID, list_reconfigurations, trigger_def
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5055,7 +5055,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: main_args, main_block
+            // elements: main_block, main_args
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5843,7 +5843,7 @@ public class RecParser extends Parser {
 
 
             // AST REWRITE
-            // elements: OP_APPLY, dt, id2, ids, reconfiguration_call
+            // elements: id2, OP_APPLY, reconfiguration_call, dt, ids
             // token labels: dt, id2
             // rule labels: retval
             // token list labels: 

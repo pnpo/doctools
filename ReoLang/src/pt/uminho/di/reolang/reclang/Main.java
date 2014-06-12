@@ -20,7 +20,7 @@ public class Main {
     	}
 //    	if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	
     	else{
-	    	Processor p = new Processor(input_file);
+	    	Processor p = new Processor(input_file, "");
 	    	
 	    	List<Error> syntax_errors = p.getSyntaxErrors();
 	    	if ( !syntax_errors.isEmpty() ){

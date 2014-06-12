@@ -21,10 +21,11 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IFileEditorInput;
 
-import pt.uminho.di.reolang.parsing.RecLangSyntax;
 import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
 import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.ErrorType;
+import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
+import pt.uminho.di.reolang.reclang.Processor;
 
 
 public class RecLangReconcilingStrategy implements IReconcilingStrategy, IReconcilingStrategyExtension{
@@ -78,12 +79,25 @@ public class RecLangReconcilingStrategy implements IReconcilingStrategy, IReconc
 		try{
 			IResource resource = ((IFileEditorInput)editor.getEditorInput()).getFile();
 			String file = resource.getLocation().toOSString();
-			/*Lexer+Syntax*/
-			RecLangSyntax compiler = new RecLangSyntax(file, this.document.get());
-			compiler.performSyntacticAnalysis();
-			annotateDocumentWithErrors(compiler.getErrors(), resource);
-			//System.out.println(compiler.getErrors());
 			
+			/*Lexer+Syntax*/
+			Processor p = new Processor(file, this.document.get());
+			annotateDocumentWithErrors(new ArrayList<Error>(), resource);
+			
+	    	ArrayList<Error> syntax_errors = p.getSyntaxErrors();
+	    	if ( !syntax_errors.isEmpty() ){
+	    		//System.out.println(syntax_errors);
+	    		annotateDocumentWithErrors(syntax_errors, resource);
+	    	}
+	    	else{
+	        	TinySymbolsTable ids_table = p.getIdentifiersTable(new TinySymbolsTable());
+	        	ArrayList<Error> semantic_errors = p.getSemanticErrors(ids_table);
+
+	        	if (semantic_errors == null || !semantic_errors.isEmpty()){
+	        		//System.out.println(semantic_errors);
+	        		annotateDocumentWithErrors(semantic_errors, resource);
+	        	}
+	    	}
 
 		}
 		catch(Exception e){

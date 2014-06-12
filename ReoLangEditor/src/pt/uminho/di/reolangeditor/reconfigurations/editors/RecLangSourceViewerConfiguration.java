@@ -20,6 +20,7 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
 import pt.uminho.di.reolang.parsing.util.SimpleSymbol;
 import pt.uminho.di.reolang.parsing.util.Type;
+import pt.uminho.di.reolangeditor.editors.ReoLangAnnotationHover;
 import pt.uminho.di.reolangeditor.editors.reconciler.ReoLangReconcilingStrategy;
 import pt.uminho.di.reolangeditor.reconfigurations.editors.reconciler.RecLangReconcilingStrategy;
 
@@ -116,10 +117,10 @@ public class RecLangSourceViewerConfiguration extends SourceViewerConfiguration 
 	}
 
 
-	/*@Override
+	@Override
 	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
-		return new RecLangAnnotationHover();
-	}*/
+		return new ReoLangAnnotationHover();
+	}
 	
 	
 	

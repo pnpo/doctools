@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g 2014-06-04 19:54:28
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\Flavio\\Documents\\GitHub\\doctools\\ReoLang\\ReoLangSpecs\\RecTranslator.g 2014-06-12 17:54:46
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -400,7 +400,7 @@ public class RecTranslator extends TreeParser {
             			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
             			
             			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
-            				Processor p = new Processor(file);
+            				Processor p = new Processor(file, "");
             				TinySymbolsTable imported_ids_table = p.getIdentifiersTable(((reclang_scope)reclang_stack.peek()).ids_table);
             				HashMap<String, String> imported_translation = p.getTranslation(this.template_file, imported_ids_table);
             				

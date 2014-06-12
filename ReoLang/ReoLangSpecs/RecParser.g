@@ -90,7 +90,7 @@ directive_import
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
-				Processor p = new Processor(file);
+				Processor p = new Processor(file, "");
 				ArrayList<Error> imported_syntax_errors = p.getSyntaxErrors();
 				if ( !imported_syntax_errors.isEmpty() ){
 					this.syntax_errors.addAll( imported_syntax_errors );

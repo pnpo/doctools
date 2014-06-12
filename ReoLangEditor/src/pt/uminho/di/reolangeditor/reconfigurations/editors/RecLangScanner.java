@@ -8,10 +8,10 @@ import org.eclipse.swt.SWT;
 
 public class RecLangScanner extends RuleBasedScanner {
 
-	private static String[] reconflang_keywords = {"reconfiguration", "import"};
+	private static String[] reconflang_keywords = {"reconfiguration", "import", "main"};
 	private static String[] reconflang_special_keywords = {"forall"};
-	private static String[] reconflang_types = {"Pattern", "Channel", "Name", "Node", "List", "Pair", "Triple"};
-	private static String[] reconflang_operators = {"par", "join", "split", "remove", "path", "update", "fst", "snd", "trd"};
+	private static String[] reconflang_types = {"Pattern", "Channel", "Name", "Node", "Set", "Pair", "Triple"};
+	private static String[] reconflang_operators = {"par", "join", "split", "remove", "id", "const", "fst", "snd", "trd", "in", "out", "nodes", "names", "name"};
 	//private static String[] reolang_symbol_operators = {"@", "~"};
 	
 	private List<IRule> rules;

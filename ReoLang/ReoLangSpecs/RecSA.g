@@ -188,7 +188,7 @@ directive_import returns[ArrayList<Error> errors]
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {		//*.rpla
-				Processor p = new Processor(file);
+				Processor p = new Processor(file, "");
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable($reclang::ids_table);
 				ArrayList<Error> imported_semantic_errors = p.getSemanticErrors( imported_ids_table );
 				

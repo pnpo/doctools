@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
@@ -23,10 +24,10 @@ public class Processor {
 	    private String file;
 		
 		
-		public Processor(String input_file) {
+		public Processor(String input_file, String content) {
 			
 			try{
-				CharStream in = new ANTLRFileStream(input_file, "UTF8");
+				CharStream in = content.equals("") ? new ANTLRFileStream(input_file, "UTF8") : new ANTLRStringStream(content);
 				RecLexer lexer = new RecLexer(in);
 				CommonTokenStream tokens = new CommonTokenStream(lexer);
 		 		

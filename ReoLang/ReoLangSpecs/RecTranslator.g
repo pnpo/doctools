@@ -155,7 +155,7 @@ directive_import
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
-				Processor p = new Processor(file);
+				Processor p = new Processor(file, "");
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable($reclang::ids_table);
 				HashMap<String, String> imported_translation = p.getTranslation(this.template_file, imported_ids_table);
 				

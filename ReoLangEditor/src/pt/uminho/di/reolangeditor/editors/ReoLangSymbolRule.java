@@ -28,7 +28,7 @@ public class ReoLangSymbolRule implements IRule {
 	
 	public IToken evaluate(ICharacterScanner scanner) {
 		
-		String pattern = "[@~]#";
+		String pattern = "[@~#]";
 		
 		int c= scanner.read();
 				if (String.valueOf((char)c).matches(pattern)) {
