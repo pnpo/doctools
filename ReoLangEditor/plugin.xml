@@ -6,7 +6,7 @@
          point="org.eclipse.ui.editors">
       <editor
             name="ReoLang Editor"
-            extensions="rlf"
+            extensions="cpla"
             icon="icons/sample.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="pt.uminho.di.reolangeditor.editors.ReoLangEditor"
@@ -15,7 +15,7 @@
       <editor
             class="pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            extensions="rcfg"
+            extensions="rpla"
             icon="icons/sample.gif"
             id="pt.uminho.di.reolangeditor.reconfigurationseditors.RecLangEditor"
             name="Reconfiguration Editor">
@@ -134,6 +134,33 @@
       <initializer
             class="pt.uminho.di.reolangeditor.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="pt.uminho.di.reolangeditor.reconfigurations.editors.options.RecLangRun"
+            label="Run reconfigurations"
+            visible="true">
+         <menu
+               id="recoopla_options"
+               label="ReCooPLa options">
+            <separator
+                  name="recoopla_run">
+            </separator>
+         </menu>
+         <action
+               class="pt.uminho.di.reolangeditor.reconfigurations.editors.options.RecLangRun"
+               icon="icons/sample.gif"
+               id="reolangeditor.reconfigurations.editors.options.RecLangRun"
+               label="Run reconfigurations"
+               menubarPath="recoopla_options/recoopla_run"
+               toolbarPath="recoopla_run"
+               tooltip="Run reconfigurations">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
    </extension>
 
 </plugin>

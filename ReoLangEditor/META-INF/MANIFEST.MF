@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.draw2d,
  org.eclipse.zest.layouts,
- org.eclipse.ui.console;bundle-version="3.5.100"
+ org.eclipse.ui.console;bundle-version="3.5.100",
+ org.eclipse.debug.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6

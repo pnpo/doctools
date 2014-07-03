@@ -193,7 +193,6 @@ public class RecLangReconcilingStrategy implements IReconcilingStrategy, IReconc
 		}
 	}
 	
-	
 	/**
 	 * Clears all the problems associated to a resource!
 	 * @param resource the resource from which one wants to remove the problems

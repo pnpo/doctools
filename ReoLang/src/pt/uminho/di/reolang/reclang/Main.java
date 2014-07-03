@@ -59,6 +59,10 @@ public class Main {
 		    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
 		    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
 		    		if (t.equals("Main")){
+		    			/*
+		    			 * import org.antlr.runtime.*;
+		    			 * import org.antlr.runtime.tree.*;
+		    			*/
 			    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
 			    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
 		    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
