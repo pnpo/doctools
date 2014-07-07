@@ -25,7 +25,7 @@
          point="org.eclipse.ui.newWizards">
       <category
             id="ReoLangEditor File"
-            name="ReoLang File"
+            name="CooPLa Wizard"
             parentCategory="cwi.reo">
       </category>
       <wizard
@@ -33,11 +33,11 @@
             class="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
             icon="icons/sample.gif"
             id="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
-            name="ReoLang File">
+            name="CooPLa File">
       </wizard>
       <category
             id="RecLangEditor"
-            name="Reconfiguration Wizard"
+            name="ReCooPLa Wizard"
             parentCategory="cwi.reo">
       </category>
       <wizard
@@ -45,7 +45,7 @@
             class="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
             icon="icons/sample.gif"
             id="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
-            name="Reconfiguration FIle">
+            name="ReCooPLa FIle">
       </wizard>
    </extension>
    <extension

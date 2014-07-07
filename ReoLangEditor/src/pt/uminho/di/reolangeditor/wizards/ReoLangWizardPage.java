@@ -41,7 +41,7 @@ public class ReoLangWizardPage extends WizardPage {
 	public ReoLangWizardPage(ISelection selection) {
 		super("wizardPage");
 		setTitle("ReoLang Editor File");
-		setDescription("This wizard creates a new file with *.rlf extension to be opened in the ReoLang editor.");
+		setDescription("This wizard creates a new file with *.cpla extension to be opened in the ReoLang editor.");
 		this.selection = selection;
 	}
 
@@ -109,7 +109,7 @@ public class ReoLangWizardPage extends WizardPage {
 				containerText.setText(container.getFullPath().toString());
 			}
 		}
-		fileText.setText("new_reolang_file.rlf");
+		fileText.setText("new_CooPLa_file.cpla");
 	}
 
 	/**
@@ -162,8 +162,8 @@ public class ReoLangWizardPage extends WizardPage {
 		int dotLoc = fileName.lastIndexOf('.');
 		if (dotLoc != -1) {
 			String ext = fileName.substring(dotLoc + 1);
-			if (ext.equalsIgnoreCase("rlf") == false) {
-				updateStatus("File extension must be \"rlf\"");
+			if (ext.equalsIgnoreCase("cpla") == false) {
+				updateStatus("File extension must be \"cpla\"");
 				return;
 			}
 		}

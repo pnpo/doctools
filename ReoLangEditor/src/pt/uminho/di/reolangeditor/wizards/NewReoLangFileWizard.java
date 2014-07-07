@@ -129,7 +129,7 @@ public class NewReoLangFileWizard extends Wizard implements INewWizard {
 
 	private InputStream openContentStream() {
 		String contents =
-			"/*This is an empty ReoLang file (.rlf)*/";
+			"/*This is an empty ReoLang file (.cpla)*/";
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 
