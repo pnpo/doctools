@@ -1,19 +1,27 @@
 package pt.uminho.di.reolangeditor.reconfigurations.editors.options;
 
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.texteditor.ITextEditor;
 
+import pt.uminho.di.reolang.reclang.Constants;
+import pt.uminho.di.reolang.reclang.ReCooPLaProcessor;
 import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
-import pt.uminho.di.reolang.reclang.Processor;
-import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
 
 /**
  * Our sample action implements workbench action delegate.
@@ -25,15 +33,10 @@ import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
  */
 public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
-	private RecLangEditor editor;
 	/**
 	 * The constructor.
 	 */
 	public RecLangRun() {
-	}
-	
-	public void setEditor(RecLangEditor editor) {
-		this.editor = editor;
 	}
 
 	/**
@@ -49,23 +52,116 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			"Run reconfigurations",
 			"Faz algo...");
 		
-		IResource resource = ((IFileEditorInput)editor.getEditorInput()).getFile();
-		String file = resource.getLocation().toOSString();
-		
-		//Processor p = new Processor(file, this.document.get());
-		Processor p = new Processor(file, editor.getEditorInput().toString());
-		
-    	ArrayList<Error> syntax_errors = p.getSyntaxErrors();
-    	if ( syntax_errors.isEmpty() ){
-        	TinySymbolsTable ids_table = p.getIdentifiersTable(new TinySymbolsTable());
-        	ArrayList<Error> semantic_errors = p.getSemanticErrors(ids_table);
-
-        	if (semantic_errors != null && semantic_errors.isEmpty()){
-        		//traduz
-        	}
-    	}
     	*/
+		try{
+			IWorkbenchPage page = window.getActivePage();
+			IResource resource = ((IFileEditorInput)page.getActiveEditor().getEditorInput()).getFile();
+			String file = resource.getLocation().toOSString();
+			
+			IEditorPart editor = page.getActiveEditor();
+			IEditorInput input = editor.getEditorInput();
+			IDocument document = ( (ITextEditor)editor ).getDocumentProvider().getDocument(input); 
+			String content = document.get(); 
+//			System.out.println(content);
+			
+			ReCooPLaProcessor rp = new ReCooPLaProcessor(file, content);
+	    	ArrayList<Error> syntax_errors = rp.getSyntaxErrors();
+	    	if ( syntax_errors.isEmpty() ){
+	        	TinySymbolsTable ids_table = rp.getIdentifiersTable(new TinySymbolsTable());
+	        	ArrayList<Error> semantic_errors = rp.getSemanticErrors(ids_table);
+	
+	        	if (semantic_errors != null && semantic_errors.isEmpty()){
+	        		//traduz
+		        	HashMap<String, String> translation = new HashMap<String, String>();
+		        	translation = rp.getTranslation(ids_table);
+		   
+			    	//do something with translation...
+			    	for (String t : translation.keySet()){
+			    		//check runtime path
+//			    		String basePath = new File("").getAbsolutePath();
+//			    	    System.out.println(basePath);
+			    		
+//			    		String folder = "tests/";
+			    		String folder = "";
+			    		
+			    		String file_name = t + ".java";
+			    		String file_path = folder + file_name;
+			    		
+			    		PrintWriter writer = new PrintWriter(file_path, "UTF-8");
+			    		writer.println("import " + Constants.JAVA_UTIL + ".*;");
+			    		writer.println("import " + Constants.CP_MODEL + ".*;");
+			    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
+			    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
+			    		if (t.equals("Main")){
+			    			/*
+			    			 * import org.antlr.runtime.*;
+			    			 * import org.antlr.runtime.tree.*;
+			    			*/
+				    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
+				    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
+			    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
+			    			//writer.println("import " + PkgConstants.JAVA_LANG_REFLECT + ".Constructor;");
+				    		//writer.println("import " + PkgConstants.JAVA_LANG_REFLECT + ".Method;");
+			    			
+			    		}
+			    		writer.print(translation.get(t));
+			    		writer.close();
+			    		
+			    		
+			    		String option = "-cp";
+			    		String classpath = folder + "recoopla.jar";
+			    		
+			    		//javac -cp file.jar file.java
+			    		executeCommand("javac", option, classpath, file_path);
+			    	}
+			    	
+		
+
+	        		MessageDialog.openInformation(
+	        				window.getShell(),
+	        				"Run reconfigurations",
+	        				"Fez algo...");
+	        	}
+	        	else{
+	        		MessageDialog.openInformation(
+	        				window.getShell(),
+	        				"Run reconfigurations",
+	        				"erro(s)...");
+	        	}
+	    	}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			MessageDialog.openInformation(
+    				window.getShell(),
+    				"Run reconfigurations",
+    				e.toString());
+		}
+
+    	
 	}
+	
+	
+	/**
+	 * 
+	 * @param cmd 	: command to execute
+	 * @param op  	: option (eg.: -cp)
+	 * @param cp  	: classpath value
+	 * @param file	: file to run
+	 */
+	private static void executeCommand(String cmd, String op, String cp, String file) {
+	     Process p;
+	     ProcessBuilder b = new ProcessBuilder(cmd, op, cp, file);
+	     try {
+	    	 p = b.start();
+			 p.waitFor();
+			 p.destroy();
+	     } 
+	     catch (Exception e) {
+	    	 e.printStackTrace();
+		 }
+	}
+	
 
 	/**
 	 * Selection in the workbench has been changed. We 

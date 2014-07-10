@@ -22,9 +22,6 @@ options{
 }
 
 @members{
-	private String template_file = "resources/template.stg";
-
-
 	private HashMap<String,String> reconfigurations;
 	
 	public HashMap<String,String> getReconfigurations(){
@@ -155,9 +152,9 @@ directive_import
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	//rpla
-				Processor p = new Processor(file, "");
+				ReCooPLaProcessor p = new ReCooPLaProcessor(file, "");
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable($reclang::ids_table);
-				HashMap<String, String> imported_translation = p.getTranslation(this.template_file, imported_ids_table);
+				HashMap<String, String> imported_translation = p.getTranslation(imported_ids_table);
 				
 				this.reconfigurations.putAll(imported_translation);
 			}

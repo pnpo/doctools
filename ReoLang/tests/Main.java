@@ -3,10 +3,6 @@ import pt.uminho.di.cp.model.*;
 import pt.uminho.di.cp.reconfigurations.*;
 import pt.uminho.di.reolang.parsing.util.*;
 
-//import org.antlr.runtime.tree.TreeParser;
-//import org.antlr.runtime.*;
-//import org.antlr.runtime.tree.*;
-
 import pt.uminho.di.reolang.ReoLangCP2;
 import pt.uminho.di.reolang.parsing.CPBuilder;
 import java.lang.reflect.*;
@@ -15,6 +11,7 @@ public class Main {
 	
 	private static LinkedHashMap<String, CPModelInternal> patterns;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args){
 	
 		CPModelInternal $cpmi = null;

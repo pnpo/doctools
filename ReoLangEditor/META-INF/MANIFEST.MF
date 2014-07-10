@@ -20,7 +20,7 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5,
 Bundle-ClassPath: .,
  lib/antlr-3.4-complete.jar,
  lib/imcreoutil.1.0.debug.jar,
- lib/reolang.4.0.debug.jar
+ lib/reolang.4.1.debug.jar
 Import-Package: org.eclipse.ui.views.contentoutline,
  org.eclipse.zest.core.viewers,
  org.eclipse.zest.core.widgets
