@@ -427,7 +427,7 @@ declaration returns[String value]
 			else {
 				String v = $var_def.value;
 				v = v.substring(0, v.length()-1); //remove ';'
-				decls.add("final " + $instruction::dt + v + " = null;");
+				decls.add("final " + $instruction::dt + v + ";"); //" = null;"
 			}
 		}
 	}
@@ -1022,7 +1022,7 @@ main_def returns[String id]
 	$content::ts = $reclang::ids_table.getSymbols().get("\$main");
 	$content::current_scope = $content::ts.getScopes().get(0); //main has only one scope
 	
-	$main_def.id = "Main";
+	$main_def.id = "Run";
 }
 	: main_args? main_block
 	
@@ -1137,21 +1137,21 @@ main_assignment returns[String value]
 	)? ids) 
 	{
 		first_id = $ids.values.get(0);
-		first_decl = "final CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
+		first_decl = "\tfinal CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
 				
 		$ids.values.remove(0);
 		for (String id : $ids.values){
-			remaining += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
+			remaining += "\tfinal CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
 		}
 		
 		
 		if (isDeclaration){
 			//adiciona novo tipo de padrão a um map de padroes (eg: Replicator x = ... -> add "Replicator")
-			add_pattern += "\n\$new_cp = new CoordinationPattern2(" + first_id + ");\n";
-			add_pattern += "\$new_cp.setId(\"" + $id1 + "\");\n";
-			add_pattern += "\$cpmi = new CPModelInternal();\n";
-			add_pattern += "\$cpmi.setSimplePattern(\$new_cp);\n";
-			add_pattern += "patterns.put( \"" + $id1 + "\", \$cpmi );\n";
+			add_pattern += "\n\t\$new_cp = new CoordinationPattern2(" + first_id + ");\n";
+			add_pattern += "\t\$new_cp.setId(\"" + $id1 + "\");\n";
+			add_pattern += "\t\$cpmi = new CPModelInternal();\n";
+			add_pattern += "\t\$cpmi.setSimplePattern(\$new_cp);\n";
+			add_pattern += "\tpatterns.put( \"" + $id1 + "\", \$cpmi );\n";
 		}
 	}
 	)? 
@@ -1181,12 +1181,16 @@ main_assignment returns[String value]
 		rec += "Constructor " + op + "_constructor = " + op + ".getConstructor(" + datatypes + ");\n";	
 		$main_block::reconfs.add(rec);
 		
-		value = "\nObject " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
-		value += "Method " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
+		value = "\ntry{\n";
+		value += "\tObject " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
+		value += "\tMethod " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
 		value += first_decl + op + i + "_apply.invoke(" + op + i + "_obj, _" + $id2 + " );\n";
 		value += remaining;
 		
 		value += add_pattern;
+		
+		value += "} catch(Throwable e) {\n";
+		value += "\terrors.add(e); \n}\n";
 	}
 	) 
 	

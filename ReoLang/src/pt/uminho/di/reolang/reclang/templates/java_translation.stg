@@ -39,15 +39,27 @@ apply_method(reconfs, insts) ::= <<
 
 
 mkmain(files, args, insts) ::= <<
-public class Main {
+public class Run {
 	
 	private static LinkedHashMap\<String, CPModelInternal\> patterns;
+	private static Set\<Throwable\> errors;
+	
+	public LinkedHashMap\<String,CPModelInternal\> getPatterns(){
+		return this.patterns;
+	}
+	
+	public Set\<Throwable\> getErrors(){
+		return this.errors;
+	}
+	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void main(String[] args){
+	//public static void main(String[] args){
+	public Run(){
 	
 		CPModelInternal $cpmi = null;
 		CoordinationPattern2 $new_cp = null;
+		patterns = new LinkedHashMap\<String, CPModelInternal\>();
 	
 		String[] files = {
 			<files:{ file | "<file>"}; separator=", 
@@ -57,16 +69,23 @@ public class Main {
 		for (String file : files){
 			CPBuilder cp_model_builder = new CPBuilder(file);
 			ReoLangCP2 res = cp_model_builder.performModelConstruction( new LinkedHashMap\<String, CPModelInternal\>(), new SymbolsTable() );
-			patterns = res.getPatterns() != null ? res.getPatterns() : patterns;
+			
+			//patterns = res.getPatterns() != null ? res.getPatterns() : patterns;
+			if (res.getPatterns() != null){
+				for (String p : res.getPatterns().keySet()){
+					patterns.put(p, res.getPatterns().get(p));
+				}
+			}
 		}
 		
 		<args>
-		try {
+		
+		try{
 			<insts>
-		}  
-        catch (Throwable e) {  
-            System.err.println(e);  
-        }  
+		} catch (Throwable e){
+			//System.err.println(e);	
+			errors.add(e); 
+		}
 	}
 }
 >>

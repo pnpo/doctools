@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g 2014-07-09 18:32:26
+// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g 2014-07-17 21:50:21
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -1615,7 +1615,7 @@ public class RecTranslator extends TreeParser {
 								else {
 									String v = (var_def20!=null?((RecTranslator.var_def_return)var_def20).value:null);
 									v = v.substring(0, v.length()-1); //remove ';'
-									decls.add("final " + instruction_stack.peek().dt + v + " = null;");
+									decls.add("final " + instruction_stack.peek().dt + v + ";"); //" = null;"
 								}
 							}
 						
@@ -3657,7 +3657,7 @@ public class RecTranslator extends TreeParser {
 			content_stack.peek().ts = reclang_stack.peek().ids_table.getSymbols().get("$main");
 			content_stack.peek().current_scope = content_stack.peek().ts.getScopes().get(0); //main has only one scope
 			
-			retval.id = "Main";
+			retval.id = "Run";
 
 		try {
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1027:2: ( ( main_args )? main_block -> mkmain(files=$reclang::imported_coopla_filesargs=$main_args.valuesinsts=$main_block.values))
@@ -4204,21 +4204,21 @@ public class RecTranslator extends TreeParser {
 
 
 							first_id = (ids63!=null?((RecTranslator.ids_return)ids63).values:null).get(0);
-							first_decl = "final CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
+							first_decl = "\tfinal CoordinationPattern2 " + first_id + " = (CoordinationPattern2) ";
 									
 							(ids63!=null?((RecTranslator.ids_return)ids63).values:null).remove(0);
 							for (String id : (ids63!=null?((RecTranslator.ids_return)ids63).values:null)){
-								remaining += "final CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
+								remaining += "\tfinal CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
 							}
 							
 							
 							if (isDeclaration){
 								//adiciona novo tipo de padrão a um map de padroes (eg: Replicator x = ... -> add "Replicator")
-								add_pattern += "\n$new_cp = new CoordinationPattern2(" + first_id + ");\n";
-								add_pattern += "$new_cp.setId(\"" + id1 + "\");\n";
-								add_pattern += "$cpmi = new CPModelInternal();\n";
-								add_pattern += "$cpmi.setSimplePattern($new_cp);\n";
-								add_pattern += "patterns.put( \"" + id1 + "\", $cpmi );\n";
+								add_pattern += "\n\t$new_cp = new CoordinationPattern2(" + first_id + ");\n";
+								add_pattern += "\t$new_cp.setId(\"" + id1 + "\");\n";
+								add_pattern += "\t$cpmi = new CPModelInternal();\n";
+								add_pattern += "\t$cpmi.setSimplePattern($new_cp);\n";
+								add_pattern += "\tpatterns.put( \"" + id1 + "\", $cpmi );\n";
 							}
 						
 					}
@@ -4257,12 +4257,16 @@ public class RecTranslator extends TreeParser {
 					rec += "Constructor " + op + "_constructor = " + op + ".getConstructor(" + datatypes + ");\n";	
 					main_block_stack.peek().reconfs.add(rec);
 					
-					value = "\nObject " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
-					value += "Method " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
+					value = "\ntry{\n";
+					value += "\tObject " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
+					value += "\tMethod " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
 					value += first_decl + op + i + "_apply.invoke(" + op + i + "_obj, _" + id2 + " );\n";
 					value += remaining;
 					
 					value += add_pattern;
+					
+					value += "} catch(Throwable e) {\n";
+					value += "\terrors.add(e); \n}\n";
 				
 			match(input, Token.UP, null); 
 

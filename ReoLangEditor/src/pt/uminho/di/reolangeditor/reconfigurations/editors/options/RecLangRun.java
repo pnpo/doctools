@@ -1,9 +1,18 @@
 package pt.uminho.di.reolangeditor.reconfigurations.editors.options;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IAction;
@@ -18,10 +27,13 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.texteditor.ITextEditor;
 
+import pt.uminho.di.cp.model.CPModelInternal;
 import pt.uminho.di.reolang.reclang.Constants;
 import pt.uminho.di.reolang.reclang.ReCooPLaProcessor;
+//import pt.uminho.di.reolang.reclang.ReCooPLaRunner;
 import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
+
 
 /**
  * Our sample action implements workbench action delegate.
@@ -45,6 +57,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	 * in the workbench UI.
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes"})
 	public void run(IAction action) {
 		/*
 		MessageDialog.openInformation(
@@ -64,7 +77,25 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			String content = document.get(); 
 //			System.out.println(content);
 			
+//			ReCooPLaRunner runner = new ReCooPLaRunner(file, content);
+//			runner.compile();
+			
 			ReCooPLaProcessor rp = new ReCooPLaProcessor(file, content);
+			
+
+//    		String folder = "tests/";
+//    		String folder = "";
+    		
+    		String home = System.getProperty("user.home");
+    		//path/file separator
+    		File dir = new File(home + "/temp");
+
+    		  // if the directory does not exist, create it
+    		if (!dir.exists()) {
+    			dir.mkdir();
+    		}
+    		String folder = dir.getAbsolutePath() + "/";
+			
 	    	ArrayList<Error> syntax_errors = rp.getSyntaxErrors();
 	    	if ( syntax_errors.isEmpty() ){
 	        	TinySymbolsTable ids_table = rp.getIdentifiersTable(new TinySymbolsTable());
@@ -74,15 +105,12 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	        		//traduz
 		        	HashMap<String, String> translation = new HashMap<String, String>();
 		        	translation = rp.getTranslation(ids_table);
-		   
+		    		  
 			    	//do something with translation...
 			    	for (String t : translation.keySet()){
 			    		//check runtime path
 //			    		String basePath = new File("").getAbsolutePath();
 //			    	    System.out.println(basePath);
-			    		
-//			    		String folder = "tests/";
-			    		String folder = "";
 			    		
 			    		String file_name = t + ".java";
 			    		String file_path = folder + file_name;
@@ -92,7 +120,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			    		writer.println("import " + Constants.CP_MODEL + ".*;");
 			    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
 			    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
-			    		if (t.equals("Main")){
+			    		if (t.equals("Run")){
 			    			/*
 			    			 * import org.antlr.runtime.*;
 			    			 * import org.antlr.runtime.tree.*;
@@ -107,20 +135,25 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			    		writer.print(translation.get(t));
 			    		writer.close();
 			    		
-			    		
 			    		String option = "-cp";
-			    		String classpath = folder + "recoopla.jar";
 			    		
-			    		//javac -cp file.jar file.java
-			    		executeCommand("javac", option, classpath, file_path);
+			    		//rever
+			    		String os = System.getProperty("os.name").toLowerCase();
+			    		String classpath = "";
+			    		if (os.contains("win")){
+			    			classpath = folder + "recoopla.jar;antlr.jar";
+			    		} else{
+			    			classpath = folder + "recoopla.jar:antlr.jar";
+			    		}
+			    		
+			    		File f = new File(folder + "recoopla.jar");
+			    		if(!f.exists()) {
+			    			copyDependenciesTo(folder);
+			    		}
+			    		
+		    			//javac -cp file.jar file.java
+			    		executeCommand("javac", option, classpath, file_path);	
 			    	}
-			    	
-		
-
-	        		MessageDialog.openInformation(
-	        				window.getShell(),
-	        				"Run reconfigurations",
-	        				"Fez algo...");
 	        	}
 	        	else{
 	        		MessageDialog.openInformation(
@@ -129,6 +162,44 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	        				"erro(s)...");
 	        	}
 	    	}
+	    	//created java files and compiled
+			MessageDialog.openInformation(
+    				window.getShell(),
+    				"Run reconfigurations",
+    				"Fez algo...");
+			
+			
+			//************ Get Patterns ************//
+			String basePath = new File("").getAbsolutePath();
+    	    System.out.println(basePath);
+    	    
+    	    
+    	    URL[] classes = {new File(folder).toURI().toURL()};
+    	    URLClassLoader child = new URLClassLoader (classes, this.getClass().getClassLoader());
+    	
+			Class c = Class.forName("Run", true, child);
+	
+//			Constructor constructor = c.getConstructor(null);
+//			Object main = constructor.newInstance();
+			Object runner = c.newInstance();
+		        
+//			System.out.println(removeP.toString());
+			
+			Method getPatterns = c.getMethod("getPatterns", null); //getDeclaredMethod
+			LinkedHashMap<String,CPModelInternal> patterns = (LinkedHashMap<String, CPModelInternal>) getPatterns.invoke(runner, null );
+			System.out.println(patterns);
+			
+			
+			Method getErrors = c.getMethod("getErrors", null); //getDeclaredMethod
+			Set<Throwable> errors = (Set<Throwable>) getErrors.invoke(runner, null );
+//			System.out.println(errors);
+			
+			
+			//retrieve patterns to PatternView
+//			PatternViewer pv = new PatternViewer();
+//			pv.createPatternViewer();
+//			((ReoLangEditor) editor).setSelectedPatternGraphModel(pv.getGraph());
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -140,6 +211,31 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 
     	
 	}
+	
+	
+	private void copyDependenciesTo(String path) throws Exception{
+		InputStream recoopla_in = getClass().getResourceAsStream("dependencies/reolang.4.1.debug.jar");
+		OutputStream recoopla_out = new FileOutputStream(new File(path + "recoopla.jar"));
+		
+		InputStream antlr_in = getClass().getResourceAsStream("dependencies/antlr-3.4-complete.jar");
+		OutputStream antlr_out = new FileOutputStream(new File(path + "antlr.jar"));
+		
+		HashMap<InputStream, OutputStream> files = new HashMap<InputStream, OutputStream>();
+		files.put(recoopla_in, recoopla_out);
+		files.put(antlr_in, antlr_out);
+ 
+		for (InputStream in : files.keySet()){
+			int read = 0;
+			byte[] bytes = new byte[1024];
+	 
+			OutputStream out = files.get(in);
+			while ((read = in.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			out.close();
+		}
+	}
+	
 	
 	
 	/**
