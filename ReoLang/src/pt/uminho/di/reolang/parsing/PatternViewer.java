@@ -118,7 +118,7 @@ public class PatternViewer extends CompilerPart {
 	
 	
 	
-	private void updateGraph(){
+	public void updateGraph(){
 		for(Edge e : this.graph.getEdges()) {
 			Node n1, n2;
 			if(this.replaceMap.containsKey(e.getN1().toString())){

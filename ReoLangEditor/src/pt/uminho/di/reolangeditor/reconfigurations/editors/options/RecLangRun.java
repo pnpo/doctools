@@ -10,7 +10,10 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
@@ -28,11 +31,23 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 import pt.uminho.di.cp.model.CPModelInternal;
+import pt.uminho.di.cp.model.CommunicationMean2;
+import pt.uminho.di.cp.model.CoordinationPattern2;
+//import pt.uminho.di.cp.model.Node;
+import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
+import pt.uminho.di.cp.model.graph.Node;
+import pt.uminho.di.cp.model.graph.Edge;
 import pt.uminho.di.reolang.reclang.Constants;
 import pt.uminho.di.reolang.reclang.ReCooPLaProcessor;
+import pt.uminho.di.reolang.parsing.PatternViewer;
 //import pt.uminho.di.reolang.reclang.ReCooPLaRunner;
 import pt.uminho.di.reolang.parsing.util.Error;
+import pt.uminho.di.reolang.parsing.util.SimpleSymbol;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
+import pt.uminho.di.reolangeditor.editors.context.ReoLangContextUtil;
+import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
+import pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView;
+import pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView2;
 
 
 /**
@@ -163,10 +178,10 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	        	}
 	    	}
 	    	//created java files and compiled
-			MessageDialog.openInformation(
-    				window.getShell(),
-    				"Run reconfigurations",
-    				"Fez algo...");
+//			MessageDialog.openInformation(
+//    				window.getShell(),
+//    				"Run reconfigurations",
+//    				"Fez algo...");
 			
 			
 			//************ Get Patterns ************//
@@ -185,20 +200,112 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 		        
 //			System.out.println(removeP.toString());
 			
-			Method getPatterns = c.getMethod("getPatterns", null); //getDeclaredMethod
-			LinkedHashMap<String,CPModelInternal> patterns = (LinkedHashMap<String, CPModelInternal>) getPatterns.invoke(runner, null );
-			System.out.println(patterns);
+			Method getImportedPatterns = c.getMethod("getImportedPatterns", null); //getDeclaredMethod
+			LinkedHashMap<String,CPModelInternal> imported_patterns = (LinkedHashMap<String, CPModelInternal>) getImportedPatterns.invoke(runner, null );
+//			System.out.println(imported_patterns);
+			
+			Method getCreatedPatterns = c.getMethod("getCreatedPatterns", null); //getDeclaredMethod
+			LinkedHashMap<String,CPModelInternal> created_patterns = (LinkedHashMap<String, CPModelInternal>) getCreatedPatterns.invoke(runner, null );
+//			System.out.println(created_patterns);
 			
 			
 			Method getErrors = c.getMethod("getErrors", null); //getDeclaredMethod
-			Set<Throwable> errors = (Set<Throwable>) getErrors.invoke(runner, null );
+			Set<Exception> errors = (Set<Exception>) getErrors.invoke(runner, null );
 //			System.out.println(errors);
 			
 			
-			//retrieve patterns to PatternView
+//			RecLangPatternsView2 rlpv = new RecLangPatternsView2();
+			
+			//type of created_patterns.values() :  CPModelInternal
+//			Iterator iter = created_patterns.values().iterator();
+//			CoordinationPattern2 cp = ( (CPModelInternal) iter.next() ).getSimplePattern();
+			
+//			System.out.print("--->" + cp);
+			
+			
+			Set<ArchPatternAbstractGraph> graphs = new HashSet<ArchPatternAbstractGraph>();
+			
+			for (CPModelInternal cpmi : created_patterns.values()){
+				CoordinationPattern2 cp = cpmi.getSimplePattern();
+				Set<Node> in_nodes = new HashSet<Node>();
+				Set<Node> out_nodes = new HashSet<Node>();
+				Set<Node> nodes = new HashSet<Node>();
+				
+				int i = 1;
+				//map -> old_nodes, new_nodes
+				HashMap<String, String> map_nodes = new HashMap<String, String>();
+				
+				for (pt.uminho.di.cp.model.Node node : cp.getNodes()){
+					Node n = new Node();
+					String old_node = node.sepEndsByDot();
+					
+					//default
+					String new_node = old_node;
+					if (map_nodes.containsKey(old_node)){
+						new_node = map_nodes.get(old_node);
+					}
+					else if (old_node.contains(".")){
+						new_node = "j" + i;
+						map_nodes.put(old_node, new_node);
+						i++;
+					}
+					
+					n.setName(new_node);
+					nodes.add(n);
+					if (cp.getIn().contains(node)){
+						in_nodes.add(n);
+					}
+					else if (cp.getOut().contains(node)){
+						out_nodes.add(n);
+					}
+			    }
+	//			System.out.println(map_nodes);
+				
+				Set<Edge> edges = new HashSet<Edge>();
+				for(CommunicationMean2 cm : cp.getPattern()){
+					boolean is_drain = false;
+					if (cm.getType().toLowerCase().contains("drain")){
+						is_drain = true;
+					}
+					String n1 = map_nodes.containsKey( cm.getIn(0).sepEndsByDot() ) ? 
+							map_nodes.get( cm.getIn(0).sepEndsByDot() ) : cm.getIn(0).sepEndsByDot();
+					String n2 = "";
+					boolean directed = true;
+					String label = cm.getId() + "::" + cm.getType().toLowerCase();
+					if (is_drain){
+						n2 = map_nodes.containsKey( cm.getIn(1).sepEndsByDot() ) ? 
+								map_nodes.get( cm.getIn(1).sepEndsByDot() ) : cm.getIn(1).sepEndsByDot();
+						directed = false;
+					}
+					else {
+						n2 = map_nodes.containsKey( cm.getOut(0).sepEndsByDot() ) ? 
+								map_nodes.get( cm.getOut(0).sepEndsByDot() ) : cm.getOut(0).sepEndsByDot();
+					}
+					Edge edge = new Edge(n1, n2, directed, label);
+					edges.add(edge);
+				}
+				
+				String name = cp.getId();
+				ArchPatternAbstractGraph graph = new ArchPatternAbstractGraph(in_nodes, out_nodes, nodes, edges, name);
+	//			System.out.println("-------------------");
+	//			System.out.println(graph);
+				graphs.add(graph);
+				
+				//convert CoordinationPattern2 object to text in coopla format
+	//			patternToString(cp);
+			}
+			
+			//retrieve pattern to PatternView
+			Iterator iter = graphs.iterator();
+			System.out.print(graphs);
+			ArchPatternAbstractGraph graph = (ArchPatternAbstractGraph) iter.next();
 //			PatternViewer pv = new PatternViewer();
-//			pv.createPatternViewer();
-//			((ReoLangEditor) editor).setSelectedPatternGraphModel(pv.getGraph());
+//			pv.setGraph(graph);
+//			pv.setReplaceMap(null);
+//			pv.updateGraph();
+			((RecLangEditor) editor).setSelectedPatternGraphModel(graph);
+			
+//			((RecLangEditor) editor).setPatternsRepresentation(graphs);
 			
 		}
 		catch(Exception e) {
@@ -259,6 +366,74 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	}
 	
 
+	private static void patternToString(CoordinationPattern2 pattern) {
+	     StringBuilder sb = new StringBuilder();
+	     sb.append("pattern " + pattern.getId() 
+	    		 + "(" + nodesToString( pattern.getIn() ) 
+	    		 + ":" + nodesToString( pattern.getOut() ) 
+	    		 + "){\n");
+//	     Set<String> types = new HashSet<String>();
+//	     for (CommunicationMean2 cm : pattern.getPattern()){
+//	    	 types.add(cm.getType());
+//	     }
+	     //key: type
+	     //value: all channels of type key
+	     HashMap<String, Set<String>> type_channels = new HashMap<String, Set<String>>();
+	     for (CommunicationMean2 cm : pattern.getPattern()){
+	    	
+	    	 Set<String> channels = type_channels.get(cm.getType()) != null ? 
+	    			 type_channels.get(cm.getType()) : new HashSet<String>();
+	    	 channels.add(cm.getId());
+	    	 type_channels.put(cm.getType(), channels);
+	     }
+	     sb.append("\tuse:\n");
+	     for (String type : type_channels.keySet()){
+	    	 String coopla_type = "";
+	    	 if (type.equals("sync")){
+	    		 coopla_type = "sync(i:o)";
+	    	 }
+	    	 else if (type.contains("fifo")){
+	    		 coopla_type = "fifo~1(i:o)";
+	    	 }
+	    	 else if (type.contains("drain")){
+	    		 coopla_type = "sync_drain(i,ii:)";
+	    	 }
+	    	 sb.append("\t\t" + coopla_type + "\tas " + setToString(type_channels.get(type)) + ";\n");
+	     }
+	     sb.append("\tin:\n");
+	     for (pt.uminho.di.cp.model.Node node : pattern.getNodes()){
+	    	 sb.append("\t\t" + node.sepEndsByDot() + " = " + "__channel.i/.o__" + ";\n");
+	     }
+	     sb.append("}");
+	     
+	     System.out.println(sb);
+	}
+	
+	private static String nodesToString(Set<pt.uminho.di.cp.model.Node> nodes){
+		String sep = "";
+		String values = "";
+		for (pt.uminho.di.cp.model.Node node : nodes){
+			values += sep;
+			values += node.sepEndsByDot();
+			
+		    sep = ",";
+		}
+		return values;
+	}
+	
+	private static String setToString(Set<String> args){
+		String sep = "";
+		String values = "";
+		for (String a : args){
+			values += sep;
+			values += a;
+			
+		        sep = ", ";
+		}
+		return values;
+	}
+	
+	
 	/**
 	 * Selection in the workbench has been changed. We 
 	 * can change the state of the 'real' action here

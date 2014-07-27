@@ -393,6 +393,7 @@ reconfiguration_apply[boolean isAssignment] returns[String value]
 			//String datatype = datatypeToString(dt);
 			rec = op + " = new " + class_name + "(" + args + ");\n";
 			rec += "final " + dt + var_name + " = " + op + ".apply(\$cp)"; //add template
+			
 		}
 		else{
 			rec = op + " = new " + class_name + "(" + args + ");\n" + op + ".apply(\$cp)"; //add template
@@ -1107,7 +1108,7 @@ main_declaration returns[String value]
 	: ^(DECLARATION cp=ID ids
 	{
 		for (String id : $ids.values){
-			value += "\nfinal CoordinationPattern2 " + id + " = new CoordinationPattern2(patterns.get(\"" + $cp + "\").getSimplePattern());\n";
+			value += "\nfinal CoordinationPattern2 " + id + " = new CoordinationPattern2(imported_patterns.get(\"" + $cp + "\").getSimplePattern());\n";
 		}
 	}
 	)
@@ -1151,7 +1152,7 @@ main_assignment returns[String value]
 			add_pattern += "\t\$new_cp.setId(\"" + $id1 + "\");\n";
 			add_pattern += "\t\$cpmi = new CPModelInternal();\n";
 			add_pattern += "\t\$cpmi.setSimplePattern(\$new_cp);\n";
-			add_pattern += "\tpatterns.put( \"" + $id1 + "\", \$cpmi );\n";
+			add_pattern += "\tcreated_patterns.put( \"" + $id1 + "\", \$cpmi );\n";
 		}
 	}
 	)? 
@@ -1189,7 +1190,7 @@ main_assignment returns[String value]
 		
 		value += add_pattern;
 		
-		value += "} catch(Throwable e) {\n";
+		value += "} catch(Exception e) {\n";
 		value += "\terrors.add(e); \n}\n";
 	}
 	) 

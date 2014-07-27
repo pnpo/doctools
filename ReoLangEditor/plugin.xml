@@ -72,6 +72,24 @@
             id="reolangeditor.views.ReoLangPatternView"
             name="Pattern View">
       </view>
+      <category
+            id="RecLangPatternsView"
+            name="Reconfiguration Views">
+      </category>
+      <view
+            category="RecLangPatternsView"
+            class="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView"
+            icon="icons/sample.gif"
+            id="reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView"
+            name="Output patterns View">
+      </view>
+      <view
+            category="RecLangPatternsView2"
+            class="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView2"
+            icon="icons/sample.gif"
+            id="reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView2"
+            name="Output patterns View 2">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -84,9 +102,33 @@
                relative="org.eclipse.ui.views.TaskList">
          </view>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="pt.uminho.di.reolangeditor.reconfigurations.views.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="pt.uminho.di.reolangeditor.reconfigurations.editor.adapter.views.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>
@@ -161,6 +203,16 @@
    </extension>
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+         <factory
+            adaptableType="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.model.DataModel"
+            class="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.DataModelAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

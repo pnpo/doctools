@@ -41,14 +41,19 @@ apply_method(reconfs, insts) ::= <<
 mkmain(files, args, insts) ::= <<
 public class Run {
 	
-	private static LinkedHashMap\<String, CPModelInternal\> patterns;
-	private static Set\<Throwable\> errors;
+	private static LinkedHashMap\<String, CPModelInternal\> imported_patterns;
+	private static LinkedHashMap\<String, CPModelInternal\> created_patterns;
+	private static Set\<Exception\> errors;
 	
-	public LinkedHashMap\<String,CPModelInternal\> getPatterns(){
-		return this.patterns;
+	public LinkedHashMap\<String,CPModelInternal\> getImportedPatterns(){
+		return this.imported_patterns;
 	}
 	
-	public Set\<Throwable\> getErrors(){
+	public LinkedHashMap\<String,CPModelInternal\> getCreatedPatterns(){
+		return this.created_patterns;
+	}
+	
+	public Set\<Exception\> getErrors(){
 		return this.errors;
 	}
 	
@@ -59,7 +64,8 @@ public class Run {
 	
 		CPModelInternal $cpmi = null;
 		CoordinationPattern2 $new_cp = null;
-		patterns = new LinkedHashMap\<String, CPModelInternal\>();
+		imported_patterns = new LinkedHashMap\<String, CPModelInternal\>();
+		created_patterns = new LinkedHashMap\<String, CPModelInternal\>();
 	
 		String[] files = {
 			<files:{ file | "<file>"}; separator=", 
@@ -70,10 +76,10 @@ public class Run {
 			CPBuilder cp_model_builder = new CPBuilder(file);
 			ReoLangCP2 res = cp_model_builder.performModelConstruction( new LinkedHashMap\<String, CPModelInternal\>(), new SymbolsTable() );
 			
-			//patterns = res.getPatterns() != null ? res.getPatterns() : patterns;
+			//imported_patterns = res.getPatterns() != null ? res.getPatterns() : imported_patterns;
 			if (res.getPatterns() != null){
 				for (String p : res.getPatterns().keySet()){
-					patterns.put(p, res.getPatterns().get(p));
+					imported_patterns.put(p, res.getPatterns().get(p));
 				}
 			}
 		}
@@ -82,7 +88,7 @@ public class Run {
 		
 		try{
 			<insts>
-		} catch (Throwable e){
+		} catch (Exception e){ //Throwable
 			//System.err.println(e);	
 			errors.add(e); 
 		}
@@ -91,12 +97,12 @@ public class Run {
 >>
 
 list_args(cp, ids) ::= <<
-<ids:{ id |	final CoordinationPattern2 <id> = new CoordinationPattern2(patterns.get("<cp>").getSimplePattern());
+<ids:{ id |	final CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
 }>
 >>
 
 declaration(cp, ids) ::= <<
-<ids:{ id |final CoordinationPattern2 <id> = new CoordinationPattern2(patterns.get("<cp>").getSimplePattern());
+<ids:{ id |final CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
 }>
 >>
 
