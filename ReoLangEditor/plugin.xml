@@ -9,15 +9,15 @@
             extensions="rlf"
             icon="icons/coopla.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="pt.uminho.di.cooplaeditor.editors.ReoLangEditor"
-            id="pt.uminho.di.cooplaeditor.editors.ReoLangEditor">
+            class="pt.uminho.di.cooplaeditor.editors.CooPLaEditor"
+            id="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
       </editor>
       <editor
-            class="pt.uminho.di.cooplaeditor.reconfigurations.editors.RecLangEditor"
+            class="pt.uminho.di.cooplaeditor.reconfigurations.editors.ReCooPLaEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="rcfg"
             icon="icons/recoopla.gif"
-            id="pt.uminho.di.cooplaeditor.reconfigurationseditors.RecLangEditor"
+            id="pt.uminho.di.cooplaeditor.ReCooPLaEditor"
             name="ReCooPLa Editor">
       </editor>
    </extension>
@@ -25,16 +25,16 @@
          point="org.eclipse.ui.newWizards">
       <wizard
             category="category.cooplaeditor"
-            class="pt.uminho.di.cooplaeditor.wizards.NewReoLangFileWizard"
+            class="pt.uminho.di.cooplaeditor.wizards.NewCooPLaFileWizard"
             icon="icons/coopla.gif"
-            id="pt.uminho.di.cooplaeditor.wizards.NewReoLangFileWizard"
+            id="pt.uminho.di.cooplaeditor.wizards.CooPLaFileWizard"
             name="CooPLa File">
       </wizard>
       <wizard
             category="category.cooplaeditor"
-            class="pt.uminho.di.cooplaeditor.wizards.NewRecLangFileWizard"
+            class="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
             icon="icons/recoopla.gif"
-            id="pt.uminho.di.cooplaeditor.wizards.NewRecLangFileWizard"
+            id="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
             name="ReCooPLa File">
       </wizard>
       <category
@@ -61,9 +61,9 @@
       </category>
       <view
             category="category.cooplaeditor"
-            class="pt.uminho.di.cooplaeditor.views.ReoLangPatternView"
+            class="pt.uminho.di.cooplaeditor.views.CooPLaPatternView"
             icon="icons/pattern_view.gif"
-            id="cooplaeditor.views.ReoLangPatternView"
+            id="cooplaeditor.views.CooPLaPatternView"
             name="Pattern View">
       </view>
    </extension>
@@ -72,7 +72,7 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
-               id="reolangeditor.views.ReoLangPatternView"
+               id="cooplaeditor.views.CooPLaPatternView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.TaskList">
@@ -115,7 +115,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="pt.uminho.di.cooplaeditor.preferences.ReoLangEditorPreferences"
+            class="pt.uminho.di.cooplaeditor.preferences.CooPLaEditorPreferences"
             id="cooplaeditor.preferences.CooPLaEditorPreferences"
             name="CooPLa Editor">
       </page>
