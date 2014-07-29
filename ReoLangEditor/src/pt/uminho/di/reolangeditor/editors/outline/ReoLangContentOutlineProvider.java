@@ -1,18 +1,29 @@
 package pt.uminho.di.reolangeditor.editors.outline;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
 
 
 import pt.uminho.di.reolang.parsing.util.SimpleSymbol;
 import pt.uminho.di.reolang.parsing.util.SimpleSymbolsTable;
 import pt.uminho.di.reolang.parsing.util.Type;
+import pt.uminho.di.reolangeditor.Activator;
+import pt.uminho.di.reolangeditor.editors.ReoLangEditor;
 
 public class ReoLangContentOutlineProvider extends LabelProvider implements ITreeContentProvider {
 
@@ -21,6 +32,7 @@ public class ReoLangContentOutlineProvider extends LabelProvider implements ITre
 		super();
 	}
 	
+
 	
 	
 	//LabelProvider
@@ -61,19 +73,19 @@ public class ReoLangContentOutlineProvider extends LabelProvider implements ITre
 		Image img = super.getImage(element);
 		if(element instanceof SimpleSymbol) {
 			switch(((SimpleSymbol) element).getType()){
-				case CHANNEL : img = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER); break;
-				case PATTERN : img = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER); break;
-				/*case IN_PORT : break;
-				case OUT_PORT: break;
-				case EXTENSION: break;
-				case STATE 	: break;
-				case CONDITION : break;
-				case OBSERVER : break;
-				case TIME : break;
-				case STRUCTURE : break;
-				case INSTANCE : break;
-				case NODE : break;
-				case TYPE : break;*/
+				case CHANNEL : img = Activator.getImageDescriptor("/icons/outline/channel.gif").createImage(); break;
+				case PATTERN : img = Activator.getImageDescriptor("/icons/outline/pattern.gif").createImage(); break;
+				case IN_PORT : img = Activator.getImageDescriptor("/icons/outline/in_port.gif").createImage(); break;
+				case OUT_PORT: img = Activator.getImageDescriptor("/icons/outline/out_port.gif").createImage();break;
+				case EXTENSION: img = Activator.getImageDescriptor("/icons/outline/extension.gif").createImage();break;
+				case STATE 	: img = Activator.getImageDescriptor("/icons/outline/state.gif").createImage();break;
+				case CONDITION : img = Activator.getImageDescriptor("/icons/outline/condition.gif").createImage();break;
+				case OBSERVER : img = Activator.getImageDescriptor("/icons/outline/observer.gif").createImage();break;
+				case TIME : img = Activator.getImageDescriptor("/icons/outline/time.gif").createImage();break;
+				case STRUCTURE : img = Activator.getImageDescriptor("/icons/outline/structure.gif").createImage();break;
+				case INSTANCE : img = Activator.getImageDescriptor("/icons/outline/instance.gif").createImage();break;
+				case NODE : img = Activator.getImageDescriptor("/icons/outline/node.gif").createImage();break;
+				case TYPE : img = Activator.getImageDescriptor("/icons/outline/type.gif").createImage();break;
 				default : img = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE); break;
 			}
 		}
