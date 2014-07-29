@@ -6,7 +6,7 @@
          point="org.eclipse.ui.editors">
       <editor
             name="CooPLa Editor"
-            extensions="rlf"
+            extensions="cpla"
             icon="icons/coopla.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="pt.uminho.di.cooplaeditor.editors.CooPLaEditor"
@@ -15,7 +15,7 @@
       <editor
             class="pt.uminho.di.cooplaeditor.reconfigurations.editors.ReCooPLaEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            extensions="rcfg"
+            extensions="rcpla"
             icon="icons/recoopla.gif"
             id="pt.uminho.di.cooplaeditor.ReCooPLaEditor"
             name="ReCooPLa Editor">
