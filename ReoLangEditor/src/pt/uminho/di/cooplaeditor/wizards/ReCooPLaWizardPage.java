@@ -41,7 +41,7 @@ public class ReCooPLaWizardPage extends WizardPage {
 	public ReCooPLaWizardPage(ISelection selection) {
 		super("wizardPage");
 		setTitle("Multi-page Editor File");
-		setDescription("This wizard creates a new file with *.rcfg extension that can be opened by a multi-page editor.");
+		setDescription("This wizard creates a new file with *.rcpla extension that can be opened by a multi-page editor.");
 		this.selection = selection;
 	}
 
@@ -109,7 +109,7 @@ public class ReCooPLaWizardPage extends WizardPage {
 				containerText.setText(container.getFullPath().toString());
 			}
 		}
-		fileText.setText("new_file.rcfg");
+		fileText.setText("new_file.rcpla");
 	}
 
 	/**
@@ -162,8 +162,8 @@ public class ReCooPLaWizardPage extends WizardPage {
 		int dotLoc = fileName.lastIndexOf('.');
 		if (dotLoc != -1) {
 			String ext = fileName.substring(dotLoc + 1);
-			if (ext.equalsIgnoreCase("rcfg") == false) {
-				updateStatus("File extension must be \"rcfg\"");
+			if (ext.equalsIgnoreCase("rcpla") == false) {
+				updateStatus("File extension must be \"rcpla\"");
 				return;
 			}
 		}

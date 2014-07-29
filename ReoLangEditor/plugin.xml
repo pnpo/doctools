@@ -26,16 +26,20 @@
       <wizard
             category="category.cooplaeditor"
             class="pt.uminho.di.cooplaeditor.wizards.NewCooPLaFileWizard"
+            finalPerspective="cooplaeditor.CooPLaPerspective"
             icon="icons/coopla.gif"
-            id="pt.uminho.di.cooplaeditor.wizards.CooPLaFileWizard"
-            name="CooPLa File">
+            id="pt.uminho.di.cooplaeditor.wizards.NewCooPLaFileWizard"
+            name="CooPLa File"
+            preferredPerspectives="cooplaeditor.CooPLaPerspective">
       </wizard>
       <wizard
             category="category.cooplaeditor"
             class="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
+            finalPerspective="cooplaeditor.CooPLaPerspective"
             icon="icons/recoopla.gif"
             id="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
-            name="ReCooPLa File">
+            name="ReCooPLa File"
+            preferredPerspectives="cooplaeditor.CooPLaPerspective">
       </wizard>
       <category
             id="category.cooplaeditor"
@@ -70,12 +74,39 @@
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
+            targetID="cooplaeditor.CooPLaPerspective">
          <view
                id="cooplaeditor.views.CooPLaPatternView"
-               ratio="0.5"
+               ratio="0.7"
                relationship="right"
-               relative="org.eclipse.ui.views.TaskList">
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.jdt.ui.PackageExplorer"
+               minimized="false"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.ContentOutline"
+               minimized="false"
+               ratio="0.5"
+               relationship="bottom"
+               relative="org.eclipse.jdt.ui.PackageExplorer">
+         </view>
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.7"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.AllMarkersView"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.console.ConsoleView">
          </view>
       </perspectiveExtension>
    </extension>
@@ -131,6 +162,14 @@
       <initializer
             class="pt.uminho.di.cooplaeditor.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="pt.uminho.di.cooplaeditor.perspectives.PerspectiveFactory"
+            id="cooplaeditor.CooPLaPerspective"
+            name="CooPLa">
+      </perspective>
    </extension>
 
 </plugin>

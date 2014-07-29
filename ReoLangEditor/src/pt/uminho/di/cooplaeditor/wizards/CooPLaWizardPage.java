@@ -41,7 +41,7 @@ public class CooPLaWizardPage extends WizardPage {
 	public CooPLaWizardPage(ISelection selection) {
 		super("wizardPage");
 		setTitle("CooPLa Editor File");
-		setDescription("This wizard creates a new file with *.rlf extension to be opened in the CooPLa editor.");
+		setDescription("This wizard creates a new file with *.cpla extension to be opened in the CooPLa editor.");
 		this.selection = selection;
 	}
 
@@ -162,8 +162,8 @@ public class CooPLaWizardPage extends WizardPage {
 		int dotLoc = fileName.lastIndexOf('.');
 		if (dotLoc != -1) {
 			String ext = fileName.substring(dotLoc + 1);
-			if (ext.equalsIgnoreCase("rlf") == false) {
-				updateStatus("File extension must be \"rlf\"");
+			if (ext.equalsIgnoreCase("cpla") == false) {
+				updateStatus("File extension must be \"cpla\"");
 				return;
 			}
 		}
