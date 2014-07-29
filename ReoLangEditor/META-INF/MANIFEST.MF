@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ReoLangEditor
-Bundle-SymbolicName: ReoLangEditor; singleton:=true
+Bundle-Name: CooPLa Editor
+Bundle-SymbolicName: CooPLaEditor;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: pt.uminho.di.reolangeditor.Activator
+Bundle-Activator: pt.uminho.di.cooplaeditor.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,

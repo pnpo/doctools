@@ -9,15 +9,15 @@
             extensions="rlf"
             icon="icons/coopla.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="pt.uminho.di.reolangeditor.editors.ReoLangEditor"
-            id="pt.uminho.di.reolangeditor.editors.ReoLangEditor">
+            class="pt.uminho.di.cooplaeditor.editors.ReoLangEditor"
+            id="pt.uminho.di.cooplaeditor.editors.ReoLangEditor">
       </editor>
       <editor
-            class="pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor"
+            class="pt.uminho.di.cooplaeditor.reconfigurations.editors.RecLangEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="rcfg"
             icon="icons/recoopla.gif"
-            id="pt.uminho.di.reolangeditor.reconfigurationseditors.RecLangEditor"
+            id="pt.uminho.di.cooplaeditor.reconfigurationseditors.RecLangEditor"
             name="ReCooPLa Editor">
       </editor>
    </extension>
@@ -25,16 +25,16 @@
          point="org.eclipse.ui.newWizards">
       <wizard
             category="category.cooplaeditor"
-            class="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
+            class="pt.uminho.di.cooplaeditor.wizards.NewReoLangFileWizard"
             icon="icons/coopla.gif"
-            id="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
+            id="pt.uminho.di.cooplaeditor.wizards.NewReoLangFileWizard"
             name="CooPLa File">
       </wizard>
       <wizard
             category="category.cooplaeditor"
-            class="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
+            class="pt.uminho.di.cooplaeditor.wizards.NewRecLangFileWizard"
             icon="icons/recoopla.gif"
-            id="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
+            id="pt.uminho.di.cooplaeditor.wizards.NewRecLangFileWizard"
             name="ReCooPLa File">
       </wizard>
       <category
@@ -45,11 +45,11 @@
    <extension
          point="org.eclipse.ui.editors.annotationTypes">
       <type
-            name="pt.uminho.di.reolangeditor.annotations.error"
+            name="pt.uminho.di.cooplaeditor.annotations.error"
             super="org.eclipse.ui.workbench.texteditor.error">
       </type>
       <type
-            name="pt.uminho.di.reolangeditor.annotations.warning"
+            name="pt.uminho.di.cooplaeditor.annotations.warning"
             super="org.eclipse.ui.workbench.texteditor.warning">
       </type>
    </extension>
@@ -61,9 +61,9 @@
       </category>
       <view
             category="category.cooplaeditor"
-            class="pt.uminho.di.reolangeditor.views.ReoLangPatternView"
+            class="pt.uminho.di.cooplaeditor.views.ReoLangPatternView"
             icon="icons/pattern_view.gif"
-            id="reolangeditor.views.ReoLangPatternView"
+            id="cooplaeditor.views.ReoLangPatternView"
             name="Pattern View">
       </view>
    </extension>
@@ -88,8 +88,8 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="pt.uminho.di.reolangeditor.handlers.IMCREOToolWizardHandler"
-            id="reolangeditor.commands.imcreoCommand"
+            defaultHandler="pt.uminho.di.cooplaeditor.handlers.IMCREOToolWizardHandler"
+            id="cooplaeditor.commands.imcreoCommand"
             name="Generate">
       </command>
    </extension>
@@ -99,9 +99,9 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="reolang.menus.toolbar.IMCREOTool">
+               id="cooplaeditor.menus.toolbar.IMCREOTool">
             <command
-                  commandId="reolangeditor.commands.imcreoCommand"
+                  commandId="cooplaeditor.commands.imcreoCommand"
                   disabledIcon="icons/imcreo_disabled.gif"
                   hoverIcon="icons/imcreo_hover.gif"
                   icon="icons/imcreo.gif"
@@ -115,13 +115,13 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="pt.uminho.di.reolangeditor.preferences.ReoLangEditorPreferences"
+            class="pt.uminho.di.cooplaeditor.preferences.ReoLangEditorPreferences"
             id="cooplaeditor.preferences.CooPLaEditorPreferences"
             name="CooPLa Editor">
       </page>
       <page
             category="cooplaeditor.preferences.CooPLaEditorPreferences"
-            class="pt.uminho.di.reolangeditor.preferences.IMCREOToolPreferences"
+            class="pt.uminho.di.cooplaeditor.preferences.IMCREOToolPreferences"
             id="cooplaeditor.preferences.IMCREOToolPreferences"
             name="IMCReo Tool">
       </page>
@@ -129,7 +129,7 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="pt.uminho.di.reolangeditor.preferences.PreferenceInitializer">
+            class="pt.uminho.di.cooplaeditor.preferences.PreferenceInitializer">
       </initializer>
    </extension>
 
