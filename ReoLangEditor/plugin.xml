@@ -119,7 +119,6 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="pt.uminho.di.cooplaeditor.handlers.IMCREOToolWizardHandler"
             id="cooplaeditor.commands.imcreoCommand"
             name="Generate">
       </command>
@@ -166,10 +165,25 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="pt.uminho.di.cooplaeditor.perspectives.PerspectiveFactory"
+            class="pt.uminho.di.cooplaeditor.perspectives.CooPLaPerspectiveFactory"
             id="cooplaeditor.CooPLaPerspective"
             name="CooPLa">
       </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="pt.uminho.di.cooplaeditor.handlers.IMCREOToolWizardHandler"
+            commandId="cooplaeditor.commands.imcreoCommand">
+         <enabledWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
    </extension>
 
 </plugin>

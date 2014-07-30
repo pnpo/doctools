@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.WorkbenchException;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.operation.*;
 import java.lang.reflect.InvocationTargetException;
@@ -14,6 +15,8 @@ import org.eclipse.core.runtime.CoreException;
 import java.io.*;
 import org.eclipse.ui.*;
 import org.eclipse.ui.ide.IDE;
+
+import pt.uminho.di.cooplaeditor.perspectives.CooPLaPerspectiveFactory;
 
 /**
  * This is a sample new wizard. Its role is to create a new file 
@@ -112,8 +115,14 @@ public class NewCooPLaFileWizard extends Wizard implements INewWizard {
 		monitor.setTaskName("Opening file for editing...");
 		getShell().getDisplay().asyncExec(new Runnable() {
 			public void run() {
-				IWorkbenchPage page =
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				IWorkbenchPage page = null;
+				try {
+					page = PlatformUI.getWorkbench().showPerspective(CooPLaPerspectiveFactory.COOPLA_PERSPECTIVE_ID, PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+				} catch (WorkbenchException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}//.getActiveWorkbenchWindow().getActivePage().setPerspective();
+				
 				try {
 					IDE.openEditor(page, file, true);
 				} catch (PartInitException e) {

@@ -4,6 +4,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchException;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.operation.*;
 import java.lang.reflect.InvocationTargetException;
@@ -14,6 +18,8 @@ import org.eclipse.core.runtime.CoreException;
 import java.io.*;
 import org.eclipse.ui.*;
 import org.eclipse.ui.ide.IDE;
+
+import pt.uminho.di.cooplaeditor.perspectives.CooPLaPerspectiveFactory;
 
 /**
  * This is a sample new wizard. Its role is to create a new file 
@@ -112,8 +118,14 @@ public class NewReCooPLaFileWizard extends Wizard implements INewWizard {
 		monitor.setTaskName("Opening file for editing...");
 		getShell().getDisplay().asyncExec(new Runnable() {
 			public void run() {
-				IWorkbenchPage page =
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				IWorkbenchPage page = null;
+				try {
+					page = PlatformUI.getWorkbench().showPerspective(CooPLaPerspectiveFactory.COOPLA_PERSPECTIVE_ID, PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+				} catch (WorkbenchException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}//.getActiveWorkbenchWindow().getActivePage().setPerspective();
+				
 				try {
 					IDE.openEditor(page, file, true);
 				} catch (PartInitException e) {
@@ -129,7 +141,7 @@ public class NewReCooPLaFileWizard extends Wizard implements INewWizard {
 
 	private InputStream openContentStream() {
 		String contents =
-			"This is the initial file contents for *.rcpla file that should be word-sorted in the Preview page of the multi-page editor";
+			"//This is the initial file contents for *.rcpla file that should be word-sorted in the Preview page of the multi-page editor";
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 
