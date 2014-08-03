@@ -78,17 +78,10 @@
       </category>
       <view
             category="RecLangPatternsView"
-            class="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView"
+            class="pt.uminho.di.reolangeditor.reconfigurations.views.RecLangPatternsView"
             icon="icons/sample.gif"
-            id="reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView"
-            name="Output patterns View">
-      </view>
-      <view
-            category="RecLangPatternsView2"
-            class="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView2"
-            icon="icons/sample.gif"
-            id="reolangeditor.reconfigurations.editors.adapter.views.RecLangPatternsView2"
-            name="Output patterns View 2">
+            id="reolangeditor.reconfigurations.views.RecLangPatternsView"
+            name="Patterns Created">
       </view>
    </extension>
    <extension
@@ -120,9 +113,21 @@
                relative="org.eclipse.ui.views.ProblemView">
          </view>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="pt.uminho.di.reolangeditor.reconfigurations.views.RecLangPatternsView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>
