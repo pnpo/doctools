@@ -230,10 +230,13 @@ public class RecLangPatternsView extends ViewPart {
 //			init(parent);
 			Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
 			composite.setLayout(new FillLayout());
-			this.folder = new TabFolder(composite, SWT.NONE ); //SWT.BORDER
+			this.folder = new TabFolder(composite, SWT.NONE ); //SWT.BORDER		
+//		    folder.setLayout(new GridLayout());
+//	        folder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
 	}
 
-	@SuppressWarnings("unused")
+	
 	private void init(Composite parent){
 		Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
 		composite.setLayout(new FillLayout());
@@ -262,6 +265,10 @@ public class RecLangPatternsView extends ViewPart {
 	}
 	
 	public void updatePatternsRepresentation(final Set<ArchPatternAbstractGraph> graphs) {
+		for(TabItem item : folder.getItems()){
+			item.dispose();
+		}
+		this.folder.update();
 		
 		for (final ArchPatternAbstractGraph graph : graphs){
 			this.model = graph;
@@ -277,25 +284,17 @@ public class RecLangPatternsView extends ViewPart {
 			
 			if (viewer == null || graph == null) return;
 			
-			Runnable runnable = new Runnable() {
-				public void run() {
-					try{
-						TabItem tab = new TabItem(folder, SWT.NONE);
-					    tab.setText(graph.getGraphName());
-					    
-					    viewer.setInput(graph.getEdges());
-					    tab.setControl(viewer.getControl());
-					    
-					} catch(Exception e){
-	//					System.out.println(e);
-						e.printStackTrace();
-					}
-				}
-			};
-			
-	//		Display.getDefault().asyncExec(runnable);
-			runnable.run();
+			TabItem tab = new TabItem(folder, SWT.NONE);
+		    tab.setText(graph.getGraphName());
+		    
+		    viewer.setInput(graph.getEdges());
+		    tab.setControl(viewer.getControl());
+			    
+					
+			//Display.getDefault().asyncExec(runnable);
+//			runnable.run();
 		}
+		
 	}
 
 	/**

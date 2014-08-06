@@ -1,9 +1,12 @@
 package pt.uminho.di.reolangeditor.reconfigurations.editors.options;
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
@@ -21,6 +24,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -116,19 +121,49 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			//get graphs through created patterns
 			Set<ArchPatternAbstractGraph> graphs = getGraphs(created_patterns);
 			
-			//test one graph in reolang pattern view
-			testWithReoLangPatternView(graphs, (RecLangEditor) editor);
+//			//test one graph in reolang pattern view
+//			testWithReoLangPatternView(graphs, (RecLangEditor) editor);
 			
-			//update view
-			((RecLangEditor) editor).setPatternsRepresentation(graphs);
-			
+
 			//open view
 			String viewID = "reolangeditor.reconfigurations.views.RecLangPatternsView"; 
 			PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow()
 				.getActivePage()
 				.showView(viewID);
+
+			//update view
+			((RecLangEditor) editor).setPatternsRepresentation(graphs);
 			
+			
+			//save to a coopla file
+			boolean response = ask("Do you want to save the patterns created to a CooPLa (*.cpla) file?");
+			if (response == true){ //YES
+				boolean repeat = true;
+				do{
+					String path = getFilePath();
+					
+					//if path is not null, user clicks on 'save' button
+					if (path != null){
+						boolean overwrite = true;
+						File f = new File(path);
+						if(f.exists() && !f.isDirectory()) {
+							String file = path.substring( path.lastIndexOf(System.getProperty("file.separator")) + 1 );
+							overwrite = ask("the file \"" + file + "\" already exists. Would you like to replace it?" 
+									+ "\nThe replacement will eliminate the current content.");
+						}
+						
+						if (overwrite){
+							saveCooPLaFileTo(path, created_patterns);
+							repeat = false;
+						}
+					}
+					//else, user clicks on 'cancel' button
+					else{
+						repeat = false;
+					}
+				} while (repeat);
+			}
 		}
 		
 		catch(Exception e) {
@@ -136,7 +171,8 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			MessageDialog.openInformation(
     				window.getShell(),
     				"Run reconfigurations",
-    				e.toString());
+    				"Something went wrong...\n\n" 
+    				+ e.toString());
 		} 	
 	}
 	
@@ -148,7 +184,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	 * creates a folder
 	 * @return path to the folder
 	 */
-	private String createFolder(){
+	private String createFolder() throws Exception {
 		String home = System.getProperty("user.home");
 		//path/file separator
 		String file_separator = System.getProperty("file.separator");
@@ -167,7 +203,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @param folder
 	 */
-	private void generateFilesTo(String folder){
+	private void generateFilesTo(String folder) throws Exception {
 	
 		ReCooPLaProcessor rp = new ReCooPLaProcessor(file, content);
 		
@@ -186,11 +222,13 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 		    	
         	}
         	else{
-        		MessageDialog.openInformation(
-        				window.getShell(),
-        				"Run reconfigurations",
-        				"erro(s)...");
+        		throw new Exception("There are syntactic or semantic errors in the specification. "
+        				+ "\nPlease review the markers.");
         	}
+    	}
+    	else{
+    		throw new Exception("There are syntactic or semantic errors in the specification. "
+    				+ "\nPlease review the markers.");
     	}
 	}
 	
@@ -199,52 +237,43 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	 * @param folder
 	 * @param translation
 	 */
-	private void compileFilesTo(String folder, HashMap<String, String> translation){
-		try{
-			for (String t : translation.keySet()){
+	private void compileFilesTo(String folder, HashMap<String, String> translation) throws Exception {
+		for (String t : translation.keySet()){
 
-	    		String file_name = t + ".java";
-	    		String file_path = folder + file_name;
-	    		
-	    		PrintWriter writer = new PrintWriter(file_path, "UTF-8");
-	    		writer.println("import " + Constants.JAVA_UTIL + ".*;");
-	    		writer.println("import " + Constants.CP_MODEL + ".*;");
-	    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
-	    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
-	    		if (t.equals("Run")){
-	    			/*
-	    			 * import org.antlr.runtime.*;
-	    			 * import org.antlr.runtime.tree.*;
-	    			*/
-		    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
-		    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
-	    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
-	    			
-	    		}
-	    		writer.print(translation.get(t));
-	    		writer.close();
-	    		
-	    		String option = "-cp";
-	    		
-	    		String separator = System.getProperty("path.separator"); //':' or ';'
-	    		String classpath = folder + "recoopla.jar" + separator + "antlr.jar";
-	    		
-	    		File f = new File(folder + "recoopla.jar");
-	    		if(!f.exists()) {
-	    			copyDependenciesTo(folder);
-	    		}
-	    		
-				//javac -cp file.jar file.java
-	    		executeCommand("javac", option, classpath, file_path);	
-	    	}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			MessageDialog.openInformation(
-    				window.getShell(),
-    				"Run reconfigurations",
-    				e.toString());
-		}
+    		String file_name = t + ".java";
+    		String file_path = folder + file_name;
+    		
+    		PrintWriter writer = new PrintWriter(file_path, "UTF-8");
+    		writer.println("import " + Constants.JAVA_UTIL + ".*;");
+    		writer.println("import " + Constants.CP_MODEL + ".*;");
+    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
+    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
+    		if (t.equals("Run")){
+    			/*
+    			 * import org.antlr.runtime.*;
+    			 * import org.antlr.runtime.tree.*;
+    			*/
+	    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
+	    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
+    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
+    			
+    		}
+    		writer.print(translation.get(t));
+    		writer.close();
+    		
+    		String option = "-cp";
+    		
+    		String separator = System.getProperty("path.separator"); //':' or ';'
+    		String classpath = folder + "recoopla.jar" + separator + folder + "antlr.jar";
+    		
+    		File f = new File(folder + "recoopla.jar");
+    		if(!f.exists()) {
+    			copyDependenciesTo(folder);
+    		}
+    		
+			//javac -cp file.jar file.java
+    		executeCommand("javac", option, classpath, file_path);	
+    	}
 	}
 
 	
@@ -253,7 +282,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	 * @param path
 	 * @throws Exception
 	 */
-	private void copyDependenciesTo(String path) throws Exception{
+	private void copyDependenciesTo(String path) throws Exception {
 		InputStream recoopla_in = getClass().getResourceAsStream("dependencies/reolang.4.1.debug.jar");
 		OutputStream recoopla_out = new FileOutputStream(new File(path + "recoopla.jar"));
 		
@@ -284,27 +313,25 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	 * @param cp  	: classpath value
 	 * @param file	: file to run
 	 */
-	private static void executeCommand(String cmd, String op, String cp, String file) {
+	private static void executeCommand(String cmd, String op, String cp, String file)  throws Exception {
 	     Process p;
 	     ProcessBuilder b = new ProcessBuilder(cmd, op, cp, file);
-	     try {
-	    	 p = b.start();
-			 p.waitFor();
-			 p.destroy();
-	     } 
-	     catch (Exception e) {
-	    	 e.printStackTrace();
-		 }
+	     
+    	 p = b.start();
+		 p.waitFor();
+		 p.destroy();
 	}
 	
 	
 	
 
+	
 	/**
 	 * 
 	 * @return graphs
 	 */
-	private Set<ArchPatternAbstractGraph> getGraphs(LinkedHashMap<String,CPModelInternal> created_patterns){
+	private Set<ArchPatternAbstractGraph> getGraphs(LinkedHashMap<String,CPModelInternal> created_patterns) 
+			throws Exception {
 		Set<ArchPatternAbstractGraph> graphs = new HashSet<ArchPatternAbstractGraph>();
 		
 		for (CPModelInternal cpmi : created_patterns.values()){
@@ -370,27 +397,113 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			String name = cp.getId();
 			ArchPatternAbstractGraph graph = new ArchPatternAbstractGraph(in_nodes, out_nodes, nodes, edges, name);
 			graphs.add(graph);
-			
-//			//convert CoordinationPattern2 object to text in coopla format
-//			patternToString(cp);
 		}
 		return graphs;
 	}
 	
 	
 
-	@SuppressWarnings("unused")
-	private static void patternToString(CoordinationPattern2 pattern) {
+	
+	/**
+	 * 
+	 * @return true if the user clicks 'yes'
+	 * and false if the user clicks 'no'
+	 */
+	private boolean ask(String question) throws Exception {
+		boolean response = MessageDialog.openQuestion(
+				window.getShell(), 
+				"Save files?", 
+				question);
+
+//		System.out.println(response);
+		return response;
+	}
+	
+	/**
+	 * 
+	 * @return path to save file
+	 */
+	private String getFilePath() throws Exception {
+		FileDialog dialog = new FileDialog(window.getShell(), SWT.SAVE);
+	    dialog.setFilterNames(new String[] { "CooPLa Files (*.cpla)", "All Files (*.*)" });
+	    dialog.setFilterExtensions(new String[] { "*.cpla", "*.*" });
+	    dialog.setFilterPath(System.getProperty("user.dir"));
+	    dialog.setFileName("new_patterns.cpla");
+	    
+//	    new Button(dialog, SWT.CHECK).setText("Multiple files");
+	    
+	    
+//	    System.out.println("Save to: " + dialog.open());
+	    //file_path
+	    return dialog.open();
+		 
+	}
+	
+	private void saveCooPLaFileTo(String path, LinkedHashMap<String,CPModelInternal> created_patterns) throws Exception {
+		
+		PrintWriter writer = new PrintWriter(path, "UTF-8");
+		
+		String channels = readFile("dependencies/channels.cpla");
+		
+		writer.print("// ******** CHANNELS ******** //\n");
+		writer.print(channels);
+		
+		writer.print("\n\n// ******** PATTERNS ******** //\n");
+		for(CPModelInternal cpmi : created_patterns.values()){
+			//convert CoordinationPattern2 object to text in coopla format
+			String coopla_specification = patternToString(cpmi);	//BETA VERSION - without stochastic info
+
+    		writer.print(coopla_specification);
+    		writer.println("\n");
+		}
+		writer.close();
+	}
+	
+	
+	private String readFile(String file_path) throws IOException {
+
+		InputStream is = getClass().getResourceAsStream(file_path);
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+ 
+		String line;
+		try {
+ 
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+ 
+		return sb.toString();
+	}
+	
+
+	
+	private static String patternToString(CPModelInternal pattern) throws Exception {
+		
+		 CoordinationPattern2 cp = pattern.getSimplePattern();
 	     StringBuilder sb = new StringBuilder();
-	     sb.append("pattern " + pattern.getId() 
-	    		 + "(" + nodesToString( pattern.getIn() ) 
-	    		 + ":" + nodesToString( pattern.getOut() ) 
+	     sb.append("pattern " + cp.getId() 
+	    		 + "(" + nodesToString( cp.getIn() ) 
+	    		 + ":" + nodesToString( cp.getOut() ) 
 	    		 + "){\n");
 
 	     //key: type
 	     //value: all channels of type key
 	     HashMap<String, Set<String>> type_channels = new HashMap<String, Set<String>>();
-	     for (CommunicationMean2 cm : pattern.getPattern()){
+	     for (CommunicationMean2 cm : cp.getPattern()){
 	    	
 	    	 Set<String> channels = type_channels.get(cm.getType()) != null ? 
 	    			 type_channels.get(cm.getType()) : new HashSet<String>();
@@ -403,22 +516,55 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	    	 if (type.equals("sync")){
 	    		 coopla_type = "sync(i:o)";
 	    	 }
-	    	 else if (type.contains("fifo")){
-	    		 coopla_type = "fifo~1(i:o)";
+	    	 else if (type.contains("lossy")){
+	    		 coopla_type = "lossy(i:o)";
 	    	 }
 	    	 else if (type.contains("drain")){
 	    		 coopla_type = "sync_drain(i,ii:)";
 	    	 }
+	    	 else if (type.contains("fifo")){
+	    		 coopla_type = "fifo~1(i:o)";
+	    		 
+	    		 String last_char = type.substring(type.length() - 1);
+	    		 if (last_char.equals("e")) { //empty
+	    		 	coopla_type = "(E)fifo~1(i:o)";
+	    		 }
+	    		 else if (last_char.equals("f")) {//full
+	    		 	coopla_type = "(F)fifo~1(i:o)";
+	    		 }
+	    	 }
+	    	 else{ //rever outros casos - não é a melhor solução...
+	    		 coopla_type = type + "(i:o)";
+	    	 }
 	    	 sb.append("\t\t" + coopla_type + "\tas " + setToString(type_channels.get(type)) + ";\n");
 	     }
 	     sb.append("\tin:\n");
-	     for (pt.uminho.di.cp.model.Node node : pattern.getNodes()){
-	    	 //rever
-	    	 sb.append("\t\t" + node.sepEndsByDot() + " = " + "__channel.i/.o__" + ";\n");
+	     
+	     int i = 1;
+   	 String joined_nodes = "";
+	     for (pt.uminho.di.cp.model.Node node : cp.getNodes()){
+	    	 String node_name = node.sepEndsByDot();
+	    	 if (node_name.contains(".")){
+	    		 joined_nodes += "\t\tjoin[" + setToString(node.getEnds()).replace('_', '.') + "] as j" + i + ";\n";
+	    		 i++;
+	    	 }
+	    	 else{
+	    		 sb.append("\t\t" + node_name + " = " + node_name.replace('_', '.') + ";\n");
+	    	 }
 	     }
+
+   	 sb.append(joined_nodes);
 	     sb.append("}");
 	     
-	     System.out.println(sb);
+	     //continue stochastic conversion 
+	     //... necessário mais informação!
+//	     LinkedHashMap<String, CoordinationPattern2> stoch_instances = pattern.getStochInstances();
+//	     if (stoch_instances != null && !stoch_instances.isEmpty()){
+//	    	 //do something with stochatic information...
+//	     }
+	     
+//	     System.out.println(sb);
+	     return sb.toString();
 	}
 	
 	
@@ -434,7 +580,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 		return values;
 	}
 	
-	private static String setToString(Set<String> args){
+	private static String setToString(Set<String> args) {
 		String sep = "";
 		String values = "";
 		for (String a : args){
@@ -445,6 +591,8 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 		}
 		return values;
 	}
+	
+	
 	
 	
 	
@@ -468,6 +616,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 					"Não existem reconfigurações na main!");
 		}
 	}
+	
 	
 	
 	
