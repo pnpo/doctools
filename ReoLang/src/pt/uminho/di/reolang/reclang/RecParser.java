@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g 2014-07-09 18:15:49
+// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g 2014-08-12 16:25:26
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -21,90 +21,90 @@ import org.antlr.runtime.tree.*;
 @SuppressWarnings("all")
 public class RecParser extends Parser {
 	public static final String[] tokenNames = new String[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "RW_RECONFIGURATION", "RW_FORALL", 
-		"RW_IMPORT", "RW_MAIN", "DT_PATTERN", "DT_CHANNEL", "DT_NAME", "DT_NODE", 
-		"DT_XOR", "DT_SET", "DT_PAIR", "DT_TRIPLE", "OP_PAR", "OP_JOIN", "OP_SPLIT", 
-		"OP_REMOVE", "OP_CONST", "OP_ID", "OP_PATH", "OP_UPDATE", "OP_FST", "OP_SND", 
-		"OP_TRD", "OP_IN", "OP_OUT", "OP_NAME", "OP_ENDS", "OP_NODES", "OP_NAMES", 
-		"OP_CHANNELS", "OP_READ", "OP_WRITE", "OP_APPLY", "OP_UNION", "OP_INTERSECTION", 
-		"OP_MINUS", "OP_EQUAL", "SEP_BLOCK_START", "SEP_BLOCK_END", "SEP_COMMA", 
-		"SEP_SEMICOLON", "SEP_COLON", "SEP_ARGS_START", "SEP_ARGS_END", "SEP_OPTIONAL", 
-		"SEP_TRIGGER", "SEP_LIST_START", "SEP_LIST_END", "SEP_SUBTYPE_START", 
-		"SEP_SUBTYPE_END", "SEP_ACCESSOR", "SEP_STRUCTURE", "CONS_PAIR", "CONS_TRIPLE", 
-		"CONS_SET", "CONS_NODE", "CONS_XOR", "ID", "INT", "COMMENT", "WS", "ESC_SEQ", 
-		"STRING", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", "ACCESS", "APPLICATION", 
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "CONS_NODE", "CONS_PAIR", 
+		"CONS_SET", "CONS_TRIPLE", "CONS_XOR", "DT_CHANNEL", "DT_NAME", "DT_NODE", 
+		"DT_PAIR", "DT_PATTERN", "DT_SET", "DT_TRIPLE", "DT_XOR", "ESC_SEQ", "HEX_DIGIT", 
+		"ID", "INT", "OCTAL_ESC", "OP_APPLY", "OP_CHANNELS", "OP_CONST", "OP_ENDS", 
+		"OP_EQUAL", "OP_FST", "OP_ID", "OP_IN", "OP_INTERSECTION", "OP_JOIN", 
+		"OP_MINUS", "OP_NAME", "OP_NAMES", "OP_NODES", "OP_OUT", "OP_PAR", "OP_PATH", 
+		"OP_READ", "OP_REMOVE", "OP_SND", "OP_SPLIT", "OP_TRD", "OP_UNION", "OP_UPDATE", 
+		"OP_WRITE", "RW_FORALL", "RW_IMPORT", "RW_MAIN", "RW_RECONFIGURATION", 
+		"SEP_ACCESSOR", "SEP_ARGS_END", "SEP_ARGS_START", "SEP_BLOCK_END", "SEP_BLOCK_START", 
+		"SEP_COLON", "SEP_COMMA", "SEP_LIST_END", "SEP_LIST_START", "SEP_OPTIONAL", 
+		"SEP_SEMICOLON", "SEP_STRUCTURE", "SEP_SUBTYPE_END", "SEP_SUBTYPE_START", 
+		"SEP_TRIGGER", "STRING", "UNICODE_ESC", "WS", "ACCESS", "APPLICATION", 
 		"ARGUMENT", "ARGUMENTS", "ASSIGNMENT", "DECLARATION", "FORALL", "IDS", 
 		"IMPORT", "IN", "INSTRUCTIONS", "MAIN", "NODE", "OUT", "PAIR", "RECONFIGS", 
 		"RECONFIGURATION", "SET", "SIGNATURE", "STRUCTURE", "SUBTYPE", "TRIPLE", 
 		"XOR"
 	};
 	public static final int EOF=-1;
-	public static final int OP_NODES=31;
-	public static final int CONS_PAIR=56;
-	public static final int SEP_OPTIONAL=48;
-	public static final int CONS_NODE=59;
-	public static final int SEP_SUBTYPE_END=53;
-	public static final int SEP_COLON=45;
-	public static final int OP_TRD=26;
-	public static final int OCTAL_ESC=69;
-	public static final int OP_JOIN=17;
-	public static final int DT_PAIR=14;
-	public static final int ID=61;
-	public static final int OP_INTERSECTION=38;
-	public static final int DT_NODE=11;
-	public static final int DT_SET=13;
-	public static final int OP_ID=21;
-	public static final int ESC_SEQ=65;
-	public static final int SEP_ACCESSOR=54;
-	public static final int OP_MINUS=39;
-	public static final int DT_XOR=12;
-	public static final int RW_FORALL=5;
-	public static final int SEP_LIST_START=50;
-	public static final int RW_RECONFIGURATION=4;
-	public static final int SEP_ARGS_END=47;
-	public static final int OP_FST=24;
-	public static final int RW_IMPORT=6;
-	public static final int OP_ENDS=30;
-	public static final int OP_APPLY=36;
-	public static final int COMMENT=63;
-	public static final int OP_PATH=22;
-	public static final int OP_SND=25;
-	public static final int SEP_LIST_END=51;
-	public static final int SEP_STRUCTURE=55;
-	public static final int OP_SPLIT=18;
-	public static final int OP_OUT=28;
-	public static final int CONS_SET=58;
-	public static final int OP_NAMES=32;
-	public static final int SEP_COMMA=43;
-	public static final int SEP_ARGS_START=46;
-	public static final int DT_TRIPLE=15;
-	public static final int OP_UPDATE=23;
-	public static final int SEP_BLOCK_START=41;
+	public static final int COMMENT=4;
+	public static final int CONS_NODE=5;
+	public static final int CONS_PAIR=6;
+	public static final int CONS_SET=7;
+	public static final int CONS_TRIPLE=8;
+	public static final int CONS_XOR=9;
+	public static final int DT_CHANNEL=10;
+	public static final int DT_NAME=11;
+	public static final int DT_NODE=12;
+	public static final int DT_PAIR=13;
+	public static final int DT_PATTERN=14;
+	public static final int DT_SET=15;
+	public static final int DT_TRIPLE=16;
+	public static final int DT_XOR=17;
+	public static final int ESC_SEQ=18;
+	public static final int HEX_DIGIT=19;
+	public static final int ID=20;
+	public static final int INT=21;
+	public static final int OCTAL_ESC=22;
+	public static final int OP_APPLY=23;
+	public static final int OP_CHANNELS=24;
+	public static final int OP_CONST=25;
+	public static final int OP_ENDS=26;
+	public static final int OP_EQUAL=27;
+	public static final int OP_FST=28;
+	public static final int OP_ID=29;
+	public static final int OP_IN=30;
+	public static final int OP_INTERSECTION=31;
+	public static final int OP_JOIN=32;
+	public static final int OP_MINUS=33;
+	public static final int OP_NAME=34;
+	public static final int OP_NAMES=35;
+	public static final int OP_NODES=36;
+	public static final int OP_OUT=37;
+	public static final int OP_PAR=38;
+	public static final int OP_PATH=39;
+	public static final int OP_READ=40;
+	public static final int OP_REMOVE=41;
+	public static final int OP_SND=42;
+	public static final int OP_SPLIT=43;
+	public static final int OP_TRD=44;
+	public static final int OP_UNION=45;
+	public static final int OP_UPDATE=46;
+	public static final int OP_WRITE=47;
+	public static final int RW_FORALL=48;
+	public static final int RW_IMPORT=49;
+	public static final int RW_MAIN=50;
+	public static final int RW_RECONFIGURATION=51;
+	public static final int SEP_ACCESSOR=52;
+	public static final int SEP_ARGS_END=53;
+	public static final int SEP_ARGS_START=54;
+	public static final int SEP_BLOCK_END=55;
+	public static final int SEP_BLOCK_START=56;
+	public static final int SEP_COLON=57;
+	public static final int SEP_COMMA=58;
+	public static final int SEP_LIST_END=59;
+	public static final int SEP_LIST_START=60;
+	public static final int SEP_OPTIONAL=61;
+	public static final int SEP_SEMICOLON=62;
+	public static final int SEP_STRUCTURE=63;
+	public static final int SEP_SUBTYPE_END=64;
+	public static final int SEP_SUBTYPE_START=65;
+	public static final int SEP_TRIGGER=66;
+	public static final int STRING=67;
 	public static final int UNICODE_ESC=68;
-	public static final int OP_PAR=16;
-	public static final int OP_REMOVE=19;
-	public static final int HEX_DIGIT=67;
-	public static final int INT=62;
-	public static final int OP_IN=27;
-	public static final int OP_WRITE=35;
-	public static final int CONS_XOR=60;
-	public static final int OP_READ=34;
-	public static final int WS=64;
-	public static final int OP_CHANNELS=33;
-	public static final int CONS_TRIPLE=57;
-	public static final int SEP_SUBTYPE_START=52;
-	public static final int SEP_SEMICOLON=44;
-	public static final int RW_MAIN=7;
-	public static final int SEP_BLOCK_END=42;
-	public static final int OP_CONST=20;
-	public static final int DT_PATTERN=8;
-	public static final int OP_EQUAL=40;
-	public static final int OP_NAME=29;
-	public static final int DT_CHANNEL=9;
-	public static final int OP_UNION=37;
-	public static final int SEP_TRIGGER=49;
-	public static final int STRING=66;
-	public static final int DT_NAME=10;
+	public static final int WS=69;
 	public static final int ACCESS=70;
 	public static final int APPLICATION=71;
 	public static final int ARGUMENT=72;
@@ -515,7 +515,7 @@ public class RecParser extends Parser {
 			while (true) {
 				int alt2=2;
 				int LA2_0 = input.LA(1);
-				if ( (LA2_0==RW_RECONFIGURATION||LA2_0==ID) ) {
+				if ( (LA2_0==ID||LA2_0==RW_RECONFIGURATION) ) {
 					alt2=1;
 				}
 
@@ -835,7 +835,7 @@ public class RecParser extends Parser {
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:41: ( args_def )?
 			int alt5=2;
 			int LA5_0 = input.LA(1);
-			if ( ((LA5_0 >= DT_PATTERN && LA5_0 <= DT_TRIPLE)) ) {
+			if ( ((LA5_0 >= DT_CHANNEL && LA5_0 <= DT_XOR)) ) {
 				alt5=1;
 			}
 			switch (alt5) {
@@ -861,7 +861,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_block.add(reconfiguration_block17.getTree());
 			// AST REWRITE
-			// elements: args_def, ID, reconfiguration_block
+			// elements: reconfiguration_block, args_def, ID
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1177,8 +1177,8 @@ public class RecParser extends Parser {
 				alt7=5;
 				}
 				break;
-			case DT_SET:
 			case DT_PAIR:
+			case DT_SET:
 			case DT_TRIPLE:
 				{
 				alt7=6;
@@ -1270,7 +1270,7 @@ public class RecParser extends Parser {
 					stream_SEP_SUBTYPE_END.add(SEP_SUBTYPE_END31);
 
 					// AST REWRITE
-					// elements: other_type, subtype
+					// elements: subtype, other_type
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -1345,7 +1345,7 @@ public class RecParser extends Parser {
 
 
 			set32=input.LT(1);
-			if ( (input.LA(1) >= DT_SET && input.LA(1) <= DT_TRIPLE) ) {
+			if ( input.LA(1)==DT_PAIR||(input.LA(1) >= DT_SET && input.LA(1) <= DT_TRIPLE) ) {
 				input.consume();
 				adaptor.addChild(root_0, (Object)adaptor.create(set32));
 				state.errorRecovery=false;
@@ -1571,7 +1571,7 @@ public class RecParser extends Parser {
 			while (true) {
 				int alt9=2;
 				int LA9_0 = input.LA(1);
-				if ( (LA9_0==RW_FORALL||(LA9_0 >= DT_PATTERN && LA9_0 <= DT_TRIPLE)||LA9_0==OP_APPLY||LA9_0==ID) ) {
+				if ( ((LA9_0 >= DT_CHANNEL && LA9_0 <= DT_XOR)||LA9_0==ID||LA9_0==OP_APPLY||LA9_0==RW_FORALL) ) {
 					alt9=1;
 				}
 
@@ -1687,14 +1687,14 @@ public class RecParser extends Parser {
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:199:2: ( declaration SEP_SEMICOLON -> declaration | assignment SEP_SEMICOLON -> assignment | reconfiguration_apply SEP_SEMICOLON -> reconfiguration_apply | for_instruction -> for_instruction )
 			int alt10=4;
 			switch ( input.LA(1) ) {
-			case DT_PATTERN:
 			case DT_CHANNEL:
 			case DT_NAME:
 			case DT_NODE:
-			case DT_XOR:
-			case DT_SET:
 			case DT_PAIR:
+			case DT_PATTERN:
+			case DT_SET:
 			case DT_TRIPLE:
+			case DT_XOR:
 				{
 				alt10=1;
 				}
@@ -1941,7 +1941,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_call.add(reconfiguration_call49.getTree());
 			// AST REWRITE
-			// elements: reconfiguration_call, ID, OP_APPLY
+			// elements: OP_APPLY, reconfiguration_call, ID
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2062,7 +2062,7 @@ public class RecParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: datatype, var_def
+			// elements: var_def, datatype
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2145,7 +2145,7 @@ public class RecParser extends Parser {
 				if ( (LA13_1==OP_EQUAL) ) {
 					alt13=2;
 				}
-				else if ( ((LA13_1 >= SEP_COMMA && LA13_1 <= SEP_SEMICOLON)) ) {
+				else if ( (LA13_1==SEP_COMMA||LA13_1==SEP_SEMICOLON) ) {
 					alt13=1;
 				}
 
@@ -2258,7 +2258,7 @@ public class RecParser extends Parser {
 
 			stream_assignment_member.add(assignment_member58.getTree());
 			// AST REWRITE
-			// elements: ID, assignment_member
+			// elements: assignment_member, ID
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2331,7 +2331,7 @@ public class RecParser extends Parser {
 			case ID:
 				{
 				int LA14_1 = input.LA(2);
-				if ( ((LA14_1 >= OP_UNION && LA14_1 <= OP_MINUS)||(LA14_1 >= SEP_COMMA && LA14_1 <= SEP_SEMICOLON)||LA14_1==SEP_SUBTYPE_START||(LA14_1 >= SEP_ACCESSOR && LA14_1 <= SEP_STRUCTURE)) ) {
+				if ( (LA14_1==OP_INTERSECTION||LA14_1==OP_MINUS||LA14_1==OP_UNION||LA14_1==SEP_ACCESSOR||LA14_1==SEP_COMMA||(LA14_1 >= SEP_SEMICOLON && LA14_1 <= SEP_STRUCTURE)||LA14_1==SEP_SUBTYPE_START) ) {
 					alt14=1;
 				}
 				else if ( (LA14_1==OP_APPLY) ) {
@@ -2352,11 +2352,11 @@ public class RecParser extends Parser {
 
 				}
 				break;
+			case CONS_PAIR:
+			case CONS_SET:
+			case CONS_TRIPLE:
 			case OP_PATH:
 			case OP_UPDATE:
-			case CONS_PAIR:
-			case CONS_TRIPLE:
-			case CONS_SET:
 				{
 				alt14=1;
 				}
@@ -2726,7 +2726,7 @@ public class RecParser extends Parser {
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:19: ( args )?
 			int alt17=2;
 			int LA17_0 = input.LA(1);
-			if ( ((LA17_0 >= OP_PATH && LA17_0 <= OP_UPDATE)||(LA17_0 >= CONS_PAIR && LA17_0 <= CONS_SET)||LA17_0==ID) ) {
+			if ( ((LA17_0 >= CONS_PAIR && LA17_0 <= CONS_TRIPLE)||LA17_0==ID||LA17_0==OP_PATH||LA17_0==OP_UPDATE) ) {
 				alt17=1;
 			}
 			switch (alt17) {
@@ -2970,7 +2970,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_block.add(reconfiguration_block85.getTree());
 			// AST REWRITE
-			// elements: ID, reconfiguration_block, ID, datatype
+			// elements: ID, datatype, reconfiguration_block, ID
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3055,7 +3055,7 @@ public class RecParser extends Parser {
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:261:11: ( expr_op ^ factor )?
 			int alt19=2;
 			int LA19_0 = input.LA(1);
-			if ( ((LA19_0 >= OP_UNION && LA19_0 <= OP_MINUS)) ) {
+			if ( (LA19_0==OP_INTERSECTION||LA19_0==OP_MINUS||LA19_0==OP_UNION) ) {
 				alt19=1;
 			}
 			switch (alt19) {
@@ -3126,7 +3126,7 @@ public class RecParser extends Parser {
 
 
 			set89=input.LT(1);
-			if ( (input.LA(1) >= OP_UNION && input.LA(1) <= OP_MINUS) ) {
+			if ( input.LA(1)==OP_INTERSECTION||input.LA(1)==OP_MINUS||input.LA(1)==OP_UNION ) {
 				input.consume();
 				adaptor.addChild(root_0, (Object)adaptor.create(set89));
 				state.errorRecovery=false;
@@ -3200,12 +3200,12 @@ public class RecParser extends Parser {
 					alt20=1;
 					}
 					break;
-				case OP_UNION:
 				case OP_INTERSECTION:
 				case OP_MINUS:
+				case OP_UNION:
+				case SEP_ARGS_END:
 				case SEP_COMMA:
 				case SEP_SEMICOLON:
-				case SEP_ARGS_END:
 					{
 					alt20=2;
 					}
@@ -3236,8 +3236,8 @@ public class RecParser extends Parser {
 				}
 				break;
 			case CONS_PAIR:
-			case CONS_TRIPLE:
 			case CONS_SET:
+			case CONS_TRIPLE:
 				{
 				alt20=4;
 				}
@@ -3406,7 +3406,7 @@ public class RecParser extends Parser {
 			if ( (LA22_0==ID) ) {
 				alt22=1;
 			}
-			else if ( ((LA22_0 >= OP_PATH && LA22_0 <= OP_UPDATE)) ) {
+			else if ( (LA22_0==OP_PATH||LA22_0==OP_UPDATE) ) {
 				alt22=2;
 			}
 
@@ -3453,7 +3453,7 @@ public class RecParser extends Parser {
 
 					stream_attribute_call.add(attribute_call101.getTree());
 					// AST REWRITE
-					// elements: ID, attribute_call, ID
+					// elements: attribute_call, ID, ID
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -3845,7 +3845,7 @@ public class RecParser extends Parser {
 					}
 
 					// AST REWRITE
-					// elements: OP_IN, INT
+					// elements: INT, OP_IN
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -4419,7 +4419,7 @@ public class RecParser extends Parser {
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:29: ( expression ( SEP_COMMA expression )* )?
 			int alt28=2;
 			int LA28_0 = input.LA(1);
-			if ( ((LA28_0 >= OP_PATH && LA28_0 <= OP_UPDATE)||(LA28_0 >= CONS_PAIR && LA28_0 <= CONS_SET)||LA28_0==ID) ) {
+			if ( ((LA28_0 >= CONS_PAIR && LA28_0 <= CONS_TRIPLE)||LA28_0==ID||LA28_0==OP_PATH||LA28_0==OP_UPDATE) ) {
 				alt28=1;
 			}
 			switch (alt28) {
@@ -4583,7 +4583,7 @@ public class RecParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: list_reconfigurations, trigger_def, ID
+			// elements: trigger_def, ID, list_reconfigurations
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4979,7 +4979,7 @@ public class RecParser extends Parser {
 
 			stream_main_block.add(main_block158.getTree());
 			// AST REWRITE
-			// elements: main_args, main_block
+			// elements: main_block, main_args
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -5174,7 +5174,7 @@ public class RecParser extends Parser {
 
 			stream_ids.add(ids162.getTree());
 			// AST REWRITE
-			// elements: ids, ID
+			// elements: ID, ids
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -5604,7 +5604,7 @@ public class RecParser extends Parser {
 
 			stream_ids.add(ids173.getTree());
 			// AST REWRITE
-			// elements: ids, dt
+			// elements: dt, ids
 			// token labels: dt
 			// rule labels: retval
 			// token list labels: 
@@ -5693,7 +5693,7 @@ public class RecParser extends Parser {
 			int LA39_0 = input.LA(1);
 			if ( (LA39_0==ID) ) {
 				int LA39_1 = input.LA(2);
-				if ( (LA39_1==OP_EQUAL||LA39_1==SEP_COMMA||LA39_1==ID) ) {
+				if ( (LA39_1==ID||LA39_1==OP_EQUAL||LA39_1==SEP_COMMA) ) {
 					alt39=1;
 				}
 			}
@@ -5747,7 +5747,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_call.add(reconfiguration_call177.getTree());
 			// AST REWRITE
-			// elements: id2, reconfiguration_call, OP_APPLY, dt, ids
+			// elements: ids, dt, OP_APPLY, reconfiguration_call, id2
 			// token labels: dt, id2
 			// rule labels: retval
 			// token list labels: 
@@ -5766,7 +5766,7 @@ public class RecParser extends Parser {
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(APPLICATION, "APPLICATION"), root_1);
 				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:400:20: ( ^( DECLARATION ( $dt)? ids ) )?
-				if ( stream_dt.hasNext()||stream_ids.hasNext() ) {
+				if ( stream_ids.hasNext()||stream_dt.hasNext() ) {
 					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:400:22: ^( DECLARATION ( $dt)? ids )
 					{
 					Object root_2 = (Object)adaptor.nil();
@@ -5782,8 +5782,8 @@ public class RecParser extends Parser {
 					}
 
 				}
-				stream_dt.reset();
 				stream_ids.reset();
+				stream_dt.reset();
 
 				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:400:49: ^( OP_APPLY $id2 reconfiguration_call )
 				{
@@ -5831,21 +5831,21 @@ public class RecParser extends Parser {
 	static final String DFA37_eofS =
 		"\7\uffff";
 	static final String DFA37_minS =
-		"\1\75\1\44\1\uffff\1\50\1\75\1\uffff\1\50";
+		"\2\24\1\uffff\1\33\1\24\1\uffff\1\33";
 	static final String DFA37_maxS =
-		"\2\75\1\uffff\1\54\1\75\1\uffff\1\54";
+		"\1\24\1\72\1\uffff\1\76\1\24\1\uffff\1\76";
 	static final String DFA37_acceptS =
 		"\2\uffff\1\2\2\uffff\1\1\1\uffff";
 	static final String DFA37_specialS =
 		"\7\uffff}>";
 	static final String[] DFA37_transitionS = {
 			"\1\1",
-			"\1\2\3\uffff\1\2\2\uffff\1\2\21\uffff\1\3",
+			"\1\3\2\uffff\1\2\3\uffff\1\2\36\uffff\1\2",
 			"",
-			"\1\2\2\uffff\1\4\1\5",
+			"\1\2\36\uffff\1\4\3\uffff\1\5",
 			"\1\6",
 			"",
-			"\1\2\2\uffff\1\4\1\5"
+			"\1\2\36\uffff\1\4\3\uffff\1\5"
 	};
 
 	static final short[] DFA37_eot = DFA.unpackEncodedString(DFA37_eotS);
@@ -5883,116 +5883,116 @@ public class RecParser extends Parser {
 		}
 	}
 
-	public static final BitSet FOLLOW_directive_def_in_reclang144 = new BitSet(new long[]{0x20000000000000D0L});
+	public static final BitSet FOLLOW_directive_def_in_reclang144 = new BitSet(new long[]{0x000E000000100000L});
 	public static final BitSet FOLLOW_content_in_reclang147 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_directive_import_in_directive_def174 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_RW_IMPORT_in_directive_import194 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-	public static final BitSet FOLLOW_STRING_in_directive_import196 = new BitSet(new long[]{0x0000100000000000L});
+	public static final BitSet FOLLOW_RW_IMPORT_in_directive_import194 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+	public static final BitSet FOLLOW_STRING_in_directive_import196 = new BitSet(new long[]{0x4000000000000000L});
 	public static final BitSet FOLLOW_SEP_SEMICOLON_in_directive_import202 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_element_in_content231 = new BitSet(new long[]{0x2000000000000092L});
+	public static final BitSet FOLLOW_element_in_content231 = new BitSet(new long[]{0x000C000000100002L});
 	public static final BitSet FOLLOW_main_in_content234 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_reconfiguration_def_in_element249 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_applicaiton_def_in_element262 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_main_def_in_main284 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def306 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_reconfiguration_def308 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_START_in_reconfiguration_def310 = new BitSet(new long[]{0x000080000000FF00L});
-	public static final BitSet FOLLOW_args_def_in_reconfiguration_def312 = new BitSet(new long[]{0x0000800000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_END_in_reconfiguration_def315 = new BitSet(new long[]{0x0000020000000000L});
+	public static final BitSet FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def306 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_reconfiguration_def308 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_START_in_reconfiguration_def310 = new BitSet(new long[]{0x002000000003FC00L});
+	public static final BitSet FOLLOW_args_def_in_reconfiguration_def312 = new BitSet(new long[]{0x0020000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_END_in_reconfiguration_def315 = new BitSet(new long[]{0x0100000000000000L});
 	public static final BitSet FOLLOW_reconfiguration_block_in_reconfiguration_def317 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_arg_def_in_args_def342 = new BitSet(new long[]{0x0000100000000002L});
-	public static final BitSet FOLLOW_SEP_SEMICOLON_in_args_def345 = new BitSet(new long[]{0x000000000000FF00L});
-	public static final BitSet FOLLOW_arg_def_in_args_def347 = new BitSet(new long[]{0x0000100000000002L});
-	public static final BitSet FOLLOW_datatype_in_arg_def373 = new BitSet(new long[]{0x2000000000000000L});
+	public static final BitSet FOLLOW_arg_def_in_args_def342 = new BitSet(new long[]{0x4000000000000002L});
+	public static final BitSet FOLLOW_SEP_SEMICOLON_in_args_def345 = new BitSet(new long[]{0x000000000003FC00L});
+	public static final BitSet FOLLOW_arg_def_in_args_def347 = new BitSet(new long[]{0x4000000000000002L});
+	public static final BitSet FOLLOW_datatype_in_arg_def373 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_list_ids_in_arg_def375 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DT_PATTERN_in_datatype400 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DT_CHANNEL_in_datatype407 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DT_NAME_in_datatype412 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DT_NODE_in_datatype417 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DT_XOR_in_datatype422 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_other_type_in_datatype427 = new BitSet(new long[]{0x0010000000000000L});
-	public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_datatype429 = new BitSet(new long[]{0x000000000000FF00L});
-	public static final BitSet FOLLOW_subtype_in_datatype431 = new BitSet(new long[]{0x0020000000000000L});
+	public static final BitSet FOLLOW_other_type_in_datatype427 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+	public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_datatype429 = new BitSet(new long[]{0x000000000003FC00L});
+	public static final BitSet FOLLOW_subtype_in_datatype431 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
 	public static final BitSet FOLLOW_SEP_SUBTYPE_END_in_datatype433 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_datatype_in_subtype473 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_list_ids486 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_list_ids489 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_list_ids491 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_SEP_BLOCK_START_in_reconfiguration_block513 = new BitSet(new long[]{0x200000100000FF20L});
-	public static final BitSet FOLLOW_instruction_in_reconfiguration_block515 = new BitSet(new long[]{0x200004100000FF20L});
+	public static final BitSet FOLLOW_ID_in_list_ids486 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_list_ids489 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_list_ids491 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_SEP_BLOCK_START_in_reconfiguration_block513 = new BitSet(new long[]{0x000100000093FC00L});
+	public static final BitSet FOLLOW_instruction_in_reconfiguration_block515 = new BitSet(new long[]{0x008100000093FC00L});
 	public static final BitSet FOLLOW_SEP_BLOCK_END_in_reconfiguration_block518 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_declaration_in_instruction546 = new BitSet(new long[]{0x0000100000000000L});
+	public static final BitSet FOLLOW_declaration_in_instruction546 = new BitSet(new long[]{0x4000000000000000L});
 	public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction548 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_assignment_in_instruction559 = new BitSet(new long[]{0x0000100000000000L});
+	public static final BitSet FOLLOW_assignment_in_instruction559 = new BitSet(new long[]{0x4000000000000000L});
 	public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction561 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_reconfiguration_apply_in_instruction571 = new BitSet(new long[]{0x0000100000000000L});
+	public static final BitSet FOLLOW_reconfiguration_apply_in_instruction571 = new BitSet(new long[]{0x4000000000000000L});
 	public static final BitSet FOLLOW_SEP_SEMICOLON_in_instruction573 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_for_instruction_in_instruction582 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_reconfiguration_apply601 = new BitSet(new long[]{0x0000001000000000L});
-	public static final BitSet FOLLOW_OP_APPLY_in_reconfiguration_apply604 = new BitSet(new long[]{0x20000000003F0000L});
+	public static final BitSet FOLLOW_ID_in_reconfiguration_apply601 = new BitSet(new long[]{0x0000000000800000L});
+	public static final BitSet FOLLOW_OP_APPLY_in_reconfiguration_apply604 = new BitSet(new long[]{0x00000A4122100000L});
 	public static final BitSet FOLLOW_reconfiguration_call_in_reconfiguration_apply606 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_datatype_in_declaration630 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_var_def_in_declaration632 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_declaration635 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_var_def_in_declaration637 = new BitSet(new long[]{0x0000080000000002L});
+	public static final BitSet FOLLOW_datatype_in_declaration630 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_var_def_in_declaration632 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_declaration635 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_var_def_in_declaration637 = new BitSet(new long[]{0x0400000000000002L});
 	public static final BitSet FOLLOW_ID_in_var_def662 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_assignment_in_var_def667 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_assignment680 = new BitSet(new long[]{0x0000010000000000L});
-	public static final BitSet FOLLOW_OP_EQUAL_in_assignment682 = new BitSet(new long[]{0x2700001000C00000L});
+	public static final BitSet FOLLOW_ID_in_assignment680 = new BitSet(new long[]{0x0000000008000000L});
+	public static final BitSet FOLLOW_OP_EQUAL_in_assignment682 = new BitSet(new long[]{0x00004080009001C0L});
 	public static final BitSet FOLLOW_assignment_member_in_assignment684 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expression_in_assignment_member710 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_reconfiguration_apply_in_assignment_member716 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_OP_JOIN_in_reconfiguration_call730 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_OP_SPLIT_in_reconfiguration_call735 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_OP_PAR_in_reconfiguration_call740 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_OP_REMOVE_in_reconfiguration_call745 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_OP_CONST_in_reconfiguration_call750 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_OP_ID_in_reconfiguration_call755 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_ID_in_reconfiguration_call760 = new BitSet(new long[]{0x0000400000000000L});
+	public static final BitSet FOLLOW_OP_JOIN_in_reconfiguration_call730 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_OP_SPLIT_in_reconfiguration_call735 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_OP_PAR_in_reconfiguration_call740 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_OP_REMOVE_in_reconfiguration_call745 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_OP_CONST_in_reconfiguration_call750 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_OP_ID_in_reconfiguration_call755 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_ID_in_reconfiguration_call760 = new BitSet(new long[]{0x0040000000000000L});
 	public static final BitSet FOLLOW_operation_args_in_reconfiguration_call764 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_OP_PATH_in_structure_operation_call780 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_OP_UPDATE_in_structure_operation_call785 = new BitSet(new long[]{0x0000400000000000L});
+	public static final BitSet FOLLOW_OP_PATH_in_structure_operation_call780 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_OP_UPDATE_in_structure_operation_call785 = new BitSet(new long[]{0x0040000000000000L});
 	public static final BitSet FOLLOW_operation_args_in_structure_operation_call790 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_SEP_ARGS_START_in_operation_args805 = new BitSet(new long[]{0x2700800000C00000L});
-	public static final BitSet FOLLOW_args_in_operation_args807 = new BitSet(new long[]{0x0000800000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_START_in_operation_args805 = new BitSet(new long[]{0x00204080001001C0L});
+	public static final BitSet FOLLOW_args_in_operation_args807 = new BitSet(new long[]{0x0020000000000000L});
 	public static final BitSet FOLLOW_SEP_ARGS_END_in_operation_args810 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_expression_in_args827 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_args830 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_args832 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_RW_FORALL_in_for_instruction856 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_START_in_for_instruction858 = new BitSet(new long[]{0x000000000000FF00L});
-	public static final BitSet FOLLOW_datatype_in_for_instruction860 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_for_instruction862 = new BitSet(new long[]{0x0000200000000000L});
-	public static final BitSet FOLLOW_SEP_COLON_in_for_instruction864 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_for_instruction866 = new BitSet(new long[]{0x0000800000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_END_in_for_instruction868 = new BitSet(new long[]{0x0000020000000000L});
+	public static final BitSet FOLLOW_expression_in_args827 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_args830 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_args832 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_RW_FORALL_in_for_instruction856 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_START_in_for_instruction858 = new BitSet(new long[]{0x000000000003FC00L});
+	public static final BitSet FOLLOW_datatype_in_for_instruction860 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_for_instruction862 = new BitSet(new long[]{0x0200000000000000L});
+	public static final BitSet FOLLOW_SEP_COLON_in_for_instruction864 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_for_instruction866 = new BitSet(new long[]{0x0020000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_END_in_for_instruction868 = new BitSet(new long[]{0x0100000000000000L});
 	public static final BitSet FOLLOW_reconfiguration_block_in_for_instruction870 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_factor_in_expression900 = new BitSet(new long[]{0x000000E000000002L});
-	public static final BitSet FOLLOW_expr_op_in_expression903 = new BitSet(new long[]{0x2700000000C00000L});
+	public static final BitSet FOLLOW_factor_in_expression900 = new BitSet(new long[]{0x0000200280000002L});
+	public static final BitSet FOLLOW_expr_op_in_expression903 = new BitSet(new long[]{0x00004080001001C0L});
 	public static final BitSet FOLLOW_factor_in_expression906 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_factor943 = new BitSet(new long[]{0x0010000000000000L});
-	public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_factor945 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_factor947 = new BitSet(new long[]{0x0020000000000000L});
+	public static final BitSet FOLLOW_ID_in_factor943 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+	public static final BitSet FOLLOW_SEP_SUBTYPE_START_in_factor945 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_factor947 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
 	public static final BitSet FOLLOW_SEP_SUBTYPE_END_in_factor949 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_ID_in_factor967 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_operation_in_factor983 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_constructor_in_factor988 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_operation1000 = new BitSet(new long[]{0x00C0000000000000L});
-	public static final BitSet FOLLOW_SEP_STRUCTURE_in_operation1003 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_operation1005 = new BitSet(new long[]{0x0040000000000000L});
-	public static final BitSet FOLLOW_SEP_ACCESSOR_in_operation1009 = new BitSet(new long[]{0x20000001BF000000L});
+	public static final BitSet FOLLOW_ID_in_operation1000 = new BitSet(new long[]{0x8010000000000000L});
+	public static final BitSet FOLLOW_SEP_STRUCTURE_in_operation1003 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_operation1005 = new BitSet(new long[]{0x0010000000000000L});
+	public static final BitSet FOLLOW_SEP_ACCESSOR_in_operation1009 = new BitSet(new long[]{0x0000143C50100000L});
 	public static final BitSet FOLLOW_attribute_call_in_operation1011 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_structure_operation_call_in_operation1036 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_triple_cons_in_constructor1057 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_pair_cons_in_constructor1072 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_set_cons_in_constructor1087 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_OP_IN_in_attribute_call1117 = new BitSet(new long[]{0x0004000000000002L});
-	public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1120 = new BitSet(new long[]{0x4000000000000000L});
-	public static final BitSet FOLLOW_INT_in_attribute_call1122 = new BitSet(new long[]{0x0008000000000000L});
+	public static final BitSet FOLLOW_OP_IN_in_attribute_call1117 = new BitSet(new long[]{0x1000000000000002L});
+	public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1120 = new BitSet(new long[]{0x0000000000200000L});
+	public static final BitSet FOLLOW_INT_in_attribute_call1122 = new BitSet(new long[]{0x0800000000000000L});
 	public static final BitSet FOLLOW_SEP_LIST_END_in_attribute_call1124 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_OP_OUT_in_attribute_call1143 = new BitSet(new long[]{0x0004000000000002L});
-	public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1146 = new BitSet(new long[]{0x4000000000000000L});
-	public static final BitSet FOLLOW_INT_in_attribute_call1148 = new BitSet(new long[]{0x0008000000000000L});
+	public static final BitSet FOLLOW_OP_OUT_in_attribute_call1143 = new BitSet(new long[]{0x1000000000000002L});
+	public static final BitSet FOLLOW_SEP_LIST_START_in_attribute_call1146 = new BitSet(new long[]{0x0000000000200000L});
+	public static final BitSet FOLLOW_INT_in_attribute_call1148 = new BitSet(new long[]{0x0800000000000000L});
 	public static final BitSet FOLLOW_SEP_LIST_END_in_attribute_call1150 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_OP_NAME_in_attribute_call1166 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_OP_NODES_in_attribute_call1181 = new BitSet(new long[]{0x0000000000000002L});
@@ -6001,65 +6001,65 @@ public class RecParser extends Parser {
 	public static final BitSet FOLLOW_OP_SND_in_attribute_call1221 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_OP_TRD_in_attribute_call1235 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_ID_in_attribute_call1249 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_CONS_TRIPLE_in_triple_cons1272 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_START_in_triple_cons1274 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_triple_cons1276 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1278 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_triple_cons1280 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1282 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_triple_cons1284 = new BitSet(new long[]{0x0000800000000000L});
+	public static final BitSet FOLLOW_CONS_TRIPLE_in_triple_cons1272 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_START_in_triple_cons1274 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_triple_cons1276 = new BitSet(new long[]{0x0400000000000000L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1278 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_triple_cons1280 = new BitSet(new long[]{0x0400000000000000L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_triple_cons1282 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_triple_cons1284 = new BitSet(new long[]{0x0020000000000000L});
 	public static final BitSet FOLLOW_SEP_ARGS_END_in_triple_cons1286 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_CONS_PAIR_in_pair_cons1315 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_START_in_pair_cons1317 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_pair_cons1319 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_pair_cons1321 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_pair_cons1323 = new BitSet(new long[]{0x0000800000000000L});
+	public static final BitSet FOLLOW_CONS_PAIR_in_pair_cons1315 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_START_in_pair_cons1317 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_pair_cons1319 = new BitSet(new long[]{0x0400000000000000L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_pair_cons1321 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_pair_cons1323 = new BitSet(new long[]{0x0020000000000000L});
 	public static final BitSet FOLLOW_SEP_ARGS_END_in_pair_cons1325 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_CONS_SET_in_set_cons1353 = new BitSet(new long[]{0x0000400000000000L});
-	public static final BitSet FOLLOW_SEP_ARGS_START_in_set_cons1355 = new BitSet(new long[]{0x2700800000C00000L});
-	public static final BitSet FOLLOW_expression_in_set_cons1360 = new BitSet(new long[]{0x0000880000000000L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_set_cons1363 = new BitSet(new long[]{0x2700000000C00000L});
-	public static final BitSet FOLLOW_expression_in_set_cons1365 = new BitSet(new long[]{0x0000880000000000L});
+	public static final BitSet FOLLOW_CONS_SET_in_set_cons1353 = new BitSet(new long[]{0x0040000000000000L});
+	public static final BitSet FOLLOW_SEP_ARGS_START_in_set_cons1355 = new BitSet(new long[]{0x00204080001001C0L});
+	public static final BitSet FOLLOW_expression_in_set_cons1360 = new BitSet(new long[]{0x0420000000000000L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_set_cons1363 = new BitSet(new long[]{0x00004080001001C0L});
+	public static final BitSet FOLLOW_expression_in_set_cons1365 = new BitSet(new long[]{0x0420000000000000L});
 	public static final BitSet FOLLOW_SEP_ARGS_END_in_set_cons1372 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_applicaiton_def1403 = new BitSet(new long[]{0x0000001000000000L});
-	public static final BitSet FOLLOW_OP_APPLY_in_applicaiton_def1405 = new BitSet(new long[]{0x20000200003F0000L});
-	public static final BitSet FOLLOW_list_reconfigurations_in_applicaiton_def1408 = new BitSet(new long[]{0x0002000000000002L});
+	public static final BitSet FOLLOW_ID_in_applicaiton_def1403 = new BitSet(new long[]{0x0000000000800000L});
+	public static final BitSet FOLLOW_OP_APPLY_in_applicaiton_def1405 = new BitSet(new long[]{0x01000A4122100000L});
+	public static final BitSet FOLLOW_list_reconfigurations_in_applicaiton_def1408 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
 	public static final BitSet FOLLOW_trigger_def_in_applicaiton_def1411 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1437 = new BitSet(new long[]{0x20000000003F0000L});
-	public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1440 = new BitSet(new long[]{0x00000C0000000002L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_list_reconfigurations1443 = new BitSet(new long[]{0x20000000003F0000L});
-	public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1445 = new BitSet(new long[]{0x00000C0000000002L});
+	public static final BitSet FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1437 = new BitSet(new long[]{0x00000A4122100000L});
+	public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1440 = new BitSet(new long[]{0x0480000000000002L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_list_reconfigurations1443 = new BitSet(new long[]{0x00000A4122100000L});
+	public static final BitSet FOLLOW_reconfiguration_call_in_list_reconfigurations1445 = new BitSet(new long[]{0x0480000000000002L});
 	public static final BitSet FOLLOW_SEP_BLOCK_END_in_list_reconfigurations1449 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_SEP_TRIGGER_in_trigger_def1468 = new BitSet(new long[]{0x0000020000000000L});
+	public static final BitSet FOLLOW_SEP_TRIGGER_in_trigger_def1468 = new BitSet(new long[]{0x0100000000000000L});
 	public static final BitSet FOLLOW_trigger_block_in_trigger_def1470 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_SEP_BLOCK_START_in_trigger_block1489 = new BitSet(new long[]{0x0000040000000000L});
+	public static final BitSet FOLLOW_SEP_BLOCK_START_in_trigger_block1489 = new BitSet(new long[]{0x0080000000000000L});
 	public static final BitSet FOLLOW_SEP_BLOCK_END_in_trigger_block1491 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_RW_MAIN_in_main_def1505 = new BitSet(new long[]{0x0004000000000000L});
-	public static final BitSet FOLLOW_SEP_LIST_START_in_main_def1507 = new BitSet(new long[]{0x2008000000000000L});
-	public static final BitSet FOLLOW_main_args_in_main_def1509 = new BitSet(new long[]{0x0008000000000000L});
-	public static final BitSet FOLLOW_SEP_LIST_END_in_main_def1512 = new BitSet(new long[]{0x0000020000000000L});
+	public static final BitSet FOLLOW_RW_MAIN_in_main_def1505 = new BitSet(new long[]{0x1000000000000000L});
+	public static final BitSet FOLLOW_SEP_LIST_START_in_main_def1507 = new BitSet(new long[]{0x0800000000100000L});
+	public static final BitSet FOLLOW_main_args_in_main_def1509 = new BitSet(new long[]{0x0800000000000000L});
+	public static final BitSet FOLLOW_SEP_LIST_END_in_main_def1512 = new BitSet(new long[]{0x0100000000000000L});
 	public static final BitSet FOLLOW_main_block_in_main_def1514 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_main_arg_in_main_args1534 = new BitSet(new long[]{0x0000100000000002L});
-	public static final BitSet FOLLOW_SEP_SEMICOLON_in_main_args1537 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_main_arg_in_main_args1539 = new BitSet(new long[]{0x0000100000000002L});
-	public static final BitSet FOLLOW_ID_in_main_arg1566 = new BitSet(new long[]{0x2000000000000000L});
+	public static final BitSet FOLLOW_main_arg_in_main_args1534 = new BitSet(new long[]{0x4000000000000002L});
+	public static final BitSet FOLLOW_SEP_SEMICOLON_in_main_args1537 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_main_arg_in_main_args1539 = new BitSet(new long[]{0x4000000000000002L});
+	public static final BitSet FOLLOW_ID_in_main_arg1566 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_ids_in_main_arg1568 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_ids1592 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_SEP_COMMA_in_ids1595 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_ids1597 = new BitSet(new long[]{0x0000080000000002L});
-	public static final BitSet FOLLOW_SEP_BLOCK_START_in_main_block1622 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_main_instruction_in_main_block1624 = new BitSet(new long[]{0x2000040000000000L});
+	public static final BitSet FOLLOW_ID_in_ids1592 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_SEP_COMMA_in_ids1595 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_ids1597 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_SEP_BLOCK_START_in_main_block1622 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_main_instruction_in_main_block1624 = new BitSet(new long[]{0x0080000000100000L});
 	public static final BitSet FOLLOW_SEP_BLOCK_END_in_main_block1627 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_main_declaration_in_main_instruction1649 = new BitSet(new long[]{0x0000100000000000L});
+	public static final BitSet FOLLOW_main_declaration_in_main_instruction1649 = new BitSet(new long[]{0x4000000000000000L});
 	public static final BitSet FOLLOW_SEP_SEMICOLON_in_main_instruction1651 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_main_assignment_in_main_instruction1662 = new BitSet(new long[]{0x0000100000000000L});
+	public static final BitSet FOLLOW_main_assignment_in_main_instruction1662 = new BitSet(new long[]{0x4000000000000000L});
 	public static final BitSet FOLLOW_SEP_SEMICOLON_in_main_instruction1664 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_main_declaration1682 = new BitSet(new long[]{0x2000000000000000L});
+	public static final BitSet FOLLOW_ID_in_main_declaration1682 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_ids_in_main_declaration1684 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_main_assignment1711 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ids_in_main_assignment1714 = new BitSet(new long[]{0x0000010000000000L});
-	public static final BitSet FOLLOW_OP_EQUAL_in_main_assignment1716 = new BitSet(new long[]{0x2000000000000000L});
-	public static final BitSet FOLLOW_ID_in_main_assignment1722 = new BitSet(new long[]{0x0000001000000000L});
-	public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1724 = new BitSet(new long[]{0x20000000003F0000L});
+	public static final BitSet FOLLOW_ID_in_main_assignment1711 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ids_in_main_assignment1714 = new BitSet(new long[]{0x0000000008000000L});
+	public static final BitSet FOLLOW_OP_EQUAL_in_main_assignment1716 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_ID_in_main_assignment1722 = new BitSet(new long[]{0x0000000000800000L});
+	public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1724 = new BitSet(new long[]{0x00000A4122100000L});
 	public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1726 = new BitSet(new long[]{0x0000000000000002L});
 }

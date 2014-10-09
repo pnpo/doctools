@@ -360,6 +360,10 @@ public class Error {
     	return "Pattern '" + id + "' is previously defined!";
     }
     
+    public static String structurelessPattern(String id){
+    	return "The pattern '" + id + "' is structureless!";
+    }
+    
     public static String wrongDatatype(String id, String dt){
     	return "Variable '" + id + "' is not of type '" + dt + "'!";
     }
