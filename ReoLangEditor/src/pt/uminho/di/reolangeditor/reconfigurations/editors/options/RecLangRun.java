@@ -46,6 +46,7 @@ import pt.uminho.di.reolang.reclang.Constants;
 import pt.uminho.di.reolang.reclang.ReCooPLaProcessor;
 //import pt.uminho.di.reolang.reclang.ReCooPLaRunner;
 import pt.uminho.di.reolang.parsing.util.Error;
+import pt.uminho.di.reolang.parsing.util.ErrorType;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
 import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
 
@@ -80,6 +81,8 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	@SuppressWarnings({ "unchecked", "rawtypes"})
 	public void run(IAction action) {
 
+		String folder = "";
+		
 		try{
 			IWorkbenchPage page = window.getActivePage();
 			IResource resource = ((IFileEditorInput)page.getActiveEditor().getEditorInput()).getFile();
@@ -95,10 +98,10 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 //			runner.compile();
 			
 			
-			String folder = createFolder();
+			folder = createFolder();
 		
 	    	//creates java files and compiles them
-	    	generateFilesTo(folder);
+			generateFilesTo(folder);
 			
 	    	
     	    //*********reflection*********
@@ -116,6 +119,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			
 			Method getErrors = c.getMethod("getErrors", null); //getDeclaredMethod
 			Set<Exception> errors = (Set<Exception>) getErrors.invoke(runner, null );
+			//System.out.println(errors);
 			//******************************
 			
 			//get graphs through created patterns
@@ -168,12 +172,23 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 		
 		catch(Exception e) {
 			e.printStackTrace();
+			
+			String msg = e.toString().contains("ClassNotFoundException: Run") ? "The application of reconfiguration structure (main) is missing!" : e.toString();
+			msg = e.toString().contains("java.lang.NullPointerException") ? "Check the arguments of the reconfigurations, "
+					+ "in particular, the internal representation of structured data types used!\n" 
+					+ "It seems that some attribute or operation of a structured data type does not exist or can not be applied." : e.toString();
 			MessageDialog.openInformation(
     				window.getShell(),
     				"Run reconfigurations",
     				"Something went wrong...\n\n" 
-    				+ e.toString());
+    				+ msg);
 		} 	
+		
+		try {
+			removeFolder(folder);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -197,6 +212,22 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 		return dir.getAbsolutePath() + file_separator;
 	}
 	
+	/**
+	 * removes a folder
+	 * @param folder path to remove
+	 */
+	private void removeFolder(String folder_path) throws Exception {
+		File folder = new File(folder_path);
+		
+		String[] files = folder.list();
+		for(String file: files){
+		    File currentFile = new File(folder.getPath(), file);
+		    currentFile.delete();
+		}
+		
+		folder.delete();
+	}
+	
 	
 	
 	/**
@@ -211,8 +242,16 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
     	if ( syntax_errors.isEmpty() ){
         	TinySymbolsTable ids_table = rp.getIdentifiersTable(new TinySymbolsTable());
         	ArrayList<Error> semantic_errors = rp.getSemanticErrors(ids_table);
-
-        	if (semantic_errors != null && semantic_errors.isEmpty()){
+        	
+        	//only warnings allowed
+        	int i = 0;
+        	for (Error e : semantic_errors){
+        		if (e.getType().equals(ErrorType.ERROR)){
+        			i++;
+        		}
+        	}
+        	
+        	if (semantic_errors != null && i == 0){
         		
 	        	HashMap<String, String> translation = new HashMap<String, String>();
 	        	translation = rp.getTranslation(ids_table);

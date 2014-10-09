@@ -97,7 +97,7 @@ public class Run {
 >>
 
 list_args(cp, ids) ::= <<
-<ids:{ id |	final CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
+<ids:{ id |	CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
 }>
 >>
 
