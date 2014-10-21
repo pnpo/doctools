@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
@@ -33,7 +32,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.zest.core.viewers.GraphViewer;
 
-
 import pt.uminho.di.cooplaeditor.editors.CooPLaEditor;
 import pt.uminho.di.cooplaeditor.editors.context.CooPLaContextUtil;
 import pt.uminho.di.cp.model.graph.ArchPatternAbstractGraph;
@@ -41,6 +39,7 @@ import pt.uminho.di.reolang.FuzzyParserReoLang;
 import pt.uminho.di.reolang.FuzzyPreProcessor;
 import pt.uminho.di.reolang.parsing.FuzzyAnalysis;
 import pt.uminho.di.reolang.parsing.PatternViewer;
+import pt.uminho.di.reolang.parsing.RSLTranformer;
 import pt.uminho.di.reolang.parsing.Semantics;
 import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.ErrorType;
@@ -109,6 +108,7 @@ public class CooPLaReconcilingStrategy implements IReconcilingStrategy, IReconci
 			FuzzyAnalysis fuzzy = new FuzzyAnalysis(file, this.document.get());
 			SimpleSymbol rootElement = fuzzy.performFuzzyAnalysis();
 			this.editor.setCooPLaOutlineModel(rootElement);
+			
 			
 			/*Fuzzy parser for CONSTRUCTING PATTERN GRAPH*/
 			//Extract contextual text...

@@ -73,7 +73,7 @@
       <view
             category="category.cooplaeditor"
             class="pt.uminho.di.cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"
-            icon="icons/sample.gif"
+            icon="icons/rec_pattern_view.gif"
             id="cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"
             name="Patterns Created">
       </view>
@@ -156,6 +156,10 @@
             id="cooplaeditor.commands.imcreoCommand"
             name="Generate">
       </command>
+      <command
+            id="cooplaeditor.commands.rslCommand"
+            name="RSLTranslatorCommand">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -174,6 +178,28 @@
                   tooltip="IMCREOTool">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="CooPLa">
+            <command
+                  commandId="cooplaeditor.commands.rslCommand"
+                  label="RSL Translator"
+                  style="push"
+                  tooltip="Generate for Vereofy">
+            </command>
+            <command
+                  commandId="cooplaeditor.commands.imcreoCommand"
+                  disabledIcon="icons/imcreo_disabled.gif"
+                  hoverIcon="icons/imcreo_hover.gif"
+                  icon="icons/imcreo.gif"
+                  label="IMCREOTool"
+                  style="push"
+                  tooltip="IMCREOTool">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
@@ -204,14 +230,14 @@
             visible="true">
          <menu
                id="cooplaeditor.recoopla.options"
-               label="ReCooPLa options">
+               label="ReCooPLa">
             <separator
                   name="recoopla.run">
             </separator>
          </menu>
          <action
                class="pt.uminho.di.cooplaeditor.reconfigurations.editors.options.ReCooPLaRun"
-               icon="icons/sample.gif"
+               icon="icons/reconfig.gif"
                id="cooplaeditor.recoopla.actions.ReCooPLaRun"
                label="Run reconfigurations"
                menubarPath="cooplaeditor.recoopla.options/recoopla.run"
@@ -246,6 +272,18 @@
       <handler
             class="pt.uminho.di.cooplaeditor.handlers.IMCREOToolWizardHandler"
             commandId="cooplaeditor.commands.imcreoCommand">
+         <enabledWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="pt.uminho.di.cooplaeditor.handlers.RSLTranslatorHandler"
+            commandId="cooplaeditor.commands.rslCommand">
          <enabledWhen>
             <with
                   variable="activeEditorId">
