@@ -23,11 +23,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
-      <category
-            id="ReoLangEditor File"
-            name="CooPLa Wizard"
-            parentCategory="cwi.reo">
-      </category>
       <wizard
             category="category.cooplaeditor"
             class="pt.uminho.di.cooplaeditor.wizards.NewCooPLaFileWizard"
@@ -37,11 +32,6 @@
             name="CooPLa File"
             preferredPerspectives="cooplaeditor.CooPLaPerspective">
       </wizard>
-      <category
-            id="RecLangEditor"
-            name="ReCooPLa Wizard"
-            parentCategory="cwi.reo">
-      </category>
       <wizard
             category="category.cooplaeditor"
             class="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
@@ -80,15 +70,11 @@
             id="cooplaeditor.views.CooPLaPatternView"
             name="Pattern View">
       </view>
-      <category
-            id="RecLangPatternsView"
-            name="Reconfiguration Views">
-      </category>
       <view
-            category="RecLangPatternsView"
-            class="pt.uminho.di.reolangeditor.reconfigurations.views.RecLangPatternsView"
+            category="category.cooplaeditor"
+            class="pt.uminho.di.cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"
             icon="icons/sample.gif"
-            id="reolangeditor.reconfigurations.views.RecLangPatternsView"
+            id="cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"
             name="Patterns Created">
       </view>
    </extension>
@@ -133,7 +119,7 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
-               id="pt.uminho.di.reolangeditor.reconfigurations.views.SampleView"
+               id="cooplaeditor.views.CooPLaPatternView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.ProblemView">
@@ -142,7 +128,7 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
-               id="pt.uminho.di.reolangeditor.reconfigurations.editor.adapter.views.SampleView"
+               id="cooplaeditor.views.CooPLaPatternView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.ProblemView">
@@ -151,7 +137,7 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
-               id="pt.uminho.di.reolangeditor.reconfigurations.views.RecLangPatternsView"
+               id="cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.ProblemView">
@@ -160,15 +146,6 @@
    </extension>
    <extension
          point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
-      <contexts
-            file="contexts.xml">
-      </contexts>
-      <contexts
-            file="contexts.xml">
-      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>
@@ -222,23 +199,23 @@
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            id="pt.uminho.di.reolangeditor.reconfigurations.editors.options.RecLangRun"
+            id="cooplaeditor.recoopla.actions"
             label="Run reconfigurations"
             visible="true">
          <menu
-               id="recoopla_options"
+               id="cooplaeditor.recoopla.options"
                label="ReCooPLa options">
             <separator
-                  name="recoopla_run">
+                  name="recoopla.run">
             </separator>
          </menu>
          <action
-               class="pt.uminho.di.reolangeditor.reconfigurations.editors.options.RecLangRun"
+               class="pt.uminho.di.cooplaeditor.reconfigurations.editors.options.ReCooPLaRun"
                icon="icons/sample.gif"
-               id="reolangeditor.reconfigurations.editors.options.RecLangRun"
+               id="cooplaeditor.recoopla.actions.ReCooPLaRun"
                label="Run reconfigurations"
-               menubarPath="recoopla_options/recoopla_run"
-               toolbarPath="recoopla_run"
+               menubarPath="cooplaeditor.recoopla.options/recoopla.run"
+               toolbarPath="recoopla.run"
                tooltip="Run reconfigurations">
          </action>
       </actionSet>

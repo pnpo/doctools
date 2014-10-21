@@ -109,11 +109,7 @@ public class ReCooPLaWizardPage extends WizardPage {
 				containerText.setText(container.getFullPath().toString());
 			}
 		}
-<<<<<<< HEAD:ReoLangEditor/src/pt/uminho/di/reolangeditor/wizards/RecLangWizardPage.java
-		fileText.setText("new_ReCooPLa_file.rpla");
-=======
-		fileText.setText("new_file.rcpla");
->>>>>>> Perspectives:ReoLangEditor/src/pt/uminho/di/cooplaeditor/wizards/ReCooPLaWizardPage.java
+		fileText.setText("new_recoopla_file.rcpla");
 	}
 
 	/**
@@ -166,13 +162,8 @@ public class ReCooPLaWizardPage extends WizardPage {
 		int dotLoc = fileName.lastIndexOf('.');
 		if (dotLoc != -1) {
 			String ext = fileName.substring(dotLoc + 1);
-<<<<<<< HEAD:ReoLangEditor/src/pt/uminho/di/reolangeditor/wizards/RecLangWizardPage.java
-			if (ext.equalsIgnoreCase("rpla") == false) {
-				updateStatus("File extension must be \"rpla\"");
-=======
 			if (ext.equalsIgnoreCase("rcpla") == false) {
 				updateStatus("File extension must be \"rcpla\"");
->>>>>>> Perspectives:ReoLangEditor/src/pt/uminho/di/cooplaeditor/wizards/ReCooPLaWizardPage.java
 				return;
 			}
 		}

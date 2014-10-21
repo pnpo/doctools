@@ -1,4 +1,4 @@
-package pt.uminho.di.reolangeditor.reconfigurations.editors.options;
+package pt.uminho.di.cooplaeditor.reconfigurations.editors.options;
 
 
 import java.io.BufferedReader;
@@ -48,7 +48,7 @@ import pt.uminho.di.reolang.reclang.ReCooPLaProcessor;
 import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.ErrorType;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
-import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
+import pt.uminho.di.cooplaeditor.reconfigurations.editors.ReCooPLaEditor;
 
 
 /**
@@ -59,7 +59,7 @@ import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
  * delegated to it.
  * @see IWorkbenchWindowActionDelegate
  */
-public class RecLangRun implements IWorkbenchWindowActionDelegate {
+public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 	
 	private String file;
@@ -69,7 +69,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	/**
 	 * The constructor.
 	 */
-	public RecLangRun() {
+	public ReCooPLaRun() {
 	}
 
 	/**
@@ -130,14 +130,14 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			
 
 			//open view
-			String viewID = "reolangeditor.reconfigurations.views.RecLangPatternsView"; 
+			String viewID = "cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"; 
 			PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow()
 				.getActivePage()
 				.showView(viewID);
 
 			//update view
-			((RecLangEditor) editor).setPatternsRepresentation(graphs);
+			((ReCooPLaEditor) editor).setPatternsRepresentation(graphs);
 			
 			
 			//save to a coopla file
@@ -572,7 +572,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	    		 	coopla_type = "(F)fifo~1(i:o)";
 	    		 }
 	    	 }
-	    	 else{ //rever outros casos - não é a melhor solução...
+	    	 else{ //rever outros casos - nao e a melhor solucao...
 	    		 coopla_type = type + "(i:o)";
 	    	 }
 	    	 sb.append("\t\t" + coopla_type + "\tas " + setToString(type_channels.get(type)) + ";\n");
@@ -596,7 +596,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	     sb.append("}");
 	     
 	     //continue stochastic conversion 
-	     //... necessário mais informação!
+	     //... necessario mais informacao!
 //	     LinkedHashMap<String, CoordinationPattern2> stoch_instances = pattern.getStochInstances();
 //	     if (stoch_instances != null && !stoch_instances.isEmpty()){
 //	    	 //do something with stochatic information...
@@ -635,7 +635,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 	
 	
 	
-	private void testWithReoLangPatternView(Set<ArchPatternAbstractGraph> graphs, RecLangEditor editor){
+	private void testWithReoLangPatternView(Set<ArchPatternAbstractGraph> graphs, ReCooPLaEditor editor){
 
 		//retrieve graph to PatternView
 		ArchPatternAbstractGraph graph;
@@ -652,7 +652,7 @@ public class RecLangRun implements IWorkbenchWindowActionDelegate {
 			MessageDialog.openInformation(
 					window.getShell(), 
 					"Run reconfigurations", 
-					"Não existem reconfigurações na main!");
+					"No reconfigurations in main!");
 		}
 	}
 	

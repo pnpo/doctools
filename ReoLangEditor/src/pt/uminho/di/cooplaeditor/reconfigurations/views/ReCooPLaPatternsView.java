@@ -1,4 +1,4 @@
-package pt.uminho.di.reolangeditor.reconfigurations.views;
+package pt.uminho.di.cooplaeditor.reconfigurations.views;
 
 
 import java.util.Set;
@@ -46,7 +46,7 @@ import pt.uminho.di.cp.model.graph.Node;
  * <p>
  */
 
-public class RecLangPatternsView extends ViewPart {
+public class ReCooPLaPatternsView extends ViewPart {
 
 	/**
 	 * The ID of the view as specified by the extension.
@@ -217,7 +217,7 @@ public class RecLangPatternsView extends ViewPart {
 	/**
 	 * The constructor.
 	 */
-	public RecLangPatternsView() {
+	public ReCooPLaPatternsView() {
 	}
 
 
