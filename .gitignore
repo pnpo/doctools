@@ -1,0 +1,7 @@
+#class files
+*.class
+
+#eclipse generated files
+**/.settings/
+**/.classpath
+**/.project

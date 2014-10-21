@@ -25,7 +25,7 @@ import pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor;
 import pt.uminho.di.reolang.parsing.util.Error;
 import pt.uminho.di.reolang.parsing.util.ErrorType;
 import pt.uminho.di.reolang.parsing.util.TinySymbolsTable;
-import pt.uminho.di.reolang.reclang.Processor;
+import pt.uminho.di.reolang.reclang.ReCooPLaProcessor;
 
 
 public class RecLangReconcilingStrategy implements IReconcilingStrategy, IReconcilingStrategyExtension{
@@ -81,7 +81,7 @@ public class RecLangReconcilingStrategy implements IReconcilingStrategy, IReconc
 			String file = resource.getLocation().toOSString();
 			
 			/*Lexer+Syntax*/
-			Processor p = new Processor(file, this.document.get());
+			ReCooPLaProcessor p = new ReCooPLaProcessor(file, this.document.get());
 			annotateDocumentWithErrors(new ArrayList<Error>(), resource);
 			
 	    	ArrayList<Error> syntax_errors = p.getSyntaxErrors();
@@ -192,7 +192,6 @@ public class RecLangReconcilingStrategy implements IReconcilingStrategy, IReconc
 			
 		}
 	}
-	
 	
 	/**
 	 * Clears all the problems associated to a resource!

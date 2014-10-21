@@ -5,8 +5,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="CooPLa Editor"
-            extensions="rlf"
+            name="ReoLang Editor"
+            extensions="cpla"
             icon="icons/coopla.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="pt.uminho.di.reolangeditor.editors.ReoLangEditor"
@@ -15,7 +15,7 @@
       <editor
             class="pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            extensions="rcfg"
+            extensions="rpla"
             icon="icons/recoopla.gif"
             id="pt.uminho.di.reolangeditor.reconfigurationseditors.RecLangEditor"
             name="ReCooPLa Editor">
@@ -23,6 +23,11 @@
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
+      <category
+            id="ReoLangEditor File"
+            name="CooPLa Wizard"
+            parentCategory="cwi.reo">
+      </category>
       <wizard
             category="category.cooplaeditor"
             class="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
@@ -30,12 +35,18 @@
             id="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
             name="CooPLa File">
       </wizard>
+      <category
+            id="RecLangEditor"
+            name="ReCooPLa Wizard"
+            parentCategory="cwi.reo">
+      </category>
       <wizard
             category="category.cooplaeditor"
             class="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
             icon="icons/recoopla.gif"
             id="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
-            name="ReCooPLa File">
+
+            name="ReCooPLa FIle">
       </wizard>
       <category
             id="category.cooplaeditor"
@@ -66,6 +77,17 @@
             id="reolangeditor.views.ReoLangPatternView"
             name="Pattern View">
       </view>
+      <category
+            id="RecLangPatternsView"
+            name="Reconfiguration Views">
+      </category>
+      <view
+            category="RecLangPatternsView"
+            class="pt.uminho.di.reolangeditor.reconfigurations.views.RecLangPatternsView"
+            icon="icons/sample.gif"
+            id="reolangeditor.reconfigurations.views.RecLangPatternsView"
+            name="Patterns Created">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -78,9 +100,45 @@
                relative="org.eclipse.ui.views.TaskList">
          </view>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="pt.uminho.di.reolangeditor.reconfigurations.views.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="pt.uminho.di.reolangeditor.reconfigurations.editor.adapter.views.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="pt.uminho.di.reolangeditor.reconfigurations.views.RecLangPatternsView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+      <contexts
+            file="contexts.xml">
+      </contexts>
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>
@@ -131,6 +189,43 @@
       <initializer
             class="pt.uminho.di.reolangeditor.preferences.PreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="pt.uminho.di.reolangeditor.reconfigurations.editors.options.RecLangRun"
+            label="Run reconfigurations"
+            visible="true">
+         <menu
+               id="recoopla_options"
+               label="ReCooPLa options">
+            <separator
+                  name="recoopla_run">
+            </separator>
+         </menu>
+         <action
+               class="pt.uminho.di.reolangeditor.reconfigurations.editors.options.RecLangRun"
+               icon="icons/sample.gif"
+               id="reolangeditor.reconfigurations.editors.options.RecLangRun"
+               label="Run reconfigurations"
+               menubarPath="recoopla_options/recoopla_run"
+               toolbarPath="recoopla_run"
+               tooltip="Run reconfigurations">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+         <factory
+            adaptableType="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.model.DataModel"
+            class="pt.uminho.di.reolangeditor.reconfigurations.editors.adapter.DataModelAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

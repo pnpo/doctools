@@ -1,7 +1,7 @@
 //import "InputExamples/patterns.cpla";
 //import "InputExamples/sequencer.cpla";
 import "InputExamples/channels_and_patterns.cpla";
-import "InputExamples/overlap.rpla";
+//import "InputExamples/overlap.rpla";
 
 reconfiguration insertP(Pattern p; Node n, mi, mo) {
 	Pattern p2 = @ split(n);

@@ -20,7 +20,7 @@ public class Main {
     	}
 //    	if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {	
     	else{
-	    	Processor p = new Processor(input_file, "");
+	    	ReCooPLaProcessor p = new ReCooPLaProcessor(input_file, "");
 	    	
 	    	List<Error> syntax_errors = p.getSyntaxErrors();
 	    	if ( !syntax_errors.isEmpty() ){
@@ -37,7 +37,7 @@ public class Main {
 //	        	translation = p.getTranslation("resources/template.stg", ids_table);
 
 	        	if (errors != null && errors.isEmpty()){
-	        		translation = p.getTranslation("resources/template.stg", ids_table);
+	        		translation = p.getTranslation(ids_table);
 	        	}
 	        	else{
 	        		System.out.println(errors);	
@@ -59,6 +59,10 @@ public class Main {
 		    		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
 		    		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
 		    		if (t.equals("Main")){
+		    			/*
+		    			 * import org.antlr.runtime.*;
+		    			 * import org.antlr.runtime.tree.*;
+		    			*/
 			    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
 			    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
 		    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
@@ -101,15 +105,15 @@ public class Main {
 	private static void executeCommand(String cmd, String op, String cp, String file) {
 	     Process p;
 	     ProcessBuilder b = new ProcessBuilder(cmd, op, cp, file);
-			try {
-				p = b.start();
-				p.waitFor();
-				p.destroy();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-	    }
+	     try {
+	    	 p = b.start();
+			 p.waitFor();
+			 p.destroy();
+	     } 
+	     catch (Exception e) {
+	    	 e.printStackTrace();
+		 }
+	}
 
     
     

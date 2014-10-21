@@ -15,6 +15,7 @@ options{
 	import pt.uminho.di.reolang.parsing.util.*;
 	//import java.util.*;
 	import java.util.HashMap;
+	import java.util.Set;
 	import java.util.HashSet;
 	import java.util.Collections;
 	import java.util.Comparator;
@@ -188,7 +189,7 @@ directive_import returns[ArrayList<Error> errors]
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			
 			if (file_extension.equals(Constants.RECOOPLA_FILE_EXTENSION)) {		//*.rpla
-				Processor p = new Processor(file, "");
+				ReCooPLaProcessor p = new ReCooPLaProcessor(file, "");
 				TinySymbolsTable imported_ids_table = p.getIdentifiersTable($reclang::ids_table);
 				ArrayList<Error> imported_semantic_errors = p.getSemanticErrors( imported_ids_table );
 				
@@ -223,6 +224,8 @@ directive_import returns[ArrayList<Error> errors]
 content returns[ArrayList<Error> errors]
 scope{
 	TinySymbol name;
+	boolean onMain;
+	Set<String> structureless;
 		
 	//attributes changed on instruction
 	TinySymbolsTable current_scope;
@@ -230,6 +233,8 @@ scope{
 }
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
+	$content::onMain = false;
+	$content::structureless = new HashSet<String>();
 
 }
 	: (element
@@ -628,6 +633,7 @@ scope{
 			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($OP_JOIN.text) , $OP_JOIN.line, $OP_JOIN.pos, this.file_path) );
 		}
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 
 	| ^(OP_SPLIT 	{ $content::rec_type = "split"; }
@@ -640,6 +646,7 @@ scope{
 			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($OP_SPLIT.text) , $OP_SPLIT.line, $OP_SPLIT.pos, this.file_path) );
 		}
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 
 	| ^(OP_PAR 	{ $content::rec_type = "par"; }
@@ -652,6 +659,7 @@ scope{
 			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($OP_PAR.text) , $OP_PAR.line, $OP_PAR.pos, this.file_path) ); 
 		}
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 
 	| ^(OP_REMOVE 	{ $content::rec_type = "remove"; }
@@ -664,6 +672,7 @@ scope{
 			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($OP_REMOVE.text) , $OP_REMOVE.line, $OP_REMOVE.pos, this.file_path) );
 		}
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 
 	| ^(OP_CONST 	{ $content::rec_type = "const"; }
@@ -676,6 +685,7 @@ scope{
 			local_errors.add( Error.report(ErrorType.ERROR, Error.numberOfArguments($OP_CONST.text) , $OP_CONST.line, $OP_CONST.pos, this.file_path) );
 		}
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 
 	| ^(OP_ID 	{ $content::rec_type = "id"; }
@@ -691,6 +701,7 @@ scope{
 
 
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 
 	| ^(ID 		
@@ -744,6 +755,7 @@ scope{
 			}
 		}
 		$reconfiguration_call.errors = local_errors;
+		$content::rec_type = ""; //reset
 	}
 	;
 
@@ -790,13 +802,13 @@ args returns[ArrayList<Error> errors, int counter]
 }
 	: (expression
 	{
+		String value = $expression.name;
 		if ($content::rec_type.equals("custom")){
 			if ($reconfiguration_call::args.size() > i){
 				//original argument
 				TinySymbol ts1 = $reconfiguration_call::args.get(i);
 
 //			if (ts1 != null){				
-				String value = $expression.name;
 				Integer s_id = $content::current_scope.getScopeRel().fst();
 				//if contains symbol, value of new argument is obtained from $content::current_scope, else from $content::name
 				TinySymbol ts2 = $content::current_scope.containsSymbol(value) ? $content::current_scope.getSymbols().get(value) : $content::name.hasValue(value, s_id);
@@ -817,6 +829,41 @@ args returns[ArrayList<Error> errors, int counter]
 				exceeded = true;
 			}
 		}
+	
+		//rever ******LAST UPDATE******
+		if (local_errors.isEmpty()){
+			List<Type> aux_dt = new ArrayList<Type>();
+			aux_dt.clear();
+			aux_dt.add(Type.PATTERN);
+			if ($content::rec_type.equals("const") && !$expression.datatype.equals(aux_dt) ){
+				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype(value, "Pattern"), $expression.start.getLine(), $expression.start.getCharPositionInLine(), this.file_path) );
+			}
+	
+			if ($content::rec_type.equals("par") && !$expression.datatype.equals(aux_dt) ){
+				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype(value, "Pattern"), $expression.start.getLine(), $expression.start.getCharPositionInLine(), this.file_path) );
+			}
+	
+			aux_dt.clear();
+			aux_dt.add(Type.SET);
+			aux_dt.add(Type.NODE);
+			if ($content::rec_type.equals("join") && !$expression.datatype.equals(aux_dt) ){
+				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype(value, "Set<Node>"), $expression.start.getLine(), $expression.start.getCharPositionInLine(), this.file_path) );
+			}
+	
+			aux_dt.clear();
+			aux_dt.add(Type.NODE);
+			if ($content::rec_type.equals("split") && !$expression.datatype.equals(aux_dt) ){
+				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype(value, "Node"), $expression.start.getLine(), $expression.start.getCharPositionInLine(), this.file_path) );
+			}
+	
+			aux_dt.clear();
+			aux_dt.add(Type.NAME);
+			if ($content::rec_type.equals("remove") && !$expression.datatype.equals(aux_dt) ){
+				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype(value, "Name"), $expression.start.getLine(), $expression.start.getCharPositionInLine(), this.file_path) );
+			}
+		}
+		//************************
+		
 		local_errors.addAll($expression.errors);
 		i++;
 	}
@@ -1021,35 +1068,6 @@ factor returns[ArrayList<Error> errors, List<Type> datatype, String name]
 			TinySymbol symbol = ts;
 
 			dt.clear();
-			dt.add(Type.PATTERN);
-			if ($content::rec_type.equals("const") && !symbol.getDataType().containsAll(dt) ){
-				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Pattern"), $ID.line, $ID.pos, this.file_path) );
-			}
-
-			if ($content::rec_type.equals("par") && !symbol.getDataType().containsAll(dt) ){
-				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Pattern"), $ID.line, $ID.pos, this.file_path) );
-			}
-
-			dt.clear();
-			dt.add(Type.SET);
-			dt.add(Type.NODE);
-			if ($content::rec_type.equals("join") && !symbol.getDataType().containsAll(dt) ){
-				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Set<Node>"), $ID.line, $ID.pos, this.file_path) );
-			}
-
-			dt.clear();
-			dt.add(Type.NODE);
-			if ($content::rec_type.equals("split") && !symbol.getDataType().containsAll(dt) ){
-				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Node"), $ID.line, $ID.pos, this.file_path) );
-			}
-
-			dt.clear();
-			dt.add(Type.NAME);
-			if ($content::rec_type.equals("remove") && !symbol.getDataType().containsAll(dt) ){
-				local_errors.add( Error.report(ErrorType.ERROR, Error.wrongDatatype($ID.text, "Name"), $ID.line, $ID.pos, this.file_path) );
-			}
-
-			dt.clear();
 			dt.addAll( symbol.getDataType() );
 		}
 
@@ -1099,6 +1117,13 @@ scope{
 
 		if ( ts == null || $id1.line < ts.getLine() ){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.nameNotDefined($id1.text), $id1.line, $id1.pos, this.file_path) );
+		}
+		else{
+			List<Type> dt = new ArrayList<Type>();
+			dt.add(Type.PATTERN);
+			if (ts.getDataType().containsAll(dt) && $content::onMain && $content::structureless.contains($id1.text)){
+				local_errors.add( Error.report(ErrorType.WARNING, Error.structurelessPattern($id1.text), $id1.line, $id1.pos, this.file_path) );
+			}
 		}
 		
 	}
@@ -1188,6 +1213,7 @@ attribute_call[TinySymbol ts, boolean accessed] returns[ArrayList<Error> errors,
 	}
 
 	List<Type> dt = new ArrayList<Type>();
+	String int_id = "";
 }
 	: ^(OP_IN 
 	{
@@ -1210,6 +1236,7 @@ attribute_call[TinySymbol ts, boolean accessed] returns[ArrayList<Error> errors,
 			dt = new ArrayList<Type>();
 			dt.add(Type.NODE);
 		}
+		int_id = "[" + $INT.text + "]";
 	}
 	)?) 	
 	{
@@ -1226,7 +1253,7 @@ attribute_call[TinySymbol ts, boolean accessed] returns[ArrayList<Error> errors,
 		}
 
 		$attribute_call.datatype = dt;
-		$attribute_call.name = "in";
+		$attribute_call.name = "in" + int_id;
 		$attribute_call.errors = local_errors;
 	}
 
@@ -1251,6 +1278,7 @@ attribute_call[TinySymbol ts, boolean accessed] returns[ArrayList<Error> errors,
 			dt = new ArrayList<Type>();
 			dt.add(Type.NODE);
 		}
+		int_id = "[" + $INT.text + "]";
 	}
 	)?)	
 	{
@@ -1267,7 +1295,7 @@ attribute_call[TinySymbol ts, boolean accessed] returns[ArrayList<Error> errors,
 		}
 
 		$attribute_call.datatype = dt;
-		$attribute_call.name = "out";
+		$attribute_call.name = "out" + int_id;
 		$attribute_call.errors = local_errors;
 	}
 
@@ -1746,22 +1774,28 @@ trigger_block
 main_def returns[ArrayList<Error> errors]
 scope{
 	//imported coopla patterns
-	List<String> patterns;
+	List<String> imported_patterns;
+	List<String> created_patterns;
 }
 @init{
+	$content::onMain = true;
+	
 	$content::name = $reclang::ids_table.getSymbols().get("\$main");
 	$content::current_scope = $content::name.getScopes().get(0); //main has only one scope
 	
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 
 	// coopla data
-	$main_def::patterns = new ArrayList<String>();
+	$main_def::imported_patterns = new ArrayList<String>();
+	
+	$main_def::created_patterns = new ArrayList<String>();
 
+	//rever isto : patterns criados s‹o guardados em separado dos importados, logo n‹o haver‡ problema criar um pattern com um nome j‡ existente
 	HashMap<String, Symbol> coopla_symbols = $reclang::coopla_table.getSymbols();
 	for (String key : coopla_symbols.keySet()){
 		Symbol s = coopla_symbols.get(key);
 		if (s.getType().equals("PATTERN")){
-			$main_def::patterns.add(s.getId());
+			$main_def::imported_patterns.add(s.getId());
 		}
 	}
 	
@@ -1809,7 +1843,7 @@ main_arg returns[ArrayList<Error> errors]
 }
 	: ^(ARGUMENT dt=ID
 	{
-		if (!$main_def::patterns.contains($dt.text)){
+		if (!$main_def::imported_patterns.contains($dt.text)){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
 		}
 	}
@@ -1823,9 +1857,10 @@ main_arg returns[ArrayList<Error> errors]
 	)
 	;	
 
-ids[boolean toTest] returns[ArrayList<Error> errors]
+ids[boolean toTest] returns[ArrayList<Error> errors, List<String> values]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
+	List<String> ids = new ArrayList<String>();
 }
 	: ^(IDS (ID
 	{
@@ -1835,11 +1870,14 @@ ids[boolean toTest] returns[ArrayList<Error> errors]
 				local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
 			}
 		}
+		ids.add($ID.text);
+		
 	}
 	)+
 	
 	{
 		$ids.errors = local_errors;
+		$ids.values = ids;
 	}
 	)
 	;	
@@ -1874,14 +1912,22 @@ main_declaration returns[ArrayList<Error> errors]
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 }
 	: ^(DECLARATION dt=ID 
-	{
-		if (!$main_def::patterns.contains($dt.text)){
-			local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
-		}
-	}
+	//rever -> erro para pattern n‹o importado
+	//nova revis‹o -> erro n‹o existe pois caso n‹o seja importado, Ž criado um novo 'structureless' pattern
+//	{
+//		if (!$main_def::imported_patterns.contains($dt.text)){
+//			//local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
+//		}
+//	}
 	
-		ids[true]
+	ids[true]
 	{
+		if (!$main_def::imported_patterns.contains($dt.text)){
+			for (String id : $ids.values){
+				$content::structureless.add(id);
+			}
+		}
+		
 		if (local_errors.isEmpty()){
 			local_errors.addAll($ids.errors);
 		}
@@ -1897,10 +1943,10 @@ main_assignment returns[ArrayList<Error> errors]
 }
 	: ^( APPLICATION ( ^(DECLARATION (dt=ID
 	{	
-		if ($main_def::patterns.contains($dt.text)){
+		if ($main_def::created_patterns.contains($dt.text)){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.patternAlreadyDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
 		} else {
-			$main_def::patterns.add($dt.text);
+			$main_def::created_patterns.add($dt.text);
 		}
 		
 		if ($dt.text != null){ //if is declaration
@@ -1913,13 +1959,25 @@ main_assignment returns[ArrayList<Error> errors]
 	}
 	) )? 
 	
-	^(OP_APPLY ID reconfiguration_call
+	^(OP_APPLY rec=ID reconfiguration_call
 	{
 		local_errors.addAll($reconfiguration_call.errors);
 	}
 	) 
 	
 	{
+		//pattern(s) now has a value -> remove from set of structureless patterns
+		if ($ids.values != null){
+			for (String id : $ids.values){
+				if ($content::structureless.contains(id)){
+					$content::structureless.remove(id);
+				}
+			}
+		}
+		else if ($content::structureless.contains($rec.text)){
+			$content::structureless.remove($rec.text);
+		}
+				
 		$main_assignment.errors = local_errors;
 	}
 	)

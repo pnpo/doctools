@@ -1,0 +1,20 @@
+channel sync(a : b){
+	a,b -> flow a to b #ab;
+
+}
+
+channel lossy(a:b) extends sync {
+	a,!b -> flow a to NULL #aL;
+}
+
+channel sync_drain(a,b:) {
+	a,b -> flow a to NULL | flow b to NULL #aLbL;
+}
+
+channel fifo~N(a:b){
+	state: buffer;
+	observers: E, F;
+	
+	a,!F -> flow a to buffer #aB;
+	!E,b -> flow buffer to b #Bb;
+}

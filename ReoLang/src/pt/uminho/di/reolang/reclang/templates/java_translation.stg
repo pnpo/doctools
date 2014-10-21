@@ -1,0 +1,120 @@
+group Templates;
+
+mkclass(name, fields, constructor, method) ::= <<
+public class <name> extends Reconfiguration {
+
+<fields>
+<constructor>
+
+<method>
+}
+>>
+
+
+list_fields(datatype, ids) ::= <<
+<ids:{ id | 	final private <datatype> <id>;
+ }>
+>>
+
+
+constructor(n, dts, ids) ::= <<
+	public <n>(<dts,ids:{ dt,id | <dt> <id>}; separator=", ">) {
+		<ids:{ id | this.<id> = <id>}; separator="; 
+">;
+	}
+>>
+
+
+apply_method(reconfs, insts) ::= <<
+	@Override
+	public CoordinationPattern2 apply(CoordinationPattern2 $cp) { 
+		<reconfs:{ rec | <rec>}; separator="
+">
+		<insts:{ inst | <inst>}; separator="
+">
+		return new CoordinationPattern2($cp); 
+	}
+>>
+
+
+
+mkmain(files, args, insts) ::= <<
+public class Run {
+	
+	private static LinkedHashMap\<String, CPModelInternal\> imported_patterns;
+	private static LinkedHashMap\<String, CPModelInternal\> created_patterns;
+	private static Set\<Exception\> errors;
+	
+	public LinkedHashMap\<String,CPModelInternal\> getImportedPatterns(){
+		return this.imported_patterns;
+	}
+	
+	public LinkedHashMap\<String,CPModelInternal\> getCreatedPatterns(){
+		return this.created_patterns;
+	}
+	
+	public Set\<Exception\> getErrors(){
+		return this.errors;
+	}
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	//public static void main(String[] args){
+	public Run(){
+	
+		CPModelInternal $cpmi = null;
+		CoordinationPattern2 $new_cp = null;
+		imported_patterns = new LinkedHashMap\<String, CPModelInternal\>();
+		created_patterns = new LinkedHashMap\<String, CPModelInternal\>();
+	
+		String[] files = {
+			<files:{ file | "<file>"}; separator=", 
+">
+		};
+		
+		for (String file : files){
+			CPBuilder cp_model_builder = new CPBuilder(file);
+			ReoLangCP2 res = cp_model_builder.performModelConstruction( new LinkedHashMap\<String, CPModelInternal\>(), new SymbolsTable() );
+			
+			//imported_patterns = res.getPatterns() != null ? res.getPatterns() : imported_patterns;
+			if (res.getPatterns() != null){
+				for (String p : res.getPatterns().keySet()){
+					imported_patterns.put(p, res.getPatterns().get(p));
+				}
+			}
+		}
+		
+		<args>
+		
+		try{
+			<insts>
+		} catch (Exception e){ //Throwable
+			//System.err.println(e);	
+			errors.add(e); 
+		}
+	}
+}
+>>
+
+list_args(cp, ids) ::= <<
+<ids:{ id |	CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
+}>
+>>
+
+declaration(cp, ids) ::= <<
+<ids:{ id |final CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
+}>
+>>
+
+assignment(name, var, dts, ids, cp, res) ::= <<
+// ************* <name> ************* //
+Class <var>_class = Class.forName( "<name>" );
+			
+Constructor <var>_constructor = <var>_class.getConstructor(<dts:{ dt | <dt>.class}; separator=", ">);
+Object <var>_obj = <var>_constructor.newInstance(<ids>);
+			
+Method <var>_apply = <var>_class.getMethod("apply", CoordinationPattern2.class);
+<res:{ r | CoordinationPattern2 <r> = (CoordinationPattern2) <var>_apply.invoke(<var>_obj, <cp> );}; separator="
+">
+// ********************************* //
+>>			

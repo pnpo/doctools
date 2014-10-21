@@ -166,6 +166,20 @@ public class Node {
 		return   ends.toString() ;
 	}
 
+	/*
+	 * returns a String which is equals to the concatenation of the node ends, separated by dots
+	 */
+	public String sepEndsByDot() {
+		String sep = "";
+		String value = "";
+		for (String end : ends){
+			value += sep;
+			value += end;
+			
+			sep = ".";
+		}
+		return value;
+	}
 	
 	
 	

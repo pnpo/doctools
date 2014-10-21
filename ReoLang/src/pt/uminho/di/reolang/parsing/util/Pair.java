@@ -65,7 +65,7 @@ public class Pair<FIRST, SECOND> implements Comparable<Pair<FIRST,SECOND>> {
 		return this.first + "_" + this.second;
 	}
 
-	@Override
+	
 	public int compareTo(Pair<FIRST, SECOND> o) {
 	    int cmp = compare(first, o.first);
 	    return cmp == 0 ? compare(second, o.second) : cmp;
