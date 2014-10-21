@@ -78,7 +78,7 @@ public class Triple<FIRST, SECOND, THIRD> implements Comparable<Triple<FIRST,SEC
 
 	
 	
-	@Override
+
 	public int compareTo(Triple<FIRST, SECOND, THIRD> o) {
 		int cmp1 = compare(first, o.first);
 		int cmp2 = cmp1 == 0 ? compare(second, o.second) : cmp1;
