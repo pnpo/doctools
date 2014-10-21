@@ -160,6 +160,10 @@
             id="cooplaeditor.commands.rslCommand"
             name="RSLTranslatorCommand">
       </command>
+      <command
+            id="cooplaeditor.commands.reoCommand"
+            name="ReoXML">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -186,10 +190,20 @@
                label="CooPLa">
             <command
                   commandId="cooplaeditor.commands.rslCommand"
-                  label="RSL Translator"
+                  label="Generate RSL for Vereofy "
                   style="push"
-                  tooltip="Generate for Vereofy">
+                  tooltip="Generate RSL for Vereofy">
             </command>
+            <command
+                  commandId="cooplaeditor.commands.reoCommand"
+                  label="Generate Reo File"
+                  style="push"
+                  tooltip="Generate Reo File">
+            </command>
+            <separator
+                  name="cooplaeditor.separator1"
+                  visible="true">
+            </separator>
             <command
                   commandId="cooplaeditor.commands.imcreoCommand"
                   disabledIcon="icons/imcreo_disabled.gif"
@@ -284,6 +298,18 @@
       <handler
             class="pt.uminho.di.cooplaeditor.handlers.RSLTranslatorHandler"
             commandId="cooplaeditor.commands.rslCommand">
+         <enabledWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="pt.uminho.di.cooplaeditor.handlers.ReoTranslatorHandler"
+            commandId="cooplaeditor.commands.reoCommand">
          <enabledWhen>
             <with
                   variable="activeEditorId">
