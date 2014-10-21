@@ -5,19 +5,19 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="ReoLang Editor"
+            name="CooPLa Editor"
             extensions="cpla"
             icon="icons/coopla.gif"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            class="pt.uminho.di.reolangeditor.editors.ReoLangEditor"
-            id="pt.uminho.di.reolangeditor.editors.ReoLangEditor">
+            class="pt.uminho.di.cooplaeditor.editors.CooPLaEditor"
+            id="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
       </editor>
       <editor
-            class="pt.uminho.di.reolangeditor.reconfigurations.editors.RecLangEditor"
+            class="pt.uminho.di.cooplaeditor.reconfigurations.editors.ReCooPLaEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            extensions="rpla"
+            extensions="rcpla"
             icon="icons/recoopla.gif"
-            id="pt.uminho.di.reolangeditor.reconfigurationseditors.RecLangEditor"
+            id="pt.uminho.di.cooplaeditor.ReCooPLaEditor"
             name="ReCooPLa Editor">
       </editor>
    </extension>
@@ -30,10 +30,12 @@
       </category>
       <wizard
             category="category.cooplaeditor"
-            class="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
+            class="pt.uminho.di.cooplaeditor.wizards.NewCooPLaFileWizard"
+            finalPerspective="cooplaeditor.CooPLaPerspective"
             icon="icons/coopla.gif"
-            id="pt.uminho.di.reolangeditor.wizards.NewReoLangFileWizard"
-            name="CooPLa File">
+            id="pt.uminho.di.cooplaeditor.wizards.NewCooPLaFileWizard"
+            name="CooPLa File"
+            preferredPerspectives="cooplaeditor.CooPLaPerspective">
       </wizard>
       <category
             id="RecLangEditor"
@@ -42,11 +44,12 @@
       </category>
       <wizard
             category="category.cooplaeditor"
-            class="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
+            class="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
+            finalPerspective="cooplaeditor.CooPLaPerspective"
             icon="icons/recoopla.gif"
-            id="pt.uminho.di.reolangeditor.wizards.NewRecLangFileWizard"
-
-            name="ReCooPLa FIle">
+            id="pt.uminho.di.cooplaeditor.wizards.NewReCooPLaFileWizard"
+            name="ReCooPLa File"
+            preferredPerspectives="cooplaeditor.CooPLaPerspective">
       </wizard>
       <category
             id="category.cooplaeditor"
@@ -56,11 +59,11 @@
    <extension
          point="org.eclipse.ui.editors.annotationTypes">
       <type
-            name="pt.uminho.di.reolangeditor.annotations.error"
+            name="pt.uminho.di.cooplaeditor.annotations.error"
             super="org.eclipse.ui.workbench.texteditor.error">
       </type>
       <type
-            name="pt.uminho.di.reolangeditor.annotations.warning"
+            name="pt.uminho.di.cooplaeditor.annotations.warning"
             super="org.eclipse.ui.workbench.texteditor.warning">
       </type>
    </extension>
@@ -72,9 +75,9 @@
       </category>
       <view
             category="category.cooplaeditor"
-            class="pt.uminho.di.reolangeditor.views.ReoLangPatternView"
+            class="pt.uminho.di.cooplaeditor.views.CooPLaPatternView"
             icon="icons/pattern_view.gif"
-            id="reolangeditor.views.ReoLangPatternView"
+            id="cooplaeditor.views.CooPLaPatternView"
             name="Pattern View">
       </view>
       <category
@@ -92,12 +95,39 @@
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
+            targetID="cooplaeditor.CooPLaPerspective">
          <view
-               id="reolangeditor.views.ReoLangPatternView"
-               ratio="0.5"
+               id="cooplaeditor.views.CooPLaPatternView"
+               ratio="0.7"
                relationship="right"
-               relative="org.eclipse.ui.views.TaskList">
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.jdt.ui.PackageExplorer"
+               minimized="false"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.ContentOutline"
+               minimized="false"
+               ratio="0.5"
+               relationship="bottom"
+               relative="org.eclipse.jdt.ui.PackageExplorer">
+         </view>
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.7"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.AllMarkersView"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.console.ConsoleView">
          </view>
       </perspectiveExtension>
       <perspectiveExtension
@@ -146,8 +176,7 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="pt.uminho.di.reolangeditor.handlers.IMCREOToolWizardHandler"
-            id="reolangeditor.commands.imcreoCommand"
+            id="cooplaeditor.commands.imcreoCommand"
             name="Generate">
       </command>
    </extension>
@@ -157,9 +186,9 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="reolang.menus.toolbar.IMCREOTool">
+               id="cooplaeditor.menus.toolbar.IMCREOTool">
             <command
-                  commandId="reolangeditor.commands.imcreoCommand"
+                  commandId="cooplaeditor.commands.imcreoCommand"
                   disabledIcon="icons/imcreo_disabled.gif"
                   hoverIcon="icons/imcreo_hover.gif"
                   icon="icons/imcreo.gif"
@@ -173,13 +202,13 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="pt.uminho.di.reolangeditor.preferences.ReoLangEditorPreferences"
+            class="pt.uminho.di.cooplaeditor.preferences.CooPLaEditorPreferences"
             id="cooplaeditor.preferences.CooPLaEditorPreferences"
             name="CooPLa Editor">
       </page>
       <page
             category="cooplaeditor.preferences.CooPLaEditorPreferences"
-            class="pt.uminho.di.reolangeditor.preferences.IMCREOToolPreferences"
+            class="pt.uminho.di.cooplaeditor.preferences.IMCREOToolPreferences"
             id="cooplaeditor.preferences.IMCREOToolPreferences"
             name="IMCReo Tool">
       </page>
@@ -187,7 +216,7 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="pt.uminho.di.reolangeditor.preferences.PreferenceInitializer">
+            class="pt.uminho.di.cooplaeditor.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
@@ -226,6 +255,29 @@
                type="org.eclipse.ui.views.properties.IPropertySource">
          </adapter>
       </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="pt.uminho.di.cooplaeditor.perspectives.CooPLaPerspectiveFactory"
+            id="cooplaeditor.CooPLaPerspective"
+            name="CooPLa">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="pt.uminho.di.cooplaeditor.handlers.IMCREOToolWizardHandler"
+            commandId="cooplaeditor.commands.imcreoCommand">
+         <enabledWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
    </extension>
 
 </plugin>
