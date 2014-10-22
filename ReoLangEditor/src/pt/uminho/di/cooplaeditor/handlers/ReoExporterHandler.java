@@ -1,7 +1,6 @@
 package pt.uminho.di.cooplaeditor.handlers;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -9,34 +8,20 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.commands.IHandlerListener;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import pt.uminho.di.cooplaeditor.wizards.imcreo.IMCREOToolWizard;
 import pt.uminho.di.imc.util.Util;
 import pt.uminho.di.reolang.parsing.RSLTranformer;
 
-public class RSLTranslatorHandler extends AbstractHandler {
+public class ReoExporterHandler extends AbstractHandler {
 
-	
-	
-	public Object execute(ExecutionEvent event) throws ExecutionException {
+public Object execute(ExecutionEvent event) throws ExecutionException {
 		
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		IResource resource = ((IFileEditorInput)window.getActivePage().getActiveEditor().getEditorInput()).getFile();
@@ -52,7 +37,10 @@ public class RSLTranslatorHandler extends AbstractHandler {
 	
 	private void process(String file, Composite parent) {
 		
+		
+		
 		RSLTranformer rslt = new RSLTranformer(file);
+		
 		try{
 			String rsl_content = rslt.translateToRSL();
 			
@@ -85,8 +73,6 @@ public class RSLTranslatorHandler extends AbstractHandler {
 			
 		}
 		
-	}
-	
-	
+	}		
 
 }

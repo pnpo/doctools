@@ -76,7 +76,8 @@ public class RSLTranformer extends CompilerPart {
 				CommonTreeNodeStream nodes = new CommonTreeNodeStream(root.getTree());
 		        ReoLangRSLTranslator tree_walker = new ReoLangRSLTranslator(nodes);
 		        
-		        InputStream in = getClass().getResourceAsStream("../rsltemplates.stg");
+		       
+		        InputStream in = getClass().getClassLoader().getResourceAsStream("pt/uminho/di/reolang/rsltemplates.stg");
 			    BufferedReader input = new BufferedReader(new InputStreamReader(in));
 			    StringTemplateGroup group = new StringTemplateGroup(input);
 			    tree_walker.setTemplateLib(group);

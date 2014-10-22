@@ -161,8 +161,12 @@
             name="RSLTranslatorCommand">
       </command>
       <command
-            id="cooplaeditor.commands.reoCommand"
-            name="ReoXML">
+            id="cooplaeditor.commands.reoCommand.export"
+            name="ReoXMLExport">
+      </command>
+      <command
+            id="cooplaeditor.commands.reoCommand.import"
+            name="ReoXMLImport">
       </command>
    </extension>
    <extension
@@ -188,18 +192,30 @@
             locationURI="menu:org.eclipse.ui.main.menu">
          <menu
                label="CooPLa">
-            <command
-                  commandId="cooplaeditor.commands.rslCommand"
-                  label="Generate RSL for Vereofy "
-                  style="push"
-                  tooltip="Generate RSL for Vereofy">
-            </command>
-            <command
-                  commandId="cooplaeditor.commands.reoCommand"
-                  label="Generate Reo File"
-                  style="push"
-                  tooltip="Generate Reo File">
-            </command>
+            <menu
+                  label="Export...">
+               <command
+                     commandId="cooplaeditor.commands.rslCommand"
+                     label="RSL for Vereofy "
+                     style="push"
+                     tooltip="Generate RSL for Vereofy">
+               </command>
+               <command
+                     commandId="cooplaeditor.commands.reoCommand.export"
+                     label="Reo File"
+                     style="push"
+                     tooltip="Generate Reo File">
+               </command>
+            </menu>
+            <menu
+                  label="Import...">
+               <command
+                     commandId="cooplaeditor.commands.reoCommand.import"
+                     label="Reo File"
+                     style="push"
+                     tooltip="Generate Reo File">
+               </command>
+            </menu>
             <separator
                   name="cooplaeditor.separator1"
                   visible="true">
@@ -308,8 +324,20 @@
          </enabledWhen>
       </handler>
       <handler
-            class="pt.uminho.di.cooplaeditor.handlers.ReoTranslatorHandler"
-            commandId="cooplaeditor.commands.reoCommand">
+            class="pt.uminho.di.cooplaeditor.handlers.ReoExporterHandler"
+            commandId="cooplaeditor.commands.reoCommand.export">
+         <enabledWhen>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="pt.uminho.di.cooplaeditor.editors.CooPLaEditor">
+               </equals>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="pt.uminho.di.cooplaeditor.handlers.ReoImporterHandler"
+            commandId="cooplaeditor.commands.reoCommand.import">
          <enabledWhen>
             <with
                   variable="activeEditorId">

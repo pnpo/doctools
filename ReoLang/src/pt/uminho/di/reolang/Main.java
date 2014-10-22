@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String args[]) throws Exception {
         
-    	String file = "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication/Test/sequencer.cpla";
+    	String file = "/Users/nunooliveira/Dropbox/NunoOliveira_Thesis/Thesis/runtime-EclipseApplication(1)/teste/channels.cpla";
     	
     	RSLTranformer rsl = new RSLTranformer(file, new ANTLRFileStream(file, "UTF8").toString());
     	String rsl_code = rsl.translateToRSL();
