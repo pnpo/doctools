@@ -141,7 +141,7 @@ public class NewReCooPLaFileWizard extends Wizard implements INewWizard {
 
 	private InputStream openContentStream() {
 		String contents =
-			"//This is the initial file contents for *.rcpla file that should be word-sorted in the Preview page of the multi-page editor";
+			"//This is the initial file contents for *.rpla file that should be word-sorted in the Preview page of the multi-page editor";
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 

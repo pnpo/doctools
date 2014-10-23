@@ -15,7 +15,7 @@
       <editor
             class="pt.uminho.di.cooplaeditor.reconfigurations.editors.ReCooPLaEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            extensions="rcpla"
+            extensions="rpla"
             icon="icons/recoopla.gif"
             id="pt.uminho.di.cooplaeditor.ReCooPLaEditor"
             name="ReCooPLa Editor">

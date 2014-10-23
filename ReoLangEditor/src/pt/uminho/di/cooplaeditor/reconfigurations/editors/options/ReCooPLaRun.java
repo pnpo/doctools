@@ -129,7 +129,7 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 //			testWithReoLangPatternView(graphs, (RecLangEditor) editor);
 			
 
-			//open view
+			//open view 
 			String viewID = "cooplaeditor.reconfigurations.views.ReCooPLaPatternsView"; 
 			PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow()
