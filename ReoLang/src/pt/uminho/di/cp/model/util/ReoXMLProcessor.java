@@ -41,6 +41,7 @@ public class ReoXMLProcessor {
 
 	private String path;
 	private HashMap<String, String> channel_types;
+	private HashMap<String, String> type_conversion;
 	
 	
 	/**
@@ -64,6 +65,18 @@ public class ReoXMLProcessor {
 		this.channel_types.put("BlockingSync", 			"3020");
 		this.channel_types.put("BlockingSinkSync", 		"3021");
 		this.channel_types.put("BlockingSourceSync",	"3021");
+		
+		this.type_conversion = new HashMap<String, String>();
+		this.type_conversion.put("Sync", 				"sync");
+		this.type_conversion.put("LossySync", 			"lossy");
+		this.type_conversion.put("FIFO", 				"fifo");
+		this.type_conversion.put("SyncDrain", 			"sync_drain");
+		this.type_conversion.put("SyncSpout", 			"sync_spout");
+		this.type_conversion.put("AsyncDrain", 			"async_drain");
+		this.type_conversion.put("AsyncSpout", 			"async_spout");
+		this.type_conversion.put("Filter", 				"filter");
+		this.type_conversion.put("Transform", 			"transformer");
+		this.type_conversion.put("Timer", 				"timer");	
 	}
 
 	/**
@@ -140,8 +153,60 @@ public class ReoXMLProcessor {
 			
 			LinkedHashMap<String, Integer> ids_converter = new LinkedHashMap<String, Integer>();
 			
-			//Process primitives
+			
 			NodeList primitives = doc.getElementsByTagName("primitives");
+			
+			//Process NODES FOR PRIMITIVES
+			for(int i = 0 ; i < primitives.getLength() ; i++){
+				Node primitive = primitives.item(i);
+				CommunicationMean2 cm = new CommunicationMean2();
+				//PROCESS the TYPE
+				String type = primitive.getAttributes().getNamedItem("xmi:type").getNodeValue();
+				//the substring is used to remove the tag channels: before the actual type
+				type = type.substring(type.indexOf(':')+1);
+				//get the state of the channel
+				String state = "";
+				if(primitive.getAttributes().getNamedItem("full") != null) {
+					if(primitive.getAttributes().getNamedItem("full").getNodeValue().equals("true")){
+						state = "_f";
+					}
+					else {
+						state = "_e";
+					}
+				}
+				
+				//PROCESS the identifier
+				int counter = 1;
+				if(ids_converter.containsKey(type.toLowerCase())){
+					counter = ids_converter.get(type.toLowerCase()) + 1; 
+					ids_converter.put(type.toLowerCase(), counter);
+				}
+				else {
+					ids_converter.put(type.toLowerCase(), counter);
+				}
+				String id = type.toLowerCase() + counter;
+				
+				//PROCESS the ends/nodes
+				NodeList ends_nodes = primitive.getChildNodes();
+			
+				for(int j = 0 ; j < ends_nodes.getLength(); j++) {
+					Node sen = ends_nodes.item(j);
+					if(sen instanceof Element) {
+						String node_val= sen.getAttributes().getNamedItem("xmi:id").getNodeValue();
+						//update node
+						for(pt.uminho.di.cp.model.Node nn : model_nodes.values()){
+							if(nn.containsEnd(node_val)){
+								nn.removeEnd(node_val);
+								nn.addEnd(id+ "_" + (node_val.replaceAll("[-_]", "z")));
+							}
+						}
+					}
+				}
+			}
+			
+			
+			ids_converter = new LinkedHashMap<String, Integer>();
+			//Process primitives
 			for(int i = 0 ; i < primitives.getLength() ; i++){
 				Node primitive = primitives.item(i);
 				CommunicationMean2 cm = new CommunicationMean2();
@@ -159,7 +224,7 @@ public class ReoXMLProcessor {
 						state = "_e";
 					}
 				} 
-				cm.setType(type + state);
+				cm.setType(this.type_conversion.containsKey(type) ? this.type_conversion.get(type) + state : type + state);
 				
 				//PROCESS the identifier
 				int counter = 1;
@@ -175,23 +240,30 @@ public class ReoXMLProcessor {
 				
 				//PROCESS the ends/nodes
 				NodeList ends_nodes = primitive.getChildNodes();
+			
 				for(int j = 0 ; j < ends_nodes.getLength(); j++) {
 					Node sen = ends_nodes.item(j);
 					if(sen instanceof Element) {
 						String node_id = sen.getAttributes().getNamedItem("node").getNodeValue();
+						
 						if(sen.getNodeName().equals("sourceEnds")){
 							cm.getInodes().add(new pt.uminho.di.cp.model.Node(model_nodes.get(node_id)));
+							
 						}
 						else {
 							if(sen.getNodeName().equals("sinkEnds")) {
 								cm.getOnodes().add(new pt.uminho.di.cp.model.Node(model_nodes.get(node_id)));
+								
 							}
 						}
 					}
 				}
-				
+			
 				cp.getPattern().add(cm);
+				
 			}
+			
+			
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
@@ -464,7 +536,7 @@ public class ReoXMLProcessor {
 			
 			
 			
-			System.out.println(prettyPrint(doc));
+			//System.out.println(prettyPrint(doc));
 		}
 		catch (Exception e) {
 			e.printStackTrace();

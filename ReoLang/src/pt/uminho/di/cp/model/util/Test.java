@@ -19,7 +19,11 @@ public class Test {
 		CoordinationPattern2 cp = proc.toCoordinationPattern();
 		System.out.println(cp);
 		proc.toReoXML(cp, "reconfigd.reo");
-				
+		
+		System.out.println(cp.getIn());
+		System.out.println(cp.getOut());
+		
+		System.out.println(cp.toCooPLa());
 		
 	}
 	

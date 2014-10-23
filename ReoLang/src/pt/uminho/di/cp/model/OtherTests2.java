@@ -184,6 +184,7 @@ public class OtherTests2 {
 		p = split.apply(p);
 		System.out.println("SPLIT------------------");
 		System.out.println(p);
+		System.out.println(p.getIn());
 		
 		Remove remove = new Remove("s1");
 		p = remove.apply(p);
@@ -228,6 +229,7 @@ public class OtherTests2 {
 		System.out.println("CP TO OVERLAP------------------");
 		System.out.println(p3);
 		
+		
 		Pair<Node,Node> pair = new Pair<Node,Node>();
 		pair.setFirst(f);
 		//pair.setSecond(lm);
@@ -238,6 +240,7 @@ public class OtherTests2 {
 		p = overlap.apply(p);
 		System.out.println("OVERLAP------------------");
 		System.out.println(p);
+		System.out.println(p.toCooPLa());
 		
 		
 		

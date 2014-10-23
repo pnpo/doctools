@@ -57,17 +57,22 @@ public class RSLTranslatorHandler extends AbstractHandler {
 			String rsl_content = rslt.translateToRSL();
 			
 			File f = new File(file);
-			FileDialog dialog = new FileDialog(parent.getShell(), SWT.SAVE);
-			dialog.setFilterPath(f.getParent());
-			dialog.setFilterNames(new String[] { "RSL files" });
-			dialog.setFilterExtensions(new String[] { "*.rsl" });
-			String path =  dialog.open();
-			if( ! (path == null || path.equals("") ) ){
-				Util.createFile(path, "rsl", rsl_content);
-				
-				MessageBox messageBox = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK );
-		        messageBox.setMessage("File created with success!");
-			}
+			String work_dir = f.getParentFile().toString();
+			String fname = f.getName();
+			int last_dot = fname.lastIndexOf('.');
+			fname = last_dot > 0 ? fname.substring(0, last_dot) : fname ;
+//			FileDialog dialog = new FileDialog(parent.getShell(), SWT.SAVE);
+//			dialog.setFilterPath(f.getParent());
+//			dialog.setFilterNames(new String[] { "RSL files (*.rsl)" });
+//			dialog.setFilterExtensions(new String[] { "*.rsl" });
+//			String path =  dialog.open();
+//			if( ! (path == null || path.equals("") ) ){
+			Util.createFile(work_dir + File.separator + fname, "rsl", rsl_content);
+			
+			MessageBox messageBox = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK );
+	        messageBox.setMessage("File '" + fname+ ".rsl' created with success in the project folder!\n"
+	        		+ "Refresh the Eclipse folder if the file do not appear!");
+	        messageBox.open();
 		}
 		catch(Exception e){
 			System.err.println(e.getMessage());

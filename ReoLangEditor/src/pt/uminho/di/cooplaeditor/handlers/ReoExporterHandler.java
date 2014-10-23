@@ -1,6 +1,9 @@
 package pt.uminho.di.cooplaeditor.handlers;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -15,13 +18,22 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.w3c.dom.Document;
 
+import pt.uminho.di.cp.model.CPModelInternal;
+import pt.uminho.di.cp.model.CoordinationPattern2;
+import pt.uminho.di.cp.model.util.ReoXMLProcessor;
 import pt.uminho.di.imc.util.Util;
+import pt.uminho.di.reolang.ReoLangCP2;
+import pt.uminho.di.reolang.ReoLangSemantics;
+import pt.uminho.di.reolang.parsing.CPBuilder;
 import pt.uminho.di.reolang.parsing.RSLTranformer;
+import pt.uminho.di.reolang.parsing.Semantics;
+import pt.uminho.di.reolang.parsing.util.SymbolsTable;
 
 public class ReoExporterHandler extends AbstractHandler {
 
-public Object execute(ExecutionEvent event) throws ExecutionException {
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		IResource resource = ((IFileEditorInput)window.getActivePage().getActiveEditor().getEditorInput()).getFile();
@@ -36,40 +48,62 @@ public Object execute(ExecutionEvent event) throws ExecutionException {
 	
 	
 	private void process(String file, Composite parent) {
+		boolean worked = true;
+		LinkedHashMap<String, CPModelInternal> patterns = null;
+		File f = new File(file);
+		String generation_path = f.getParent();
 		
+		Semantics sem = new Semantics(file);
+		ReoLangSemantics.reolang_return res = sem.performSemanticAnalysis(new SymbolsTable());
 		
-		
-		RSLTranformer rslt = new RSLTranformer(file);
-		
-		try{
-			String rsl_content = rslt.translateToRSL();
-			
-			File f = new File(file);
-			FileDialog dialog = new FileDialog(parent.getShell(), SWT.SAVE);
-			dialog.setFilterPath(f.getParent());
-			dialog.setFilterNames(new String[] { "RSL files" });
-			dialog.setFilterExtensions(new String[] { "*.rsl" });
-			String path =  dialog.open();
-			if( ! (path == null || path.equals("") ) ){
-				Util.createFile(path, "rsl", rsl_content);
-				
-				MessageBox messageBox = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK );
-		        messageBox.setMessage("File created with success!");
+		if(res!=null && res.errors.size()>0){
+			//System.err.println(res.errors.toString());
+			worked = false;
+		}
+		else {
+			if(sem.getErrors().size()>0) {
+				//System.err.println(sem.getErrors().toString());
+				worked = false;
 			}
 		}
-		catch(Exception e){
-			System.err.println(e.getMessage());
-			e.printStackTrace();
+		
+		if(worked) {
+			CPBuilder cpb = new CPBuilder(file);
+			ReoLangCP2 rlcp = cpb.performModelConstruction(new LinkedHashMap<String, CPModelInternal>(), res.symbols);
+			patterns = rlcp.getPatterns();
 			
-			MessageBox messageBox = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK );
-		        messageBox.setMessage("This is a beta version of the RSL translation.\n"
-		        		+ "Some features of CooPLa are not covered: \n"
-		        		+ "-- imports\n"
-		        		+ "-- stochastic instances\n"
-		        		+ "...\n\n"
-		        		+ "See console for more information!");
-
-		    messageBox.open();
+			boolean files_generated = false;
+			
+			for(CPModelInternal cpmi : patterns.values()) {
+				CoordinationPattern2 cp = cpmi.getSimplePattern();
+				try{
+					ReoXMLProcessor reo_processor = new ReoXMLProcessor("");
+					Document doc = reo_processor.toReoXML(cp, cp.getId() + ".reo");
+				
+					String xml = ReoXMLProcessor.prettyPrint(doc);
+					Util.createFile(generation_path + File.separator + cp.getId(), "reo", xml);
+					files_generated = true;
+				}
+				catch(Exception e){
+					System.err.println(e.getMessage());
+					e.printStackTrace();
+					
+					MessageBox messageBox = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK );
+			        messageBox.setMessage("Process failed for Pattern " + cp.getId() + "!\n\n"
+			        		+ "This is a beta version of the REO XML translation.\n"
+			        		+ "It is probable that some files will not correctly be generated!\n\n"
+			        		+ "See console for more information!");
+			        messageBox.open();
+				}
+				
+			}
+			
+			if(files_generated){
+				MessageBox messageBox = new MessageBox(parent.getShell(), SWT.ICON_INFORMATION | SWT.OK );
+		        messageBox.setMessage("Files generated in the project folder!\n"
+		        		+ "Refresh the Eclipse folder if files do not appear!");
+		        messageBox.open();
+			}
 			
 		}
 		

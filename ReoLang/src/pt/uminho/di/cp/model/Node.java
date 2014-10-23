@@ -209,6 +209,7 @@ public class Node {
 		if (!(obj instanceof Node))
 			return false;
 		Node other = (Node) obj;
+		
 		if (ends == null) {
 			if (other.ends != null)
 				return false;

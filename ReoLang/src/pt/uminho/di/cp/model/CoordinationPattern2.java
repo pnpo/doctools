@@ -1,6 +1,8 @@
 package pt.uminho.di.cp.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -210,6 +212,9 @@ public class CoordinationPattern2 {
 		}
 		return port;
 	}
+	
+	
+	
 	
 	private boolean isIn(Node n) {
 		
@@ -524,6 +529,134 @@ public class CoordinationPattern2 {
 	}
 	
 
+	
+	
+	
+	/**
+	 * Transforms a in-memory coopla pattern into coopla string 
+	 * @return
+	 */
+	public String toCooPLa() {
+		CoordinationPattern2 cp = this;
+	     StringBuilder sb = new StringBuilder();
+	     sb.append("pattern " + cp.getId() 
+	    		 + "(" + nodesToString( cp.getIn() ).replace('.', '_')  
+	    		 + ":" + nodesToString( cp.getOut() ).replace('.', '_')
+	    		 + "){\n");
+
+	     //key: type
+	     //value: all channels of type key
+	     HashMap<String, Set<String>> type_channels = new HashMap<String, Set<String>>();
+	     for (CommunicationMean2 cm : cp.getPattern()){
+	    	
+	    	 Set<String> channels = type_channels.get(cm.getType()) != null ? 
+	    			 type_channels.get(cm.getType()) : new HashSet<String>();
+	    	 channels.add(cm.getId());
+	    	 type_channels.put(cm.getType(), channels);
+	     }
+	     
+	     sb.append("\tuse:\n");
+	     for(CommunicationMean2 cm : cp.getPattern()){
+	    	 String coopla_type = cm.getType();
+	    	 
+	    	 if(coopla_type.contains("fifo")) {
+	    		 String new_coopla_type = coopla_type + "~1";
+	    		 if (coopla_type.endsWith("e")) { //empty
+	    			 new_coopla_type = "(E)" + new_coopla_type;
+	    		 }
+	    		 else if (coopla_type.endsWith("f")) {//full
+	    			 new_coopla_type = "(F)" + new_coopla_type;
+	    		 }
+	    		 coopla_type = new_coopla_type;
+	    	 }
+	    	 
+	    	 Set<String> ins = new LinkedHashSet<String>();
+	    	 Set<String> outs = new LinkedHashSet<String>();
+	    	 Set<String> used = new LinkedHashSet<String>();
+	    	 for(CommunicationMean2 cm2 : cp.getPattern()){
+	    		 for(Node n : cm2.getInodes()){
+	    			 for(String e : n.getEnds()) {
+	    				 if(e.startsWith(cm.getId()) && cm2.getId().equals(cm.getId())){
+	    					 ins.add(e.substring(cm.getId().length()+1));  
+	    				 }
+	    			 }
+	    		 }
+	    		 for(Node n : cm2.getOnodes()){
+	    			 for(String e : n.getEnds()) {
+	    				 if(e.startsWith(cm.getId()) && cm2.getId().equals(cm.getId())){ 
+	    					 outs.add(e.substring(cm.getId().length()+1));  
+	    				 }
+	    			 }
+	    		 }
+	    	 }
+	    	 coopla_type += "( " + setToString(ins) + " : " + setToString(outs) + " )";
+	    	 sb.append("\t\t" + coopla_type + "\tas ").append(cm.getId()).append(";\n");
+	    	 
+	     }
+	     sb.append("\tin:\n");
+	     
+	     int i = 1;
+	     String joined_nodes = "";
+	     for (pt.uminho.di.cp.model.Node node : cp.getNodes()){
+	    	 String node_name = node.sepEndsByDot();
+	    	 if (node_name.contains(".")){
+	    		 joined_nodes += "\t\tjoin[" + setToString(node.getEnds()).replace('_', '.') + "] as j" + i + ";\n";
+	    		 i++;
+	    	 }
+	    	 else{
+	    		 sb.append("\t\t" + node_name + " = " + node_name.replace('_', '.') + ";\n");
+	    	 }
+	     }
+
+  	 sb.append(joined_nodes);
+	     sb.append("}");
+	     
+	     //continue stochastic conversion 
+	     //... necessario mais informacao!
+//	     LinkedHashMap<String, CoordinationPattern2> stoch_instances = pattern.getStochInstances();
+//	     if (stoch_instances != null && !stoch_instances.isEmpty()){
+//	    	 //do something with stochatic information...
+//	     }
+	     
+//	     System.out.println(sb);
+	     return sb.toString();
+	}
+	
+	
+	
+
+
+
+	private static String nodesToString(Set<pt.uminho.di.cp.model.Node> nodes){
+		String sep = "";
+		String values = "";
+		for (pt.uminho.di.cp.model.Node node : nodes){
+			values += sep;
+			values += node.sepEndsByDot();
+			
+		    sep = ",";
+		}
+		return values;
+	}
+	
+	private static String setToString(Set<String> args) {
+		String sep = "";
+		String values = "";
+		for (String a : args){
+			values += sep;
+			values += a;
+			
+		        sep = ", ";
+		}
+		return values;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**
