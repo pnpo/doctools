@@ -44,7 +44,7 @@ public class ReCooPLaEditor extends TextEditor {
 	public void setPatternsRepresentation(Set<ArchPatternAbstractGraph> model) {
 		IViewReference[] views = this.getSite().getPage().getViewReferences();
 		for(int i =0 ; i<views.length; i++){
-			if(views[i].getId().equals("cooplaeditor.views.ReCooPLaPatternView")){
+			if(views[i].getId().equals("cooplaeditor.reconfigurations.views.ReCooPLaPatternsView")){
 				ReCooPLaPatternsView view = (ReCooPLaPatternsView) views[i].getView(false);
 				if(view!=null){ 
 					view.updatePatternsRepresentation(model) ; 
