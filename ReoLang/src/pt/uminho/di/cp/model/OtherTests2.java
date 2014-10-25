@@ -240,7 +240,7 @@ public class OtherTests2 {
 		p = overlap.apply(p);
 		System.out.println("OVERLAP------------------");
 		System.out.println(p);
-		System.out.println(p.toCooPLa(false));
+		System.out.println(p.toCooPLa());
 		
 		
 		

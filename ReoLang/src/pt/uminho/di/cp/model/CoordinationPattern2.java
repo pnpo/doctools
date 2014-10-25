@@ -538,94 +538,100 @@ public class CoordinationPattern2 {
 	 * Transforms a in-memory coopla pattern into coopla string 
 	 * @return
 	 */
-	public String toCooPLa(boolean only_stoch_instance) {
+	public String toCooPLa() {
 		StringBuilder sb = new StringBuilder();
-		if(only_stoch_instance){
-			
-			sb.append("pattern " + this.getId() 
-					+ "(" + nodesToString( this.getIn() ).replace('.', '_')  
-					+ ":" + nodesToString( this.getOut() ).replace('.', '_')
-					+ "){\n");
 
-			//key: type
-			//value: all channels of type key
-			HashMap<String, Set<String>> type_channels = new HashMap<String, Set<String>>();
-			for (CommunicationMean2 cm : this.getPattern()){
+		sb.append("\n\npattern " + this.getId() 
+				+ "(" + nodesToString( this.getIn() ).replace('.', '_')  
+				+ ":" + nodesToString( this.getOut() ).replace('.', '_')
+				+ "){\n");
 
-				Set<String> channels = type_channels.get(cm.getType()) != null ? 
-						type_channels.get(cm.getType()) : new HashSet<String>();
-						channels.add(cm.getId());
-						type_channels.put(cm.getType(), channels);
-			}
+		//key: type
+		//value: all channels of type key
+		HashMap<String, Set<String>> type_channels = new HashMap<String, Set<String>>();
+		for (CommunicationMean2 cm : this.getPattern()){
 
-			sb.append("\tuse:\n");
-			for(CommunicationMean2 cm : this.getPattern()){
-				String coopla_type = cm.getType();
-
-				if(coopla_type.contains("fifo")) {
-					String new_coopla_type = coopla_type + "~1";
-					if (coopla_type.endsWith("e")) { //empty
-						new_coopla_type = "(E)" + new_coopla_type;
-					}
-					else if (coopla_type.endsWith("f")) {//full
-						new_coopla_type = "(F)" + new_coopla_type;
-					}
-					coopla_type = new_coopla_type;
-				}
-
-				Set<String> ins = new LinkedHashSet<String>();
-				Set<String> outs = new LinkedHashSet<String>();
-				Set<String> used = new LinkedHashSet<String>();
-				for(CommunicationMean2 cm2 : this.getPattern()){
-					for(Node n : cm2.getInodes()){
-						for(String e : n.getEnds()) {
-							if(e.startsWith(cm.getId()) && cm2.getId().equals(cm.getId())){
-								ins.add(e.substring(cm.getId().length()+1));  
-							}
-						}
-					}
-					for(Node n : cm2.getOnodes()){
-						for(String e : n.getEnds()) {
-							if(e.startsWith(cm.getId()) && cm2.getId().equals(cm.getId())){ 
-								outs.add(e.substring(cm.getId().length()+1));  
-							}
-						}
-					}
-				}
-				coopla_type += "( " + setToString(ins, ", ") + " : " + setToString(outs, ", ") + " )";
-				sb.append("\t\t" + coopla_type + "\tas ").append(cm.getId()).append(";\n");
-
-			}
-			sb.append("\tin:\n");
-
-			int i = 1;
-			String joined_nodes = "";
-			for (Node node : this.getNodes()){
-				String node_name = node.sepEndsByDot();
-				if (node_name.contains(".")){
-					joined_nodes += "\t\tjoin[" + setToString(node.getEnds(), ", ").replace('_', '.') + "] as j" + i + ";\n";
-					i++;
-				}
-				else{
-					sb.append("\t\t" + node_name + " = " + node_name.replace('_', '.') + ";\n");
-				}
-			}
-
-			sb.append(joined_nodes);
-			sb.append("}");
+			Set<String> channels = type_channels.get(cm.getType()) != null ? 
+					type_channels.get(cm.getType()) : new HashSet<String>();
+					channels.add(cm.getId());
+					type_channels.put(cm.getType(), channels);
 		}
-		else {
-			//stochastic instance coopla construction
+
+		sb.append("\tuse:\n");
+		for(CommunicationMean2 cm : this.getPattern()){
+			String coopla_type = cm.getType();
+
+			if(coopla_type.contains("fifo")) {
+				
+				if (coopla_type.endsWith("1e")) { //empty
+					coopla_type = "(E)" + coopla_type.substring(0,coopla_type.length()-2) + "~1";
+				}
+				else if (coopla_type.endsWith("1f")) {//full
+					coopla_type = "(F)" + coopla_type.substring(0, coopla_type.length()-2) + "~1";
+				}
+			}
+
+			Set<String> ins = new LinkedHashSet<String>();
+			Set<String> outs = new LinkedHashSet<String>();
+			//Set<String> used = new LinkedHashSet<String>();
+			for(CommunicationMean2 cm2 : this.getPattern()){
+				for(Node n : cm2.getInodes()){
+					for(String e : n.getEnds()) {
+						if(e.startsWith(cm.getId()) && cm2.getId().equals(cm.getId())){
+							ins.add(e.substring(cm.getId().length()+1));  
+						}
+					}
+				}
+				for(Node n : cm2.getOnodes()){
+					for(String e : n.getEnds()) {
+						if(e.startsWith(cm.getId()) && cm2.getId().equals(cm.getId())){ 
+							outs.add(e.substring(cm.getId().length()+1));  
+						}
+					}
+				}
+			}
+			coopla_type += "( " + setToString(ins, ", ") + " : " + setToString(outs, ", ") + " )";
+			sb.append("\t\t" + coopla_type + "\tas ").append(cm.getId()).append(";\n");
+
+		}
+		sb.append("\tin:\n");
+
+
+		String joined_nodes = "";
+		for (Node node : this.getNodes()){
+			String node_name = node.sepEndsByDot();
+			if (node_name.contains(".")){
+				joined_nodes += "\t\tjoin[" + setToString(node.getEnds(), ", ").replace('_', '.') + "] as " +  setToString(node.getEnds(), "_") + ";\n";
+			}
+			else{
+				sb.append("\t\t" + node_name + " = " + node_name.replace('_', '.') + ";\n");
+			}
+		}
+
+		sb.append(joined_nodes);
+		sb.append("}");
+
+
+	     return sb.toString();
+	}
+	
+	
+	
+	public String toCooPLaStoch(String instance_name) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(instance_name!=null && ! instance_name.isEmpty()){
+			
 			if(this.delays.size()>0) {
 				sb.append("\n\nstochastic ").append(this.getId()).append(" {\n");
 				for(Node port : this.getIn()){
 					if(this.getDelays().containsKey(port)){
-						sb.append("\t").append(this.getDelays().get(port).fst()).append(";\n");
+						sb.append("\t").append(setToString(port.getEnds(), "_")).append(" @ ").append(this.getDelays().get(port).fst()).append(";\n");
 					}
 				}
 				for(Node port : this.getOut()){
 					if(this.getDelays().containsKey(port)){
-						sb.append("\t").append(this.getDelays().get(port).fst()).append(";\n");
+						sb.append("\t").append(setToString(port.getEnds(), "_")).append(" @ ").append(this.getDelays().get(port).fst()).append(";\n");
 					}
 				}
 				for(CommunicationMean2 cm : this.getPattern()){
@@ -638,15 +644,15 @@ public class CoordinationPattern2 {
 					Double value_write = this.getDelays().get(node).fst();
 					Double value_read = this.getDelays().get(node).snd();
 					if(value_read != null && value_read != 0.0 ){
-						sb.append("\t").append(id).append("#").append(setToString(node.getEnds(), "_")).append(" @ ").append(value_write).append(";\n");
-						sb.append("\t").append(id).append("#").append(setToString(node.getEnds(), "_")).append(" @ ").append(value_read).append(";\n");
+						sb.append("\t").append(setToString(node.getEnds(), "_")).append(" @ (").append(value_write).append(", ").append(value_read).append(");\n");
 					}
 				}
-				sb.append("}\n");
 			}
+			sb.append("} ").append(instance_name).append("\n");
 		}
-	     
-	     return sb.toString();
+		
+		return sb.toString();
+				
 	}
 	
 	
