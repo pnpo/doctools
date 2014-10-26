@@ -11,10 +11,17 @@ options{
 		
 	import pt.uminho.di.reolang.ReoLangSemantics;
 	import pt.uminho.di.reolang.parsing.Semantics;
+	
+	import pt.uminho.di.reolang.ReoLangCP2;
+	import pt.uminho.di.reolang.parsing.CPBuilder;
+	import pt.uminho.di.cp.model.CPModelInternal;
+	
 	import pt.uminho.di.reolang.parsing.util.Error;
 	import pt.uminho.di.reolang.parsing.util.*;
 	//import java.util.*;
+	import java.util.Map;
 	import java.util.HashMap;
+	import java.util.LinkedHashMap;
 	import java.util.Set;
 	import java.util.HashSet;
 	import java.util.Collections;
@@ -109,6 +116,7 @@ reclang[TinySymbolsTable global_table] returns[ArrayList<Error> errors]
 scope{
 	TinySymbolsTable ids_table; 
 	SymbolsTable coopla_table;
+	LinkedHashMap<String, CPModelInternal> patterns;
 	int scope_id;
 	int parent_id;
 	int aux_id;	
@@ -118,6 +126,7 @@ scope{
 @init{
 	$reclang::ids_table = $reclang.global_table;
 	$reclang::coopla_table = new SymbolsTable();
+	$reclang::patterns = new LinkedHashMap<String, CPModelInternal>();
 	$reclang::scope_id = 0;
 	$reclang::parent_id = 0;	
 	$reclang::aux_id = 0;
@@ -205,8 +214,14 @@ directive_import returns[ArrayList<Error> errors]
 				if ( !coopla_errors.isEmpty() ){
 					local_errors.addAll( coopla_errors );
 				}
-				
 				$reclang::coopla_table = imported_atts != null ? imported_atts.symbols : $reclang::coopla_table ;
+				
+				CPBuilder cp_model_builder = new CPBuilder(file);
+				ReoLangCP2 res = cp_model_builder.performModelConstruction($reclang::patterns, $reclang::coopla_table);
+				$reclang::patterns = res.getPatterns() != null ? res.getPatterns() : $reclang::patterns;
+//				if($reclang::patterns != null){
+//					System.out.println($reclang::patterns);
+//				}
 			}
 			else{
 				local_errors.add( Error.report(ErrorType.ERROR, Error.invalidFile(file), $STRING.line, $STRING.pos, this.file_path) );
@@ -1774,8 +1789,10 @@ trigger_block
 main_def returns[ArrayList<Error> errors]
 scope{
 	//imported coopla patterns
+	List<String> coopla_patterns;
 	List<String> imported_patterns;
 	List<String> created_patterns;
+	Map<String, Set<String>> new_instances;
 }
 @init{
 	$content::onMain = true;
@@ -1786,17 +1803,20 @@ scope{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 
 	// coopla data
+	$main_def::coopla_patterns = new ArrayList<String>();
 	$main_def::imported_patterns = new ArrayList<String>();
 	
 	$main_def::created_patterns = new ArrayList<String>();
+	$main_def::new_instances = new HashMap<String, Set<String>>();
 
-	//rever isto : patterns criados s‹o guardados em separado dos importados, logo n‹o haver‡ problema criar um pattern com um nome j‡ existente
-	HashMap<String, Symbol> coopla_symbols = $reclang::coopla_table.getSymbols();
-	for (String key : coopla_symbols.keySet()){
-		Symbol s = coopla_symbols.get(key);
-		if (s.getType().equals("PATTERN")){
-			$main_def::imported_patterns.add(s.getId());
-		}
+	//rever isto : patterns criados sï¿½o guardados em separado dos importados, logo nï¿½o haverï¿½ problema criar um pattern com um nome jï¿½ existente
+//	HashMap<String, Symbol> coopla_symbols = $reclang::coopla_table.getSymbols();
+	for (String key : $reclang::patterns.keySet()){
+		$main_def::coopla_patterns.add(key);
+		
+		//CPModelInternal -> Set<stoch_instances (String, CP2)> -> Set<String>
+		Set<String> intances = $reclang::patterns.get(key).getStochInstances().keySet();
+		$main_def::new_instances.put(key, intances);
 	}
 	
 	
@@ -1840,14 +1860,19 @@ main_args returns[ArrayList<Error> errors]
 main_arg returns[ArrayList<Error> errors]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
+	String pattern_name = "";
 }
 	: ^(ARGUMENT dt=ID
 	{
-		if (!$main_def::imported_patterns.contains($dt.text)){
+		if (!$main_def::coopla_patterns.contains($dt.text) && !$dt.text.toLowerCase().equals("empty")){ //empty is a special pattern
 			local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
 		}
+		else{
+			pattern_name = $dt.text;
+			$main_def::imported_patterns.add(pattern_name);
+		}
 	}
-	ids[true]
+	ids[pattern_name, true]
 	{
 		if (local_errors.isEmpty()){
 			local_errors.addAll($ids.errors);
@@ -1857,17 +1882,34 @@ main_arg returns[ArrayList<Error> errors]
 	)
 	;	
 
-ids[boolean toTest] returns[ArrayList<Error> errors, List<String> values]
+ids[String pattern_name, boolean toTest] returns[ArrayList<Error> errors, List<String> values]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();
 	List<String> ids = new ArrayList<String>();
+	
+	CPModelInternal cpmi = new CPModelInternal();
+	Set<String> stoch_instances = new HashSet<String>();
+	boolean isImported = false;
+	if (toTest){
+		isImported = $main_def::coopla_patterns.contains(pattern_name);//!pattern_name.toLowerCase().equals("empty");
+		if (isImported){
+			cpmi = $reclang::patterns.get(pattern_name);
+			for (String key : cpmi.getStochInstances().keySet()){
+				stoch_instances.add(key);
+			}
+		}
+	}
 }
 	: ^(IDS (ID
 	{
-		if (toTest && $content::current_scope.containsSymbol($ID.text)){
+		if ($content::current_scope.containsSymbol($ID.text)){
 			TinySymbol ts = $content::current_scope.getSymbols().get($ID.text);
+			
 			if ( !($ID.line == ts.getLine() && $ID.pos == ts.getPosition()) ){
 				local_errors.add( Error.report(ErrorType.ERROR, Error.nameAlreadyDefined($ID.text, ts.getLine(), ts.getPosition()), $ID.line, $ID.pos, this.file_path) );
+			}
+			else if (toTest && isImported && stoch_instances.contains($ID.text)){
+				local_errors.add( Error.report(ErrorType.ERROR, Error.instanceAlreadyExists(pattern_name, $ID.text), $ID.line, $ID.pos, this.file_path) );
 			}
 		}
 		ids.add($ID.text);
@@ -1876,6 +1918,13 @@ ids[boolean toTest] returns[ArrayList<Error> errors, List<String> values]
 	)+
 	
 	{
+		Set<String> instances = new HashSet<String>(ids);
+		if ($main_def::new_instances.keySet().contains(pattern_name)){
+			instances.addAll($main_def::new_instances.get(pattern_name));
+		}
+		$main_def::new_instances.put(pattern_name, instances);
+		
+			
 		$ids.errors = local_errors;
 		$ids.values = ids;
 	}
@@ -1903,82 +1952,110 @@ main_instruction returns[ArrayList<Error> errors]
 @init{
 	$content::rec_type = "";
 }
-	: main_declaration	{ $main_instruction.errors = $main_declaration.errors; }
-	| main_assignment	{ $main_instruction.errors = $main_assignment.errors; }
+//	: main_declaration	{ $main_instruction.errors = $main_declaration.errors; }
+	: main_assignment	{ $main_instruction.errors = $main_assignment.errors; }
+	| reconf_apply		{ $main_instruction.errors = $reconf_apply.errors; }
 	;
 
-main_declaration returns[ArrayList<Error> errors]
-@init{
-	ArrayList<Error> local_errors = new ArrayList<Error>();
-}
-	: ^(DECLARATION dt=ID 
-	//rever -> erro para pattern n‹o importado
-	//nova revis‹o -> erro n‹o existe pois caso n‹o seja importado, Ž criado um novo 'structureless' pattern
+//main_declaration returns[ArrayList<Error> errors]
+//@init{
+//	ArrayList<Error> local_errors = new ArrayList<Error>();
+//}
+//	: ^(DECLARATION dt=ID 
+//	//rever -> erro para pattern nï¿½o importado
+//	//nova revisï¿½o -> erro nï¿½o existe pois caso nï¿½o seja importado, ï¿½ criado um novo 'structureless' pattern
+////	{
+////		if (!$main_def::imported_patterns.contains($dt.text)){
+////			//local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
+////		}
+////	}
+//	
+//	ids[true]
 //	{
 //		if (!$main_def::imported_patterns.contains($dt.text)){
-//			//local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
+//			for (String id : $ids.values){
+//				$content::structureless.add(id);
+//			}
 //		}
+//		
+//		if (local_errors.isEmpty()){
+//			local_errors.addAll($ids.errors);
+//		}
+//		$main_declaration.errors = local_errors;
 //	}
-	
-	ids[true]
-	{
-		if (!$main_def::imported_patterns.contains($dt.text)){
-			for (String id : $ids.values){
-				$content::structureless.add(id);
-			}
-		}
-		
-		if (local_errors.isEmpty()){
-			local_errors.addAll($ids.errors);
-		}
-		$main_declaration.errors = local_errors;
-	}
-	)
-	;
+//	)
+//	;
 
 main_assignment returns[ArrayList<Error> errors]
 @init{
 	ArrayList<Error> local_errors = new ArrayList<Error>();	
-	boolean toTest = false;
+	String pattern_name = "";
 }
-	: ^( APPLICATION ( ^(DECLARATION (dt=ID
+	: ^( APPLICATION ^(DECLARATION dt=ID
 	{	
-		if ($main_def::created_patterns.contains($dt.text)){
+		if ($main_def::imported_patterns.contains($dt.text) || $main_def::created_patterns.contains($dt.text)){
 			local_errors.add( Error.report(ErrorType.ERROR, Error.patternAlreadyDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
 		} else {
 			$main_def::created_patterns.add($dt.text);
-		}
-		
-		if ($dt.text != null){ //if is declaration
-			toTest = true;
+			pattern_name = $dt.text;
 		}
 	}
-	)? ids[toTest]
+	ids[pattern_name, false]
 	{
 		local_errors.addAll($ids.errors);
 	}
-	) )? 
+	)
 	
 	^(OP_APPLY rec=ID reconfiguration_call
 	{
 		local_errors.addAll($reconfiguration_call.errors);
-	}
-	) 
-	
-	{
-		//pattern(s) now has a value -> remove from set of structureless patterns
-		if ($ids.values != null){
-			for (String id : $ids.values){
-				if ($content::structureless.contains(id)){
-					$content::structureless.remove(id);
+		
+		boolean exists = false;
+		for (Set<String> instances : $main_def::new_instances.values()){
+			for (String instance : instances){
+				if ($rec.text.equals(instance)){
+					exists = true;
 				}
 			}
 		}
-		else if ($content::structureless.contains($rec.text)){
-			$content::structureless.remove($rec.text);
+		
+		if (!exists){
+			local_errors.add( Error.report(ErrorType.ERROR, Error.instanceDoesNotExists($rec.text), $rec.line, $rec.pos, this.file_path) );
 		}
-				
+	}
+	) 
+	
+	{	
 		$main_assignment.errors = local_errors;
+	}
+	)
+	;
+	
+reconf_apply returns[ArrayList<Error> errors]
+@init{
+	ArrayList<Error> local_errors = new ArrayList<Error>();	
+}
+	: ^(OP_APPLY ID 
+	{
+		boolean exists = false;
+		for (Set<String> instances : $main_def::new_instances.values()){
+			for (String instance : instances){
+				if ($ID.text.equals(instance)){
+					exists = true;
+					break;
+				}
+			}
+		}
+		
+		if (!exists){
+			local_errors.add( Error.report(ErrorType.ERROR, Error.instanceDoesNotExists($ID.text), $ID.line, $ID.pos, this.file_path) );
+		}
+	}
+	
+	reconfiguration_call
+	{
+		local_errors.addAll($reconfiguration_call.errors);
+		$reconf_apply.errors = local_errors;
 	}
 	)
 	;

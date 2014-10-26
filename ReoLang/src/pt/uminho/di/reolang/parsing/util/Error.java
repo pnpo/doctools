@@ -396,6 +396,14 @@ public class Error {
     	return "File '" + resource + "' is not valid (only CooPLa and ReCooPLa files are accepted)!";
     }
     
+    public static String instanceAlreadyExists(String pattern, String inst){
+    	return "Instance '" + inst + "' of the " + pattern + " pattern already exists!";
+    }
+    
+    public static String instanceDoesNotExists(String inst){
+    	return "Instance '" + inst + "' does not exists!";
+    }
+    
     
     
     
