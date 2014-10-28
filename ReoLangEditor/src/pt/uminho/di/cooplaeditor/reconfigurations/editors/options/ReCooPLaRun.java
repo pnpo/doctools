@@ -122,8 +122,21 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 			//System.out.println(errors);
 			//******************************
 			
+			LinkedHashMap<String,CoordinationPattern2> final_patterns = new LinkedHashMap<String, CoordinationPattern2>(); 
+			for (String pattern : created_patterns.keySet()){
+				if (!pattern.equals("Reconfigured")){
+					final_patterns.put( pattern, created_patterns.get(pattern).getSimplePattern() );
+				}
+				else{
+					LinkedHashMap<String, CoordinationPattern2> instances = created_patterns.get(pattern).getStochInstances();
+					System.out.println(instances);
+					for (String reconfigured : instances.keySet()){
+						final_patterns.put( reconfigured, instances.get(reconfigured) );
+					}
+				}
+			}
 			//get graphs through created patterns
-			Set<ArchPatternAbstractGraph> graphs = getGraphs(created_patterns);
+			Set<ArchPatternAbstractGraph> graphs = getGraphs(final_patterns);
 			
 //			//test one graph in reolang pattern view
 //			testWithReoLangPatternView(graphs, (RecLangEditor) editor);
@@ -184,11 +197,11 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
     				+ msg);
 		} 	
 		
-		try {
-			removeFolder(folder);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			removeFolder(folder);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	
@@ -369,12 +382,13 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @return graphs
 	 */
-	private Set<ArchPatternAbstractGraph> getGraphs(LinkedHashMap<String,CPModelInternal> created_patterns) 
+	private Set<ArchPatternAbstractGraph> getGraphs(LinkedHashMap<String,CoordinationPattern2> created_patterns) 
 			throws Exception {
 		Set<ArchPatternAbstractGraph> graphs = new HashSet<ArchPatternAbstractGraph>();
 		
-		for (CPModelInternal cpmi : created_patterns.values()){
-			CoordinationPattern2 cp = cpmi.getSimplePattern();
+		//for (CPModelInternal cpmi : created_patterns.values()){
+		for (CoordinationPattern2 cp : created_patterns.values()){
+			//CoordinationPattern2 cp = cpmi.getSimplePattern();
 			Set<Node> in_nodes = new HashSet<Node>();
 			Set<Node> out_nodes = new HashSet<Node>();
 			Set<Node> nodes = new HashSet<Node>();

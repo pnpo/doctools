@@ -84,6 +84,9 @@ public class Run {
 			}
 		}
 		
+		Map\<Node, Pair\<Double, Double\>\> delays;
+		created_patterns.put("Reconfigured", new CPModelInternal());
+		
 		<args>
 		
 		try{
@@ -96,10 +99,23 @@ public class Run {
 }
 >>
 
-list_args(cp, ids) ::= <<
+list_args_old(cp, ids) ::= <<
 <ids:{ id |	CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
 }>
 >>
+
+list_args(cp, ids, delays) ::= <<
+// ********************************* //
+<ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
+}>
+<delays>
+<ids:{ id |	_<id>.setDelays(delays);
+imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);
+}>
+// ********************************* //
+
+>>
+
 
 declaration(cp, ids) ::= <<
 <ids:{ id |final CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
