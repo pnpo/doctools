@@ -1952,39 +1952,9 @@ main_instruction returns[ArrayList<Error> errors]
 @init{
 	$content::rec_type = "";
 }
-//	: main_declaration	{ $main_instruction.errors = $main_declaration.errors; }
 	: main_assignment	{ $main_instruction.errors = $main_assignment.errors; }
 	| reconf_apply		{ $main_instruction.errors = $reconf_apply.errors; }
 	;
-
-//main_declaration returns[ArrayList<Error> errors]
-//@init{
-//	ArrayList<Error> local_errors = new ArrayList<Error>();
-//}
-//	: ^(DECLARATION dt=ID 
-//	//rever -> erro para pattern n�o importado
-//	//nova revis�o -> erro n�o existe pois caso n�o seja importado, � criado um novo 'structureless' pattern
-////	{
-////		if (!$main_def::imported_patterns.contains($dt.text)){
-////			//local_errors.add( Error.report(ErrorType.ERROR, Error.patternNotDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
-////		}
-////	}
-//	
-//	ids[true]
-//	{
-//		if (!$main_def::imported_patterns.contains($dt.text)){
-//			for (String id : $ids.values){
-//				$content::structureless.add(id);
-//			}
-//		}
-//		
-//		if (local_errors.isEmpty()){
-//			local_errors.addAll($ids.errors);
-//		}
-//		$main_declaration.errors = local_errors;
-//	}
-//	)
-//	;
 
 main_assignment returns[ArrayList<Error> errors]
 @init{
@@ -1993,12 +1963,15 @@ main_assignment returns[ArrayList<Error> errors]
 }
 	: ^( APPLICATION ^(DECLARATION dt=ID
 	{	
-		if ($main_def::imported_patterns.contains($dt.text) || $main_def::created_patterns.contains($dt.text)){
-			local_errors.add( Error.report(ErrorType.ERROR, Error.patternAlreadyDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
-		} else {
-			$main_def::created_patterns.add($dt.text);
-			pattern_name = $dt.text;
-		}
+		//reformulação: pode-se definir instancias do mesmo tipo e posteriormente na tradução é feito o match entre as instancias
+		//para verificar se são iguais, ou seja, do mesmo tipo; caso contrário, lança excepção
+		
+//		if ($main_def::imported_patterns.contains($dt.text) || $main_def::created_patterns.contains($dt.text)){
+//			local_errors.add( Error.report(ErrorType.ERROR, Error.patternAlreadyDefined($dt.text), $dt.line, $dt.pos, this.file_path) );
+//		} else {
+		$main_def::created_patterns.add($dt.text);
+		pattern_name = $dt.text;
+//		}
 	}
 	ids[pattern_name, false]
 	{
@@ -2015,6 +1988,7 @@ main_assignment returns[ArrayList<Error> errors]
 			for (String instance : instances){
 				if ($rec.text.equals(instance)){
 					exists = true;
+					break;
 				}
 			}
 		}

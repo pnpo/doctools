@@ -120,6 +120,10 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 			Method getErrors = c.getMethod("getErrors", null); //getDeclaredMethod
 			Set<Exception> errors = (Set<Exception>) getErrors.invoke(runner, null );
 			//System.out.println(errors);
+//			for (Exception e : errors){
+//				System.out.println(e.getMessage() +"\n");
+//				throw e;
+//			}
 			//******************************
 			
 			LinkedHashMap<String,CoordinationPattern2> final_patterns = new LinkedHashMap<String, CoordinationPattern2>(); 
@@ -129,12 +133,14 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 				}
 				else{
 					LinkedHashMap<String, CoordinationPattern2> instances = created_patterns.get(pattern).getStochInstances();
-					System.out.println(instances);
+					//System.out.println(instances);
 					for (String reconfigured : instances.keySet()){
 						final_patterns.put( reconfigured, instances.get(reconfigured) );
 					}
 				}
 			}
+			//System.out.println(final_patterns);
+			
 			//get graphs through created patterns
 			Set<ArchPatternAbstractGraph> graphs = getGraphs(final_patterns);
 			
@@ -184,12 +190,13 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 		}
 		
 		catch(Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			//e.printStackTrace();
 			
-			String msg = e.toString().contains("ClassNotFoundException: Run") ? "The application of reconfiguration structure (main) is missing!" : e.toString();
+			String msg = e.toString().contains("ClassNotFoundException: Run") ? "The application of reconfiguration structure (main) is missing!" : e.getMessage();
 			msg = e.toString().contains("java.lang.NullPointerException") ? "Check the arguments of the reconfigurations, "
 					+ "in particular, the internal representation of structured data types used!\n" 
-					+ "It seems that some attribute or operation of a structured data type does not exist or can not be applied." : e.toString();
+					+ "It seems that some attribute or operation of a structured data type does not exist or can not be applied." : e.getMessage();
 			MessageDialog.openInformation(
     				window.getShell(),
     				"Run reconfigurations",
@@ -197,11 +204,11 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
     				+ msg);
 		} 	
 		
-//		try {
-//			removeFolder(folder);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			removeFolder(folder);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -306,9 +313,10 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
     			 * import org.antlr.runtime.tree.*;
     			*/
 	    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
+	    		writer.println("import " + Constants.REOLANG + ".ReoLangSemantics;");
 	    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
-    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
-    			
+	    		writer.println("import " + Constants.REOLANG_PARSING + ".Semantics;");
+    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");    			
     		}
     		writer.print(translation.get(t));
     		writer.close();

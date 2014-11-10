@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g 2014-10-27 23:58:03
+// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g 2014-11-10 19:32:04
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -3844,7 +3844,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "main_arg"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1097:1: main_arg : ^( ARGUMENT ID ids ) -> list_args(cp=$ID.textids=$ids.valuesdelays=cp_delays);
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1097:1: main_arg : ^( ARGUMENT ID ids ) -> list_args(empty=isEmptycp=$ID.textids=$ids.values);
 	public final RecTranslator.main_arg_return main_arg() throws RecognitionException {
 		RecTranslator.main_arg_return retval = new RecTranslator.main_arg_return();
 		retval.start = input.LT(1);
@@ -3853,7 +3853,7 @@ public class RecTranslator extends TreeParser {
 		TreeRuleReturnScope ids56 =null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1098:2: ( ^( ARGUMENT ID ids ) -> list_args(cp=$ID.textids=$ids.valuesdelays=cp_delays))
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1098:2: ( ^( ARGUMENT ID ids ) -> list_args(empty=isEmptycp=$ID.textids=$ids.values))
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1098:4: ^( ARGUMENT ID ids )
 			{
 			match(input,ARGUMENT,FOLLOW_ARGUMENT_in_main_arg1713); 
@@ -3873,14 +3873,18 @@ public class RecTranslator extends TreeParser {
 						"for (Node n : _" + first_id + ".getPorts()){\n" +
 						"\tdelays.put(n, new Pair<Double, Double>(1.0,0.0));\n}" +
 						"for (Node n : _" + first_id + ".getMixed()){\n" +
-						"\tdelays.put(n, new Pair<Double, Double>(10000.0,10000.0));\n}";
+						"\tdelays.put(n, new Pair<Double, Double>(10000.0,10000.0));\n}";	
+					boolean isEmpty = false;
+					if ((ID57!=null?ID57.getText():null).equals("Empty")){
+						isEmpty = true;
+					}
 				
 			match(input, Token.UP, null); 
 
 			// TEMPLATE REWRITE
-			// 1112:2: -> list_args(cp=$ID.textids=$ids.valuesdelays=cp_delays)
+			// 1116:2: -> list_args(empty=isEmptycp=$ID.textids=$ids.values)
 			{
-				retval.st = templateLib.getInstanceOf("list_args",new STAttrMap().put("cp", (ID57!=null?ID57.getText():null)).put("ids", (ids56!=null?((RecTranslator.ids_return)ids56).values:null)).put("delays", cp_delays));
+				retval.st = templateLib.getInstanceOf("list_args",new STAttrMap().put("empty", isEmpty).put("cp", (ID57!=null?ID57.getText():null)).put("ids", (ids56!=null?((RecTranslator.ids_return)ids56).values:null)));
 			}
 
 
@@ -3909,7 +3913,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "ids"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1115:1: ids returns [List<String> values] : ^( IDS ( ID )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1119:1: ids returns [List<String> values] : ^( IDS ( ID )+ ) ;
 	public final RecTranslator.ids_return ids() throws RecognitionException {
 		RecTranslator.ids_return retval = new RecTranslator.ids_return();
 		retval.start = input.LT(1);
@@ -3920,12 +3924,12 @@ public class RecTranslator extends TreeParser {
 			List<String> ids = new ArrayList<String>();
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1119:2: ( ^( IDS ( ID )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1119:4: ^( IDS ( ID )+ )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1123:2: ( ^( IDS ( ID )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1123:4: ^( IDS ( ID )+ )
 			{
-			match(input,IDS,FOLLOW_IDS_in_ids1764); 
+			match(input,IDS,FOLLOW_IDS_in_ids1765); 
 			match(input, Token.DOWN, null); 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1119:10: ( ID )+
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1123:10: ( ID )+
 			int cnt33=0;
 			loop33:
 			while (true) {
@@ -3937,9 +3941,9 @@ public class RecTranslator extends TreeParser {
 
 				switch (alt33) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1119:11: ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1123:11: ID
 					{
-					ID58=(CommonTree)match(input,ID,FOLLOW_ID_in_ids1767); 
+					ID58=(CommonTree)match(input,ID,FOLLOW_ID_in_ids1768); 
 
 							ids.add((ID58!=null?ID58.getText():null)); //"_" + (ID58!=null?ID58.getText():null)
 						
@@ -3989,7 +3993,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "main_block"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1131:1: main_block returns [List<String> values] : ^( INSTRUCTIONS ( main_instruction )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1135:1: main_block returns [List<String> values] : ^( INSTRUCTIONS ( main_instruction )+ ) ;
 	public final RecTranslator.main_block_return main_block() throws RecognitionException {
 		main_block_stack.push(new main_block_scope());
 		RecTranslator.main_block_return retval = new RecTranslator.main_block_return();
@@ -4003,12 +4007,12 @@ public class RecTranslator extends TreeParser {
 			List<String> insts = new ArrayList<String>();
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1141:2: ( ^( INSTRUCTIONS ( main_instruction )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1141:4: ^( INSTRUCTIONS ( main_instruction )+ )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1145:2: ( ^( INSTRUCTIONS ( main_instruction )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1145:4: ^( INSTRUCTIONS ( main_instruction )+ )
 			{
-			match(input,INSTRUCTIONS,FOLLOW_INSTRUCTIONS_in_main_block1806); 
+			match(input,INSTRUCTIONS,FOLLOW_INSTRUCTIONS_in_main_block1807); 
 			match(input, Token.DOWN, null); 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1141:19: ( main_instruction )+
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1145:19: ( main_instruction )+
 			int cnt34=0;
 			loop34:
 			while (true) {
@@ -4020,9 +4024,9 @@ public class RecTranslator extends TreeParser {
 
 				switch (alt34) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1141:20: main_instruction
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1145:20: main_instruction
 					{
-					pushFollow(FOLLOW_main_instruction_in_main_block1809);
+					pushFollow(FOLLOW_main_instruction_in_main_block1810);
 					main_instruction59=main_instruction();
 					state._fsp--;
 
@@ -4073,7 +4077,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "main_instruction"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1156:1: main_instruction returns [String value] : ( main_assignment | reconf_apply );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1160:1: main_instruction returns [String value] : ( main_assignment | reconf_apply );
 	public final RecTranslator.main_instruction_return main_instruction() throws RecognitionException {
 		RecTranslator.main_instruction_return retval = new RecTranslator.main_instruction_return();
 		retval.start = input.LT(1);
@@ -4082,7 +4086,7 @@ public class RecTranslator extends TreeParser {
 		TreeRuleReturnScope reconf_apply61 =null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1160:2: ( main_assignment | reconf_apply )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1164:2: ( main_assignment | reconf_apply )
 			int alt35=2;
 			int LA35_0 = input.LA(1);
 			if ( (LA35_0==APPLICATION) ) {
@@ -4100,9 +4104,9 @@ public class RecTranslator extends TreeParser {
 
 			switch (alt35) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1160:4: main_assignment
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1164:4: main_assignment
 					{
-					pushFollow(FOLLOW_main_assignment_in_main_instruction1843);
+					pushFollow(FOLLOW_main_assignment_in_main_instruction1844);
 					main_assignment60=main_assignment();
 					state._fsp--;
 
@@ -4110,9 +4114,9 @@ public class RecTranslator extends TreeParser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1162:4: reconf_apply
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1166:4: reconf_apply
 					{
-					pushFollow(FOLLOW_reconf_apply_in_main_instruction1852);
+					pushFollow(FOLLOW_reconf_apply_in_main_instruction1853);
 					reconf_apply61=reconf_apply();
 					state._fsp--;
 
@@ -4143,7 +4147,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "main_assignment"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1190:1: main_assignment returns [String value] : ^( APPLICATION ^( DECLARATION id1= ID ids ) ^( OP_APPLY id2= ID reconfiguration_call ) ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1169:1: main_assignment returns [String value] : ^( APPLICATION ^( DECLARATION id1= ID ids ) ^( OP_APPLY id2= ID reconfiguration_call ) ) ;
 	public final RecTranslator.main_assignment_return main_assignment() throws RecognitionException {
 		RecTranslator.main_assignment_return retval = new RecTranslator.main_assignment_return();
 		retval.start = input.LT(1);
@@ -4165,15 +4169,15 @@ public class RecTranslator extends TreeParser {
 			String add_pattern = "";
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1202:2: ( ^( APPLICATION ^( DECLARATION id1= ID ids ) ^( OP_APPLY id2= ID reconfiguration_call ) ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1202:4: ^( APPLICATION ^( DECLARATION id1= ID ids ) ^( OP_APPLY id2= ID reconfiguration_call ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1181:2: ( ^( APPLICATION ^( DECLARATION id1= ID ids ) ^( OP_APPLY id2= ID reconfiguration_call ) ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1181:4: ^( APPLICATION ^( DECLARATION id1= ID ids ) ^( OP_APPLY id2= ID reconfiguration_call ) )
 			{
-			match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1900); 
+			match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1876); 
 			match(input, Token.DOWN, null); 
-			match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1903); 
+			match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1879); 
 			match(input, Token.DOWN, null); 
-			id1=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1907); 
-			pushFollow(FOLLOW_ids_in_main_assignment1909);
+			id1=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1883); 
+			pushFollow(FOLLOW_ids_in_main_assignment1885);
 			ids62=ids();
 			state._fsp--;
 
@@ -4190,25 +4194,24 @@ public class RecTranslator extends TreeParser {
 					//first_decl = first_id + " = "; //(CoordinationPattern2) 
 				
 					value += "\nCoordinationPattern2 " + first_id + " = new CoordinationPattern2();\n"; 
-					main_def_stack.peek().declared_cps.put(first_id, (id1!=null?id1.getText():null));
+					main_def_stack.peek().declared_cps.put(first_id.substring(1), (id1!=null?id1.getText():null));
 									
 					ids.remove(0);
 					for (String id : ids){
 						//remaining += ...
 						value += "CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
-						main_def_stack.peek().declared_cps.put(id, (id1!=null?id1.getText():null));
+						//id = _so; id.substring(1) = so
+						main_def_stack.peek().declared_cps.put(id.substring(1), (id1!=null?id1.getText():null));
 					}
 					
 					//adiciona novo tipo de padrao a um map de padroes (eg: Replicator x = ... -> add "Replicator")
 					add_pattern += "\n\t$new_cp = new CoordinationPattern2(" + first_id + ");\n";
 					add_pattern += "\t$new_cp.setId(\"" + (id1!=null?id1.getText():null) + "\");\n";
-					add_pattern += "\t$cpmi = new CPModelInternal();\n";
-					add_pattern += "\t$cpmi.setSimplePattern($new_cp);\n";
 				
-			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_main_assignment1920); 
+			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_main_assignment1896); 
 			match(input, Token.DOWN, null); 
-			id2=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1924); 
-			pushFollow(FOLLOW_reconfiguration_call_in_main_assignment1926);
+			id2=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1900); 
+			pushFollow(FOLLOW_reconfiguration_call_in_main_assignment1902);
 			reconfiguration_call63=reconfiguration_call();
 			state._fsp--;
 
@@ -4237,8 +4240,10 @@ public class RecTranslator extends TreeParser {
 			//			args = args.replace(aux, "aux_cp" + i);
 			//			aux = "aux_cp" + i;
 			//		}
+
 					for (String var : main_def_stack.peek().declared_cps.keySet()){
-						if (args.contains(var)){
+						//if (args.contains(var)){
+						if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
 							value += "\tfinal CoordinationPattern2 _aux_cp" + i + " = new CoordinationPattern2(_" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
 							args = args.replace("_" + var, "_aux_cp" + i);
 							i++;
@@ -4280,10 +4285,51 @@ public class RecTranslator extends TreeParser {
 						invoke = "(CoordinationPattern2) " + op + i + "_apply.invoke(" + op + i + "_obj, " + aux + " )"; //_" + id2 + "
 					}
 					
+					instances.add("_" + (id2!=null?id2.getText():null));
+					//------------check if new instance has the same structure
+					add_pattern += "\n\t//se o pattern já existir...\n";
+					add_pattern += "\tif(this.getPattern(" + aux + ".getId()) != null){\n";
+					add_pattern += "\t\tif(this.comparePatterns(this.getPattern(" + aux + ".getId()), $new_cp)){\n";
+					add_pattern += "\t\t\tif(imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+					add_pattern += "\t\t\t\tthis.removeInstance(\"" + (id2!=null?id2.getText():null) +"\");\n";
+					for (String id : instances){
+						add_pattern += "\t\t\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+					}
+					add_pattern += "\t\t\t\tcreated_patterns.put( " + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n";
+					add_pattern += "\t\t\t\timported_patterns.remove(" + aux + ".getId());\n\t\t\t}\n";
+					
+					add_pattern += "\t\t\telse{\n";
+					add_pattern += "\t\t\t\tthis.removeInstance(\"" + (id2!=null?id2.getText():null) +"\");\n";
+					for (String id : instances){
+						add_pattern += "\t\t\t\tcreated_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+					}
+					add_pattern += "\t\t\t}\n";
+					add_pattern += "\t\t}\n";
+					
+					add_pattern += "\t\telse{\n";
+					add_pattern += "\t\t\tthrow new Exception(\"Instance " + instances.get(0).substring(1)
+								+ " (" + (ids62!=null?((CommonTree)ids62.start):null).getLine() + ":" + (ids62!=null?((CommonTree)ids62.start):null).getCharPositionInLine() + ") " 
+								+ "can not be declared with type " + (id1!=null?id1.getText():null) + "! \"\n";
+					add_pattern += "\t\t\t\t+ \"\\nIts internal structure does not match with pattern " + (id1!=null?id1.getText():null) + ".\");\n";
+					add_pattern += "\t\t}\n";
+					add_pattern += "\t}\n";
+					//-------------------------
+					//instances.remove("_" + (id2!=null?id2.getText():null));
+					
+					add_pattern += "\telse{\n";
+					
+					add_pattern += "\t\t$cpmi = new CPModelInternal();\n";
+					add_pattern += "\t\t$cpmi.setSimplePattern($new_cp);\n";
+					//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
+					add_pattern += "\t\tthis.removeInstance(\"" + (id2!=null?id2.getText():null) +"\");\n";
 					for (String id : instances){
 						value += "\t" + id + " = " + invoke + ";\n";
+						//rever -> será necessário mudar nome das instancias para o novo tipo?
+						value += "\t" + id + ".setId(\"" + (id1!=null?id1.getText():null) + "\");\n";
+						//value += "t" + aux + ".setId(\"Reconfigured_\" + " + aux + ".getId() );\n"; //eg.: Reconfigured_Original
+						
 						//id.substring(1) -> remove "_"
-						add_pattern += "\t$cpmi.getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+						add_pattern += "\t\t$cpmi.getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
 			//				if (id.equals(first_id)){
 			//					value += "\t" + id + " = " + invoke + ";\n";
 			//				} else{
@@ -4294,14 +4340,18 @@ public class RecTranslator extends TreeParser {
 			//				value += "\t" + id + " = ";
 			//				value += id.equals(first_id) ? invoke + ";\n" : first_id + ";\n"; 
 					}
-					add_pattern += "\t$cpmi.getStochInstances().put(\"" + (id2!=null?id2.getText():null) + "\", _" + (id2!=null?id2.getText():null) +");\n";
-					add_pattern += "\tcreated_patterns.put( \"" + (id1!=null?id1.getText():null) + "\", $cpmi );\n";
+					//add_pattern += "\t\t$cpmi.getStochInstances().put(\"" + (id2!=null?id2.getText():null) + "\", _" + (id2!=null?id2.getText():null) +");\n";
+					add_pattern += "\t\tcreated_patterns.put( \"" + (id1!=null?id1.getText():null) + "\", $cpmi );\n";
+					
+					//final else
+					add_pattern += "\t}\n";
 					
 					//value += remaining;
 					value += add_pattern;
 					
 					value += "} catch(Exception e) {\n";
-					value += "\terrors.add(e); \n}\n";
+					value += "\terrors.add(e); \n"; //}\n";
+					value += "\tthrow e; \n}\n";
 				
 			match(input, Token.UP, null); 
 
@@ -4335,7 +4385,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "reconf_apply"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1333:1: reconf_apply returns [String value] : ^( OP_APPLY ID reconfiguration_call ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1358:1: reconf_apply returns [String value] : ^( OP_APPLY ID reconfiguration_call ) ;
 	public final RecTranslator.reconf_apply_return reconf_apply() throws RecognitionException {
 		RecTranslator.reconf_apply_return retval = new RecTranslator.reconf_apply_return();
 		retval.start = input.LT(1);
@@ -4349,16 +4399,16 @@ public class RecTranslator extends TreeParser {
 			String invoke = "";
 			String cp_type = "";
 			
-			String add_pattern = "";
+			//String add_pattern = "";
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1342:2: ( ^( OP_APPLY ID reconfiguration_call ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1342:4: ^( OP_APPLY ID reconfiguration_call )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1367:2: ( ^( OP_APPLY ID reconfiguration_call ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1367:4: ^( OP_APPLY ID reconfiguration_call )
 			{
-			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconf_apply1966); 
+			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconf_apply1942); 
 			match(input, Token.DOWN, null); 
-			ID65=(CommonTree)match(input,ID,FOLLOW_ID_in_reconf_apply1968); 
-			pushFollow(FOLLOW_reconfiguration_call_in_reconf_apply1970);
+			ID65=(CommonTree)match(input,ID,FOLLOW_ID_in_reconf_apply1944); 
+			pushFollow(FOLLOW_reconfiguration_call_in_reconf_apply1946);
 			reconfiguration_call64=reconfiguration_call();
 			state._fsp--;
 
@@ -4383,9 +4433,10 @@ public class RecTranslator extends TreeParser {
 					value += "\ntry{\n";
 					String aux = "_" + (ID65!=null?ID65.getText():null);
 					for (String var : main_def_stack.peek().declared_cps.keySet()){
-						if (args.contains(var)){
-							value += "\tfinal CoordinationPattern2 aux_cp" + i + " = new CoordinationPattern2(" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
-							args = args.replace(var, "aux_cp" + i);
+						//if (args.contains(var)){
+						if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
+							value += "\tfinal CoordinationPattern2 _aux_cp" + i + " = new CoordinationPattern2(_" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
+							args = args.replace("_" + var, "_aux_cp" + i);
 							i++;
 						}
 					}
@@ -4431,25 +4482,38 @@ public class RecTranslator extends TreeParser {
 					//remaining += "\tfinal CoordinationPattern2 " + (ID65!=null?ID65.getText():null) + " = new CoordinationPattern2( imported_patterns.get(\"" + main_def_stack.peek().declared_cps.get((ID65!=null?ID65.getText():null)) + "\").getSimplePattern() );\n";
 					value += "\t" + aux + " = " + invoke + ";\n";
 					
-				
-					//System.out.println(main_def_stack.peek().declared_cps);
-					for (String cp : new_cps){
-						//adiciona novo tipo de padrao a um map de padroes (eg: main[Replicator x}{ x @ ... -> add "Replicator")
-			//			add_pattern += "\n\t$new_cp = new CoordinationPattern2( " + aux + " );\n"; //invoke
-			//			add_pattern += "\t$new_cp.setId(\"" + cp + "\");\n";
-						//add_pattern += "\t$cpmi = new CPModelInternal();\n";
-						add_pattern += "\t$cpmi = created_patterns.get(\"Reconfigured\");\n";
-			//			add_pattern += "\t$cpmi.setSimplePattern($new_cp);\n";
-						add_pattern += "\t$cpmi.getStochInstances().put(\"Reconfigured_" + (ID65!=null?ID65.getText():null) + "\", _" + (ID65!=null?ID65.getText():null) +");\n";
-						add_pattern += "\tcreated_patterns.put( \"Reconfigured\", $cpmi );\n";
+					if(op.equals("id")){
+						value += "\tif( imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+						//value += "\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n";
+						value += "\t\tcreated_patterns.put(" + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n\t}\n";
+						
+						//value += "\telse{\n";
+						//value += "\t\tcreated_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n\t}\n";
+					}
+					else{
+						//value += "\t" + aux + ".setId(\"Reconfigured_" + (ID65!=null?ID65.getText():null) + "\");\n"; //eg.: Reconfigured_so
+						value += "\t" + aux + ".setId(\"Reconfigured_\" + " + aux + ".getId() );\n"; //eg.: Reconfigured_Original
+					
+						//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
+						value += "\tthis.removeInstance(\"" + (ID65!=null?ID65.getText():null) +"\");\n";
+						//System.out.println(main_def_stack.peek().declared_cps);
+						for (String cp : new_cps){
+							//adiciona novo tipo de padrao a um map de padroes (eg: main[Replicator x}{ x @ ... -> add "Replicator")
+			//				add_pattern += "\n\t$new_cp = new CoordinationPattern2( " + aux + " );\n"; //invoke
+			//				add_pattern += "\t$new_cp.setId(\"" + cp + "\");\n";
+							//add_pattern += "\t$cpmi = new CPModelInternal();\n";
+							value += "\t$cpmi = created_patterns.get(\"Reconfigured\");\n";
+			//				add_pattern += "\t$cpmi.setSimplePattern($new_cp);\n";
+							value += "\t$cpmi.getStochInstances().put(\"Reconfigured_" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n";
+							value += "\tcreated_patterns.put( \"Reconfigured\", $cpmi );\n";
+						}
+						//value += remaining;
+			//			value += add_pattern;
 					}
 					
-				
-					//value += remaining;
-					value += add_pattern;
-					
 					value += "} catch(Exception e) {\n";
-					value += "\terrors.add(e); \n}\n";
+					value += "\terrors.add(e); \n"; //}\n";
+					value += "\tthrow e; \n}\n";
 					
 					
 					retval.value = value;
@@ -4611,20 +4675,20 @@ public class RecTranslator extends TreeParser {
 	public static final BitSet FOLLOW_ARGUMENT_in_main_arg1713 = new BitSet(new long[]{0x0000000000000004L});
 	public static final BitSet FOLLOW_ID_in_main_arg1715 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
 	public static final BitSet FOLLOW_ids_in_main_arg1717 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_IDS_in_ids1764 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_ids1767 = new BitSet(new long[]{0x0000000000100008L});
-	public static final BitSet FOLLOW_INSTRUCTIONS_in_main_block1806 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_main_instruction_in_main_block1809 = new BitSet(new long[]{0x0000000000800008L,0x0000000000000080L});
-	public static final BitSet FOLLOW_main_assignment_in_main_instruction1843 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_reconf_apply_in_main_instruction1852 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_APPLICATION_in_main_assignment1900 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_DECLARATION_in_main_assignment1903 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_main_assignment1907 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
-	public static final BitSet FOLLOW_ids_in_main_assignment1909 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1920 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_main_assignment1924 = new BitSet(new long[]{0x00000A4122100000L});
-	public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1926 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_OP_APPLY_in_reconf_apply1966 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_reconf_apply1968 = new BitSet(new long[]{0x00000A4122100000L});
-	public static final BitSet FOLLOW_reconfiguration_call_in_reconf_apply1970 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_IDS_in_ids1765 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_ids1768 = new BitSet(new long[]{0x0000000000100008L});
+	public static final BitSet FOLLOW_INSTRUCTIONS_in_main_block1807 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_main_instruction_in_main_block1810 = new BitSet(new long[]{0x0000000000800008L,0x0000000000000080L});
+	public static final BitSet FOLLOW_main_assignment_in_main_instruction1844 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_reconf_apply_in_main_instruction1853 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_APPLICATION_in_main_assignment1876 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_DECLARATION_in_main_assignment1879 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_main_assignment1883 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
+	public static final BitSet FOLLOW_ids_in_main_assignment1885 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1896 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_main_assignment1900 = new BitSet(new long[]{0x00000A4122100000L});
+	public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1902 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_OP_APPLY_in_reconf_apply1942 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_reconf_apply1944 = new BitSet(new long[]{0x00000A4122100000L});
+	public static final BitSet FOLLOW_reconfiguration_call_in_reconf_apply1946 = new BitSet(new long[]{0x0000000000000008L});
 }

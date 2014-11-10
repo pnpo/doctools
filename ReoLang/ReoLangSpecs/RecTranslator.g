@@ -1106,10 +1106,14 @@ main_arg
 			"for (Node n : _" + first_id + ".getPorts()){\n" +
 			"\tdelays.put(n, new Pair<Double, Double>(1.0,0.0));\n}" +
 			"for (Node n : _" + first_id + ".getMixed()){\n" +
-			"\tdelays.put(n, new Pair<Double, Double>(10000.0,10000.0));\n}";
+			"\tdelays.put(n, new Pair<Double, Double>(10000.0,10000.0));\n}";	
+		boolean isEmpty = false;
+		if ($ID.text.equals("Empty")){
+			isEmpty = true;
+		}
 	}
 	)
-	-> list_args(cp={$ID.text}, ids={$ids.values}, delays={cp_delays})
+	-> list_args(empty={isEmpty}, cp={$ID.text}, ids={$ids.values}) //, delays={cp_delays}
 	;	
 
 ids returns[List<String> values]
@@ -1162,31 +1166,6 @@ main_instruction returns[String value]
 	| reconf_apply		{ $main_instruction.value = $reconf_apply.value; }
 	;
 
-//main_declaration returns[String value]
-//@init{
-//	String value = "";	
-//}
-//	: ^(DECLARATION cp=ID ids
-//	{
-//		for (String id : $ids.values){
-//			if ($main_def::imported_cps.contains($cp.text)){
-//				value += "\nCoordinationPattern2 " + id + 
-//					" = new CoordinationPattern2(imported_patterns.get(\"" + $cp.text + "\").getSimplePattern());\n"; //final CP2 ...
-//			}
-//			else{
-//				//structureless pattern
-//				value += "\nCoordinationPattern2 " + id + " = new CoordinationPattern2();\n"; //final CP2 ...
-//				$main_def::declared_cps.put(id, $cp.text);
-//			}
-//		}
-//	}
-//	)
-//	{
-//		$main_declaration.value = value;
-//	}
-//	//-> declaration(cp={$ID.text}, ids={$ids.values})
-//	;
-
 main_assignment returns[String value]
 @init{
 	Integer i = $main_block::i++;
@@ -1211,20 +1190,19 @@ main_assignment returns[String value]
 		//first_decl = first_id + " = "; //(CoordinationPattern2) 
 	
 		value += "\nCoordinationPattern2 " + first_id + " = new CoordinationPattern2();\n"; 
-		$main_def::declared_cps.put(first_id, $id1.text);
+		$main_def::declared_cps.put(first_id.substring(1), $id1.text);
 						
 		ids.remove(0);
 		for (String id : ids){
 			//remaining += ...
 			value += "CoordinationPattern2 " + id + " = new CoordinationPattern2(" + first_id + ");\n";
-			$main_def::declared_cps.put(id, $id1.text);
+			//id = _so; id.substring(1) = so
+			$main_def::declared_cps.put(id.substring(1), $id1.text);
 		}
 		
 		//adiciona novo tipo de padrao a um map de padroes (eg: Replicator x = ... -> add "Replicator")
 		add_pattern += "\n\t\$new_cp = new CoordinationPattern2(" + first_id + ");\n";
 		add_pattern += "\t\$new_cp.setId(\"" + $id1.text + "\");\n";
-		add_pattern += "\t\$cpmi = new CPModelInternal();\n";
-		add_pattern += "\t\$cpmi.setSimplePattern(\$new_cp);\n";
 	}
 	
 	^(OP_APPLY id2=ID reconfiguration_call
@@ -1253,8 +1231,10 @@ main_assignment returns[String value]
 //			args = args.replace(aux, "aux_cp" + i);
 //			aux = "aux_cp" + i;
 //		}
+
 		for (String var : $main_def::declared_cps.keySet()){
-			if (args.contains(var)){
+			//if (args.contains(var)){
+			if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
 				value += "\tfinal CoordinationPattern2 _aux_cp" + i + " = new CoordinationPattern2(_" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
 				args = args.replace("_" + var, "_aux_cp" + i);
 				i++;
@@ -1296,10 +1276,51 @@ main_assignment returns[String value]
 			invoke = "(CoordinationPattern2) " + op + i + "_apply.invoke(" + op + i + "_obj, " + aux + " )"; //_" + $id2 + "
 		}
 		
+		instances.add("_" + $id2.text);
+		//------------check if new instance has the same structure
+		add_pattern += "\n\t//se o pattern já existir...\n";
+		add_pattern += "\tif(this.getPattern(" + aux + ".getId()) != null){\n";
+		add_pattern += "\t\tif(this.comparePatterns(this.getPattern(" + aux + ".getId()), \$new_cp)){\n";
+		add_pattern += "\t\t\tif(imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+		add_pattern += "\t\t\t\tthis.removeInstance(\"" + $id2.text +"\");\n";
+		for (String id : instances){
+			add_pattern += "\t\t\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+		}
+		add_pattern += "\t\t\t\tcreated_patterns.put( " + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n";
+		add_pattern += "\t\t\t\timported_patterns.remove(" + aux + ".getId());\n\t\t\t}\n";
+		
+		add_pattern += "\t\t\telse{\n";
+		add_pattern += "\t\t\t\tthis.removeInstance(\"" + $id2.text +"\");\n";
+		for (String id : instances){
+			add_pattern += "\t\t\t\tcreated_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+		}
+		add_pattern += "\t\t\t}\n";
+		add_pattern += "\t\t}\n";
+		
+		add_pattern += "\t\telse{\n";
+		add_pattern += "\t\t\tthrow new Exception(\"Instance " + instances.get(0).substring(1)
+					+ " (" + $ids.start.getLine() + ":" + $ids.start.getCharPositionInLine() + ") " 
+					+ "can not be declared with type " + $id1.text + "! \"\n";
+		add_pattern += "\t\t\t\t+ \"\\nIts internal structure does not match with pattern " + $id1.text + ".\");\n";
+		add_pattern += "\t\t}\n";
+		add_pattern += "\t}\n";
+		//-------------------------
+		//instances.remove("_" + $id2.text);
+		
+		add_pattern += "\telse{\n";
+		
+		add_pattern += "\t\t\$cpmi = new CPModelInternal();\n";
+		add_pattern += "\t\t\$cpmi.setSimplePattern(\$new_cp);\n";
+		//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
+		add_pattern += "\t\tthis.removeInstance(\"" + $id2.text +"\");\n";
 		for (String id : instances){
 			value += "\t" + id + " = " + invoke + ";\n";
+			//rever -> será necessário mudar nome das instancias para o novo tipo?
+			value += "\t" + id + ".setId(\"" + $id1.text + "\");\n";
+			//value += "t" + aux + ".setId(\"Reconfigured_\" + " + aux + ".getId() );\n"; //eg.: Reconfigured_Original
+			
 			//id.substring(1) -> remove "_"
-			add_pattern += "\t\$cpmi.getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+			add_pattern += "\t\t\$cpmi.getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
 //				if (id.equals(first_id)){
 //					value += "\t" + id + " = " + invoke + ";\n";
 //				} else{
@@ -1310,14 +1331,18 @@ main_assignment returns[String value]
 //				value += "\t" + id + " = ";
 //				value += id.equals(first_id) ? invoke + ";\n" : first_id + ";\n"; 
 		}
-		add_pattern += "\t\$cpmi.getStochInstances().put(\"" + $id2.text + "\", _" + $id2.text +");\n";
-		add_pattern += "\tcreated_patterns.put( \"" + $id1.text + "\", \$cpmi );\n";
+		//add_pattern += "\t\t\$cpmi.getStochInstances().put(\"" + $id2.text + "\", _" + $id2.text +");\n";
+		add_pattern += "\t\tcreated_patterns.put( \"" + $id1.text + "\", \$cpmi );\n";
+		
+		//final else
+		add_pattern += "\t}\n";
 		
 		//value += remaining;
 		value += add_pattern;
 		
 		value += "} catch(Exception e) {\n";
-		value += "\terrors.add(e); \n}\n";
+		value += "\terrors.add(e); \n"; //}\n";
+		value += "\tthrow e; \n}\n";
 	}
 	) 
 	
@@ -1337,7 +1362,7 @@ reconf_apply returns[String value]
 	String invoke = "";
 	String cp_type = "";
 	
-	String add_pattern = "";
+	//String add_pattern = "";
 }
 	: ^(OP_APPLY ID reconfiguration_call
 	{
@@ -1361,9 +1386,10 @@ reconf_apply returns[String value]
 		value += "\ntry{\n";
 		String aux = "_" + $ID.text;
 		for (String var : $main_def::declared_cps.keySet()){
-			if (args.contains(var)){
-				value += "\tfinal CoordinationPattern2 aux_cp" + i + " = new CoordinationPattern2(" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
-				args = args.replace(var, "aux_cp" + i);
+			//if (args.contains(var)){
+			if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
+				value += "\tfinal CoordinationPattern2 _aux_cp" + i + " = new CoordinationPattern2(_" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
+				args = args.replace("_" + var, "_aux_cp" + i);
 				i++;
 			}
 		}
@@ -1409,25 +1435,38 @@ reconf_apply returns[String value]
 		//remaining += "\tfinal CoordinationPattern2 " + $ID.text + " = new CoordinationPattern2( imported_patterns.get(\"" + $main_def::declared_cps.get($ID.text) + "\").getSimplePattern() );\n";
 		value += "\t" + aux + " = " + invoke + ";\n";
 		
-	
-		//System.out.println($main_def::declared_cps);
-		for (String cp : new_cps){
-			//adiciona novo tipo de padrao a um map de padroes (eg: main[Replicator x}{ x @ ... -> add "Replicator")
-//			add_pattern += "\n\t\$new_cp = new CoordinationPattern2( " + aux + " );\n"; //invoke
-//			add_pattern += "\t\$new_cp.setId(\"" + cp + "\");\n";
-			//add_pattern += "\t\$cpmi = new CPModelInternal();\n";
-			add_pattern += "\t\$cpmi = created_patterns.get(\"Reconfigured\");\n";
-//			add_pattern += "\t\$cpmi.setSimplePattern(\$new_cp);\n";
-			add_pattern += "\t\$cpmi.getStochInstances().put(\"Reconfigured_" + $ID.text + "\", _" + $ID.text +");\n";
-			add_pattern += "\tcreated_patterns.put( \"Reconfigured\", \$cpmi );\n";
+		if(op.equals("id")){
+			value += "\tif( imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+			//value += "\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + $ID.text + "\", " + aux +");\n";
+			value += "\t\tcreated_patterns.put(" + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n\t}\n";
+			
+			//value += "\telse{\n";
+			//value += "\t\tcreated_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + $ID.text + "\", " + aux +");\n\t}\n";
+		}
+		else{
+			//value += "\t" + aux + ".setId(\"Reconfigured_" + $ID.text + "\");\n"; //eg.: Reconfigured_so
+			value += "\t" + aux + ".setId(\"Reconfigured_\" + " + aux + ".getId() );\n"; //eg.: Reconfigured_Original
+		
+			//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
+			value += "\tthis.removeInstance(\"" + $ID.text +"\");\n";
+			//System.out.println($main_def::declared_cps);
+			for (String cp : new_cps){
+				//adiciona novo tipo de padrao a um map de padroes (eg: main[Replicator x}{ x @ ... -> add "Replicator")
+//				add_pattern += "\n\t\$new_cp = new CoordinationPattern2( " + aux + " );\n"; //invoke
+//				add_pattern += "\t\$new_cp.setId(\"" + cp + "\");\n";
+				//add_pattern += "\t\$cpmi = new CPModelInternal();\n";
+				value += "\t\$cpmi = created_patterns.get(\"Reconfigured\");\n";
+//				add_pattern += "\t\$cpmi.setSimplePattern(\$new_cp);\n";
+				value += "\t\$cpmi.getStochInstances().put(\"Reconfigured_" + $ID.text + "\", " + aux +");\n";
+				value += "\tcreated_patterns.put( \"Reconfigured\", \$cpmi );\n";
+			}
+			//value += remaining;
+//			value += add_pattern;
 		}
 		
-	
-		//value += remaining;
-		value += add_pattern;
-		
 		value += "} catch(Exception e) {\n";
-		value += "\terrors.add(e); \n}\n";
+		value += "\terrors.add(e); \n"; //}\n";
+		value += "\tthrow e; \n}\n";
 		
 		
 		$reconf_apply.value = value;

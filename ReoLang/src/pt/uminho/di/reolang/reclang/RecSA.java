@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g 2014-10-26 22:44:00
+// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g 2014-11-05 21:14:19
 
 	package pt.uminho.di.reolang.reclang;
 		
@@ -4302,7 +4302,7 @@ public class RecSA extends TreeParser {
 			content_stack.peek().rec_type = "";
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1956:2: ( main_assignment | reconf_apply )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1955:2: ( main_assignment | reconf_apply )
 			int alt34=2;
 			int LA34_0 = input.LA(1);
 			if ( (LA34_0==APPLICATION) ) {
@@ -4320,9 +4320,9 @@ public class RecSA extends TreeParser {
 
 			switch (alt34) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1956:4: main_assignment
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1955:4: main_assignment
 					{
-					pushFollow(FOLLOW_main_assignment_in_main_instruction1834);
+					pushFollow(FOLLOW_main_assignment_in_main_instruction1833);
 					main_assignment68=main_assignment();
 					state._fsp--;
 
@@ -4330,9 +4330,9 @@ public class RecSA extends TreeParser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1957:4: reconf_apply
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1956:4: reconf_apply
 					{
-					pushFollow(FOLLOW_reconf_apply_in_main_instruction1841);
+					pushFollow(FOLLOW_reconf_apply_in_main_instruction1840);
 					reconf_apply69=reconf_apply();
 					state._fsp--;
 
@@ -4356,7 +4356,7 @@ public class RecSA extends TreeParser {
 
 
 	// $ANTLR start "main_assignment"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1989:1: main_assignment returns [ArrayList<Error> errors] : ^( APPLICATION ^( DECLARATION dt= ID ids[pattern_name, false] ) ^( OP_APPLY rec= ID reconfiguration_call ) ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1959:1: main_assignment returns [ArrayList<Error> errors] : ^( APPLICATION ^( DECLARATION dt= ID ids[pattern_name, false] ) ^( OP_APPLY rec= ID reconfiguration_call ) ) ;
 	public final ArrayList<Error> main_assignment() throws RecognitionException {
 		ArrayList<Error> errors = null;
 
@@ -4371,23 +4371,26 @@ public class RecSA extends TreeParser {
 			String pattern_name = "";
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1994:2: ( ^( APPLICATION ^( DECLARATION dt= ID ids[pattern_name, false] ) ^( OP_APPLY rec= ID reconfiguration_call ) ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1994:4: ^( APPLICATION ^( DECLARATION dt= ID ids[pattern_name, false] ) ^( OP_APPLY rec= ID reconfiguration_call ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1964:2: ( ^( APPLICATION ^( DECLARATION dt= ID ids[pattern_name, false] ) ^( OP_APPLY rec= ID reconfiguration_call ) ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:1964:4: ^( APPLICATION ^( DECLARATION dt= ID ids[pattern_name, false] ) ^( OP_APPLY rec= ID reconfiguration_call ) )
 			{
-			match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1893); 
+			match(input,APPLICATION,FOLLOW_APPLICATION_in_main_assignment1863); 
 			match(input, Token.DOWN, null); 
-			match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1896); 
+			match(input,DECLARATION,FOLLOW_DECLARATION_in_main_assignment1866); 
 			match(input, Token.DOWN, null); 
-			dt=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1900); 
+			dt=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1870); 
 				
-					if (main_def_stack.peek().imported_patterns.contains((dt!=null?dt.getText():null)) || main_def_stack.peek().created_patterns.contains((dt!=null?dt.getText():null))){
-						local_errors.add( Error.report(ErrorType.ERROR, Error.patternAlreadyDefined((dt!=null?dt.getText():null)), (dt!=null?dt.getLine():0), (dt!=null?dt.getCharPositionInLine():0), this.file_path) );
-					} else {
-						main_def_stack.peek().created_patterns.add((dt!=null?dt.getText():null));
-						pattern_name = (dt!=null?dt.getText():null);
-					}
+					//reformulação: pode-se definir instancias do mesmo tipo e posteriormente na tradução é feito o match entre as instancias
+					//para verificar se são iguais, ou seja, do mesmo tipo; caso contrário, lança excepção
+					
+			//		if (main_def_stack.peek().imported_patterns.contains((dt!=null?dt.getText():null)) || main_def_stack.peek().created_patterns.contains((dt!=null?dt.getText():null))){
+			//			local_errors.add( Error.report(ErrorType.ERROR, Error.patternAlreadyDefined((dt!=null?dt.getText():null)), (dt!=null?dt.getLine():0), (dt!=null?dt.getCharPositionInLine():0), this.file_path) );
+			//		} else {
+					main_def_stack.peek().created_patterns.add((dt!=null?dt.getText():null));
+					pattern_name = (dt!=null?dt.getText():null);
+			//		}
 				
-			pushFollow(FOLLOW_ids_in_main_assignment1906);
+			pushFollow(FOLLOW_ids_in_main_assignment1876);
 			ids70=ids(pattern_name, false);
 			state._fsp--;
 
@@ -4396,10 +4399,10 @@ public class RecSA extends TreeParser {
 				
 			match(input, Token.UP, null); 
 
-			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_main_assignment1919); 
+			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_main_assignment1889); 
 			match(input, Token.DOWN, null); 
-			rec=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1923); 
-			pushFollow(FOLLOW_reconfiguration_call_in_main_assignment1925);
+			rec=(CommonTree)match(input,ID,FOLLOW_ID_in_main_assignment1893); 
+			pushFollow(FOLLOW_reconfiguration_call_in_main_assignment1895);
 			reconfiguration_call71=reconfiguration_call();
 			state._fsp--;
 
@@ -4411,6 +4414,7 @@ public class RecSA extends TreeParser {
 						for (String instance : instances){
 							if ((rec!=null?rec.getText():null).equals(instance)){
 								exists = true;
+								break;
 							}
 						}
 					}
@@ -4443,7 +4447,7 @@ public class RecSA extends TreeParser {
 
 
 	// $ANTLR start "reconf_apply"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:2034:1: reconf_apply returns [ArrayList<Error> errors] : ^( OP_APPLY ID reconfiguration_call ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:2008:1: reconf_apply returns [ArrayList<Error> errors] : ^( OP_APPLY ID reconfiguration_call ) ;
 	public final ArrayList<Error> reconf_apply() throws RecognitionException {
 		ArrayList<Error> errors = null;
 
@@ -4455,12 +4459,12 @@ public class RecSA extends TreeParser {
 			ArrayList<Error> local_errors = new ArrayList<Error>();	
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:2038:2: ( ^( OP_APPLY ID reconfiguration_call ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:2038:4: ^( OP_APPLY ID reconfiguration_call )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:2012:2: ( ^( OP_APPLY ID reconfiguration_call ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecSA.g:2012:4: ^( OP_APPLY ID reconfiguration_call )
 			{
-			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconf_apply1960); 
+			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconf_apply1930); 
 			match(input, Token.DOWN, null); 
-			ID72=(CommonTree)match(input,ID,FOLLOW_ID_in_reconf_apply1962); 
+			ID72=(CommonTree)match(input,ID,FOLLOW_ID_in_reconf_apply1932); 
 
 					boolean exists = false;
 					for (Set<String> instances : main_def_stack.peek().new_instances.values()){
@@ -4476,7 +4480,7 @@ public class RecSA extends TreeParser {
 						local_errors.add( Error.report(ErrorType.ERROR, Error.instanceDoesNotExists((ID72!=null?ID72.getText():null)), (ID72!=null?ID72.getLine():0), (ID72!=null?ID72.getCharPositionInLine():0), this.file_path) );
 					}
 				
-			pushFollow(FOLLOW_reconfiguration_call_in_reconf_apply1971);
+			pushFollow(FOLLOW_reconfiguration_call_in_reconf_apply1941);
 			reconfiguration_call73=reconfiguration_call();
 			state._fsp--;
 
@@ -4641,16 +4645,16 @@ public class RecSA extends TreeParser {
 	public static final BitSet FOLLOW_ID_in_ids1760 = new BitSet(new long[]{0x0000000000100008L});
 	public static final BitSet FOLLOW_INSTRUCTIONS_in_main_block1797 = new BitSet(new long[]{0x0000000000000004L});
 	public static final BitSet FOLLOW_main_instruction_in_main_block1800 = new BitSet(new long[]{0x0000000000800008L,0x0000000000000080L});
-	public static final BitSet FOLLOW_main_assignment_in_main_instruction1834 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_reconf_apply_in_main_instruction1841 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_APPLICATION_in_main_assignment1893 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_DECLARATION_in_main_assignment1896 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_main_assignment1900 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
-	public static final BitSet FOLLOW_ids_in_main_assignment1906 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1919 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_main_assignment1923 = new BitSet(new long[]{0x00000A4122100000L});
-	public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1925 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_OP_APPLY_in_reconf_apply1960 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_ID_in_reconf_apply1962 = new BitSet(new long[]{0x00000A4122100000L});
-	public static final BitSet FOLLOW_reconfiguration_call_in_reconf_apply1971 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_main_assignment_in_main_instruction1833 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_reconf_apply_in_main_instruction1840 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_APPLICATION_in_main_assignment1863 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_DECLARATION_in_main_assignment1866 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_main_assignment1870 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
+	public static final BitSet FOLLOW_ids_in_main_assignment1876 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_OP_APPLY_in_main_assignment1889 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_main_assignment1893 = new BitSet(new long[]{0x00000A4122100000L});
+	public static final BitSet FOLLOW_reconfiguration_call_in_main_assignment1895 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_OP_APPLY_in_reconf_apply1930 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_ID_in_reconf_apply1932 = new BitSet(new long[]{0x00000A4122100000L});
+	public static final BitSet FOLLOW_reconfiguration_call_in_reconf_apply1941 = new BitSet(new long[]{0x0000000000000008L});
 }
