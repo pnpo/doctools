@@ -156,7 +156,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">ReCooPLa
-                    <small><b>Re</b>configuraiton of <b>Coo</b>rdination <b>P</b>atterns <b>La</b>nguage</small>
+                    <small><b>Re</b>configuration of <b>Coo</b>rdination <b>P</b>atterns <b>La</b>nguage</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
@@ -170,12 +170,434 @@
         <!-- Content Row -->
         <div class="row">
             <div class="col-lg-12">
-                
+                <!--<p>
+                    The main objective of \recoopla is to support the formal model presented by Oliveira and Barbosa (<i>cf</i>, <a href="publications.html">publications</a> of 2013) and make it a suitable tool for the working software architect.
+                </p>-->
+                <p>
+                    ReCooPLa was designed to describe the coordination-based reconfigurations referred by Oliveira and Barbosa (<i>cf</i>, <a href="publications.html">publications</a> of 2013). The main concept of this language is that of a reconfiguration. 
+                </p>
+                <p>
+                    ReCooPLa is comparable to other programming languages. We assume reconfiguration to be a first call concept in the language, as much as the function concept is in other programming languages. In fact, they share characteristics: both have a signature (identifier and arguments) and a body which assigns a specific behaviour. But in particular, a reconfiguration is always applied to, and always returns a, <i>coordination pattern</i>.
+                 </p>
+                 <p>
+                    Reconfigurations accept arguments of the following data types: <i>Name</i>, <i>Node</i>, <i>XOR</i>, <i>Set</i>, <i>Pair</i>, <i>Triple</i>, <i>Pattern</i> and <i>Channel</i>, each one with its specificities.
+                    The reconfiguration body is a list of different sorts of instructions. We devote special attention to the instruction of applying (primitive, or previously defined) reconfigurations, since this operation is the only responsible for changing the internals of a coordination pattern.
+                </p>
+                 <p>
+                    To support the application of reconfigurations, the language counts on other constructs that mainly manipulate the parameters of each reconfiguration. In concrete, it provides means to declare and assign local variables. Field selectors, specific operations for structured data types and common Set operations (union, intersection and subtraction). Moreover, a control structure is provided to iterate over the elements of a Set.
+                </p>
+                <br/>
+                 <p>
+                    In brief, ReCooPLa is a small language borrowing most of its constructs from imperative programming languages. Actually, reconfigurations are better expressed in a procedural/al- gorithmic way, which justifies the choice of an imperative style.
+                </p>
+                <p>
+                    The complete grammar of ReCooPLa is presented below:
+                </p>
+<!-- ORIGINAL --
+                <pre>
+reclang               : directive_def* content
+directive_def         : directive_import 
+directive_import      : 'import STRING ';'
+
+content               : element* main?
+element               : reconfiguration_def  
+                      | applicaiton_def 
+main                  : main_def 
+
+reconfiguration_def   : 'reconfiguration' ID '(' args_def? ')' reconfiguration_block
+args_def              : arg_def (';' arg_def)*
+arg_def               : datatype list_ids
+datatype              : 'Pattern' | 'Channel' | 'Name' | 'Node' | 'Xor' | other_type '<' subtype '>'
+other_type            : 'Set' | 'Pair' | 'Triple' 
+subtype               : datatype 
+list_ids              : ID (',' ID)*
+    
+reconfiguration_block : '{' instruction+ '}'
+instruction           : declaration ';' | assignment ';' | reconfiguration_apply ';' | for_instruction    
+reconfiguration_apply : ID? '@' reconfiguration_call 
+declaration           : datatype var_def (',' var_def)*  
+var_def               : ID | assignment
+assignment            : ID '@' assignment_member 
+assignment_member     : expression | reconfiguration_apply
+reconfiguration_call  : ('join' | 'split' | 'par' | 'remove' | 'const' | 'id' | ID) operation_args
+operation_args        : '(' args? ')' 
+args                  : expression (',' expression)*
+for_instruction       : 'forall' '(' datatype ID ':' ID ')' reconfiguration_block
+
+expression            : factor (expr_op factor)? 
+expr_op               : '+' | '-' | '&'
+factor                : ID '<' ID '>' | ID | operation | constructor
+operation             : ID ('#' ID)? '.' attribute_call | structure_operation_call    
+constructor           : triple_cons | pair_cons | set_cons
+attribute_call        : 'in' ('[' INT ']')? | 'out' ('[' INT ']')? | 'name' | 'node' | 'names' | 'fst' | 'snd' | 'trd' | ID
+triple_cons           : 'T' '(' expression ',' expression ',' expression ')'
+pair_cons             : 'P' '(' expression ',' expression ')'
+set_cons              : 'S' '(' expression (',' expression)* )? ')'
+    
+
+main_def              : 'main' '(' main_args? ')' main_block
+main_args             : main_arg (';' main_arg)*
+main_arg              : ID ids
+ids                   : ID (',' ID)*
+main_block            : '{' main_instruction+ '}'
+main_instruction      : main_assignment ';'
+                      | reconf_apply ';'
+main_assignment       : ID ids '=' ID '@' reconfiguration_call
+reconf_apply          : ID '@' reconfiguration_call<!--
+                --.></pre>
+-->
+
+<!-- ADAPTED -->
+                <pre>
+recoopla              : import* content
+import                : 'import STRING ';'
+content               : reconfiguration* main?
+
+reconfiguration       : 'reconfiguration' ID '(' args? ')' '{' instruction+ '}' <!--reconfiguration_block-->
+args                  : arg (';' arg)*
+arg                   : datatype list_ids
+datatype              : 'Pattern' | 'Channel' | 'Name' | 'Node' | 'Xor' | other_type '<' subtype '>'
+other_type            : 'Set' | 'Pair' | 'Triple' 
+subtype               : datatype 
+list_ids              : ID (',' ID)*
+<!--reconfiguration_block : '{' instruction+ '}' -->
+instruction           : declaration ';' | assignment ';' | reconfiguration_apply ';' | for_instruction
+declaration           : datatype var (',' var)*  
+var                   : ID | assignment
+assignment            : ID '@' assignment_member 
+assignment_member     : expression | reconfiguration_apply    
+reconfiguration_apply : ID? '@' reconfiguration_call 
+reconfiguration_call  : ('join' | 'split' | 'par' | 'remove' | 'const' | 'id' | ID) operation_args
+operation_args        : '(' op_args? ')' 
+op_args               : expression (',' expression)*
+for_instruction       : 'forall' '(' datatype ID ':' ID ')' '{' instruction+ '}' <!--reconfiguration_block-->
+
+expression            : factor (expr_op factor)? 
+expr_op               : '+' | '-' | '&'
+factor                : ID '<' ID '>' | ID | operation | constructor
+operation             : ID ('#' ID)? '.' attribute_call 
+attribute_call        : 'in' ('[' INT ']')? | 'out' ('[' INT ']')? | 'name' | 'node' | 'names' | 'fst' | 'snd' | 'trd' | ID
+constructor           : triple_cons | pair_cons | set_cons
+triple_cons           : 'T' '(' expression ',' expression ',' expression ')'
+pair_cons             : 'P' '(' expression ',' expression ')'
+set_cons              : 'S' '(' expression (',' expression)* )? ')'
+    
+
+main                  : 'main' '(' main_args? ')' '{' main_instruction+ '}' <!--main_block -->
+main_args             : main_arg (';' main_arg)*
+main_arg              : ID ids
+ids                   : ID (',' ID)* <!--main_block            : '{' main_instruction+ '}'-->
+main_instruction      : main_assignment ';'
+                      | reconf_apply ';'
+main_assignment       : ID ids '=' ID '@' reconfiguration_call
+reconf_apply          : ID '@' reconfiguration_call<!--
+                --></pre>
             </div>
+
         </div>
         <!-- /.row -->
 
+
+
+         <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Details and Examples</h2>
+            </div>
+            <div class="col-lg-12">
+
+                <ul id="myTab" class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#reconfig" data-toggle="tab"><i class="fa fa-cog"></i> Reconfigurations</a>
+                    </li>
+                    <!--
+                    <li class=""><a href="#datatypes" data-toggle="tab"><i class="fa fa-puzzle-piece"></i> Data types</a>
+                    </li>
+                    <li class=""><a href="#recbody" data-toggle="tab"><i class="fa fa-puzzle-piece"></i> Body</a>
+                    </li>
+                     <li class=""><a href="#operations" data-toggle="tab"><i class="fa fa-puzzle-piece"></i> Operations</a>
+                    </li>-->
+                    <li class=""><a href="#main" data-toggle="tab"><i class="fa fa-gears"></i> Main</a> <!--fa-code-fork-->
+                    </li>
+                    <!--<li class=""><a href="#instances" data-toggle="tab"><i class="fa fa-code-fork"></i> Stochastic Instances</a>
+                    </li>-->
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                  
+                    <!--RECONFIGURATION-->
+                    <div class="tab-pane fade active in" id="reconfig">
+                        <h4>Reconfigurations</h4>
+                        <p>
+                            Formally, a sentence of ReCooPLa specifies one or more reconfigurations.
+                        </p>  
+                        <br/>
+                        <!--
+                        <p>
+                            A reconfiguration is expressed by: the reserved word <code>reconfiguration</code>; an identifier representing the name of the reconfiguration that matches the usual regular expression for this kind of terminals; a list of arguments, which may be empty; and a reconfiguration body, which is a list of instructions as explained later in this section. In particular, each argument is aggregated by data type (i.e., data types are factored), unlike conventional languages, where data types are replicated for every different argument.
+                        </p>-->
+                        <br/>
+                        <!--<h4>Examples</h4>-->
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <pre>
+reconfiguration example (Set&ltNode&gt nodes)
+{ 
+    ...
+}<!--
+                        -->     </pre>
+                            </div>
+                            <div class="col-md-7">
+                               <p>
+                                    A reconfiguration is expressed by: the reserved word <code>reconfiguration</code>; an identifier representing the name of the reconfiguration that matches the usual regular expression for this kind of terminals; a list of arguments, which may be empty; and a reconfiguration body, which is a list of instructions as explained later in this section. In particular, each argument is aggregated by data type (i.e., data types are factored), unlike conventional languages, where data types are replicated for every different argument.
+                               </p>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                                
+                    <!--</div>-->
+
+
+
+
+
+
+                    <!--DATA TYPES--
+                    <div class="tab-pane fade" id="datatypes">-->
+                        <h4>Data types</h4>
+                        <p>
+                            ReCooPLa builds on a small set of data types: primitives (<i>Name</i>, <i>Node</i> and <i>Xor</i>), generics (<i>Set</i>, <i>Pair</i> and <i>Triple</i>) and structured (<i>Pattern</i> and <i>Channel</i>). 
+                        </p>
+                        <p>
+                            <i>Name</i> is a string and represents a channel identifier or a channel end.
+                            <i>Node</i>, although considered a primitive data type, is internally seen as a set of names, to maintain compatibility with its definition. 
+                            <i>XOR</i> is a particular case of Node, which has at least one input end and two (mutual exclusive) output ends. 
+                            The generic data types are based on the Java generics, therefore it is necessary to give a type to their contents.
+                        </p>
+                        <p>
+                            The structured data types have the following internal representation:
+                        </p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <table class="table table-bordered" style="width:35%" align="right">
+                                        <tr>
+                                            <th>Channel</th>
+                                        </tr>
+                                        <tr>
+                                            <td>in: Set&lt;Node&gt;<br/>
+                                            out: Set&lt;Node&gt;<br/>
+                                            name: Name</td>
+                                        </tr>
+                                    </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-bordered"  style="width:35%" align="left">
+                                    <tr>
+                                        <th>Pattern</th>
+                                    </tr>
+                                    <tr>
+                                        <td>in: Set&lt;Node&gt;<br/>
+                                        out: Set&lt;Node&gt;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>nodes: Set&lt;Node&gt;<br/>
+                                        names: Set&lt;Name&gt;</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <p>
+                            This notation follows the traditional approach of UML class diagrams, <i>i.e.</i> the top part contains the name of the structured data type, the middle part contains its attributes and the bottom part mentions its operations. Each instance of these types is endowed with attributes and operations, which can be accessed using selectors.
+                        </p>
+
+                       <br/>
+                        <br/>
+
+                    <!--</div>-->
+
+
+
+
+
+                    <!--RECONFIGURATION BODY--
+                    <div class="tab-pane fade" id="recbody">-->
+                        <h4>Reconfiguration Body</h4>
+                        <p>
+                            The reconfiguration body is a list of instructions inclosed between curly brackets. An instruction can be a declaration, an assignment, an iterative control structure, or an application of a reconfiguration.
+                        </p>
+                        <p>
+                            A declaration is expressed as usual: a data type followed by an identifier or an assignment. In its turn, an assignment associates an expression, or an application of a reconfiguration, to an identifier. 
+                        </p>
+                        <p>
+                            The control structure marked by the reserved word <code>forall</code>, is used to iterate over a set of elements. Adopting a notation similar to Java, it requires a variable (of data type <i>Set</i>) to iterate over, and the declaration of a local variable that in each iteration assumes the value of each element in the provided set. 
+                            Clearly, the data type of this variable shall be compatible with the data type of the elements inside the set. Again, a list of instructions defines the behaviour of this control structure.
+                        </p>
+
+                        <p>
+                            The application of a reconfiguration, (<i>c.f.</i>, <code>reconfiguration_apply</code> production in the grammar), is expressed by an identifier (to which a reconfiguration is applied) followed by <code>@</code> operator and a reconfiguration name. The latter may be a primitive reconfiguration or another reconfiguration previously declared.
+                        </p>
+                        <p>
+                            The <code>@</code> operator stands for application. A reconfiguration is applied to a variable of type <i>Pattern</i>. In particular, we can omit the variable (optional identifier in the <code>reconfiguration_apply</code> production) when we want to refer to the pattern to which the reconfiguration being defined is applied.
+                        </p>
+                       <br/>
+                        <br/>
+
+                    <!--</div>-->
+
+
+
+
+                    <!--OPERATIONS--
+                    <div class="tab-pane fade" id="operations">-->
+                        <h4>Operations</h4>
+                        <p>
+                            An expression is composed of one or more operations. 
+                            These can be specific constructors for generic data types, including nodes, or operations over generic and structured data types (<i>c.f.</i>, constructors productions -- <code>set_cons</code>, <code>pair_cons</code> and <code>triple_cons</code> -- in the grammar).
+                        </p>
+                        <p>
+                            Each constructor is defined as a reserved word (<code>S</code> stands for <i>Set</i>, <code>P</code> for <i>Pair</i> and <code>T</code> for <i>Triple</i>; and a list of values that shall agree to the data type.
+                        </p>
+
+
+                        <p>
+                            For the Set data type, ReCooPLa provides the usual binary set operators: <code>+</code> for union, <code>-</code> for subtraction and <code>&amp</code> for intersection. 
+                            For the remaining data types (except <i>Node</i>, <i>XOR</i> and <i>Name</i>), selectors are used to apply the operation. 
+                            Symbol <code>#</code> is used to access a specific channel from the internal structure of a pattern.
+                        </p>
+
+                        <p>
+                            An <code>attribute_call</code> correspond to an attribute or an operation associated to the last identifier, which must correspond to a variable of type <i>Channel</i>, <i>Pattern</i>, <i>Pair</i> or <i>Triple</i>. 
+                            They are described below.
+                            <ul>
+                                <li><code>in</code>: returns the input ports from the <i>Pattern</i> and <i>Channel</i> variables. 
+                                    It is possible to obtain a specific port refered by an optional integer parameter indexing a specific entry from the set (seen as a 0-indexed array).</li>
+                                <li><code>out</code>: returns the output ports from the <i>Pattern</i> and <i>Channel</i>  variables. The optional parameter can be used as explained for the <code>in</code> attribute call.</li>
+                                <li><code>name</code>: returns the name of a <i>Channel</i>  variable, also known as channel identifier.</li>
+                                <li><code>nodes</code>: returns all input and output ports plus all the internal nodes of a <i>Pattern</i> variable.</li>
+                                <li><code>names</code>: returns all channel identifiers associated to a <i>Pattern</i> variable.</li>
+                                <li><code>fst</code>, <code>snd</code>, <code>trd</code>: act, respectively, as the first, second and third projection from a tuple (<i>Pair</i> and <i>Triple</i> variables).</li>
+                            </ul>
+                        </p>
+
+                       <br/>
+                        <br/>
+                        
+
+                        <h4>Example</h4>
+
+                         <div class="row">
+                            <div class="col-md-5">
+                                 <pre>
+reconfiguration removeP (Set&ltName&gt Cs ){ 
+    forall ( Name n : Cs){
+        @ remove(n); 
+    }
+}
+
+reconfiguration overlapP(Pattern p; Set&ltPair&ltNode&gt&gt X){
+    @ par (p);
+    forall(Pair&ltNode&gt  n : X){
+        Node n1, n2; 
+        n1 = n.fst; 
+        n2 = n.snd;
+        Set<Node> E = S(n1, n2);
+        @ join(E); 
+    }
+}<!--
+                            --> </pre>
+                            </div>
+                            <div class="col-md-7">
+                                <p>
+                                    In this example, two reconfigurations are declared: <code>removeP</code> and <code>overlapP</code>. 
+                                </p>
+                                <p>
+                                    The former removes from a coordination pattern an entire set of channels by applying the remove primitive repeatedly. 
+                                </p>
+                                <p>
+                                    The latter sets a coordination pattern in parallel with the original one, using the <code>par</code> primitive, and performs connections between the two patterns by applying the <code>join</code> primitive with suitable arguments. 
+                                </p>
+                                <br/>
+                                <p>
+                                    These reconfiguration patterns are the implementation of the informal definitions presented by Oliveira and Barbosa (<i>cf.</i>, <a href="publications.html">publications</a> of 2013).
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <!--MAIN-->
+                    <div class="tab-pane fade" id="main">
+                        <h4>Main</h4>
+                        <p>
+                            ReCooPLa allows for the specification of the actual application of reconfigurations to coordination patterns. 
+                            This is expressed in a special reconfiguration marked with the reserved word main.
+                        </p>
+                        <p>
+                            The main reconfiguration accepts a (possibly empty) list of arguments aggregated by data type, as in a normal reconfiguration. The difference is that in the main reconfiguration, data types are only references to available coordination patterns expressed in imported CooPLa files. The arguments are assumed as new instances of the given patterns that are to be reconfigured. These instances are defined with default stochastic information; and can not
+                            match an existing identifier of a stochastic instance declared in the imported CooPLa files. An exception is the <code>Empty</code> pattern, which is a structureless pattern whose instance(s) can be used in the body of the main to construct new patterns from nothing.
+                        </p>
+                        <br/>
+                        <br/>
+
+                        <h4>Body</h4>
+                        <p>
+                            The body of the main reconfiguration is a list of specific instructions, where an instruction is either an assignment or an isolated application of a reconfiguration (<i>cf.</i>, <code>main_instruction</code>, <code>main_assignment</code> and <code>reconf_apply</code> productions in the grammar).
+                        </p>
+                        <p>
+                            An assignment in the main is a declaration, expressed as usually, with a data type and a variable identifier, followed by a concrete application of a reconfiguration to the coordination pattern instances (which are either passed as arguments, imported, or freshly declared). 
+                        </p>
+                        <p>
+                            The data type corresponds to a coordination pattern name, which may or may not exist in the imported ones. 
+                            If the pattern name does not exist, it becomes a new coordination pattern and the variable identifier is added as its instance; otherwise the structure assigned to the new instances is verified to ensure that it matches the expected coordination pattern. 
+                            If the structures are similar, then the identifiers are added as instances of the pattern; otherwise they become instances of the multi-purpose pattern <code>Reconfigured</code>. 
+                        </p>
+                        <p>
+                            An isolated application of a reconfiguration, directly changes the target instance of coordination patter and associates it to the generic type <code>Reconfigured</code>, and remove it from its original pattern. The <code>@</code> symbol is again used to express the application of reconfigurations.
+                            The arguments of a reconfiguration are obtained from the arguments of the main and freshly declared pattern instances, using the operations explained above to access nodes, channels and alike. 
+                        </p>
+
+                       <br/>
+                        <br/>
+                        
+
+                        <h4>Example</h4>
+
+                         <div class="row">
+                            <div class="col-md-4">
+                                 <pre>
+import patterns.cpla;
+import reconfigs.rcpla; 
+
+main [Sequencer seq] {
+seq @ removeP(S(seq#s1.name)); }<!--
+                            --> </pre>
+                            </div>
+                            <div class="col-md-8">
+                                <p>
+                                    A simple example of a main reconfiguration is presented aside. Therein, a <code>Sequencer</code> coordination pattern is reshaped through the application of the <code>removeP</code> reconfiguration (presented in the <!--<a href="recoopla.html#reconfiguration">reconfiguration</a>--> reconfiguration example.). 
+                                </p>
+                                <br/>
+                                <p>
+                                    Notice both the import of the files where patterns and reconfigurations were previously defined. 
+                                </p>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
         <hr>
+
 
         <!-- Footer -->
         <footer>
