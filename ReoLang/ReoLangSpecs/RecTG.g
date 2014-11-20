@@ -9,8 +9,17 @@ options{
 @header{
 	package pt.uminho.di.reolang.reclang;
 	
+	import pt.uminho.di.reolang.ReoLangSemantics;
+	import pt.uminho.di.reolang.parsing.Semantics;
+	
+	import pt.uminho.di.reolang.ReoLangCP2;
+	import pt.uminho.di.reolang.parsing.CPBuilder;
+	import pt.uminho.di.cp.model.CPModelInternal;
+	
 	import pt.uminho.di.reolang.parsing.util.*;
-	import java.util.HashMap;	
+	import java.util.Set;
+	import java.util.HashMap;
+	import java.util.LinkedHashMap;
 	import java.io.File;
 }
 
@@ -41,6 +50,9 @@ scope{
 	int parent_id;
 	int aux_id;
 	List<Integer> scopes;
+	
+	SymbolsTable coopla_table;
+	LinkedHashMap<String, CPModelInternal> patterns;
 }
 @init{
 	this.ids_table = $reclang.i_global_table;
@@ -50,6 +62,10 @@ scope{
 	
 	$reclang::scopes = new ArrayList<Integer>(); //LinkedList or Stack
 	$reclang::scopes.add(0);
+	
+	
+	$reclang::coopla_table = new SymbolsTable();
+	$reclang::patterns = new LinkedHashMap<String, CPModelInternal>();
 	
 }
 	: ^(RECONFIGS directive_def* content
@@ -97,6 +113,19 @@ directive_import
 				this.ids_table = changed_table;
 				*/
 				
+			}
+			else if (file_extension.equals(Constants.COOPLA_FILE_EXTENSION)) {	//*.cpla
+				Semantics semantics = new Semantics(file);
+				
+				ReoLangSemantics.reolang_return imported_atts = semantics.performSemanticAnalysis($reclang::coopla_table);
+				$reclang::coopla_table = imported_atts != null ? imported_atts.symbols : $reclang::coopla_table ;
+				
+				CPBuilder cp_model_builder = new CPBuilder(file);
+				ReoLangCP2 res = cp_model_builder.performModelConstruction($reclang::patterns, $reclang::coopla_table);
+				$reclang::patterns = res.getPatterns() != null ? res.getPatterns() : $reclang::patterns;
+//				if($reclang::patterns != null){
+//					System.out.println($reclang::patterns);
+//				}
 			}
 		}
 	}
@@ -504,6 +533,31 @@ scope{
 @init{
 	$main_def::symbol = new TinySymbol();
 	$main_def::scope = new TinySymbolsTable();
+			
+	for (String key : $reclang::patterns.keySet()){
+		//CPModelInternal -> Set<stoch_instances (String, CP2)> -> Set<String>
+		Set<String> instances = $reclang::patterns.get(key).getStochInstances().keySet();
+		
+		for(String instance : instances){
+			//imported instances
+			TinySymbol s = new TinySymbol();
+			s.setId(instance);
+			
+			List<Type> datatype = new ArrayList<Type>();
+			datatype.add( Type.PATTERN );
+			s.setDataType(datatype);
+			
+			Type classtype = Type.ARG;
+			s.setClassType(classtype);
+			
+			s.setLine(0);
+			s.setPosition(0);
+			
+			if (!$main_def::scope.containsSymbol(instance)){
+				$main_def::scope.addSymbol(s);
+			}
+		}
+	}
 }
 	: main_args? main_block
 	{
@@ -526,7 +580,7 @@ scope{
 		$main_def::symbol.setScopes( scopes );
 		
 		//$main_def::symbol.removeRepeatedIds();
-		if(!ids_table.containsSymbol("\$main")){
+				if(!ids_table.containsSymbol("\$main")){
 			ids_table.addSymbol($main_def::symbol);
 		}
 	}
@@ -537,34 +591,32 @@ main_args
 	;
 
 main_arg
-	: ^(ARGUMENT ID ids[true, true])
+	: ^(ARGUMENT ID ids[true])
 	;	
 
-ids[boolean toAdd, boolean isArg]
+ids[boolean isArg]
 	: ^(IDS (ID
 	{
-		if (toAdd){
-			TinySymbol s = new TinySymbol();
-			s.setId($ID.text);
-			
-			List<Type> datatype = new ArrayList<Type>();
-			datatype.add( Type.PATTERN );
-			s.setDataType(datatype);
-			
-			Type classtype;
-			if (isArg){ 
-				classtype = Type.ARG;
-			} else {
-				classtype = Type.VAR;
-			}
-			s.setClassType(classtype);
-			
-			s.setLine($ID.line);
-			s.setPosition($ID.pos);
-			
-			if (!$main_def::scope.containsSymbol($ID.text)){
-				$main_def::scope.addSymbol(s);
-			}
+		TinySymbol s = new TinySymbol();
+		s.setId($ID.text);
+		
+		List<Type> datatype = new ArrayList<Type>();
+		datatype.add( Type.PATTERN );
+		s.setDataType(datatype);
+		
+		Type classtype;
+		if (isArg){ 
+			classtype = Type.ARG;
+		} else {
+			classtype = Type.VAR;
+		}
+		s.setClassType(classtype);
+		
+		s.setLine($ID.line);
+		s.setPosition($ID.pos);
+		
+		if (!$main_def::scope.containsSymbol($ID.text)){
+			$main_def::scope.addSymbol(s);
 		}
 	}
 	)+
@@ -577,21 +629,19 @@ main_block
 	;
 
 main_instruction
-	: main_declaration
-	| main_assignment
+//	: main_declaration
+	: main_assignment
+	| reconf_apply
 	;
 
-main_declaration
-	: ^(DECLARATION ID ids[true, false])
-	;
+//main_declaration
+//	: ^(DECLARATION ID ids[true, false])
+//	;
 
 main_assignment
-	: ^( APPLICATION ( ^(DECLARATION dt=ID? 
-	{	
-		boolean toAdd = false;
-		if ($dt.text != null){ //if is declaration
-			toAdd = true;
-		}
-	}
-	ids[toAdd, false]) )? ^(OP_APPLY ID reconfiguration_call) )
+	: ^( APPLICATION ^(DECLARATION dt=ID ids[false]) ^(OP_APPLY ID reconfiguration_call) )
+	;
+	
+reconf_apply
+	: ^(OP_APPLY ID reconfiguration_call)
 	;

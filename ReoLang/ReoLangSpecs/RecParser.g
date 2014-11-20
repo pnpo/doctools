@@ -386,16 +386,21 @@ main_block
 	;
 
 main_instruction
-	:	main_declaration SEP_SEMICOLON 		-> main_declaration
-	|	main_assignment SEP_SEMICOLON		-> main_assignment
+//	:	main_declaration SEP_SEMICOLON 		-> main_declaration
+	:	main_assignment SEP_SEMICOLON		-> main_assignment
+	|	reconf_apply SEP_SEMICOLON		-> reconf_apply
 	;
 
-main_declaration
-	:	dt=ID ids
-		-> ^(DECLARATION $dt ids)
-	;
+//main_declaration
+//	:	dt=ID ids
+//		-> ^(DECLARATION $dt ids)
+//	;
 
 main_assignment
-	:	(dt=ID? ids OP_EQUAL)? id2=ID OP_APPLY reconfiguration_call
-		-> ^(APPLICATION ( ^(DECLARATION $dt? ids) )? ^(OP_APPLY $id2 reconfiguration_call) )
+	:	dt=ID ids OP_EQUAL id2=ID OP_APPLY reconfiguration_call
+		-> ^(APPLICATION ^(DECLARATION $dt ids) ^(OP_APPLY $id2 reconfiguration_call) )
+	;
+	
+reconf_apply
+	:	ID OP_APPLY reconfiguration_call -> ^(OP_APPLY ID reconfiguration_call)
 	;

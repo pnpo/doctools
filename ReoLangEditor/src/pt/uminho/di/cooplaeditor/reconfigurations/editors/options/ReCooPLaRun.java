@@ -119,11 +119,27 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 			
 			Method getErrors = c.getMethod("getErrors", null); //getDeclaredMethod
 			Set<Exception> errors = (Set<Exception>) getErrors.invoke(runner, null );
-			//System.out.println(errors);
-			//******************************
+
+			
+			LinkedHashMap<String,CoordinationPattern2> final_patterns = new LinkedHashMap<String, CoordinationPattern2>(); 
+			for (String pattern : created_patterns.keySet()){
+				if (!pattern.equals("Reconfigured")){
+					final_patterns.put( pattern, created_patterns.get(pattern).getSimplePattern() );
+				}
+				else{
+					LinkedHashMap<String, CoordinationPattern2> instances = created_patterns.get(pattern).getStochInstances();
+					//System.out.println(instances);
+					for (String reconfigured : instances.keySet()){
+						CoordinationPattern2 cp = instances.get(reconfigured);
+						final_patterns.put( reconfigured,  cp);
+					}
+				}
+			}
+			//System.out.println(final_patterns);
+			
 			
 			//get graphs through created patterns
-			Set<ArchPatternAbstractGraph> graphs = getGraphs(created_patterns);
+			Set<ArchPatternAbstractGraph> graphs = getGraphs(final_patterns);
 			
 //			//test one graph in reolang pattern view
 //			testWithReoLangPatternView(graphs, (RecLangEditor) editor);
@@ -171,12 +187,13 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 		}
 		
 		catch(Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			//e.printStackTrace();
 			
-			String msg = e.toString().contains("ClassNotFoundException: Run") ? "The application of reconfiguration structure (main) is missing!" : e.toString();
+			String msg = e.toString().contains("ClassNotFoundException: Run") ? "The application of reconfiguration structure (main) is missing!" : e.getMessage();
 			msg = e.toString().contains("java.lang.NullPointerException") ? "Check the arguments of the reconfigurations, "
 					+ "in particular, the internal representation of structured data types used!\n" 
-					+ "It seems that some attribute or operation of a structured data type does not exist or can not be applied." : e.toString();
+					+ "It seems that some attribute or operation of a structured data type does not exist or can not be applied." : e.getMessage();
 			MessageDialog.openInformation(
     				window.getShell(),
     				"Run reconfigurations",
@@ -293,9 +310,10 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
     			 * import org.antlr.runtime.tree.*;
     			*/
 	    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
+	    		writer.println("import " + Constants.REOLANG + ".ReoLangSemantics;");
 	    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
-    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
-    			
+	    		writer.println("import " + Constants.REOLANG_PARSING + ".Semantics;");
+    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");    			
     		}
     		writer.print(translation.get(t));
     		writer.close();
@@ -369,12 +387,13 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 	 * 
 	 * @return graphs
 	 */
-	private Set<ArchPatternAbstractGraph> getGraphs(LinkedHashMap<String,CPModelInternal> created_patterns) 
+	private Set<ArchPatternAbstractGraph> getGraphs(LinkedHashMap<String,CoordinationPattern2> created_patterns) 
 			throws Exception {
 		Set<ArchPatternAbstractGraph> graphs = new HashSet<ArchPatternAbstractGraph>();
 		
-		for (CPModelInternal cpmi : created_patterns.values()){
-			CoordinationPattern2 cp = cpmi.getSimplePattern();
+		//for (CPModelInternal cpmi : created_patterns.values()){
+		for (CoordinationPattern2 cp : created_patterns.values()){
+			//CoordinationPattern2 cp = cpmi.getSimplePattern();
 			Set<Node> in_nodes = new HashSet<Node>();
 			Set<Node> out_nodes = new HashSet<Node>();
 			Set<Node> nodes = new HashSet<Node>();

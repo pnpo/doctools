@@ -40,32 +40,154 @@ apply_method(reconfs, insts) ::= <<
 
 mkmain(files, args, insts) ::= <<
 public class Run {
-	
+
+	private static SymbolsTable symbols;	
 	private static LinkedHashMap\<String, CPModelInternal\> imported_patterns;
 	private static LinkedHashMap\<String, CPModelInternal\> created_patterns;
 	private static Set\<Exception\> errors;
 	
 	public LinkedHashMap\<String,CPModelInternal\> getImportedPatterns(){
-		return this.imported_patterns;
+		return imported_patterns;
 	}
 	
 	public LinkedHashMap\<String,CPModelInternal\> getCreatedPatterns(){
-		return this.created_patterns;
+		return created_patterns;
 	}
 	
 	public Set\<Exception\> getErrors(){
-		return this.errors;
+		return errors;
+	}
+	
+	private CoordinationPattern2 setDefaultStochasticInfoTo(CoordinationPattern2 pattern){
+		for (CommunicationMean2 cm : pattern.getPattern()){
+			String coopla_type = cm.getType();
+	    	if(coopla_type.contains("fifo")) {
+	    		coopla_type = "fifo";
+	    	}
+			Symbol symbol = symbols.get(coopla_type);
+			LinkedHashMap\<String,Double\> delays = new LinkedHashMap\<String,Double\>();
+			for (String flow_label : symbol.getFlowLabels()){
+				delays.put(flow_label, 10000.0);
+			}
+			cm.setDelays(delays);
+		}
+		
+		HashMap\<Node, Pair\<Double, Double\>\> delays = new HashMap\<Node, Pair\<Double, Double\>\>();
+		for (Node n : pattern.getPorts()){
+			delays.put(n, new Pair\<Double, Double\>(1.0,0.0));
+		}
+		for (Node n : pattern.getMixed()){
+			delays.put(n, new Pair\<Double, Double\>(10000.0,10000.0));
+		}
+		pattern.setDelays(delays);
+		
+		return pattern;
+	}
+	
+	private void removeInstance(String instance){
+		boolean removed = false;
+		for (CPModelInternal pattern : imported_patterns.values()){
+			for (String i : pattern.getStochInstances().keySet()){
+				if (i.equals(instance)){
+					pattern.getStochInstances().remove(i);
+					removed = true;
+					break;
+				}
+			}
+		}
+		
+		if(!removed){
+			for (CPModelInternal pattern : created_patterns.values()){
+				for (String i : pattern.getStochInstances().keySet()){
+					if (i.equals(instance)){
+						pattern.getStochInstances().remove(i);
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	private CoordinationPattern2 getPattern(String p){
+		CoordinationPattern2 cp = null;
+		for (CPModelInternal pattern : imported_patterns.values()){
+			if (pattern.getSimplePattern().getId().equals(p)){
+				cp = pattern.getSimplePattern();
+				break;
+			}
+		}
+		
+		if(cp == null){
+			for (CPModelInternal pattern : created_patterns.values()){
+				if (pattern.getSimplePattern().getId().equals(p)){
+					cp = pattern.getSimplePattern();
+					break;
+				}
+			}
+		}
+		return cp;	
+	}
+	
+	private boolean comparePatterns(CoordinationPattern2 p1, CoordinationPattern2 p2){
+		boolean isEquals = false;
+		CoordinationPattern2 cp1 = new CoordinationPattern2(p1);
+		cp1.setDelays(null);
+		CoordinationPattern2 cp2 = new CoordinationPattern2(p2);
+		cp2.setDelays(null);
+		
+		if (cp1.equals(cp2)){
+			isEquals = true;
+		}
+		else{
+			Integer count;
+			String type;
+			
+			HashMap\<String,Integer\> channels_cp1 = new HashMap\<String, Integer\>();
+			for (CommunicationMean2 cm : cp1.getPattern()){
+				cm.setDelays(null);
+				type = cm.getType().toLowerCase();
+				count = channels_cp1.get(cm.getType());
+				if (count == null) {
+					channels_cp1.put(type, 1);
+				}
+				else {
+					channels_cp1.put(type, count + 1);
+				}
+			}
+			
+			HashMap\<String,Integer\> channels_cp2 = new HashMap\<String, Integer\>();
+			for (CommunicationMean2 cm : cp2.getPattern()){
+				cm.setDelays(null);
+				type = cm.getType().toLowerCase();
+				count = channels_cp2.get(cm.getType());
+				if (count == null) {
+					channels_cp2.put(type, 1);
+				}
+				else {
+					channels_cp2.put(type, count + 1);
+				}
+			}
+			
+			if (channels_cp1.equals(channels_cp2) && cp1.getMixed().size() == cp2.getMixed().size() 
+					&& cp1.getIn().size() == cp2.getIn().size() && cp1.getOut().size() == cp2.getOut().size()){
+				isEquals = true;
+			}
+		}
+		
+		return isEquals;
 	}
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	//public static void main(String[] args){
-	public Run(){
+	public Run() throws Exception{
 	
 		CPModelInternal $cpmi = null;
 		CoordinationPattern2 $new_cp = null;
+		symbols = new SymbolsTable();
 		imported_patterns = new LinkedHashMap\<String, CPModelInternal\>();
 		created_patterns = new LinkedHashMap\<String, CPModelInternal\>();
+		errors = new HashSet\<Exception\>();
 	
 		String[] files = {
 			<files:{ file | "<file>"}; separator=", 
@@ -74,8 +196,14 @@ public class Run {
 		
 		for (String file : files){
 			CPBuilder cp_model_builder = new CPBuilder(file);
-			ReoLangCP2 res = cp_model_builder.performModelConstruction( new LinkedHashMap\<String, CPModelInternal\>(), new SymbolsTable() );
+			//ReoLangCP2 res = cp_model_builder.performModelConstruction( new LinkedHashMap\<String, CPModelInternal\>(), new SymbolsTable() );
+			ReoLangCP2 res = cp_model_builder.performModelConstruction( imported_patterns, symbols );
+
+			Semantics semantics = new Semantics(file);
+			ReoLangSemantics.reolang_return imported_atts = semantics.performSemanticAnalysis(symbols);
+			symbols = imported_atts != null ? imported_atts.symbols : symbols ;
 			
+			imported_patterns.put("Empty", new CPModelInternal());
 			//imported_patterns = res.getPatterns() != null ? res.getPatterns() : imported_patterns;
 			if (res.getPatterns() != null){
 				for (String p : res.getPatterns().keySet()){
@@ -84,6 +212,9 @@ public class Run {
 			}
 		}
 		
+		//Map\<Node, Pair\<Double, Double\>\> delays;
+		created_patterns.put("Reconfigured", new CPModelInternal());
+		
 		<args>
 		
 		try{
@@ -91,15 +222,29 @@ public class Run {
 		} catch (Exception e){ //Throwable
 			//System.err.println(e);	
 			errors.add(e); 
+			throw e;
 		}
 	}
 }
 >>
 
-list_args(cp, ids) ::= <<
-<ids:{ id |	CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
+list_args(empty, cp, ids) ::= <<
+// ********************************* //
+<if(empty)>
+<ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2();
+_<id>.setId("<cp>");
+imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);
 }>
+<else>
+<ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
+_<id> = this.setDefaultStochasticInfoTo(_<id>);
+imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);
+}>
+<endif>
+// ********************************* //
+
 >>
+
 
 declaration(cp, ids) ::= <<
 <ids:{ id |final CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
