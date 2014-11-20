@@ -119,12 +119,7 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 			
 			Method getErrors = c.getMethod("getErrors", null); //getDeclaredMethod
 			Set<Exception> errors = (Set<Exception>) getErrors.invoke(runner, null );
-			//System.out.println(errors);
-//			for (Exception e : errors){
-//				System.out.println(e.getMessage() +"\n");
-//				throw e;
-//			}
-			//******************************
+
 			
 			LinkedHashMap<String,CoordinationPattern2> final_patterns = new LinkedHashMap<String, CoordinationPattern2>(); 
 			for (String pattern : created_patterns.keySet()){
@@ -135,11 +130,13 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 					LinkedHashMap<String, CoordinationPattern2> instances = created_patterns.get(pattern).getStochInstances();
 					//System.out.println(instances);
 					for (String reconfigured : instances.keySet()){
-						final_patterns.put( reconfigured, instances.get(reconfigured) );
+						CoordinationPattern2 cp = instances.get(reconfigured);
+						final_patterns.put( reconfigured,  cp);
 					}
 				}
 			}
 			//System.out.println(final_patterns);
+			
 			
 			//get graphs through created patterns
 			Set<ArchPatternAbstractGraph> graphs = getGraphs(final_patterns);

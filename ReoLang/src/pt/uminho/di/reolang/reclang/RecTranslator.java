@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g 2014-11-10 19:32:04
+// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g 2014-11-19 22:54:11
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -4288,20 +4288,22 @@ public class RecTranslator extends TreeParser {
 					instances.add("_" + (id2!=null?id2.getText():null));
 					//------------check if new instance has the same structure
 					add_pattern += "\n\t//se o pattern já existir...\n";
-					add_pattern += "\tif(this.getPattern(" + aux + ".getId()) != null){\n";
-					add_pattern += "\t\tif(this.comparePatterns(this.getPattern(" + aux + ".getId()), $new_cp)){\n";
-					add_pattern += "\t\t\tif(imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+					add_pattern += "\tif(this.getPattern(" + instances.get(0) + ".getId()) != null){\n";
+					add_pattern += "\t\tif(this.comparePatterns(this.getPattern(" + instances.get(0) + ".getId()), $new_cp)){\n";
+					add_pattern += "\t\t\tif(imported_patterns.keySet().contains(" + instances.get(0) + ".getId()) ){\n";
 					add_pattern += "\t\t\t\tthis.removeInstance(\"" + (id2!=null?id2.getText():null) +"\");\n";
+					add_pattern += "\t\t\t\t" + aux + ".setId(" + instances.get(0) + ".getId());\n";
 					for (String id : instances){
-						add_pattern += "\t\t\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+						add_pattern += "\t\t\t\timported_patterns.get(" + instances.get(0) + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
 					}
-					add_pattern += "\t\t\t\tcreated_patterns.put( " + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n";
-					add_pattern += "\t\t\t\timported_patterns.remove(" + aux + ".getId());\n\t\t\t}\n";
+					add_pattern += "\t\t\t\tcreated_patterns.put( " + instances.get(0) + ".getId(), imported_patterns.get(" + instances.get(0) + ".getId()) );\n";
+					add_pattern += "\t\t\t\timported_patterns.remove(" + instances.get(0) + ".getId());\n\t\t\t}\n";
 					
 					add_pattern += "\t\t\telse{\n";
 					add_pattern += "\t\t\t\tthis.removeInstance(\"" + (id2!=null?id2.getText():null) +"\");\n";
+					add_pattern += "\t\t\t\t" + aux + ".setId(" + instances.get(0) + ".getId());\n";
 					for (String id : instances){
-						add_pattern += "\t\t\t\tcreated_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+						add_pattern += "\t\t\t\tcreated_patterns.get(" + instances.get(0) + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
 					}
 					add_pattern += "\t\t\t}\n";
 					add_pattern += "\t\t}\n";
@@ -4314,7 +4316,7 @@ public class RecTranslator extends TreeParser {
 					add_pattern += "\t\t}\n";
 					add_pattern += "\t}\n";
 					//-------------------------
-					//instances.remove("_" + (id2!=null?id2.getText():null));
+					instances.remove("_" + (id2!=null?id2.getText():null));
 					
 					add_pattern += "\telse{\n";
 					
@@ -4322,6 +4324,7 @@ public class RecTranslator extends TreeParser {
 					add_pattern += "\t\t$cpmi.setSimplePattern($new_cp);\n";
 					//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
 					add_pattern += "\t\tthis.removeInstance(\"" + (id2!=null?id2.getText():null) +"\");\n";
+					add_pattern += "\t\t" + aux + ".setId(" + instances.get(0) + ".getId());\n";
 					for (String id : instances){
 						value += "\t" + id + " = " + invoke + ";\n";
 						//rever -> será necessário mudar nome das instancias para o novo tipo?
@@ -4340,7 +4343,7 @@ public class RecTranslator extends TreeParser {
 			//				value += "\t" + id + " = ";
 			//				value += id.equals(first_id) ? invoke + ";\n" : first_id + ";\n"; 
 					}
-					//add_pattern += "\t\t$cpmi.getStochInstances().put(\"" + (id2!=null?id2.getText():null) + "\", _" + (id2!=null?id2.getText():null) +");\n";
+					add_pattern += "\t\t$cpmi.getStochInstances().put(\"" + (id2!=null?id2.getText():null) + "\", _" + (id2!=null?id2.getText():null) +");\n";
 					add_pattern += "\t\tcreated_patterns.put( \"" + (id1!=null?id1.getText():null) + "\", $cpmi );\n";
 					
 					//final else
@@ -4385,7 +4388,7 @@ public class RecTranslator extends TreeParser {
 
 
 	// $ANTLR start "reconf_apply"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1358:1: reconf_apply returns [String value] : ^( OP_APPLY ID reconfiguration_call ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1361:1: reconf_apply returns [String value] : ^( OP_APPLY ID reconfiguration_call ) ;
 	public final RecTranslator.reconf_apply_return reconf_apply() throws RecognitionException {
 		RecTranslator.reconf_apply_return retval = new RecTranslator.reconf_apply_return();
 		retval.start = input.LT(1);
@@ -4402,8 +4405,8 @@ public class RecTranslator extends TreeParser {
 			//String add_pattern = "";
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1367:2: ( ^( OP_APPLY ID reconfiguration_call ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1367:4: ^( OP_APPLY ID reconfiguration_call )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1370:2: ( ^( OP_APPLY ID reconfiguration_call ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecTranslator.g:1370:4: ^( OP_APPLY ID reconfiguration_call )
 			{
 			match(input,OP_APPLY,FOLLOW_OP_APPLY_in_reconf_apply1942); 
 			match(input, Token.DOWN, null); 
@@ -4484,6 +4487,7 @@ public class RecTranslator extends TreeParser {
 					
 					if(op.equals("id")){
 						value += "\tif( imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+						value += "\t\tthis.removeInstance(\"" + (ID65!=null?ID65.getText():null) +"\");\n";
 						//value += "\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n";
 						value += "\t\tcreated_patterns.put(" + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n\t}\n";
 						
@@ -4492,6 +4496,7 @@ public class RecTranslator extends TreeParser {
 					}
 					else{
 						//value += "\t" + aux + ".setId(\"Reconfigured_" + (ID65!=null?ID65.getText():null) + "\");\n"; //eg.: Reconfigured_so
+						
 						value += "\t" + aux + ".setId(\"Reconfigured_\" + " + aux + ".getId() );\n"; //eg.: Reconfigured_Original
 					
 						//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
@@ -4504,7 +4509,10 @@ public class RecTranslator extends TreeParser {
 							//add_pattern += "\t$cpmi = new CPModelInternal();\n";
 							value += "\t$cpmi = created_patterns.get(\"Reconfigured\");\n";
 			//				add_pattern += "\t$cpmi.setSimplePattern($new_cp);\n";
-							value += "\t$cpmi.getStochInstances().put(\"Reconfigured_" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n";
+
+							//FIXED BUG - se alterar nome instancia, quando a pretender remover, não será removida devido ao sufixo Reconfigured_
+			//				value += "\t$cpmi.getStochInstances().put(\"Reconfigured_" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n";
+							value += "\t$cpmi.getStochInstances().put(\"" + (ID65!=null?ID65.getText():null) + "\", " + aux +");\n";
 							value += "\tcreated_patterns.put( \"Reconfigured\", $cpmi );\n";
 						}
 						//value += remaining;

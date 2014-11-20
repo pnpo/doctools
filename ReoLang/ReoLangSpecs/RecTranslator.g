@@ -1279,20 +1279,22 @@ main_assignment returns[String value]
 		instances.add("_" + $id2.text);
 		//------------check if new instance has the same structure
 		add_pattern += "\n\t//se o pattern já existir...\n";
-		add_pattern += "\tif(this.getPattern(" + aux + ".getId()) != null){\n";
-		add_pattern += "\t\tif(this.comparePatterns(this.getPattern(" + aux + ".getId()), \$new_cp)){\n";
-		add_pattern += "\t\t\tif(imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+		add_pattern += "\tif(this.getPattern(" + instances.get(0) + ".getId()) != null){\n";
+		add_pattern += "\t\tif(this.comparePatterns(this.getPattern(" + instances.get(0) + ".getId()), \$new_cp)){\n";
+		add_pattern += "\t\t\tif(imported_patterns.keySet().contains(" + instances.get(0) + ".getId()) ){\n";
 		add_pattern += "\t\t\t\tthis.removeInstance(\"" + $id2.text +"\");\n";
+		add_pattern += "\t\t\t\t" + aux + ".setId(" + instances.get(0) + ".getId());\n";
 		for (String id : instances){
-			add_pattern += "\t\t\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+			add_pattern += "\t\t\t\timported_patterns.get(" + instances.get(0) + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
 		}
-		add_pattern += "\t\t\t\tcreated_patterns.put( " + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n";
-		add_pattern += "\t\t\t\timported_patterns.remove(" + aux + ".getId());\n\t\t\t}\n";
+		add_pattern += "\t\t\t\tcreated_patterns.put( " + instances.get(0) + ".getId(), imported_patterns.get(" + instances.get(0) + ".getId()) );\n";
+		add_pattern += "\t\t\t\timported_patterns.remove(" + instances.get(0) + ".getId());\n\t\t\t}\n";
 		
 		add_pattern += "\t\t\telse{\n";
 		add_pattern += "\t\t\t\tthis.removeInstance(\"" + $id2.text +"\");\n";
+		add_pattern += "\t\t\t\t" + aux + ".setId(" + instances.get(0) + ".getId());\n";
 		for (String id : instances){
-			add_pattern += "\t\t\t\tcreated_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
+			add_pattern += "\t\t\t\tcreated_patterns.get(" + instances.get(0) + ".getId()).getStochInstances().put(\"" + id.substring(1) + "\", " + id +");\n";
 		}
 		add_pattern += "\t\t\t}\n";
 		add_pattern += "\t\t}\n";
@@ -1305,7 +1307,7 @@ main_assignment returns[String value]
 		add_pattern += "\t\t}\n";
 		add_pattern += "\t}\n";
 		//-------------------------
-		//instances.remove("_" + $id2.text);
+		instances.remove("_" + $id2.text);
 		
 		add_pattern += "\telse{\n";
 		
@@ -1313,6 +1315,7 @@ main_assignment returns[String value]
 		add_pattern += "\t\t\$cpmi.setSimplePattern(\$new_cp);\n";
 		//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
 		add_pattern += "\t\tthis.removeInstance(\"" + $id2.text +"\");\n";
+		add_pattern += "\t\t" + aux + ".setId(" + instances.get(0) + ".getId());\n";
 		for (String id : instances){
 			value += "\t" + id + " = " + invoke + ";\n";
 			//rever -> será necessário mudar nome das instancias para o novo tipo?
@@ -1331,7 +1334,7 @@ main_assignment returns[String value]
 //				value += "\t" + id + " = ";
 //				value += id.equals(first_id) ? invoke + ";\n" : first_id + ";\n"; 
 		}
-		//add_pattern += "\t\t\$cpmi.getStochInstances().put(\"" + $id2.text + "\", _" + $id2.text +");\n";
+		add_pattern += "\t\t\$cpmi.getStochInstances().put(\"" + $id2.text + "\", _" + $id2.text +");\n";
 		add_pattern += "\t\tcreated_patterns.put( \"" + $id1.text + "\", \$cpmi );\n";
 		
 		//final else
@@ -1437,6 +1440,7 @@ reconf_apply returns[String value]
 		
 		if(op.equals("id")){
 			value += "\tif( imported_patterns.keySet().contains(" + aux + ".getId()) ){\n";
+			value += "\t\tthis.removeInstance(\"" + $ID.text +"\");\n";
 			//value += "\t\timported_patterns.get(" + aux + ".getId()).getStochInstances().put(\"" + $ID.text + "\", " + aux +");\n";
 			value += "\t\tcreated_patterns.put(" + aux + ".getId(), imported_patterns.get(" + aux + ".getId()) );\n\t}\n";
 			
@@ -1445,6 +1449,7 @@ reconf_apply returns[String value]
 		}
 		else{
 			//value += "\t" + aux + ".setId(\"Reconfigured_" + $ID.text + "\");\n"; //eg.: Reconfigured_so
+			
 			value += "\t" + aux + ".setId(\"Reconfigured_\" + " + aux + ".getId() );\n"; //eg.: Reconfigured_Original
 		
 			//remove padrão do tipo anterior -> foi reconfigurado logo já a sua estrutura já não corresponde ao tipo anterior
@@ -1457,7 +1462,10 @@ reconf_apply returns[String value]
 				//add_pattern += "\t\$cpmi = new CPModelInternal();\n";
 				value += "\t\$cpmi = created_patterns.get(\"Reconfigured\");\n";
 //				add_pattern += "\t\$cpmi.setSimplePattern(\$new_cp);\n";
-				value += "\t\$cpmi.getStochInstances().put(\"Reconfigured_" + $ID.text + "\", " + aux +");\n";
+
+				//FIXED BUG - se alterar nome instancia, quando a pretender remover, não será removida devido ao sufixo Reconfigured_
+//				value += "\t\$cpmi.getStochInstances().put(\"Reconfigured_" + $ID.text + "\", " + aux +");\n";
+				value += "\t\$cpmi.getStochInstances().put(\"" + $ID.text + "\", " + aux +");\n";
 				value += "\tcreated_patterns.put( \"Reconfigured\", \$cpmi );\n";
 			}
 			//value += remaining;

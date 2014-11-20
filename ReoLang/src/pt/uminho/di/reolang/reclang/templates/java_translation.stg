@@ -128,11 +128,53 @@ public class Run {
 		return cp;	
 	}
 	
-	private boolean comparePatterns(CoordinationPattern2 cp1, CoordinationPattern2 cp2){
+	private boolean comparePatterns(CoordinationPattern2 p1, CoordinationPattern2 p2){
+		boolean isEquals = false;
+		CoordinationPattern2 cp1 = new CoordinationPattern2(p1);
 		cp1.setDelays(null);
+		CoordinationPattern2 cp2 = new CoordinationPattern2(p2);
 		cp2.setDelays(null);
-		//return cp1.equals(cp2);
-		return true;
+		
+		if (cp1.equals(cp2)){
+			isEquals = true;
+		}
+		else{
+			Integer count;
+			String type;
+			
+			HashMap\<String,Integer\> channels_cp1 = new HashMap\<String, Integer\>();
+			for (CommunicationMean2 cm : cp1.getPattern()){
+				cm.setDelays(null);
+				type = cm.getType().toLowerCase();
+				count = channels_cp1.get(cm.getType());
+				if (count == null) {
+					channels_cp1.put(type, 1);
+				}
+				else {
+					channels_cp1.put(type, count + 1);
+				}
+			}
+			
+			HashMap\<String,Integer\> channels_cp2 = new HashMap\<String, Integer\>();
+			for (CommunicationMean2 cm : cp2.getPattern()){
+				cm.setDelays(null);
+				type = cm.getType().toLowerCase();
+				count = channels_cp2.get(cm.getType());
+				if (count == null) {
+					channels_cp2.put(type, 1);
+				}
+				else {
+					channels_cp2.put(type, count + 1);
+				}
+			}
+			
+			if (channels_cp1.equals(channels_cp2) && cp1.getMixed().size() == cp2.getMixed().size() 
+					&& cp1.getIn().size() == cp2.getIn().size() && cp1.getOut().size() == cp2.getOut().size()){
+				isEquals = true;
+			}
+		}
+		
+		return isEquals;
 	}
 	
 	
@@ -186,38 +228,13 @@ public class Run {
 }
 >>
 
-list_args_old(cp, ids) ::= <<
-<ids:{ id |	CoordinationPattern2 <id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
-}>
->>
-
-list_args_old2(cp, ids, delays) ::= <<
-// ********************************* //
-<ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
-}>
-<delays>
-<ids:{ id |	_<id>.setDelays(delays);aux = setDefaultStochasticInfoTo(aux);
-imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);
-}>
-// ********************************* //
-
->>
-
-list_args_old3(cp, ids) ::= <<
-// ********************************* //
-<ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
-_<id> = this.setDefaultStochasticInfoTo(_<id>);
-imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);}>
-// ********************************* //
-
->>
-
 list_args(empty, cp, ids) ::= <<
 // ********************************* //
 <if(empty)>
 <ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2();
 _<id>.setId("<cp>");
-imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);}>
+imported_patterns.get("<cp>").getStochInstances().put("<id>", _<id>);
+}>
 <else>
 <ids:{ id |	CoordinationPattern2 _<id> = new CoordinationPattern2(imported_patterns.get("<cp>").getSimplePattern());
 _<id> = this.setDefaultStochasticInfoTo(_<id>);
