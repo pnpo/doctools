@@ -38,6 +38,12 @@ options{
 		String resource = file_path.substring(idx + 1);
 		return resource;
 	}
+	
+	private String retrivePathFromFilePath(String file_path) {
+		int idx = file_path.lastIndexOf('/');
+		String path = file_path.substring(0, idx + 1);
+		return path;
+	}
 }
 
 
@@ -93,6 +99,11 @@ directive_import
 		String file = file_name.substring(1, file_name.length()-1); //remove " from string
 		
 	    	File f = new File( file );
+	    	if( !f.exists() ){
+	    		String path = retrivePathFromFilePath(this.file_path);
+	    		file = path + file;
+	    		f = new File( file );
+	    	}
 	    	if( f.exists() ){
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			

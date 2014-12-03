@@ -42,6 +42,12 @@ options{
 		return resource;
 	}
 	
+	private String retrivePathFromFilePath(String file_path) {
+		int idx = file_path.lastIndexOf('/');
+		String path = file_path.substring(0, idx + 1);
+		return path;
+	}
+	
 
 	//Error se = new Error();
 	private TinySymbolsTable getScope(Integer id){
@@ -192,8 +198,13 @@ directive_import returns[ArrayList<Error> errors]
 		
 	    	File f = new File( file );
 	    	if( !f.exists() ){
-	    		local_errors.add( Error.report(ErrorType.ERROR, Error.fileDoesNotExist(file), $STRING.line, $STRING.pos, this.file_path) );
+	    		String path = retrivePathFromFilePath(this.file_path);
+	    		file = path + file;
+	    		f = new File( file );
 	    	}
+	    	if( !f.exists() ){
+    			local_errors.add( Error.report(ErrorType.ERROR, Error.fileDoesNotExist(file), $STRING.line, $STRING.pos, this.file_path) );
+    		}
 	    	else{
 			String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 			

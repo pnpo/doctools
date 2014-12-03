@@ -103,6 +103,7 @@ public class ReCooPLaProcessor {
 				CommonTreeNodeStream tree_tltr = new CommonTreeNodeStream(this.res.getTree());
 //				System.out.println(((CommonTree) res.getTree()).toStringTree());
 				RecTranslator walker_tltr = new RecTranslator(tree_tltr);
+				walker_tltr.setFilePath(this.file);
 
 //				// load in *.stg template group, put in templates variable
 				// package pt.uminho.di.reolang.reclang.templates

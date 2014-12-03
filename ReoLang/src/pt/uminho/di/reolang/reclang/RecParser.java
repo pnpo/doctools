@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g 2014-10-26 15:33:17
+// $ANTLR 3.5.1 /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g 2014-12-03 20:50:17
 
 	package pt.uminho.di.reolang.reclang;
 	
@@ -172,6 +172,12 @@ public class RecParser extends Parser {
 		public void setFilePath(String file) {
 			this.file_path = file;
 		}
+		
+		private String retrivePathFromFilePath(String file_path) {
+			int idx = file_path.lastIndexOf('/');
+			String path = file_path.substring(0, idx + 1);
+			return path;
+		}
 
 
 	public static class reclang_return extends ParserRuleReturnScope {
@@ -182,7 +188,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "reclang"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:68:1: reclang : ( directive_def )* content -> ^( RECONFIGS ( directive_def )* content ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:74:1: reclang : ( directive_def )* content -> ^( RECONFIGS ( directive_def )* content ) ;
 	public final RecParser.reclang_return reclang() throws RecognitionException {
 		RecParser.reclang_return retval = new RecParser.reclang_return();
 		retval.start = input.LT(1);
@@ -196,10 +202,10 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_content=new RewriteRuleSubtreeStream(adaptor,"rule content");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:69:2: ( ( directive_def )* content -> ^( RECONFIGS ( directive_def )* content ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:69:5: ( directive_def )* content
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:75:2: ( ( directive_def )* content -> ^( RECONFIGS ( directive_def )* content ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:75:5: ( directive_def )* content
 			{
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:69:5: ( directive_def )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:75:5: ( directive_def )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -210,7 +216,7 @@ public class RecParser extends Parser {
 
 				switch (alt1) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:69:5: directive_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:75:5: directive_def
 					{
 					pushFollow(FOLLOW_directive_def_in_reclang144);
 					directive_def1=directive_def();
@@ -241,13 +247,13 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 70:3: -> ^( RECONFIGS ( directive_def )* content )
+			// 76:3: -> ^( RECONFIGS ( directive_def )* content )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:70:6: ^( RECONFIGS ( directive_def )* content )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:76:6: ^( RECONFIGS ( directive_def )* content )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(RECONFIGS, "RECONFIGS"), root_1);
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:70:18: ( directive_def )*
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:76:18: ( directive_def )*
 				while ( stream_directive_def.hasNext() ) {
 					adaptor.addChild(root_1, stream_directive_def.nextTree());
 				}
@@ -291,7 +297,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "directive_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:76:1: directive_def : directive_import -> directive_import ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:82:1: directive_def : directive_import -> directive_import ;
 	public final RecParser.directive_def_return directive_def() throws RecognitionException {
 		RecParser.directive_def_return retval = new RecParser.directive_def_return();
 		retval.start = input.LT(1);
@@ -303,8 +309,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_directive_import=new RewriteRuleSubtreeStream(adaptor,"rule directive_import");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:77:2: ( directive_import -> directive_import )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:77:4: directive_import
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:83:2: ( directive_import -> directive_import )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:83:4: directive_import
 			{
 			pushFollow(FOLLOW_directive_import_in_directive_def174);
 			directive_import3=directive_import();
@@ -322,7 +328,7 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 78:3: -> directive_import
+			// 84:3: -> directive_import
 			{
 				adaptor.addChild(root_0, stream_directive_import.nextTree());
 			}
@@ -359,7 +365,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "directive_import"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:82:1: directive_import : RW_IMPORT STRING SEP_SEMICOLON -> ^( IMPORT STRING ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:88:1: directive_import : RW_IMPORT STRING SEP_SEMICOLON -> ^( IMPORT STRING ) ;
 	public final RecParser.directive_import_return directive_import() throws RecognitionException {
 		RecParser.directive_import_return retval = new RecParser.directive_import_return();
 		retval.start = input.LT(1);
@@ -378,8 +384,8 @@ public class RecParser extends Parser {
 		RewriteRuleTokenStream stream_SEP_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEP_SEMICOLON");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:83:2: ( RW_IMPORT STRING SEP_SEMICOLON -> ^( IMPORT STRING ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:83:4: RW_IMPORT STRING SEP_SEMICOLON
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:89:2: ( RW_IMPORT STRING SEP_SEMICOLON -> ^( IMPORT STRING ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:89:4: RW_IMPORT STRING SEP_SEMICOLON
 			{
 			RW_IMPORT4=(Token)match(input,RW_IMPORT,FOLLOW_RW_IMPORT_in_directive_import194);  
 			stream_RW_IMPORT.add(RW_IMPORT4);
@@ -392,6 +398,11 @@ public class RecParser extends Parser {
 					String file = file_name.substring(1, file_name.length()-1); //remove " from string
 					
 				    	File f = new File( file );
+				    	if( !f.exists() ){
+				    		String path = retrivePathFromFilePath(this.file_path);
+				    		file = path + file;
+				    		f = new File( file );
+				    	}
 				    	if( f.exists() ){
 						String file_extension = file_name.substring(file_name.length()-5, file_name.length()-1); //eg: "overlap.rpl" -> rpl
 						
@@ -448,9 +459,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 133:3: -> ^( IMPORT STRING )
+			// 144:3: -> ^( IMPORT STRING )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:133:6: ^( IMPORT STRING )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:144:6: ^( IMPORT STRING )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IMPORT, "IMPORT"), root_1);
@@ -492,7 +503,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "content"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:139:1: content : ( element )* ( main )? ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:150:1: content : ( element )* ( main )? ;
 	public final RecParser.content_return content() throws RecognitionException {
 		RecParser.content_return retval = new RecParser.content_return();
 		retval.start = input.LT(1);
@@ -504,13 +515,13 @@ public class RecParser extends Parser {
 
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:140:2: ( ( element )* ( main )? )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:140:5: ( element )* ( main )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:2: ( ( element )* ( main )? )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:5: ( element )* ( main )?
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:140:5: ( element )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:5: ( element )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -521,7 +532,7 @@ public class RecParser extends Parser {
 
 				switch (alt2) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:140:5: element
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:5: element
 					{
 					pushFollow(FOLLOW_element_in_content231);
 					element7=element();
@@ -537,7 +548,7 @@ public class RecParser extends Parser {
 				}
 			}
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:140:14: ( main )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:14: ( main )?
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0==RW_MAIN) ) {
@@ -545,7 +556,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt3) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:140:14: main
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:14: main
 					{
 					pushFollow(FOLLOW_main_in_content234);
 					main8=main();
@@ -587,7 +598,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "element"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:144:1: element : ( reconfiguration_def -> ^( RECONFIGURATION reconfiguration_def ) | applicaiton_def -> ^( APPLICATION applicaiton_def ) );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:155:1: element : ( reconfiguration_def -> ^( RECONFIGURATION reconfiguration_def ) | applicaiton_def -> ^( APPLICATION applicaiton_def ) );
 	public final RecParser.element_return element() throws RecognitionException {
 		RecParser.element_return retval = new RecParser.element_return();
 		retval.start = input.LT(1);
@@ -601,7 +612,7 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_applicaiton_def=new RewriteRuleSubtreeStream(adaptor,"rule applicaiton_def");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:145:2: ( reconfiguration_def -> ^( RECONFIGURATION reconfiguration_def ) | applicaiton_def -> ^( APPLICATION applicaiton_def ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:156:2: ( reconfiguration_def -> ^( RECONFIGURATION reconfiguration_def ) | applicaiton_def -> ^( APPLICATION applicaiton_def ) )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0==RW_RECONFIGURATION) ) {
@@ -619,7 +630,7 @@ public class RecParser extends Parser {
 
 			switch (alt4) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:145:4: reconfiguration_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:156:4: reconfiguration_def
 					{
 					pushFollow(FOLLOW_reconfiguration_def_in_element249);
 					reconfiguration_def9=reconfiguration_def();
@@ -637,9 +648,9 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 145:24: -> ^( RECONFIGURATION reconfiguration_def )
+					// 156:24: -> ^( RECONFIGURATION reconfiguration_def )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:145:27: ^( RECONFIGURATION reconfiguration_def )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:156:27: ^( RECONFIGURATION reconfiguration_def )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(RECONFIGURATION, "RECONFIGURATION"), root_1);
@@ -655,7 +666,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:146:4: applicaiton_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:4: applicaiton_def
 					{
 					pushFollow(FOLLOW_applicaiton_def_in_element262);
 					applicaiton_def10=applicaiton_def();
@@ -673,9 +684,9 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 146:21: -> ^( APPLICATION applicaiton_def )
+					// 157:21: -> ^( APPLICATION applicaiton_def )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:146:24: ^( APPLICATION applicaiton_def )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:24: ^( APPLICATION applicaiton_def )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(APPLICATION, "APPLICATION"), root_1);
@@ -719,7 +730,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:150:1: main : main_def -> ^( MAIN main_def ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:161:1: main : main_def -> ^( MAIN main_def ) ;
 	public final RecParser.main_return main() throws RecognitionException {
 		RecParser.main_return retval = new RecParser.main_return();
 		retval.start = input.LT(1);
@@ -731,8 +742,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_main_def=new RewriteRuleSubtreeStream(adaptor,"rule main_def");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:2: ( main_def -> ^( MAIN main_def ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:4: main_def
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:2: ( main_def -> ^( MAIN main_def ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:4: main_def
 			{
 			pushFollow(FOLLOW_main_def_in_main284);
 			main_def11=main_def();
@@ -750,9 +761,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 151:14: -> ^( MAIN main_def )
+			// 162:14: -> ^( MAIN main_def )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:151:17: ^( MAIN main_def )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:17: ^( MAIN main_def )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(MAIN, "MAIN"), root_1);
@@ -794,7 +805,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "reconfiguration_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:156:1: reconfiguration_def : RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block -> ^( ID ( args_def )? reconfiguration_block ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:167:1: reconfiguration_def : RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block -> ^( ID ( args_def )? reconfiguration_block ) ;
 	public final RecParser.reconfiguration_def_return reconfiguration_def() throws RecognitionException {
 		RecParser.reconfiguration_def_return retval = new RecParser.reconfiguration_def_return();
 		retval.start = input.LT(1);
@@ -820,8 +831,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_args_def=new RewriteRuleSubtreeStream(adaptor,"rule args_def");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:2: ( RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block -> ^( ID ( args_def )? reconfiguration_block ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:4: RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:168:2: ( RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block -> ^( ID ( args_def )? reconfiguration_block ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:168:4: RW_RECONFIGURATION ID SEP_ARGS_START ( args_def )? SEP_ARGS_END reconfiguration_block
 			{
 			RW_RECONFIGURATION12=(Token)match(input,RW_RECONFIGURATION,FOLLOW_RW_RECONFIGURATION_in_reconfiguration_def306);  
 			stream_RW_RECONFIGURATION.add(RW_RECONFIGURATION12);
@@ -832,7 +843,7 @@ public class RecParser extends Parser {
 			SEP_ARGS_START14=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_reconfiguration_def310);  
 			stream_SEP_ARGS_START.add(SEP_ARGS_START14);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:41: ( args_def )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:168:41: ( args_def )?
 			int alt5=2;
 			int LA5_0 = input.LA(1);
 			if ( ((LA5_0 >= DT_CHANNEL && LA5_0 <= DT_XOR)) ) {
@@ -840,7 +851,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:157:41: args_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:168:41: args_def
 					{
 					pushFollow(FOLLOW_args_def_in_reconfiguration_def312);
 					args_def15=args_def();
@@ -861,7 +872,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_block.add(reconfiguration_block17.getTree());
 			// AST REWRITE
-			// elements: reconfiguration_block, args_def, ID
+			// elements: ID, args_def, reconfiguration_block
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -871,13 +882,13 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 158:3: -> ^( ID ( args_def )? reconfiguration_block )
+			// 169:3: -> ^( ID ( args_def )? reconfiguration_block )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:158:6: ^( ID ( args_def )? reconfiguration_block )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:169:6: ^( ID ( args_def )? reconfiguration_block )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot(stream_ID.nextNode(), root_1);
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:158:11: ( args_def )?
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:169:11: ( args_def )?
 				if ( stream_args_def.hasNext() ) {
 					adaptor.addChild(root_1, stream_args_def.nextTree());
 				}
@@ -921,7 +932,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "args_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:161:1: args_def : arg_def ( SEP_SEMICOLON arg_def )* -> ^( ARGUMENTS ( arg_def )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:172:1: args_def : arg_def ( SEP_SEMICOLON arg_def )* -> ^( ARGUMENTS ( arg_def )+ ) ;
 	public final RecParser.args_def_return args_def() throws RecognitionException {
 		RecParser.args_def_return retval = new RecParser.args_def_return();
 		retval.start = input.LT(1);
@@ -937,15 +948,15 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_arg_def=new RewriteRuleSubtreeStream(adaptor,"rule arg_def");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:2: ( arg_def ( SEP_SEMICOLON arg_def )* -> ^( ARGUMENTS ( arg_def )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:4: arg_def ( SEP_SEMICOLON arg_def )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:173:2: ( arg_def ( SEP_SEMICOLON arg_def )* -> ^( ARGUMENTS ( arg_def )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:173:4: arg_def ( SEP_SEMICOLON arg_def )*
 			{
 			pushFollow(FOLLOW_arg_def_in_args_def342);
 			arg_def18=arg_def();
 			state._fsp--;
 
 			stream_arg_def.add(arg_def18.getTree());
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:12: ( SEP_SEMICOLON arg_def )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:173:12: ( SEP_SEMICOLON arg_def )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -956,7 +967,7 @@ public class RecParser extends Parser {
 
 				switch (alt6) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:162:13: SEP_SEMICOLON arg_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:173:13: SEP_SEMICOLON arg_def
 					{
 					SEP_SEMICOLON19=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_args_def345);  
 					stream_SEP_SEMICOLON.add(SEP_SEMICOLON19);
@@ -985,9 +996,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 163:3: -> ^( ARGUMENTS ( arg_def )+ )
+			// 174:3: -> ^( ARGUMENTS ( arg_def )+ )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:163:6: ^( ARGUMENTS ( arg_def )+ )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:174:6: ^( ARGUMENTS ( arg_def )+ )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ARGUMENTS, "ARGUMENTS"), root_1);
@@ -1036,7 +1047,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "arg_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:166:1: arg_def : datatype list_ids -> ^( ARGUMENT datatype list_ids ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:177:1: arg_def : datatype list_ids -> ^( ARGUMENT datatype list_ids ) ;
 	public final RecParser.arg_def_return arg_def() throws RecognitionException {
 		RecParser.arg_def_return retval = new RecParser.arg_def_return();
 		retval.start = input.LT(1);
@@ -1050,8 +1061,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_list_ids=new RewriteRuleSubtreeStream(adaptor,"rule list_ids");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:167:2: ( datatype list_ids -> ^( ARGUMENT datatype list_ids ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:167:5: datatype list_ids
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:178:2: ( datatype list_ids -> ^( ARGUMENT datatype list_ids ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:178:5: datatype list_ids
 			{
 			pushFollow(FOLLOW_datatype_in_arg_def373);
 			datatype21=datatype();
@@ -1074,9 +1085,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 168:3: -> ^( ARGUMENT datatype list_ids )
+			// 179:3: -> ^( ARGUMENT datatype list_ids )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:168:6: ^( ARGUMENT datatype list_ids )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:179:6: ^( ARGUMENT datatype list_ids )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ARGUMENT, "ARGUMENT"), root_1);
@@ -1119,7 +1130,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "datatype"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:171:1: datatype : ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^( other_type subtype ) );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:182:1: datatype : ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^( other_type subtype ) );
 	public final RecParser.datatype_return datatype() throws RecognitionException {
 		RecParser.datatype_return retval = new RecParser.datatype_return();
 		retval.start = input.LT(1);
@@ -1149,7 +1160,7 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_other_type=new RewriteRuleSubtreeStream(adaptor,"rule other_type");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:172:2: ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^( other_type subtype ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:183:2: ( DT_PATTERN | DT_CHANNEL | DT_NAME | DT_NODE | DT_XOR | other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END -> ^( other_type subtype ) )
 			int alt7=6;
 			switch ( input.LA(1) ) {
 			case DT_PATTERN:
@@ -1191,7 +1202,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt7) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:172:5: DT_PATTERN
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:183:5: DT_PATTERN
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1203,7 +1214,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:173:5: DT_CHANNEL
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:184:5: DT_CHANNEL
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1215,7 +1226,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:174:4: DT_NAME
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:185:4: DT_NAME
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1227,7 +1238,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:175:4: DT_NODE
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:186:4: DT_NODE
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1239,7 +1250,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 5 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:176:4: DT_XOR
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:187:4: DT_XOR
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1251,7 +1262,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 6 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:177:4: other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:188:4: other_type SEP_SUBTYPE_START subtype SEP_SUBTYPE_END
 					{
 					pushFollow(FOLLOW_other_type_in_datatype427);
 					other_type28=other_type();
@@ -1280,9 +1291,9 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 177:57: -> ^( other_type subtype )
+					// 188:57: -> ^( other_type subtype )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:177:60: ^( other_type subtype )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:188:60: ^( other_type subtype )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot(stream_other_type.nextNode(), root_1);
@@ -1326,7 +1337,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "other_type"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:180:1: other_type : ( DT_SET | DT_PAIR | DT_TRIPLE );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:191:1: other_type : ( DT_SET | DT_PAIR | DT_TRIPLE );
 	public final RecParser.other_type_return other_type() throws RecognitionException {
 		RecParser.other_type_return retval = new RecParser.other_type_return();
 		retval.start = input.LT(1);
@@ -1338,7 +1349,7 @@ public class RecParser extends Parser {
 		Object set32_tree=null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:181:2: ( DT_SET | DT_PAIR | DT_TRIPLE )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:192:2: ( DT_SET | DT_PAIR | DT_TRIPLE )
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:
 			{
 			root_0 = (Object)adaptor.nil();
@@ -1383,7 +1394,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "subtype"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:184:1: subtype : datatype ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:195:1: subtype : datatype ;
 	public final RecParser.subtype_return subtype() throws RecognitionException {
 		RecParser.subtype_return retval = new RecParser.subtype_return();
 		retval.start = input.LT(1);
@@ -1394,8 +1405,8 @@ public class RecParser extends Parser {
 
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:185:2: ( datatype )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:185:4: datatype
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:196:2: ( datatype )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:196:4: datatype
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -1435,7 +1446,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "list_ids"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:188:1: list_ids : ID ( SEP_COMMA ID )* -> ( ID )+ ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:199:1: list_ids : ID ( SEP_COMMA ID )* -> ( ID )+ ;
 	public final RecParser.list_ids_return list_ids() throws RecognitionException {
 		RecParser.list_ids_return retval = new RecParser.list_ids_return();
 		retval.start = input.LT(1);
@@ -1453,13 +1464,13 @@ public class RecParser extends Parser {
 		RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:189:2: ( ID ( SEP_COMMA ID )* -> ( ID )+ )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:189:4: ID ( SEP_COMMA ID )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:200:2: ( ID ( SEP_COMMA ID )* -> ( ID )+ )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:200:4: ID ( SEP_COMMA ID )*
 			{
 			ID34=(Token)match(input,ID,FOLLOW_ID_in_list_ids486);  
 			stream_ID.add(ID34);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:189:7: ( SEP_COMMA ID )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:200:7: ( SEP_COMMA ID )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -1470,7 +1481,7 @@ public class RecParser extends Parser {
 
 				switch (alt8) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:189:8: SEP_COMMA ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:200:8: SEP_COMMA ID
 					{
 					SEP_COMMA35=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_list_ids489);  
 					stream_SEP_COMMA.add(SEP_COMMA35);
@@ -1497,7 +1508,7 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 189:23: -> ( ID )+
+			// 200:23: -> ( ID )+
 			{
 				if ( !(stream_ID.hasNext()) ) {
 					throw new RewriteEarlyExitException();
@@ -1541,7 +1552,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "reconfiguration_block"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:193:1: reconfiguration_block : SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS instruction ( instruction )* ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:204:1: reconfiguration_block : SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS instruction ( instruction )* ) ;
 	public final RecParser.reconfiguration_block_return reconfiguration_block() throws RecognitionException {
 		RecParser.reconfiguration_block_return retval = new RecParser.reconfiguration_block_return();
 		retval.start = input.LT(1);
@@ -1559,13 +1570,13 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_instruction=new RewriteRuleSubtreeStream(adaptor,"rule instruction");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:194:2: ( SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS instruction ( instruction )* ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:194:4: SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:205:2: ( SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS instruction ( instruction )* ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:205:4: SEP_BLOCK_START ( instruction )+ SEP_BLOCK_END
 			{
 			SEP_BLOCK_START37=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_reconfiguration_block513);  
 			stream_SEP_BLOCK_START.add(SEP_BLOCK_START37);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:194:20: ( instruction )+
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:205:20: ( instruction )+
 			int cnt9=0;
 			loop9:
 			while (true) {
@@ -1577,7 +1588,7 @@ public class RecParser extends Parser {
 
 				switch (alt9) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:194:20: instruction
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:205:20: instruction
 					{
 					pushFollow(FOLLOW_instruction_in_reconfiguration_block515);
 					instruction38=instruction();
@@ -1609,14 +1620,14 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 195:3: -> ^( INSTRUCTIONS instruction ( instruction )* )
+			// 206:3: -> ^( INSTRUCTIONS instruction ( instruction )* )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:195:6: ^( INSTRUCTIONS instruction ( instruction )* )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:6: ^( INSTRUCTIONS instruction ( instruction )* )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(INSTRUCTIONS, "INSTRUCTIONS"), root_1);
 				adaptor.addChild(root_1, stream_instruction.nextTree());
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:195:33: ( instruction )*
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:33: ( instruction )*
 				while ( stream_instruction.hasNext() ) {
 					adaptor.addChild(root_1, stream_instruction.nextTree());
 				}
@@ -1659,7 +1670,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "instruction"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:198:1: instruction : ( declaration SEP_SEMICOLON -> declaration | assignment SEP_SEMICOLON -> assignment | reconfiguration_apply SEP_SEMICOLON -> reconfiguration_apply | for_instruction -> for_instruction );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:209:1: instruction : ( declaration SEP_SEMICOLON -> declaration | assignment SEP_SEMICOLON -> assignment | reconfiguration_apply SEP_SEMICOLON -> reconfiguration_apply | for_instruction -> for_instruction );
 	public final RecParser.instruction_return instruction() throws RecognitionException {
 		RecParser.instruction_return retval = new RecParser.instruction_return();
 		retval.start = input.LT(1);
@@ -1684,7 +1695,7 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_declaration=new RewriteRuleSubtreeStream(adaptor,"rule declaration");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:199:2: ( declaration SEP_SEMICOLON -> declaration | assignment SEP_SEMICOLON -> assignment | reconfiguration_apply SEP_SEMICOLON -> reconfiguration_apply | for_instruction -> for_instruction )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:2: ( declaration SEP_SEMICOLON -> declaration | assignment SEP_SEMICOLON -> assignment | reconfiguration_apply SEP_SEMICOLON -> reconfiguration_apply | for_instruction -> for_instruction )
 			int alt10=4;
 			switch ( input.LA(1) ) {
 			case DT_CHANNEL:
@@ -1740,7 +1751,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt10) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:199:4: declaration SEP_SEMICOLON
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:4: declaration SEP_SEMICOLON
 					{
 					pushFollow(FOLLOW_declaration_in_instruction546);
 					declaration40=declaration();
@@ -1761,7 +1772,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 199:32: -> declaration
+					// 210:32: -> declaration
 					{
 						adaptor.addChild(root_0, stream_declaration.nextTree());
 					}
@@ -1772,7 +1783,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:200:4: assignment SEP_SEMICOLON
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:211:4: assignment SEP_SEMICOLON
 					{
 					pushFollow(FOLLOW_assignment_in_instruction559);
 					assignment42=assignment();
@@ -1793,7 +1804,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 200:30: -> assignment
+					// 211:30: -> assignment
 					{
 						adaptor.addChild(root_0, stream_assignment.nextTree());
 					}
@@ -1804,7 +1815,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:201:4: reconfiguration_apply SEP_SEMICOLON
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:212:4: reconfiguration_apply SEP_SEMICOLON
 					{
 					pushFollow(FOLLOW_reconfiguration_apply_in_instruction571);
 					reconfiguration_apply44=reconfiguration_apply();
@@ -1825,7 +1836,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 201:40: -> reconfiguration_apply
+					// 212:40: -> reconfiguration_apply
 					{
 						adaptor.addChild(root_0, stream_reconfiguration_apply.nextTree());
 					}
@@ -1836,7 +1847,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:202:4: for_instruction
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:213:4: for_instruction
 					{
 					pushFollow(FOLLOW_for_instruction_in_instruction582);
 					for_instruction46=for_instruction();
@@ -1854,7 +1865,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 202:23: -> for_instruction
+					// 213:23: -> for_instruction
 					{
 						adaptor.addChild(root_0, stream_for_instruction.nextTree());
 					}
@@ -1893,7 +1904,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "reconfiguration_apply"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:205:1: reconfiguration_apply : ( ID )? OP_APPLY reconfiguration_call -> ^( OP_APPLY reconfiguration_call ( ID )? ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:216:1: reconfiguration_apply : ( ID )? OP_APPLY reconfiguration_call -> ^( OP_APPLY reconfiguration_call ( ID )? ) ;
 	public final RecParser.reconfiguration_apply_return reconfiguration_apply() throws RecognitionException {
 		RecParser.reconfiguration_apply_return retval = new RecParser.reconfiguration_apply_return();
 		retval.start = input.LT(1);
@@ -1911,10 +1922,10 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_reconfiguration_call=new RewriteRuleSubtreeStream(adaptor,"rule reconfiguration_call");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:2: ( ( ID )? OP_APPLY reconfiguration_call -> ^( OP_APPLY reconfiguration_call ( ID )? ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:4: ( ID )? OP_APPLY reconfiguration_call
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:217:2: ( ( ID )? OP_APPLY reconfiguration_call -> ^( OP_APPLY reconfiguration_call ( ID )? ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:217:4: ( ID )? OP_APPLY reconfiguration_call
 			{
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:4: ( ID )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:217:4: ( ID )?
 			int alt11=2;
 			int LA11_0 = input.LA(1);
 			if ( (LA11_0==ID) ) {
@@ -1922,7 +1933,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt11) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:4: ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:217:4: ID
 					{
 					ID47=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_apply601);  
 					stream_ID.add(ID47);
@@ -1941,7 +1952,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_call.add(reconfiguration_call49.getTree());
 			// AST REWRITE
-			// elements: ID, reconfiguration_call, OP_APPLY
+			// elements: reconfiguration_call, ID, OP_APPLY
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1951,14 +1962,14 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 206:38: -> ^( OP_APPLY reconfiguration_call ( ID )? )
+			// 217:38: -> ^( OP_APPLY reconfiguration_call ( ID )? )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:41: ^( OP_APPLY reconfiguration_call ( ID )? )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:217:41: ^( OP_APPLY reconfiguration_call ( ID )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot(stream_OP_APPLY.nextNode(), root_1);
 				adaptor.addChild(root_1, stream_reconfiguration_call.nextTree());
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:206:73: ( ID )?
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:217:73: ( ID )?
 				if ( stream_ID.hasNext() ) {
 					adaptor.addChild(root_1, stream_ID.nextNode());
 				}
@@ -2001,7 +2012,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "declaration"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:209:1: declaration : datatype var_def ( SEP_COMMA var_def )* -> ^( DECLARATION datatype ( var_def )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:220:1: declaration : datatype var_def ( SEP_COMMA var_def )* -> ^( DECLARATION datatype ( var_def )+ ) ;
 	public final RecParser.declaration_return declaration() throws RecognitionException {
 		RecParser.declaration_return retval = new RecParser.declaration_return();
 		retval.start = input.LT(1);
@@ -2019,8 +2030,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_var_def=new RewriteRuleSubtreeStream(adaptor,"rule var_def");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:2: ( datatype var_def ( SEP_COMMA var_def )* -> ^( DECLARATION datatype ( var_def )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:4: datatype var_def ( SEP_COMMA var_def )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:221:2: ( datatype var_def ( SEP_COMMA var_def )* -> ^( DECLARATION datatype ( var_def )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:221:4: datatype var_def ( SEP_COMMA var_def )*
 			{
 			pushFollow(FOLLOW_datatype_in_declaration630);
 			datatype50=datatype();
@@ -2032,7 +2043,7 @@ public class RecParser extends Parser {
 			state._fsp--;
 
 			stream_var_def.add(var_def51.getTree());
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:21: ( SEP_COMMA var_def )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:221:21: ( SEP_COMMA var_def )*
 			loop12:
 			while (true) {
 				int alt12=2;
@@ -2043,7 +2054,7 @@ public class RecParser extends Parser {
 
 				switch (alt12) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:22: SEP_COMMA var_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:221:22: SEP_COMMA var_def
 					{
 					SEP_COMMA52=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_declaration635);  
 					stream_SEP_COMMA.add(SEP_COMMA52);
@@ -2062,7 +2073,7 @@ public class RecParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: datatype, var_def
+			// elements: var_def, datatype
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2072,9 +2083,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 210:42: -> ^( DECLARATION datatype ( var_def )+ )
+			// 221:42: -> ^( DECLARATION datatype ( var_def )+ )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:210:45: ^( DECLARATION datatype ( var_def )+ )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:221:45: ^( DECLARATION datatype ( var_def )+ )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DECLARATION, "DECLARATION"), root_1);
@@ -2124,7 +2135,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "var_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:213:1: var_def : ( ID | assignment );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:224:1: var_def : ( ID | assignment );
 	public final RecParser.var_def_return var_def() throws RecognitionException {
 		RecParser.var_def_return retval = new RecParser.var_def_return();
 		retval.start = input.LT(1);
@@ -2137,7 +2148,7 @@ public class RecParser extends Parser {
 		Object ID54_tree=null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:214:2: ( ID | assignment )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:225:2: ( ID | assignment )
 			int alt13=2;
 			int LA13_0 = input.LA(1);
 			if ( (LA13_0==ID) ) {
@@ -2171,7 +2182,7 @@ public class RecParser extends Parser {
 
 			switch (alt13) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:214:4: ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:225:4: ID
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -2183,7 +2194,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:215:4: assignment
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:226:4: assignment
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -2225,7 +2236,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "assignment"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:218:1: assignment : ID OP_EQUAL assignment_member -> ^( ASSIGNMENT ID assignment_member ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:229:1: assignment : ID OP_EQUAL assignment_member -> ^( ASSIGNMENT ID assignment_member ) ;
 	public final RecParser.assignment_return assignment() throws RecognitionException {
 		RecParser.assignment_return retval = new RecParser.assignment_return();
 		retval.start = input.LT(1);
@@ -2243,8 +2254,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_assignment_member=new RewriteRuleSubtreeStream(adaptor,"rule assignment_member");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:219:2: ( ID OP_EQUAL assignment_member -> ^( ASSIGNMENT ID assignment_member ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:219:4: ID OP_EQUAL assignment_member
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:230:2: ( ID OP_EQUAL assignment_member -> ^( ASSIGNMENT ID assignment_member ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:230:4: ID OP_EQUAL assignment_member
 			{
 			ID56=(Token)match(input,ID,FOLLOW_ID_in_assignment680);  
 			stream_ID.add(ID56);
@@ -2258,7 +2269,7 @@ public class RecParser extends Parser {
 
 			stream_assignment_member.add(assignment_member58.getTree());
 			// AST REWRITE
-			// elements: assignment_member, ID
+			// elements: ID, assignment_member
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2268,9 +2279,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 219:36: -> ^( ASSIGNMENT ID assignment_member )
+			// 230:36: -> ^( ASSIGNMENT ID assignment_member )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:219:39: ^( ASSIGNMENT ID assignment_member )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:230:39: ^( ASSIGNMENT ID assignment_member )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT, "ASSIGNMENT"), root_1);
@@ -2313,7 +2324,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "assignment_member"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:222:1: assignment_member : ( expression | reconfiguration_apply );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:233:1: assignment_member : ( expression | reconfiguration_apply );
 	public final RecParser.assignment_member_return assignment_member() throws RecognitionException {
 		RecParser.assignment_member_return retval = new RecParser.assignment_member_return();
 		retval.start = input.LT(1);
@@ -2325,7 +2336,7 @@ public class RecParser extends Parser {
 
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:223:2: ( expression | reconfiguration_apply )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:234:2: ( expression | reconfiguration_apply )
 			int alt14=2;
 			switch ( input.LA(1) ) {
 			case ID:
@@ -2373,7 +2384,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt14) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:223:4: expression
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:234:4: expression
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -2387,7 +2398,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:224:4: reconfiguration_apply
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:235:4: reconfiguration_apply
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -2429,7 +2440,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "reconfiguration_call"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:227:1: reconfiguration_call : ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^) operation_args ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:1: reconfiguration_call : ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^) operation_args ;
 	public final RecParser.reconfiguration_call_return reconfiguration_call() throws RecognitionException {
 		RecParser.reconfiguration_call_return retval = new RecParser.reconfiguration_call_return();
 		retval.start = input.LT(1);
@@ -2454,13 +2465,13 @@ public class RecParser extends Parser {
 		Object ID67_tree=null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:2: ( ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^) operation_args )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:5: ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^) operation_args
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:2: ( ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^) operation_args )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:5: ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^) operation_args
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:5: ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^)
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:5: ( OP_JOIN ^| OP_SPLIT ^| OP_PAR ^| OP_REMOVE ^| OP_CONST ^| OP_ID ^| ID ^)
 			int alt15=7;
 			switch ( input.LA(1) ) {
 			case OP_JOIN:
@@ -2505,7 +2516,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt15) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:6: OP_JOIN ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:6: OP_JOIN ^
 					{
 					OP_JOIN61=(Token)match(input,OP_JOIN,FOLLOW_OP_JOIN_in_reconfiguration_call730); 
 					OP_JOIN61_tree = (Object)adaptor.create(OP_JOIN61);
@@ -2514,7 +2525,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:17: OP_SPLIT ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:17: OP_SPLIT ^
 					{
 					OP_SPLIT62=(Token)match(input,OP_SPLIT,FOLLOW_OP_SPLIT_in_reconfiguration_call735); 
 					OP_SPLIT62_tree = (Object)adaptor.create(OP_SPLIT62);
@@ -2523,7 +2534,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:29: OP_PAR ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:29: OP_PAR ^
 					{
 					OP_PAR63=(Token)match(input,OP_PAR,FOLLOW_OP_PAR_in_reconfiguration_call740); 
 					OP_PAR63_tree = (Object)adaptor.create(OP_PAR63);
@@ -2532,7 +2543,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:39: OP_REMOVE ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:39: OP_REMOVE ^
 					{
 					OP_REMOVE64=(Token)match(input,OP_REMOVE,FOLLOW_OP_REMOVE_in_reconfiguration_call745); 
 					OP_REMOVE64_tree = (Object)adaptor.create(OP_REMOVE64);
@@ -2541,7 +2552,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 5 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:52: OP_CONST ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:52: OP_CONST ^
 					{
 					OP_CONST65=(Token)match(input,OP_CONST,FOLLOW_OP_CONST_in_reconfiguration_call750); 
 					OP_CONST65_tree = (Object)adaptor.create(OP_CONST65);
@@ -2550,7 +2561,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 6 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:64: OP_ID ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:64: OP_ID ^
 					{
 					OP_ID66=(Token)match(input,OP_ID,FOLLOW_OP_ID_in_reconfiguration_call755); 
 					OP_ID66_tree = (Object)adaptor.create(OP_ID66);
@@ -2559,7 +2570,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 7 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:228:73: ID ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:239:73: ID ^
 					{
 					ID67=(Token)match(input,ID,FOLLOW_ID_in_reconfiguration_call760); 
 					ID67_tree = (Object)adaptor.create(ID67);
@@ -2605,7 +2616,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "structure_operation_call"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:232:1: structure_operation_call : ( OP_PATH ^| OP_UPDATE ^) operation_args ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:243:1: structure_operation_call : ( OP_PATH ^| OP_UPDATE ^) operation_args ;
 	public final RecParser.structure_operation_call_return structure_operation_call() throws RecognitionException {
 		RecParser.structure_operation_call_return retval = new RecParser.structure_operation_call_return();
 		retval.start = input.LT(1);
@@ -2620,13 +2631,13 @@ public class RecParser extends Parser {
 		Object OP_UPDATE70_tree=null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:233:2: ( ( OP_PATH ^| OP_UPDATE ^) operation_args )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:233:4: ( OP_PATH ^| OP_UPDATE ^) operation_args
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:244:2: ( ( OP_PATH ^| OP_UPDATE ^) operation_args )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:244:4: ( OP_PATH ^| OP_UPDATE ^) operation_args
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:233:4: ( OP_PATH ^| OP_UPDATE ^)
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:244:4: ( OP_PATH ^| OP_UPDATE ^)
 			int alt16=2;
 			int LA16_0 = input.LA(1);
 			if ( (LA16_0==OP_PATH) ) {
@@ -2644,7 +2655,7 @@ public class RecParser extends Parser {
 
 			switch (alt16) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:233:6: OP_PATH ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:244:6: OP_PATH ^
 					{
 					OP_PATH69=(Token)match(input,OP_PATH,FOLLOW_OP_PATH_in_structure_operation_call780); 
 					OP_PATH69_tree = (Object)adaptor.create(OP_PATH69);
@@ -2653,7 +2664,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:233:17: OP_UPDATE ^
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:244:17: OP_UPDATE ^
 					{
 					OP_UPDATE70=(Token)match(input,OP_UPDATE,FOLLOW_OP_UPDATE_in_structure_operation_call785); 
 					OP_UPDATE70_tree = (Object)adaptor.create(OP_UPDATE70);
@@ -2699,7 +2710,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "operation_args"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:237:1: operation_args : SEP_ARGS_START ( args )? SEP_ARGS_END -> ( args )? ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:248:1: operation_args : SEP_ARGS_START ( args )? SEP_ARGS_END -> ( args )? ;
 	public final RecParser.operation_args_return operation_args() throws RecognitionException {
 		RecParser.operation_args_return retval = new RecParser.operation_args_return();
 		retval.start = input.LT(1);
@@ -2717,13 +2728,13 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_args=new RewriteRuleSubtreeStream(adaptor,"rule args");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:2: ( SEP_ARGS_START ( args )? SEP_ARGS_END -> ( args )? )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:4: SEP_ARGS_START ( args )? SEP_ARGS_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:249:2: ( SEP_ARGS_START ( args )? SEP_ARGS_END -> ( args )? )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:249:4: SEP_ARGS_START ( args )? SEP_ARGS_END
 			{
 			SEP_ARGS_START72=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_operation_args805);  
 			stream_SEP_ARGS_START.add(SEP_ARGS_START72);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:19: ( args )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:249:19: ( args )?
 			int alt17=2;
 			int LA17_0 = input.LA(1);
 			if ( ((LA17_0 >= CONS_PAIR && LA17_0 <= CONS_TRIPLE)||LA17_0==ID||LA17_0==OP_PATH||LA17_0==OP_UPDATE) ) {
@@ -2731,7 +2742,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt17) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:19: args
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:249:19: args
 					{
 					pushFollow(FOLLOW_args_in_operation_args807);
 					args73=args();
@@ -2757,9 +2768,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 238:38: -> ( args )?
+			// 249:38: -> ( args )?
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:238:41: ( args )?
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:249:41: ( args )?
 				if ( stream_args.hasNext() ) {
 					adaptor.addChild(root_0, stream_args.nextTree());
 				}
@@ -2799,7 +2810,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "args"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:241:1: args : expression ( SEP_COMMA expression )* -> ( expression )+ ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:252:1: args : expression ( SEP_COMMA expression )* -> ( expression )+ ;
 	public final RecParser.args_return args() throws RecognitionException {
 		RecParser.args_return retval = new RecParser.args_return();
 		retval.start = input.LT(1);
@@ -2815,15 +2826,15 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:242:2: ( expression ( SEP_COMMA expression )* -> ( expression )+ )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:242:4: expression ( SEP_COMMA expression )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:253:2: ( expression ( SEP_COMMA expression )* -> ( expression )+ )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:253:4: expression ( SEP_COMMA expression )*
 			{
 			pushFollow(FOLLOW_expression_in_args827);
 			expression75=expression();
 			state._fsp--;
 
 			stream_expression.add(expression75.getTree());
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:242:15: ( SEP_COMMA expression )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:253:15: ( SEP_COMMA expression )*
 			loop18:
 			while (true) {
 				int alt18=2;
@@ -2834,7 +2845,7 @@ public class RecParser extends Parser {
 
 				switch (alt18) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:242:16: SEP_COMMA expression
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:253:16: SEP_COMMA expression
 					{
 					SEP_COMMA76=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_args830);  
 					stream_SEP_COMMA.add(SEP_COMMA76);
@@ -2863,7 +2874,7 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 243:3: -> ( expression )+
+			// 254:3: -> ( expression )+
 			{
 				if ( !(stream_expression.hasNext()) ) {
 					throw new RewriteEarlyExitException();
@@ -2907,7 +2918,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "for_instruction"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:247:1: for_instruction : RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block -> ^( FORALL datatype ID ID reconfiguration_block ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:258:1: for_instruction : RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block -> ^( FORALL datatype ID ID reconfiguration_block ) ;
 	public final RecParser.for_instruction_return for_instruction() throws RecognitionException {
 		RecParser.for_instruction_return retval = new RecParser.for_instruction_return();
 		retval.start = input.LT(1);
@@ -2938,8 +2949,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_reconfiguration_block=new RewriteRuleSubtreeStream(adaptor,"rule reconfiguration_block");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:248:2: ( RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block -> ^( FORALL datatype ID ID reconfiguration_block ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:248:4: RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:259:2: ( RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block -> ^( FORALL datatype ID ID reconfiguration_block ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:259:4: RW_FORALL SEP_ARGS_START datatype ID SEP_COLON ID SEP_ARGS_END reconfiguration_block
 			{
 			RW_FORALL78=(Token)match(input,RW_FORALL,FOLLOW_RW_FORALL_in_for_instruction856);  
 			stream_RW_FORALL.add(RW_FORALL78);
@@ -2970,7 +2981,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_block.add(reconfiguration_block85.getTree());
 			// AST REWRITE
-			// elements: datatype, ID, ID, reconfiguration_block
+			// elements: datatype, reconfiguration_block, ID, ID
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2980,9 +2991,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 249:3: -> ^( FORALL datatype ID ID reconfiguration_block )
+			// 260:3: -> ^( FORALL datatype ID ID reconfiguration_block )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:249:6: ^( FORALL datatype ID ID reconfiguration_block )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:260:6: ^( FORALL datatype ID ID reconfiguration_block )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FORALL, "FORALL"), root_1);
@@ -3027,7 +3038,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "expression"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:260:1: expression : factor ( expr_op ^ factor )? ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:271:1: expression : factor ( expr_op ^ factor )? ;
 	public final RecParser.expression_return expression() throws RecognitionException {
 		RecParser.expression_return retval = new RecParser.expression_return();
 		retval.start = input.LT(1);
@@ -3040,8 +3051,8 @@ public class RecParser extends Parser {
 
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:261:2: ( factor ( expr_op ^ factor )? )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:261:4: factor ( expr_op ^ factor )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:272:2: ( factor ( expr_op ^ factor )? )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:272:4: factor ( expr_op ^ factor )?
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -3052,7 +3063,7 @@ public class RecParser extends Parser {
 
 			adaptor.addChild(root_0, factor86.getTree());
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:261:11: ( expr_op ^ factor )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:272:11: ( expr_op ^ factor )?
 			int alt19=2;
 			int LA19_0 = input.LA(1);
 			if ( (LA19_0==OP_INTERSECTION||LA19_0==OP_MINUS||LA19_0==OP_UNION) ) {
@@ -3060,7 +3071,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt19) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:261:12: expr_op ^ factor
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:272:12: expr_op ^ factor
 					{
 					pushFollow(FOLLOW_expr_op_in_expression903);
 					expr_op87=expr_op();
@@ -3107,7 +3118,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "expr_op"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:264:1: expr_op : ( OP_UNION | OP_INTERSECTION | OP_MINUS );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:275:1: expr_op : ( OP_UNION | OP_INTERSECTION | OP_MINUS );
 	public final RecParser.expr_op_return expr_op() throws RecognitionException {
 		RecParser.expr_op_return retval = new RecParser.expr_op_return();
 		retval.start = input.LT(1);
@@ -3119,7 +3130,7 @@ public class RecParser extends Parser {
 		Object set89_tree=null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:265:2: ( OP_UNION | OP_INTERSECTION | OP_MINUS )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:276:2: ( OP_UNION | OP_INTERSECTION | OP_MINUS )
 			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:
 			{
 			root_0 = (Object)adaptor.nil();
@@ -3164,7 +3175,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "factor"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:270:1: factor : ( ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END -> ^( ID ID ) | ID -> ID | operation | constructor );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:281:1: factor : ( ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END -> ^( ID ID ) | ID -> ID | operation | constructor );
 	public final RecParser.factor_return factor() throws RecognitionException {
 		RecParser.factor_return retval = new RecParser.factor_return();
 		retval.start = input.LT(1);
@@ -3189,7 +3200,7 @@ public class RecParser extends Parser {
 		RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:271:2: ( ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END -> ^( ID ID ) | ID -> ID | operation | constructor )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:282:2: ( ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END -> ^( ID ID ) | ID -> ID | operation | constructor )
 			int alt20=4;
 			switch ( input.LA(1) ) {
 			case ID:
@@ -3249,7 +3260,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt20) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:271:4: ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:282:4: ID SEP_SUBTYPE_START ID SEP_SUBTYPE_END
 					{
 					ID90=(Token)match(input,ID,FOLLOW_ID_in_factor943);  
 					stream_ID.add(ID90);
@@ -3274,9 +3285,9 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 271:47: -> ^( ID ID )
+					// 282:47: -> ^( ID ID )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:271:50: ^( ID ID )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:282:50: ^( ID ID )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot(stream_ID.nextNode(), root_1);
@@ -3292,7 +3303,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:272:4: ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:283:4: ID
 					{
 					ID94=(Token)match(input,ID,FOLLOW_ID_in_factor967);  
 					stream_ID.add(ID94);
@@ -3308,7 +3319,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 272:14: -> ID
+					// 283:14: -> ID
 					{
 						adaptor.addChild(root_0, stream_ID.nextNode());
 					}
@@ -3319,7 +3330,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:273:4: operation
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:284:4: operation
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -3333,7 +3344,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:274:4: constructor
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:285:4: constructor
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -3375,7 +3386,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "operation"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:277:1: operation : ( ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call -> structure_operation_call );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:288:1: operation : ( ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call -> structure_operation_call );
 	public final RecParser.operation_return operation() throws RecognitionException {
 		RecParser.operation_return retval = new RecParser.operation_return();
 		retval.start = input.LT(1);
@@ -3400,7 +3411,7 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_attribute_call=new RewriteRuleSubtreeStream(adaptor,"rule attribute_call");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:2: ( ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call -> structure_operation_call )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:2: ( ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call ) | structure_operation_call -> structure_operation_call )
 			int alt22=2;
 			int LA22_0 = input.LA(1);
 			if ( (LA22_0==ID) ) {
@@ -3418,12 +3429,12 @@ public class RecParser extends Parser {
 
 			switch (alt22) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:5: ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:5: ID ( SEP_STRUCTURE ID )? SEP_ACCESSOR attribute_call
 					{
 					ID97=(Token)match(input,ID,FOLLOW_ID_in_operation1000);  
 					stream_ID.add(ID97);
 
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:8: ( SEP_STRUCTURE ID )?
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:8: ( SEP_STRUCTURE ID )?
 					int alt21=2;
 					int LA21_0 = input.LA(1);
 					if ( (LA21_0==SEP_STRUCTURE) ) {
@@ -3431,7 +3442,7 @@ public class RecParser extends Parser {
 					}
 					switch (alt21) {
 						case 1 :
-							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:9: SEP_STRUCTURE ID
+							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:9: SEP_STRUCTURE ID
 							{
 							SEP_STRUCTURE98=(Token)match(input,SEP_STRUCTURE,FOLLOW_SEP_STRUCTURE_in_operation1003);  
 							stream_SEP_STRUCTURE.add(SEP_STRUCTURE98);
@@ -3463,16 +3474,16 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 278:57: -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call )
+					// 289:57: -> ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:60: ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:60: ^( ACCESS ID ( ^( STRUCTURE ID ) )? attribute_call )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ACCESS, "ACCESS"), root_1);
 						adaptor.addChild(root_1, stream_ID.nextNode());
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:72: ( ^( STRUCTURE ID ) )?
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:72: ( ^( STRUCTURE ID ) )?
 						if ( stream_ID.hasNext() ) {
-							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:278:72: ^( STRUCTURE ID )
+							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:289:72: ^( STRUCTURE ID )
 							{
 							Object root_2 = (Object)adaptor.nil();
 							root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(STRUCTURE, "STRUCTURE"), root_2);
@@ -3495,7 +3506,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:280:5: structure_operation_call
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:291:5: structure_operation_call
 					{
 					pushFollow(FOLLOW_structure_operation_call_in_operation1036);
 					structure_operation_call102=structure_operation_call();
@@ -3513,7 +3524,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 280:35: -> structure_operation_call
+					// 291:35: -> structure_operation_call
 					{
 						adaptor.addChild(root_0, stream_structure_operation_call.nextTree());
 					}
@@ -3552,7 +3563,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "constructor"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:283:1: constructor : ( triple_cons -> triple_cons | pair_cons -> pair_cons | set_cons -> set_cons );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:294:1: constructor : ( triple_cons -> triple_cons | pair_cons -> pair_cons | set_cons -> set_cons );
 	public final RecParser.constructor_return constructor() throws RecognitionException {
 		RecParser.constructor_return retval = new RecParser.constructor_return();
 		retval.start = input.LT(1);
@@ -3568,7 +3579,7 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_triple_cons=new RewriteRuleSubtreeStream(adaptor,"rule triple_cons");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:284:2: ( triple_cons -> triple_cons | pair_cons -> pair_cons | set_cons -> set_cons )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:295:2: ( triple_cons -> triple_cons | pair_cons -> pair_cons | set_cons -> set_cons )
 			int alt23=3;
 			switch ( input.LA(1) ) {
 			case CONS_TRIPLE:
@@ -3593,7 +3604,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt23) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:284:4: triple_cons
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:295:4: triple_cons
 					{
 					pushFollow(FOLLOW_triple_cons_in_constructor1057);
 					triple_cons103=triple_cons();
@@ -3611,7 +3622,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 284:22: -> triple_cons
+					// 295:22: -> triple_cons
 					{
 						adaptor.addChild(root_0, stream_triple_cons.nextTree());
 					}
@@ -3622,7 +3633,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:285:4: pair_cons
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:4: pair_cons
 					{
 					pushFollow(FOLLOW_pair_cons_in_constructor1072);
 					pair_cons104=pair_cons();
@@ -3640,7 +3651,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 285:20: -> pair_cons
+					// 296:20: -> pair_cons
 					{
 						adaptor.addChild(root_0, stream_pair_cons.nextTree());
 					}
@@ -3651,7 +3662,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:286:4: set_cons
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:297:4: set_cons
 					{
 					pushFollow(FOLLOW_set_cons_in_constructor1087);
 					set_cons105=set_cons();
@@ -3669,7 +3680,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 286:20: -> set_cons
+					// 297:20: -> set_cons
 					{
 						adaptor.addChild(root_0, stream_set_cons.nextTree());
 					}
@@ -3708,7 +3719,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "attribute_call"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:295:1: attribute_call : ( OP_IN ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_IN ( INT )? ) | OP_OUT ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_OUT ( INT )? ) | OP_NAME -> OP_NAME | OP_NODES -> OP_NODES | OP_NAMES -> OP_NAMES | OP_FST -> OP_FST | OP_SND -> OP_SND | OP_TRD -> OP_TRD | ID -> ID );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:306:1: attribute_call : ( OP_IN ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_IN ( INT )? ) | OP_OUT ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_OUT ( INT )? ) | OP_NAME -> OP_NAME | OP_NODES -> OP_NODES | OP_NAMES -> OP_NAMES | OP_FST -> OP_FST | OP_SND -> OP_SND | OP_TRD -> OP_TRD | ID -> ID );
 	public final RecParser.attribute_call_return attribute_call() throws RecognitionException {
 		RecParser.attribute_call_return retval = new RecParser.attribute_call_return();
 		retval.start = input.LT(1);
@@ -3760,7 +3771,7 @@ public class RecParser extends Parser {
 		RewriteRuleTokenStream stream_OP_NAMES=new RewriteRuleTokenStream(adaptor,"token OP_NAMES");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:2: ( OP_IN ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_IN ( INT )? ) | OP_OUT ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_OUT ( INT )? ) | OP_NAME -> OP_NAME | OP_NODES -> OP_NODES | OP_NAMES -> OP_NAMES | OP_FST -> OP_FST | OP_SND -> OP_SND | OP_TRD -> OP_TRD | ID -> ID )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:307:2: ( OP_IN ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_IN ( INT )? ) | OP_OUT ( SEP_LIST_START INT SEP_LIST_END )? -> ^( OP_OUT ( INT )? ) | OP_NAME -> OP_NAME | OP_NODES -> OP_NODES | OP_NAMES -> OP_NAMES | OP_FST -> OP_FST | OP_SND -> OP_SND | OP_TRD -> OP_TRD | ID -> ID )
 			int alt26=9;
 			switch ( input.LA(1) ) {
 			case OP_IN:
@@ -3815,12 +3826,12 @@ public class RecParser extends Parser {
 			}
 			switch (alt26) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:4: OP_IN ( SEP_LIST_START INT SEP_LIST_END )?
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:307:4: OP_IN ( SEP_LIST_START INT SEP_LIST_END )?
 					{
 					OP_IN106=(Token)match(input,OP_IN,FOLLOW_OP_IN_in_attribute_call1117);  
 					stream_OP_IN.add(OP_IN106);
 
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:10: ( SEP_LIST_START INT SEP_LIST_END )?
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:307:10: ( SEP_LIST_START INT SEP_LIST_END )?
 					int alt24=2;
 					int LA24_0 = input.LA(1);
 					if ( (LA24_0==SEP_LIST_START) ) {
@@ -3828,7 +3839,7 @@ public class RecParser extends Parser {
 					}
 					switch (alt24) {
 						case 1 :
-							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:11: SEP_LIST_START INT SEP_LIST_END
+							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:307:11: SEP_LIST_START INT SEP_LIST_END
 							{
 							SEP_LIST_START107=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_attribute_call1120);  
 							stream_SEP_LIST_START.add(SEP_LIST_START107);
@@ -3855,13 +3866,13 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 296:47: -> ^( OP_IN ( INT )? )
+					// 307:47: -> ^( OP_IN ( INT )? )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:50: ^( OP_IN ( INT )? )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:307:50: ^( OP_IN ( INT )? )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot(stream_OP_IN.nextNode(), root_1);
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:296:58: ( INT )?
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:307:58: ( INT )?
 						if ( stream_INT.hasNext() ) {
 							adaptor.addChild(root_1, stream_INT.nextNode());
 						}
@@ -3878,12 +3889,12 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:297:5: OP_OUT ( SEP_LIST_START INT SEP_LIST_END )?
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:308:5: OP_OUT ( SEP_LIST_START INT SEP_LIST_END )?
 					{
 					OP_OUT110=(Token)match(input,OP_OUT,FOLLOW_OP_OUT_in_attribute_call1143);  
 					stream_OP_OUT.add(OP_OUT110);
 
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:297:12: ( SEP_LIST_START INT SEP_LIST_END )?
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:308:12: ( SEP_LIST_START INT SEP_LIST_END )?
 					int alt25=2;
 					int LA25_0 = input.LA(1);
 					if ( (LA25_0==SEP_LIST_START) ) {
@@ -3891,7 +3902,7 @@ public class RecParser extends Parser {
 					}
 					switch (alt25) {
 						case 1 :
-							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:297:13: SEP_LIST_START INT SEP_LIST_END
+							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:308:13: SEP_LIST_START INT SEP_LIST_END
 							{
 							SEP_LIST_START111=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_attribute_call1146);  
 							stream_SEP_LIST_START.add(SEP_LIST_START111);
@@ -3908,7 +3919,7 @@ public class RecParser extends Parser {
 					}
 
 					// AST REWRITE
-					// elements: OP_OUT, INT
+					// elements: INT, OP_OUT
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -3918,13 +3929,13 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 297:47: -> ^( OP_OUT ( INT )? )
+					// 308:47: -> ^( OP_OUT ( INT )? )
 					{
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:297:50: ^( OP_OUT ( INT )? )
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:308:50: ^( OP_OUT ( INT )? )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot(stream_OP_OUT.nextNode(), root_1);
-						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:297:59: ( INT )?
+						// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:308:59: ( INT )?
 						if ( stream_INT.hasNext() ) {
 							adaptor.addChild(root_1, stream_INT.nextNode());
 						}
@@ -3941,7 +3952,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:298:4: OP_NAME
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:309:4: OP_NAME
 					{
 					OP_NAME114=(Token)match(input,OP_NAME,FOLLOW_OP_NAME_in_attribute_call1166);  
 					stream_OP_NAME.add(OP_NAME114);
@@ -3957,7 +3968,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 298:17: -> OP_NAME
+					// 309:17: -> OP_NAME
 					{
 						adaptor.addChild(root_0, stream_OP_NAME.nextNode());
 					}
@@ -3968,7 +3979,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:300:4: OP_NODES
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:311:4: OP_NODES
 					{
 					OP_NODES115=(Token)match(input,OP_NODES,FOLLOW_OP_NODES_in_attribute_call1181);  
 					stream_OP_NODES.add(OP_NODES115);
@@ -3984,7 +3995,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 300:17: -> OP_NODES
+					// 311:17: -> OP_NODES
 					{
 						adaptor.addChild(root_0, stream_OP_NODES.nextNode());
 					}
@@ -3995,7 +4006,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 5 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:301:4: OP_NAMES
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:312:4: OP_NAMES
 					{
 					OP_NAMES116=(Token)match(input,OP_NAMES,FOLLOW_OP_NAMES_in_attribute_call1194);  
 					stream_OP_NAMES.add(OP_NAMES116);
@@ -4011,7 +4022,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 301:17: -> OP_NAMES
+					// 312:17: -> OP_NAMES
 					{
 						adaptor.addChild(root_0, stream_OP_NAMES.nextNode());
 					}
@@ -4022,7 +4033,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 6 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:302:4: OP_FST
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:313:4: OP_FST
 					{
 					OP_FST117=(Token)match(input,OP_FST,FOLLOW_OP_FST_in_attribute_call1207);  
 					stream_OP_FST.add(OP_FST117);
@@ -4038,7 +4049,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 302:16: -> OP_FST
+					// 313:16: -> OP_FST
 					{
 						adaptor.addChild(root_0, stream_OP_FST.nextNode());
 					}
@@ -4049,7 +4060,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 7 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:303:4: OP_SND
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:314:4: OP_SND
 					{
 					OP_SND118=(Token)match(input,OP_SND,FOLLOW_OP_SND_in_attribute_call1221);  
 					stream_OP_SND.add(OP_SND118);
@@ -4065,7 +4076,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 303:16: -> OP_SND
+					// 314:16: -> OP_SND
 					{
 						adaptor.addChild(root_0, stream_OP_SND.nextNode());
 					}
@@ -4076,7 +4087,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 8 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:304:4: OP_TRD
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:315:4: OP_TRD
 					{
 					OP_TRD119=(Token)match(input,OP_TRD,FOLLOW_OP_TRD_in_attribute_call1235);  
 					stream_OP_TRD.add(OP_TRD119);
@@ -4092,7 +4103,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 304:16: -> OP_TRD
+					// 315:16: -> OP_TRD
 					{
 						adaptor.addChild(root_0, stream_OP_TRD.nextNode());
 					}
@@ -4103,7 +4114,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 9 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:305:4: ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:316:4: ID
 					{
 					ID120=(Token)match(input,ID,FOLLOW_ID_in_attribute_call1249);  
 					stream_ID.add(ID120);
@@ -4119,7 +4130,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 305:12: -> ID
+					// 316:12: -> ID
 					{
 						adaptor.addChild(root_0, stream_ID.nextNode());
 					}
@@ -4158,7 +4169,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "triple_cons"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:309:1: triple_cons : CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END -> ^( TRIPLE expression expression expression ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:320:1: triple_cons : CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END -> ^( TRIPLE expression expression expression ) ;
 	public final RecParser.triple_cons_return triple_cons() throws RecognitionException {
 		RecParser.triple_cons_return retval = new RecParser.triple_cons_return();
 		retval.start = input.LT(1);
@@ -4186,8 +4197,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:310:2: ( CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END -> ^( TRIPLE expression expression expression ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:310:4: CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:321:2: ( CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END -> ^( TRIPLE expression expression expression ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:321:4: CONS_TRIPLE SEP_ARGS_START expression SEP_COMMA expression SEP_COMMA expression SEP_ARGS_END
 			{
 			CONS_TRIPLE121=(Token)match(input,CONS_TRIPLE,FOLLOW_CONS_TRIPLE_in_triple_cons1272);  
 			stream_CONS_TRIPLE.add(CONS_TRIPLE121);
@@ -4230,9 +4241,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 311:3: -> ^( TRIPLE expression expression expression )
+			// 322:3: -> ^( TRIPLE expression expression expression )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:311:6: ^( TRIPLE expression expression expression )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:322:6: ^( TRIPLE expression expression expression )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TRIPLE, "TRIPLE"), root_1);
@@ -4276,7 +4287,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "pair_cons"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:315:1: pair_cons : CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END -> ^( PAIR expression expression ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:326:1: pair_cons : CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END -> ^( PAIR expression expression ) ;
 	public final RecParser.pair_cons_return pair_cons() throws RecognitionException {
 		RecParser.pair_cons_return retval = new RecParser.pair_cons_return();
 		retval.start = input.LT(1);
@@ -4301,8 +4312,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:316:2: ( CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END -> ^( PAIR expression expression ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:316:4: CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:327:2: ( CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END -> ^( PAIR expression expression ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:327:4: CONS_PAIR SEP_ARGS_START expression SEP_COMMA expression SEP_ARGS_END
 			{
 			CONS_PAIR129=(Token)match(input,CONS_PAIR,FOLLOW_CONS_PAIR_in_pair_cons1315);  
 			stream_CONS_PAIR.add(CONS_PAIR129);
@@ -4337,9 +4348,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 317:3: -> ^( PAIR expression expression )
+			// 328:3: -> ^( PAIR expression expression )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:317:6: ^( PAIR expression expression )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:328:6: ^( PAIR expression expression )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PAIR, "PAIR"), root_1);
@@ -4382,7 +4393,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "set_cons"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:322:1: set_cons : CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END -> ^( SET ( expression )* ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:333:1: set_cons : CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END -> ^( SET ( expression )* ) ;
 	public final RecParser.set_cons_return set_cons() throws RecognitionException {
 		RecParser.set_cons_return retval = new RecParser.set_cons_return();
 		retval.start = input.LT(1);
@@ -4407,8 +4418,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:2: ( CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END -> ^( SET ( expression )* ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:4: CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:334:2: ( CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END -> ^( SET ( expression )* ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:334:4: CONS_SET SEP_ARGS_START ( expression ( SEP_COMMA expression )* )? SEP_ARGS_END
 			{
 			CONS_SET135=(Token)match(input,CONS_SET,FOLLOW_CONS_SET_in_set_cons1353);  
 			stream_CONS_SET.add(CONS_SET135);
@@ -4416,7 +4427,7 @@ public class RecParser extends Parser {
 			SEP_ARGS_START136=(Token)match(input,SEP_ARGS_START,FOLLOW_SEP_ARGS_START_in_set_cons1355);  
 			stream_SEP_ARGS_START.add(SEP_ARGS_START136);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:29: ( expression ( SEP_COMMA expression )* )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:334:29: ( expression ( SEP_COMMA expression )* )?
 			int alt28=2;
 			int LA28_0 = input.LA(1);
 			if ( ((LA28_0 >= CONS_PAIR && LA28_0 <= CONS_TRIPLE)||LA28_0==ID||LA28_0==OP_PATH||LA28_0==OP_UPDATE) ) {
@@ -4424,14 +4435,14 @@ public class RecParser extends Parser {
 			}
 			switch (alt28) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:31: expression ( SEP_COMMA expression )*
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:334:31: expression ( SEP_COMMA expression )*
 					{
 					pushFollow(FOLLOW_expression_in_set_cons1360);
 					expression137=expression();
 					state._fsp--;
 
 					stream_expression.add(expression137.getTree());
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:42: ( SEP_COMMA expression )*
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:334:42: ( SEP_COMMA expression )*
 					loop27:
 					while (true) {
 						int alt27=2;
@@ -4442,7 +4453,7 @@ public class RecParser extends Parser {
 
 						switch (alt27) {
 						case 1 :
-							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:323:43: SEP_COMMA expression
+							// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:334:43: SEP_COMMA expression
 							{
 							SEP_COMMA138=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_set_cons1363);  
 							stream_SEP_COMMA.add(SEP_COMMA138);
@@ -4479,13 +4490,13 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 324:3: -> ^( SET ( expression )* )
+			// 335:3: -> ^( SET ( expression )* )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:324:6: ^( SET ( expression )* )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:335:6: ^( SET ( expression )* )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SET, "SET"), root_1);
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:324:12: ( expression )*
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:335:12: ( expression )*
 				while ( stream_expression.hasNext() ) {
 					adaptor.addChild(root_1, stream_expression.nextTree());
 				}
@@ -4528,7 +4539,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "applicaiton_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:342:1: applicaiton_def : ID OP_APPLY list_reconfigurations ( trigger_def )? -> ID list_reconfigurations ( trigger_def )? ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:353:1: applicaiton_def : ID OP_APPLY list_reconfigurations ( trigger_def )? -> ID list_reconfigurations ( trigger_def )? ;
 	public final RecParser.applicaiton_def_return applicaiton_def() throws RecognitionException {
 		RecParser.applicaiton_def_return retval = new RecParser.applicaiton_def_return();
 		retval.start = input.LT(1);
@@ -4548,8 +4559,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_list_reconfigurations=new RewriteRuleSubtreeStream(adaptor,"rule list_reconfigurations");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:343:2: ( ID OP_APPLY list_reconfigurations ( trigger_def )? -> ID list_reconfigurations ( trigger_def )? )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:343:4: ID OP_APPLY list_reconfigurations ( trigger_def )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:354:2: ( ID OP_APPLY list_reconfigurations ( trigger_def )? -> ID list_reconfigurations ( trigger_def )? )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:354:4: ID OP_APPLY list_reconfigurations ( trigger_def )?
 			{
 			ID141=(Token)match(input,ID,FOLLOW_ID_in_applicaiton_def1403);  
 			stream_ID.add(ID141);
@@ -4562,7 +4573,7 @@ public class RecParser extends Parser {
 			state._fsp--;
 
 			stream_list_reconfigurations.add(list_reconfigurations143.getTree());
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:343:40: ( trigger_def )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:354:40: ( trigger_def )?
 			int alt29=2;
 			int LA29_0 = input.LA(1);
 			if ( (LA29_0==SEP_TRIGGER) ) {
@@ -4570,7 +4581,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt29) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:343:40: trigger_def
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:354:40: trigger_def
 					{
 					pushFollow(FOLLOW_trigger_def_in_applicaiton_def1411);
 					trigger_def144=trigger_def();
@@ -4583,7 +4594,7 @@ public class RecParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: ID, list_reconfigurations, trigger_def
+			// elements: trigger_def, ID, list_reconfigurations
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4593,11 +4604,11 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 344:3: -> ID list_reconfigurations ( trigger_def )?
+			// 355:3: -> ID list_reconfigurations ( trigger_def )?
 			{
 				adaptor.addChild(root_0, stream_ID.nextNode());
 				adaptor.addChild(root_0, stream_list_reconfigurations.nextTree());
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:344:31: ( trigger_def )?
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:355:31: ( trigger_def )?
 				if ( stream_trigger_def.hasNext() ) {
 					adaptor.addChild(root_0, stream_trigger_def.nextTree());
 				}
@@ -4637,7 +4648,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "list_reconfigurations"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:347:1: list_reconfigurations : ( SEP_BLOCK_START )? reconfiguration_call ( SEP_COMMA reconfiguration_call )* ( SEP_BLOCK_END )? -> ( reconfiguration_call )+ ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:358:1: list_reconfigurations : ( SEP_BLOCK_START )? reconfiguration_call ( SEP_COMMA reconfiguration_call )* ( SEP_BLOCK_END )? -> ( reconfiguration_call )+ ;
 	public final RecParser.list_reconfigurations_return list_reconfigurations() throws RecognitionException {
 		RecParser.list_reconfigurations_return retval = new RecParser.list_reconfigurations_return();
 		retval.start = input.LT(1);
@@ -4659,10 +4670,10 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_reconfiguration_call=new RewriteRuleSubtreeStream(adaptor,"rule reconfiguration_call");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:2: ( ( SEP_BLOCK_START )? reconfiguration_call ( SEP_COMMA reconfiguration_call )* ( SEP_BLOCK_END )? -> ( reconfiguration_call )+ )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:5: ( SEP_BLOCK_START )? reconfiguration_call ( SEP_COMMA reconfiguration_call )* ( SEP_BLOCK_END )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:2: ( ( SEP_BLOCK_START )? reconfiguration_call ( SEP_COMMA reconfiguration_call )* ( SEP_BLOCK_END )? -> ( reconfiguration_call )+ )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:5: ( SEP_BLOCK_START )? reconfiguration_call ( SEP_COMMA reconfiguration_call )* ( SEP_BLOCK_END )?
 			{
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:5: ( SEP_BLOCK_START )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:5: ( SEP_BLOCK_START )?
 			int alt30=2;
 			int LA30_0 = input.LA(1);
 			if ( (LA30_0==SEP_BLOCK_START) ) {
@@ -4670,7 +4681,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt30) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:5: SEP_BLOCK_START
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:5: SEP_BLOCK_START
 					{
 					SEP_BLOCK_START145=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_list_reconfigurations1437);  
 					stream_SEP_BLOCK_START.add(SEP_BLOCK_START145);
@@ -4685,7 +4696,7 @@ public class RecParser extends Parser {
 			state._fsp--;
 
 			stream_reconfiguration_call.add(reconfiguration_call146.getTree());
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:43: ( SEP_COMMA reconfiguration_call )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:43: ( SEP_COMMA reconfiguration_call )*
 			loop31:
 			while (true) {
 				int alt31=2;
@@ -4696,7 +4707,7 @@ public class RecParser extends Parser {
 
 				switch (alt31) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:44: SEP_COMMA reconfiguration_call
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:44: SEP_COMMA reconfiguration_call
 					{
 					SEP_COMMA147=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_list_reconfigurations1443);  
 					stream_SEP_COMMA.add(SEP_COMMA147);
@@ -4714,7 +4725,7 @@ public class RecParser extends Parser {
 				}
 			}
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:77: ( SEP_BLOCK_END )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:77: ( SEP_BLOCK_END )?
 			int alt32=2;
 			int LA32_0 = input.LA(1);
 			if ( (LA32_0==SEP_BLOCK_END) ) {
@@ -4722,7 +4733,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt32) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:348:77: SEP_BLOCK_END
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:359:77: SEP_BLOCK_END
 					{
 					SEP_BLOCK_END149=(Token)match(input,SEP_BLOCK_END,FOLLOW_SEP_BLOCK_END_in_list_reconfigurations1449);  
 					stream_SEP_BLOCK_END.add(SEP_BLOCK_END149);
@@ -4743,7 +4754,7 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 348:93: -> ( reconfiguration_call )+
+			// 359:93: -> ( reconfiguration_call )+
 			{
 				if ( !(stream_reconfiguration_call.hasNext()) ) {
 					throw new RewriteEarlyExitException();
@@ -4787,7 +4798,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "trigger_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:351:1: trigger_def : SEP_TRIGGER trigger_block -> trigger_block ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:362:1: trigger_def : SEP_TRIGGER trigger_block -> trigger_block ;
 	public final RecParser.trigger_def_return trigger_def() throws RecognitionException {
 		RecParser.trigger_def_return retval = new RecParser.trigger_def_return();
 		retval.start = input.LT(1);
@@ -4802,8 +4813,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_trigger_block=new RewriteRuleSubtreeStream(adaptor,"rule trigger_block");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:352:2: ( SEP_TRIGGER trigger_block -> trigger_block )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:352:4: SEP_TRIGGER trigger_block
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:363:2: ( SEP_TRIGGER trigger_block -> trigger_block )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:363:4: SEP_TRIGGER trigger_block
 			{
 			SEP_TRIGGER150=(Token)match(input,SEP_TRIGGER,FOLLOW_SEP_TRIGGER_in_trigger_def1468);  
 			stream_SEP_TRIGGER.add(SEP_TRIGGER150);
@@ -4824,7 +4835,7 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 353:3: -> trigger_block
+			// 364:3: -> trigger_block
 			{
 				adaptor.addChild(root_0, stream_trigger_block.nextTree());
 			}
@@ -4861,7 +4872,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "trigger_block"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:356:1: trigger_block : SEP_BLOCK_START SEP_BLOCK_END ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:367:1: trigger_block : SEP_BLOCK_START SEP_BLOCK_END ;
 	public final RecParser.trigger_block_return trigger_block() throws RecognitionException {
 		RecParser.trigger_block_return retval = new RecParser.trigger_block_return();
 		retval.start = input.LT(1);
@@ -4875,8 +4886,8 @@ public class RecParser extends Parser {
 		Object SEP_BLOCK_END153_tree=null;
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:357:2: ( SEP_BLOCK_START SEP_BLOCK_END )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:357:4: SEP_BLOCK_START SEP_BLOCK_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:368:2: ( SEP_BLOCK_START SEP_BLOCK_END )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:368:4: SEP_BLOCK_START SEP_BLOCK_END
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -4918,7 +4929,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main_def"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:363:1: main_def : RW_MAIN SEP_LIST_START ( main_args )? SEP_LIST_END main_block -> ( main_args )? main_block ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:374:1: main_def : RW_MAIN SEP_LIST_START ( main_args )? SEP_LIST_END main_block -> ( main_args )? main_block ;
 	public final RecParser.main_def_return main_def() throws RecognitionException {
 		RecParser.main_def_return retval = new RecParser.main_def_return();
 		retval.start = input.LT(1);
@@ -4941,8 +4952,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_main_block=new RewriteRuleSubtreeStream(adaptor,"rule main_block");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:364:2: ( RW_MAIN SEP_LIST_START ( main_args )? SEP_LIST_END main_block -> ( main_args )? main_block )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:364:4: RW_MAIN SEP_LIST_START ( main_args )? SEP_LIST_END main_block
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:375:2: ( RW_MAIN SEP_LIST_START ( main_args )? SEP_LIST_END main_block -> ( main_args )? main_block )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:375:4: RW_MAIN SEP_LIST_START ( main_args )? SEP_LIST_END main_block
 			{
 			RW_MAIN154=(Token)match(input,RW_MAIN,FOLLOW_RW_MAIN_in_main_def1505);  
 			stream_RW_MAIN.add(RW_MAIN154);
@@ -4950,7 +4961,7 @@ public class RecParser extends Parser {
 			SEP_LIST_START155=(Token)match(input,SEP_LIST_START,FOLLOW_SEP_LIST_START_in_main_def1507);  
 			stream_SEP_LIST_START.add(SEP_LIST_START155);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:364:27: ( main_args )?
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:375:27: ( main_args )?
 			int alt33=2;
 			int LA33_0 = input.LA(1);
 			if ( (LA33_0==ID) ) {
@@ -4958,7 +4969,7 @@ public class RecParser extends Parser {
 			}
 			switch (alt33) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:364:27: main_args
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:375:27: main_args
 					{
 					pushFollow(FOLLOW_main_args_in_main_def1509);
 					main_args156=main_args();
@@ -4989,9 +5000,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 365:3: -> ( main_args )? main_block
+			// 376:3: -> ( main_args )? main_block
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:365:6: ( main_args )?
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:376:6: ( main_args )?
 				if ( stream_main_args.hasNext() ) {
 					adaptor.addChild(root_0, stream_main_args.nextTree());
 				}
@@ -5032,7 +5043,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main_args"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:368:1: main_args : main_arg ( SEP_SEMICOLON main_arg )* -> ^( ARGUMENTS ( main_arg )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:379:1: main_args : main_arg ( SEP_SEMICOLON main_arg )* -> ^( ARGUMENTS ( main_arg )+ ) ;
 	public final RecParser.main_args_return main_args() throws RecognitionException {
 		RecParser.main_args_return retval = new RecParser.main_args_return();
 		retval.start = input.LT(1);
@@ -5048,15 +5059,15 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_main_arg=new RewriteRuleSubtreeStream(adaptor,"rule main_arg");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:369:2: ( main_arg ( SEP_SEMICOLON main_arg )* -> ^( ARGUMENTS ( main_arg )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:369:4: main_arg ( SEP_SEMICOLON main_arg )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:380:2: ( main_arg ( SEP_SEMICOLON main_arg )* -> ^( ARGUMENTS ( main_arg )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:380:4: main_arg ( SEP_SEMICOLON main_arg )*
 			{
 			pushFollow(FOLLOW_main_arg_in_main_args1534);
 			main_arg159=main_arg();
 			state._fsp--;
 
 			stream_main_arg.add(main_arg159.getTree());
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:369:13: ( SEP_SEMICOLON main_arg )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:380:13: ( SEP_SEMICOLON main_arg )*
 			loop34:
 			while (true) {
 				int alt34=2;
@@ -5067,7 +5078,7 @@ public class RecParser extends Parser {
 
 				switch (alt34) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:369:14: SEP_SEMICOLON main_arg
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:380:14: SEP_SEMICOLON main_arg
 					{
 					SEP_SEMICOLON160=(Token)match(input,SEP_SEMICOLON,FOLLOW_SEP_SEMICOLON_in_main_args1537);  
 					stream_SEP_SEMICOLON.add(SEP_SEMICOLON160);
@@ -5096,9 +5107,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 370:3: -> ^( ARGUMENTS ( main_arg )+ )
+			// 381:3: -> ^( ARGUMENTS ( main_arg )+ )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:370:6: ^( ARGUMENTS ( main_arg )+ )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:381:6: ^( ARGUMENTS ( main_arg )+ )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ARGUMENTS, "ARGUMENTS"), root_1);
@@ -5147,7 +5158,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main_arg"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:373:1: main_arg : dt= ID ids -> ^( ARGUMENT ID ids ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:384:1: main_arg : dt= ID ids -> ^( ARGUMENT ID ids ) ;
 	public final RecParser.main_arg_return main_arg() throws RecognitionException {
 		RecParser.main_arg_return retval = new RecParser.main_arg_return();
 		retval.start = input.LT(1);
@@ -5162,8 +5173,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_ids=new RewriteRuleSubtreeStream(adaptor,"rule ids");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:374:2: (dt= ID ids -> ^( ARGUMENT ID ids ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:374:5: dt= ID ids
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:385:2: (dt= ID ids -> ^( ARGUMENT ID ids ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:385:5: dt= ID ids
 			{
 			dt=(Token)match(input,ID,FOLLOW_ID_in_main_arg1566);  
 			stream_ID.add(dt);
@@ -5174,7 +5185,7 @@ public class RecParser extends Parser {
 
 			stream_ids.add(ids162.getTree());
 			// AST REWRITE
-			// elements: ids, ID
+			// elements: ID, ids
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -5184,9 +5195,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 375:3: -> ^( ARGUMENT ID ids )
+			// 386:3: -> ^( ARGUMENT ID ids )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:375:6: ^( ARGUMENT ID ids )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:386:6: ^( ARGUMENT ID ids )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ARGUMENT, "ARGUMENT"), root_1);
@@ -5229,7 +5240,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "ids"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:378:1: ids : ID ( SEP_COMMA ID )* -> ^( IDS ( ID )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:389:1: ids : ID ( SEP_COMMA ID )* -> ^( IDS ( ID )+ ) ;
 	public final RecParser.ids_return ids() throws RecognitionException {
 		RecParser.ids_return retval = new RecParser.ids_return();
 		retval.start = input.LT(1);
@@ -5247,13 +5258,13 @@ public class RecParser extends Parser {
 		RewriteRuleTokenStream stream_ID=new RewriteRuleTokenStream(adaptor,"token ID");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:379:2: ( ID ( SEP_COMMA ID )* -> ^( IDS ( ID )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:379:4: ID ( SEP_COMMA ID )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:2: ( ID ( SEP_COMMA ID )* -> ^( IDS ( ID )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:4: ID ( SEP_COMMA ID )*
 			{
 			ID163=(Token)match(input,ID,FOLLOW_ID_in_ids1592);  
 			stream_ID.add(ID163);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:379:7: ( SEP_COMMA ID )*
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:7: ( SEP_COMMA ID )*
 			loop35:
 			while (true) {
 				int alt35=2;
@@ -5264,7 +5275,7 @@ public class RecParser extends Parser {
 
 				switch (alt35) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:379:8: SEP_COMMA ID
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:8: SEP_COMMA ID
 					{
 					SEP_COMMA164=(Token)match(input,SEP_COMMA,FOLLOW_SEP_COMMA_in_ids1595);  
 					stream_SEP_COMMA.add(SEP_COMMA164);
@@ -5291,9 +5302,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 379:23: -> ^( IDS ( ID )+ )
+			// 390:23: -> ^( IDS ( ID )+ )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:379:26: ^( IDS ( ID )+ )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:26: ^( IDS ( ID )+ )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IDS, "IDS"), root_1);
@@ -5342,7 +5353,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main_block"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:383:1: main_block : SEP_BLOCK_START ( main_instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS ( main_instruction )+ ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:394:1: main_block : SEP_BLOCK_START ( main_instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS ( main_instruction )+ ) ;
 	public final RecParser.main_block_return main_block() throws RecognitionException {
 		RecParser.main_block_return retval = new RecParser.main_block_return();
 		retval.start = input.LT(1);
@@ -5360,13 +5371,13 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_main_instruction=new RewriteRuleSubtreeStream(adaptor,"rule main_instruction");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:384:2: ( SEP_BLOCK_START ( main_instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS ( main_instruction )+ ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:384:4: SEP_BLOCK_START ( main_instruction )+ SEP_BLOCK_END
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:395:2: ( SEP_BLOCK_START ( main_instruction )+ SEP_BLOCK_END -> ^( INSTRUCTIONS ( main_instruction )+ ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:395:4: SEP_BLOCK_START ( main_instruction )+ SEP_BLOCK_END
 			{
 			SEP_BLOCK_START166=(Token)match(input,SEP_BLOCK_START,FOLLOW_SEP_BLOCK_START_in_main_block1622);  
 			stream_SEP_BLOCK_START.add(SEP_BLOCK_START166);
 
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:384:20: ( main_instruction )+
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:395:20: ( main_instruction )+
 			int cnt36=0;
 			loop36:
 			while (true) {
@@ -5378,7 +5389,7 @@ public class RecParser extends Parser {
 
 				switch (alt36) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:384:20: main_instruction
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:395:20: main_instruction
 					{
 					pushFollow(FOLLOW_main_instruction_in_main_block1624);
 					main_instruction167=main_instruction();
@@ -5410,9 +5421,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 385:3: -> ^( INSTRUCTIONS ( main_instruction )+ )
+			// 396:3: -> ^( INSTRUCTIONS ( main_instruction )+ )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:385:6: ^( INSTRUCTIONS ( main_instruction )+ )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:396:6: ^( INSTRUCTIONS ( main_instruction )+ )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(INSTRUCTIONS, "INSTRUCTIONS"), root_1);
@@ -5461,7 +5472,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main_instruction"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:388:1: main_instruction : ( main_assignment SEP_SEMICOLON -> main_assignment | reconf_apply SEP_SEMICOLON -> reconf_apply );
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:399:1: main_instruction : ( main_assignment SEP_SEMICOLON -> main_assignment | reconf_apply SEP_SEMICOLON -> reconf_apply );
 	public final RecParser.main_instruction_return main_instruction() throws RecognitionException {
 		RecParser.main_instruction_return retval = new RecParser.main_instruction_return();
 		retval.start = input.LT(1);
@@ -5480,7 +5491,7 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_reconf_apply=new RewriteRuleSubtreeStream(adaptor,"rule reconf_apply");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:2: ( main_assignment SEP_SEMICOLON -> main_assignment | reconf_apply SEP_SEMICOLON -> reconf_apply )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:401:2: ( main_assignment SEP_SEMICOLON -> main_assignment | reconf_apply SEP_SEMICOLON -> reconf_apply )
 			int alt37=2;
 			int LA37_0 = input.LA(1);
 			if ( (LA37_0==ID) ) {
@@ -5514,7 +5525,7 @@ public class RecParser extends Parser {
 
 			switch (alt37) {
 				case 1 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:390:4: main_assignment SEP_SEMICOLON
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:401:4: main_assignment SEP_SEMICOLON
 					{
 					pushFollow(FOLLOW_main_assignment_in_main_instruction1650);
 					main_assignment169=main_assignment();
@@ -5535,7 +5546,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 390:35: -> main_assignment
+					// 401:35: -> main_assignment
 					{
 						adaptor.addChild(root_0, stream_main_assignment.nextTree());
 					}
@@ -5546,7 +5557,7 @@ public class RecParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:391:4: reconf_apply SEP_SEMICOLON
+					// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:402:4: reconf_apply SEP_SEMICOLON
 					{
 					pushFollow(FOLLOW_reconf_apply_in_main_instruction1662);
 					reconf_apply171=reconf_apply();
@@ -5567,7 +5578,7 @@ public class RecParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 391:32: -> reconf_apply
+					// 402:32: -> reconf_apply
 					{
 						adaptor.addChild(root_0, stream_reconf_apply.nextTree());
 					}
@@ -5606,7 +5617,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "main_assignment"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:399:1: main_assignment : dt= ID ids OP_EQUAL id2= ID OP_APPLY reconfiguration_call -> ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:410:1: main_assignment : dt= ID ids OP_EQUAL id2= ID OP_APPLY reconfiguration_call -> ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) ) ;
 	public final RecParser.main_assignment_return main_assignment() throws RecognitionException {
 		RecParser.main_assignment_return retval = new RecParser.main_assignment_return();
 		retval.start = input.LT(1);
@@ -5631,8 +5642,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_reconfiguration_call=new RewriteRuleSubtreeStream(adaptor,"rule reconfiguration_call");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:400:2: (dt= ID ids OP_EQUAL id2= ID OP_APPLY reconfiguration_call -> ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:400:4: dt= ID ids OP_EQUAL id2= ID OP_APPLY reconfiguration_call
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:411:2: (dt= ID ids OP_EQUAL id2= ID OP_APPLY reconfiguration_call -> ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:411:4: dt= ID ids OP_EQUAL id2= ID OP_APPLY reconfiguration_call
 			{
 			dt=(Token)match(input,ID,FOLLOW_ID_in_main_assignment1687);  
 			stream_ID.add(dt);
@@ -5657,7 +5668,7 @@ public class RecParser extends Parser {
 
 			stream_reconfiguration_call.add(reconfiguration_call176.getTree());
 			// AST REWRITE
-			// elements: dt, ids, id2, reconfiguration_call, OP_APPLY
+			// elements: reconfiguration_call, dt, ids, OP_APPLY, id2
 			// token labels: dt, id2
 			// rule labels: retval
 			// token list labels: 
@@ -5669,13 +5680,13 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 401:3: -> ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) )
+			// 412:3: -> ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:401:6: ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:412:6: ^( APPLICATION ^( DECLARATION $dt ids ) ^( OP_APPLY $id2 reconfiguration_call ) )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(APPLICATION, "APPLICATION"), root_1);
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:401:20: ^( DECLARATION $dt ids )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:412:20: ^( DECLARATION $dt ids )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(DECLARATION, "DECLARATION"), root_2);
@@ -5684,7 +5695,7 @@ public class RecParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:401:43: ^( OP_APPLY $id2 reconfiguration_call )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:412:43: ^( OP_APPLY $id2 reconfiguration_call )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot(stream_OP_APPLY.nextNode(), root_2);
@@ -5730,7 +5741,7 @@ public class RecParser extends Parser {
 
 
 	// $ANTLR start "reconf_apply"
-	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:404:1: reconf_apply : ID OP_APPLY reconfiguration_call -> ^( OP_APPLY ID reconfiguration_call ) ;
+	// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:415:1: reconf_apply : ID OP_APPLY reconfiguration_call -> ^( OP_APPLY ID reconfiguration_call ) ;
 	public final RecParser.reconf_apply_return reconf_apply() throws RecognitionException {
 		RecParser.reconf_apply_return retval = new RecParser.reconf_apply_return();
 		retval.start = input.LT(1);
@@ -5748,8 +5759,8 @@ public class RecParser extends Parser {
 		RewriteRuleSubtreeStream stream_reconfiguration_call=new RewriteRuleSubtreeStream(adaptor,"rule reconfiguration_call");
 
 		try {
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:405:2: ( ID OP_APPLY reconfiguration_call -> ^( OP_APPLY ID reconfiguration_call ) )
-			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:405:4: ID OP_APPLY reconfiguration_call
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:416:2: ( ID OP_APPLY reconfiguration_call -> ^( OP_APPLY ID reconfiguration_call ) )
+			// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:416:4: ID OP_APPLY reconfiguration_call
 			{
 			ID177=(Token)match(input,ID,FOLLOW_ID_in_reconf_apply1738);  
 			stream_ID.add(ID177);
@@ -5773,9 +5784,9 @@ public class RecParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 405:37: -> ^( OP_APPLY ID reconfiguration_call )
+			// 416:37: -> ^( OP_APPLY ID reconfiguration_call )
 			{
-				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:405:40: ^( OP_APPLY ID reconfiguration_call )
+				// /Users/flaviorodrigues/Documents/GitHub/doctools/ReoLang/ReoLangSpecs/RecParser.g:416:40: ^( OP_APPLY ID reconfiguration_call )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot(stream_OP_APPLY.nextNode(), root_1);
