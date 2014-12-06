@@ -304,6 +304,7 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
     		writer.println("import " + Constants.CP_MODEL + ".*;");
     		writer.println("import " + Constants.CP_RECONFIGURATIONS + ".*;");
     		writer.println("import " + Constants.REOLANG_PARSING_UTIL + ".*;\n");
+			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");
     		if (t.equals("Run")){
     			/*
     			 * import org.antlr.runtime.*;
@@ -312,8 +313,7 @@ public class ReCooPLaRun implements IWorkbenchWindowActionDelegate {
 	    		writer.println("import " + Constants.REOLANG + ".ReoLangCP2;");
 	    		writer.println("import " + Constants.REOLANG + ".ReoLangSemantics;");
 	    		writer.println("import " + Constants.REOLANG_PARSING + ".CPBuilder;");
-	    		writer.println("import " + Constants.REOLANG_PARSING + ".Semantics;");
-    			writer.println("import " + Constants.JAVA_LANG_REFLECT + ".*;\n");    			
+	    		writer.println("import " + Constants.REOLANG_PARSING + ".Semantics;");    			
     		}
     		writer.print(translation.get(t));
     		writer.close();

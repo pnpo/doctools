@@ -28,10 +28,14 @@ constructor(n, dts, ids) ::= <<
 apply_method(reconfs, insts) ::= <<
 	@Override
 	public CoordinationPattern2 apply(CoordinationPattern2 $cp) { 
-		<reconfs:{ rec | <rec>}; separator="
+		try{
+			<reconfs:{ rec | <rec>}; separator="
 ">
-		<insts:{ inst | <inst>}; separator="
+			<insts:{ inst | <inst>}; separator="
 ">
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
 		return new CoordinationPattern2($cp); 
 	}
 >>

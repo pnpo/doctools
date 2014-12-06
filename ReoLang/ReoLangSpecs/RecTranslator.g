@@ -21,6 +21,8 @@ options{
 	import java.util.HashSet;
 	import java.util.LinkedHashMap;
 	import java.io.File;
+	import java.util.regex.Pattern;	
+	import java.util.regex.Matcher;
 }
 
 @members{
@@ -112,6 +114,13 @@ options{
 			}
 		}
 		return scope;
+	}
+	
+	
+	private boolean argsContainsVar(String args, String var){
+		Pattern pattern = Pattern.compile("\\b_"+ var +"\\b");
+	    	Matcher matcher = pattern.matcher(args);
+	    	return matcher.find();
 	}
 }
 
@@ -373,6 +382,12 @@ list_ids [String dt] returns[List<String> values]
 	
 	
 reconfiguration_block[boolean isForall]
+scope{
+	Integer i;
+}
+@init {
+	$reconfiguration_block::i = 0;
+}
 	: ^(INSTRUCTIONS (instruction
 	{
 		if (isForall){
@@ -408,30 +423,79 @@ scope{
 	;
 	
 reconfiguration_apply[boolean isAssignment] returns[String value]
+@init{
+	Integer i = $reconfiguration_block::i++;
+}
 	: ^(OP_APPLY reconfiguration_call 
 	{
 		String op = $reconfiguration_call.name;
 		//eg: par -> P + ar = Par
 		String class_name = Character.toUpperCase(op.charAt(0)) + op.substring(1);
-		$reconfiguration_def::reconfs.add(class_name + " " + op + ";");
+		
+		boolean isPrimitive = false;
+		if (class_name.equals("Id") || class_name.equals("Const") || class_name.equals("Par") 
+			|| class_name.equals("Join") || class_name.equals("Split") || class_name.equals("Remove")){
+			isPrimitive = true;	
+		}
+		
+		
+		List<String> dts = new ArrayList<String>();
+		
+		for (String dt : $reconfiguration_call.dts){
+			int j = dt.indexOf('<');
+			if (j > 0){
+				dts.add(dt.substring(0, j) + ".class"); //eg: Pair<Node,Node> -> Pair
+			} else {
+				dts.add(dt + ".class");
+			}
+		}
+		String datatypes = listToString(dts);
+		
+		String rec = "";
+				
+		if (isPrimitive){
+			$reconfiguration_def::reconfs.add(class_name + " " + op + ";");
+		}
+		else{
+			String aux = "\nClass " + op + " = Class.forName( \"" + class_name + "\" );\n";
+			aux += "Constructor " + op + "_constructor = " + op + ".getConstructor(" + datatypes + ");\n";	
+			$reconfiguration_def::reconfs.add(aux);
+		}
 		
 		String args = $reconfiguration_call.args;
 		
-		String rec = "";
 		if (isAssignment){
 			String var_name = "_" + $assignment::ts.getId();
 			String dt = $instruction::dt;
 			//List<String> dt = new ArrayList<String>( this.convertRecooplaDatatype( $assignment::ts.getDataType() ) );
 			//String datatype = datatypeToString(dt);
-			rec = op + " = new " + class_name + "(" + args + ");\n";
-			rec += "final " + dt + var_name + " = " + op + ".apply(\$cp)"; //add template
+			if (isPrimitive){
+				rec = op + " = new " + class_name + "(" + args + ");\n";
+				rec += "final " + dt + var_name + " = " + op + ".apply(\$cp)"; //add template
+			}
+			else{
+				rec += "Object " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
+				rec += "Method " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
+				
+				String invoke = "(CoordinationPattern2) " + op + i + "_apply.invoke(" + op + i + "_obj, \$cp )";
+				rec += "final " + dt + var_name + " = " + invoke;
+			}
 			
 		}
 		else{
-			rec = op + " = new " + class_name + "(" + args + ");\n" + op + ".apply(\$cp)"; //add template
+			if (isPrimitive){
+				rec = op + " = new " + class_name + "(" + args + ");\n" + op + ".apply(\$cp)"; //add template
+			}
+			else{
+				rec += "Object " + op + i + "_obj = " + op + "_constructor.newInstance(" + args + ");\n";
+				rec += "Method " + op + i + "_apply = " + op + ".getMethod(\"apply\", CoordinationPattern2.class);\n";
+				
+				rec += op + i + "_apply.invoke(" + op + i + "_obj, \$cp )";
+			}
 		}
 		
 		$reconfiguration_apply.value = rec + ";";
+		$reconfiguration_block::i = i;
 	}
 	
 	ID?)
@@ -1250,10 +1314,11 @@ main_assignment returns[String value]
 //			args = args.replace(aux, "aux_cp" + i);
 //			aux = "aux_cp" + i;
 //		}
-
+	
 		for (String var : $main_def::declared_cps.keySet()){
 			//if (args.contains(var)){
-			if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
+			//if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
+			if (this.argsContainsVar(args, var)){
 				value += "\tfinal CoordinationPattern2 _aux_cp" + i + " = new CoordinationPattern2(_" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
 				args = args.replace("_" + var, "_aux_cp" + i);
 				i++;
@@ -1409,7 +1474,8 @@ reconf_apply returns[String value]
 		String aux = "_" + $ID.text;
 		for (String var : $main_def::declared_cps.keySet()){
 			//if (args.contains(var)){
-			if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
+			//if (args.matches("(.*)\\b_" + var + "\\b(.*)")){
+			if (this.argsContainsVar(args, var)){
 				value += "\tfinal CoordinationPattern2 _aux_cp" + i + " = new CoordinationPattern2(_" + var + ");\n"; //variavel auxiliar para evitar problemas com sets
 				args = args.replace("_" + var, "_aux_cp" + i);
 				i++;
