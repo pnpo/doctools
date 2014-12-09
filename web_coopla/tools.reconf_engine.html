@@ -173,8 +173,8 @@
             <div class="col-lg-12">
                 <!--SOON.-->
                 <p>
-                    As it often happens with domain specific languages, ReCooPLa is translated into a subset of Java, which is then recognised and executed by an engine. 
-                    This engine, referred to as the <i>Reconfiguration Engine</i>, is a plug-in developed in Java to execute reconfigurations specified in ReCooPLa over coordination patterns, which are defined in CooPLa, a lightweight language to define the graph-like structure of coordination patterns. 
+                    ReCooPLa is translated into a subset of Java, and recognised and executed by an engine. <br/>
+                    This engine, named <i>Reconfiguration Engine</i>, is a plug-in to execute reconfigurations specified in ReCooPLa over coordination patterns specified in CooPLa. 
                 </p>
                 <br/>
             </div>
@@ -202,14 +202,13 @@
                     <div class="tab-pane fade active in" id="features">
                         <h2>Features</h2>
                         <ul>
-                            <li>Syntax highlighting</li>
-                            <li>Errors detection</li>
-                            <li>Run reconfigurations</li>
-                            <li>Patterns created</li>
-                            <li>CooPLa exportation</li>
+                            <li>Reconfiguration specification</li>
+                            <li>Applying reconfigurations</li>
+                            <li>New patterns visualisation</li>
+                            <li>Exportating CooPLa patterns</li>
                         </ul>
                         <br/>
-                        <hr/>
+                        <hr>
                         <!-- INTRO -->
                     <!--
                         <p>
@@ -217,72 +216,28 @@
                         </p>
                     -->
                         
-
-                        <!-- SYNTAX HIGHLIGHTING -->
-                        <h4>Syntax highlighting</h4>
-                        <p>This feature does not affect the meaning of the text itself but improve the readability and context of the ReCooPLa specification in the editor view.
-                            <!--The specification in the editor is coloured for a better reading of the text.
-                            helps the software architects find errors in the specification. 
-                        -->
-                            Syntax highlighting assigns different colors and text styles to the different lexical elements of syntax such as reconfigurations, data types, control structures and attributes.
-                        </p>
-                        <div class="row">
+					<h4>Reconfiguration specification</h4>
+					<p>ReCooPLa reconfigurations are specified in a dedicated editor view. <br/>
+					It provides syntax highlighting and error reporting features. <br/>
+					Importing external files (CooPLa specifications or other ReCooPLa scripts) is made <em>relatively</em> to the working directoty.
+					</p>
+						<div class="row">
                             <div class="col-lg-12">
                                 <!--<center>-->
-                                    <img class="img-responsive" src="css/images/syntax.png" style="width:35%">
+                                    <img class="img-responsive" src="css/images/recoopla_editor_view.png" style="width:50%">
                                 <!--</center>-->
                             </div>
                         </div>
                         <br/>
-
-
-                        <!-- ERRORS DETECTION -->
-                        <h4>Errors detection</h4>
-                        <!--errors are clearly pointed out in the editor using annotations and markers-->
-
-                        <p>
-                            A translation can only occur when the ReCooPLa specification is syntactically and semantically correct. 
-                            This is accomplish through the use of the ReCooPLa processor. 
-                            <!--In particular, the parser that ensures syntactic correctness and the semantic analyser that reports errors concerning structure, behaviour and data types.-->
-                        </p>
-                        <p>
-                            The ReCooPLa part of the editor borrows features of the ReCooPLa processor to analyse the code, dynamically, and then annotate it with markers pointing to errors detected in the syntactic and semantic analysis. 
-                            This is accomplished by adopting the reconciling techniques fomented in editor development within Eclipse. 
-                        </p>
-                        <p>
-                            The reconciler entity allows for running the ReCooPLa processor in the editor background, in a separated thread, so that the editor does not freeze. The ReCooPLa processor is invoked periodically (<i>e.g.</i>, when the user stops coding) and it takes the input text with all the changes performed. 
-                            The captured (syntactic and semantic) errors are then used by the reconciler to create annotations and problem marks, and add them to the editor view.
-                        </p>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!--<center>-->
-                                    <img class="img-responsive" src="css/images/error1.png" style="width:85%">
-                                <!--</center>-->
-                            </div>
-                        </div>
-                        <br/>
-                        <!--Figure presents how these are presented by the editor.-->
-                        <p>
-                            The errors are pointed out by the annotations and problem markers provides some more details about the error. The annotations can provide also the error message when the user hovers the mouse over the red marks on both sides of the editor.
-                            If there are no errors, the reconfigurations can be executed, according to the main reconfiguration, specified in ReCooPLa. 
-                        </p>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!--<center>-->
-                                    <img class="img-responsive" src="css/images/error2.png" style="width:80%">
-                                <!--</center>-->
-                            </div>
-                        </div>
-
-                        <br/>
+                       
 
 
                         <!-- RUN RECONFIGURATONS -->
-                        <h4>Run reconfigurations</h4>
+                        <h4>Applying reconfigurations</h4>
 
                         <p>
-                            Once this feature of the editor is started, a group of procedures are performed. 
-
+                            A dedicated menu for ReCooPLa is added to the Ecipse's menu, from where the reconfiguration engine is called. 
+						</p>
                         <div class="row">
                             <div class="col-lg-12">
                                 <!--<center>-->
@@ -295,22 +250,21 @@
                             </div>
                             -->
                         </div>
-                            First of all, before translating the reconfigurations, it is ensured that the specifications are syntactic and semantic valid. Then, the Java files, corresponding to the reconfigurations, are created by taking advantage of the translation obtained. <!-- through the process presented in Section 5.3. -->
-                            These files are afterwards properly compiled taking into account the required dependencies. After compiling them, the created coordination patterns specified in the main of ReCooPLa (<i>i.e.</i>, the results of the application of the reconfigurations) are obtained. 
-                        <!--</p>
-                        <p>-->
-                            This is achieved using Java Reflection, which is a powerful and useful technique that allows the inspection and modification of the structure and behaviour of an application at runtime as well as the instantiation of a new object, invocation of methods, and some other features.
+                        <br/>
+                        <p>
+                            Before applying reconfigurations, it is ensured that the specifications are syntactic and semantic valid. <br/>
+                            Then, Java files are automatically generated from the main reconfiugration in the ReCooPLa script. <br/>
+                            These are compiled into a Java program. Only after this process, the reconfigurations are applied, generating new coordination patterns. 
                         </p>
                         <br/>
 
 
                         <!-- PATTERNS CREATED -->
-                        <h4>Patterns created</h4>
+                        <h4>New patterns visualisation</h4>
                         <p>
-                            The generated coordination patterns have a particular data structure that besides their structural information, also contains information about their stochastic instances, the environment and nodes. Each one of these data structures is converted into a graph structure and then sent to an Eclipse View, called <i>“Patterns Created”</i>. 
-                            <!--Figure shows the result after a simple reconfiguration, where a simple Pattern2 with only one fifo channel is inserted into an existing one (Pattern1 which has two sync channels). -->
-                        <!--</p>
-                        <p>-->
+                            The generated coordination patterns are displayed in an agreeable visualisation way. <br/>
+                            The user may move the nodes in order to obtain better representations. <br/>
+                            The generated coordination patterns carry not only structural information, but also stochastic information (if applied).
                         </p>
                         <div class="row">
                             <div class="col-lg-12">
@@ -324,11 +278,9 @@
 
 
                         <!-- COOPLA EXPORTATION -->
-                        <h4>CooPLa exportation</h4>
+                        <h4>Exportating CooPLa patterns</h4>
                         <p>
-                            This feature gives to the user the possibility to save the internal representation of the generated coordination patterns to a CooPLa file in the file system, right after displaying these data structures into the <i>"Patterns Created"</i> view.
-                            
-                            <!--Figure shows the dialog presented to the user to save the created patterns.-->
+                            The reconfigured patterns may be exported as CooPLa patterns into .cpla files.<br/>
                         </p>
                         <div class="row">
                             <div class="col-lg-12">
@@ -347,15 +299,44 @@
                     <!--EXAMPLE-->
                     <div class="tab-pane fade" id="example">
                         <h2>A Practical Example</h2>
+                        
                         <p>
-                            Let’s now focus on the use of the Reconfiguration Engine...
+                            Consider a company that delivers a tourism guide sysservicetem over the internet. 
+                            Among many other features, it assembles information about cities around the world. 
+                            This information ranges from historical or demographical data, to images and promotional videos.
+                            <br/>
+                            In particular for this activity, the system resorts to two external services. 
+                            One of such services provides the textual information about the cities;
+                            the other completes it with representative touristic imagery. 
+                            <br/>
+                        	The company's architect designed this activity using a sequential coordination pattern. 
+                        	However, when utilisation reaches peaks, the system becomes slow. In this scenario, the sequential
+                        	call to the external services may, for instance, become parallelized. 
+                        	<br/>
+                        	<br/>
+                        	In the following images we show the workflow within the CooPLa editor, using the
+                        	Reconfiguration engine, to specify the required change in the coordination layer. 
                         </p>
+                         <hr>
+                         <br/>
+                         
+                         First, the original coordination pattern is specified in CooPLa. <br/>
+                         In the  image below, follows an example of such pattern. Code, outline and visualisation are prestend 
+                         in order to deliver a more comprehensive perspective of the pattern.   
                          <div class="col-lg-12">
                             <!--<center>-->
                                 <img class="img-responsive" src="css/images/coopla_sequencer.png" style="width:95%">
                             <!--</center>-->
                         </div>
                         <br/>
+                        
+                        Then, the reconfiguration is created. <br/>
+                        One is the removeP reconfiguration (that removes a set of channels from the coordination patter to which it is applied);<br/>
+                        The other is the implodeP reconfiguration (that collapses a structure of the pattern to which it is applied).<br/>
+                        Finally, the main reconfiguration is specified. In this case, the sequencer pattern is imported into the reconfiguration 
+                        and it is applied the implodeP reconfiguration with suitable arguments;
+                        
+                         
 
                          <div class="col-lg-12">
                             <!--<center>-->
@@ -363,6 +344,9 @@
                             <!--</center>-->
                         </div>
                         <br/>
+                        
+                        At this moment, we can apply the reconfiguration. Doing so, we obtain the Parallel coordination pattern as shown in the image below.<br/>
+                        This pattern can be saved into a .coopla file, so that a new coordination pattern may be used latter on for analysis or other reconfigurations.
 
                          <div class="col-lg-12">
                             <!--<center>-->
@@ -371,6 +355,9 @@
                         </div>
                         <br/>
 
+						In the image below, is shown the saved generated coordination pattern (the Parallel pattern) aready loaded into the CooPLa editor.<br/>
+						Notice that when saving the reconfigured pattern, all the necessary channels are added to the same script.
+						
                          <div class="col-lg-12">
                             <!--<center>-->
                                 <img class="img-responsive" src="css/images/coopla_parallel.png" style="width:95%">
